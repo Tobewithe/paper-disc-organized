@@ -1,0 +1,172 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "FAIL",
+  "reason_code": "candidate_integrity_failures",
+  "summary": "The frozen real-GT mechanism diagnostic is supportable with scope qualifiers, but the initial candidate bundle cannot support efficacy: GT-defined pair selection, a box-core coordinate-frame bug, and exact direction identities invalidate key candidate interpretations.",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T06:34:41Z",
+  "auditor": "gpt-5.6-sol-ultra-fresh-agent",
+  "executor_model": "codex-gpt-6",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-5.6-sol",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "reviewer_completion_status": "partial_findings_received",
+  "overall_verdict": "fail",
+  "integrity_status": "fail",
+  "review_scope": {
+    "included": [
+      "frozen_mechanism_probe.py and saved mechanism run",
+      "frozen_capacity_check.py and saved capacity results",
+      "audit_frozen_mechanism.py and saved audit results",
+      "box_spatial_probe.py and saved candidate results",
+      "output_overlap_probe.py and saved candidate results",
+      "overlap_distill_probe.py and saved candidate results",
+      "MECHANISM_LOCALIZATION.md"
+    ],
+    "excluded": [
+      "supervised_direction_probe.py",
+      "diagnostics/supervised_direction_dev_v2_20260911",
+      "diagnostics/supervised_direction_holdout_20260911",
+      "new training or new experiment design"
+    ]
+  },
+  "checks": {
+    "gt_provenance": {
+      "status": "warn",
+      "eval_type": "real_gt",
+      "details": "COCO dataset masks are genuine evaluation GT and GT-based oracle use is labeled, but all prediction-derived candidates inherit a GT-selected, COCOeval-GT-matched cohort; only their objective construction is prediction-only."
+    },
+    "score_normalization": {
+      "status": "pass",
+      "details": "Metrics use GT area and an explicit pixel IoU identity; no normalization by model-output extrema or statistics was found."
+    },
+    "result_existence": {
+      "status": "warn",
+      "details": "All claimed local mechanism and candidate result files exist and script hashes match, but the original LOCAL_ARTIFACT_SHA256.json does not include any of the nine candidate result files."
+    },
+    "dead_code": {
+      "status": "warn",
+      "details": "Core frozen and candidate output paths execute; output_overlap_probe.py lines 29-37 compute an unused initial objective/gradient/tangent. Candidate runs lack an independent replay audit."
+    },
+    "scope": {
+      "status": "warn",
+      "details": "One model, one GT-enriched matched COCO val2017 cohort, one deterministic seed, 300 selected images, 262 valid pairs and 524 targets; no candidate holdout, training, seeds, or official AP."
+    },
+    "eval_type": "real_gt"
+  },
+  "mechanism_checks": {
+    "coordinate_rescaling_identity": {
+      "status": "pass",
+      "evidence": "524/524 saved diagonal gauge transformations changed coefficient cosine with raw-pixel XOR 0 and maximum saved logit difference 0."
+    },
+    "candidate_core_coordinates": {
+      "status": "fail",
+      "evidence": "box_spatial_probe.py line 39 rasterizes cached inference-grid boxes directly against original-image shape for core06_excl/core08_excl."
+    },
+    "gt_free_pair_selection": {
+      "status": "fail",
+      "evidence": "frozen_mechanism_probe.py lines 55-79 select GT annotation pairs/ICI strata; lines 93-109 use COCOeval GT matching; candidate scripts filter those saved matched statuses."
+    },
+    "region_definitions": {
+      "status": "warn",
+      "evidence": "Main GT metric regions are explicit and crowd-excluded. Candidate output/box regions lack saved region-size and empty-region receipts; two core regions use the wrong frame."
+    },
+    "control_distinctness": {
+      "status": "warn",
+      "evidence": "Frozen zero/random arms are distinct, but q_overlap_strong duplicates q_overlap_excl and all overlap_distill lambda arms duplicate one another."
+    },
+    "zero_and_finite_directions": {
+      "status": "warn",
+      "evidence": "Frozen oracle explicitly handles zero tangent directions and saved zero count is 0; candidate scripts normalize without active/finite guards. All saved CSV numeric values are finite; six q_overlap pairs have zero objective/no-op results."
+    },
+    "weight_identity": {
+      "status": "fail",
+      "evidence": "q_overlap_strong is a global 2x scaling of q_overlap_excl before tangent normalization. The overlap_distill preservation term has zero derivative at z=z0, so all five lambda settings produce exactly identical outputs for 524 targets."
+    }
+  },
+  "deterministic_checks": {
+    "local_manifest_entries_checked": 19,
+    "local_manifest_mismatches": 0,
+    "candidate_script_hash_matches": 3,
+    "candidate_summary_mean_rows_checked": 195,
+    "candidate_summary_mean_mismatches_over_1e-14": 0,
+    "candidate_nonfinite_csv_values": 0,
+    "candidate_metric_iou_identity_failures": 0,
+    "oracle_direction_records": 786,
+    "oracle_zero_directions": 0,
+    "gauge_records": 524,
+    "gauge_raw_pixel_xor_sum": 0,
+    "gauge_max_logit_difference": 0.0,
+    "q_overlap_zero_objective_pairs": 6,
+    "q_overlap_excl_vs_strong_identical_targets": 524,
+    "overlap_distill_identical_targets_across_all_weights": 524
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "A GT-informed coefficient direction improves conditional per-instance pixel metrics on the enriched matched cohort.",
+      "impact": "supported_with_qualifiers"
+    },
+    {
+      "id": "C2",
+      "claim": "Coefficient separation reduces representation overlap but establishes improved GT ownership.",
+      "impact": "unsupported_second_clause"
+    },
+    {
+      "id": "C3",
+      "claim": "The initial candidate workflow uses GT-free pair selection or is deployable as evaluated.",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C4",
+      "claim": "The box core variants, distillation lambda sweep, and q_overlap_strong arm provide independent candidate efficacy evidence.",
+      "impact": "unsupported"
+    }
+  ],
+  "archive_disposition": "FAILED_INITIAL_DIAGNOSTIC_CANDIDATES",
+  "limitations": [
+    "Local source COCO GT JSON is missing, so GT decode and selection could not be independently rerun.",
+    "Local tensors/ and per_image/ caches are missing, so decoder and direction replay could not be independently rerun.",
+    "The remote Linux directory is not mounted in the current Windows workspace.",
+    "The fresh reviewer independently confirmed GT-conditioned selection and the two exact candidate-direction identities, but did not complete the requested A-F verdict; other checklist entries are deterministic executor findings.",
+    "Same-family reviewer result is provisional and is not cross-family acceptance."
+  ],
+  "trace_path": ".aris/traces/experiment-audit/2026-09-11_run01/",
+  "agent_id": "/root/audit_mechanism_candidates/fresh_integrity_reviewer",
+  "verdict_id": "/root/audit_mechanism_candidates/fresh_integrity_reviewer",
+  "audited_input_hashes": {
+    "experiments/coco_clean_20260911/frozen_mechanism_probe.py": "sha256:e1cd6a4859761d37e88cdfd01ade1cb04d4c50edbf1cbc587b9ef65568fae256",
+    "experiments/coco_clean_20260911/frozen_capacity_check.py": "sha256:2a3e4750ba11b01ec3935ab820dceeb64645d645fd18b34cdd7a8f6c6f3cfa43",
+    "experiments/coco_clean_20260911/audit_frozen_mechanism.py": "sha256:ead5a117bbc66a4b7ebe149b92c3fecda210a6a5e86b5e662af8229cdc48602c",
+    "experiments/coco_clean_20260911/box_spatial_probe.py": "sha256:611bf0a5e3c5730c2e7b2c91721c105a3a97e2edcbe8a90efed3b52523a60722",
+    "experiments/coco_clean_20260911/output_overlap_probe.py": "sha256:3a3b3fb2560a6fcbefb5448fec5de1ecc45763beba74c7ea9a49e6114fa4b99d",
+    "overlap_distill_probe.py": "sha256:f1c6460ee322e068bf279ad7cc1c423a359b0839e732593a11c206a50d6dce9d",
+    "refine-logs/coco-evaluation/MECHANISM_LOCALIZATION.md": "sha256:838f64567d5b619e2b01accba90fcaef129b9cdca711470f50740cd4ef918f36",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/protocol.json": "sha256:0257c72aff1b238e010b5f4cab049c4c1286a6620d3bb4cfebc4e1151f65b637",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/COMPLETE.json": "sha256:b8d9af74b214191ca1a43292e32913d800b1b6c836f9696a8d2303e7b07dbf68",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/selection.json": "sha256:7a4a5665f4742238135c9849f730b0cb09a3741f2de84a243197fe14a25985af",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/statuses.json": "sha256:e761b519459c8d786a913efaf307dd0594588f66e6730fb8df9785be0a4fff59",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/interventions.csv": "sha256:1ae0d032c3aedcb307cbf9a68a70b9c076575338710192ccc76d2d65f9be5d8c",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/coordinate_rescaling.csv": "sha256:53cd021d18820baca44ee81eb565a2fc5ccdc3495de4dcaa2dfb41891f40ec7a",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/summary.csv": "sha256:0298051dc559ce956262a31f17ab33238b1e3ad037e11682a8545caef5a00c9d",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/LOCAL_ARTIFACT_SHA256.json": "sha256:7178840f21f5e973618ae127157b967a59cb11327721615a6525e1c5749e51c0",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/capacity_check/COMPLETE.json": "sha256:520f524e2bc09f5f6cc37948fc655fa7fcbc647378974f94919541af47964e54",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/capacity_check/per_target.csv": "sha256:9b9c3aeab71621cb3a50da3e2068face0f8b2f041b355a091e1cd138b4d882bc",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/capacity_check/summary.csv": "sha256:e1fb47aaf19ab9ceece3c508d6cf17d3ac43e81f281957b4dbf309489d136a91",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/audit/AUDIT.json": "sha256:9da0a82d6290cec294e47b22bc17e8dc067d9ab9b85ff2909d7131b8cf867124",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/audit/bounded_summary.csv": "sha256:d8dbe0f6a06c4782a19f2bf3cb7d231f1e17f1193b01711ecc9bc00e9c0df800",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/audit/representation_summary.csv": "sha256:da19c0efeef6540b216000f866059e38362909f4ded6fd119710adbe722cc729",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/box_spatial_probe/COMPLETE.json": "sha256:c5e2026de74a81f4fa92f39ea0b58a34c3772f538b57d3a6412a13204ce29449",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/box_spatial_probe/per_target.csv": "sha256:2f2f9c65ce7e32d6e4aef6a3b849fb4844a2d7b5894367764f63bb19f1732de5",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/box_spatial_probe/summary.csv": "sha256:4a8d6d3260f3cbe3414a7815af522e58db089e4c8f6ab523e74fa79c8f7729ce",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/output_overlap_probe/COMPLETE.json": "sha256:2df1dc32be170b408c0138a8f1007b8dfc79135b1fa6a51a60068729ea41db74",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/output_overlap_probe/per_target.csv": "sha256:1e228f0912ab271b973af3656d02465782ca7cd911e362f27151a11be4826fbe",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/output_overlap_probe/summary.csv": "sha256:685a3e006ac0066a1bfc2a06db1e0ffb5dd2aa8ca820b712bfae9edd5e75192e",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/overlap_distill_probe/COMPLETE.json": "sha256:caa0854f409e9673284b631e9532d89b1b91ecb5f7d4a8242f07d24a205dce66",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/overlap_distill_probe/per_target.csv": "sha256:0aa844af539391e74c2359072dd9e834c88f00870f01e12053a9de8c04d6a83c",
+    "experiments/coco_clean_20260911/diagnostics/mechanism_official_300_20260911/overlap_distill_probe/summary.csv": "sha256:fc21bdcfdc69bc5d3a620f73006a5653c472e8e64a02bb3990fb197ace46ca41"
+  }
+}

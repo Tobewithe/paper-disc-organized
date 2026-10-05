@@ -1,0 +1,152 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_b0591a9bbbca4663995576db1448e1bd",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\summarize_risk_results.py",
+    "--input",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_e0e0d46defb74e3d9a90094f49ce26fe",
+    "--fit",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_d01ffdef9f3c498fa3529d96cea875eb",
+    "--output",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_b0591a9bbbca4663995576db1448e1bd"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-09-15T06:35:57.593+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_e0e0d46defb74e3d9a90094f49ce26fe\\SUMMARY.json",
+      "exists": true,
+      "sha256": "99c25bf7d41e5b37feebe64b2dff9133b77c82247e5b1aeabecccb5788736bd6",
+      "size": 5452
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_e0e0d46defb74e3d9a90094f49ce26fe\\decisions.csv",
+      "exists": true,
+      "sha256": "f014aa567a01c88b24d3e44a57c23c04e6af557791729595b3368074cd6b0d1d",
+      "size": 9536118
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\summarize_risk_results.py",
+      "revision": "94e6170cdc71e7b8877e3309d02eb2a81319208195a23f58841378822f41e7d4",
+      "snapshot": "snapshots/94e6170cdc71e7b8877e3309d02eb2a81319208195a23f58841378822f41e7d4"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_b0591a9bbbca4663995576db1448e1bd\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_b0591a9bbbca4663995576db1448e1bd\\risk_calibration.png"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_b0591a9bbbca4663995576db1448e1bd"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 220,
+  "started_at": "2026-09-15T06:35:57.734+00:00",
+  "last_heartbeat": "2026-09-15T06:35:57.734+00:00",
+  "metrics": {
+    "run_id": "RUN_b0591a9bbbca4663995576db1448e1bd",
+    "source_run": "RUN_e0e0d46defb74e3d9a90094f49ce26fe",
+    "fit_run": "RUN_d01ffdef9f3c498fa3529d96cea875eb",
+    "response_vs_fixed_ap_points": 0.11132314154970735,
+    "response_vs_baseline_ap_points": 0.5607142254554998,
+    "avoided_damage": 131,
+    "lost_repairs": 106,
+    "decision_groups": {
+      "area": {
+        "accepted": {
+          "n": 27395,
+          "actual_smooth_delta_mean": 0.0023702601583025194,
+          "positive_fraction": 0.5641905457200219,
+          "negative_fraction": 0.4143456835188903
+        },
+        "rejected": {
+          "n": 3031,
+          "actual_smooth_delta_mean": 0.0030120968327470112,
+          "positive_fraction": 0.6083800725833058,
+          "negative_fraction": 0.3876608380072583
+        }
+      },
+      "shape": {
+        "accepted": {
+          "n": 20898,
+          "actual_smooth_delta_mean": 0.005370711758065544,
+          "positive_fraction": 0.6037419848789358,
+          "negative_fraction": 0.37266724088429515
+        },
+        "rejected": {
+          "n": 9528,
+          "actual_smooth_delta_mean": -0.004006527265249794,
+          "positive_fraction": 0.49149874055415615,
+          "negative_fraction": 0.49727120067170444
+        }
+      },
+      "response": {
+        "accepted": {
+          "n": 27579,
+          "actual_smooth_delta_mean": 0.00526933046965333,
+          "positive_fraction": 0.5863519344428731,
+          "negative_fraction": 0.3921824576670655
+        },
+        "rejected": {
+          "n": 2847,
+          "actual_smooth_delta_mean": -0.025029828762141017,
+          "positive_fraction": 0.39655778011942394,
+          "negative_fraction": 0.6006322444678609
+        }
+      }
+    },
+    "limitations": [
+      "Fixed smooth repair/damage reproduced in prior factorial run",
+      "Illustration is point estimates, no AP uncertainty interval"
+    ]
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_b0591a9bbbca4663995576db1448e1bd\\SUMMARY.json",
+    "sha256": "6ac5dddcdfee540cb68a92e31f482baad0fa30d710014796eeb8e6e6681c54e2"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-15T06:35:58.737+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_b0591a9bbbca4663995576db1448e1bd\\SUMMARY.json",
+      "exists": true,
+      "sha256": "6ac5dddcdfee540cb68a92e31f482baad0fa30d710014796eeb8e6e6681c54e2"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_b0591a9bbbca4663995576db1448e1bd\\risk_calibration.png",
+      "exists": true,
+      "sha256": "e3d570d8f604e413fe8e8ccf3b24d20492b9537f74e58fd3a84e109899af3c6f"
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_69cb2c16410147d6b6c683d751383f7c",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "-u",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\recover_factorial_scoring.py",
+    "--input",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_2ae67d6556a14848bceb5783a72e5790",
+    "--annotations",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+    "--output",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_69cb2c16410147d6b6c683d751383f7c"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-09-15T04:51:51.872+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_2ae67d6556a14848bceb5783a72e5790\\metrics_partial.json",
+      "exists": true,
+      "sha256": "5c5321ef3f21201a6e97215a83f5ba0d736f895a7bd318815a61e7cbc41b7a5f",
+      "size": 982
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_2ae67d6556a14848bceb5783a72e5790\\predictions_boundary_only.json",
+      "exists": true,
+      "sha256": "0b81ec45c72523340912a0e1705b428a45a07c9390d58b2a50f0c5526f968ce3",
+      "size": 227081259
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\recover_factorial_scoring.py",
+      "revision": "b71976170a4536ec2046c3d8f7bac2e8606b2daf1ae479224ef6681ce1d2e43e",
+      "snapshot": "snapshots/b71976170a4536ec2046c3d8f7bac2e8606b2daf1ae479224ef6681ce1d2e43e"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_69cb2c16410147d6b6c683d751383f7c\\SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_69cb2c16410147d6b6c683d751383f7c"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 13364,
+  "started_at": "2026-09-15T04:51:52.278+00:00",
+  "last_heartbeat": "2026-09-15T04:52:27.340+00:00",
+  "metrics": {
+    "run_id": "RUN_69cb2c16410147d6b6c683d751383f7c",
+    "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+    "source_run_id": "RUN_2ae67d6556a14848bceb5783a72e5790",
+    "source_execution_status": "observed interrupted: no process, stale heartbeat, exit code unknown",
+    "recovery": "reuse three completed COCO evaluations; compute missing boundary_only evaluation from saved predictions; no model inference",
+    "branch": "one2one",
+    "images": 4500,
+    "start": 500,
+    "ordinary_gt": 32831,
+    "metrics": {
+      "official_zero": [
+        0.43378829983113415,
+        0.6616103654915565,
+        0.4684069936360102,
+        0.22717460051292646,
+        0.4751352465852975,
+        0.6410397905220456,
+        0.3395109945152272,
+        0.5514948652072141,
+        0.5958809836986783,
+        0.406178605654886,
+        0.656283403965914,
+        0.7681753462516039
+      ],
+      "smooth_gated": [
+        0.43828221067019196,
+        0.6629828199992381,
+        0.4756587568256892,
+        0.23109899534927347,
+        0.4781058646194709,
+        0.6409168507629428,
+        0.34221360052919253,
+        0.5559908770317828,
+        0.6000865258971667,
+        0.4181614773650159,
+        0.6536084373039732,
+        0.7670959386353285
+      ],
+      "filter_only": [
+        0.433797312306396,
+        0.6616253149066759,
+        0.4684147346547634,
+        0.2271911032632723,
+        0.47513578406321205,
+        0.6410396453805658,
+        0.33952526857721743,
+        0.5515077518051522,
+        0.59587730722809,
+        0.4061734946611385,
+        0.656283403965914,
+        0.7681753462516039
+      ],
+      "boundary_only": [
+        0.43827286660163206,
+        0.662962526438424,
+        0.47565085293727355,
+        0.23108380249891794,
+        0.47810525674388876,
+        0.6409169874131411,
+        0.3421993264672023,
+        0.5559865814991367,
+        0.6000838892364417,
+        0.4181532639083971,
+        0.6536084373039732,
+        0.7670959386353285
+      ]
+    },
+    "delta_vs_official": {
+      "official_zero": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "smooth_gated": [
+        0.004493910839057813,
+        0.001372454507681642,
+        0.007251763189679017,
+        0.003924394836347017,
+        0.0029706180341734223,
+        -0.00012293975910282473,
+        0.002702606013965325,
+        0.004496011824568713,
+        0.0042055421984884545,
+        0.011982871710129905,
+        -0.002674966661940781,
+        -0.0010794076162753408
+      ],
+      "filter_only": [
+        9.012475261860331e-06,
+        1.4949415119369647e-05,
+        7.741018753226747e-06,
+        1.6502750345842587e-05,
+        5.37477914563933e-07,
+        -1.451414798347983e-07,
+        1.4274061990227072e-05,
+        1.288659793807767e-05,
+        -3.6764705882985638e-06,
+        -5.110993747503567e-06,
+        0.0,
+        0.0
+      ],
+      "boundary_only": [
+        0.004484566770497911,
+        0.00135216094686752,
+        0.007243859301263367,
+        0.003909201985991484,
+        0.002970010158591274,
+        -0.0001228031089045567,
+        0.002688331951975098,
+        0.004491716291922576,
+        0.004202905537763479,
+        0.011974658253511072,
+        -0.002674966661940781,
+        -0.0010794076162753408
+      ]
+    },
+    "counts": {
+      "official_zero": {
+        "exported_nonempty": 506966
+      },
+      "smooth_gated": {
+        "exported_nonempty": 505968
+      },
+      "filter_only": {
+        "exported_nonempty": 505968
+      },
+      "boundary_only": {
+        "exported_nonempty": 506966
+      }
+    },
+    "all_candidates": 507043,
+    "baseline_empty": 77,
+    "smooth_empty": 1075,
+    "factorial_identity_checks": "all exported candidate IDs, categories, exact scores and mask RLEs verified for both counterfactuals",
+    "fixed_slot_transitions": {
+      "official_zero": {
+        "repaired": 0,
+        "damaged": 0,
+        "matched": 30426
+      },
+      "smooth_gated": {
+        "repaired": 907,
+        "damaged": 576,
+        "matched": 30426
+      },
+      "filter_only": {
+        "repaired": 0,
+        "damaged": 0,
+        "matched": 30426
+      },
+      "boundary_only": {
+        "repaired": 907,
+        "damaged": 576,
+        "matched": 30426
+      }
+    },
+    "factorial_effects_ap_points": {
+      "boundary_at_original_candidates": 0.4484566770497911,
+      "filter_at_original_masks": 0.0009012475261860331,
+      "boundary_at_filtered_candidates": 0.4484898363795953,
+      "filter_at_calibrated_masks": 0.0009344068559902219,
+      "interaction": 3.3159329804188786e-05
+    },
+    "limitations": [
+      "Previously explored COCO val2017, single model",
+      "Original job did not finish; its run.json remains untouched",
+      "AP point estimates, no AP significance claim",
+      "Original three-image parity output was not saved in a completed summary"
+    ],
+    "elapsed_seconds": 35.17458270000134
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_69cb2c16410147d6b6c683d751383f7c\\SUMMARY.json",
+    "sha256": "86bec9691f07642df16d1efb5e63cb5f907f0b80bed9eb784ff4d8f88bce99e3"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-15T04:52:27.874+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_69cb2c16410147d6b6c683d751383f7c\\SUMMARY.json",
+      "exists": true,
+      "sha256": "86bec9691f07642df16d1efb5e63cb5f907f0b80bed9eb784ff4d8f88bce99e3"
+    }
+  ]
+}

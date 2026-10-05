@@ -1,0 +1,255 @@
+{
+  "scope": "Official source and synthetic gradient-route probes, not COCO effect estimation",
+  "optimizer_steps": 0,
+  "environment": {
+    "ultralytics": "8.4.100",
+    "torch": "2.8.0+cu128"
+  },
+  "checkpoint_train_args": {
+    "epochs": 80,
+    "optimizer": "MuSGD",
+    "lr0": 0.00038,
+    "lrf": 0.88219,
+    "warmup_epochs": 0.98745,
+    "close_mosaic": 10,
+    "mask_ratio": 1,
+    "overlap_mask": true,
+    "box": 9.83241,
+    "cls": 0.64896,
+    "dfl": 0.95824,
+    "batch": 128,
+    "nbs": 64,
+    "imgsz": 640,
+    "mosaic": 0.99182,
+    "mixup": 0.42713,
+    "copy_paste": 0.30413,
+    "cutmix": 0.00082
+  },
+  "head": {
+    "type": "Segment26",
+    "reg_max": 1,
+    "end2end": true
+  },
+  "synthetic_positive_counts": {
+    "one2many": 10,
+    "one2one": 1
+  },
+  "synthetic_gradient_norms": {
+    "one2many": {
+      "box": {
+        "backbone_first": 2.8170015811920166,
+        "prototype_fusion_from_P4": 0.0,
+        "prototype_output": 0.0,
+        "semantic_head": 0.0,
+        "o2m_box": 13.977349281311035,
+        "o2m_class": 0.0,
+        "o2m_coefficient": 0.0,
+        "o2o_box": null,
+        "o2o_class": null,
+        "o2o_coefficient": null
+      },
+      "instance_mask": {
+        "backbone_first": 7.032655715942383,
+        "prototype_fusion_from_P4": 6.770678997039795,
+        "prototype_output": 20.883563995361328,
+        "semantic_head": 0.0,
+        "o2m_box": 0.0,
+        "o2m_class": 0.0,
+        "o2m_coefficient": 41.641998291015625,
+        "o2o_box": null,
+        "o2o_class": null,
+        "o2o_coefficient": null
+      },
+      "classification": {
+        "backbone_first": 22.1573486328125,
+        "prototype_fusion_from_P4": 0.0,
+        "prototype_output": 0.0,
+        "semantic_head": 0.0,
+        "o2m_box": 0.0,
+        "o2m_class": 4.927523612976074,
+        "o2m_coefficient": 0.0,
+        "o2o_box": null,
+        "o2o_class": null,
+        "o2o_coefficient": null
+      },
+      "l1_dfl_slot": {
+        "backbone_first": 0.17085693776607513,
+        "prototype_fusion_from_P4": 0.0,
+        "prototype_output": 0.0,
+        "semantic_head": 0.0,
+        "o2m_box": 0.35334286093711853,
+        "o2m_class": 0.0,
+        "o2m_coefficient": 0.0,
+        "o2o_box": null,
+        "o2o_class": null,
+        "o2o_coefficient": null
+      },
+      "semantic": {
+        "backbone_first": 3.3590264320373535,
+        "prototype_fusion_from_P4": 0.4243755340576172,
+        "prototype_output": 0.0,
+        "semantic_head": 2.595724582672119,
+        "o2m_box": 0.0,
+        "o2m_class": 0.0,
+        "o2m_coefficient": 0.0,
+        "o2o_box": null,
+        "o2o_class": null,
+        "o2o_coefficient": null
+      }
+    },
+    "one2one": {
+      "box": {
+        "backbone_first": null,
+        "prototype_fusion_from_P4": null,
+        "prototype_output": null,
+        "semantic_head": null,
+        "o2m_box": null,
+        "o2m_class": null,
+        "o2m_coefficient": null,
+        "o2o_box": 0.0,
+        "o2o_class": 0.0,
+        "o2o_coefficient": 0.0
+      },
+      "instance_mask": {
+        "backbone_first": null,
+        "prototype_fusion_from_P4": null,
+        "prototype_output": null,
+        "semantic_head": null,
+        "o2m_box": null,
+        "o2m_class": null,
+        "o2m_coefficient": null,
+        "o2o_box": 0.0,
+        "o2o_class": 0.0,
+        "o2o_coefficient": 0.0
+      },
+      "classification": {
+        "backbone_first": null,
+        "prototype_fusion_from_P4": null,
+        "prototype_output": null,
+        "semantic_head": null,
+        "o2m_box": null,
+        "o2m_class": null,
+        "o2m_coefficient": null,
+        "o2o_box": 0.0,
+        "o2o_class": 0.15570905804634094,
+        "o2o_coefficient": 0.0
+      },
+      "l1_dfl_slot": {
+        "backbone_first": null,
+        "prototype_fusion_from_P4": null,
+        "prototype_output": null,
+        "semantic_head": null,
+        "o2m_box": null,
+        "o2m_class": null,
+        "o2m_coefficient": null,
+        "o2o_box": 0.0,
+        "o2o_class": 0.0,
+        "o2o_coefficient": 0.0
+      },
+      "semantic": {
+        "backbone_first": null,
+        "prototype_fusion_from_P4": null,
+        "prototype_output": null,
+        "semantic_head": null,
+        "o2m_box": null,
+        "o2m_class": null,
+        "o2m_coefficient": null,
+        "o2o_box": 0.0,
+        "o2o_class": 0.0,
+        "o2o_coefficient": 0.0
+      }
+    }
+  },
+  "logged_loss_is_one2one": true,
+  "branch_weights": {
+    "start": [
+      0.8,
+      0.19999999999999996
+    ],
+    "last_training_epoch": [
+      0.1,
+      0.9
+    ]
+  },
+  "synthetic_loss_vectors": {
+    "one2many": [
+      7.132314205169678,
+      1.847612738609314,
+      4.620180606842041,
+      0.21705752611160278,
+      0.3730997145175934
+    ],
+    "one2one": [
+      1.892526388168335,
+      0.2056153565645218,
+      1.3096022605895996,
+      0.059856902807950974,
+      0.3730997145175934
+    ]
+  },
+  "crop_gradient": {
+    "outside_absolute_sum": 0.0,
+    "inside_absolute_sum": 0.5
+  },
+  "reg_max_1": {
+    "dfl_module": false,
+    "l1_slot": 0.19999998807907104
+  },
+  "tiny_gt": {
+    "gt_box": [
+      [
+        [
+          30.0,
+          30.0,
+          34.0,
+          34.0
+        ]
+      ]
+    ],
+    "eligible": [
+      [
+        [
+          true,
+          true,
+          false
+        ]
+      ]
+    ],
+    "first_anchor_outside_original_gt": true
+  },
+  "collision_stage_example": {
+    "winner_gt_indices": [
+      [
+        2,
+        2
+      ]
+    ],
+    "positive_counts_per_gt": [
+      [
+        0.0,
+        0.0,
+        2.0
+      ]
+    ]
+  },
+  "overlap_canvas": {
+    "original_areas": [
+      36,
+      9
+    ],
+    "sorted_indices": [
+      0,
+      1
+    ],
+    "encoded_areas": [
+      27,
+      9
+    ]
+  },
+  "limitations": [
+    "Synthetic input only establishes implementation behavior; no COCO loss-conflict frequency or AP claim.",
+    "Gradient norms are illustrative, not task importance estimates.",
+    "Only representative parameter tensors per module are sampled; source code establishes full detach boundary.",
+    "BN statistics fixed; no optimizer, no checkpoint mutation, no training or method comparison."
+  ]
+}

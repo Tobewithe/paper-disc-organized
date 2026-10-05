@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/3ATyGo3ybCdZFCiEdLM+49wgiek</id>
+  <title>arXiv Query: search_query=all:"instance segmentation" AND (all:candidate OR all:proposal) AND (all:rerank OR all:ranking OR all:duplicate)&amp;id_list=&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-04T15:46:36Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22instance+segmentation%22+AND+((all:candidate+OR+all:proposal)+AND+(all:rerank+OR+(all:ranking+OR+all:duplicate)))&amp;start=0&amp;max_results=10&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>55</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2601.20104v1</id>
+    <title>NucFuseRank: Dataset Fusion and Performance Ranking for Nuclei Instance Segmentation</title>
+    <updated>2026-01-27T22:45:48Z</updated>
+    <link href="https://arxiv.org/abs/2601.20104v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.20104v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Nuclei instance segmentation in hematoxylin and eosin (H&amp;E)-stained images plays an important role in automated histological image analysis, with various applications in downstream tasks. While several machine learning and deep learning approaches have been proposed for nuclei instance segmentation, most research in this field focuses on developing new segmentation algorithms and benchmarking them on a limited number of arbitrarily selected public datasets.
+  In this work, rather than focusing on model development, we focused on the datasets used for this task. Based on an extensive literature review, we identified manually annotated, publicly available datasets of H&amp;E-stained images for nuclei instance segmentation and standardized them into a unified input and annotation format. Using two state-of-the-art segmentation models, one based on convolutional neural networks (CNNs) and one based on a hybrid CNN and vision transformer architecture, we systematically evaluated and ranked these datasets based on their nuclei instance segmentation performance. Furthermore, we proposed a unified test set (NucFuse-test) for fair cross-dataset evaluation and a unified training set (NucFuse-train) for improved segmentation performance by merging images from multiple datasets.
+  By evaluating and ranking the datasets, performing comprehensive analyses, generating fused datasets, conducting external validation, and making our implementation publicly available, we provided a new benchmark for training, testing, and evaluating nuclei instance segmentation models on H&amp;E-stained histological images.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-27T22:45:48Z</published>
+    <arxiv:comment>31 pages</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Nima Torbati</name>
+    </author>
+    <author>
+      <name>Anastasia Meshcheryakova</name>
+    </author>
+    <author>
+      <name>Ramona Woitek</name>
+    </author>
+    <author>
+      <name>Sepideh Hatamikia</name>
+    </author>
+    <author>
+      <name>Diana Mechtcheriakova</name>
+    </author>
+    <author>
+      <name>Amirreza Mahbod</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2310.07573v1</id>
+    <title>Relational Prior Knowledge Graphs for Detection and Instance Segmentation</title>
+    <updated>2023-10-11T15:15:05Z</updated>
+    <link href="https://arxiv.org/abs/2310.07573v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2310.07573v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Humans have a remarkable ability to perceive and reason about the world around them by understanding the relationships between objects. In this paper, we investigate the effectiveness of using such relationships for object detection and instance segmentation. To this end, we propose a Relational Prior-based Feature Enhancement Model (RP-FEM), a graph transformer that enhances object proposal features using relational priors. The proposed architecture operates on top of scene graphs obtained from initial proposals and aims to concurrently learn relational context modeling for object detection and instance segmentation. Experimental evaluations on COCO show that the utilization of scene graphs, augmented with relational priors, offer benefits for object detection and instance segmentation. RP-FEM demonstrates its capacity to suppress improbable class predictions within the image while also preventing the model from generating duplicate predictions, leading to improvements over the baseline model on which it is built.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-10-11T15:15:05Z</published>
+    <arxiv:comment>Published in ICCV2023 SG2RL Workshop</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Osman Ülger</name>
+    </author>
+    <author>
+      <name>Yu Wang</name>
+    </author>
+    <author>
+      <name>Ysbrand Galama</name>
+    </author>
+    <author>
+      <name>Sezer Karaoglu</name>
+    </author>
+    <author>
+      <name>Theo Gevers</name>
+    </author>
+    <author>
+      <name>Martin R. Oswald</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2107.11669v2</id>
+    <title>Rank &amp; Sort Loss for Object Detection and Instance Segmentation</title>
+    <updated>2021-08-30T16:41:27Z</updated>
+    <link href="https://arxiv.org/abs/2107.11669v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2107.11669v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We propose Rank &amp; Sort (RS) Loss, a ranking-based loss function to train deep object detection and instance segmentation methods (i.e. visual detectors). RS Loss supervises the classifier, a sub-network of these methods, to rank each positive above all negatives as well as to sort positives among themselves with respect to (wrt.) their localisation qualities (e.g. Intersection-over-Union - IoU). To tackle the non-differentiable nature of ranking and sorting, we reformulate the incorporation of error-driven update with backpropagation as Identity Update, which enables us to model our novel sorting error among positives. With RS Loss, we significantly simplify training: (i) Thanks to our sorting objective, the positives are prioritized by the classifier without an additional auxiliary head (e.g. for centerness, IoU, mask-IoU), (ii) due to its ranking-based nature, RS Loss is robust to class imbalance, and thus, no sampling heuristic is required, and (iii) we address the multi-task nature of visual detectors using tuning-free task-balancing coefficients. Using RS Loss, we train seven diverse visual detectors only by tuning the learning rate, and show that it consistently outperforms baselines: e.g. our RS Loss improves (i) Faster R-CNN by ~ 3 box AP and aLRP Loss (ranking-based baseline) by ~ 2 box AP on COCO dataset, (ii) Mask R-CNN with repeat factor sampling (RFS) by 3.5 mask AP (~ 7 AP for rare classes) on LVIS dataset; and also outperforms all counterparts. Code is available at: https://github.com/kemaloksuz/RankSortLoss</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-07-24T18:44:44Z</published>
+    <arxiv:comment>ICCV 2021, oral presentation</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Kemal Oksuz</name>
+    </author>
+    <author>
+      <name>Baris Can Cam</name>
+    </author>
+    <author>
+      <name>Emre Akbas</name>
+    </author>
+    <author>
+      <name>Sinan Kalkan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2104.07961v4</id>
+    <title>Advanced Deep Networks for 3D Mitochondria Instance Segmentation</title>
+    <updated>2022-05-08T02:05:24Z</updated>
+    <link href="https://arxiv.org/abs/2104.07961v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2104.07961v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Mitochondria instance segmentation from electron microscopy (EM) images has seen notable progress since the introduction of deep learning methods. In this paper, we propose two advanced deep networks, named Res-UNet-R and Res-UNet-H, for 3D mitochondria instance segmentation from Rat and Human samples. Specifically, we design a simple yet effective anisotropic convolution block and deploy a multi-scale training strategy, which together boost the segmentation performance. Moreover, we enhance the generalizability of the trained models on the test set by adding a denoising operation as pre-processing. In the Large-scale 3D Mitochondria Instance Segmentation Challenge at ISBI 2021, our method ranks the 1st place. Code is available at https://github.com/Limingxing00/MitoEM2021-Challenge.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-04-16T08:27:44Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Mingxing Li</name>
+    </author>
+    <author>
+      <name>Chang Chen</name>
+    </author>
+    <author>
+      <name>Xiaoyu Liu</name>
+    </author>
+    <author>
+      <name>Wei Huang</name>
+    </author>
+    <author>
+      <name>Yueyi Zhang</name>
+    </author>
+    <author>
+      <name>Zhiwei Xiong</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2004.01658v1</id>
+    <title>PointGroup: Dual-Set Point Grouping for 3D Instance Segmentation</title>
+    <updated>2020-04-03T16:26:37Z</updated>
+    <link href="https://arxiv.org/abs/2004.01658v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2004.01658v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Instance segmentation is an important task for scene understanding. Compared to the fully-developed 2D, 3D instance segmentation for point clouds have much room to improve. In this paper, we present PointGroup, a new end-to-end bottom-up architecture, specifically focused on better grouping the points by exploring the void space between objects. We design a two-branch network to extract point features and predict semantic labels and offsets, for shifting each point towards its respective instance centroid. A clustering component is followed to utilize both the original and offset-shifted point coordinate sets, taking advantage of their complementary strength. Further, we formulate the ScoreNet to evaluate the candidate instances, followed by the Non-Maximum Suppression (NMS) to remove duplicates. We conduct extensive experiments on two challenging datasets, ScanNet v2 and S3DIS, on which our method achieves the highest performance, 63.6% and 64.0%, compared to 54.9% and 54.4% achieved by former best solutions in terms of mAP with IoU threshold 0.5.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-04-03T16:26:37Z</published>
+    <arxiv:comment>CVPR 2020</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Li Jiang</name>
+    </author>
+    <author>
+      <name>Hengshuang Zhao</name>
+    </author>
+    <author>
+      <name>Shaoshuai Shi</name>
+    </author>
+    <author>
+      <name>Shu Liu</name>
+    </author>
+    <author>
+      <name>Chi-Wing Fu</name>
+    </author>
+    <author>
+      <name>Jiaya Jia</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2205.12646v4</id>
+    <title>UniInst: Unique Representation for End-to-End Instance Segmentation</title>
+    <updated>2022-09-17T11:58:10Z</updated>
+    <link href="https://arxiv.org/abs/2205.12646v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2205.12646v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Existing instance segmentation methods have achieved impressive performance but still suffer from a common dilemma: redundant representations (e.g., multiple boxes, grids, and anchor points) are inferred for one instance, which leads to multiple duplicated predictions. Thus, mainstream methods usually rely on a hand-designed non-maximum suppression (NMS) post-processing step to select the optimal prediction result, which hinders end-to-end training. To address this issue, we propose a box-free and NMS-free end-to-end instance segmentation framework, termed UniInst, that yields only one unique representation for each instance. Specifically, we design an instance-aware one-to-one assignment scheme, namely Only Yield One Representation (OYOR), which dynamically assigns one unique representation to each instance according to the matching quality between predictions and ground truths. Then, a novel prediction re-ranking strategy is elegantly integrated into the framework to address the misalignment between the classification score and the mask quality, enabling the learned representation to be more discriminative. With these techniques, our UniInst, the first FCN-based box-free and NMS-free instance segmentation framework, achieves competitive performance, e.g., 39.0 mask AP using ResNet-50-FPN and 40.2 mask AP using ResNet-101-FPN, against mainstream methods on COCO test-dev 2017. Moreover, the proposed instance-aware method is robust to occlusion scenes, outperforming common baselines by remarkable mask AP on the heavily-occluded OCHuman benchmark. Code is available at https://github.com/b03505036/UniInst.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-05-25T10:40:26Z</published>
+    <arxiv:comment>This paper wil appear at Neurocomputing. Code: https://github.com/b03505036/UniInst</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Yimin Ou</name>
+    </author>
+    <author>
+      <name>Rui Yang</name>
+    </author>
+    <author>
+      <name>Lufan Ma</name>
+    </author>
+    <author>
+      <name>Yong Liu</name>
+    </author>
+    <author>
+      <name>Jiangpeng Yan</name>
+    </author>
+    <author>
+      <name>Shang Xu</name>
+    </author>
+    <author>
+      <name>Chengjie Wang</name>
+    </author>
+    <author>
+      <name>Xiu Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1912.02801v4</id>
+    <title>PolyTransform: Deep Polygon Transformer for Instance Segmentation</title>
+    <updated>2021-01-16T21:09:51Z</updated>
+    <link href="https://arxiv.org/abs/1912.02801v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1912.02801v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this paper, we propose PolyTransform, a novel instance segmentation algorithm that produces precise, geometry-preserving masks by combining the strengths of prevailing segmentation approaches and modern polygon-based methods. In particular, we first exploit a segmentation network to generate instance masks. We then convert the masks into a set of polygons that are then fed to a deforming network that transforms the polygons such that they better fit the object boundaries. Our experiments on the challenging Cityscapes dataset show that our PolyTransform significantly improves the performance of the backbone instance segmentation network and ranks 1st on the Cityscapes test-set leaderboard. We also show impressive gains in the interactive annotation setting. We release the code at https://github.com/uber-research/PolyTransform.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2019-12-05T18:50:20Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Justin Liang</name>
+    </author>
+    <author>
+      <name>Namdar Homayounfar</name>
+    </author>
+    <author>
+      <name>Wei-Chiu Ma</name>
+    </author>
+    <author>
+      <name>Yuwen Xiong</name>
+    </author>
+    <author>
+      <name>Rui Hu</name>
+    </author>
+    <author>
+      <name>Raquel Urtasun</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2012.04829v1</id>
+    <title>Semi-supervised Active Learning for Instance Segmentation via Scoring Predictions</title>
+    <updated>2020-12-09T02:36:52Z</updated>
+    <link href="https://arxiv.org/abs/2012.04829v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2012.04829v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Active learning generally involves querying the most representative samples for human labeling, which has been widely studied in many fields such as image classification and object detection. However, its potential has not been explored in the more complex instance segmentation task that usually has relatively higher annotation cost. In this paper, we propose a novel and principled semi-supervised active learning framework for instance segmentation. Specifically, we present an uncertainty sampling strategy named Triplet Scoring Predictions (TSP) to explicitly incorporate samples ranking clues from classes, bounding boxes and masks. Moreover, we devise a progressive pseudo labeling regime using the above TSP in semi-supervised manner, it can leverage both the labeled and unlabeled data to minimize labeling effort while maximize performance of instance segmentation. Results on medical images datasets demonstrate that the proposed method results in the embodiment of knowledge from available data in a meaningful way. The extensive quantitatively and qualitatively experiments show that, our method can yield the best-performing model with notable less annotation costs, compared with state-of-the-arts.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-12-09T02:36:52Z</published>
+    <arxiv:comment>13 pages, 7 figures, accepted for presentation at BMVC2020</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Jun Wang</name>
+    </author>
+    <author>
+      <name>Shaoguo Wen</name>
+    </author>
+    <author>
+      <name>Kaixing Chen</name>
+    </author>
+    <author>
+      <name>Jianghua Yu</name>
+    </author>
+    <author>
+      <name>Xin Zhou</name>
+    </author>
+    <author>
+      <name>Peng Gao</name>
+    </author>
+    <author>
+      <name>Changsheng Li</name>
+    </author>
+    <author>
+      <name>Guotong Xie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2202.11124v3</id>
+    <title>Learning with Free Object Segments for Long-Tailed Instance Segmentation</title>
+    <updated>2022-10-05T00:19:04Z</updated>
+    <link href="https://arxiv.org/abs/2202.11124v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2202.11124v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>One fundamental challenge in building an instance segmentation model for a large number of classes in complex scenes is the lack of training examples, especially for rare objects. In this paper, we explore the possibility to increase the training examples without laborious data collection and annotation. We find that an abundance of instance segments can potentially be obtained freely from object-centric images, according to two insights: (i) an object-centric image usually contains one salient object in a simple background; (ii) objects from the same class often share similar appearances or similar contrasts to the background. Motivated by these insights, we propose a simple and scalable framework FreeSeg for extracting and leveraging these "free" object foreground segments to facilitate model training in long-tailed instance segmentation. Concretely, we investigate the similarity among object-centric images of the same class to propose candidate segments of foreground instances, followed by a novel ranking of segment quality. The resulting high-quality object segments can then be used to augment the existing long-tailed datasets, e.g., by copying and pasting the segments onto the original training images. Extensive experiments show that FreeSeg yields substantial improvements on top of strong baselines and achieves state-of-the-art accuracy for segmenting rare object categories.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-02-22T19:06:16Z</published>
+    <arxiv:comment>Accepted to ECCV 2022</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Cheng Zhang</name>
+    </author>
+    <author>
+      <name>Tai-Yu Pan</name>
+    </author>
+    <author>
+      <name>Tianle Chen</name>
+    </author>
+    <author>
+      <name>Jike Zhong</name>
+    </author>
+    <author>
+      <name>Wenjin Fu</name>
+    </author>
+    <author>
+      <name>Wei-Lun Chao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2207.01614v2</id>
+    <title>Beyond mAP: Towards better evaluation of instance segmentation</title>
+    <updated>2023-03-20T17:51:09Z</updated>
+    <link href="https://arxiv.org/abs/2207.01614v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2207.01614v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Correctness of instance segmentation constitutes counting the number of objects, correctly localizing all predictions and classifying each localized prediction. Average Precision is the de-facto metric used to measure all these constituents of segmentation. However, this metric does not penalize duplicate predictions in the high-recall range, and cannot distinguish instances that are localized correctly but categorized incorrectly. This weakness has inadvertently led to network designs that achieve significant gains in AP but also introduce a large number of false positives. We therefore cannot rely on AP to choose a model that provides an optimal tradeoff between false positives and high recall. To resolve this dilemma, we review alternative metrics in the literature and propose two new measures to explicitly measure the amount of both spatial and categorical duplicate predictions. We also propose a Semantic Sorting and NMS module to remove these duplicates based on a pixel occupancy matching scheme. Experiments show that modern segmentation networks have significant gains in AP, but also contain a considerable amount of duplicates. Our Semantic Sorting and NMS can be added as a plug-and-play module to mitigate hedged predictions and preserve AP.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-07-04T17:56:14Z</published>
+    <arxiv:comment>Accepted at CVPR 2023</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Rohit Jena</name>
+    </author>
+    <author>
+      <name>Lukas Zhornyak</name>
+    </author>
+    <author>
+      <name>Nehal Doiphode</name>
+    </author>
+    <author>
+      <name>Pratik Chaudhari</name>
+    </author>
+    <author>
+      <name>Vivek Buch</name>
+    </author>
+    <author>
+      <name>James Gee</name>
+    </author>
+    <author>
+      <name>Jianbo Shi</name>
+    </author>
+  </entry>
+</feed>
+

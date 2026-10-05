@@ -1,0 +1,122 @@
+# 这是待实现入口读取的配置契约，不是已有仓库CLI的参数保证。
+version: execution-v1
+study_name: coefficient_mask_task_feasibility_20261001
+parent_study_name: coefficient_official_tal_affine_20260930
+host_alias: 28358lan
+run_through: closeout
+seed: 20261001
+source_protocol_sha256: "64940c6444ecc3cc3d501b5d4c13015688dd8541ca7e8b0f72b1f7fe82478595"
+
+assets:
+  # 实际路径由执行端解析并写入RESOLVED_CONFIG；缺失时停止，不猜路径。
+  official_manifest: null
+  original_checkpoint: null
+  original_feature_bank: null
+  original_proto_bank: null
+  original_geometry_bank: null
+  original_design_bank: null
+  oracle_fit: null
+  raw_coco_annotations: null
+  native_decode_source: null
+
+identity:
+  model: yolo26m-seg
+  ultralytics: "8.4.100"
+  branch: one2one
+  feature_source: original_h0
+  checkpoint_sha256: "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"
+  # 实物必须匹配上述hash；不匹配时停止，不覆盖预期hash来强行通过。
+  fit_images_expected: 796
+  fit_candidates_expected: 6058
+  level_counts_expected: [2000, 2298, 1760]
+  dev_images_expected: 197
+  dev_candidates_expected: 1402
+  val_images_expected: 196
+  val_candidates_expected: 1346
+
+task:
+  quality_threshold: 0.75
+  quality_tolerance: 0.01
+  margin_fraction: 0.10
+  budget_reference: mixed_reference_displacement
+  budget_multiplier: 4.0
+  global_normalizer: official_fit_candidates
+  primary_region: E1
+  stricter_region: E0
+  optimize_bce: false
+  regenerate_oracle: false
+  train_neural_network: false
+
+regions:
+  sort_key: distance_to_reference_logit_hyperplane
+  tie_break: pixel_id
+  force_numeric_ambiguities_free: true
+  require_native_decode_monotonicity: true
+  require_reference_feasibility: true
+  require_full_locked_pixel_scan: true
+  allow_partial_population_as_full_result: false
+
+solver:
+  implementation: clarabel
+  dtype: float64
+  free_real_parameters: true
+  add_parameter_ridge: false
+  tol_gap_abs: 1.0e-8
+  tol_gap_rel: 1.0e-8
+  tol_feas: 1.0e-8
+  max_iter_per_call: 200
+  independent_time_limit_seconds_per_call: 60
+  shared_time_limit_seconds_per_call: 600
+  initial_positive_rows_per_candidate: 4
+  initial_negative_rows_per_candidate: 4
+  max_new_rows_per_candidate_per_round: 8
+  max_full_scans_per_region_per_level: 40
+  require_recomputed_primal_dual_bounds: true
+  certificate_type: conditional_numerical_bound
+
+sequence:
+  - register
+  - preflight
+  - build_regions
+  - independent_E1
+  - shared_E1
+  - conditional_E0_or_evidence
+  - replay_or_cases
+  - closeout
+
+branches:
+  if_E1_within_budget:
+    solve_E0_control: true
+    replay_dev_val_once_if_budget_allows: true
+    use_first_globally_verified_within_budget_witness: true
+    refit_on_dev_val: false
+  if_E1_certified_outside_budget:
+    infer_E0_outside_by_nesting: true
+    max_core_deletion_checks: 50
+    max_core_candidates: 12
+    max_matched_controls: 12
+    random_interventions_per_case: 20
+    robust_center_radius_multiplier: 2.0
+    robust_center_floor_fraction_of_median_c0_norm: 0.05
+  if_E1_unresolved:
+    stop_without_new_method: true
+
+resources:
+  history_and_toy_max_hours: 1
+  preflight_images: 8
+  preflight_max_hours: 1
+  gpu_phase_max_hours: 8
+  cpu_solver_phase_max_hours: 12
+  vram_reserve_fraction: 0.20
+  ram_reserve_fraction: 0.25
+  max_active_matrix_bytes_per_level: 2147483648
+  image_streaming: true
+  permanent_pixel_subsampling: false
+  auto_change_quality_or_budget: false
+
+statistics:
+  main_claim: fixed_population_feasibility
+  descriptive_bootstrap_unit: image
+  descriptive_bootstrap_repeats: 5000
+  complete_coco_ap: false
+  claim_new_blind_test: false

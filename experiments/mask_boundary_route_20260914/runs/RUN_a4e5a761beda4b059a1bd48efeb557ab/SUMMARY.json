@@ -1,0 +1,141 @@
+{
+  "parity": {
+    "baseline": {
+      "images": 6,
+      "masks": 638,
+      "pixel_mismatches": 0,
+      "max_box_error": 0.0
+    },
+    "frozen_rcmc": {
+      "images": 6,
+      "masks": 638,
+      "pixel_mismatches": 0,
+      "max_box_error": 0.0
+    },
+    "direct": {
+      "images": 6,
+      "masks": 638,
+      "pixel_mismatches": 0,
+      "max_box_error": 0.0
+    },
+    "decomposed": {
+      "images": 6,
+      "masks": 638,
+      "pixel_mismatches": 0,
+      "max_box_error": 0.0
+    },
+    "decomposed_protected": {
+      "images": 6,
+      "masks": 638,
+      "pixel_mismatches": 0,
+      "max_box_error": 0.0
+    }
+  },
+  "timing": {
+    "baseline": {
+      "calls": 72,
+      "mean_ms": 35.002986111067,
+      "median_ms": 34.172949999629054,
+      "p95_ms": 44.72033999991255,
+      "peak_gpu_allocated_mib": 634.07958984375,
+      "block_mean_ms": [
+        38.115412499867794,
+        33.508212500009904,
+        33.38533333332331
+      ]
+    },
+    "frozen_rcmc": {
+      "calls": 72,
+      "mean_ms": 57.23692777784587,
+      "median_ms": 57.6005000002624,
+      "p95_ms": 94.93683499958934,
+      "peak_gpu_allocated_mib": 479.509765625,
+      "block_mean_ms": [
+        56.65400416667884,
+        56.678329166743424,
+        58.37845000011536
+      ]
+    },
+    "direct": {
+      "calls": 72,
+      "mean_ms": 64.60363333346524,
+      "median_ms": 63.46140000005107,
+      "p95_ms": 112.9996650008252,
+      "peak_gpu_allocated_mib": 479.509765625,
+      "block_mean_ms": [
+        65.97961666693664,
+        64.54222916681829,
+        63.2890541666408
+      ]
+    },
+    "decomposed": {
+      "calls": 72,
+      "mean_ms": 67.4368069445437,
+      "median_ms": 67.71729999945819,
+      "p95_ms": 118.28617000037411,
+      "peak_gpu_allocated_mib": 479.509765625,
+      "block_mean_ms": [
+        67.14971666656311,
+        68.58675833344326,
+        66.57394583362475
+      ]
+    },
+    "decomposed_protected": {
+      "calls": 72,
+      "mean_ms": 65.8974666668352,
+      "median_ms": 64.92730000081792,
+      "p95_ms": 120.82811999980552,
+      "peak_gpu_allocated_mib": 479.509765625,
+      "block_mean_ms": [
+        65.15195416674639,
+        66.9186666668035,
+        65.6217791669557
+      ]
+    }
+  },
+  "image_ids": [
+    57027,
+    81594,
+    105014,
+    128658,
+    151662,
+    171740,
+    190756,
+    214703,
+    236426,
+    261318,
+    285047,
+    306582,
+    329323,
+    352491,
+    374083,
+    397354,
+    420069,
+    445602,
+    464689,
+    486573,
+    511453,
+    534601,
+    560011,
+    581781
+  ],
+  "fixed_versions": {
+    "python": "3.12.3",
+    "ultralytics": "8.4.100",
+    "torch": "2.5.1",
+    "numpy": "2.4.3",
+    "opencv": "4.13.0",
+    "pycocotools": "2.0.11",
+    "scipy": "1.15.2",
+    "scikit-learn": "1.6.1"
+  },
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "scope": "6 fixed images for exact mask parity; 24 evenly spaced fixed images x 3 cyclic-order passes per variant, CUDA synchronized, batch 1 FP32",
+  "included": "preprocess, YOLO forward, normal postprocessing, feature extraction, CPU transfers, required predictor heads and mask selection",
+  "excluded": "image disk IO, model/predictor setup and warmup, RLE export and COCO evaluation",
+  "limitations": [
+    "single laptop hardware and operating state",
+    "test GT is used for offline COCO metrics only, not adapter inputs or policy",
+    "timings are sampled pipeline costs, not full-dataset throughput"
+  ]
+}

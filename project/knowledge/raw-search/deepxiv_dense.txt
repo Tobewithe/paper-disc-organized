@@ -1,0 +1,604 @@
+{
+  "status": "success",
+  "backend": "qdrant",
+  "total_count": 10,
+  "result": [
+    {
+      "arxiv_id": "2001.07475",
+      "score": 1.0,
+      "title": "Instance Segmentation of Visible and Occluded Regions for Finding and Picking Target from a Pile of Objects",
+      "tldr": "[research paper] The paper introduces instance occlusion segmentation—a method that simultaneously predicts visible and occluded regions of objects in cluttered scenes—by extending existing instance segmentation models with a 'relook' architecture that explicitly models inter-instance relationships via instance density. A novel image synthesis framework generates synthetic scenes with ground-truth occlusion masks from 2D instance images, enabling training on novel objects without human annotation. Experiments on Amazon Robotics Challenge objects show superior occlusion understanding and picking order planning compared to conventional methods, enabling real-world robotic picking in heavily occluded piles.",
+      "abstract": "We present a robotic system for picking a target from a pile of objects that is capable of finding and grasping the target object by removing obstacles in the appropriate order. The fundamental idea is to segment instances with both visible and occluded masks, which we call `instance occlusion segmentation'. To achieve this, we extend an existing instance segmentation model with a novel `relook' architecture, in which the model explicitly learns the inter-instance relationship. Also, by using image synthesis, we make the system capable of handling new objects without human annotations. The experimental results show the effectiveness of the relook architecture when compared with a conventional model and of the image synthesis when compared to a human-annotated dataset. We also demonstrate the capability of our system to achieve picking a target in a cluttered environment with a real robot.",
+      "authors": [
+        {
+          "misc": {
+            "email": "wada@jsk.imi.i.u-tokyo.ac.jp"
+          },
+          "name": "Kentaro Wada",
+          "orgs": [
+            "University of Tokyo",
+            "JSK Laboratory"
+          ]
+        },
+        {
+          "misc": {
+            "email": "s-kitagawa@jsk.imi.i.u-tokyo.ac.jp"
+          },
+          "name": "Shingo Kitagawa",
+          "orgs": [
+            "University of Tokyo",
+            "JSK Laboratory"
+          ]
+        },
+        {
+          "misc": {
+            "email": "okada@jsk.imi.i.u-tokyo.ac.jp"
+          },
+          "name": "Kei Okada",
+          "orgs": [
+            "University of Tokyo",
+            "JSK Laboratory"
+          ]
+        },
+        {
+          "misc": {
+            "email": "inaba@jsk.imi.i.u-tokyo.ac.jp"
+          },
+          "name": "Masayuki Inaba",
+          "orgs": [
+            "University of Tokyo",
+            "JSK Laboratory"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2001.07475",
+      "date": "2020-01-21T00:00:00",
+      "citation_count": 26,
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "venue": "IEEE/RJS International Conference on Intelligent RObots and Systems",
+      "venue_year": 2018,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2302.11983",
+      "score": 0.43333334,
+      "title": "Category-level Shape Estimation for Densely Cluttered Objects",
+      "tldr": "[research paper] Proposes a category-level shape estimation framework for densely cluttered objects that combines multi-view RGB-D fusion with point cloud segmentation and template deformation. Uses visual feature maps and pixel affinity from point clouds to achieve accurate instance segmentation under occlusion, then deforms category templates via learned geometric parameters to recover instance shapes with strong generalization across diverse appearances and unseen instances.",
+      "abstract": "Accurately estimating the shape of objects in dense clutters makes important contribution to robotic packing, because the optimal object arrangement requires the robot planner to acquire shape information of all existed objects. However, the objects for packing are usually piled in dense clutters with severe occlusion, and the object shape varies significantly across different instances for the same category. They respectively cause large object segmentation errors and inaccurate shape recovery on unseen instances, which both degrade the performance of shape estimation during deployment. In this paper, we propose a category-level shape estimation method for densely cluttered objects. Our framework partitions each object in the clutter via the multi-view visual information fusion to achieve high segmentation accuracy, and the instance shape is recovered by deforming the category templates with diverse geometric transformations to obtain strengthened generalization ability. Specifically, we first collect the multi-view RGB-D images of the object clutters for point cloud reconstruction. Then we fuse the feature maps representing the visual information of multi-view RGB images and the pixel affinity learned from the clutter point cloud, where the acquired instance segmentation masks of multi-view RGB images are projected to partition the clutter point cloud. Finally, the instance geometry information is obtained from the partially observed instance point cloud and the corresponding category template, and the deformation parameters regarding the template are predicted for shape estimation. Experiments in the simulated environment and real world show that our method achieves high shape estimation accuracy for densely cluttered everyday objects with various shapes.",
+      "authors": [
+        {
+          "misc": {
+            "url": "https://github.com/Gary3410/Shape-Estimation",
+            "email": "wuzhenyu@bupt.edu.cn"
+          },
+          "name": "Zhenyu Wu",
+          "orgs": [
+            "School of Automation, Beijing University of Posts and Telecommunications, Beijing, 100084, China"
+          ]
+        },
+        {
+          "misc": {
+            "url": "https://github.com/Gary3410/Shape-Estimation",
+            "email": "wang-zw18@mails.tsinghua.edu.cn"
+          },
+          "name": "Ziwei Wang",
+          "orgs": [
+            "Department of Automation, Tsinghua University",
+            "Beijing National Research Center for Information Science and Technology (BNRist), Beijing, 100084, China"
+          ]
+        },
+        {
+          "misc": {
+            "url": "https://github.com/Gary3410/Shape-Estimation",
+            "email": "lujiwen@tsinghua.edu.cn"
+          },
+          "name": "Jiwen Lu",
+          "orgs": [
+            "Department of Automation, Tsinghua University",
+            "Beijing National Research Center for Information Science and Technology (BNRist), Beijing, 100084, China"
+          ]
+        },
+        {
+          "misc": {
+            "url": "https://github.com/Gary3410/Shape-Estimation",
+            "email": "eyanhaibin@bupt.edu.cn"
+          },
+          "name": "Haibin Yan",
+          "orgs": [
+            "School of Automation, Beijing University of Posts and Telecommunications, Beijing, 100084, China"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2302.11983",
+      "date": "2023-02-23T00:00:00",
+      "citation_count": 2,
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "venue": "IEEE International Conference on Robotics and Automation",
+      "venue_year": 2023,
+      "github_url": "https://github.com/Gary3410/Shape-EstimationThis"
+    },
+    {
+      "arxiv_id": "2208.03496",
+      "score": 0.34285715,
+      "title": "Smart Explorer: Recognizing Objects in Dense Clutter via Interactive Exploration",
+      "tldr": "[research paper] Smart Explorer introduces an interactive exploration framework that uses multi-view RGB-D sensing and physical pushing to resolve occlusion and visual ambiguity in dense clutter. By aggregating instance segmentation across views to build instance-wise point cloud partitions, it predicts object classes and counts, then generates targeted pushing actions based on recognition uncertainty (instance segmentation entropy and multi-view disagreement), constrained by spatial validity to minimize motion while maximizing accuracy. Experiments show a 16.13% recall and 9.47% precision gain over baseline methods with only 1.67 average pushes, outperforming random pushing significantly.",
+      "abstract": "Recognizing objects in dense clutter accurately plays an important role to a wide variety of robotic manipulation tasks including grasping, packing, rearranging and many others. However, conventional visual recognition models usually miss objects because of the significant occlusion among instances and causes incorrect prediction due to the visual ambiguity with the high object crowdedness. In this paper, we propose an interactive exploration framework called Smart Explorer for recognizing all objects in dense clutters. Our Smart Explorer physically interacts with the clutter to maximize the recognition performance while minimize the number of motions, where the false positives and negatives can be alleviated effectively with the optimal accuracy-efficiency trade-offs. Specifically, we first collect the multi-view RGB-D images of the clutter and reconstruct the corresponding point cloud. By aggregating the instance segmentation of RGB images across views, we acquire the instance-wise point cloud partition of the clutter through which the existed classes and the number of objects for each class are predicted. The pushing actions for effective physical interaction are generated to sizably reduce the recognition uncertainty that consists of the instance segmentation entropy and multi-view object disagreement. Therefore, the optimal accuracy-efficiency trade-off of object recognition in dense clutter is achieved via iterative instance prediction and physical interaction. Extensive experiments demonstrate that our Smart Explorer acquires promising recognition accuracy with only a few actions, which also outperforms the random pushing by a large margin.",
+      "authors": [
+        {
+          "misc": {
+            "url": "https://github.com/Gary3410/Smart-Explorer",
+            "email": "wuzhenyu@bupt.edu.cn"
+          },
+          "name": "Zhenyu Wu",
+          "orgs": [
+            "School of Automation, Beijing University of Posts and Telecommunications, Beijing, 100876, China"
+          ]
+        },
+        {
+          "misc": {
+            "email": "wang-zw18@mails.tsinghua.edu.cn"
+          },
+          "name": "Ziwei Wang",
+          "orgs": [
+            "Department of Automation, Tsinghua University",
+            "Beijing National Research Center for Information Science and Technology (BNRist), Beijing, 100084, China"
+          ]
+        },
+        {
+          "misc": {
+            "email": "weizb18@mails.tsinghua.edu.cn"
+          },
+          "name": "Zibu Wei",
+          "orgs": [
+            "Department of Automation, Tsinghua University",
+            "Beijing National Research Center for Information Science and Technology (BNRist), Beijing, 100084, China"
+          ]
+        },
+        {
+          "misc": {
+            "email": "y-wei19@mails.tsinghua.edu.cn"
+          },
+          "name": "Yi Wei",
+          "orgs": [
+            "Department of Automation, Tsinghua University",
+            "Beijing National Research Center for Information Science and Technology (BNRist), Beijing, 100084, China"
+          ]
+        },
+        {
+          "misc": {
+            "email": "eyanhaibin@bupt.edu.cn",
+            "corresponding_author": true
+          },
+          "name": "Haibin Yan",
+          "orgs": [
+            "School of Automation, Beijing University of Posts and Telecommunications, Beijing, 100876, China"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2208.03496",
+      "date": "2022-08-06T00:00:00",
+      "citation_count": 8,
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "venue": "IEEE/RJS International Conference on Intelligent RObots and Systems",
+      "venue_year": 2022,
+      "github_url": "https://github.com/Gary3410/Smart-Explorer1Zhenyu"
+    },
+    {
+      "arxiv_id": "2012.02107",
+      "score": 0.3409091,
+      "title": "Robust Instance Segmentation through Reasoning about Multi-Object Occlusion",
+      "tldr": "[research paper] The paper proposes a multi-object instance segmentation framework that extends CompositionalNets to handle occlusion through mutual reasoning between objects. It introduces an Occlusion Reasoning Module (ORM) that detects inconsistent segmentations via occlusion voting and corrects them by leveraging occlusion order derived from classification scores, enabling self-correction and improved robustness without requiring pixel-level supervision. Experiments on KITTI INStance and synthetic occlusion datasets show state-of-the-art performance in handling pair-wise, multi-object, and mixed occlusion scenarios with known and unknown classes.",
+      "abstract": "Analyzing complex scenes with Deep Neural Networks is a challenging task, particularly when images contain multiple objects that partially occlude each other. Existing approaches to image analysis mostly process objects independently and do not take into account the relative occlusion of nearby objects. In this paper, we propose a deep network for multi-object instance segmentation that is robust to occlusion and can be trained from bounding box supervision only. Our work builds on Compositional Networks, which learn a generative model of neural feature activations to locate occluders and to classify objects based on their non-occluded parts. We extend their generative model to include multiple objects and introduce a framework for efficient inference in challenging occlusion scenarios. In particular, we obtain feed-forward predictions of the object classes and their instance and occluder segmentations. We introduce an Occlusion Reasoning Module (ORM) that locates erroneous segmentations and estimates the occlusion order to correct them. The improved segmentation masks are, in turn, integrated into the network in a top-down manner to improve the image classification. Our experiments on the KITTI INStance dataset (KINS) and a synthetic occlusion dataset demonstrate the effectiveness and robustness of our model at multi-object instance segmentation under occlusion. Code is publically available at https://github.com/XD7479/Multi-Object-Occlusion.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Xiaoding Yuan",
+          "orgs": [
+            "Tongji University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Adam Kortylewski",
+          "orgs": [
+            "Johns Hopkins University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Yihong Sun",
+          "orgs": [
+            "Johns Hopkins University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Alan Yuille",
+          "orgs": [
+            "Johns Hopkins University"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2012.02107",
+      "date": "2020-12-03T00:00:00",
+      "citation_count": 52,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "Computer Vision and Pattern Recognition",
+      "venue_year": 2021,
+      "github_url": "https://github.com/XD7479/Multi-Object-Occlusion"
+    },
+    {
+      "arxiv_id": "2109.11103",
+      "score": 0.33333334,
+      "title": "Unseen Object Amodal Instance Segmentation via Hierarchical Occlusion Modeling",
+      "tldr": "[research paper] This paper introduces Unseen Object Amodal Instance Segmentation (UOAIS), a novel task that jointly predicts visible, amodal, and occlusion masks for arbitrary unseen object instances in cluttered scenes. The proposed Hierarchical Occlusion Modeling (HOM) framework assigns a prediction hierarchy to feature fusion, enabling the model to reason about occlusion by integrating visible, amodal, and occlusion predictions in a structured order. Evaluated on synthetic and real-world benchmarks, UOAIS-Net achieves state-of-the-art performance in both unseen object segmentation and amodal perception, with ablation studies confirming HOM's effectiveness in capturing occlusion semantics and enabling robotic grasping planning without task-specific training.",
+      "abstract": "Instance-aware segmentation of unseen objects is essential for a robotic system in an unstructured environment. Although previous works achieved encouraging results, they were limited to segmenting the only visible regions of unseen objects. For robotic manipulation in a cluttered scene, amodal perception is required to handle the occluded objects behind others. This paper addresses Unseen Object Amodal Instance Segmentation (UOAIS) to detect 1) visible masks, 2) amodal masks, and 3) occlusions on unseen object instances. For this, we propose a Hierarchical Occlusion Modeling (HOM) scheme designed to reason about the occlusion by assigning a hierarchy to a feature fusion and prediction order. We evaluated our method on three benchmarks (tabletop, indoors, and bin environments) and achieved state-of-the-art (SOTA) performance. Robot demos for picking up occluded objects, codes, and datasets are available at https://sites.google.com/view/uoais",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Seunghyeok Back",
+          "orgs": [
+            "School of Integrated Technology (SIT)",
+            "Gwangju Institute of Science and Technology (GIST)",
+            "Cheomdan-gwagiro 123, Buk-gu, Gwangju 61005, Republic of Korea"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Joosoon Lee",
+          "orgs": [
+            "School of Integrated Technology (SIT)",
+            "Gwangju Institute of Science and Technology (GIST)",
+            "Cheomdan-gwagiro 123, Buk-gu, Gwangju 61005, Republic of Korea"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Taewon Kim",
+          "orgs": [
+            "School of Integrated Technology (SIT)",
+            "Gwangju Institute of Science and Technology (GIST)",
+            "Cheomdan-gwagiro 123, Buk-gu, Gwangju 61005, Republic of Korea"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Sangjun Noh",
+          "orgs": [
+            "School of Integrated Technology (SIT)",
+            "Gwangju Institute of Science and Technology (GIST)",
+            "Cheomdan-gwagiro 123, Buk-gu, Gwangju 61005, Republic of Korea"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Raeyoung Kang",
+          "orgs": [
+            "School of Integrated Technology (SIT)",
+            "Gwangju Institute of Science and Technology (GIST)",
+            "Cheomdan-gwagiro 123, Buk-gu, Gwangju 61005, Republic of Korea"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Seongho Bak",
+          "orgs": [
+            "School of Integrated Technology (SIT)",
+            "Gwangju Institute of Science and Technology (GIST)",
+            "Cheomdan-gwagiro 123, Buk-gu, Gwangju 61005, Republic of Korea"
+          ]
+        },
+        {
+          "misc": {
+            "email": "kyoobinlee@gist.ac.kr",
+            "corresponding_author": true
+          },
+          "name": "Kyoobin Lee",
+          "orgs": [
+            "School of Integrated Technology (SIT)",
+            "Gwangju Institute of Science and Technology (GIST)",
+            "Cheomdan-gwagiro 123, Buk-gu, Gwangju 61005, Republic of Korea"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2109.11103",
+      "date": "2021-09-23T00:00:00",
+      "citation_count": 90,
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "venue": "IEEE International Conference on Robotics and Automation",
+      "venue_year": 2022,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2608.06236",
+      "score": 0.25,
+      "title": "Depth-Guided Video Object Counting in Crowded Scenes",
+      "tldr": "[Research Paper] This paper introduces a Depth-Guided Detector (DG-Det) and a unified de-duplication framework to improve video object counting in crowded, occluded scenes by integrating depth cues with RGB features. The authors also release the RGBD-VideoCount dataset, demonstrating significant reductions in MAE and RMSE compared to existing baselines.",
+      "abstract": "Our primary objective is to advance video object counting in crowded scenes, aiming to robustly count all instances of a target category based on given text or visual prompts. Existing methods rely on RGB information, limiting their discriminative ability in crowded and occluded conditions. To address this, we propose a Depth-Guided Detector (DG-Det) along with a general post-processing pipeline. By integrating depth cues with multi-scale RGB-D cross-attention and explicit occlusion prediction, our method enhances spatial understanding and achieves robust detection in crowded and occluded scenes. Furthermore, we introduce a unified de-duplication framework to eliminate cross-frame redundant counting. To facilitate future research, we also release a new RGB-D Video Object Counting dataset featuring depth information and multiple object categories persequence. Extensive experiments demonstrate that our method achieves a 62.01\\% reduction in MAE compared to existing baselines, and also produces consistent improvements in RMSE. We provide the source code at https://github.com/streamer-AP/DG-Net and the dataset at https://huggingface.co/datasets/aerospace123/RGBD-VideoCount.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Yuanjing Xu",
+          "orgs": [
+            "Harbin Institute of Technology (Weihai)"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Zixuan Zou",
+          "orgs": [
+            "Harbin Institute of Technology (Weihai)"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Xinyan Liu",
+          "orgs": [
+            "Harbin Institute of Technology (Weihai)",
+            "City University of Hong Kong"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Linhao Zhang",
+          "orgs": [
+            "Harbin Institute of Technology (Weihai)"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Antoni B. Chan",
+          "orgs": [
+            "City University of Hong Kong"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Weidong Chen",
+          "orgs": [
+            "University of Science and Technology of China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Zhuangzhe Meng",
+          "orgs": [
+            "Harbin Institute of Technology (Weihai)"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Weigang Zhang",
+          "orgs": [
+            "Harbin Institute of Technology (Weihai)"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2608.06236",
+      "date": "2026-08-06T16:24:41",
+      "citation_count": 0,
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "venue": null,
+      "venue_year": null,
+      "github_url": "https://github.com/streamer-AP/DG-Net"
+    },
+    {
+      "arxiv_id": "2001.07481",
+      "score": 0.24761905,
+      "title": "Joint Learning of Instance and Semantic Segmentation for Robotic Pick-and-Place with Heavy Occlusions in Clutter",
+      "tldr": "[research paper] The paper proposes a joint learning framework that integrates instance occlusion segmentation with semantic occlusion segmentation by sharing a common feature extractor, enabling image-level (semantic) and instance-level reasoning to jointly predict visible and occluded region masks. This collaboration addresses the weakness of prior instance-only models—specifically, the difficulty in bounding box prediction due to lack of occlusion supervision at the first stage—by introducing semantic occlusion segmentation as a one-stage mask predictor that provides supervision for the initial box estimation. Experiments on cluttered scenes demonstrate improved performance in both random and target pick-and-place tasks under heavy occlusions, showing that the joint model better handles object stacking and occlusion relationships critical for real-world robotic manipulation.",
+      "abstract": "We present joint learning of instance and semantic segmentation for visible and occluded region masks. Sharing the feature extractor with instance occlusion segmentation, we introduce semantic occlusion segmentation into the instance segmentation model. This joint learning fuses the instance- and image-level reasoning of the mask prediction on the different segmentation tasks, which was missing in the previous work of learning instance segmentation only (instance-only). In the experiments, we evaluated the proposed joint learning comparing the instance-only learning on the test dataset. We also applied the joint learning model to 2 different types of robotic pick-and-place tasks (random and target picking) and evaluated its effectiveness to achieve real-world robotic tasks.",
+      "authors": [
+        {
+          "misc": {
+            "email": "wada@jsk.imi.i.u-tokyo.ac.jp"
+          },
+          "name": "Kentaro Wada",
+          "orgs": [
+            "University of Tokyo",
+            "JSK Laboratory"
+          ]
+        },
+        {
+          "misc": {
+            "email": "k-okada@jsk.imi.i.u-tokyo.ac.jp"
+          },
+          "name": "Kei Okada",
+          "orgs": [
+            "University of Tokyo",
+            "JSK Laboratory"
+          ]
+        },
+        {
+          "misc": {
+            "email": "inaba@jsk.imi.i.u-tokyo.ac.jp"
+          },
+          "name": "Masayuki Inaba",
+          "orgs": [
+            "University of Tokyo",
+            "JSK Laboratory"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2001.07481",
+      "date": "2020-01-21T00:00:00",
+      "citation_count": 29,
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "venue": "IEEE International Conference on Robotics and Automation",
+      "venue_year": 2019,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2210.03551",
+      "score": 0.19642857,
+      "title": "Instance Segmentation of Dense and Overlapping Objects via Layering",
+      "tldr": "[research paper] The paper proposes a novel instance segmentation method based on object layering, where foreground pixels are assigned to distinct output layers such that spatially adjacent objects are forced into different layers via a structured pixel embedding space. By restricting object embeddings to occupy unique dimensions—using one-hot or multi-active representations in overlapping regions—the method eliminates object crowding and overlap, enabling instance isolation through simple connected-component extraction. The model trains in two phases: first, layering without overlap via a cosine-similarity-based attraction-repulsion loss; second, overlap completion using a Dice-like loss to refine shared regions, achieving robust segmentation without post-processing or pixel clustering.",
+      "abstract": "Instance segmentation aims to delineate each individual object of interest in an image. State-of-the-art approaches achieve this goal by either partitioning semantic segmentations or refining coarse representations of detected objects. In this work, we propose a novel approach to solve the problem via object layering, i.e. by distributing crowded, even overlapping objects into different layers. By grouping spatially separated objects in the same layer, instances can be effortlessly isolated by extracting connected components in each layer. In comparison to previous methods, our approach is not affected by complex object shapes or object overlaps. With minimal post-processing, our method yields very competitive results on a diverse line of datasets: C. elegans (BBBC), Overlapping Cervical Cells (OCC) and cultured neuroblastoma cells (CCDB). The source code is publicly available.",
+      "authors": [
+        {
+          "misc": {
+            "email": "long.chen@lfb.rwth-aachen.de"
+          },
+          "name": "Long Chen",
+          "orgs": [
+            "Institute of Imaging & Computer Vision RWTH Aachen University",
+            "Aachen, Germany"
+          ]
+        },
+        {
+          "misc": {
+            "email": "yuli.wu@lfb.rwth-aachen.de"
+          },
+          "name": "Yuli Wu",
+          "orgs": [
+            "Institute of Imaging & Computer Vision RWTH Aachen University",
+            "Aachen, Germany"
+          ]
+        },
+        {
+          "misc": {
+            "email": "dbrit.merhof@ur.de"
+          },
+          "name": "Dorit Merhof",
+          "orgs": [
+            "Faculty of Informatics and Data Science, University of Regensburg",
+            "Germany",
+            "Fraunhofer Institute for Digital Medicine MEVIS",
+            "Bremen, Germany"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2210.03551",
+      "date": "2022-10-07T00:00:00",
+      "citation_count": 6,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "British Machine Vision Conference",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2208.04438",
+      "score": 0.16666667,
+      "title": "Occlusion-Aware Instance Segmentation via BiLayer Network Architectures",
+      "tldr": "[research paper] BCNet introduces a bilayer network architecture that explicitly models occlusion by decoupling occluders (objects causing occlusion) and occludees (partially hidden objects) into separate image layers. The top layer predicts occluder masks, while the bottom layer regresses occludee masks, enabling interaction between the two during mask refinement. This structure naturally resolves boundary conflicts in overlapping instances, outperforming existing methods—especially under heavy occlusion—on COCO, KINS, COCOA, YTVIS, OVIS, and BDD100K MOTS, with consistent gains across FCN and GCN backbones, and extended to vision transformers via query-based occluder-occludee decoupling in a cascaded decoder.",
+      "abstract": "Segmenting highly-overlapping image objects is challenging, because there is typically no distinction between real object contours and occlusion boundaries on images. Unlike previous instance segmentation methods, we model image formation as a composition of two overlapping layers, and propose Bilayer Convolutional Network (BCNet), where the top layer detects occluding objects (occluders) and the bottom layer infers partially occluded instances (occludees). The explicit modeling of occlusion relationship with bilayer structure naturally decouples the boundaries of both the occluding and occluded instances, and considers the interaction between them during mask regression. We investigate the efficacy of bilayer structure using two popular convolutional network designs, namely, Fully Convolutional Network (FCN) and Graph Convolutional Network (GCN). Further, we formulate bilayer decoupling using the vision transformer (ViT), by representing instances in the image as separate learnable occluder and occludee queries. Large and consistent improvements using one/two-stage and query-based object detectors with various backbones and network layer choices validate the generalization ability of bilayer decoupling, as shown by extensive experiments on image instance segmentation benchmarks (COCO, KINS, COCOA) and video instance segmentation benchmarks (YTVIS, OVIS, BDD100K MOTS), especially for heavy occlusion cases. Code and data are available at https://github.com/lkeab/BCNet.",
+      "authors": [
+        {
+          "misc": {
+            "email": "lkeab@cse.ust.hk"
+          },
+          "name": "Lei Ke",
+          "orgs": [
+            "Department of Computer Science and Engineering, The Hong Kong University of Science and Technology"
+          ]
+        },
+        {
+          "misc": {
+            "email": "yuwing@gmail.com"
+          },
+          "name": "Yu-Wing Tai",
+          "orgs": [
+            "Kuaishou Technology"
+          ]
+        },
+        {
+          "misc": {
+            "email": "cktang@cse.ust.hk"
+          },
+          "name": "Chi-Keung Tang",
+          "orgs": [
+            "Department of Computer Science and Engineering, The Hong Kong University of Science and Technology"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2208.04438",
+      "date": "2022-08-08T00:00:00",
+      "citation_count": 30,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "venue_year": null,
+      "github_url": "https://github.com/lkeab/BCNet"
+    },
+    {
+      "arxiv_id": "1801.01281",
+      "score": 0.16666667,
+      "title": "Object segmentation in depth maps with one user click and a synthetically trained fully convolutional network",
+      "tldr": "[research paper] The paper proposes a synthetic, seed-based instance segmentation framework for depth maps in cluttered waste-pile scenes, leveraging edge-mask duality—where object contours and instance masks are dual representations—to achieve precise boundary detection without patch-based localization. It introduces a patch-free, contour-oriented loss function trained on synthetically generated RGB-D scenes from Blender, outperforming patch-based methods in edge accuracy under occlusion and entanglement, enabling one-click robotic grasp generation in industrial waste sorting.",
+      "abstract": "With more and more household objects built on planned obsolescence and consumed by a fast-growing population, hazardous waste recycling has become a critical challenge. Given the large variability of household waste, current recycling platforms mostly rely on human operators to analyze the scene, typically composed of many object instances piled up in bulk. Helping them by robotizing the unitary extraction is a key challenge to speed up this tedious process. Whereas supervised deep learning has proven very efficient for such object-level scene understanding, e.g., generic object detection and segmentation in everyday scenes, it however requires large sets of per-pixel labeled images, that are hardly available for numerous application contexts, including industrial robotics. We thus propose a step towards a practical interactive application for generating an object-oriented robotic grasp, requiring as inputs only one depth map of the scene and one user click on the next object to extract. More precisely, we address in this paper the middle issue of object seg-mentation in top views of piles of bulk objects given a pixel location, namely seed, provided interactively by a human operator. We propose a twofold framework for generating edge-driven instance segments. First, we repurpose a state-of-the-art fully convolutional object contour detector for seed-based instance segmentation by introducing the notion of edge-mask duality with a novel patch-free and contour-oriented loss function. Second, we train one model using only synthetic scenes, instead of manually labeled training data. Our experimental results show that considering edge-mask duality for training an encoder-decoder network, as we suggest, outperforms a state-of-the-art patch-based network in the present application context.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Matthieu Grard",
+          "orgs": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Romain Brégier",
+          "orgs": [
+            "1",
+            "3"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Florian Sella",
+          "orgs": [
+            "1"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Emmanuel Dellandréa",
+          "orgs": [
+            "2"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Liming Chen",
+          "orgs": [
+            "2"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/1801.01281",
+      "date": "2018-01-04T00:00:00",
+      "citation_count": 12,
+      "categories": [
+        "cs.CV",
+        "cs.LG",
+        "cs.RO"
+      ],
+      "venue": "International Workshop on Human Friendly Robotics",
+      "venue_year": null,
+      "github_url": null
+    }
+  ]
+}

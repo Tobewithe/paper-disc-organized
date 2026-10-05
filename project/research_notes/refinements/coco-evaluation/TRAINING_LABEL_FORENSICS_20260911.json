@@ -1,0 +1,206 @@
+{
+  "created": "2026-09-11T08:02:35.151298",
+  "source": "remote_scripts/write_labels.py",
+  "source_sha256": "6e90e34da66ade16cb36c178815a97abf40549a2b226f76414cf16022f8df493",
+  "confirmed_source_behavior": "One line per polygon; explicitly called for both train2017 and val2017, followed by training launch.",
+  "source_function_witness": {
+    "original_instances": 1,
+    "polygons": 2,
+    "actual_output_label_lines": [
+      "0 0.01 0.01 0.1 0.01 0.1 0.1 0.01 0.1",
+      "0 0.3 0.3 0.4 0.3 0.4 0.4 0.3 0.4"
+    ],
+    "passed": true
+  },
+  "evidence_scope": "Archived converter plus independent annotation reconstruction and training-log fingerprints; remote label/cache files were unavailable.",
+  "splits": {
+    "train": {
+      "selected_images": 37433,
+      "ordinary_annotations": 488877,
+      "manual_converter_rows_before_dedup": 560747,
+      "fragmented_annotations": 50616,
+      "extra_rows_from_fragmentation": 71870,
+      "within_instance_fragment_pairs_box_iou_gt_0_05": 8241,
+      "instances_with_within_instance_fragment_pairs": 6851,
+      "crowd_annotations": 7716,
+      "affected_images": 23443,
+      "fragmentation_fraction": 0.10353524506164127,
+      "extra_row_fraction": 0.14701039320728937,
+      "examples": [
+        {
+          "split": "train",
+          "image_id": 282134,
+          "annotation_id": 8807,
+          "category_id": 18,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        },
+        {
+          "split": "train",
+          "image_id": 389624,
+          "annotation_id": 24300,
+          "category_id": 64,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        },
+        {
+          "split": "train",
+          "image_id": 529344,
+          "annotation_id": 54078,
+          "category_id": 19,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        },
+        {
+          "split": "train",
+          "image_id": 153734,
+          "annotation_id": 76449,
+          "category_id": 21,
+          "fragments": 5,
+          "extra_rows": 4,
+          "false_ccl_gt_pairs_before_assignment": 2
+        },
+        {
+          "split": "train",
+          "image_id": 185327,
+          "annotation_id": 77284,
+          "category_id": 21,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        }
+      ],
+      "duplicate_fingerprint_checks": [
+        {
+          "image_id": 99844,
+          "reconstructed_duplicate_count": 4,
+          "logged_duplicate_count": 4,
+          "matches": true
+        },
+        {
+          "image_id": 201706,
+          "reconstructed_duplicate_count": 1,
+          "logged_duplicate_count": 1,
+          "matches": true
+        },
+        {
+          "image_id": 214087,
+          "reconstructed_duplicate_count": 1,
+          "logged_duplicate_count": 1,
+          "matches": true
+        }
+      ],
+      "inputs_sha256": {
+        "datasets/coco/annotations/instances_train2017.json": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+        "gemini/data/coco_dense/train_dense.txt": "6d0033df29cf801e0e60a8b64738f596c53f11174c96d8eafe08ca4b7594c600"
+      }
+    },
+    "val": {
+      "selected_images": 1576,
+      "ordinary_annotations": 20827,
+      "manual_converter_rows_before_dedup": 23832,
+      "fragmented_annotations": 2100,
+      "extra_rows_from_fragmentation": 3005,
+      "within_instance_fragment_pairs_box_iou_gt_0_05": 312,
+      "instances_with_within_instance_fragment_pairs": 243,
+      "crowd_annotations": 344,
+      "affected_images": 987,
+      "fragmentation_fraction": 0.10083065251836558,
+      "extra_row_fraction": 0.14428386229413742,
+      "examples": [
+        {
+          "split": "val",
+          "image_id": 507975,
+          "annotation_id": 57996,
+          "category_id": 19,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        },
+        {
+          "split": "val",
+          "image_id": 38829,
+          "annotation_id": 128391,
+          "category_id": 2,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        },
+        {
+          "split": "val",
+          "image_id": 55022,
+          "annotation_id": 130987,
+          "category_id": 2,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        },
+        {
+          "split": "val",
+          "image_id": 480985,
+          "annotation_id": 149690,
+          "category_id": 4,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        },
+        {
+          "split": "val",
+          "image_id": 122166,
+          "annotation_id": 195981,
+          "category_id": 1,
+          "fragments": 2,
+          "extra_rows": 1,
+          "false_ccl_gt_pairs_before_assignment": 1
+        }
+      ],
+      "duplicate_fingerprint_checks": [],
+      "inputs_sha256": {
+        "datasets/coco/annotations/instances_val2017.json": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+        "gemini/data/coco_dense/val_dense.txt": "bdce280cee4ee364d54855ac2f7f633433ba11784e8d3df5255a2cfe4a8ae387"
+      }
+    }
+  },
+  "log_evidence": {
+    "gemini/remote_runs/export_light/logs/run_cluster_fixed.log": {
+      "sha256": "7d4e4af2c55a5997886219a4371caee2a4986a6f81e7be655526cba790b773c4",
+      "validation_instance_counts": {
+        "23832": 14
+      },
+      "training_image_counts": {
+        "37433": 2
+      },
+      "val_count_equals_polygon_split_count": true
+    },
+    "gemini/remote_runs/export_light/logs/run_stage2.log": {
+      "sha256": "f28c349e9c08ee3f64724011eece2713f3f4996d174811827764b3c0d872e216",
+      "validation_instance_counts": {
+        "23832": 22
+      },
+      "training_image_counts": {
+        "37433": 2
+      },
+      "val_count_equals_polygon_split_count": true
+    },
+    "gemini/remote_runs/baseline_stage2/run_baseline_stage2.log": {
+      "sha256": "b610825fb887e0c328a96a114734fa96de4d07f62a7c737af87546afbdc54887",
+      "validation_instance_counts": {
+        "23832": 11
+      },
+      "training_image_counts": {
+        "37433": 1
+      },
+      "val_count_equals_polygon_split_count": true
+    }
+  },
+  "interpretation": [
+    "Validation instance count matches polygon fragments exactly in all inspected runs.",
+    "Training converter explicitly writes fragmented train labels; matching duplicate-label warnings independently fingerprint that route.",
+    "Actual remote train/val cache remains uninspected; reconstructed counts are not claimed as directly read cache contents.",
+    "Within-instance fragment pairs can satisfy CCL box-overlap eligibility; actual loss activation also requires both fragment GT to receive assigned candidates.",
+    "Existing corrected official evaluations remain measurements of these checkpoints, but do not certify a clean-label CCL comparison."
+  ]
+}

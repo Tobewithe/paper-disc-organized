@@ -1,0 +1,95 @@
+# Research Wiki Log
+
+_Append-only timeline._
+- `2026-09-04T11:54:21Z` Wiki initialized
+- `2026-09-04T12:00:56Z` Legacy dense-pig segmentation evidence registered; source: C:\Dpan\codexproject\pigcv_research
+- `2026-09-04T23:14:43+08:00` Four-group all-source literature retrieval completed; raw outputs retained under `raw-search/`.
+- `2026-09-04T23:20:00+08:00` Full literature registry, ten core paper pages, source availability audit, query pack and six-gap map written. No code, training, research_contract, research-refine or experiment-plan changes.
+- `2026-09-04` Phase-1 four-query search completed; 68 raw source records retained in literature_registry.jsonl.
+- `2026-09-04` Source audit: arXiv 4/4, Semantic Scholar 4/4, DeepXiv 4/4, OpenAlex 4/4 helper calls exited 0; Exa 4/4 failed because EXA_API_KEY is missing; Scholar Feed 4/4 unavailable (network/503); Obsidian returned existing project notes; Zotero, Gemini, and Web Search MCP were not exposed.
+- `2026-09-04` No method/model/loss/research_contract/research-refine/experiment-plan selected; gaps G1-G4 recorded.
+- `2026-09-04T15:20:57Z` ingest_paper: skipped existing paper bcnet-2208-04438.md (arxiv:2208.04438)
+- `2026-09-04T15:20:57Z` ingest_paper: skipped existing paper orm-2012-02107.md (arxiv:2012.02107)
+- `2026-09-04T15:20:57Z` ingest_paper: skipped existing paper layering-2210-03551.md (arxiv:2210.03551)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:ke2021_deep_occlusionaware_instance (arxiv:2103.12340)
+- `2026-09-04T15:20:57Z` ingest_paper: skipped existing paper piglet-cclusnet-2206-01942.md (arxiv:2206.01942)
+- `2026-09-04T15:20:57Z` ingest_paper: skipped existing paper pig-panoptic-2005-10499.md (arxiv:2005.10499)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:tangirala2021_livestock_monitoring_transformer (arxiv:2111.00801)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:tersarkisov2018_beef_cattle_instance (arxiv:1807.01972)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:yi2019_objectguided_instance_segmentation (arxiv:1911.09199)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:yi2019_multiscale_cell_instance (arxiv:1907.09140)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:romeraparedes2015_recurrent_instance_segmentation (arxiv:1511.08250)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:ling2022_humans_need_not (arxiv:2210.03686)
+- `2026-09-04T15:20:57Z` ingest_paper: ingested paper:baselizadeh2025_occlusionordered_semantic_instance (arxiv:2504.14054)
+- `2026-09-04T15:23:11Z` Subagent literature cross-check added verified pig/occlusion anchors and Scholar Feed keyword-neighbor exclusions to literature registry.
+- `2026-09-04T15:24:43Z` Phase-1 acceptance check: 17 paper pages present; registry status counts core_verified=7, related_unread=6, excluded=15, duplicate=11, needs_verification=57; no code or training changes.
+- `2026-09-05T01:00:00+08:00` Imported five ARIS experiment entities from `C:\Dpan\document\pigcv_reserch\03-成果与资产`; provenance and SHA256 retained, source files unchanged.
+- `2026-09-05T01:05:00+08:00` Added the exploratory idea node `idea:diagnosis-to-improvement` to satisfy canonical experiment references; no method route selected.
+- `2026-09-05T01:06:00+08:00` Canonical `research_wiki.py` helper was not present in the configured ARIS/project paths; used the skill's minimum schema for manual evidence pages and did not hand-edit graph edges.
+- `2026-09-05T09:30:00+08:00` ARIS Stage-1 YOLO-focused Scholar Feed replay: 5 search calls across dense YOLO, low-IoU fragmentation, top-k/ranking, and pig/animal axes; 30 structured hits retained, 2 ranking calls returned transient upstream errors and are not interpreted as zero coverage. Lineage/full-text follow-up was partial (1 lineage and 1 full-text success; 3 transient errors). No method, loss, code, training, research-refine, experiment-plan, or research_contract changes.
+- `2026-09-04T17:13:57Z` ingest_paper: ingested paper:he2025_segment_concealed_objects (arxiv:2506.08955)
+- `2026-09-04T17:13:59Z` ingest_paper: ingested paper:nguyen2023_instance_segmentation_under (arxiv:2310.17949)
+- `2026-09-04T17:14:02Z` ingest_paper: ingested paper:großkopf2026_redefining_instance_matching (arxiv:2605.31094)
+- `2026-09-04T17:14:15Z` ingest_paper: ingested paper:haidar2024_maskuno_switchsplit_block (arxiv:2407.21498)
+- `2026-09-04T17:14:21Z` ingest_paper: ingested paper:henrich2025_benchmarking_pig_detection (arxiv:2507.16639)
+- `2026-09-04T17:16:19Z` wiki-enrich: enriched paper:he2025_segment_concealed_objects from page-abstract-fallback (10 sections filled; source abstract only)
+- `2026-09-04T17:16:21Z` wiki-enrich: enriched paper:nguyen2023_instance_segmentation_under from page-abstract-fallback plus Scholar Feed full-text note (10 sections filled)
+- `2026-09-04T17:16:23Z` wiki-enrich: enriched paper:großkopf2026_redefining_instance_matching from page-abstract-fallback plus Scholar Feed full-text note (10 sections filled)
+- `2026-09-04T17:16:25Z` wiki-enrich: enriched paper:haidar2024_maskuno_switchsplit_block from page-abstract-fallback plus Scholar Feed full-text note (10 sections filled)
+- `2026-09-04T17:16:27Z` wiki-enrich: enriched paper:henrich2025_benchmarking_pig_detection from page-abstract-fallback plus Scholar Feed full-text note (10 sections filled)
+- `2026-09-04T17:17:27Z` gap_map: added G7 evaluation-matching and G8 training-vs-selection; linked five enriched papers without selecting intervention
+- `2026-09-04T17:19:55Z` wiki-enrich: filled remaining 8 paper pages from ingested abstracts; no unsupported metrics or method decisions
+- `2026-09-04T17:20:36Z` research_brief: updated literature status (126 registry rows/22 pages) and confirmed YOLO26-first, cross-dataset mechanism validation; cross-architecture deferred
+- `2026-09-04T17:21:54Z` paper_plan: aligned scope to YOLO26-first cross-dataset validation; cross-architecture deferred; Gemini pass recorded
+- `2026-09-04T17:22:20Z` paper_plan: contribution scope corrected to fixed-protocol YOLO26 cross-dataset evidence; cross-architecture future work unless parity available
+- `2026-09-04T17:24:29Z` protocol_audit: formal 1280-rect diagnostic separated from exploratory 1024-square candidate competition; required parity and cross-dataset audits recorded
+- `2026-09-04T17:24:49Z` gap_map: added G9 protocol-parity gap separating formal 1280-rect and exploratory 1024-square caches
+- `2026-09-05T10:00:00+08:00` analyze-results: added image-cluster bootstrap intervals and existing NMS threshold sensitivity audit at `research-wiki/yolo26_gate_uncertainty_20260905.md`; no inference, training, GT edits, method or loss changes. Formal 1280/rect candidate cache remains missing and mechanism Gate remains open.
+- `2026-09-05T10:35:00+08:00` formal-protocol replay: reconstructed the missing 118-row PigLife/Touching sample from retained `gt_analysis.csv`; ran 72-image `imgsz=1280, rect=True` YOLO26 diagnostic with Ultralytics 8.4.100. Raw positions and Top-300 parity passed for 72/72 images. Replay yielded 53 traced failure GT rows, 49 controls, 24 O/4 M/13 X components, 40 mask-relation failures and 1 low-score component; no duplicate-survival component. Stored as an audit-only artifact; not merged with archived 8.4.27 or 1024-square evidence, and Gate remains open.
+- `2026-09-05T11:10:00+08:00` exact-runtime replay: isolated Ultralytics 8.4.27 wheel imported via `PYTHONPATH`; 4-image smoke and 72-image reconstructed replay completed without modifying Conda. Aggregate invariants matched 8.4.100 (19,320 raw/image; Top-300 72/72; 53 failure GT; 49 controls; O/M/X 24/4/13; 40 mask-relation; 1 low-score; 0 duplicate-survival). Per-row hashes differed, so only aggregate consistency was recorded; original sample list and Mechanism Gate remain unresolved.
+- `2026-09-05T11:20:00+08:00` provenance recovery search: re-scanned legacy assets, derived analysis outputs, and current project for the archived dense-failure sample list and `SPLIT_TYPE` labels; no provenance-complete original manifest recovered. Formal complete/local comparison remains blocked by sample provenance, not by runtime availability.
+- `2026-09-05T11:25:00+08:00` exact-trace descriptive analysis: all 53 reconstructed failure GT rows reached Top-300; median relation-window candidate count was 156 for failures versus 88 controls. Recorded as candidate-crowding association only; no causal or method claim.
+- `2026-09-05T11:30:00+08:00` exact-trace matching sensitivity: read-only association reclassification at 0.30/0.50/0.70. O 24/24 and M 8/8 retained conf-qualified Top-300 candidates at all thresholds; X was 21/21 through 0.50 and 20/21 at 0.70. Stored as reconstructed-trace evidence only.
+- `2026-09-05T11:45:00+08:00` exact-trace single-candidate oracle: raw mask-IoU>=0.50 candidate existed for O/M/X = 24/24, 8/8, 21/21 failed GTs; Top-300 retained 24/24, 8/8, 19/21. Recorded O/M relation-failure separation and small X selection-sensitive slice; no causal or method claim.
+- `2026-09-05T12:10:00+08:00` exact-trace multi-candidate union oracle: reused retained 8.4.27 outputs, no forward/training; reconstructed 59 failures yielded best-single Top-300 success 57/59, best-pair success O/M/X=5/25,8/9,19/25, and all-associated union success 57/59. Recorded as an oracle upper bound; Mechanism Gate remains open and sample provenance remains unresolved.
+- `2026-09-05T12:30:00+08:00` asset recovery: registered executable data/model root, legacy YOLO26 tables, SHA256 provenance, and the distinction between valid 1024-square descriptive evidence and audit-only reconstructed 1280/rect replay. Missing archived sample provenance is retained as a limitation, not a workflow blocker; next action is bounded research-refine.
+- `2026-09-05T12:40:00+08:00` deterministic asset check: required diagnostic tables, summary invariants, and YOLO26 checkpoint existence/SHA256 verified; formal 118-row sample-manifest limitation retained.
+- `2026-09-05T12:55:00+08:00` research-refine: two-round Gemini CLI fallback review completed; proposal made implementation-ready with 40%/30% mechanism gate, formal complete/local thresholds, fixed two-layer MLP route, and ranking-inversion logging. No training or research_contract created.
+- `2026-09-05T13:05:00+08:00` experiment-plan: created claim-driven execution roadmap and compact tracker. First required run is a new provenance-complete manifest; conditional intervention remains gated by stage-oracle evidence.
+- `2026-09-05T13:20:00+08:00` R001 manifest audit: generated `formal_manifest_20260905.csv`; FaroPigSeg has 160 paired polygon-label images, and BamaPig2D has 332 images/1,148 instances in the verified COCO polygon annotation JSON (pose labels excluded). PigLife has 1,705 images but no paired segmentation labels under the supplied root.
+
+- `2026-09-05T19:40:00+08:00` unified diagnostic: generated `experiments/yolo26_unified_diagnostic_20260905/` from the legacy GT-aligned evaluator tables; verified PigLife COCO test view exactly matches 426 images and 4,474 annotations. R002/R003 data-alignment blocker closed; mechanism Gate remains open and no intervention selected.
+- `2026-09-05T19:45:00+08:00` candidate gate audit: queried retained scalar candidate table; 665/1,463 failed GT rows (45.45%) have a Top-K mask-IoU>=0.50 candidate, but only one dataset clears the 40% threshold and the table exposes zero measurable Top-K selection losses. R005 remains partial-audit; no scorer training authorized.
+- `2026-09-05T19:50:00+08:00` R006 candidate coverage audit: retained candidate rows cover failed O rows only (PigLife 289/289, Faro 291/291, Bama 95/95); failed I/L/M/X/MISS/S rows have zero retained rows. Recorded as candidate-table retention/schema blind spot, not runtime absence; candidate scorer remains gated.
+- `2026-09-05T20:05:00+08:00` provenance-complete PigLife raw trace: fixed YOLO26 runtime processed 426/426 images; 394 aligned failed GT rows yielded 388/394 raw candidate oracle successes and 387/394 Top-300 successes. I/L/M/X raw coverage was 100%; MISS was 8/13. Candidate absence is not dominant on PigLife; no causal intervention or scorer authorized.
+- `2026-09-05T20:20:00+08:00` FaroPigSeg raw-trace audit: reused the 160-image same-forward cache; 466/797 failed GT rows were raw-good and 388/797 Top-300-good, with 78 raw-good rows dropped. PigLife and Faro both clear the 40% oracle-availability threshold, but the 30% ranking gate is not met; R006 perturbation remains next.
+## 2026-09-05 — PigLife manifest provenance correction and M1 baseline integration
+
+- Located the previously missed PigLife COCO test view at `C:\Dpan\document\model_datasets\datasets\piglife\derived\task05_v1\pig_coco_test_task05_v1.json` (426 images, 4,474 instances).
+- Rebuilt `formal_manifest_20260905.csv` to cover FaroPigSeg (160), BamaPig2D (332), and PigLife (426); new SHA256: `EC018E5135C7FE5D09D6C6AB8E6BBAA45F885CD2D3711C229DFF88B8CC6A4ADB`.
+- Integrated validated YOLO26 external predictions and inherited failure analyses in `experiments/yolo26-baseline-external-20260905.md`.
+- R002 is cache-replay complete, R003 is resolved, R004 and R007 are complete; R005/R006 remain audit-scoped pending corrected-manifest candidate regeneration.
+- No model, training, loss, or contribution decision was made.
+- `2026-09-05T11:45:44Z` add_experiment: added exp:yolo26-stage-availability-fulltrace-20260905 [verdict=partial confidence=medium]
+- `2026-09-05T12:09:25Z` add_experiment: added exp:yolo26-r006-fixed-fulltrace-20260905 [verdict=partial confidence=medium]
+- `2026-09-05T12:29:25Z` ingest_paper: ingested paper:huang2019_mask_scoring_rcnn (arxiv:1903.00241)
+- `2026-09-05T12:29:28Z` ingest_paper: ingested paper:bolya2020_tide_general_toolbox (arxiv:2008.08115)
+- `2026-09-05T12:37:03Z` Enriched Mask Scoring R-CNN and TIDE pages from official PDFs; updated G2/G4/G7/G9 with full-trace evidence and isolated Top-K no-op boundary; historical restricted counts explicitly superseded.
+- `2026-09-05T12:37:05Z` add_experiment: added exp:yolo26-gate-binding-20260905 [verdict=partial confidence=high]
+- `2026-09-05T13:36:44Z` ingest_paper: ingested paper:zhang2026_topologyaware_query_selection (arxiv:2608.11607)
+- `2026-09-05T13:38:21Z` ingest_paper: ingested paper:prytula2026_qcell_recombining_aligning (arxiv:2608.29253)
+- `2026-09-05T13:42:23Z` ingest_paper: skipped existing paper prytula2026_qcell_recombining_aligning.md (arxiv:2608.29253)
+- `2026-09-05T13:42:23Z` ingest_paper: skipped existing paper zhang2026_topologyaware_query_selection.md (arxiv:2608.11607)
+- `2026-09-05T13:43:04Z` add_experiment: added exp:yolo26-strict-quality-20260905 [verdict=partial confidence=high]
+- `2026-09-05T13:48:51Z` recent-neighbor verification: enriched and verified paper:zhang2026_topologyaware_query_selection and paper:prytula2026_qcell_recombining_aligning from official arXiv metadata/v1 PDFs; registry statuses core-verified; no project novelty or transfer claim
+- `2026-09-06T17:29:08Z` add_experiment: added exp:yolo26-confidence-20260907 [verdict=partial confidence=medium]
+- `2026-09-06T17:29:10Z` add_experiment: added exp:faro-box-support-20260907 [verdict=partial confidence=medium]
+- `2026-09-06T17:31:01Z` ingest_paper: ingested paper:compte2025_housed_pig_identification (arxiv:)
+- `2026-09-06T17:34:27Z` Dataset scope assessment: recorded official split evidence and recommendation for one conditional independent validation source in dataset_scope_assessment_20260907.md; no experimental scope change.
+- `2026-09-06T17:35:47Z` add_experiment: updated exp:faro-box-support-20260907 [verdict=partial confidence=high]
+- `2026-09-06T17:37:02Z` 2026-09-07 continuation: R005c full statistics recovered; user chose Faro box/mask/annotation priority. R005d source raster parity passed; 7008 support rows reproduced by independent deterministic implementation. Official Faro metadata/schema verified, modal/amodal policy unresolved. Method Gate remains blocked.
+- `2026-09-06T18:04:22Z` add_experiment: added exp:yolo26-external-full-20260907 [verdict=partial confidence=high]
+- `2026-09-06T18:16:54Z` Completed user-authorized R012 all-split Faro/Bama inference: 4858 images, 27745 GT, 45664 predictions, historical parity and 6397 input hashes PASS. Faro AP .398061; Bama .641492. R012b duplicate sensitivity completed in v2 with fixed policies, AP changes +.2990/+.3000/+.6040 points; v1 partial failure retained. Report research-wiki/yolo26_external_full_20260907.md. Method gates unchanged.
+- `2026-09-06T18:35:31Z` add_experiment: added exp:yolo26-o-criterion-review-20260907 [verdict=partial confidence=high]
+- `2026-09-06T18:35:35Z` Reviewed active O criterion at user request. Strong core relation is not exhaustive fragmentation: unequal-partition counterexamples and 245 Faro/29 Bama current-MISS union screens recorded. Full 27745-label parity and 12 input hashes pass. O high-overlap descriptors and threshold/weak-edge sensitivity reported. Baseline labels, method direction and Gates unchanged. Report research-wiki/o_criterion_review_20260907.md.
+- `2026-09-07T06:55:26Z` Reviewed project against user common-mechanism discovery goal and ten risks. Recovered corrected MaskDINO 426-image/9342-prediction summary and historical cross-model adjusted-statistics archives; some raw analysis paths missing. Current scope and legacy rule mismatch identified. New R005c audit says fail with contradictory accepted metadata; recorded restriction without modifying evidence. Report project_mechanism_goal_audit_20260907.md. No route, method, training or evaluation-rule change.

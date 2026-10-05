@@ -1,0 +1,69 @@
+{
+  "protocol_id": "PROTOCOL_frozen_weight_transfer_and_latency_v5_20260915",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "purpose": "Frozen m-to-s checkpoint transfer and measured deployable inference cost",
+  "frozen_model_run": "RUN_d01ffdef9f3c498fa3529d96cea875eb",
+  "transfer": {
+    "from": "COCO-pretrained YOLO26m-seg",
+    "to": "COCO-pretrained YOLO26s-seg",
+    "ultralytics": "8.4.100",
+    "branch": "one2one",
+    "images": "COCO val2017 sorted image IDs [500:5000], same previously explored4500",
+    "imgsz": 640,
+    "conf": 0.001,
+    "max_det": 300,
+    "half": false,
+    "batch": 1,
+    "refit": false,
+    "threshold_selection": false,
+    "controls": [
+      "baseline",
+      "fixed smooth",
+      "boundary-only smooth",
+      "frozen area",
+      "frozen shape",
+      "frozen response",
+      "frozen selected global0.25"
+    ]
+  },
+  "speed": {
+    "model": "YOLO26m-seg",
+    "device": "28358lan RTX4060 Laptop",
+    "images": 80,
+    "selection": "80 evenly spaced indices in existing4500 image list",
+    "rounds": 4,
+    "orders": "cyclic rotation of all four modes",
+    "warmup_per_block": 8,
+    "variants": [
+      "official",
+      "chunked_zero",
+      "fixed_smooth",
+      "risk_response"
+    ],
+    "timing": "CUDA synchronized batch-one model.predict; preloaded numpy images; includes preprocessing forward postprocess feature extraction CPU transfer forest inference",
+    "excludes": "image disk decoding setup warmup RLE export evaluation",
+    "portable": "Numeric-only tree export from sklearn1.7.2, verified vs saved model on all507043 m candidates; target sklearn not loaded"
+  },
+  "run_ids": {
+    "portable": "RUN_140f19c618fe44f1a52006d56ce046a5",
+    "download": "RUN_772d3dc8ffdb4ebfafc9c58b82ef887b",
+    "speed": "RUN_e7df55bcc56541ca8c449e5065c885a4",
+    "transfer_bank": "RUN_2edbec60af4247f4be855834b6ff6382",
+    "transfer_eval": "RUN_f9df48632ac742248343184263262429",
+    "synthesis": "RUN_e1843ed934d745b09eb4d10526268f07"
+  },
+  "decision": "Report all frozen methods; positive normal AP transfer supports checkpoint robustness, not cross-dataset generalization or new root-cause evidence. Report actual latency including method costs even if large.",
+  "limitations": [
+    "same COCO validation images previously explored",
+    "one additional checkpoint",
+    "no gate refit or hyperparameter changes",
+    "AP point estimates; image bootstrap concerns fixed-slot R75 only",
+    "not a complete paper-readiness claim"
+  ],
+  "execution_notes": {
+    "verified_download": "RUN_5e5617f6bb2a4de0bdcb550e7d05b266 completed official GitHub ranged transfer; SHA256 equals publisher",
+    "remote_download": "RUN_772d3dc8ffdb4ebfafc9c58b82ef887b failed DNS",
+    "local_slow_download": "RUN_563dbbc64c7e46bb8b492d31e142f342 stopped after verified replacement available; partial retained",
+    "original_experiment_settings_unchanged": true
+  }
+}

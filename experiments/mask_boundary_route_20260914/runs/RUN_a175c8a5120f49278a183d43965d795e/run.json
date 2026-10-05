@@ -1,0 +1,201 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_a175c8a5120f49278a183d43965d795e",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\scripts\\summarize_decoder_controls.py",
+    "--input",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8fe82201101b4e9d941cb07a3496c110",
+    "--annotations",
+    "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+    "--output",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a175c8a5120f49278a183d43965d795e"
+  ],
+  "working_directory": "D:\\coco_wire",
+  "status": "completed",
+  "created_at": "2026-09-14T21:24:05.483+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8fe82201101b4e9d941cb07a3496c110\\SUMMARY.json",
+      "exists": true,
+      "sha256": "e20f197c4607654ed649ceb8ebf65bdc99330b9299414ccabe7507f4515ef868",
+      "size": 16988
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8fe82201101b4e9d941cb07a3496c110\\image_ids.json",
+      "exists": true,
+      "sha256": "b528b517225758a0023b5b9d11de74699d2e906469c90c0820c96c7e97fc2793",
+      "size": 35647
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8fe82201101b4e9d941cb07a3496c110\\instance_records.csv",
+      "exists": true,
+      "sha256": "a858e90ac31f66145846ed62087aef94d8e8c8d5091089b5cad063f559dfe708",
+      "size": 38676383
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\scripts\\summarize_decoder_controls.py",
+      "revision": "c1acb4fedadd8bf9126d884e1ce5bc396c6c21c227c581591a08e62cc6558569",
+      "snapshot": "snapshots/c1acb4fedadd8bf9126d884e1ce5bc396c6c21c227c581591a08e62cc6558569"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\finish_confirmation.ps1",
+      "revision": "7fd6844da252113996b93574203e111e7d60420d4485b1365e9a92da040a2af1",
+      "snapshot": "snapshots/7fd6844da252113996b93574203e111e7d60420d4485b1365e9a92da040a2af1"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a175c8a5120f49278a183d43965d795e\\ANALYSIS.json",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a175c8a5120f49278a183d43965d795e\\decoder_controls.png"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a175c8a5120f49278a183d43965d795e"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 19576,
+  "started_at": "2026-09-14T21:24:06.006+00:00",
+  "last_heartbeat": "2026-09-14T21:24:06.006+00:00",
+  "metrics": {
+    "source_run_id": "RUN_8fe82201101b4e9d941cb07a3496c110",
+    "analysis_run_id": "RUN_a175c8a5120f49278a183d43965d795e",
+    "images": 4500,
+    "ordinary_gt": 32831,
+    "metric": "fixed-slot Mask Recall@.75, all ordinary GT denominator",
+    "bootstrap": "2000 paired image cluster resamples, seed 20260915; diagnostic recall only, not AP CI",
+    "scope": "frozen-rule confirmation",
+    "estimates": {
+      "official_zero": {
+        "delta_r75_percentage_points": 0.0,
+        "baseline_r75": 58.07011665803661,
+        "r75": 58.07011665803661,
+        "repaired": 0,
+        "damaged": 0,
+        "image_bootstrap_95ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "official_gated": {
+        "delta_r75_percentage_points": 0.8985410130669185,
+        "baseline_r75": 58.07011665803661,
+        "r75": 58.96865767110353,
+        "repaired": 914,
+        "damaged": 619,
+        "image_bootstrap_95ci": [
+          0.641490041479413,
+          1.1582043255694128
+        ]
+      },
+      "official_global": {
+        "delta_r75_percentage_points": 0.0426426243489385,
+        "baseline_r75": 58.07011665803661,
+        "r75": 58.112759282385554,
+        "repaired": 1112,
+        "damaged": 1098,
+        "image_bootstrap_95ci": [
+          -0.2718474444312457,
+          0.335788249216185
+        ]
+      },
+      "official_erode": {
+        "delta_r75_percentage_points": -3.70077061314002,
+        "baseline_r75": 58.07011665803661,
+        "r75": 54.369346044896595,
+        "repaired": 922,
+        "damaged": 2137,
+        "image_bootstrap_95ci": [
+          -4.122007765430182,
+          -3.297943124662883
+        ]
+      },
+      "smooth_gated": {
+        "delta_r75_percentage_points": 1.0081934756784745,
+        "baseline_r75": 58.07011665803661,
+        "r75": 59.078310133715085,
+        "repaired": 907,
+        "damaged": 576,
+        "image_bootstrap_95ci": [
+          0.7646185133992854,
+          1.248975364735463
+        ]
+      }
+    },
+    "paired_comparisons": {
+      "smooth_gated_vs_official_gated": {
+        "delta_r75_percentage_points": 0.10965246261155615,
+        "image_bootstrap_95ci": [
+          0.012202879232352037,
+          0.20409930846472943
+        ]
+      },
+      "official_gated_vs_official_global": {
+        "delta_r75_percentage_points": 0.85589838871798,
+        "image_bootstrap_95ci": [
+          0.6938711180442538,
+          1.012444635713598
+        ]
+      }
+    },
+    "ap_delta": {
+      "official_zero": 0.0,
+      "official_gated": 0.33703997634960126,
+      "official_global": -0.3304202167665693,
+      "official_erode": -1.844434026444275,
+      "smooth_gated": 0.4493910839057813
+    }
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a175c8a5120f49278a183d43965d795e\\ANALYSIS.json",
+    "sha256": "c0271901471ab034fe0fa5c1ea618d46ea79c90e43f04f1dc069e4d32f244b06"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-14T21:24:09.866+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a175c8a5120f49278a183d43965d795e\\ANALYSIS.json",
+      "exists": true,
+      "sha256": "c0271901471ab034fe0fa5c1ea618d46ea79c90e43f04f1dc069e4d32f244b06"
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a175c8a5120f49278a183d43965d795e\\decoder_controls.png",
+      "exists": true,
+      "sha256": "1c7d63b7dd4f2e33478d820780c76067e27e4b2870eea0da39e45e8c6eefac47"
+    }
+  ]
+}

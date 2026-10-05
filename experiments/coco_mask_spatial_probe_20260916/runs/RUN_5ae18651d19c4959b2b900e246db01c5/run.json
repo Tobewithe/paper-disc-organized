@@ -1,0 +1,113 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_5ae18651d19c4959b2b900e246db01c5",
+  "study_id": "STUDY_82ea1e5264ca430a97dff79b8912f847",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/component_seed_probe.py",
+    "train",
+    "--reference",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6",
+    "--bank",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e83cf453bd6e47feb025ef4259bc8499/training_bank.pt",
+    "--mode",
+    "local4",
+    "--seed",
+    "1",
+    "--objective",
+    "plain",
+    "--out",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_5ae18651d19c4959b2b900e246db01c5"
+  ],
+  "working_directory": "/root/autodl-tmp/coco_mask_spatial_probe_20260916",
+  "status": "completed",
+  "created_at": "2026-09-16T08:20:38.958+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6/SPLIT.json",
+      "exists": true,
+      "sha256": "341c7bb9f2f6186f9985d800e0986ffea6f1baeb48b2c200dfeab25aab046ade",
+      "size": 47212
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/preservation_manifest.json",
+      "exists": true,
+      "sha256": "555bf3375aa4c7c954ac05491d96254c94e7c23fef33067d8bb1d534b0e659b2",
+      "size": 1037
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/component_seed_probe.py",
+      "revision": "485567116721e91ce5d5711ce6b55f17f15b8f7109c636a258e2085cb339913e",
+      "snapshot": "snapshots/485567116721e91ce5d5711ce6b55f17f15b8f7109c636a258e2085cb339913e"
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/learn_refinement.py",
+      "revision": "47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912",
+      "snapshot": "snapshots/47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912"
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/repair_refinement.py",
+      "revision": "d666b292e46dde34e5ba76910a7e7c3a91cb40e7d03352123141d2a8638b8165",
+      "snapshot": "snapshots/d666b292e46dde34e5ba76910a7e7c3a91cb40e7d03352123141d2a8638b8165"
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/component_seed_probe.py",
+      "revision": "485567116721e91ce5d5711ce6b55f17f15b8f7109c636a258e2085cb339913e",
+      "snapshot": "snapshots/485567116721e91ce5d5711ce6b55f17f15b8f7109c636a258e2085cb339913e"
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/PRESERVATION_PROTOCOL.json",
+      "revision": "f30af08b12ef7b216caf138e13a8c9066dc88672f6592b22a15aea9aa205cc07",
+      "snapshot": "snapshots/f30af08b12ef7b216caf138e13a8c9066dc88672f6592b22a15aea9aa205cc07"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_5ae18651d19c4959b2b900e246db01c5/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_5ae18651d19c4959b2b900e246db01c5"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 12999,
+  "started_at": "2026-09-16T08:20:39.071+00:00",
+  "last_heartbeat": "2026-09-16T08:20:54.076+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-16T08:20:58.161+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_5ae18651d19c4959b2b900e246db01c5/COMPLETE.json",
+      "exists": true,
+      "sha256": "66e07ccc56ab17f43b8d4f44a66752d048a6e223d54bb3682d94ee8163b01250"
+    }
+  ]
+}

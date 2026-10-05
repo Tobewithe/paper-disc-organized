@@ -1,0 +1,60 @@
+{
+  "study_id": "STUDY_8c3ee4f4c2134a5a8c623ef35fbc35f8",
+  "phase": "native_one2many_coefficient_head_online_training",
+  "ultralytics": "8.4.100",
+  "weights": "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+  "data": "/root/autodl-tmp/datasets/coco2017",
+  "fit_images": 2000,
+  "selection_images": 500,
+  "evaluation_images": 5000,
+  "seed": 0,
+  "epochs": 8,
+  "batch": 4,
+  "workers": 4,
+  "arms": {
+    "R": "unmodified official pretrained reference",
+    "A": "official mask loss; train entire native cv4",
+    "B": "official loss plus direct prototype-response preservation objective",
+    "C": "official loss plus Bernoulli response distillation from 5-step coefficient solver"
+  },
+  "auxiliary": {
+    "points": 256,
+    "teacher_steps": 5,
+    "beta": 0.5,
+    "rho": 0.01,
+    "damping": 0.01,
+    "lambda": 1.0,
+    "reference_precision": "FP32 on detached feature tensors; main training keeps saved AMP setting"
+  },
+  "protection_reference": "fixed pretrained cv4 evaluated on same transformed image features; reference-correct pixels only",
+  "reference_revision_reason": "current-output self-reference gives zero guard/trust gradient at each B update; use fixed initial head for B and C",
+  "bn": "running mean/variance frozen in ALL modules; cv4 weights and affine parameters trainable",
+  "assignment": "official one2many positive assignment captured in native loss; at most two uniformly selected candidates per GT for B/C auxiliary",
+  "primary_checkpoint": "epoch8 EMA cv4; no validation checkpoint/alpha selection",
+  "evaluation": {
+    "branch": "one2many",
+    "nms": true,
+    "imgsz": 640,
+    "square_input": true,
+    "conf": 0.001,
+    "iou": 0.7,
+    "max_det": 300,
+    "multi_label": true,
+    "coco_maxDets": [
+      1,
+      10,
+      100
+    ],
+    "precision": "FP32",
+    "mask_decode": "official process_mask_native on 640 input; official scale_masks with letterbox ratio_pad to original shape, as native JSON export"
+  },
+  "training_config": "supported saved checkpoint train_args; declared short budget, partial parameter training, fixed BN; hardware/output overrides",
+  "limitations": [
+    "seed0 pilot",
+    "COCO val2017 is previously explored",
+    "equal outer steps, unequal teacher compute",
+    "not end-to-end validation",
+    "sampled auxiliary pixels; original official mask loss unchanged"
+  ],
+  "queue": "prepare, smoke A/B/C, train A/B/C, evaluate R/A/B/C, paired summary; independent run ID each"
+}

@@ -1,0 +1,71 @@
+{
+  "agent_id": "/root/audit_ownership_ranking",
+  "overall_verdict": "warn",
+  "date": "2026-09-12",
+  "claims": [
+    {
+      "impact": "supported",
+      "id": "exact_pilot_no_go"
+    },
+    {
+      "impact": "unsupported",
+      "id": "ranking_efficacy_and_cause"
+    }
+  ],
+  "integrity_status": "warn",
+  "summary": "No fatal execution/evaluation defect found; recorded NO_GO supported; frozen candidate and reused validation limit claims.",
+  "reviewer_reasoning": "ultra",
+  "verdict_id": "/root/audit_ownership_ranking",
+  "verdict": "WARN",
+  "review_independence": "same-family",
+  "reviewer_family": "openai",
+  "reason_code": "bounded_frozen_head_reused_validation",
+  "executor_clarifications": [
+    "Verbatim reviewer report preserved. Official GT-pair task recovery uses all ordinary GT pairs meeting geometry, not only the bbox-matched spatial subset. Only spatial diagnostics and training are fixed-matched.",
+    "Sampling interpolation replay is in cache_ownership_ranking.py; train_ownership_ranking.py:42 is the gradient/runtime witness. Some reviewer line anchors are approximate.",
+    "6 loss arms x 3 seeds = 18 runs; not 18 distinct loss arms."
+  ],
+  "reviewer_model": "gpt-5.6-sol",
+  "limitations": [
+    "Original COCO annotation JSON unavailable to local reviewer; no independent recomputation of official AP",
+    "Training and inference were not rerun",
+    "Reused 500-val subset; frozen post-NMS nonempty candidates; fixed matched spatial cohort"
+  ],
+  "checks": {
+    "eval_type": "real_gt",
+    "dead_code": {
+      "status": "PASS"
+    },
+    "score_normalization": {
+      "status": "PASS"
+    },
+    "gt_provenance": {
+      "status": "PASS"
+    },
+    "scope": {
+      "status": "WARN"
+    },
+    "result_existence": {
+      "status": "PASS"
+    }
+  },
+  "trace_path": ".aris/traces/experiment-audit/2026-09-12_run01/",
+  "audit_skill": "experiment-audit",
+  "audited_input_hashes": {
+    "experiments/coco_clean_20260911/train_ownership_ranking.py": "357eb48d42c0b3ef85f2fbe4da4dc1f3e774fc7277272481fe8ebea4186c4073",
+    "experiments/coco_clean_20260911/cache_ownership_ranking.py": "06839a2f983f84db2ce0731bc21231de5d5c33153c2dd0e7db0fde53856ce707",
+    "experiments/coco_clean_20260911/ownership_ranking.py": "69f579ab13266617cf77bc553a8897142cb022e376020abc872ccc126a558b98",
+    "experiments/coco_clean_20260911/local_coefficient_head.py": "c6b3a3326e8802a929e822e52c5e3f35ff22b1f5fdf9af83cf5fc6c995fe565a",
+    "experiments/coco_clean_20260911/run_ownership_ranking.sh": "c03c5a0ff5706636b5c0629ffd8cf28eefb6f11a5d8d7a081f0db1986db46c18",
+    "experiments/coco_clean_20260911/eval_ownership_ranking.py": "48c4e0fff5ab58f802bb646b697e4f61185e51fe27ed172e9c76a9654fe092ca",
+    "experiments/coco_clean_20260911/diagnostics/ownership_ranking_eval_20260912/COMPLETE.json": "a2de931db4e0ce40596e0693c1871f5fb2a711998483c024d0995eefc2211901",
+    "experiments/coco_clean_20260911/diagnostics/ownership_ranking_train_20260912/COMPLETE.json": "57cf01f58e46a9d18f74542e6503c2a71f7c75b6e79f8bfc3c94bc960b8a853d",
+    "experiments/coco_clean_20260911/relative_ownership_experiment.py": "14480ef7b728084d597e1d78ec067f6e5d008f7b157b4c294b9fbc83c183ac63",
+    "experiments/coco_clean_20260911/ownership_ranking_protocol_20260912.json": "e783e568abdc781c86015b0544c84eff9704622a26c4210b2c0abb0ac8108574",
+    "experiments/coco_clean_20260911/frozen_mechanism_probe.py": "e1cd6a4859761d37e88cdfd01ade1cb04d4c50edbf1cbc587b9ef65568fae256",
+    "experiments/coco_clean_20260911/summarize_relative_ownership.py": "796459026d73f725d2847a71e0c9cea681c5689424c000fd275f8a4827c1263d",
+    "experiments/coco_clean_20260911/summarize_ownership_ranking.py": "681874779a4d378ed7c282b1f9cfcd948f66f418fa6ccc3540baeef544145363",
+    "experiments/coco_clean_20260911/diagnostics/ownership_ranking_eval_20260912/PAIRED_ANALYSIS.json": "33d90e393cfb8c31892c6fdadfcecda382fa5b5e0d1ee3fd960e623dba046a3c"
+  },
+  "acceptance_status": "provisional"
+}

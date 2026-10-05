@@ -1,0 +1,28 @@
+{
+  "id": "STUDY_a390425fa51e46f19f9578f0bca2542a",
+  "kind": "diagnostic",
+  "title": "P3 method branch transfer and training gate attribution",
+  "status": "completed",
+  "parent": "counterfactual_p3_fullcoco_20260914",
+  "question": "Does the localization benefit reach the deployment branch, and which augmented targets and official assignment slots receive auxiliary supervision?",
+  "protocol": {
+    "checkpoint_scope": "Existing official pretrained, full-data seed-0 baseline and IG-P3 checkpoints; no optimizer updates",
+    "branch_evaluation": "Both final checkpoints on both one-to-many+NMS and one-to-one; same frozen 438 targets and all 5000 raw COCO val2017 images. Prior one-to-one native-val exports are reused; one-to-many uses the same validator settings with explicit end2end=False and COCO category IDs.",
+    "target_endpoint": "Raw geometry, class correctness, final GT-associated box/mask IoU, coverage, purity, boundary F1 and threshold attainment; conditional paired bootstrap, not unique detection recall",
+    "gate_panel": "384 anchor training images: 256 randomly selected non-pilot images plus 128 randomly selected pilot images, fixed seed 20260915. Official full training augmentation pool. Identical augmented tensors supplied to initial, baseline and method students; fixed initial teacher. Diagnostic Mosaic source indices are drawn uniformly over full train2017, avoiding a small replay buffer; augmentation probabilities and image/label transforms retain the official recipe. This is not an exact reconstruction of training minibatches.",
+    "gate_endpoint": "Eligibility, neighbor presence, original-teacher versus edited-teacher response at the same location, student all-candidate failure, official assigner ownership, and local output-gradient agreement for native detection versus auxiliary loss",
+    "scope_limit": "Frozen-checkpoint diagnostic replay, not a reconstruction of gate frequency throughout the completed training. BatchNorm student training statistics are used only in memory; no checkpoint is saved or updated. Teacher uses frozen BatchNorm as in training.",
+    "run_policy": "Separate smoke and actual runs. Runtime branch assertions and official category/image/segmentation-area checks. Run logs and partial failures preserved. No long training launched by this diagnostic."
+  },
+  "remote_path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915",
+  "result_summary": "REPORT.md",
+  "completed_runs": [
+    "RUN_9f3fe9c7920145a5967902ebd7650a97",
+    "RUN_3477524a5581416aa6ec399468c94b21",
+    "RUN_2e4dbd4831eb45788d609fc49ff00ca4"
+  ],
+  "result_scope": "Both branches on all 5000 val2017 images and 438 frozen targets; 384 augmented train anchors, 337 selected targets, three fixed students; no training. Supports deployment-transfer and assignment-alignment diagnostics, not efficacy of a revised method.",
+  "study_id": "STUDY_a390425fa51e46f19f9578f0bca2542a",
+  "report": "REPORT.md",
+  "scripts_directory": "scripts"
+}

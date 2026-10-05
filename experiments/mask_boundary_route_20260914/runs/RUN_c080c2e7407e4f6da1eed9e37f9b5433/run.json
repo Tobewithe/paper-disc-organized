@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_c080c2e7407e4f6da1eed9e37f9b5433",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "-u",
+    "D:\\coco_wire\\scripts\\deployment_v2\\deployment_smoke.py",
+    "--package-root",
+    "D:\\coco_wire\\py",
+    "--weights",
+    "D:\\mdoeldata\\pigcv-task05\\models\\yolo26m-seg.pt",
+    "--source",
+    "D:\\coco_wire\\data\\images\\val2017\\000000000139.jpg",
+    "--output",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c080c2e7407e4f6da1eed9e37f9b5433"
+  ],
+  "working_directory": "D:\\coco_wire",
+  "status": "completed",
+  "created_at": "2026-09-14T20:35:01.176+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\mdoeldata\\pigcv-task05\\models\\yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "D:\\coco_wire\\data\\images\\val2017\\000000000139.jpg",
+      "exists": true,
+      "sha256": "ffe0f0cec3b2e27aab1967229cdf0a0d7751dcdd5800322f0b8ac0dffb3b8a8d",
+      "size": 161811
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\scripts\\deployment_v2\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\deployment_v2\\deployment_smoke.py",
+      "revision": "adce2771c2eea5e62297f63b0dd9f0e23689ec1423a38e1133a899fbd698db36",
+      "snapshot": "snapshots/adce2771c2eea5e62297f63b0dd9f0e23689ec1423a38e1133a899fbd698db36"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c080c2e7407e4f6da1eed9e37f9b5433\\SUMMARY.json",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c080c2e7407e4f6da1eed9e37f9b5433\\calibrated_preview.jpg"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c080c2e7407e4f6da1eed9e37f9b5433"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 9540,
+  "started_at": "2026-09-14T20:35:01.701+00:00",
+  "last_heartbeat": "2026-09-14T20:35:06.713+00:00",
+  "metrics": {
+    "run_id": "RUN_c080c2e7407e4f6da1eed9e37f9b5433",
+    "zero_threshold_pixel_parity": true,
+    "boxes_scores_parity": true,
+    "source": "D:\\coco_wire\\data\\images\\val2017\\000000000139.jpg",
+    "baseline_instances": 300,
+    "calibrated_instances": 300,
+    "mode": "default one-to-one, non-retina",
+    "limitations": [
+      "single-image adapter smoke, not AP",
+      "previews filter score .25 for readability only"
+    ]
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c080c2e7407e4f6da1eed9e37f9b5433\\SUMMARY.json",
+    "sha256": "df8ae683e4cf3c6aa944dc488d8876160c8117e155ee4454394bb9efee49a2b0"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-14T20:35:07.989+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c080c2e7407e4f6da1eed9e37f9b5433\\SUMMARY.json",
+      "exists": true,
+      "sha256": "df8ae683e4cf3c6aa944dc488d8876160c8117e155ee4454394bb9efee49a2b0"
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c080c2e7407e4f6da1eed9e37f9b5433\\calibrated_preview.jpg",
+      "exists": true,
+      "sha256": "a2258a22068db40b1eb7bf7b73f4d7df7a2cd5be5bf89e2be63640bc36891212"
+    }
+  ]
+}

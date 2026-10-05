@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_f0836430494141479d6a36da31db7df4",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "-u",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\score_exported_variant.py",
+    "--input",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_7af84d53ea5344e58a9d324d0938c990",
+    "--variant",
+    "global_0.25",
+    "--annotations",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+    "--output",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_f0836430494141479d6a36da31db7df4"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-09-15T06:47:11.559+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_7af84d53ea5344e58a9d324d0938c990\\predictions_global_0.25.json",
+      "exists": true,
+      "sha256": "ccfb0dde4cc09e707d50c184cb80fcc61d1a8cf398a529d1c498d32a416b7ca4",
+      "size": 227046021
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\score_exported_variant.py",
+      "revision": "dd12fec25da340fbffab15cbc86c1c41b9dd53b44440ec4a1510c5225588bad6",
+      "snapshot": "snapshots/dd12fec25da340fbffab15cbc86c1c41b9dd53b44440ec4a1510c5225588bad6"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\continue_global_control.py",
+      "revision": "2f43792d2e34c29c0e974b71a5fd43f04458df1e2051fffbe57b2a609d50a540",
+      "snapshot": "snapshots/2f43792d2e34c29c0e974b71a5fd43f04458df1e2051fffbe57b2a609d50a540"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_f0836430494141479d6a36da31db7df4\\SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_f0836430494141479d6a36da31db7df4"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 4036,
+  "started_at": "2026-09-15T06:47:11.844+00:00",
+  "last_heartbeat": "2026-09-15T06:47:36.877+00:00",
+  "metrics": {
+    "run_id": "RUN_f0836430494141479d6a36da31db7df4",
+    "source_run": "RUN_7af84d53ea5344e58a9d324d0938c990",
+    "variant": "global_0.25",
+    "images": 4500,
+    "prediction_count": 506843,
+    "metrics": [
+      0.4360801209365432,
+      0.6621503745052049,
+      0.4715136850983955,
+      0.22943371099165197,
+      0.47672514383674364,
+      0.6401942470096379,
+      0.34101654642988066,
+      0.554075346357295,
+      0.5984511376360986,
+      0.41473444425959866,
+      0.6567356309489086,
+      0.7644079143805794
+    ],
+    "baseline_parity": {
+      "exact_exported_prediction_match": true,
+      "predictions": 506966
+    },
+    "elapsed_seconds": 27.677047799999855
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_f0836430494141479d6a36da31db7df4\\SUMMARY.json",
+    "sha256": "a3fc7cd35d19cad0946941c30bb011fa3da6954f540f3809f31ad5ca9027b0cc"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-15T06:47:40.242+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_f0836430494141479d6a36da31db7df4\\SUMMARY.json",
+      "exists": true,
+      "sha256": "a3fc7cd35d19cad0946941c30bb011fa3da6954f540f3809f31ad5ca9027b0cc"
+    }
+  ]
+}

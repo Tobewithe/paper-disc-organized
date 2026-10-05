@@ -1,0 +1,580 @@
+{
+  "status": "success",
+  "backend": "qdrant",
+  "total_count": 10,
+  "result": [
+    {
+      "arxiv_id": "1908.06623",
+      "score": 0.5,
+      "title": "IRNet: Instance Relation Network for Overlapping Cervical Cell Segmentation",
+      "tldr": "[research paper] IRNet introduces a novel Instance Relation Module (IRM) that leverages self-attention-based instance association matrices to enhance semantic consistency in overlapping cervical cell segmentation by fusing contextual information across cell instances. A sparsity-constrained Duplicate Removal Module (DRM) corrects misalignment between classification and localization scores, improving proposal quality in dense cell clumps. The method achieves state-of-the-art performance on a large-scale Pap smear dataset (8000+ cell annotations) by enabling end-to-end instance segmentation without relying on precise nuclei detection as a seed.",
+      "abstract": "Cell instance segmentation in Pap smear image remains challenging due to the wide existence of occlusion among translucent cytoplasm in cell clumps. Conventional methods heavily rely on accurate nuclei detection results and are easily disturbed by miscellaneous objects. In this paper, we propose a novel Instance Relation Network (IRNet) for robust overlapping cell segmentation by exploring instance relation interaction. Specifically, we propose the Instance Relation Module to construct the cell association matrix for transferring information among individual cell-instance features. With the collaboration of different instances, the augmented features gain benefits from contextual information and improve semantic consistency. Meanwhile, we proposed a sparsity constrained Duplicate Removal Module to eliminate the misalignment between classification and localization accuracy for candidates selection. The largest cervical Pap smear (CPS) dataset with more than 8000 cell annotations in Pap smear image was constructed for comprehensive evaluation. Our method outperforms other methods by a large margin, demonstrating the effectiveness of exploring instance relation.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Yanning Zhou",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Hao Chen",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Jiaqi Xu",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Qi Dou",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Pheng-Ann Heng",
+          "orgs": []
+        }
+      ],
+      "url": "https://arxiv.org/abs/1908.06623",
+      "date": "2019-08-19T00:00:00",
+      "citation_count": 54,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "International Conference on Medical Image Computing and Computer-Assisted Intervention",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2308.05062",
+      "score": 0.5,
+      "title": "Competitions in AI -- Robustly Ranking Solvers Using Statistical Resampling",
+      "tldr": "[research paper] The paper demonstrates that competition rankings in AI are highly sensitive to small changes in benchmark instances, even single instance removals, leading to frequent rank inversions and statistical ties. It introduces a statistical resampling framework to compute confidence intervals and robust rankings with bounded error, revealing that official rankings often lack generalizability and are not stable under instance perturbations in SAT, AI planning, and computer vision competitions.",
+      "abstract": "Solver competitions play a prominent role in assessing and advancing the state of the art for solving many problems in AI and beyond. Notably, in many areas of AI, competitions have had substantial impact in guiding research and applications for many years, and for a solver to be ranked highly in a competition carries considerable weight. But to which extent can we expect competition results to generalise to sets of problem instances different from those used in a particular competition? This is the question we investigate here, using statistical resampling techniques. We show that the rankings resulting from the standard interpretation of competition results can be very sensitive to even minor changes in the benchmark instance set used as the basis for assessment and can therefore not be expected to carry over to other samples from the same underlying instance distribution. To address this problem, we introduce a novel approach to statistically meaningful analysis of competition results based on resampling performance data. Our approach produces confidence intervals of competition scores as well as statistically robust solver rankings with bounded error. Applied to recent SAT, AI planning and computer vision competitions, our analysis reveals frequent statistical ties in solver performance as well as some inversions of ranks compared to the official results based on simple scoring.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Chris Fawcett",
+          "orgs": [
+            "Department of Computer Science, University of British Columbia, Canada"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Mauro Vallati",
+          "orgs": [
+            "School of Computing and Engineering, University of Huddersfield, United Kingdom"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Holger H. Hoos",
+          "orgs": [
+            "Department of Computer Science, University of British Columbia, Canada",
+            "Chair for AI Methodology, RWTH Aachen University, Germany",
+            "LIACS, Leiden University, The Netherlands"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Alfonso E. Gerevini",
+          "orgs": [
+            "Department of Information Engineering, University of Brescia, Italy"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2308.05062",
+      "date": "2023-08-09T00:00:00",
+      "citation_count": 6,
+      "categories": [
+        "cs.AI"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2505.04143",
+      "score": 0.33333334,
+      "title": "Evaluating Performance Consistency in Competitive Programming: Educational Implications and Contest Design Insights",
+      "tldr": "[empirical study] Performance consistency across ICPC superregional contests varies significantly, with Northern Eurasia showing strong rank alignment (τ = 0.521) and Asia West the weakest (τ = 0.188), while internal regional consistency often exceeds cross-tier predictive power. Codeforces ratings demonstrate superior predictive validity (τ = 0.596) over any single ICPC tier, indicating that high-frequency online contests better capture decisive algorithmic skill factors than traditional, infrequent superregional events. These findings suggest that contest design should align with proven performance consistency models—particularly those resembling the Northern Eurasian format—and incorporate curated online competition formats to improve fairness and pedagogical effectiveness.",
+      "abstract": "Competitive programming (CP) contests are often treated as interchangeable proxies for algorithmic skill, yet the extent to which results at lower contest tiers anticipate performance at higher tiers, and how closely any tier resembles the ubiquitous online-contest circuit, remains unclear. We analyze ten years (2015--2024) of International Collegiate Programming Contest (ICPC) standings, comprising five long-running superregional championships (Africa \\\\& Arab, Asia East, Asia West, North America, and Northern Eurasia), associated local regionals of North America and Northern Eurasia, and the World Finals. For 366 World Finalist teams (2021--2024) we augment the dataset with pre-contest Codeforces ratings. Pairwise rank alignment is measured with Kendall's $\\\\tau$.\\\n  Overall, superregional ranks predict World Final ranks only moderately (weighted $\\\\tau=0.407$), but regional-to-superregional consistency varies widely: Northern Eurasia exhibits the strongest alignment ($\\\\tau=0.521$) while Asia West exhibits the weakest ($\\\\tau=0.188$). Internal consistency within a region can exceed its predictive value for Worlds -- e.g., Northern Eurasia and North America regionals vs. superregionals ($\\\\tau=0.666$ and $\\\\tau=0.577$, respectively). Codeforces ratings correlate more strongly with World Final results ($\\\\tau=0.596$) than any single ICPC tier, suggesting that high-frequency online contests capture decisive skill factors that many superregional sets miss.\\\n  We argue that contest organizers can improve both fairness and pedagogical value by aligning problem style and selection rules with the formats that demonstrably differentiate teams, in particular the Northern-Eurasian model and well-curated online rounds. All data, scripts, and additional analyses are publicly released to facilitate replication and further study.",
+      "authors": [
+        {
+          "misc": {
+            "email": "luo401@purdue.edu"
+          },
+          "name": "Zhongtang Luo",
+          "orgs": [
+            "Department of Computer Science",
+            "Purdue University",
+            "West Lafayette, USA"
+          ]
+        },
+        {
+          "misc": {
+            "email": "dickeye@purdue.edu"
+          },
+          "name": "Ethan Dickey",
+          "orgs": [
+            "Department of Computer Science",
+            "Purdue University",
+            "West Lafayette, USA"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2505.04143",
+      "date": "2025-05-07T00:00:00",
+      "citation_count": 0,
+      "categories": [
+        "cs.CY",
+        "stat.AP"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": "https://github.com/zhtluo/cp-ranking"
+    },
+    {
+      "arxiv_id": "2309.11857",
+      "score": 0.33333334,
+      "title": "TCOVIS: Temporally Consistent Online Video Instance Segmentation",
+      "tldr": "[research paper] TCOVIS introduces a global instance assignment strategy and a spatio-temporal enhancement module to achieve temporal consistency in online video instance segmentation. The global assignment optimizes across the entire video clip by computing global optimal matching between predictions and ground truth, replacing local per-frame matching. The spatio-temporal module extracts instance-wise spatial features via spatial matting and fuses them with semantic features using cross-attention, enabling better temporal coherence. This approach outperforms existing online methods on all major VIS benchmarks without additional complexity or bells-and-whistles.",
+      "abstract": "In recent years, significant progress has been made in video instance segmentation (VIS), with many offline and online methods achieving state-of-the-art performance. While offline methods have the advantage of producing temporally consistent predictions, they are not suitable for real-time scenarios. Conversely, online methods are more practical, but maintaining temporal consistency remains a challenging task. In this paper, we propose a novel online method for video instance segmentation, called TCOVIS, which fully exploits the temporal information in a video clip. The core of our method consists of a global instance assignment strategy and a spatio-temporal enhancement module, which improve the temporal consistency of the features from two aspects. Specifically, we perform global optimal matching between the predictions and ground truth across the whole video clip, and supervise the model with the global optimal objective. We also capture the spatial feature and aggregate it with the semantic feature between frames, thus realizing the spatio-temporal enhancement. We evaluate our method on four widely adopted VIS benchmarks, namely YouTube-VIS 2019/2021/2022 and OVIS, and achieve state-of-the-art performance on all benchmarks without bells-and-whistles. For instance, on YouTube-VIS 2021, TCOVIS achieves 49.5 AP and 61.3 AP with ResNet-50 and Swin-L backbones, respectively. Code is available at https://github.com/jun-long-li/TCOVIS.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Junlong Li",
+          "orgs": [
+            "Department of Automation, Tsinghua University, China",
+            "Beijing National Research Center for Information Science and Technology, China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Bingyao Yu",
+          "orgs": [
+            "Department of Automation, Tsinghua University, China",
+            "Beijing National Research Center for Information Science and Technology, China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Yongming Rao",
+          "orgs": [
+            "Department of Automation, Tsinghua University, China",
+            "Beijing National Research Center for Information Science and Technology, China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Jie Zhou",
+          "orgs": [
+            "Department of Automation, Tsinghua University, China",
+            "Beijing National Research Center for Information Science and Technology, China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Jiwen Lu",
+          "orgs": [
+            "Department of Automation, Tsinghua University, China",
+            "Beijing National Research Center for Information Science and Technology, China"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2309.11857",
+      "date": "2023-09-21T00:00:00",
+      "citation_count": 24,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "IEEE International Conference on Computer Vision",
+      "venue_year": 2023,
+      "github_url": "https://github.com/jun-long-li/TCOVIS"
+    },
+    {
+      "arxiv_id": "2107.03824",
+      "score": 0.27564102,
+      "title": "Instance-Level Relative Saliency Ranking with Graph Reasoning",
+      "tldr": "[research paper] The paper introduces a novel end-to-end framework for instance-level relative saliency ranking by combining improved Mask R-CNN for salient instance segmentation with a graph reasoning module that models instance interactions, local contrast, global contrast, and semantic priors via four specialized graphs. A custom ranking loss directly optimizes instance saliency order, overcoming limitations of pixel-wise regression and attention-shift-based methods. The model is validated on a newly proposed large-scale dataset with a comprehensive evaluation metric that jointly assesses segmentation, detection, and ranking performance.",
+      "abstract": "Conventional salient object detection models cannot differentiate the importance of different salient objects. Recently, two works have been proposed to detect saliency ranking by assigning different degrees of saliency to different objects. However, one of these models cannot differentiate object instances and the other focuses more on sequential attention shift order inference. In this paper, we investigate a practical problem setting that requires simultaneously segment salient instances and infer their relative saliency rank order. We present a novel unified model as the first end-to-end solution, where an improved Mask R-CNN is first used to segment salient instances and a saliency ranking branch is then added to infer the relative saliency. For relative saliency ranking, we build a new graph reasoning module by combining four graphs to incorporate the instance interaction relation, local contrast, global contrast, and a high-level semantic prior, respectively. A novel loss function is also proposed to effectively train the saliency ranking branch. Besides, a new dataset and an evaluation metric are proposed for this task, aiming at pushing forward this field of research. Finally, experimental results demonstrate that our proposed model is more effective than previous methods. We also show an example of its practical usage on adaptive image retargeting.",
+      "authors": [
+        {
+          "misc": {
+            "member": "IEEE"
+          },
+          "name": "Nian Liu",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Long Li",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Wangbo Zhao",
+          "orgs": []
+        },
+        {
+          "misc": {
+            "senior_member": "IEEE"
+          },
+          "name": "Junwei Han",
+          "orgs": []
+        },
+        {
+          "misc": {
+            "fellow": "IEEE"
+          },
+          "name": "Ling Shao",
+          "orgs": []
+        }
+      ],
+      "url": "https://arxiv.org/abs/2107.03824",
+      "date": "2021-07-08T00:00:00",
+      "citation_count": 35,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2208.09023",
+      "score": 0.25,
+      "title": "Single-Stage Open-world Instance Segmentation with Cross-task Consistency Regularization",
+      "tldr": "[research paper] The paper proposes SOIS, the first single-stage open-world instance segmentation (OWIS) method, which directly predicts both instance masks and a foreground map in an end-to-end manner. A novel cross-task consistency loss enforces alignment between the foreground map and instance masks, effectively mitigating the impact of incomplete annotations—common in OWIS datasets—by penalizing inconsistencies when instances are missed. This loss enables robust performance even under severe annotation gaps and allows the model to achieve state-of-the-art results in fully-supervised settings and outperforms fully-supervised baselines in semi-supervised settings with only 30% labeled data.",
+      "abstract": "Open-World Instance Segmentation (OWIS) is an emerging research topic that aims to segment class-agnostic object instances from images. The mainstream approaches use a two-stage segmentation framework, which first locates the candidate object bounding boxes and then performs instance segmentation. In this work, we instead promote a single-stage framework for OWIS. We argue that the end-to-end training process in the single-stage framework can be more convenient for directly regularizing the localization of class-agnostic object pixels. Based on the single-stage instance segmentation framework, we propose a regularization model to predict foreground pixels and use its relation to instance segmentation to construct a cross-task consistency loss. We show that such a consistency loss could alleviate the problem of incomplete instance annotation -- a common problem in the existing OWIS datasets. We also show that the proposed loss lends itself to an effective solution to semi-supervised OWIS that could be considered an extreme case that all object annotations are absent for some images. Our extensive experiments demonstrate that the proposed method achieves impressive results in both fully-supervised and semi-supervised settings. Compared to SOTA methods, the proposed method significantly improves the $AP_{100}$ score by 4.75\\\\% in UVO$\\\\rightarrow$UVO setting and 4.05\\\\% in COCO$\\\\rightarrow$UVO setting. In the case of semi-supervised learning, our model learned with only 30\\\\% labeled data, even outperforms its fully-supervised counterpart with 50\\\\% labeled data. The code will be released soon.",
+      "authors": [
+        {
+          "misc": {
+            "email": "xuexizhe@mail.nwpu.edu.cn"
+          },
+          "name": "Xizhe Xue",
+          "orgs": [
+            "Northwestern Polytechnical University",
+            "Show Lab, National University of Singapore"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Dongdong Yu",
+          "orgs": [
+            "ByteDance Inc."
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Lingqiao Liu",
+          "orgs": [
+            "University of Adelaide"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Yu Liu",
+          "orgs": [
+            "ByteDance Inc."
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Satoshi Tsutsui",
+          "orgs": [
+            "Show Lab, National University of Singapore"
+          ]
+        },
+        {
+          "misc": {
+            "corresponding_author": true
+          },
+          "name": "Ying Li",
+          "orgs": [
+            "Northwestern Polytechnical University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Zehuan Yuan",
+          "orgs": [
+            "ByteDance Inc."
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Ping Song",
+          "orgs": [
+            "ByteDance Inc."
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Mike Zheng Shou",
+          "orgs": [
+            "Show Lab, National University of Singapore"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2208.09023",
+      "date": "2022-08-18T00:00:00",
+      "citation_count": 4,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": "https://github.com/showlab/SOIS"
+    },
+    {
+      "arxiv_id": "1812.01192",
+      "score": 0.2,
+      "title": "Learning to Fuse Things and Stuff",
+      "tldr": "[research paper] TASCNet introduces a unified panoptic segmentation framework that jointly learns instance (things) and semantic (stuff) segmentation via a shared backbone and a differentiable Things-and-Stuff Consistency (TASC) constraint. The TASC loss enforces cross-task alignment by using a global binary mask to maintain output consistency during training, preventing conflicting predictions between things and stuff while improving both panoptic and individual task performance. Experimental results show competitive performance on Cityscapes, Mapillary Vistas, and COCO, with ablation studies confirming that TASC is critical for training stability and accuracy.",
+      "abstract": "We propose an end-to-end learning approach for panoptic segmentation, a novel task unifying instance (things) and semantic (stuff) segmentation. Our model, TASCNet, uses feature maps from a shared backbone network to predict in a single feed-forward pass both things and stuff segmentations. We explicitly constrain these two output distributions through a global things and stuff binary mask to enforce cross-task consistency. Our proposed unified network is competitive with the state of the art on several benchmarks for panoptic segmentation as well as on the individual semantic and instance segmentation tasks.",
+      "authors": [
+        {
+          "misc": {
+            "email": "jie.li@tri.global"
+          },
+          "name": "Jie Li",
+          "orgs": [
+            "Toyota Research Institute (TRI)"
+          ]
+        },
+        {
+          "misc": {
+            "email": "allan.raventos@tri.global"
+          },
+          "name": "Allan Raventos",
+          "orgs": [
+            "Toyota Research Institute (TRI)"
+          ]
+        },
+        {
+          "misc": {
+            "email": "arjun.bhargava@tri.global"
+          },
+          "name": "Arjun Bhargava",
+          "orgs": [
+            "Toyota Research Institute (TRI)"
+          ]
+        },
+        {
+          "misc": {
+            "email": "takaaki.tagawa@tri.global"
+          },
+          "name": "Takaaki Tagawa",
+          "orgs": [
+            "Toyota Research Institute (TRI)"
+          ]
+        },
+        {
+          "misc": {
+            "email": "adrien.gaidon@tri.global"
+          },
+          "name": "Adrien Gaidon",
+          "orgs": [
+            "Toyota Research Institute (TRI)"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/1812.01192",
+      "date": "2018-12-04T00:00:00",
+      "citation_count": 104,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2010.02570",
+      "score": 0.2,
+      "title": "Does the Objective Matter? Comparing Training Objectives for Pronoun Resolution",
+      "tldr": "[research paper] A fair comparison of four training objectives in pronoun resolution reveals that sequence ranking (WG-SR) achieves superior in-domain performance on WinoGrande, while semantic similarity outperforms in out-of-domain settings (e.g., WSC, DPR). Despite its strength, WG-SR exhibits significant seed-wise instability, whereas other objectives show consistent and stable behavior across runs, highlighting a critical trade-off between performance and reproducibility in transformer-based commonsense reasoning models.",
+      "abstract": "Hard cases of pronoun resolution have been used as a long-standing benchmark for commonsense reasoning. In the recent literature, pre-trained language models have been used to obtain state-of-the-art results on pronoun resolution. Overall, four categories of training and evaluation objectives have been introduced. The variety of training datasets and pre-trained language models used in these works makes it unclear whether the choice of training objective is critical. In this work, we make a fair comparison of the performance and seed-wise stability of four models that represent the four categories of objectives. Our experiments show that the objective of sequence ranking performs the best in-domain, while the objective of semantic similarity between candidates and pronoun performs the best out-of-domain. We also observe a seed-wise instability of the model using sequence ranking, which is not the case when the other objectives are used.",
+      "authors": [
+        {
+          "misc": {
+            "email": "firstname.lastname@cs.ox.ac.uk"
+          },
+          "name": "Yordan Yordanov",
+          "orgs": [
+            "University of Oxford",
+            "Alan Turing Institute"
+          ]
+        },
+        {
+          "misc": {
+            "email": "firstname.lastname@cs.ox.ac.uk"
+          },
+          "name": "Oana-Maria Camburu",
+          "orgs": [
+            "University of Oxford",
+            "Alan Turing Institute"
+          ]
+        },
+        {
+          "misc": {
+            "email": "firstname.lastname@cs.ox.ac.uk"
+          },
+          "name": "Vid Kocijan",
+          "orgs": [
+            "University of Oxford",
+            "Alan Turing Institute"
+          ]
+        },
+        {
+          "misc": {
+            "email": "firstname.lastname@cs.ox.ac.uk"
+          },
+          "name": "Thomas Lukasiewicz",
+          "orgs": [
+            "University of Oxford",
+            "Alan Turing Institute"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2010.02570",
+      "date": "2020-10-06T00:00:00",
+      "citation_count": 2,
+      "categories": [
+        "cs.CL"
+      ],
+      "venue": "Conference on Empirical Methods in Natural Language Processing",
+      "venue_year": null,
+      "github_url": "https://github.com/YDYordanov/WS-training-objectives"
+    },
+    {
+      "arxiv_id": "2206.07011",
+      "score": 0.16666667,
+      "title": "Consistent Video Instance Segmentation with Inter-Frame Recurrent Attention",
+      "tldr": "[research paper] The paper proposes an Inter-Frame Recurrent (IFR) attention mechanism to explicitly model temporal instance consistency in video instance segmentation by iteratively updating frame-level and clip-level queries through cross- and self-attention between adjacent frames. The IFR module captures inter-frame correlations while preserving per-frame segmentation quality, leading to significantly improved temporal consistency—demonstrated via superior performance on YouTubeVIS-2019 (62.1%) and YouTubeVIS-2021 (54.7%)—with reduced instance identity switches, merges, or losses in challenging scenes like overlapping or same-category objects.",
+      "abstract": "Video instance segmentation aims at predicting object segmentation masks for each frame, as well as associating the instances across multiple frames. Recent end-to-end video instance segmentation methods are capable of performing object segmentation and instance association together in a direct parallel sequence decoding/prediction framework. Although these methods generally predict higher quality object segmentation masks, they can fail to associate instances in challenging cases because they do not explicitly model the temporal instance consistency for adjacent frames. We propose a consistent end-to-end video instance segmentation framework with Inter-Frame Recurrent Attention to model both the temporal instance consistency for adjacent frames and the global temporal context. Our extensive experiments demonstrate that the Inter-Frame Recurrent Attention significantly improves temporal instance consistency while maintaining the quality of the object segmentation masks. Our model achieves state-of-the-art accuracy on both YouTubeVIS-2019 (62.1\\\\%) and YouTubeVIS-2021 (54.7\\\\%) datasets. In addition, quantitative and qualitative results show that the proposed methods predict more temporally consistent instance segmentation masks.",
+      "authors": [
+        {
+          "misc": {
+            "email": "qyou@microsoft.com"
+          },
+          "name": "Quanzeng You",
+          "orgs": [
+            "Microsoft Cloud & AI"
+          ]
+        },
+        {
+          "misc": {
+            "email": "jiangwang@microsoft.com"
+          },
+          "name": "Jiang Wang",
+          "orgs": [
+            "Microsoft Cloud & AI"
+          ]
+        },
+        {
+          "misc": {
+            "email": "pengchu@microsoft.com"
+          },
+          "name": "Peng Chu",
+          "orgs": [
+            "Microsoft Cloud & AI"
+          ]
+        },
+        {
+          "misc": {
+            "email": "abrantes@microsoft.com"
+          },
+          "name": "Andre Abrantes",
+          "orgs": [
+            "Microsoft Cloud & AI"
+          ]
+        },
+        {
+          "misc": {
+            "email": "zliu@microsoft.com"
+          },
+          "name": "Zicheng Liu",
+          "orgs": [
+            "Microsoft Cloud & AI"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2206.07011",
+      "date": "2022-06-14T00:00:00",
+      "citation_count": 1,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2506.22977",
+      "score": 0.16666667,
+      "title": "On the Generalizability of \"Competition of Mechanisms: Tracing How Language Models Handle Facts and Counterfactuals\"",
+      "tldr": "[reproduction study] The study reproduces and extends Ortu et al.'s findings on mechanism competition in language models, revealing that factual recall and counterfactual repetition compete via specialized attention heads that attend to attribute positions. While the core patterns hold across GPT-2 and Pythia, they collapse in Llama 3.1 8B, indicating reduced attention head specialization in larger models. Prompt structure—such as avoiding verbatim repetition or altering premise words—significantly suppresses counterfactual logit scores, and domain-specific prompts that embed factual tokens in the subject position bias the competition, undermining the generalizability of the original claims. The attention head ablation method fails in underrepresented domains, suggesting its effectiveness is contingent on prompt design and model architecture.",
+      "abstract": "We present a reproduction study of \"Competition of Mechanisms: Tracing How Language Models Handle Facts and Counterfactuals\" (Ortu et al., 2024), which investigates competition of mechanisms in language models between factual recall and counterfactual in-context repetition. Our study successfully reproduces their primary findings regarding the localization of factual and counterfactual information, the dominance of attention blocks in mechanism competition, and the specialization of attention heads in handling competing information. We reproduce their results on both GPT-2 (Radford et al., 2019) and Pythia 6.9B (Biderman et al., 2023). We extend their work in three significant directions. First, we explore the generalizability of these findings to even larger models by replicating the experiments on Llama 3.1 8B (Grattafiori et al., 2024), discovering greatly reduced attention head specialization. Second, we investigate the impact of prompt structure by introducing variations where we avoid repeating the counterfactual statement verbatim or we change the premise word, observing a marked decrease in the logit for the counterfactual token. Finally, we test the validity of the authors' claims for prompts of specific domains, discovering that certain categories of prompts skew the results by providing the factual prediction token as part of the subject of the sentence. Overall, we find that the attention head ablation proposed in Ortu et al. (2024) is ineffective for domains that are underrepresented in their dataset, and that the effectiveness varies based on model architecture, prompt structure, domain and task.",
+      "authors": [
+        {
+          "misc": {
+            "email": "asen.dotsinski@student.uva.nl"
+          },
+          "name": "Asen Dotsinski",
+          "orgs": [
+            "University of Amsterdam"
+          ]
+        },
+        {
+          "misc": {
+            "email": "udit.thakur@student.uva.nl"
+          },
+          "name": "Udit Thakur",
+          "orgs": [
+            "University of Amsterdam"
+          ]
+        },
+        {
+          "misc": {
+            "email": "marko.ivanov@student.uva.nl"
+          },
+          "name": "Marko Ivanov",
+          "orgs": [
+            "University of Amsterdam"
+          ]
+        },
+        {
+          "misc": {
+            "email": "hafeez.khan@student.uva.nl"
+          },
+          "name": "Mohammad Hafeez Khan",
+          "orgs": [
+            "University of Amsterdam"
+          ]
+        },
+        {
+          "misc": {
+            "email": "m.c.heuss@uva.nl"
+          },
+          "name": "Maria Heuss",
+          "orgs": [
+            "University of Amsterdam"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2506.22977",
+      "date": "2025-06-28T00:00:00",
+      "citation_count": 0,
+      "categories": [
+        "cs.CL",
+        "cs.LG"
+      ],
+      "venue": "Trans. Mach. Learn. Res.",
+      "venue_year": null,
+      "github_url": "https://github.com/asendotsinski/comp-mech-generalizability"
+    }
+  ]
+}

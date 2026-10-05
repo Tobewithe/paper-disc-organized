@@ -1,0 +1,24 @@
+{
+  "study_id": "STUDY_82ea1e5264ca430a97dff79b8912f847",
+  "source_run": "RUN_180459232c434a8ebc385f51dec06f63",
+  "instances": 144,
+  "selection": "12 each in 3 GT areas x 2 GT fill fractions (<.5, >=.75) x 2 raw outcomes, deterministic SHA256 order; Box75-constrained best mask witness",
+  "device": "remote RTX4090",
+  "arms": [
+    "scalar(1)",
+    "coeff(32)",
+    "coeff_bias(33)",
+    "local4(16)",
+    "coeff_local4(48)"
+  ],
+  "fixed": [
+    "raw identity",
+    "actual predicted bbox",
+    "prototype",
+    "model weights"
+  ],
+  "optimization": "per-instance GT-assisted Adam lr .08, 120 steps; BCE+0.5 soft Dice on input-grid GT within fixed predicted support; same initialization; coefficient directions normalized by prototype RMS",
+  "evaluation": "unchanged original-grid decoder at every10 steps; baseline, last iterate and GT-selected best reported; no AP or generalization claim",
+  "purpose": "isolate observed repair accessibility using coefficient/global/local spatial changes; does not prove global optimum or missing input features",
+  "environment": "remote Torch2.8.0+cu128 NumPy2.3.2 vs cache local Torch2.9.1; reconstruct cached baseline and assert original IoU agreement"
+}

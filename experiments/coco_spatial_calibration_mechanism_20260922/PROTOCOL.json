@@ -1,0 +1,32 @@
+{
+  "status": "predeclared",
+  "question": "Separate decoder boundary erosion from conditional spatial calibration and GT-box support mismatch.",
+  "sample": "1000 random train2017 images, seed20260922, exclude the previous800fit+200selection. First500 exploration, next500 confirmation; no tuning on either. Original COCO backbone saw train2017; these are held out only from refiner/template training.",
+  "mapping": "Fixed original prediction candidates. Same-class maximum Box IoU>=0.5 owner; drop raw identities owning multiple GT; one representative per GT chosen by highest Box IoU then raw id. No mask-quality or confidence ranking for representative choice. Does not claim official AP matching.",
+  "factors": {
+    "decoder": [
+      "official binary-scale-then-byte (fractional pixels discarded)",
+      "same binary and rescaling, threshold>0.5 instead of byte cast"
+    ],
+    "logits": [
+      "baseline",
+      "separate trained scalar",
+      "trained residual shared2",
+      "shared2 bias only",
+      "shared2 spatial only",
+      "shared2 reversed spatial term",
+      "shared2 applied only inside GT bbox (GT-assisted probe)",
+      "shared2 applied only outside GT bbox (GT-assisted probe)"
+    ]
+  },
+  "measurements": [
+    "fixed-candidate mask IoU/coverage/purity/Mask75",
+    "matched four-region pixel changes relative to same decoder baseline",
+    "conditional residual by base logit bin and normalized ROI center/ring",
+    "instance size, predicted-box quality, fill fraction, and input support",
+    "correction parameters and signed spatial effects"
+  ],
+  "statistics": "Paired image-cluster bootstrap1000 for prespecified contrasts, report exploration/confirmation separately; descriptive confidence intervals not AP intervals. No training or test-time method selection.",
+  "decision": "If gains vanish under only decoder threshold change, prioritize resampling compensation; if spatial gain persists and changes center/ring error in expected direction, continue conditional calibration and support probes. GT support oracle cannot be deployed.",
+  "budget": "First1000 held-out diagnostic; two legacy fit images for code smoke. Subsequent experiments chosen by findings and separately recorded, not automatic declaration of mechanism."
+}

@@ -1,0 +1,199 @@
+{
+  "run_id": "RUN_e0e0d46defb74e3d9a90094f49ce26fe",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "phase": "evaluate",
+  "source_run": "RUN_2ae67d6556a14848bceb5783a72e5790",
+  "model_run": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_d01ffdef9f3c498fa3529d96cea875eb",
+  "images": 4500,
+  "ordinary_gt": 32831,
+  "metrics": {
+    "official_zero": [
+      0.43378829983113415,
+      0.6616103654915565,
+      0.4684069936360102,
+      0.2271746005129265,
+      0.4751352465852974,
+      0.6410397905220456,
+      0.3395109945152272,
+      0.5514948652072141,
+      0.5958809836986783,
+      0.406178605654886,
+      0.656283403965914,
+      0.7681753462516039
+    ],
+    "smooth_gated": [
+      0.4382822106701921,
+      0.6629828199992381,
+      0.4756587568256892,
+      0.23109899534927347,
+      0.4781058646194709,
+      0.6409168507629428,
+      0.34221360052919253,
+      0.5559908770317828,
+      0.6000865258971667,
+      0.4181614773650159,
+      0.6536084373039732,
+      0.7670959386353285
+    ],
+    "boundary_only": [
+      0.43827286660163206,
+      0.662962526438424,
+      0.47565085293727355,
+      0.23108380249891794,
+      0.47810525674388876,
+      0.6409169874131411,
+      0.3421993264672023,
+      0.5559865814991367,
+      0.6000838892364417,
+      0.4181532639083971,
+      0.6536084373039732,
+      0.7670959386353285
+    ],
+    "risk_area": [
+      0.4376778648880995,
+      0.662998591618846,
+      0.47396220041489534,
+      0.23253141363397242,
+      0.4763512196302251,
+      0.6409169874131411,
+      0.3419006975474295,
+      0.5557236075755099,
+      0.6001217193846405,
+      0.4162849018028235,
+      0.6557600053806594,
+      0.7670959386353285
+    ],
+    "risk_shape": [
+      0.4379721996083199,
+      0.6634098341251059,
+      0.4746361897860534,
+      0.23286855607487847,
+      0.4776097328805093,
+      0.6410410250697117,
+      0.34179930199677366,
+      0.5563488399689119,
+      0.6013900430622645,
+      0.4180225285001986,
+      0.6566833455517356,
+      0.7675400704338664
+    ],
+    "risk_response": [
+      0.43939544208568915,
+      0.6646033772884464,
+      0.47618547554974916,
+      0.2359510502928063,
+      0.47844330743749747,
+      0.6408905123608387,
+      0.3422867350409306,
+      0.5575812792542757,
+      0.6030409441940308,
+      0.42202696836356457,
+      0.6572537884277639,
+      0.7671065516027301
+    ]
+  },
+  "delta_ap_points": {
+    "official_zero": 0.0,
+    "smooth_gated": 0.4493910839057924,
+    "boundary_only": 0.4484566770497911,
+    "risk_area": 0.38895650569653606,
+    "risk_shape": 0.4183899777185751,
+    "risk_response": 0.5607142254554998
+  },
+  "fit": {},
+  "selection": {
+    "area": {
+      "calibrated": 444350,
+      "kept_baseline": 62616,
+      "total": 506966
+    },
+    "shape": {
+      "calibrated": 356797,
+      "kept_baseline": 150169,
+      "total": 506966
+    },
+    "response": {
+      "calibrated": 366598,
+      "kept_baseline": 140368,
+      "total": 506966
+    }
+  },
+  "fixed_slot_outcomes": {
+    "area": {
+      "matched": 30426,
+      "base_success": 19065,
+      "after_success": 19322,
+      "repaired": 737,
+      "damaged": 480,
+      "mean_iou_delta": 0.0021341378109740843,
+      "net": 257,
+      "r75_delta_pp": 0.7827967469769426
+    },
+    "shape": {
+      "matched": 30426,
+      "base_success": 19065,
+      "after_success": 19372,
+      "repaired": 707,
+      "damaged": 400,
+      "mean_iou_delta": 0.0036888560546918378,
+      "net": 307,
+      "r75_delta_pp": 0.9350918339374372
+    },
+    "response": {
+      "matched": 30426,
+      "base_success": 19065,
+      "after_success": 19421,
+      "repaired": 801,
+      "damaged": 445,
+      "mean_iou_delta": 0.004776272432214834,
+      "net": 356,
+      "r75_delta_pp": 1.084341019158722
+    }
+  },
+  "selected_global": "global_0.25",
+  "selected_global_evaluated": false,
+  "paired_r75_comparisons": {
+    "area_vs_fixed_smooth": {
+      "delta_r75_pp": -0.2253967287015321,
+      "paired_image_bootstrap_95ci_pp": [
+        -0.32608205991505473,
+        -0.1281971157570711
+      ]
+    },
+    "shape_vs_area": {
+      "delta_r75_pp": 0.15229508696049465,
+      "paired_image_bootstrap_95ci_pp": [
+        0.028056833919149586,
+        0.28158020946516665
+      ]
+    },
+    "shape_vs_fixed_smooth": {
+      "delta_r75_pp": -0.07310164174103743,
+      "paired_image_bootstrap_95ci_pp": [
+        -0.1867366661758166,
+        0.03651089002580627
+      ]
+    },
+    "response_vs_area": {
+      "delta_r75_pp": 0.3015442721817794,
+      "paired_image_bootstrap_95ci_pp": [
+        0.18301892330610872,
+        0.4237762958067605
+      ]
+    },
+    "response_vs_fixed_smooth": {
+      "delta_r75_pp": 0.07614754348024733,
+      "paired_image_bootstrap_95ci_pp": [
+        -0.018033289477747287,
+        0.16879229578339622
+      ]
+    }
+  },
+  "limitations": [
+    "train2017 previously seen by COCO-pretrained backbone",
+    "existing val2017 used in earlier exploration",
+    "risk model fitted only on matched GT candidates, applied to every baseline nonempty prediction",
+    "single small calibration split; no new architecture claim; no AP confidence interval"
+  ],
+  "elapsed_seconds": 183.62924349999957
+}

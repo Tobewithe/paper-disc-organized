@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "study_id": "neighbor-specific-recovery-20260915",
+  "title": "邻居特异性 P3 恢复诊断",
+  "type": "diagnostic",
+  "stage": "mechanism-localization",
+  "hypothesis": "一部分小目标原始几何失败由特定近邻干扰引起；抑制该近邻比等形背景扰动或远端实例扰动带来更大的 raw P3 定位恢复。",
+  "inputs": [
+    "experiments/small_raw_geometry_origin_20260914/selection.csv",
+    "assets/datasets/coco/annotations/instances_val2017.json",
+    "assets/models/coco_clean_20260911/yolo26m-seg.pt"
+  ],
+  "outputs": [
+    "per_target.csv",
+    "arm_deltas.csv",
+    "paired_contrasts.csv",
+    "neighbor_specific_instances.csv",
+    "RESULTS.md"
+  ],
+  "kind": "diagnostic",
+  "report": "RESULTS.md",
+  "scripts_directory": "scripts"
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_phaseB_20260930",
+  "study_id": "STUDY_3e4be0a1-20c5-4b2a-a67b-4b30e5fc9a72",
+  "source_kind": "remote_completed_execution",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/phase_b/scripts/phase_b_local_forward.py",
+    "--groups", "fit", "dev", "val",
+    "--decoder", "process_mask_upsample_scale_masks_bilinear"
+  ],
+  "working_directory": "/root/autodl-tmp/phase_b",
+  "status": "completed",
+  "created_at": "2026-09-30T00:00:00+08:00",
+  "host": "ssh://connect.westc.seetacloud.com:56018",
+  "environment": {
+    "python": "/root/miniconda3/bin/python",
+    "ultralytics": "8.4.100",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "model_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"
+  },
+  "inputs": [
+    {"path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/yolo26m-seg.pt", "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"},
+    {"path": "/root/autodl-tmp/phase_b/current_candidate_identities.json"},
+    {"path": "/root/autodl-tmp/phase_b/SHARED_AFFINE_REFINED.pt"},
+    {"path": "/root/autodl-tmp/datasets/coco2017/annotations/instances_train2017.json"},
+    {"path": "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json"}
+  ],
+  "snapshots": [
+    {"path": "scripts/phase_b_local_forward.py", "sha256": "FC4608F12F2E9CD48A532A55B1407D10E85FA4806EEE07C9E3632EBBA017C1E5"},
+    {"path": "scripts/phase_b_normal_replay.py", "sha256": "E6609CCD8086664D293CE6D2EFC979B6CA348A3050EA6272231B5C35C4CFF2D1"}
+  ],
+  "scope": {
+    "fit": {"images": 796, "candidates": 5872},
+    "dev": {"images": 197, "candidates": 1375},
+    "val": {"images": 196, "candidates": 1301},
+    "bootstrap_replicates": 5000,
+    "decoder": "Ultralytics 8.4.100 process_mask(upsample=True), then scale_masks default bilinear",
+    "gt_use": "fit GT was used only in the previous shared solve; dev/val GT was used only for evaluation"
+  },
+  "expected_outputs": [
+    "FULL_BILINEAR/SUMMARY.json",
+    "FULL_BILINEAR/per_candidate.jsonl",
+    "FULL_BILINEAR/merged_coeff_head.pt",
+    "FULL_BILINEAR/merged_head_diff.json",
+    "candidate_reconciliation.json",
+    "OFFICIAL_TAL_FULL/SUMMARY.json",
+    "official_cross_categories.json",
+    "current_cross_categories.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {"host": "ssh://connect.westc.seetacloud.com:56018", "path": "/root/autodl-tmp/phase_b/FULL_BILINEAR"},
+    {"host": "local", "path": "FULL_BILINEAR"}
+  ],
+  "notes": [
+    "The original checkpoint was not overwritten.",
+    "Candidates are fixed geometric BoxIoU>=0.50 one-to-one identities from Phase A; this is not full COCO AP evaluation.",
+    "The saved merged head is a one-to-one coefficient-head copy, not a replacement full checkpoint."
+  ],
+  "return_code": 0,
+  "artifact_completeness": "complete"
+}

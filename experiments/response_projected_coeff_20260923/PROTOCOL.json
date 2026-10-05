@@ -1,0 +1,9 @@
+{
+  "question": "Can the already trained spatial correction be converted into a prototype-span coefficient direction that repairs the same failures with fewer damaged GT matches than direct coefficient correction or a smaller correction strength?",
+  "source": "Frozen YOLO26m-seg COCO checkpoint, Ultralytics 8.4.100, existing seed-0 local4 spatial and 32D coefficient residual heads. No new head training and no validation-GT input to correction.",
+  "selection": "Deterministic random sample of 200 val2017 images containing a small, low-fill Box75/no-Mask75 raw failure. This is an exploratory enriched cohort, not overall COCO validation.",
+  "method": "The trained local4 head predicts a box-relative response correction q. Solve a ridge-regularized weighted least-squares projection of q onto the instance's 32 sampled prototype maps. A protected variant additionally penalizes coefficient changes on baseline pixels with absolute logit >1. This confidence heuristic may protect confidently wrong pixels.",
+  "arms": "Cached original mask plus same-run recomputed original mask identity control; existing 32D coefficient head at strengths .25/.5/1; original spatial head at train-selected .5; unprotected projection at .25/.5/1; protected projection (weight 4 on high-confidence pixels) at .25/.5/1.",
+  "primary": "Mask75 COCOeval GT repairs and damages at a comparable repair count. Secondary: Mask AP on this selected image cohort and mask AP75. Fixed candidate identity, score, class, box, prototype, and model weights.",
+  "interpretation": "This is a screening ablation reusing an existing learned spatial head. It is not a newly trained end-to-end architecture or independent validation because val2017 informed the research direction. A benefit must exceed strength-only and existing guard controls before a new method claim."
+}

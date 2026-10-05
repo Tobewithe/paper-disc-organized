@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_9f3fe9c7920145a5967902ebd7650a97",
+  "study_id": "STUDY_a390425fa51e46f19f9578f0bca2542a",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/branch_evaluation.py",
+    "--data",
+    "/root/autodl-tmp/datasets/coco2017/coco_full.yaml",
+    "--annotation",
+    "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json",
+    "--images",
+    "/root/autodl-tmp/datasets/coco2017/images/val2017",
+    "--selection",
+    "/root/autodl-tmp/counterfactual_p3_20260914/selection_remote.csv",
+    "--baseline",
+    "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/baseline_s0_full/weights/best.pt",
+    "--method",
+    "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/cfp3r_s0_full/weights/best.pt",
+    "--prior-exports",
+    "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/official_eval",
+    "--out",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full"
+  ],
+  "working_directory": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code",
+  "status": "completed",
+  "created_at": "2026-09-14T21:23:39.137+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/baseline_s0_full/weights/best.pt",
+      "exists": true,
+      "sha256": "c5e4f7e3d1ee193b407a8859dba08327d447ac8b82acd2db43741c8876c4727a",
+      "size": 54722865
+    },
+    {
+      "path": "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/cfp3r_s0_full/weights/best.pt",
+      "exists": true,
+      "sha256": "562eb91908af886fa4e45666532333453d4f3592f3959197ab693bc7a0dbc01f",
+      "size": 54722865
+    },
+    {
+      "path": "/root/autodl-tmp/counterfactual_p3_20260914/selection_remote.csv",
+      "exists": true,
+      "sha256": "fcbd836e90f65e31e88ffa17608a74d2ca47eed8e30993fcbc177790fc550ac7",
+      "size": 33077
+    },
+    {
+      "path": "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/branch_evaluation.py",
+      "revision": "8e7f47f6c1c2e068f3f45f587a767d90b3ea2ea80710ed0c342b832169a38601",
+      "snapshot": "snapshots/8e7f47f6c1c2e068f3f45f587a767d90b3ea2ea80710ed0c342b832169a38601"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/target_metrics.py",
+      "revision": "c0bd281994f5392f5ff298ebc74abb3e70c51e80afa8b6cfa573ac7c3f73699b",
+      "snapshot": "snapshots/c0bd281994f5392f5ff298ebc74abb3e70c51e80afa8b6cfa573ac7c3f73699b"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/coco_metrics.py",
+      "revision": "449c6a3cb19ac596f56e445a51a47755e1972ffbe3bd44bfb04620a4ba882371",
+      "snapshot": "snapshots/449c6a3cb19ac596f56e445a51a47755e1972ffbe3bd44bfb04620a4ba882371"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/study.json",
+      "revision": "13d47e4edde2e1bfd28d216ba878ec8bcb6456154662718e2f8e054714ff16f0",
+      "snapshot": "snapshots/13d47e4edde2e1bfd28d216ba878ec8bcb6456154662718e2f8e054714ff16f0"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full/official_metrics.csv",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full/targeted_summary.csv",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 73142,
+  "started_at": "2026-09-14T21:23:39.409+00:00",
+  "last_heartbeat": "2026-09-14T21:35:59.829+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-14T21:36:04.635+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full/official_metrics.csv",
+      "exists": true,
+      "sha256": "fd60db1988c26bc69c51209700bd61236f74da15fa76c9c9f5ed3ea87d20d33a"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full/targeted_summary.csv",
+      "exists": true,
+      "sha256": "3c14c37588ad3b73012b6e3cea88d73530e499a5fcb668fb97a0672865ecba9e"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/branch_full/COMPLETE.json",
+      "exists": true,
+      "sha256": "61201395f7edb71f2587643f679eac6d365a9ad2d1c6eb764b5362ed255706ad"
+    }
+  ]
+}

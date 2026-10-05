@@ -1,0 +1,274 @@
+{
+  "audit_skill": "experiment-audit",
+  "project": "COCO structure diagnosis S012 failure locality",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T22:41:57+08:00",
+  "auditor": "fresh Codex subagent (runtime model unspecified)",
+  "agent_id": "/root/audit_failure_locality",
+  "specialist_agent_id": "/root/audit_failure_locality/statistical_crossfit_check",
+  "reviewer_model": "codex-runtime-unspecified",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "deep read-only audit",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "fatal_findings": [],
+  "reason_codes": [
+    "heldout_gt_conditioned_cohort_inclusion",
+    "partial_target_counter_omits_zero_row_exclusions",
+    "same_image_spatial_holdout_only",
+    "normalized_distance_pixel_floor",
+    "reused_exploratory_validation_images",
+    "single_frozen_checkpoint",
+    "pointwise_unadjusted_bootstrap_intervals"
+  ],
+  "summary": "No fatal integrity defect. Real COCO GT, metric denominators, train-fold-only threshold fitting, disjoint interpolation-cell folds, receipts, hashes, and main reported numbers pass. The readout result is conditional on held-out-GT eligibility, the partial_targets field omits 1,154 zero-row exclusions, and normalized distance/core bins have small-object pixel-floor limits. Results remain a same-image GT-oracle diagnostic, not AP or a deployable method.",
+  "evaluation_type": {
+    "label": "real_gt",
+    "subtype": "GT-informed within-image spatial-oracle diagnostic",
+    "claim_ceiling": "representation opportunity on bbox-matched, support-eligible, all-seed-complete targets"
+  },
+  "checks": {
+    "A_ground_truth_provenance": {
+      "status": "pass",
+      "details": "Dataset-provided COCO 2017 instance GT is used. Independent raw-JSON hashes match protocol. All 5,194 selected non-crowd annotations appear exactly once in the exact table; 71 selected crowd annotations are excluded from valid pixels. pycocotools merges multipart polygons before decoding.",
+      "evidence": [
+        "failure_locality_probe.py:56-90",
+        "crossimage_response_experiment.py:40-51",
+        "frozen_mechanism_probe.py:93-109",
+        "pycocotools/coco.py:417-445",
+        "COMPLETE.json:5-11"
+      ],
+      "independent_counts": {
+        "train_images": 160,
+        "train_noncrowd_gt": 2281,
+        "train_crowd_gt": 41,
+        "train_multipart_noncrowd": 222,
+        "val_images": 400,
+        "val_noncrowd_gt": 2913,
+        "val_crowd_gt": 30,
+        "val_multipart_noncrowd": 300,
+        "output_annotation_ids_exactly_match_selected_noncrowd_gt": true
+      }
+    },
+    "B_metrics_and_normalization": {
+      "status": "pass",
+      "details": "Sample IoU is TP/(own-GT-positive+FP); coverage and FP components use own-GT-positive denominators. Exact IoU is TP/(valid own area+FP). AUC and threshold selection are correct. No metric is self-normalized by prediction extrema or moments.",
+      "evidence": [
+        "failure_locality_probe.py:26-53",
+        "failure_locality_probe.py:80-89",
+        "failure_locality_probe.py:134-153",
+        "verify_failure_locality.py:19-90",
+        "LOCAL_VERIFICATION.json:2-10"
+      ]
+    },
+    "C_result_files_and_numbers": {
+      "status": "warn",
+      "details": "All final files exist; 12 receipt hashes and final summarizer hash match; 560 recorded cache digests match S011 manifests; main narrative values match outputs. WARN because partial_targets counts only partial nonzero targets and imported runtime dependencies are not all bound directly in the S012 receipt. Remote cache bytes were asserted during execution but were not independently reopened in this audit workspace.",
+      "evidence": [
+        "COMPLETE.json:2-13",
+        "SUMMARY_COMPLETE.json:2-5",
+        "LOCAL_VERIFICATION.json:2-10",
+        "READOUT_ANALYSIS.json:11181-11182",
+        "summarize_failure_locality.py:38-41",
+        "summarize_failure_locality.py:112-114",
+        "FAILURE_LOCALITY_RESULTS_20260911.md:13-87",
+        "EXPERIMENT_TRACKER.md:22"
+      ]
+    },
+    "D_actual_calls_and_leakage": {
+      "status": "warn",
+      "details": "Core metric functions are called and appear in outputs. Weights and thresholds use training-fold GT only. WARN because label counts from both folds determine eligibility before fitting, so held-out GT conditions the reported cohort.",
+      "evidence": [
+        "failure_locality_probe.py:110-143",
+        "failure_locality_probe.py:172-193",
+        "summarize_failure_locality.py:38-47",
+        "crossimage_response_decoder.py:7-30"
+      ]
+    },
+    "E_scope_selection_seeds_oracle": {
+      "status": "warn",
+      "details": "Image selection is fixed and hash-based with no S012 outcome filtering. Scope is one frozen checkpoint, reused exploratory val, bbox/support/class/all-seed conditioning, and three pixel-sampling seeds rather than model-training seeds. Oracle and non-deployable boundaries are correctly explicit.",
+      "evidence": [
+        "crossimage_response_experiment.py:21-33",
+        "failure_locality_probe.py:163-170",
+        "failure_locality_protocol.json:4-29",
+        "FAILURE_LOCALITY_RESULTS_20260911.md:7-17",
+        "FAILURE_LOCALITY_RESULTS_20260911.md:71-87",
+        "EXPERIMENT_TRACKER.md:22"
+      ]
+    },
+    "F_evaluation_type": {
+      "status": "pass",
+      "classification": "real_gt",
+      "subtype": "GT-informed within-image spatial-oracle diagnostic",
+      "details": "The reference is real dataset GT, not model-generated proxy. The oracle's claim ceiling is narrower than deployable real-GT evaluation because it is fitted per target from spatial GT."
+    }
+  },
+  "additional_checks": {
+    "spatial_crossfit": {
+      "status": "warn",
+      "shared_interpolation_cells": false,
+      "runtime_assertion_present": true,
+      "shared_image_and_prototype": true,
+      "overlapping_receptive_fields_possible": true,
+      "details": "Valid interpolation-cell holdout, but not independent-image generalization.",
+      "evidence": [
+        "failure_locality_probe.py:94-119",
+        "failure_locality_protocol.json:10"
+      ]
+    },
+    "threshold_heldout_gt": {
+      "status": "warn",
+      "threshold_uses_heldout_gt": false,
+      "cohort_inclusion_uses_heldout_gt": true,
+      "details": "No held-out-GT threshold tuning; mild selection through two-fold class-count eligibility.",
+      "evidence": [
+        "failure_locality_probe.py:110-143",
+        "summarize_failure_locality.py:38-47"
+      ]
+    },
+    "paired_statistics": {
+      "status": "pass_with_limits",
+      "arms_share_target_fold_seed_samples": true,
+      "pairing_unit": "target after averaging 2 folds x 3 sample seeds",
+      "bootstrap_cluster": "image",
+      "bootstrap_draws": 2000,
+      "interval_type": "pointwise percentile",
+      "permutation_test": false,
+      "multiplicity_adjustment": false,
+      "evidence": [
+        "failure_locality_probe.py:110-115",
+        "summarize_failure_locality.py:26-30",
+        "summarize_failure_locality.py:43-51",
+        "summarize_failure_locality.py:86-96"
+      ]
+    },
+    "distance_interpretation": {
+      "status": "warn",
+      "near_bin_impossible_when_valid_area_below": 2500,
+      "all_nonzero_distances_far_when_valid_area_below": 400,
+      "val_high_fail75_targets": 166,
+      "val_high_fail75_valid_area_below_2500": 118,
+      "val_high_fail75_valid_area_below_400": 54,
+      "val_high_fail75_mediumlarge_targets": 73,
+      "val_high_fail75_mediumlarge_valid_area_below_2500": 25,
+      "val_high_fail75_mediumlarge_valid_area_below_400": 0,
+      "details": "Target-size sensitivity supports a qualified far-from-target-boundary result, but neighbor-core robustness requires neighbor-area or raw-pixel sensitivity."
+    }
+  },
+  "accounting": {
+    "all_noncrowd_gt": 5194,
+    "bbox_matched_targets": 4689,
+    "complete_readout_targets": 3534,
+    "partial_nonzero_targets": 1,
+    "zero_readout_matched_targets": 1154,
+    "readout_rows": 127248,
+    "target_arm_mean_rows": 21204,
+    "contrast_rows": 924,
+    "train": {
+      "all_gt": 2281,
+      "bbox_matched": 2060,
+      "complete_readout": 1579,
+      "too_small_support": 431,
+      "class_insufficient_targets": 50
+    },
+    "val": {
+      "all_gt": 2913,
+      "bbox_matched": 2629,
+      "complete_readout": 1955,
+      "too_small_support": 624,
+      "class_insufficient_targets": 50
+    }
+  },
+  "verified_main_results": {
+    "val_high_complete_targets": 295,
+    "val_high_images": 104,
+    "proto_minus_threshold_sample_iou_pp": 2.9645060313255303,
+    "proto_minus_threshold_sample_iou_ci95_pp": [
+      1.6852929702003574,
+      4.278915065116346
+    ],
+    "proto_minus_threshold_coverage_pp": -0.04052804863444406,
+    "proto_minus_threshold_coverage_ci95_pp": [
+      -1.6102259743421987,
+      1.1098965976328514
+    ],
+    "local_minus_proto_sample_iou_pp": 0.9317281716109729,
+    "local_minus_proto_sample_iou_ci95_pp": [
+      0.15722648478563112,
+      1.7337523019553867
+    ],
+    "val_high_fail75_same_neighbor_nonzero_targets": 142,
+    "val_high_fail75_macro_far_fraction": 0.810354314465312,
+    "val_high_fail75_macro_core_fraction": 0.79471650751142,
+    "val_high_fail75_pooled_far_fraction": 0.907451532186876,
+    "val_high_fail75_top10_pixel_share": 0.723881141855881,
+    "val_high_fail75_mediumlarge_macro_far_fraction": 0.721669819042058,
+    "val_high_fail75_mediumlarge_macro_core_fraction": 0.718666704498472
+  },
+  "claim_impacts": [
+    {
+      "id": "S012-C1",
+      "claim": "Original matched masks contain same-category-neighbor errors beyond a thin target boundary.",
+      "impact": "supported_with_qualification",
+      "qualification": "Use instance-macro and target-size sensitivity; retain pixel-floor and neighbor-core caveats."
+    },
+    {
+      "id": "S012-C2",
+      "claim": "A per-target prototype oracle outperforms a per-target threshold on held-out interpolation cells.",
+      "impact": "supported_conditionally",
+      "qualification": "Only for GT-conditioned all-seed-complete targets in a same-image spatial holdout."
+    },
+    {
+      "id": "S012-C3",
+      "claim": "The local oracle adds opportunity over the global oracle.",
+      "impact": "supported_as_unequal_capacity_probe",
+      "qualification": "Does not show that the existing local head can learn the gain."
+    },
+    {
+      "id": "S012-C4",
+      "claim": "The result proves coefficient-similarity causality, cross-image generalization, AP improvement, or a deployable method.",
+      "impact": "unsupported_and_not_claimed"
+    }
+  ],
+  "action_items": [
+    "Report matched, complete, partial-nonzero, and zero-row excluded counts separately; do not use partial_targets as total attrition.",
+    "Label the cohort GT-conditioned and the split same-image spatial cross-fit.",
+    "Keep oracle values out of AP and deployable-method tables.",
+    "Describe intervals as exploratory pointwise cluster-bootstrap intervals without multiplicity adjustment.",
+    "Before stronger neighbor-interior claims, add valid-target-area, valid-neighbor-area, and fixed-pixel distance sensitivities.",
+    "Require prediction-only cross-image learning, untouched-image evaluation, model-training seeds, and the prior BCE+Dice controls for any method claim."
+  ],
+  "audited_input_hashes": {
+    "experiments/coco_clean_20260911/failure_locality_probe.py": "sha256:fc5ed98605429e4e3ec4ef8d08093e3ff10132529a4fd2680d1fee9a7ce021c3",
+    "experiments/coco_clean_20260911/failure_locality_protocol.json": "sha256:9eebee0cbf74b1dcd228491ff8bc79702ee2b8ef01bfc160e24b03340cb9dd8e",
+    "experiments/coco_clean_20260911/summarize_failure_locality.py": "sha256:668c0a38e5deca1355fc474cf99241ffcc6bb20d03e3f6b98aaef0aaeec6b666",
+    "experiments/coco_clean_20260911/verify_failure_locality.py": "sha256:0933dee91db0d4b577fad56a5e8e978145a519739d5868fa2a9dd970b242601e",
+    "experiments/coco_clean_20260911/crossimage_response_decoder.py": "sha256:d84dc37cf3c4a8d939668a9b0a7bff1a9002487a5099753ea7d9b787d1766eb0",
+    "experiments/coco_clean_20260911/crossimage_response_experiment.py": "sha256:a1d7a0284512dfa85c74ac2bd49cf3fdab596098c5eed53eb4cccd3efbbcf3eb",
+    "experiments/coco_clean_20260911/frozen_mechanism_probe.py": "sha256:e1cd6a4859761d37e88cdfd01ade1cb04d4c50edbf1cbc587b9ef65568fae256",
+    "experiments/coco_clean_20260911/diagnostics/crossimage_response_20260911/protocol.json": "sha256:c1d164315bf11cbb31f982ab81021ece97094afd20b53d22b9280c330814da49",
+    "experiments/coco_clean_20260911/diagnostics/failure_locality_20260911/COMPLETE.json": "sha256:f1e4c64c77e04d8e91782446e6722f80289dfade2dd9f7a05e21566f509ea7a8",
+    "experiments/coco_clean_20260911/diagnostics/failure_locality_20260911/SUMMARY_COMPLETE.json": "sha256:5edc1c10b8ab9614009598ea5320277655bf7a2252d0a30887f57ed6e819b95a",
+    "experiments/coco_clean_20260911/diagnostics/failure_locality_20260911/LOCAL_VERIFICATION.json": "sha256:0c0c0b5f0988aa7856f48f28f4895d292b500869fb3b57ff6f5627a8144fe5e5",
+    "experiments/coco_clean_20260911/diagnostics/failure_locality_20260911/LOCALITY_ANALYSIS.json": "sha256:8507d8e90effaabca713d6fcf22f27fa3b9fd2983267c4280fc95a10d8dd955f",
+    "experiments/coco_clean_20260911/diagnostics/failure_locality_20260911/READOUT_ANALYSIS.json": "sha256:ef517220b22acdeff6e18c9aa52c18a88d84444c49f6d40e9fbff3ef07a0af7e",
+    "experiments/coco_clean_20260911/diagnostics/failure_locality_20260911/cohorts.csv": "sha256:7c53f08a862406b728942d93c6d2faf874b2918ce703820573582a328469d216",
+    "refine-logs/coco-structure/FAILURE_LOCALITY_RESULTS_20260911.md": "sha256:d31f735edf4aa7416fc365c3f8d27f393e3ebd703f394ae0143f4170b6362e99",
+    "refine-logs/coco-structure/EXPERIMENT_TRACKER.md": "sha256:a6fa311f08af04e5ac35daf4fd6893eb299de59cdcdf8e209d8d907b14840a36",
+    "diagnostics/failure_locality_smoke_fast_20260911/COMPLETE.json": "sha256:a403f809fe283c351a9c96238cf6b49a00cc1dc8d678c324f6f6b7adbc18392a",
+    "diagnostics/failure_locality_smoke_fast_20260911/LOCAL_VERIFICATION.json": "sha256:96e9cdd76670c9df626be97b9b705fdbf1fec9d202fa88058e100d3f7bbefc60",
+    "datasets/coco/annotations/instances_train2017.json": "sha256:610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+    "datasets/coco/annotations/instances_val2017.json": "sha256:e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f"
+  },
+  "trace_path": null,
+  "trace_status": "not_written_due_to_explicit_user_limit_of_two_audit_files",
+  "limitations": [
+    "No GPU re-inference was run.",
+    "The 560 remote cache files were not independently reopened locally; runtime assertions and matching signed manifests provide execution evidence.",
+    "No unprovided paper manuscript or new paper claim was evaluated.",
+    "This same-family semantic review remains provisional."
+  ]
+}

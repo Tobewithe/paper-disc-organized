@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_724eb549ee534e439f84632706eb517a",
+  "study_id": "STUDY_705a9cfe855647889acac003537d7748",
+  "source_kind": "runner_observed",
+  "command": [
+    "python",
+    "-u",
+    "scripts/fixed_checkpoint_fit.py",
+    "--source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--bank",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3",
+    "--training-run",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_b355a59ea0f843539c721d2ec31e8be6",
+    "--out",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_65dd582635f947b39b4911d2fce5af50"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_data_scaling_20260924",
+  "status": "completed",
+  "created_at": "2026-09-24T18:07:57.561+08:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_b355a59ea0f843539c721d2ec31e8be6/SUMMARY.json",
+      "exists": true,
+      "sha256": "7f9780fba85b6036875c7a3db7efcacc0273102a37c55f5669eee6de8da355f9",
+      "size": 1294
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/scripts/fixed_checkpoint_fit.py",
+      "revision": "b741d2aa72d0f684f0579a4d14dd2cf6c3fe3b503ee5238bb93428edee656e42",
+      "snapshot": "snapshots/b741d2aa72d0f684f0579a4d14dd2cf6c3fe3b503ee5238bb93428edee656e42"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_65dd582635f947b39b4911d2fce5af50/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_65dd582635f947b39b4911d2fce5af50"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 11505,
+  "started_at": "2026-09-24T18:07:57.663+08:00",
+  "last_heartbeat": "2026-09-24T18:08:57.701+08:00",
+  "return_code": 0,
+  "finished_at": "2026-09-24T18:09:02.595+08:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_65dd582635f947b39b4911d2fce5af50/COMPLETE.json",
+      "exists": true,
+      "sha256": "537e83395de2efc5bbd025e9a150fe70632f2f3512adfee4b76679e6168203a2"
+    }
+  ],
+  "recorder_study_argument": "/root/autodl-tmp/coefficient_data_scaling_20260924/study.json"
+}

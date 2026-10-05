@@ -1,0 +1,532 @@
+{
+  "design": "Fixed bbox-matched valid instances; high ICI>.5 vs other instances. Category x COCO annotation-area strata require >=10 high and >=10 low. Common pooled stratum weights; paired image-cluster bootstrap, fixed selected strata. Descriptive adjustment, not causal; box quality/occlusion and selection remain unadjusted.",
+  "matched_total": 32543,
+  "eligible_cells": 68,
+  "retained_high": 4343,
+  "retained_low": 17074,
+  "images": 3986,
+  "bootstrap_valid": 1654,
+  "bootstrap_omitted_empty_cell": 346,
+  "contrasts": [
+    {
+      "metric": "iou",
+      "high_minus_low_pp": -6.2491488495950485,
+      "ci_low_pp": -7.029876419048424,
+      "ci_high_pp": -5.471369658437414
+    },
+    {
+      "metric": "coverage",
+      "high_minus_low_pp": -3.8180059267001036,
+      "ci_low_pp": -4.358820180422971,
+      "ci_high_pp": -3.140860112945787
+    },
+    {
+      "metric": "same_neighbor_ratio",
+      "high_minus_low_pp": 14.183697256325589,
+      "ci_low_pp": 12.61093167688578,
+      "ci_high_pp": 15.888963878059418
+    },
+    {
+      "metric": "background_ratio",
+      "high_minus_low_pp": -2.604083345987393,
+      "ci_low_pp": -3.4484276028899585,
+      "ci_high_pp": -1.6081671196757432
+    },
+    {
+      "metric": "failure75",
+      "high_minus_low_pp": 13.361064539649625,
+      "ci_low_pp": 11.49998239656072,
+      "ci_high_pp": 15.315124243835315
+    },
+    {
+      "metric": "neighbor_rescue75",
+      "high_minus_low_pp": 11.018245472347015,
+      "ci_low_pp": 9.790929011599903,
+      "ci_high_pp": 12.425312654419976
+    },
+    {
+      "metric": "background_rescue75",
+      "high_minus_low_pp": -3.738725339787367,
+      "ci_low_pp": -5.030086374310761,
+      "ci_high_pp": -2.1863486186782697
+    }
+  ],
+  "cells": [
+    {
+      "category_id": 62,
+      "area": "medium",
+      "low": 689,
+      "high": 81,
+      "weight": 0.035952747817154594
+    },
+    {
+      "category_id": 62,
+      "area": "small",
+      "low": 472,
+      "high": 81,
+      "weight": 0.025820609795956483
+    },
+    {
+      "category_id": 1,
+      "area": "medium",
+      "low": 2635,
+      "high": 1062,
+      "weight": 0.17261988140262408
+    },
+    {
+      "category_id": 64,
+      "area": "medium",
+      "low": 165,
+      "high": 11,
+      "weight": 0.008217770929635337
+    },
+    {
+      "category_id": 84,
+      "area": "small",
+      "low": 453,
+      "high": 185,
+      "weight": 0.029789419619928096
+    },
+    {
+      "category_id": 3,
+      "area": "small",
+      "low": 858,
+      "high": 173,
+      "weight": 0.048139328570761544
+    },
+    {
+      "category_id": 88,
+      "area": "large",
+      "low": 77,
+      "high": 20,
+      "weight": 0.0045291123873558384
+    },
+    {
+      "category_id": 1,
+      "area": "large",
+      "low": 2297,
+      "high": 432,
+      "weight": 0.12742214128962973
+    },
+    {
+      "category_id": 1,
+      "area": "small",
+      "low": 3057,
+      "high": 793,
+      "weight": 0.17976373908577298
+    },
+    {
+      "category_id": 9,
+      "area": "medium",
+      "low": 106,
+      "high": 20,
+      "weight": 0.005883176915534388
+    },
+    {
+      "category_id": 42,
+      "area": "medium",
+      "low": 92,
+      "high": 17,
+      "weight": 0.005089414950740066
+    },
+    {
+      "category_id": 3,
+      "area": "large",
+      "low": 156,
+      "high": 13,
+      "weight": 0.007890927767661204
+    },
+    {
+      "category_id": 3,
+      "area": "medium",
+      "low": 446,
+      "high": 93,
+      "weight": 0.025166923472008218
+    },
+    {
+      "category_id": 24,
+      "area": "large",
+      "low": 88,
+      "high": 34,
+      "weight": 0.005696409394406313
+    },
+    {
+      "category_id": 62,
+      "area": "large",
+      "low": 207,
+      "high": 10,
+      "weight": 0.010132138021198113
+    },
+    {
+      "category_id": 46,
+      "area": "medium",
+      "low": 90,
+      "high": 16,
+      "weight": 0.004949339309894009
+    },
+    {
+      "category_id": 52,
+      "area": "large",
+      "low": 58,
+      "high": 14,
+      "weight": 0.003361815380305365
+    },
+    {
+      "category_id": 44,
+      "area": "small",
+      "low": 507,
+      "high": 29,
+      "weight": 0.02502684783116216
+    },
+    {
+      "category_id": 44,
+      "area": "medium",
+      "low": 294,
+      "high": 22,
+      "weight": 0.01475463416911799
+    },
+    {
+      "category_id": 47,
+      "area": "small",
+      "low": 346,
+      "high": 11,
+      "weight": 0.016669001260680768
+    },
+    {
+      "category_id": 16,
+      "area": "small",
+      "low": 185,
+      "high": 17,
+      "weight": 0.00943175981696783
+    },
+    {
+      "category_id": 9,
+      "area": "small",
+      "low": 148,
+      "high": 32,
+      "weight": 0.008404538450763412
+    },
+    {
+      "category_id": 56,
+      "area": "large",
+      "low": 57,
+      "high": 10,
+      "weight": 0.00312835597889527
+    },
+    {
+      "category_id": 56,
+      "area": "medium",
+      "low": 146,
+      "high": 35,
+      "weight": 0.008451230331045431
+    },
+    {
+      "category_id": 57,
+      "area": "medium",
+      "low": 111,
+      "high": 40,
+      "weight": 0.0070504739225848625
+    },
+    {
+      "category_id": 2,
+      "area": "medium",
+      "low": 93,
+      "high": 24,
+      "weight": 0.005462949992996218
+    },
+    {
+      "category_id": 20,
+      "area": "large",
+      "low": 47,
+      "high": 36,
+      "weight": 0.0038754260634075734
+    },
+    {
+      "category_id": 20,
+      "area": "medium",
+      "low": 95,
+      "high": 62,
+      "weight": 0.007330625204276976
+    },
+    {
+      "category_id": 7,
+      "area": "large",
+      "low": 148,
+      "high": 12,
+      "weight": 0.0074707008451230334
+    },
+    {
+      "category_id": 55,
+      "area": "large",
+      "low": 51,
+      "high": 11,
+      "weight": 0.0028948965774851752
+    },
+    {
+      "category_id": 22,
+      "area": "large",
+      "low": 101,
+      "high": 37,
+      "weight": 0.006443479478918616
+    },
+    {
+      "category_id": 22,
+      "area": "medium",
+      "low": 65,
+      "high": 30,
+      "weight": 0.004435728626791801
+    },
+    {
+      "category_id": 19,
+      "area": "medium",
+      "low": 81,
+      "high": 15,
+      "weight": 0.0044824205070738195
+    },
+    {
+      "category_id": 4,
+      "area": "large",
+      "low": 103,
+      "high": 30,
+      "weight": 0.006210020077508521
+    },
+    {
+      "category_id": 49,
+      "area": "small",
+      "low": 110,
+      "high": 29,
+      "weight": 0.006490171359200635
+    },
+    {
+      "category_id": 48,
+      "area": "small",
+      "low": 73,
+      "high": 11,
+      "weight": 0.003922117943689593
+    },
+    {
+      "category_id": 57,
+      "area": "large",
+      "low": 18,
+      "high": 13,
+      "weight": 0.0014474482887425876
+    },
+    {
+      "category_id": 4,
+      "area": "medium",
+      "low": 76,
+      "high": 58,
+      "weight": 0.00625671195779054
+    },
+    {
+      "category_id": 52,
+      "area": "medium",
+      "low": 106,
+      "high": 59,
+      "weight": 0.007704160246533128
+    },
+    {
+      "category_id": 33,
+      "area": "large",
+      "low": 67,
+      "high": 13,
+      "weight": 0.0037353504225615167
+    },
+    {
+      "category_id": 33,
+      "area": "medium",
+      "low": 92,
+      "high": 16,
+      "weight": 0.005042723070458047
+    },
+    {
+      "category_id": 2,
+      "area": "small",
+      "low": 81,
+      "high": 24,
+      "weight": 0.0049026474296119905
+    },
+    {
+      "category_id": 19,
+      "area": "large",
+      "low": 98,
+      "high": 16,
+      "weight": 0.0053228743521501615
+    },
+    {
+      "category_id": 21,
+      "area": "large",
+      "low": 68,
+      "high": 21,
+      "weight": 0.004155577345099687
+    },
+    {
+      "category_id": 21,
+      "area": "small",
+      "low": 111,
+      "high": 24,
+      "weight": 0.006303403838072559
+    },
+    {
+      "category_id": 24,
+      "area": "medium",
+      "low": 61,
+      "high": 34,
+      "weight": 0.004435728626791801
+    },
+    {
+      "category_id": 24,
+      "area": "small",
+      "low": 29,
+      "high": 17,
+      "weight": 0.002147826492972872
+    },
+    {
+      "category_id": 28,
+      "area": "medium",
+      "low": 124,
+      "high": 33,
+      "weight": 0.007330625204276976
+    },
+    {
+      "category_id": 28,
+      "area": "small",
+      "low": 73,
+      "high": 29,
+      "weight": 0.004762571788765934
+    },
+    {
+      "category_id": 84,
+      "area": "medium",
+      "low": 161,
+      "high": 61,
+      "weight": 0.010365597422608208
+    },
+    {
+      "category_id": 25,
+      "area": "large",
+      "low": 88,
+      "high": 21,
+      "weight": 0.005089414950740066
+    },
+    {
+      "category_id": 19,
+      "area": "small",
+      "low": 41,
+      "high": 11,
+      "weight": 0.002427977774664986
+    },
+    {
+      "category_id": 53,
+      "area": "small",
+      "low": 53,
+      "high": 12,
+      "weight": 0.0030349722183312324
+    },
+    {
+      "category_id": 52,
+      "area": "small",
+      "low": 49,
+      "high": 33,
+      "weight": 0.0038287341831255545
+    },
+    {
+      "category_id": 38,
+      "area": "medium",
+      "low": 60,
+      "high": 14,
+      "weight": 0.003455199140869403
+    },
+    {
+      "category_id": 4,
+      "area": "small",
+      "low": 49,
+      "high": 18,
+      "weight": 0.00312835597889527
+    },
+    {
+      "category_id": 58,
+      "area": "medium",
+      "low": 12,
+      "high": 16,
+      "weight": 0.0013073726478965307
+    },
+    {
+      "category_id": 25,
+      "area": "medium",
+      "low": 58,
+      "high": 38,
+      "weight": 0.0044824205070738195
+    },
+    {
+      "category_id": 57,
+      "area": "small",
+      "low": 89,
+      "high": 38,
+      "weight": 0.005929868795816407
+    },
+    {
+      "category_id": 21,
+      "area": "medium",
+      "low": 81,
+      "high": 36,
+      "weight": 0.005462949992996218
+    },
+    {
+      "category_id": 60,
+      "area": "medium",
+      "low": 70,
+      "high": 22,
+      "weight": 0.004295652985945744
+    },
+    {
+      "category_id": 60,
+      "area": "small",
+      "low": 128,
+      "high": 19,
+      "weight": 0.006863706401456787
+    },
+    {
+      "category_id": 61,
+      "area": "medium",
+      "low": 100,
+      "high": 13,
+      "weight": 0.005276182471868142
+    },
+    {
+      "category_id": 61,
+      "area": "small",
+      "low": 64,
+      "high": 12,
+      "weight": 0.0035485829014334407
+    },
+    {
+      "category_id": 39,
+      "area": "medium",
+      "low": 42,
+      "high": 15,
+      "weight": 0.0026614371760750807
+    },
+    {
+      "category_id": 53,
+      "area": "medium",
+      "low": 66,
+      "high": 11,
+      "weight": 0.0035952747817154596
+    },
+    {
+      "category_id": 55,
+      "area": "medium",
+      "low": 76,
+      "high": 25,
+      "weight": 0.004715879908483915
+    },
+    {
+      "category_id": 20,
+      "area": "small",
+      "low": 76,
+      "high": 23,
+      "weight": 0.004622496147919877
+    }
+  ]
+}

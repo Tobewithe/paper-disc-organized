@@ -1,0 +1,124 @@
+{
+  "audit_skill": "experiment-audit",
+  "project": "coco_clean_20260911 cross-image frozen-response S011",
+  "verdict": "WARN",
+  "reason_code": "exploratory_scope_and_cache_history_limits",
+  "summary": "No fatal integrity defect was found. Real COCO GT is used for fit/calibration/evaluation, no GT enters decoding, raw metrics and receipts are consistent, and the preregistered normal-support gate correctly returns NO_GO. The audit remains WARN because val is reused, the old cache lacked creation-time per-file hashes, only three images received fresh forward replay, and the evidence is one checkpoint with sampling/shuffle seeds.",
+  "fatal_issue": false,
+  "audited_input_hashes": {
+    "experiments/coco_clean_20260911/crossimage_response_experiment.py": "sha256:a1d7a0284512dfa85c74ac2bd49cf3fdab596098c5eed53eb4cccd3efbbcf3eb",
+    "experiments/coco_clean_20260911/crossimage_response_decoder.py": "sha256:d84dc37cf3c4a8d939668a9b0a7bff1a9002487a5099753ea7d9b787d1766eb0",
+    "experiments/coco_clean_20260911/summarize_crossimage_response.py": "sha256:a5dfcb6043941a652df35a3eb8cd18b6cbedb072ddcf777167b6655028752ef0",
+    "experiments/coco_clean_20260911/relative_ownership_experiment.py": "sha256:14480ef7b728084d597e1d78ec067f6e5d008f7b157b4c294b9fbc83c183ac63",
+    "experiments/coco_clean_20260911/frozen_mechanism_probe.py": "sha256:e1cd6a4859761d37e88cdfd01ade1cb04d4c50edbf1cbc587b9ef65568fae256",
+    "experiments/coco_clean_20260911/summarize_relative_ownership.py": "sha256:796459026d73f725d2847a71e0c9cea681c5689424c000fd275f8a4827c1263d",
+    "refine-logs/coco-structure/CROSSIMAGE_RESPONSE_RESULTS_20260911.md": "sha256:bf7ce8187af18fbc1ada8f8025b03f6b572ec4f5128e0ad628f7db173c6515eb",
+    "refine-logs/coco-structure/EXPERIMENT_TRACKER.md": "sha256:f84e9fd97771f8a9c240d877c59675839024077fa17e3bebb770a912a7f54999",
+    "diagnostics/FIT_COMPLETE.json": "sha256:e92d5e244e05fb9cdb88c999a472d26b33b8f5fafc1aecbe893fa0e4fd63b3f7",
+    "diagnostics/EVALUATION_COMPLETE.json": "sha256:f9072589e776b9598562fbf63dee2c1328ba925d439e20c1954d0cfe7170a919",
+    "diagnostics/TASK_COMPLETE.json": "sha256:c9522fc210f9d4e3edc19a691485d50560f903ef7f6898ecfc009e98b7d7b6c4",
+    "diagnostics/PAIRED_ANALYSIS.json": "sha256:e4ce5141f6f670518c6d14136035d3cbcf734c8fcc04d85e41a9622ab59c2cfd",
+    "diagnostics/LOCAL_VERIFICATION.json": "sha256:37fa1902a6fd03923cf936ce8c812f99de7a24b27e750fd55ed320c1b8e8fff7",
+    "diagnostics/CACHE_PROVENANCE_WITNESS.json": "sha256:bb41907eb9427119f3dde7bc8377700a5eeb3dbeee07040f87dbf5f60c091f33"
+  },
+  "trace_path": ".aris/traces/experiment-audit/2026-09-11_run03/",
+  "agent_id": "/root/audit_crossimage_response",
+  "verdict_id": "/root/audit_crossimage_response",
+  "executor_model": "codex-parent-exact-model-unavailable",
+  "executor_family": "openai",
+  "reviewer_model": "codex-fresh-subagent-exact-model-unavailable",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "inherited-exact-tier-unavailable",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "generated_at": "2026-09-11T21:52:00+08:00",
+  "date": "2026-09-11",
+  "auditor": "fresh-codex-subagent-read-only",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "checks": {
+    "gt_provenance": {
+      "status": "pass",
+      "details": "Real COCO train annotations provide fit labels and calibration coverage; real COCO val annotations provide post-decoding evaluation. Decoder inputs exclude GT, mappings, and ICI."
+    },
+    "score_normalization": {
+      "status": "pass",
+      "details": "Positive own-slope division is a monotone fitted-score unit conversion followed by train-only threshold calibration; metrics are never divided by prediction maxima/minima/means."
+    },
+    "result_existence": {
+      "status": "warn",
+      "details": "All result files, receipt keys, counts, ridge fits, grouped means, and gate arithmetic checked out. Historical bitwise immutability of all 400 reused cache files is not provable because the source cache lacked a creation-time per-file manifest; current hashes and three exact fresh replays are available."
+    },
+    "dead_code": {
+      "status": "pass",
+      "details": "Core decoder, spatial metrics, official task evaluation, seed aggregation, and bootstrap paths are executed and represented in outputs. Own-only models are used for exact affine parity rather than reported as a redundant task arm."
+    },
+    "scope": {
+      "status": "warn",
+      "details": "One frozen checkpoint, 320 fit train images, 160 separate calibration train images, 400 reused val images, and three sampling/shuffle seeds. No end-to-end training seeds, untouched test set, multiplicity correction, or cross-checkpoint replication."
+    },
+    "eval_type": "real_gt"
+  },
+  "scope_counts": {
+    "fit_images": 320,
+    "calibration_images": 160,
+    "evaluation_images": 400,
+    "fit_targets_per_seed": 1798,
+    "fit_pixels_per_seed": 230144,
+    "task_gt_per_arm_domain": 2913,
+    "spatial_targets_per_arm_domain": 2629,
+    "pair_gt_per_arm_domain": 614,
+    "normal_high_spatial_targets": 382,
+    "normal_high_spatial_images": 116,
+    "sampling_shuffle_seeds": [0, 1, 2]
+  },
+  "gate": {
+    "status": "NO_GO",
+    "failed_criteria": ["positive_iou_mean"],
+    "normal_high_mask_iou_delta_pp": -0.01832785489822014,
+    "normal_high_mask_iou_ci_pp": [-0.06870457729669137, 0.035712274782926295]
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "Evaluation GT does not enter inference and the fitted readout transfers across images.",
+      "impact": "supported"
+    },
+    {
+      "id": "C2",
+      "claim": "The joint readout reduces same-neighbor error versus original and the current spatial shuffle control on the fixed high-ICI spatial cohort.",
+      "impact": "supported_with_scope_qualifier"
+    },
+    {
+      "id": "C3",
+      "claim": "Coverage calibration approximately transfers in macro mean to the selected val cohort.",
+      "impact": "partially_supported"
+    },
+    {
+      "id": "C4",
+      "claim": "The method improves normal-support mask quality or task recovery.",
+      "impact": "unsupported_no_go"
+    },
+    {
+      "id": "C5",
+      "claim": "Normal Mask AP is 0.0309 points above the initial arm after averaging the three observed seed AP point estimates.",
+      "impact": "supported_as_point_estimate_only"
+    },
+    {
+      "id": "C6",
+      "claim": "The effect is density-specific or identifies a causal coefficient-similarity/CCL mechanism.",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C7",
+      "claim": "Expanded-support gains justify passing the normal-support gate.",
+      "impact": "unsupported"
+    }
+  ],
+  "uncovered": [
+    "No GPU inference, COCOeval rerun, or additional experiment was performed by the auditor.",
+    "Only three selected images have a fresh exact forward replay witness; all 400 have present-time cache hashes.",
+    "Per-image prediction RLE was not independently downloaded and reevaluated by the auditor.",
+    "No environment image, cross-checkpoint replication, blind test, multiplicity correction, or fit/calibration resampling interval was audited."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-12",
+  "auditor": "gpt-5.6-sol ultra fresh agent audit_density_supervision",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "overall_verdict": "WARN",
+  "integrity_status": "warn",
+  "checks": {"A": "PASS", "B": "PASS", "C": "PASS", "D": "WARN", "E": "WARN", "F": "PASS"},
+  "fatal_findings": [],
+  "limitations": [
+    "S016 conditional fit-eligible failures, same explored images, not density causality or generalization.",
+    "S017 current frozen checkpoint with explicit nonoverlap COCO raster recipe, not historical training reconstruction.",
+    "S018 bounded achieved per-instance solve, 97/887 at iteration cap, not optimized capacity bound or method AP.",
+    "Fresh reviewer did not independently rerun all official COCO decoding; S018 was supplementary review.",
+    "Unused TracedLoss wrapper has no output dependency; executed source preserved for provenance."
+  ],
+  "resolved_findings": [
+    "Seven zero-valid-area spatial exclusions now individually disclosed.",
+    "Initial local/remote library hash discrepancy withdrawn after archived remote source matched protocol."
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "protocol_id": "PROTOCOL_coverage_cost_decomposition_v7_20260920",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "environment": {
+    "python": "3.12.3",
+    "ultralytics": "8.4.100",
+    "torch": "2.5.1",
+    "numpy": "2.4.3",
+    "opencv": "4.13.0",
+    "pycocotools": "2.0.11",
+    "scipy": "1.15.2",
+    "scikit-learn": "1.6.1"
+  },
+  "package_root": "D:/coco_wire/py",
+  "response_model": "D:/coco_wire/scripts/rcmc_mechanism_20260920/inputs/response.json",
+  "images": "D:/coco_wire/data/images/val2017",
+  "weights": "D:/mdoeldata/pigcv-task05/models/yolo26m-seg.pt",
+  "inference": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "max_det": 300,
+    "batch": 1,
+    "half": false,
+    "retina_masks": false,
+    "branch": "one2one"
+  },
+  "seed": 20260915,
+  "train_bank": "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_a8504db0ec7a4975b28edafeca0bc4dd",
+  "val_bank": "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_2ae67d6556a14848bceb5783a72e5790",
+  "train_annotations": "D:/coco_wire/data/annotations/calibration2000_train2017.json",
+  "val_annotations": "D:/coco_wire/data/annotations/instances_val2017.json",
+  "split": "D:/coco_wire/data/annotations/calibration2000_split.json",
+  "frozen_rcmc": "D:/coco_wire/scripts/rcmc_mechanism_20260920/inputs/response.json",
+  "feature_names": [
+    "log1p(area)",
+    "log1p(mask bbox elongation)",
+    "mask bbox extent",
+    "log1p(input-grid compactness)",
+    "removed_foreground_fraction"
+  ],
+  "models": {
+    "direct": {
+      "targets": [
+        "actual smooth IoU gain (empty trial restores baseline)"
+      ],
+      "trees": 300
+    },
+    "decomposed": {
+      "targets": [
+        "baseline purity T/A",
+        "baseline coverage T/G",
+        "purity of removed pixels a/(a+b); 0 for ineffective/empty-fallback action"
+      ],
+      "trees_per_target": 100,
+      "heads": 3
+    }
+  },
+  "estimator": {
+    "loss": "squared_error",
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 80,
+    "l2_regularization": 1.0,
+    "early_stopping": false,
+    "random_state": 20260915
+  },
+  "normalization": "All regression labels bounded: purity/coverage/removal purity in [0,1], direct delta in [-1,1]. No GT features. Matched candidates only, all success/failure groups; same training images and rows for all heads.",
+  "action": "Existing fixed smooth only, or baseline; newly empty trial restores baseline. Scores/classes/boxes/candidate count unchanged.",
+  "decode_predictions": "Let p=predicted purity, c=predicted coverage, z=predicted removed purity, r=observed removed area/A. Clip p,c to [1e-6,1], z to [0,1]. u=clip(z*r,max(0,p+r-1),min(p,r)) is removed TP/A; v=r-u is removed FP/A. Predicted G/A=p/c; J0=p/(p/c+1-p); J1=(p-u)/(p/c+1-r-p+u); coverage loss=u*c/p. These identities recover exact GT-derived values when supplied exact labels; clipping enforces feasible nested counts.",
+  "variants": [
+    "baseline",
+    "frozen_rcmc",
+    "direct",
+    "decomposed",
+    "decomposed_protected"
+  ],
+  "coverage_protection": {
+    "budget": 0.02,
+    "metric": "predicted a/G",
+    "selected_from_validation": false
+  },
+  "cutoff_grid": [
+    -0.005,
+    0,
+    0.001,
+    0.002,
+    0.005,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    1.0
+  ],
+  "selection": {
+    "images": 500,
+    "fit_images": 1500,
+    "damage_budget": "number of IoU75 damages of frozen RCMC on the same 500 train2017 selection images",
+    "rule": "For each learned variant choose among declared cutoffs under frozen RCMC damage budget: most target repairs, then fewest all-success damages, then most all-failure repairs, then greatest summed matched IoU gain, then higher cutoff. Cutoff 1.0 keeps baseline and guarantees feasibility. No selection on val AP or val diagnoses.",
+    "final_evaluation": "Freeze selected cutoffs and fitted estimators, evaluate all five variants once on original 4500 val IDs, retaining full GT/prediction lists."
+  },
+  "support": {
+    "relative_to": [
+      "direct",
+      "frozen_rcmc"
+    ],
+    "pareto": "target repairs >= comparator and all-success damages <= comparator, at least one strict",
+    "ap": "COCO Mask AP >= both comparators; report point differences, no AP CI claim",
+    "uncertainty": "2000 paired image bootstrap of target repair rate, all-success damage rate and net counts; pointwise exploratory intervals. If point estimates pass but uncertainty does not resolve better dimension, evidence insufficient. All criteria relative to both controls.",
+    "failure": "If point criteria fail, hypothesis not supported for this fixed feature/action/split setting; end goal with results, no expansion."
+  },
+  "scope_limits": [
+    "One seed; no YOLO training; no new features/data/action intensities.",
+    "val has prior exploratory use; no new blind-test claim.",
+    "Equal ceiling of 300 trees x 7 leaves in matched direct/decomposed calibrators, actual leaf counts/fit time/file size reported; multi-output allocation remains an inductive-bias difference.",
+    "Old RCMC has 100 trees and is reported independently, not misrepresented as capacity matched.",
+    "Regression components diagnose learnability but do not identify the unique origin of spillover."
+  ],
+  "runs": {
+    "fit": "RUN_6b816e23401b401eaebdb9a59604de19",
+    "selection": "RUN_f9255b932d0c46cbb5f6bf1ed0f6548c",
+    "evaluation": "RUN_fc304c4383b84944b974ffd6a635669f",
+    "inference_check": "RUN_a4e5a761beda4b059a1bd48efeb557ab",
+    "analysis": "RUN_5aeec2d474c4444aa987f5899a29f2b6"
+  }
+}

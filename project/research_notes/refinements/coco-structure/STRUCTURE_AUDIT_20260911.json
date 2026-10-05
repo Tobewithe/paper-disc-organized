@@ -1,0 +1,177 @@
+{
+  "audit_skill": "experiment-audit",
+  "date": "2026-09-11",
+  "project": "COCO structure diagnostic",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "fatal_issue": false,
+  "reason_code": "oracle_and_scope_limits_without_main_trace_invalidation",
+  "summary": "No fatal issue was found in the 300-image source-index trace. Real COCO GT, exact replay assertions, output counts, and reported statistics are internally consistent. Oracle readout, asymmetric matched cohorts, geometry confounding, missing matched controls, and incomplete raw-array sealing limit claims to exploratory diagnostics.",
+  "auditor": "task-isolated Codex audit subagent",
+  "auditor_agent": "/root/audit_structure_diagnostic",
+  "reviewer_model": "codex-same-family",
+  "reviewer_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "fresh_reviewer_call": false,
+  "fresh_reviewer_unavailable_reason": "The bounded parent assignment explicitly prohibited spawning any new subagent.",
+  "trace_path": null,
+  "trace_status": "not_created_bounded_assignment_permitted_only_two_audit_files_and_no_reviewer_call_occurred",
+  "evaluation_types": {
+    "candidate_and_official_metrics": "real_gt",
+    "ridge_readout": "real_gt_oracle_probe",
+    "actual_coefficient_auc": "real_gt_diagnostic",
+    "spatial_oracle_direction": "gt_oracle_diagnostic",
+    "synthetic_model_generated_gt": false
+  },
+  "checks": {
+    "A_gt_provenance_index_replay_parameter_isolation": {
+      "status": "PASS",
+      "details": [
+        "COCO dataset annotations provide GT; crowd is excluded from ordinary-instance and spatial denominators.",
+        "NMS return indices are replayed exactly, and raw coefficients and scaled boxes are asserted equal to captured outputs.",
+        "All 300 val images require exact coeff/boxes/detections/proto cache equality with maximum error zero.",
+        "YOLO weights are frozen; readouts and coefficient-oracle gradients use temporary tensors only.",
+        "Frozen-mechanism intervention source was audited, but no new intervention result directory was verified in this audit."
+      ]
+    },
+    "B_denominators_normalization_proxy_scope": {
+      "status": "WARN",
+      "details": [
+        "Stage and official rates use all 3635 non-crowd GT in the selected 300 images; pair outputs use 1174 same-class adjacent pairs.",
+        "No self-max or prediction-statistic normalization fraud was found.",
+        "Feature probes select at most one hashed pair per pair type per image and are not all-pair population estimates.",
+        "Val labels are used to fit within-image oracle readouts; these are not train-only-to-val generalization results.",
+        "Bootstrap intervals apply to the fixed dense-enriched exploratory image sample and are pointwise without multiple-comparison correction."
+      ]
+    },
+    "C_outputs_counts_aggregation": {
+      "status": "WARN",
+      "details": [
+        "Main counts reconcile: 300 images, 3635 GT, 1174 pairs, 66960 feature rows, 159 skipped feature rows, and 300 witness rows.",
+        "The first train witness is incomplete and retained as failed; v2 completes 32 images, 380 GT, 106 pairs, and 6384 feature rows on the disclosed mounted-image scope.",
+        "High-group recomputation matches bbox75 0.7220812183, segm75 0.5304568528, score availability75 0.7982233503, and NMS availability75 0.7385786802.",
+        "Cached bbox50 and historical segm75 labels have zero per-GT disagreement with the new official summaries.",
+        "Root outputs and derived CSVs are hashed, but raw/*.npz lacks a per-file or aggregate manifest despite being used by 0.75-stage postprocessing."
+      ]
+    },
+    "D_called_functions_and_phantom_metrics": {
+      "status": "PASS",
+      "details": [
+        "All reported trace, pair-feasibility, feature-readout, and summary functions are called in the executed --features path.",
+        "No reported metric was found to depend on an uncalled function.",
+        "Minor dead items are anchors, seed_offset, and one unused summarizer import; they do not change results."
+      ]
+    },
+    "E_representation_matched_cohort_geometry": {
+      "status": "WARN",
+      "details": [
+        "The 176-pair actual-A cohort requires only annotation A to be bbox50 matched; B need not be matched, and A/B is not symmetrized.",
+        "The stricter 167-pair cohort requires both bbox50 matches but still uses GT-selected pairs and pair-exclusive GT pixels.",
+        "All-eligible high proto oracle AUC is 0.9919029638 versus coordinate AUC 0.9613239765, so geometry is a strong control rather than a negligible confounder.",
+        "Checkerboard folds share image, instance, and receptive fields; category, area, distance, and contact geometry are not matched.",
+        "Proto and coordinate main AUCs do not vary across the three seeds because dimensions are at most 32; only higher-dimensional layers receive random projections and shuffled-label nulls vary.",
+        "Pair regions exclude each other and crowd but do not exclude overlap with third ordinary instances; the planned separate GT-overlap accounting is absent.",
+        "normalized_center_distance is asymmetric in annotation A and should not be used as a symmetric control without revision."
+      ]
+    },
+    "F_real_gt_vs_oracle": {
+      "status": "PASS",
+      "details": [
+        "Official bbox and segmentation recovery and candidate availability use real dataset GT.",
+        "Ridge readout is explicitly a GT-informed within-image oracle probe.",
+        "Spatial-oracle coefficient directions are GT-derived diagnostics, not deployable predictions or AP upper bounds.",
+        "No model-generated or synthetic pseudo-GT was found."
+      ]
+    }
+  },
+  "verified_counts": {
+    "main_images": 300,
+    "main_gt": 3635,
+    "main_high_gt": 788,
+    "main_low_gt": 2847,
+    "same_adjacent_pairs": 1174,
+    "high_same_adjacent_pairs": 877,
+    "feature_rows": 66960,
+    "feature_skipped_rows": 159,
+    "witness_rows": 300,
+    "train_witness_v2_images": 32,
+    "train_witness_v2_gt": 380,
+    "train_witness_v2_pairs": 106,
+    "train_witness_v2_feature_rows": 6384
+  },
+  "verified_statistics": {
+    "high_bbox75": 0.7220812182741116,
+    "high_segm75": 0.5304568527918782,
+    "high_score_available75": 0.7982233502538071,
+    "high_nms_available75": 0.7385786802030457,
+    "high_score_to_nms_loss75": 0.05964467005076142,
+    "proto_all_eligible_pairs": 186,
+    "proto_all_eligible_auc": 0.9919029637759899,
+    "proto_all_eligible_coordinate_auc": 0.9613239765464112,
+    "proto_a_bbox50_matched_pairs": 176,
+    "proto_a_bbox50_matched_auc": 0.9928522621439438,
+    "actual_a_auc": 0.9340846278433442,
+    "oracle_minus_actual_a": 0.05876763430059959,
+    "oracle_minus_actual_a_ci": [0.04391087955415741, 0.07537693028176919],
+    "both_bbox50_matched_pairs": 167,
+    "actual_pair_difference_auc": 0.9698760349569403,
+    "pair_difference_minus_actual_a": 0.029959343784630076,
+    "pair_difference_minus_actual_a_ci": [0.01864999152155367, 0.04239143746812773]
+  },
+  "claim_impact": [
+    {
+      "id": "source_index_lifecycle",
+      "impact": "supported_for_selected_300_images"
+    },
+    {
+      "id": "same_threshold_bbox_mask_rates",
+      "impact": "supported_for_selected_300_images"
+    },
+    {
+      "id": "nms_strict_localization_loss",
+      "impact": "supported_as_descriptive_not_density_specific_or_causal"
+    },
+    {
+      "id": "proto_oracle_minus_actual",
+      "impact": "supported_as_asymmetric_matched_A_oracle_probe_only"
+    },
+    {
+      "id": "relative_pair_response",
+      "impact": "supported_as_gt_selected_pixel_diagnostic_hypothesis_only"
+    },
+    {
+      "id": "C1_specific_stage_causal_localization",
+      "impact": "partial_controls_and_intervention_missing"
+    },
+    {
+      "id": "C2_method_improvement",
+      "impact": "unsupported_no_new_method_training_or_formal_evaluation"
+    }
+  ],
+  "unverified_items": [
+    "No cross-family reviewer verdict was obtained.",
+    "No new frozen_mechanism_probe intervention outputs were audited.",
+    "Raw NPZ contents were not independently rehashed into a complete manifest.",
+    "Missing category/area/distance/contact matched controls were not implemented.",
+    "No full-dimensional readout or equal-capacity coordinate control was run.",
+    "No new method, three-model-seed training, or full-val5k confirmation was run."
+  ],
+  "audited_input_hashes": {
+    "structure_candidate_trace.py": "sha256:58d63077aa8a477d3efef27ab1b535a1410f971a7d4de8c4e80396248a5f33cc",
+    "structure_features.py": "sha256:6e32d5891bd298130dfb4ca7fd304bb16ab150214ce2d934ce5015f40726696b",
+    "frozen_mechanism_probe.py": "sha256:e1cd6a4859761d37e88cdfd01ade1cb04d4c50edbf1cbc587b9ef65568fae256",
+    "inspect_runtime_path.py": "sha256:96b2470352af60a0421c12febf728ee248dd7df5002a978695574f41e0e4edf7",
+    "summarize_structure_trace.py": "sha256:b980c6a724f888b697b146cca300830053be9863d29a93da5290b6e0f1aa3843",
+    "report_structure_diagnostic.py": "sha256:bc1c782bfe299e5f2810bb672cfc72ddb37b28296aeb0fad397d569e66f07c43",
+    "main_protocol.json": "sha256:2544859b2763cf2e76cd65ac5df57fea2c91a99fe86af73a3e49712aa343a1b7",
+    "main_instances.csv": "sha256:51204c7f35dd9751be1e3d7f021d2b8f62efeabd45e8d8684b9f9d98f5082fe5",
+    "main_pairs.csv": "sha256:46d76d42d678cd3239630845170e75bfd93c655f03ea143bf078737dd0c45314",
+    "main_features.csv": "sha256:bfe165f9ff146b8f8d6cd9fc5c2b65d5bf84627af862a77646057f1e50d7493c",
+    "instances_same_iou.csv": "sha256:2183bf445ea8712e9364b55f9cb1224d82b52401a901f796695c2e217d64d84a",
+    "feature_pair_means.csv": "sha256:03fd9d90bf6a39139f22ae394247dfeaf1ba395e2f9fdc485e1abba59bc235a6",
+    "feature_summary.csv": "sha256:663ede6d9d7d05761fb31403739c42accb22e7bda1b65d88ef522181a7b495a3",
+    "STRUCTURE_SUMMARY.json": "sha256:0f94642cd3af60eef795acad1f874622eedd6bb47d38f3eda18620fecdb71513"
+  }
+}

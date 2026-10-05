@@ -1,0 +1,42 @@
+{
+  "route": "prediction_visible_instance_adaptive_boundary_calibration",
+  "status": "diagnostic_in_progress",
+  "question": "Can a prediction-only boundary signal selectively correct box-good, support-sufficient mask failures without changing the detector or mask prototypes?",
+  "object_definition": {
+    "target": "same-class one-to-one matched prediction with box IoU >= 0.75, baseline mask support >= 0.95, baseline mask IoU < 0.75",
+    "control": "same-class one-to-one matched prediction with box IoU >= 0.75 and baseline mask IoU >= 0.75",
+    "matching": "confidence-first, one-to-one, same class, box IoU >= 0.50"
+  },
+  "data": {
+    "dataset": "COCO val2017",
+    "smoke_images": 100,
+    "current_images": 500,
+    "annotations": "instances_val2017.json",
+    "gt_usage": "post-hoc cohort definition and evaluation only"
+  },
+  "model": {
+    "weights": "D:/mdoeldata/pigcv-task05/models/yolo26m-seg.pt",
+    "ultralytics": "8.4.100",
+    "runtime": "remote 28358lan RTX 4060 Laptop GPU",
+    "training": false,
+    "inference_path": "official one-to-many predict path with standard mask decode"
+  },
+  "intervention": {
+    "name": "instance-adaptive logit threshold",
+    "raw_signal": "prototype-coefficient mask logit and predicted-box boundary statistics",
+    "features": ["ambiguity", "positive_fraction", "margin_q25", "margin_q50"],
+    "policy": "stump selected on first half of images; threshold is chosen without GT at inference",
+    "fixed_thresholds": [-0.5, 0.0, 0.25, 0.5, 0.75, 1.0]
+  },
+  "gates": [
+    "The held-out target cohort must improve over threshold 0.",
+    "The held-out already-correct control cohort must not lose more than 0.001 mean IoU.",
+    "COCOeval segmentation AP must improve in the same direction as target-cohort IoU.",
+    "If any gate fails on the expanded evaluation, archive this route as diagnostic-only."
+  ],
+  "artifacts": {
+    "script": "scripts/boundary_threshold_probe.py",
+    "remote_output": "D:/coco_wire/results/mask_boundary_route_20260914",
+    "local_output": "experiments/mask_boundary_route_20260914/results"
+  }
+}

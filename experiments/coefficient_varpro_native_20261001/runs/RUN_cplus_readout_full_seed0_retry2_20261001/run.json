@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_cplus_readout_full_seed0_retry2_20261001",
+  "study_id": "STUDY_0c53a62f6f2d4d1bb0f7a5d8c91e6a42",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "scripts/cplus_readout.py",
+    "--weights",
+    "D:\\coco_wire\\models\\yolo26m-seg.pt",
+    "--c-final",
+    "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+    "--cache",
+    "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache",
+    "--data",
+    "D:\\coco_wire\\data",
+    "--out",
+    "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_full_seed0_retry2_20261001",
+    "--epochs",
+    "4",
+    "--lr",
+    "0.0003"
+  ],
+  "working_directory": "D:\\coco_wire\\varpro",
+  "status": "running",
+  "created_at": "2026-10-01T08:14:21.150+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+      "exists": true,
+      "sha256": "62576938390c461aeef61d82f5640bb5e23ab9fb99a29bf24d1b3241aac9c396",
+      "size": 3438629
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\cplus_readout.py",
+      "exists": true,
+      "sha256": "90b483eb778f177b44d1e5fc5480179160b65bbc7a8f9cab67ef47d163ba7638",
+      "size": 9055
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\VARPRO_RUN_CONFIG.json",
+      "exists": true,
+      "sha256": "508e7b79863a13a00e7441b3563372062a34ed480f0d654e362ad4f5dcb96662",
+      "size": 862
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\cplus_readout.py",
+      "revision": "90b483eb778f177b44d1e5fc5480179160b65bbc7a8f9cab67ef47d163ba7638",
+      "snapshot": "snapshots/90b483eb778f177b44d1e5fc5480179160b65bbc7a8f9cab67ef47d163ba7638"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_cplus_readout_full_seed0_retry2_20261001/SUMMARY.json",
+    "runs/RUN_cplus_readout_full_seed0_retry2_20261001/C_READOUT.pt"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_full_seed0_retry2_20261001"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 25484,
+  "started_at": "2026-10-01T08:14:21.546+00:00",
+  "last_heartbeat": "2026-10-01T08:14:21.546+00:00"
+}

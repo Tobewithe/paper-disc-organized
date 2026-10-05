@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_22814aabafe54706a48dfdff44bbc153",
+  "study_id": "STUDY_9d7e51a3cda2409e8c1d333d0b175467",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python3.12",
+    "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/run_teacher.py",
+    "--config",
+    "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/RUN_CONFIG.json",
+    "--stage",
+    "eval",
+    "--checkpoints",
+    "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/CHECKPOINTS.json",
+    "--out",
+    "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_22814aabafe54706a48dfdff44bbc153"
+  ],
+  "working_directory": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_22814aabafe54706a48dfdff44bbc153",
+  "status": "completed",
+  "created_at": "2026-10-04T16:54:15.883+00:00",
+  "host": "autodl-container-7gyvcd108y-b99fe683",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python3.12",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-168-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python3.12",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2"
+      }
+    }
+  },
+  "inputs": [],
+  "snapshots": [],
+  "scope": {
+    "kind": "evaluation",
+    "split": "dev256",
+    "arms": "A,N,G,P,G-T,P-T"
+  },
+  "expected_outputs": [
+    "SUMMARY.json",
+    "COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-7gyvcd108y-b99fe683",
+      "path": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_22814aabafe54706a48dfdff44bbc153"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 102831,
+  "started_at": "2026-10-04T16:54:16.001+00:00",
+  "last_heartbeat": "2026-10-04T16:55:36.386+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-04T16:55:36.578+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_22814aabafe54706a48dfdff44bbc153/SUMMARY.json",
+      "path_relative_to_cwd": "SUMMARY.json",
+      "exists": true,
+      "sha256": "fdbc25828aa22385c9de6978c9ca36bc168a08240b702909cb4a0d51d023d0b4"
+    },
+    {
+      "path": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_22814aabafe54706a48dfdff44bbc153/COMPLETE.json",
+      "path_relative_to_cwd": "COMPLETE.json",
+      "exists": true,
+      "sha256": "1e17245f90856d8a3d828d39719b7333c684eed7468e98199efc3b6caa26b95a"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_e6ed92f5c97d47c6b00b178cd0359252",
+  "study_id": "mask_quality_boundary_branch_20261004",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\research\\mask_quality_boundary_branch_20261004\\scripts\\run_fixed_runtime.py",
+    "D:\\coco_wire\\research\\mask_quality_score_training_20261004\\scripts\\train_official_baseline.py",
+    "--weights",
+    "D:\\coco_wire\\models\\yolo26m-seg.pt",
+    "--data",
+    "D:\\coco_wire\\research\\mask_quality_score_training_20261004\\coco_full_available.yaml",
+    "--project",
+    "D:\\coco_wire\\research\\mask_quality_score_training_20261004\\runs",
+    "--name",
+    "baseline_full_available_e3_s0_v3",
+    "--epochs",
+    "3",
+    "--batch",
+    "2",
+    "--imgsz",
+    "640"
+  ],
+  "working_directory": "D:\\coco_wire\\research\\mask_quality_boundary_branch_20261004",
+  "status": "completed",
+  "created_at": "2026-10-05T03:57:54.694+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\research\\mask_quality_score_training_20261004\\coco_full_available.yaml",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "3a560ec10dc55db9ce96ed91d35ba8ce479235a57a58f284ced8a00ce3b77263",
+      "size": 2078
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\research\\mask_quality_score_training_20261004\\scripts\\train_official_baseline.py",
+      "path_relative_to_cwd": "",
+      "revision": "9b30a4795bf59893c0ede80218193f6677dc708da035af9a4b14be4bea2eadbe",
+      "snapshot": "snapshots/9b30a4795bf59893c0ede80218193f6677dc708da035af9a4b14be4bea2eadbe"
+    },
+    {
+      "path": "D:\\coco_wire\\research\\mask_quality_boundary_branch_20261004\\scripts\\run_fixed_runtime.py",
+      "path_relative_to_cwd": "scripts/run_fixed_runtime.py",
+      "revision": "026898f16e6d0845b32824b3c5913b3adf8e9c5aac26562fe717682af5336baf",
+      "snapshot": "snapshots/026898f16e6d0845b32824b3c5913b3adf8e9c5aac26562fe717682af5336baf"
+    },
+    {
+      "path": "D:\\coco_wire\\research\\mask_quality_boundary_branch_20261004\\runner.py",
+      "path_relative_to_cwd": "runner.py",
+      "revision": "a79be21c01abddb361965450ae178fcdfabd71f2de411b88a84e366ecb7a8008",
+      "snapshot": "snapshots/a79be21c01abddb361965450ae178fcdfabd71f2de411b88a84e366ecb7a8008"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:\\coco_wire\\research\\mask_quality_score_training_20261004\\runs\\baseline_full_available_e3_s0_v3\\results.csv"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\research\\mask_quality_boundary_branch_20261004\\runs\\RUN_baseline_full_available_e3_s0_v3"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 18288,
+  "started_at": "2026-10-05T03:57:55.169+00:00",
+  "last_heartbeat": "2026-10-05T04:57:09.469+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-05T04:57:12.582+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\research\\mask_quality_score_training_20261004\\runs\\baseline_full_available_e3_s0_v3\\results.csv",
+      "path_relative_to_cwd": "D:/coco_wire/research/mask_quality_score_training_20261004/runs/baseline_full_available_e3_s0_v3/results.csv",
+      "exists": true,
+      "sha256": "03fd530d9dcbfea6ff1d27e5f109ae8cba296241eeb7966b59d0642b2c348256"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_2b1533f8c6c045788528448702667d19",
+  "study_id": "STUDY_d2b7dce3571a42bc8c7b4eb51a0a3e91",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/coco_template_source_20260921/scripts/shared_shape_head.py",
+    "train",
+    "--bank",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e83cf453bd6e47feb025ef4259bc8499/training_bank.pt",
+    "--split",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6/SPLIT.json",
+    "--template",
+    "/root/coco_template_source_20260921/runs/RUN_a5a54b89359f407f905706037bab0728/analytic_center.json",
+    "--geometry",
+    "/root/coco_template_source_20260921/runs/RUN_206796bc9e844d0c8a779c4203c2b400/geometry.pt",
+    "--seed",
+    "0",
+    "--out",
+    "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19"
+  ],
+  "working_directory": "/root/coco_template_source_20260921",
+  "status": "completed",
+  "created_at": "2026-09-21T21:23:48.072+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e83cf453bd6e47feb025ef4259bc8499/training_bank.pt",
+      "exists": true,
+      "sha256": "ec53f310d814caf3284ccd0eb35b9d49fda98e0f14b5bf9594744a333e092894",
+      "size": 2574345303
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6/SPLIT.json",
+      "exists": true,
+      "sha256": "341c7bb9f2f6186f9985d800e0986ffea6f1baeb48b2c200dfeab25aab046ade",
+      "size": 47212
+    },
+    {
+      "path": "/root/coco_template_source_20260921/runs/RUN_a5a54b89359f407f905706037bab0728/analytic_center.json",
+      "exists": true,
+      "sha256": "a371f8573a06d807f9f8b225e2b7bc5670a8cff10c60aecf80a85dd0cdfe800b",
+      "size": 624
+    },
+    {
+      "path": "/root/coco_template_source_20260921/runs/RUN_206796bc9e844d0c8a779c4203c2b400/geometry.pt",
+      "exists": true,
+      "sha256": "2979100e0f22924fa67f68dbdd1fa3e37dddf899647df2409e2b7a0d465941d8",
+      "size": 706346
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coco_template_source_20260921/PROTOCOL.json",
+      "revision": "86ab040ecaa245cb43157d7f3f5f61c314b34137f505ae07c7c371cf8e825e5e",
+      "snapshot": "snapshots/86ab040ecaa245cb43157d7f3f5f61c314b34137f505ae07c7c371cf8e825e5e"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/scripts/component_seed_probe.py",
+      "revision": "453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190",
+      "snapshot": "snapshots/453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/scripts/evaluate_shared2.py",
+      "revision": "614276078035d359091b1b0e3c022656ee5e20dec8c4a7a8d5bc65b46e817294",
+      "snapshot": "snapshots/614276078035d359091b1b0e3c022656ee5e20dec8c4a7a8d5bc65b46e817294"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/scripts/learn_refinement.py",
+      "revision": "47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912",
+      "snapshot": "snapshots/47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/scripts/prepare_template_sources.py",
+      "revision": "4ec17cb34057388f57a4498d3394ada32622d2349c8ac70c02705e8d3e17a235",
+      "snapshot": "snapshots/4ec17cb34057388f57a4498d3394ada32622d2349c8ac70c02705e8d3e17a235"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/scripts/repair_refinement.py",
+      "revision": "bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5",
+      "snapshot": "snapshots/bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/scripts/run_template_sources.py",
+      "revision": "ee6da9f131cd6417595e377a8d52fc95c4ee8adc028032e578777c3c08a1c023",
+      "snapshot": "snapshots/ee6da9f131cd6417595e377a8d52fc95c4ee8adc028032e578777c3c08a1c023"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/scripts/shared_shape_head.py",
+      "revision": "76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379",
+      "snapshot": "snapshots/76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19/epoch8.pt",
+    "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19/SELECTION.json",
+    "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 2092,
+  "started_at": "2026-09-21T21:23:51.131+00:00",
+  "last_heartbeat": "2026-09-21T21:24:11.137+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-21T21:24:11.235+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19/epoch8.pt",
+      "exists": true,
+      "sha256": "92c56536b8461b278722bcf474b4e38621077a3110094a0e2644706519eb4a65"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19/SELECTION.json",
+      "exists": true,
+      "sha256": "83ccd029ca8c5500ba71dcaa169e0e0c94f445d8c0828f76a0a7bb60cca16c93"
+    },
+    {
+      "path": "/root/coco_template_source_20260921/runs/RUN_2b1533f8c6c045788528448702667d19/COMPLETE.json",
+      "exists": true,
+      "sha256": "83ccd029ca8c5500ba71dcaa169e0e0c94f445d8c0828f76a0a7bb60cca16c93"
+    }
+  ]
+}

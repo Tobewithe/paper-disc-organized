@@ -1,0 +1,21 @@
+{
+  "question": "Is instance-dependent low-dimensional spatial correction preferable to a static shape prior or a more flexible coefficient readout on the same frozen representation?",
+  "source": "STUDY_e57da2b0fb7f4d7782d792c826beabde",
+  "arms": {
+    "global_scalar": "One learned tanh-bounded bias shared by every instance, no instance inputs;4*b correction.",
+    "global_spatial": "Two learned global tanh values;4*(b+a*T) with existingfit-residualtemplate and exactpredictedcropnormalization; no instance input.",
+    "native_coeff_mlp": "Same67nativefeatures, normalization andMLP67->64hidden as native_spatial;32tanh coefficient residuals, correction2*sum(delta_k*RMS-normalizedP_k).",
+    "native_quad_coeff_mlp": "Identicalnativeinputs/hidden;4sets of32tanh residuals, each applied to a2x2predictedboxquadrant. Same coefficient scaling as nonspatialMLP."
+  },
+  "related_work": {
+    "citation": "Cao et al., SipMask, ECCV2020, https://arxiv.org/html/2007.14772v1",
+    "adaptation": "The paper uses separate32D coefficients for2x2boxsubregions, together with featurealignment and other training components. This control adapts only the subregioncoefficients idea on frozenYOLOfeatures, using a residualMLP. It is not a reproduction of completeSipMask and does not support a state-of-the-art comparison."
+  },
+  "fixed": "Same14204/3723 fit/selectionrecords from800/200COCOtrain2017 images; originalfrozenYOLO26mseg8.4.100; existingproto andboxscoresunchanged; seed0;8epochs AdamW3e-4 wd1e-4 batch64 clip10;BCE+.5Dice;zeroinitializedoutput.",
+  "template": "Reuse originalfit-residualtemplate andgeometry; no val labels used. Globalspatial tests whether dynamicb,a are necessary; spatialMLP has4482parameters reference, coefficientcontrols have more parameters and are not parameter-matched.",
+  "selection": "Last epoch, alpha from[0,.25,.5,1] by same200train-selection meanROI IoU; report everyarm andallstrengthvalues. No testAP selection.",
+  "evaluation": "Sharedforward andfrozenone2one top300 score>.001; baselineallrawmatrix; full5000val2017 official12metrics, Mask75 repair/harm. Quadrants defined using inputpixelcenters relative toboxmidpoints, consistent withROItrainingcenters. No externallysuppliedbboxinCOCOresultrecords.",
+  "checks": "Atalpha0 compareofficialprocess_mask on3images. Verify identicalfourcoefficientsets collapse toglobalcoefficientcorrection; verifyquadordering with synthetic onehotprototypes before fullrun.",
+  "decision": "If globalspatial matches dynamichead, narrow claim to staticboxrelativeprior. If regioncoefficientcontrol matches/exceeds benefit, accept it as competingmechanism or superiorcandidate rather than claiminguniquespatialfieldvalue. Interpret AP andrepairs/harms jointly withcost. Single-seed screening only; no automaticarchitecturesearch.",
+  "execution": "Queue waits for prior two-seedreplication tocomplete; failures preservelogs; allruns throughrunner withindependentIDs."
+}

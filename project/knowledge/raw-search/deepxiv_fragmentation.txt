@@ -1,0 +1,478 @@
+{
+  "status": "success",
+  "backend": "qdrant",
+  "total_count": 10,
+  "result": [
+    {
+      "arxiv_id": "2301.01156",
+      "score": 0.5,
+      "title": "Reference Twice: A Simple and Unified Baseline for Few-Shot Instance Segmentation",
+      "tldr": "[research paper] Reference Twice (RefT) introduces a transformer-based baseline for Few-Shot Instance Segmentation that leverages dual-level support guidance—feature-level class prototypes via mask pooling and query-level object query cross-attention—to avoid overfitting and spatial information loss. The method exploits inherent correlations between support and query object queries (support query localization and categorization), enabling effective instance segmentation without complex spatial correlation modules or fine-tuning, achieving +8.2/+9.4 mAP gains over state-of-the-art on COCO with 10/30-shot settings. A class-enhanced knowledge distillation loss enables seamless extension to incremental FSIS by stabilizing adaptation in incremental settings.",
+      "abstract": "Few-Shot Instance Segmentation (FSIS) requires detecting and segmenting novel classes with limited support examples. Existing methods based on Region Proposal Networks (RPNs) face two issues: 1) Overfitting suppresses novel class objects; 2) Dual-branch models require complex spatial correlation strategies to prevent spatial information loss when generating class prototypes. We introduce a unified framework, Reference Twice (RefT), to exploit the relationship between support and query features for FSIS and related tasks. Our three main contributions are: 1) A novel transformer-based baseline that avoids overfitting, offering a new direction for FSIS; 2) Demonstrating that support object queries encode key factors after base training, allowing query features to be enhanced twice at both feature and query levels using simple cross-attention, thus avoiding complex spatial correlation interaction; 3) Introducing a class-enhanced base knowledge distillation loss to address the issue of DETR-like models struggling with incremental settings due to the input projection layer, enabling easy extension to incremental FSIS. Extensive experimental evaluations on the COCO dataset under three FSIS settings demonstrate that our method performs favorably against existing approaches across different shots, \\\\eg, $+8.2/+9.4$ performance gain over state-of-the-art methods with 10/30-shots. Source code and models will be available at https://github.com/hanyue1648/RefT.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Yue Han",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Jiangning Zhang",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Yabiao Wang",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Chengjie Wang",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Yong Liu",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Lu Qi",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Xiangtai Li",
+          "orgs": []
+        },
+        {
+          "misc": {},
+          "name": "Ming-Hsuan Yang",
+          "orgs": []
+        }
+      ],
+      "url": "https://arxiv.org/abs/2301.01156",
+      "date": "2023-01-03T00:00:00",
+      "citation_count": 28,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2411.14179",
+      "score": 0.5,
+      "title": "CompetitorFormer: Competitor Transformer for 3D Instance Segmentation",
+      "tldr": "[research paper] CompetitorFormer introduces three competition-aware modules—query competition layer (QCL), relative relationship encoding (RRE), and rank cross attention (RCA)—to mitigate inter-query competition in 3D instance segmentation. QCL captures spatial and competitive relationships via static embeddings to bias classification scores toward matched queries; RRE refines attention weights using query-key relationships; RCA amplifies query disparities through normalized dot-product similarity, enabling dominant queries to emerge faster. These designs improve convergence and accuracy across ScanNetv2, S3DIS, and STPLS3D by reducing redundant query predictions and enhancing query differentiation in the decoder stages.",
+      "abstract": "Transformer-based methods have become the dominant approach for 3D instance segmentation. These methods predict instance masks via instance queries, ranking them by classification confidence and IoU scores to select the top prediction as the final outcome. However, it has been observed that the current models employ a fixed and higher number of queries than the instances present within a scene. In such instances, multiple queries predict the same instance, yet only a single query is ultimately optimized. The close scores of queries in the lower-level decoders make it challenging for the dominant query to distinguish itself rapidly, which ultimately impairs the model's accuracy and convergence efficiency. This phenomenon is referred to as inter-query competition. To address this challenge, we put forth a series of plug-and-play competition-oriented designs, collectively designated as the CompetitorFormer, with the aim of reducing competition and facilitating a dominant query. Experiments showed that integrating our designs with state-of-the-art frameworks consistently resulted in significant performance improvements in 3D instance segmentation across a range of datasets.",
+      "authors": [
+        {
+          "misc": {
+            "email": "wangduanchu@stu.xidian.edu.cn"
+          },
+          "name": "Duanchu Wang",
+          "orgs": [
+            "School of Electronic Engineering, Xidian University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Jing Liu",
+          "orgs": [
+            "School of Software Engineering, Xi'an Jiaotong University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Haoran Gong",
+          "orgs": [
+            "School of Software Engineering, Xi'an Jiaotong University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Yinghui Quan",
+          "orgs": [
+            "School of Electronic Engineering, Xidian University"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Di Wang",
+          "orgs": [
+            "School of Software Engineering, Xi'an Jiaotong University"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2411.14179",
+      "date": "2024-11-21T00:00:00",
+      "citation_count": 5,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2502.04139",
+      "score": 0.33333334,
+      "title": "Beyond the Final Layer: Hierarchical Query Fusion Transformer with Agent-Interpolation Initialization for 3D Instance Segmentation",
+      "tldr": "[research paper] BFL introduces an Agent-Interpolation Initialization Module (AI2M) that jointly initializes position and content queries to balance spatial coverage and semantic learning, addressing empty sampling and foreground loss in 3D instance segmentation. A Hierarchical Query Fusion Decoder preserves low-overlap queries across decoder layers, preventing object disappearance and maintaining stable recall through end-to-end fusion without relying on post-hoc filtering like NMS.",
+      "abstract": "3D instance segmentation aims to predict a set of object instances in a scene and represent them as binary foreground masks with corresponding semantic labels. Currently, transformer-based methods are gaining increasing attention due to their elegant pipelines, reduced manual selection of geometric properties, and superior performance. However, transformer-based methods fail to simultaneously maintain strong position and content information during query initialization. Additionally, due to supervision at each decoder layer, there exists a phenomenon of object disappearance with the deepening of layers. To overcome these hurdles, we introduce Beyond the Final Layer: Hierarchical Query Fusion Transformer with Agent-Interpolation Initialization for 3D Instance Segmentation (BFL). Specifically, an Agent-Interpolation Initialization Module is designed to generate resilient queries capable of achieving a balance between foreground coverage and content learning. Additionally, a Hierarchical Query Fusion Decoder is designed to retain low overlap queries, mitigating the decrease in recall with the deepening of layers. Extensive experiments on ScanNetV2, ScanNet200, ScanNet++ and S3DIS datasets demonstrate the superior performance of BFL.",
+      "authors": [
+        {
+          "misc": {
+            "email": "lujiahao@mail.ustc.edu.cn"
+          },
+          "name": "Jiahao Lu",
+          "orgs": [
+            "University of Science and Technology of China"
+          ]
+        },
+        {
+          "misc": {
+            "email": "dengjc@mail.ustc.edu.cn"
+          },
+          "name": "Jiacheng Deng",
+          "orgs": [
+            "University of Science and Technology of China"
+          ]
+        },
+        {
+          "misc": {
+            "email": "tzzhang@ustc.edu.cn"
+          },
+          "name": "Tianzhu Zhang",
+          "orgs": [
+            "University of Science and Technology of China"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2502.04139",
+      "date": "2025-02-06T00:00:00",
+      "citation_count": 7,
+      "categories": [
+        "cs.CV"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2202.02975",
+      "score": 0.33333334,
+      "title": "Competitive Online Optimization with Multiple Inventories: A Divide-and-Conquer Approach",
+      "tldr": "[research paper] The paper introduces a divide-and-conquer framework for competitive online optimization with multiple inventories, decomposing the problem into single-inventory subproblems to handle coupled allocation constraints and adversarial revenue functions. It achieves optimal competitive ratios (CR) for small numbers of inventories under bounded-gradient revenue functions, and for arbitrary numbers, its CR is within an additive constant of the theoretical lower bound. The approach generalizes to price-elastic one-way trading problems with no prior results, achieving optimal CR up to a constant factor, and improves upon existing primal-dual methods by decoupling inventory allocation and constraint satisfaction.",
+      "abstract": "We study a competitive online optimization problem with multiple inventories. In the problem, an online decision maker seeks to optimize the allocation of multiple capacity-limited inventories over a slotted horizon, while the allocation constraints and revenue function come online at each slot. The problem is challenging as we need to allocate limited inventories under adversarial revenue functions and allocation constraints, while our decisions are coupled among multiple inventories and different slots. We propose a divide-and-conquer approach that allows us to decompose the problem into several single inventory problems and solve it in a two-step manner with almost no optimality loss in terms of competitive ratio (CR). Our approach provides new angles, insights and results to the problem, which differs from the widely-adopted primal-and-dual framework. Specifically, when the gradients of the revenue functions are bounded in a positive range, we show that our approach can achieve a tight CR that is optimal when the number of inventories is small, which is better than all existing ones. For an arbitrary number of inventories, the CR we achieve is within an additive constant of one to a lower bound of the best possible CR among all online algorithms for the problem. We further characterize a general condition for generalizing our approach to different applications. For example, for a generalized one-way trading problem with price elasticity, where no previous results are available, our approach obtains an online algorithm that achieves the optimal CR up to a constant factor.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Qiulin Lin",
+          "orgs": [
+            "City University of Hong Kong",
+            "China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Yanfang Mo",
+          "orgs": [
+            "City University of Hong Kong",
+            "China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Junyan Su",
+          "orgs": [
+            "City University of Hong Kong",
+            "China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Minghua Chen",
+          "orgs": [
+            "City University of Hong Kong",
+            "China"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2202.02975",
+      "date": "2022-02-07T00:00:00",
+      "citation_count": 5,
+      "categories": [
+        "cs.PF"
+      ],
+      "venue": "Measurement and Modeling of Computer Systems",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2011.13228",
+      "score": 0.25,
+      "title": "MultiStar: Instance Segmentation of Overlapping Objects with Star-Convex Polygons",
+      "tldr": "[research paper] MultiStar extends StarDist to handle overlapping objects by predicting overlap probability, which is used to refine proposal sampling and modify non-maximum suppression (NMS) to preserve true overlaps. By excluding overlap regions from intersection computation during NMS, the method enables accurate detection of overlapping instances without false suppression, while maintaining a simple UNet-based architecture with minimal overhead. The approach achieves reliable segmentation of dense, overlapping objects in biomedical images with improved performance over baseline StarDist on standard benchmarks.",
+      "abstract": "Instance segmentation of overlapping objects in biomedical images remains a largely unsolved problem. We take up this challenge and present MultiStar, an extension to the popular instance segmentation method StarDist. The key novelty of our method is that we identify pixels at which objects overlap and use this information to improve proposal sampling and to avoid suppressing proposals of truly overlapping objects. This allows us to apply the ideas of StarDist to images with overlapping objects, while incurring only a small overhead compared to the established method. MultiStar shows promising results on two datasets and has the advantage of using a simple and easy to train network architecture.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Florin C. Walter",
+          "orgs": [
+            "HCI/IWR, University of Heidelberg, Germany"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Sebastian Damrich",
+          "orgs": [
+            "HCI/IWR, University of Heidelberg, Germany"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Fred A. Hamprecht",
+          "orgs": [
+            "HCI/IWR, University of Heidelberg, Germany"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2011.13228",
+      "date": "2020-11-26T00:00:00",
+      "citation_count": 19,
+      "categories": [
+        "cs.CV",
+        "eess.IV"
+      ],
+      "venue": "IEEE International Symposium on Biomedical Imaging",
+      "venue_year": 2021,
+      "github_url": "https://github.com/overlapping-instances/MultiStar"
+    },
+    {
+      "arxiv_id": "2404.18133",
+      "score": 0.25,
+      "title": "Logarithmic Comparison-Based Query Complexity for Fair Division of Indivisible Goods",
+      "tldr": "[research paper] The paper introduces a comparison-based query model for fair division of indivisible goods, where agents respond to pairwise bundle comparisons rather than revealing numerical valuations. It achieves sublinear query complexity—specifically, $O(\text{log } m)$ for EF1 with constant agents and $O(n^4 \text{log } m)$ for PROP1 and $\\frac{1}{2}$-MMS—by leveraging ordinal preferences to avoid full valuation disclosure. A lower bound of $\\Omega(\\text{log } m)$ proves that this complexity is optimal for all three fairness notions (PROP1, EF1, $\\alpha$-MMS) even with two agents, establishing both efficiency and information-theoretic minimality.",
+      "abstract": "We study the problem of fairly allocating $m$ indivisible goods to $n$ agents, where agents may have different preferences over the goods. In the traditional setting, agents' valuations are provided as inputs to the algorithm. In this paper, we adopt the query model, which has been widely considered for other similar problems (such as matching [Nis21], graph isomorphism [OS18], and equilibrium in game [Bab16]), and apply it to the fair division problem. In particular, we consider a new \\\\emph{comparison-based query model}, where the algorithm presents two bundles of goods to an agent and the agent responds by telling the algorithm which bundle she prefers. We investigate the query complexity for computing allocations with several fairness notions, including \\\\emph{proportionality up to one good} (PROP1), \\\\emph{envy-freeness up to one good} (EF1), and \\\\emph{maximin share} (MMS). Our main result is an algorithm that computes an allocation that satisfies both PROP1 and $\\\\frac12$-MMS within $O(\\\\log m)$ queries with a constant number of $n$ agents. For identical and additive valuation, we present an algorithm for computing an EF1 allocation within $O(\\\\log m)$ queries with a constant number of $n$ agents. To complement the positive results, we show that the lower bound of the query complexity for any of the three fairness notions is $\\\\Omega(\\\\log m)$ even with two agents.",
+      "authors": [
+        {
+          "misc": {
+            "email": "lin_bu@sjtu.edu.cn"
+          },
+          "name": "Xiaolin Bu",
+          "orgs": [
+            "Shanghai Jiao Tong University"
+          ]
+        },
+        {
+          "misc": {
+            "email": "zihao004@e.ntu.edu.sg"
+          },
+          "name": "Zihao Li",
+          "orgs": [
+            "Nanyang Technological University"
+          ]
+        },
+        {
+          "misc": {
+            "email": "sxliu@hit.edu.cn"
+          },
+          "name": "Shengxin Liu",
+          "orgs": [
+            "Harbin Institute of Technology, Shenzhen"
+          ]
+        },
+        {
+          "misc": {
+            "email": "jiaxins8@illinois.edu"
+          },
+          "name": "Jiaxin Song",
+          "orgs": [
+            "University of Illinois, Urbana-Champaign"
+          ]
+        },
+        {
+          "misc": {
+            "email": "BSTAO@sjtu.edu.cn"
+          },
+          "name": "Biaoshuai Tao",
+          "orgs": [
+            "Shanghai Jiao Tong University"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2404.18133",
+      "date": "2024-04-28T00:00:00",
+      "citation_count": 8,
+      "categories": [
+        "cs.GT"
+      ],
+      "venue": "Workshop on Internet and Network Economics",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "physics/0502144",
+      "score": 0.2,
+      "title": "Sociophysics Simulations I: Language Competition",
+      "tldr": "[research paper] An agent-based model using bit-string representations simulates language competition, showing that low mutation probabilities lead to linguistic dominance, while higher mutation rates cause fragmentation into many equally sized languages with frequent extinction and rebirth. The model reproduces observed language size distributions and exhibits mixing behavior through re-interpretation as bilingualism, matching results from Kosmidis et al.'s model despite different formalisms. Spatial lattice extensions show stable coexistence of languages with sharp interfaces, independent of lattice size, contrasting with traditional thermodynamic approximations that fail to capture finite-size effects or extinction dynamics.",
+      "abstract": "Using a bit-string model similar to biological simulations, the competition between different languages is simulated both without and with spatial structure. We compare our agent-based work with differential equations and the competing bit-string model of Kosmidis et al.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Christian Schulze",
+          "orgs": [
+            "Institute for Theoretical Physics, Cologne University, D-50923 Köln, Euroland"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Dietrich Stauffer",
+          "orgs": []
+        }
+      ],
+      "url": "https://arxiv.org/abs/physics/0502144",
+      "date": "2005-02-28T00:00:00",
+      "citation_count": 4,
+      "categories": [
+        "physics.soc-ph"
+      ],
+      "venue": "arXiv: Physics and Society",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "2607.27509",
+      "score": 0.2,
+      "title": "Quantum Interference as a Proposal Mechanism for Combinatorial Optimization",
+      "tldr": "[Research Paper] This paper introduces Quantum Interference Proposal Search (QIPS), a non-variational method that uses seed-conditioned quantum circuits to generate localized interference patterns as proposal distributions for QUBO and Ising optimization. Evaluated via ideal simulation across six benchmark families, QIPS demonstrates competitive performance against matched classical controls by efficiently resampling near-optimal solutions through finite-shot proposals.",
+      "abstract": "Quantum Interference Proposal Search (QIPS) uses seed-conditioned quantum circuits to generate localized interference patterns as finite-shot proposal distributions for QUBO/Ising optimization. Candidate $n_b$-bit strings are sampled from these distributions, scored classically and used to update an elite frontier of low-energy solutions. QIPS uses a fixed two-layer gate-based circuit architecture with 100 shots per circuit while the Hilbert-space dimension grows as $2^{n_b}$. Across six benchmark families with $18 \\le n_b \\le 29$, QIPS maintains competitive progress relative to a matched classical control that preserves the same search loop, frontier update rule and proposal budget, with total proposals proportional to $n_b$. Performance is assessed using top-$K$ coverage, hit rate, multiplicity, Hilbert-space coverage and dyadic-rank metrics. The results identify localized quantum interference as a resource-efficient proposal mechanism for computational quantum optimization.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Donald J. Jacobs",
+          "orgs": [
+            "University of North Carolina at Charlotte"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/2607.27509",
+      "date": "2026-07-29T22:54:13",
+      "citation_count": 0,
+      "categories": [
+        "quant-ph"
+      ],
+      "venue": null,
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "1305.2758",
+      "score": 0.16666667,
+      "title": "Using Page Size for Controlling Duplicate Query Results in Semantic Web",
+      "tldr": "[research paper] The paper proposes a hybrid duplicate detection mechanism for semantic web query results that combines hash index comparison with page size analysis to overcome the limitations of hash-based duplication detection. By leveraging page size as a secondary filter—where results with identical or near-identical sizes (within 50 KB) are further evaluated for duplication—the method reduces false negatives caused by formatting or word-order variations. The approach operates within existing SQL-based RDF query systems, offering low computational overhead and minimal memory usage, and is validated through experimental results showing effective elimination of syntactically different but semantically identical query results.",
+      "abstract": "Semantic web is a web of future. The Resource Description Framework (RDF) is a language to represent resources in the World Wide Web. When these resources are queried the problem of duplicate query results occurs. The present techniques used hash index comparison to remove duplicate query results. The major drawback of using the hash index to remove duplicate query results is that, if there is a slight change in formatting or word order, then hash index is changed and query results are no more considered as duplicate even though they have same contents. We presented an algorithm for detection and elimination of duplicate query results from semantic web using hash index and page size comparisons. Experimental results showed that the proposed technique removed duplicate query results from semantic web efficiently, solved the problems of using hash index for duplicate handling and could be embedded in existing SQL-Based query system for semantic web. Research could be carried out for certain flexibilities in existing SQL-Based query system of semantic web to accommodate other duplicate detection techniques as well.",
+      "authors": [
+        {
+          "misc": {
+            "email": "1o.naseer@warwick.ac.uk"
+          },
+          "name": "Oumair Naseer",
+          "orgs": [
+            "School of Engineering, University of Warwick, Coventry, UK",
+            "1o.naseer@warwick.ac.uk"
+          ]
+        },
+        {
+          "misc": {
+            "email": "2ayesha.naseer@emc.edu.pk"
+          },
+          "name": "Ayesha Naseer",
+          "orgs": [
+            "Department of Computer Science, NUST, Islamabad, Pakistan",
+            "2ayesha.naseer@emc.edu.pk"
+          ]
+        },
+        {
+          "misc": {
+            "email": "3atif.khan@warwick.ac.uk"
+          },
+          "name": "Atif Ali Khan",
+          "orgs": [
+            "School of Engineering, University of Warwick, Coventry, UK",
+            "3atif.khan@warwick.ac.uk"
+          ]
+        },
+        {
+          "misc": {
+            "email": "4humza.naseer@bilytica.com"
+          },
+          "name": "Humza Naseer",
+          "orgs": [
+            "Business Intelligence Consultant, Bilytica Private Limited, Lahore, Pakistan",
+            "4humza.naseer@bilytica.com"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/1305.2758",
+      "date": "2013-05-13T00:00:00",
+      "citation_count": 3,
+      "categories": [
+        "cs.DB"
+      ],
+      "venue": "arXiv.org",
+      "venue_year": null,
+      "github_url": null
+    },
+    {
+      "arxiv_id": "1112.5509",
+      "score": 0.16666667,
+      "title": "Lower Bound of Concurrence and Distillation for Arbitrary Dimensional Bipartite Quantum States",
+      "tldr": "[research paper] The paper derives a new analytical lower bound on concurrence for arbitrary-dimensional bipartite quantum states by projecting high-dimensional states onto lower-dimensional subsystems, which improves existing bounds and provides a sufficient criterion for distillability—particularly identifying distillable mixed states that evade prior criteria, including those based on PPT or local uncertainty relations.",
+      "abstract": "We present a lower bound of concurrence for arbitrary dimensional bipartite quantum states. This lower bound may be used to improve all the known lower bounds of concurrence. Moreover, the lower bound gives rise to an operational sufficient criterion of distillability of quantum entanglement. The significance of our result is illustrated by quantitative evaluation of entanglement for entangled states that fail to be identified by the usual concurrence estimation method, and by showing the distillability of mixed states that can not be recognized by other distillability criteria.",
+      "authors": [
+        {
+          "misc": {},
+          "name": "Ming-Jing Zhao",
+          "orgs": [
+            "Max-Planck-Institute for Mathematics in the Sciences, 04103 Leipzig, Germany"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Xue-Na Zhu",
+          "orgs": [
+            "Department of Mathematics, School of Science, South China University of Technology, Guangzhou 510640, China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Shao-Ming Fei",
+          "orgs": [
+            "Max-Planck-Institute for Mathematics in the Sciences, 04103 Leipzig, Germany",
+            "School of Mathematical Sciences, Capital Normal University, Beijing 100048, China"
+          ]
+        },
+        {
+          "misc": {},
+          "name": "Xianqing Li-Jost",
+          "orgs": [
+            "Max-Planck-Institute for Mathematics in the Sciences, 04103 Leipzig, Germany"
+          ]
+        }
+      ],
+      "url": "https://arxiv.org/abs/1112.5509",
+      "date": "2011-12-23T00:00:00",
+      "citation_count": 16,
+      "categories": [
+        "quant-ph"
+      ],
+      "venue": "Physical Review A",
+      "venue_year": null,
+      "github_url": null
+    }
+  ]
+}

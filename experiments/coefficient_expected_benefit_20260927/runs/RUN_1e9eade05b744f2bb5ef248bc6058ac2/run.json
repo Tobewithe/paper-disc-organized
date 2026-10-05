@@ -1,0 +1,113 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_1e9eade05b744f2bb5ef248bc6058ac2",
+  "study_id": "STUDY_0d9e14b39d5e4fafba576b311b4321c1",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "scripts/score_oof_benefit.py",
+    "--manifest",
+    "/root/coefficient_expected_benefit_20260927/MANIFEST.json",
+    "--targets",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_9ad188b832fd9bc49c0aafc7a61de989",
+    "--bank",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3",
+    "--annotations",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3/conversion_input/instances_train2017.json",
+    "--weights",
+    "/root/autodl-tmp/coefficient_predictability_20260924/yolo26m-seg.pt",
+    "--official-source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--checkpoint",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_c894608d969246939c6dab973c2eaa59/BEST.pt",
+    "--fold",
+    "0",
+    "--shard-images",
+    "100",
+    "--out",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_1e9eade05b744f2bb5ef248bc6058ac2"
+  ],
+  "working_directory": "/root/coefficient_expected_benefit_20260927",
+  "status": "failed",
+  "created_at": "2026-09-26T18:52:11.088+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/MANIFEST.json",
+      "exists": true,
+      "sha256": "4076d968ca1724772c38af601d2f1388e3713c5b0ebb210095c859001f2b04be",
+      "size": 310029
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_9ad188b832fd9bc49c0aafc7a61de989/COMPLETE.json",
+      "exists": true,
+      "sha256": "f983355a959ceaa8148a8b996fe4a04d709728425c8d3d2533ceecdf22cea10d",
+      "size": 205
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_c894608d969246939c6dab973c2eaa59/BEST.pt",
+      "exists": true,
+      "sha256": "30eb91117491916ffb4746bc2474d489e7aed3aca4c2d8db15d9142290fba088",
+      "size": 1229001
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/scripts/score_oof_benefit.py",
+      "revision": "5fc1bdbc251542cfce47f3c83b99d1ce95b0b4c334409ec13c3e077bb246c70b",
+      "snapshot": "snapshots/5fc1bdbc251542cfce47f3c83b99d1ce95b0b4c334409ec13c3e077bb246c70b"
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/PROTOCOL.md",
+      "revision": "1123c424f5f875930866e70881e14626691cb7d63b9b07506a6637fe4250473d",
+      "snapshot": "snapshots/1123c424f5f875930866e70881e14626691cb7d63b9b07506a6637fe4250473d"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_1e9eade05b744f2bb5ef248bc6058ac2/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_1e9eade05b744f2bb5ef248bc6058ac2"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 5894,
+  "started_at": "2026-09-26T18:52:11.194+00:00",
+  "last_heartbeat": "2026-09-26T18:53:06.210+00:00",
+  "return_code": 1,
+  "finished_at": "2026-09-26T18:53:06.442+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "runs/RUN_1e9eade05b744f2bb5ef248bc6058ac2/COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_1e9eade05b744f2bb5ef248bc6058ac2/COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

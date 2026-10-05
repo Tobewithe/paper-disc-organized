@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_77f4e7e60ed24342b24b0c542d7131ea",
+  "study_id": "STUDY_840c6dec95084151adee21405db247bb",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/scripts/build_targets.py",
+    "--source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--oracle-source",
+    "/root/autodl-tmp/coefficient_finite_oracle_20260925",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--split",
+    "fit",
+    "--out",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_77f4e7e60ed24342b24b0c542d7131ea",
+    "--limit",
+    "5"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_direction_predictability_20260925",
+  "status": "completed",
+  "created_at": "2026-09-24T18:43:42.708+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f/COMPLETE.json",
+      "exists": true,
+      "sha256": "c85b12d9a47816ef581006760615cfabe3b2065e7cdb55a9a3696c4d7f826c38",
+      "size": 660
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/scripts/build_targets.py",
+      "revision": "21a80e03ee7fbd911de5bba60dfcf5d50036cea298a7fbaebad662fcbd95b228",
+      "snapshot": "snapshots/21a80e03ee7fbd911de5bba60dfcf5d50036cea298a7fbaebad662fcbd95b228"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_77f4e7e60ed24342b24b0c542d7131ea/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_77f4e7e60ed24342b24b0c542d7131ea"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 53234,
+  "started_at": "2026-09-24T18:43:42.812+00:00",
+  "last_heartbeat": "2026-09-24T18:43:47.813+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-24T18:43:49.012+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_77f4e7e60ed24342b24b0c542d7131ea/COMPLETE.json",
+      "exists": true,
+      "sha256": "cb7dd74899802a3858895f79cf24ee9199f7ecf6b3fb04dd3a9b14ba5f4605c9"
+    }
+  ]
+}

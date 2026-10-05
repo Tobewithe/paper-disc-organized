@@ -1,0 +1,82 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_c28d39e461194936a9939812851d1cbf",
+  "study_id": "STUDY_c7916dd6f40b4ecd8db522684b811a69",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/scripts/build_descriptors.py",
+    "--split",
+    "dev",
+    "--targets",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_3b1968a2fb1b41bfb427c6e1d08ab93e",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--out",
+    "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_c28d39e461194936a9939812851d1cbf"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925",
+  "status": "completed",
+  "created_at": "2026-09-25T15:07:55.814+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_3b1968a2fb1b41bfb427c6e1d08ab93e/COMPLETE.json",
+      "exists": true,
+      "sha256": "4cfc271a662ea8f5751e621c69b25b9db8ad84d7ef8ae4e91a4404c96805183c",
+      "size": 154
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/scripts/build_descriptors.py",
+      "revision": "89de4489122dc797a3b04e844c7d2487d68e5690474dceb381d68d853aa00941",
+      "snapshot": "snapshots/89de4489122dc797a3b04e844c7d2487d68e5690474dceb381d68d853aa00941"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_c28d39e461194936a9939812851d1cbf/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_c28d39e461194936a9939812851d1cbf"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 4139,
+  "started_at": "2026-09-25T15:07:55.918+00:00",
+  "last_heartbeat": "2026-09-25T15:07:55.918+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-25T15:08:00.006+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_c28d39e461194936a9939812851d1cbf/COMPLETE.json",
+      "exists": true,
+      "sha256": "c01377742922074aa6c9cdb3772dd483ee0ca56710c5135915bd0610d7db91ec"
+    }
+  ]
+}

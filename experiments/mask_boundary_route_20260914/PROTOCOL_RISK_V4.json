@@ -1,0 +1,93 @@
+{
+  "protocol_id": "PROTOCOL_prediction_risk_calibration_v4_20260915",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "purpose": "Test whether prediction-only shape/response features improve the repair-damage balance beyond area-only calibration.",
+  "model": {
+    "weights": "COCO-pretrained YOLO26m-seg",
+    "ultralytics": "8.4.100",
+    "branch": "one2one",
+    "imgsz": 640,
+    "conf": 0.001,
+    "max_det": 300,
+    "batch": 1,
+    "half": false,
+    "backbone_training": false
+  },
+  "data": {
+    "source": "COCO train2017 original annotations",
+    "selection": "random.Random(20260915).shuffle(sorted images by id), first 2000, without inspecting outcomes",
+    "fit_images": 1500,
+    "selection_images": 500,
+    "model_pretraining_overlap": true,
+    "val": "existing 4500 COCO val2017 confirmation images, no fitting or model selection there; previously explored"
+  },
+  "calibration_action": "Apply fixed tau=.75/(1+(A/2304)^2) only when predicted continuous IoU gain >0; otherwise retain original mask. Newly empty calibration outputs also retain original baseline mask. Candidate scores, boxes and counts unchanged.",
+  "features": {
+    "area": [
+      "log1p(predicted baseline mask area)"
+    ],
+    "shape": [
+      "area",
+      "log1p(predicted bbox elongation)",
+      "predicted mask extent",
+      "log1p(4-connected input-grid perimeter^2/(4*pi*area))"
+    ],
+    "response": [
+      "shape",
+      "fraction of foreground removed by fixed calibration"
+    ]
+  },
+  "training": {
+    "estimator": "HistGradientBoostingRegressor",
+    "target": "calibrated minus baseline mask IoU for all baseline matched ordinary GT; delta0 for newly emptied masks, matching deployed action",
+    "match": "same existing confidence-first same-class BoxIoU>=.5 one-to-one slots",
+    "params": {
+      "loss": "squared_error",
+      "learning_rate": 0.05,
+      "max_iter": 100,
+      "max_leaf_nodes": 7,
+      "min_samples_leaf": 80,
+      "l2_regularization": 1.0,
+      "early_stopping": false,
+      "random_state": 20260915
+    },
+    "gate_cutoff": 0,
+    "GT_use": "targets only, no GT input features; fit split only"
+  },
+  "controls": [
+    "baseline",
+    "fixed smooth full",
+    "fixed smooth boundary-only",
+    "learned area",
+    "learned area+shape",
+    "learned area+shape+response"
+  ],
+  "global_control": {
+    "logit_thresholds": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "selection": "COCO Mask AP on 500 train2017 selection images; ties lower threshold"
+  },
+  "primary_metrics": [
+    "COCO Mask AP, AP75, size AP",
+    "fixed-slot R75 repair/damage with all ordinary GT denominator"
+  ],
+  "decision": "Report all three learned gates on selection set; freeze them and evaluate on existing val bank. No hyperparameter or rule changes based on val. Do not call successful unless normal AP and repair/damage jointly support improvement over fixed smooth and learned area.",
+  "limitations": [
+    "train images were seen by pretrained backbone",
+    "val previously explored",
+    "matched-only fitting may not generalize to unmatched predictions",
+    "small calibration subset; class and size confounding addressed only partly by area comparator",
+    "new risk predictor is a method candidate, not a new causal claim"
+  ],
+  "run_ids": {
+    "preparation": "RUN_dc58df6f08f64b9f932b84a812ad75d8",
+    "prediction_bank": "RUN_a8504db0ec7a4975b28edafeca0bc4dd",
+    "fitting_and_selection": "RUN_d01ffdef9f3c498fa3529d96cea875eb",
+    "frozen_evaluation": "RUN_e0e0d46defb74e3d9a90094f49ce26fe"
+  }
+}

@@ -1,0 +1,858 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_fc304c4383b84944b974ffd6a635669f",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "-u",
+    "D:/coco_wire/scripts/coverage_calibration_20260920/evaluate_calibrator.py",
+    "--protocol",
+    "D:/coco_wire/scripts/coverage_calibration_20260920/PROTOCOL_COVERAGE_V7_20260920.json",
+    "--output",
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_fc304c4383b84944b974ffd6a635669f",
+    "--models",
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_6b816e23401b401eaebdb9a59604de19",
+    "--phase",
+    "evaluation",
+    "--selection",
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_ee9199def842431c88b72d836a1f4f9b/selection.json"
+  ],
+  "working_directory": "D:\\coco_wire",
+  "status": "completed",
+  "created_at": "2026-09-20T11:59:52.207+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\PROTOCOL_COVERAGE_V7_20260920.json",
+      "exists": true,
+      "sha256": "fff137354a2ee500ff75227baac603ea81f81cc4d3f99f584a39eb9cf2dd19d8",
+      "size": 5520
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\calibration2000_split.json",
+      "exists": true,
+      "sha256": "1b75dfea2ca011dc43aaa8a7b863900c3bae913472b849f76934361366d9d8ce",
+      "size": 15851
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\rcmc_mechanism_20260920\\inputs\\response.json",
+      "exists": true,
+      "sha256": "eb2fca8b9bbb0192d62723e3da086c303729752772aa1a357ea64f61f70888b9",
+      "size": 65621
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2ae67d6556a14848bceb5783a72e5790\\candidate_records.csv",
+      "exists": true,
+      "sha256": "7bb58e7c819d11458b0003cb8f3a42439e8829c037ee22af046ca966a510d634",
+      "size": 106133626
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2ae67d6556a14848bceb5783a72e5790\\instance_records.csv",
+      "exists": true,
+      "sha256": "e43d344d80b3142b9163678341f26b54eb36dd1c66705d89dd8247a393fa0ce0",
+      "size": 30406496
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2ae67d6556a14848bceb5783a72e5790\\image_ids.json",
+      "exists": true,
+      "sha256": "b528b517225758a0023b5b9d11de74699d2e906469c90c0820c96c7e97fc2793",
+      "size": 35647
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\direct.json",
+      "exists": true,
+      "sha256": "4389494cbddab56190c3db6ed0ce81ae9dd0287c4f8b1c3658fb22bf458fa052",
+      "size": 196787
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\purity.json",
+      "exists": true,
+      "sha256": "abd1c2b799f3316482fd4239b0c11099e8c0ea6ab248a604eb5079c42e90f59e",
+      "size": 65000
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\coverage.json",
+      "exists": true,
+      "sha256": "c6412e21a67ad65100a2bc1f90efa91d460c4e98c22ee37905957b74937105f7",
+      "size": 65288
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\removed_purity.json",
+      "exists": true,
+      "sha256": "3de0ce99219d38077812b552e30b06c971deb0b09c247cfbb28396ec53c77a29",
+      "size": 64371
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2ae67d6556a14848bceb5783a72e5790\\predictions_official_zero.json",
+      "exists": true,
+      "sha256": "87522949352766723f35e8ed83cc0f940a0e1124710588fbddec0e8d96b8d44c",
+      "size": 230344531
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2ae67d6556a14848bceb5783a72e5790\\predictions_smooth_gated.json",
+      "exists": true,
+      "sha256": "713ead831b84f75b69bb065abe183dcd94764fab4767bf8ef0669a32d831a49f",
+      "size": 226738876
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_ee9199def842431c88b72d836a1f4f9b\\selection.json",
+      "exists": true,
+      "sha256": "f0b1e1b9620d768133cefe3b2b73a8fedef28647ea251f771aa1273a2df5cc45",
+      "size": 19666
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\PROTOCOL_COVERAGE_V7_20260920.json",
+      "revision": "fff137354a2ee500ff75227baac603ea81f81cc4d3f99f584a39eb9cf2dd19d8",
+      "snapshot": "snapshots/fff137354a2ee500ff75227baac603ea81f81cc4d3f99f584a39eb9cf2dd19d8"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\resume_selection.ps1",
+      "revision": "9bdfa9313dfc755aceb95fc9875641abbaf0c16dc25e976c21ab051e3a552d31",
+      "snapshot": "snapshots/9bdfa9313dfc755aceb95fc9875641abbaf0c16dc25e976c21ab051e3a552d31"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\calibrator.py",
+      "revision": "8b4c45c8e608be727b9430ef2b41f7c3dd43acfe3b4b2a3f2f0a527dfabdf1c1",
+      "snapshot": "snapshots/8b4c45c8e608be727b9430ef2b41f7c3dd43acfe3b4b2a3f2f0a527dfabdf1c1"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\data_access.py",
+      "revision": "95c1b44edd50f11ccfd0bb619aab7d1aa7d129bc08a186dfd5232ee504a9601e",
+      "snapshot": "snapshots/95c1b44edd50f11ccfd0bb619aab7d1aa7d129bc08a186dfd5232ee504a9601e"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\fit_calibrator.py",
+      "revision": "2df1a2ee405fd0ba27bb02f9f8501a85acf52755fe162def1f9e22dca601d7da",
+      "snapshot": "snapshots/2df1a2ee405fd0ba27bb02f9f8501a85acf52755fe162def1f9e22dca601d7da"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\evaluate_calibrator.py",
+      "revision": "5180204a0f8df3c9a7b0231b71204ad5906adaa4d8d58710d104969f6599ee69",
+      "snapshot": "snapshots/5180204a0f8df3c9a7b0231b71204ad5906adaa4d8d58710d104969f6599ee69"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\common.py",
+      "revision": "248263d5bef5c868d232e7e5b949c09554fa193d02ac201d061397f897716601",
+      "snapshot": "snapshots/248263d5bef5c868d232e7e5b949c09554fa193d02ac201d061397f897716601"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\portable_risk.py",
+      "revision": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+      "snapshot": "snapshots/b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\risk_calibration.py",
+      "revision": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "snapshot": "snapshots/b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_fc304c4383b84944b974ffd6a635669f/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_fc304c4383b84944b974ffd6a635669f"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 24660,
+  "started_at": "2026-09-20T11:59:53.194+00:00",
+  "last_heartbeat": "2026-09-20T12:06:39.674+00:00",
+  "metrics": {
+    "phase": "evaluation",
+    "images": 4500,
+    "policies": {
+      "direct": {
+        "cutoff": 0,
+        "selection_outcomes": {
+          "variant": "direct",
+          "cutoff": 0,
+          "feasible": true,
+          "matched": 3298,
+          "targets": 175,
+          "successes": 2160,
+          "target_repairs": 50,
+          "all_repairs": 87,
+          "damages": 47,
+          "iou_gain_sum": 15.566337017367985,
+          "coverage_loss_sum": 50.65437115929336,
+          "net_repairs": 40
+        },
+        "coverage_budget": null
+      },
+      "decomposed": {
+        "cutoff": -0.005,
+        "selection_outcomes": {
+          "variant": "decomposed",
+          "cutoff": -0.005,
+          "feasible": true,
+          "matched": 3298,
+          "targets": 175,
+          "successes": 2160,
+          "target_repairs": 52,
+          "all_repairs": 90,
+          "damages": 46,
+          "iou_gain_sum": 15.961992977707604,
+          "coverage_loss_sum": 51.785571997553554,
+          "net_repairs": 44
+        },
+        "coverage_budget": null
+      },
+      "decomposed_protected": {
+        "cutoff": 0.001,
+        "selection_outcomes": {
+          "variant": "decomposed_protected",
+          "cutoff": 0.001,
+          "feasible": true,
+          "matched": 3298,
+          "targets": 175,
+          "successes": 2160,
+          "target_repairs": 8,
+          "all_repairs": 14,
+          "damages": 5,
+          "iou_gain_sum": 3.930466386219043,
+          "coverage_loss_sum": 7.58894172558619,
+          "net_repairs": 9
+        },
+        "coverage_budget": 0.02
+      }
+    },
+    "outcomes": {
+      "baseline": {
+        "matched": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "target_repairs": 0,
+        "all_repairs": 0,
+        "damages": 0,
+        "iou_gain_sum": 0.0,
+        "coverage_loss_sum": 0.0,
+        "net_repairs": 0
+      },
+      "frozen_rcmc": {
+        "matched": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "target_repairs": 457,
+        "all_repairs": 801,
+        "damages": 445,
+        "iou_gain_sum": 145.32286502256855,
+        "coverage_loss_sum": 489.9197745222816,
+        "net_repairs": 356
+      },
+      "direct": {
+        "matched": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "target_repairs": 452,
+        "all_repairs": 789,
+        "damages": 427,
+        "iou_gain_sum": 145.69621667703473,
+        "coverage_loss_sum": 480.0493493832502,
+        "net_repairs": 362
+      },
+      "decomposed": {
+        "matched": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "target_repairs": 471,
+        "all_repairs": 820,
+        "damages": 462,
+        "iou_gain_sum": 147.04997010217127,
+        "coverage_loss_sum": 494.8415206053007,
+        "net_repairs": 358
+      },
+      "decomposed_protected": {
+        "matched": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "target_repairs": 54,
+        "all_repairs": 100,
+        "damages": 29,
+        "iou_gain_sum": 36.35221003051871,
+        "coverage_loss_sum": 65.14107026388922,
+        "net_repairs": 71
+      }
+    },
+    "metrics": {
+      "baseline": {
+        "stats": [
+          0.43378829983113415,
+          0.6616103654915565,
+          0.4684069936360102,
+          0.22717460051292646,
+          0.4751352465852975,
+          0.6410397905220456,
+          0.3395109945152272,
+          0.5514948652072141,
+          0.5958809836986783,
+          0.406178605654886,
+          0.656283403965914,
+          0.7681753462516039
+        ],
+        "ap": 43.37882998311341,
+        "ap75": 46.84069936360102,
+        "prediction_count": 506966,
+        "cocoeval_seconds": 57.52265299999999
+      },
+      "frozen_rcmc": {
+        "stats": [
+          0.43939544208568904,
+          0.6646033772884464,
+          0.47618547554974916,
+          0.2359510502928063,
+          0.47844330743749763,
+          0.6408905123608387,
+          0.3422867350409306,
+          0.5575812792542757,
+          0.6030409441940308,
+          0.42202696836356457,
+          0.6572537884277639,
+          0.7671065516027301
+        ],
+        "ap": 43.939544208568904,
+        "ap75": 47.61854755497492,
+        "prediction_count": 506966,
+        "cocoeval_seconds": 56.338599099999556
+      },
+      "direct": {
+        "stats": [
+          0.4394206424775645,
+          0.6645747068377525,
+          0.4767919722260881,
+          0.23579405572882733,
+          0.4787430870876804,
+          0.640896740922864,
+          0.3423686977500735,
+          0.5576324930615203,
+          0.603140648842828,
+          0.42238483157857004,
+          0.6574708747676941,
+          0.7671513609390419
+        ],
+        "ap": 43.94206424775645,
+        "ap75": 47.67919722260881,
+        "prediction_count": 506966,
+        "cocoeval_seconds": 56.02740850000009
+      },
+      "decomposed": {
+        "stats": [
+          0.4394425751837063,
+          0.6643834950453925,
+          0.47637590707556243,
+          0.2355254690853817,
+          0.47858983271664896,
+          0.6409483124218884,
+          0.3423879000507695,
+          0.5576723050432237,
+          0.6031163572538675,
+          0.4220226717504428,
+          0.6571412283260432,
+          0.7671658910033814
+        ],
+        "ap": 43.94425751837063,
+        "ap75": 47.63759070755624,
+        "prediction_count": 506966,
+        "cocoeval_seconds": 56.17147230000046
+      },
+      "decomposed_protected": {
+        "stats": [
+          0.43561728875481337,
+          0.6617051936382574,
+          0.47048576992806657,
+          0.2284913076040994,
+          0.477445383791778,
+          0.6410404257677647,
+          0.3406792613008324,
+          0.5534014257603779,
+          0.5978911678873453,
+          0.40862599180209547,
+          0.6579949606915693,
+          0.7681672293684869
+        ],
+        "ap": 43.561728875481336,
+        "ap75": 47.04857699280666,
+        "prediction_count": 506966,
+        "cocoeval_seconds": 56.14097120000042
+      }
+    },
+    "model_run": "RUN_6b816e23401b401eaebdb9a59604de19",
+    "bank": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2ae67d6556a14848bceb5783a72e5790",
+    "ordinary_gt": 32831,
+    "prediction_seconds_all_candidates": 97.97149929999978,
+    "component_quality": {
+      "purity": {
+        "n": 30426,
+        "mae": 0.0885352987258447,
+        "mean_prediction": 0.8324704675356446,
+        "mean_truth": 0.827509781484441,
+        "rmse": 0.13070700375540942,
+        "quantile_calibration": [
+          {
+            "n": 3043,
+            "prediction": 0.6281813765784362,
+            "truth": 0.6254137498587427
+          },
+          {
+            "n": 3042,
+            "prediction": 0.7273577791266186,
+            "truth": 0.7174739201174672
+          },
+          {
+            "n": 3043,
+            "prediction": 0.7768453815265857,
+            "truth": 0.7704359834064337
+          },
+          {
+            "n": 3042,
+            "prediction": 0.8172698919906013,
+            "truth": 0.8077646704881061
+          },
+          {
+            "n": 3031,
+            "prediction": 0.8459835265421022,
+            "truth": 0.842373341458193
+          },
+          {
+            "n": 3054,
+            "prediction": 0.8727337093388089,
+            "truth": 0.8649686873074381
+          },
+          {
+            "n": 3038,
+            "prediction": 0.8931911058520658,
+            "truth": 0.8848375087641159
+          },
+          {
+            "n": 3038,
+            "prediction": 0.9034706567795978,
+            "truth": 0.9032096666451377
+          },
+          {
+            "n": 3052,
+            "prediction": 0.9215433083519454,
+            "truth": 0.9189076385604193
+          },
+          {
+            "n": 3043,
+            "prediction": 0.9379491342597409,
+            "truth": 0.939541465567239
+          }
+        ]
+      },
+      "coverage": {
+        "n": 30426,
+        "mae": 0.06941005497571648,
+        "mean_prediction": 0.9047272697555206,
+        "mean_truth": 0.9019581704127939,
+        "rmse": 0.10661886514323983,
+        "quantile_calibration": [
+          {
+            "n": 3040,
+            "prediction": 0.7628479051560065,
+            "truth": 0.7504035256450523
+          },
+          {
+            "n": 3045,
+            "prediction": 0.8640732357029336,
+            "truth": 0.8569755986783273
+          },
+          {
+            "n": 3032,
+            "prediction": 0.8899461665715778,
+            "truth": 0.8875781544041105
+          },
+          {
+            "n": 3052,
+            "prediction": 0.9034005312009745,
+            "truth": 0.9006938175386208
+          },
+          {
+            "n": 3044,
+            "prediction": 0.914830569471392,
+            "truth": 0.9131811712684538
+          },
+          {
+            "n": 3034,
+            "prediction": 0.9251125048642583,
+            "truth": 0.9214165981857522
+          },
+          {
+            "n": 3051,
+            "prediction": 0.9350635756887672,
+            "truth": 0.934395830241756
+          },
+          {
+            "n": 3030,
+            "prediction": 0.9430169078522466,
+            "truth": 0.9406636163856967
+          },
+          {
+            "n": 3021,
+            "prediction": 0.9504177110208928,
+            "truth": 0.949479438136004
+          },
+          {
+            "n": 3077,
+            "prediction": 0.9582737661616675,
+            "truth": 0.9644056285993484
+          }
+        ]
+      },
+      "removed_purity": {
+        "n": 29835,
+        "mae": 0.20939584658732627,
+        "mean_prediction": 0.3910197659020522,
+        "mean_truth": 0.39348324120668143,
+        "rmse": 0.2546887170076362,
+        "quantile_calibration": [
+          {
+            "n": 2984,
+            "prediction": 0.2625936493682745,
+            "truth": 0.25665027267298735
+          },
+          {
+            "n": 2982,
+            "prediction": 0.3327325648144022,
+            "truth": 0.32741268128409934
+          },
+          {
+            "n": 2985,
+            "prediction": 0.36298441782209956,
+            "truth": 0.37149600330266896
+          },
+          {
+            "n": 2982,
+            "prediction": 0.3891653376929457,
+            "truth": 0.38742628150441477
+          },
+          {
+            "n": 2970,
+            "prediction": 0.40252164953054836,
+            "truth": 0.4025745898752519
+          },
+          {
+            "n": 2806,
+            "prediction": 0.4111753852991952,
+            "truth": 0.4055638175556113
+          },
+          {
+            "n": 2994,
+            "prediction": 0.41782507492386683,
+            "truth": 0.41629583709139956
+          },
+          {
+            "n": 3106,
+            "prediction": 0.42537830680842476,
+            "truth": 0.4365635222974563
+          },
+          {
+            "n": 3042,
+            "prediction": 0.43561498249492425,
+            "truth": 0.4479275749648213
+          },
+          {
+            "n": 2984,
+            "prediction": 0.4690702852624206,
+            "truth": 0.4807481257742129
+          }
+        ]
+      },
+      "coverage_cost": {
+        "n": 30426,
+        "mae": 0.011839378742001196,
+        "mean_prediction": 0.029161231949655437,
+        "mean_truth": 0.027235273113222852,
+        "rmse": 0.02659884315234147,
+        "quantile_calibration": [
+          {
+            "n": 3043,
+            "prediction": 2.2343063739638695e-05,
+            "truth": 2.2876115212828934e-05
+          },
+          {
+            "n": 3042,
+            "prediction": 0.0002449918580255119,
+            "truth": 0.0002442534203493009
+          },
+          {
+            "n": 3043,
+            "prediction": 0.001329849148054346,
+            "truth": 0.0012811952009721137
+          },
+          {
+            "n": 3042,
+            "prediction": 0.00464187513017975,
+            "truth": 0.004340735474052197
+          },
+          {
+            "n": 3043,
+            "prediction": 0.010582873631968201,
+            "truth": 0.009954733141807766
+          },
+          {
+            "n": 3043,
+            "prediction": 0.01793132783686035,
+            "truth": 0.01624544453487324
+          },
+          {
+            "n": 3042,
+            "prediction": 0.02617347193977727,
+            "truth": 0.023753712434267063
+          },
+          {
+            "n": 3042,
+            "prediction": 0.036858023548494184,
+            "truth": 0.034338614135572584
+          },
+          {
+            "n": 3043,
+            "prediction": 0.055960187332593586,
+            "truth": 0.052311021180822
+          },
+          {
+            "n": 3043,
+            "prediction": 0.137851363333407,
+            "truth": 0.12984494214990616
+          }
+        ]
+      },
+      "removed_fp_per_gt": {
+        "n": 30426,
+        "mae": 0.02785551202701707,
+        "mean_prediction": 0.04811164887794672,
+        "mean_truth": 0.05627866406463867,
+        "rmse": 0.08125314581194354,
+        "quantile_calibration": [
+          {
+            "n": 3043,
+            "prediction": 2.7050973809305234e-05,
+            "truth": 2.9699559729635096e-05
+          },
+          {
+            "n": 3042,
+            "prediction": 0.0003235088519483413,
+            "truth": 0.00034193652212932853
+          },
+          {
+            "n": 3043,
+            "prediction": 0.001906090833840349,
+            "truth": 0.0020584891197520023
+          },
+          {
+            "n": 3042,
+            "prediction": 0.00707407601703895,
+            "truth": 0.00786178463156001
+          },
+          {
+            "n": 3043,
+            "prediction": 0.01754794137512022,
+            "truth": 0.01921882106657128
+          },
+          {
+            "n": 3043,
+            "prediction": 0.031240919878808174,
+            "truth": 0.033660554986016666
+          },
+          {
+            "n": 3042,
+            "prediction": 0.04702138499521194,
+            "truth": 0.053088052525901236
+          },
+          {
+            "n": 3042,
+            "prediction": 0.06725710772882582,
+            "truth": 0.07583325559029196
+          },
+          {
+            "n": 3043,
+            "prediction": 0.10065725158327589,
+            "truth": 0.11505773440008081
+          },
+          {
+            "n": 3043,
+            "prediction": 0.20803789971677097,
+            "truth": 0.25560739682306277
+          }
+        ]
+      },
+      "gain": {
+        "n": 30426,
+        "mae": 0.018333274621960254,
+        "mean_prediction": 0.0013173013447315325,
+        "mean_truth": 0.0024341991236690235,
+        "rmse": 0.034331189263649364,
+        "quantile_calibration": [
+          {
+            "n": 3043,
+            "prediction": -0.02913556949756895,
+            "truth": -0.02354141147147756
+          },
+          {
+            "n": 3042,
+            "prediction": -0.00018730077212213806,
+            "truth": -0.00032280326719075073
+          },
+          {
+            "n": 3043,
+            "prediction": 1.1974512499102729e-05,
+            "truth": 4.935737560030857e-05
+          },
+          {
+            "n": 3042,
+            "prediction": 0.00013401569735612266,
+            "truth": 0.0001349929127064898
+          },
+          {
+            "n": 3043,
+            "prediction": 0.0005973333702959179,
+            "truth": 0.0009356474355157839
+          },
+          {
+            "n": 3043,
+            "prediction": 0.0016468027318910544,
+            "truth": 0.0024868414360575855
+          },
+          {
+            "n": 3042,
+            "prediction": 0.0035170592398307376,
+            "truth": 0.004123281569905392
+          },
+          {
+            "n": 3042,
+            "prediction": 0.006489663491961192,
+            "truth": 0.008513985113968604
+          },
+          {
+            "n": 3043,
+            "prediction": 0.011042194290195883,
+            "truth": 0.01261216098033786
+          },
+          {
+            "n": 3043,
+            "prediction": 0.019058379729765134,
+            "truth": 0.019350830593867472
+          }
+        ]
+      },
+      "direct": {
+        "n": 30426,
+        "mae": 0.01851294202407993,
+        "mean_prediction": 0.002249501593354096,
+        "mean_truth": 0.0024341991236690235,
+        "rmse": 0.03448392484761157,
+        "quantile_calibration": [
+          {
+            "n": 3042,
+            "prediction": -0.028211828976042748,
+            "truth": -0.023446171090104776
+          },
+          {
+            "n": 2877,
+            "prediction": -1.4774238948999303e-05,
+            "truth": 0.0001408028620883563
+          },
+          {
+            "n": 3205,
+            "prediction": 0.00034086400863861177,
+            "truth": 0.00036662238878058096
+          },
+          {
+            "n": 2883,
+            "prediction": 0.0006491736062001847,
+            "truth": 0.0004308498087905292
+          },
+          {
+            "n": 3199,
+            "prediction": 0.0009106580766686947,
+            "truth": 0.00048233769175953366
+          },
+          {
+            "n": 3050,
+            "prediction": 0.0019279847419299621,
+            "truth": 0.0026206127284962135
+          },
+          {
+            "n": 3033,
+            "prediction": 0.004477257593858532,
+            "truth": 0.004492983054370636
+          },
+          {
+            "n": 3051,
+            "prediction": 0.008044482735022028,
+            "truth": 0.008033385012858142
+          },
+          {
+            "n": 3040,
+            "prediction": 0.013051307045282429,
+            "truth": 0.013588748693230072
+          },
+          {
+            "n": 3046,
+            "prediction": 0.02125719858209944,
+            "truth": 0.01759067695352312
+          }
+        ]
+      }
+    },
+    "elapsed_seconds": 407.0547416999998,
+    "all_variants_preserve_scores_categories_boxes_counts": true,
+    "limitations": [
+      "One seed; no YOLO training; no new features/data/action intensities.",
+      "val has prior exploratory use; no new blind-test claim.",
+      "Equal ceiling of 300 trees x 7 leaves in matched direct/decomposed calibrators, actual leaf counts/fit time/file size reported; multi-output allocation remains an inductive-bias difference.",
+      "Old RCMC has 100 trees and is reported independently, not misrepresented as capacity matched.",
+      "Regression components diagnose learnability but do not identify the unique origin of spillover."
+    ]
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_fc304c4383b84944b974ffd6a635669f\\SUMMARY.json",
+    "sha256": "d2fc0addddcee64695219f1e2f008ec79f6fe49a5b706c02fd4e2a8d9c87d4f8"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-20T12:06:44.198+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_fc304c4383b84944b974ffd6a635669f\\SUMMARY.json",
+      "exists": true,
+      "sha256": "d2fc0addddcee64695219f1e2f008ec79f6fe49a5b706c02fd4e2a8d9c87d4f8"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_2edbec60af4247f4be855834b6ff6382",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "-u",
+    "D:\\coco_wire\\scripts\\transfer_v5_20260915\\decoder_calibration_experiment.py",
+    "--package-root",
+    "D:\\coco_wire\\py",
+    "--images",
+    "D:\\coco_wire\\data\\images\\val2017",
+    "--annotations",
+    "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+    "--weights",
+    "D:\\coco_wire\\models\\yolo26s-seg.pt",
+    "--protocol",
+    "D:\\coco_wire\\scripts\\transfer_v5_20260915\\PROTOCOL_TRANSFER_V5.json",
+    "--branch",
+    "one2one",
+    "--start",
+    "500",
+    "--limit",
+    "4500",
+    "--variants",
+    "official_zero,smooth_gated,global_0.25",
+    "--benchmark-repeats",
+    "0",
+    "--export-only",
+    "--output",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2edbec60af4247f4be855834b6ff6382"
+  ],
+  "working_directory": "D:\\coco_wire",
+  "status": "completed",
+  "created_at": "2026-09-15T10:47:32.069+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\models\\yolo26s-seg.pt",
+      "exists": true,
+      "sha256": "3da1d83e31caec96f9300eb4064f4f62882c133c7c264d63dfe61a7c197837a4",
+      "size": 23467933
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\scripts\\transfer_v5_20260915\\decoder_calibration_experiment.py",
+      "revision": "8fcd1e31c592b21f4f515b167e3e80bb0544488b1c85302cf93f685ed27816ec",
+      "snapshot": "snapshots/8fcd1e31c592b21f4f515b167e3e80bb0544488b1c85302cf93f685ed27816ec"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\transfer_v5_20260915\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\transfer_v5_20260915\\risk_calibration.py",
+      "revision": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "snapshot": "snapshots/b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\transfer_v5_20260915\\portable_risk.py",
+      "revision": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+      "snapshot": "snapshots/b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\transfer_v5_20260915\\PROTOCOL_TRANSFER_V5.json",
+      "revision": "16f264ae58e0e83284935b8c990b9cf26c28452a4717a0a67aa96b90fbfef522",
+      "snapshot": "snapshots/16f264ae58e0e83284935b8c990b9cf26c28452a4717a0a67aa96b90fbfef522"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2edbec60af4247f4be855834b6ff6382\\SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2edbec60af4247f4be855834b6ff6382"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 15548,
+  "started_at": "2026-09-15T10:47:32.587+00:00",
+  "last_heartbeat": "2026-09-15T11:11:48.748+00:00",
+  "metrics": {
+    "run_id": "RUN_2edbec60af4247f4be855834b6ff6382",
+    "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+    "export_only": true,
+    "images": 4500,
+    "ordinary_gt": 32831,
+    "branch": "one2one",
+    "ultralytics": "8.4.100",
+    "package_file": "D:\\coco_wire\\py\\ultralytics\\__init__.py",
+    "protocol_sha256": "16f264ae58e0e83284935b8c990b9cf26c28452a4717a0a67aa96b90fbfef522",
+    "counts": {
+      "official_zero": {
+        "candidates": 558921,
+        "empty": 43
+      },
+      "smooth_gated": {
+        "candidates": 558921,
+        "empty": 762
+      },
+      "global_0.25": {
+        "candidates": 558921,
+        "empty": 124
+      }
+    },
+    "parity": {
+      "official_input_mask_mismatches": 0,
+      "checked_masks": 438,
+      "native_input_mask_mismatches": 0
+    },
+    "elapsed_seconds": 1449.796737800003
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2edbec60af4247f4be855834b6ff6382\\SUMMARY.json",
+    "sha256": "102c4c331d59dd535e8eac2181ea583bbadab6db4612a8806a28b7bc8c2f5a33"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-15T11:11:50.244+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_2edbec60af4247f4be855834b6ff6382\\SUMMARY.json",
+      "exists": true,
+      "sha256": "102c4c331d59dd535e8eac2181ea583bbadab6db4612a8806a28b7bc8c2f5a33"
+    }
+  ]
+}

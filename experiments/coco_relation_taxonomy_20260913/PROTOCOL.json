@@ -1,0 +1,11 @@
+{
+  "dataset": "MS COCO val2017",
+  "images_processed": 5000,
+  "ordinary_gt_excludes_iscrowd_and_ignore": true,
+  "core_edge": "same category and (mask IoU >= 0.50 OR GT coverage >= 0.50)",
+  "weak_edge": "same category and mask IoU >= 0.50 and coverage >= 0.10, excluding core",
+  "one_to_one_threshold": "coverage and purity both use 0.75",
+  "purity": "intersection / prediction pixels",
+  "stage_limit": "final-output cache cannot distinguish RAW/TOPK/CONF; all stage labels remain UNRESOLVED_FINAL_CACHE_ONLY",
+  "relation_scope": "O/M/X describe final connected-component topology, not causal mechanism"
+}

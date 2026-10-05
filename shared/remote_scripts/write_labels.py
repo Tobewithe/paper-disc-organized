@@ -1,0 +1,70 @@
+import paramiko
+
+def main():
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect('connect.westd.seetacloud.com', 17381, 'root', '/eIOAILi96O8')
+    
+    script = """
+import json
+import os
+from pathlib import Path
+from tqdm import tqdm
+
+def write_yolo_labels(anno_file, out_dir):
+    os.makedirs(out_dir, exist_ok=True)
+    print(f"Loading {anno_file}...")
+    with open(anno_file, 'r') as f:
+        coco = json.load(f)
+        
+    img_id_to_file = {img['id']: (img['file_name'], img['width'], img['height']) for img in coco['images']}
+    
+    # Map COCO 91 classes to 80 classes
+    coco91_to_80 = {1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 7: 6, 8: 7, 9: 8, 10: 9, 11: 10, 13: 11, 14: 12, 15: 13, 16: 14, 17: 15, 18: 16, 19: 17, 20: 18, 21: 19, 22: 20, 23: 21, 24: 22, 25: 23, 27: 24, 28: 25, 31: 26, 32: 27, 33: 28, 34: 29, 35: 30, 36: 31, 37: 32, 38: 33, 39: 34, 40: 35, 41: 36, 42: 37, 43: 38, 44: 39, 46: 40, 47: 41, 48: 42, 49: 43, 50: 44, 51: 45, 52: 46, 53: 47, 54: 48, 55: 49, 56: 50, 57: 51, 58: 52, 59: 53, 60: 54, 61: 55, 62: 56, 63: 57, 64: 58, 65: 59, 67: 60, 70: 61, 72: 62, 73: 63, 74: 64, 75: 65, 76: 66, 77: 67, 78: 68, 79: 69, 80: 70, 81: 71, 82: 72, 84: 73, 85: 74, 86: 75, 87: 76, 88: 77, 89: 78, 90: 79}
+    
+    img_to_lines = {}
+    for ann in tqdm(coco['annotations']):
+        if ann.get('iscrowd', 0) == 1: continue
+        img_id = ann['image_id']
+        if img_id not in img_id_to_file: continue
+        
+        cat_id = coco91_to_80.get(ann['category_id'], -1)
+        if cat_id == -1: continue
+        
+        file_name, w, h = img_id_to_file[img_id]
+        
+        if 'segmentation' in ann and type(ann['segmentation']) == list:
+            for seg in ann['segmentation']:
+                if len(seg) < 6: continue
+                # Normalize
+                seg_norm = []
+                for i in range(0, len(seg), 2):
+                    seg_norm.append(str(round(seg[i] / w, 6)))
+                    seg_norm.append(str(round(seg[i+1] / h, 6)))
+                
+                line = f"{cat_id} " + " ".join(seg_norm) + "\\n"
+                img_to_lines.setdefault(file_name, []).append(line)
+                
+    for file_name, lines in tqdm(img_to_lines.items()):
+        txt_name = file_name.rsplit('.', 1)[0] + '.txt'
+        with open(os.path.join(out_dir, txt_name), 'w') as f:
+            f.writelines(lines)
+
+write_yolo_labels('/root/autodl-tmp/datasets/coco/annotations/instances_train2017.json', '/root/autodl-tmp/datasets/coco/labels/train2017/')
+write_yolo_labels('/root/autodl-tmp/datasets/coco/annotations/instances_val2017.json', '/root/autodl-tmp/datasets/coco/labels/val2017/')
+"""
+    client.exec_command("cat > /root/autodl-tmp/manual_convert.py")[0].write(script)
+    
+    print("Executing manual convert...")
+    stdin, stdout, stderr = client.exec_command("bash -lc 'python /root/autodl-tmp/manual_convert.py'")
+    print(stdout.read().decode())
+    
+    print("Restarting YOLO...")
+    client.exec_command("pkill -f train_coco_ccl")
+    client.exec_command("rm -f /root/autodl-tmp/run_cluster_fixed.log")
+    client.exec_command("cd /root/autodl-tmp && nohup bash tools/run_coco_cluster.sh > run_cluster_fixed.log 2>&1 &")
+    
+    client.close()
+
+if __name__ == '__main__':
+    main()

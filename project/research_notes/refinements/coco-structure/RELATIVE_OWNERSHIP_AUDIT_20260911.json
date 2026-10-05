@@ -1,0 +1,133 @@
+{
+  "audit_skill": "experiment-audit",
+  "date": "2026-09-11",
+  "auditor": "fresh-codex-same-family",
+  "reviewer_model": "codex-gpt-6",
+  "reviewer_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "fatal_integrity_defect": false,
+  "reason_code": "scope_and_zero_intervention_limit",
+  "summary": "Real COCO GT, prediction-only decoding, honest metric scaling, hash-locked development-to-evaluation transition, and completed outputs pass integrity checks. Development selected alpha=0 for every arm, so the 600-image run is an exact identity check and not a nonzero efficacy or shuffle-control test.",
+  "evaluation_type": "real_gt",
+  "audited_input_hashes": {
+    "experiments/coco_clean_20260911/relative_ownership_protocol.json": "sha256:54b8227f05591a3158f858f3b566c8a163c1b0ac85b4626323bd9dd9eb132f2f",
+    "experiments/coco_clean_20260911/relative_ownership_decoder.py": "sha256:0928de133e7357595b8c83df81838e9139c1d03b6ca062c32e6ef6436d18c41b",
+    "experiments/coco_clean_20260911/relative_ownership_experiment.py": "sha256:14480ef7b728084d597e1d78ec067f6e5d008f7b157b4c294b9fbc83c183ac63",
+    "experiments/coco_clean_20260911/summarize_relative_ownership.py": "sha256:7e5e7763897fe69a7a4addb92876c5d91f4a1b4705c84daa530dced71b967d72",
+    "experiments/coco_clean_20260911/diagnose_relative_transfers.py": "sha256:e14282b2fe3d82cc50aed16d5dccccd63360471a304e0df1303013eae2fd6724",
+    "diagnostics/relative_ownership_20260911/development_spatial.csv": "sha256:f9b8993dcac1846872aab7afe6d7d6a5957da423f7f898bad213629adee97c4a",
+    "diagnostics/relative_ownership_20260911/LOCKED_SETTINGS.json": "sha256:a4ca65697c794d3067ff6b8d1706d2c178be5fdf8bb0b99ce196628c31203888",
+    "diagnostics/relative_ownership_20260911/EVALUATION_COMPLETE.json": "sha256:784ab55ec79177065c8087ee2570fd55c397c0ca5fad9b001502ef464b06448e",
+    "diagnostics/relative_ownership_20260911/task_summary.csv": "sha256:61716bf8bc7081acb92dd4faa1acc41153605d6c1701540f870b7f6ebfefb58f",
+    "diagnostics/relative_ownership_20260911/PAIRED_ANALYSIS.json": "sha256:5f376900586e1f3e5b9d203ed682421aaeea0304b1ecc27cfb251e1c41d696e8",
+    "diagnostics/relative_ownership_20260911/LOCAL_VERIFICATION.json": "sha256:ebb0b6a94e8b33133c7219d08c8a62cf6641d7a58bca030e229b0407d0c05649"
+  },
+  "checks": {
+    "gt_provenance": {
+      "status": "pass",
+      "details": "Decoder receives only model outputs. COCO annotations and bbox50 mappings are used only in post-decoding measurement; official COCOeval provides task metrics."
+    },
+    "score_normalization": {
+      "status": "pass",
+      "details": "Logit RMS is intervention amplitude scaling, not an evaluation score. Metrics use COCOeval, GT-area fractions, or IoU; no metric is normalized by prediction maxima or means."
+    },
+    "result_existence": {
+      "status": "pass",
+      "details": "160-image development, 600-image evaluation, and task receipts are COMPLETE. Hash-bound summaries and 600 per-image files per arm existed; LOCAL_VERIFICATION.json is PASS with 28 verified receipt entries and 12,246 exact-area records."
+    },
+    "dead_code": {
+      "status": "pass",
+      "details": "Decoder, nonzero development arms, selection, official evaluation, paired analysis, and post-hoc transfer code are active. Main nonzero random-shuffle path is unexercised because selected alpha is zero, an explicitly disclosed limitation."
+    },
+    "scope": {
+      "status": "warn",
+      "details": "One model; 160 enriched development images; 600 previously explored val images; no nonzero locked evaluation, effective shuffle control, model seeds, second model/dataset, or pristine test. Development CIs are pointwise and post-selection descriptive."
+    },
+    "eval_type": "real_gt"
+  },
+  "selection": {
+    "relative_alpha": 0,
+    "geometry_alpha": 0,
+    "threshold": 0,
+    "locked_before_evaluation": true,
+    "evaluation_retuning_detected": false,
+    "all_evaluation_predictions_identical": true
+  },
+  "scope_counts": {
+    "development_images": 160,
+    "development_non_crowd_gt": 2037,
+    "development_bbox50_matched": 1859,
+    "development_spatial_targets": 1855,
+    "development_high_spatial_targets": 426,
+    "development_detections": 24370,
+    "development_eligible_correction_records_per_nonzero_arm": 2041,
+    "development_relative_025_changed_predictions": 1627,
+    "development_relative_025_changed_input_pixels": 186124,
+    "evaluation_images": 600,
+    "evaluation_non_crowd_gt": 4042,
+    "evaluation_spatial_targets": 3618,
+    "evaluation_spatial_missing": 424,
+    "evaluation_high_gt": 526,
+    "evaluation_high_spatial_targets": 481,
+    "evaluation_pair_total": 771,
+    "evaluation_high_pair_total": 543,
+    "evaluation_predictions": 49073,
+    "random_shuffle_seeds": 3,
+    "model_training_seeds": 0
+  },
+  "development_relative_025_high_pp": {
+    "same_neighbor": -0.13402969031251885,
+    "same_neighbor_ci95_pointwise": [-0.23418147611527768, -0.04782240158989305],
+    "background": 0.13838100553392874,
+    "background_ci95_pointwise": [0.07165252322646903, 0.2091870107042717],
+    "coverage": -0.04275187077595561,
+    "mask_iou": -0.029017575602278176,
+    "mask_iou_ci95_pointwise": [-0.10515286864684525, 0.04019831200083584]
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "The predeclared development gate selected zero and this concrete decoder did not earn promotion.",
+      "impact": "supported"
+    },
+    {
+      "id": "C2",
+      "claim": "Nonzero relative reranking reduces same-neighbor occupancy but shifts error to background on the development sample.",
+      "impact": "supported_with_descriptive_qualifier"
+    },
+    {
+      "id": "C3",
+      "claim": "The 600-image evaluation independently tests nonzero relative, geometry, and random interventions.",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C4",
+      "claim": "Exact input-grid foreground cardinality implies exact image-space area or GT coverage.",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C5",
+      "claim": "All neighbor information or CCL is ineffective.",
+      "impact": "unsupported"
+    }
+  ],
+  "unperformed": [
+    "cross-family independent review",
+    "nonzero 600-image locked evaluation",
+    "effective nonzero spatial-shuffle control",
+    "model-seed replication",
+    "pristine test set or second dataset/model",
+    "independent GPU inference and COCOeval rerun by auditor"
+  ],
+  "action_items": [
+    "Preserve zero-selection and concrete-intervention scope in all claims.",
+    "Report 3618 spatial targets out of 4042 task GT and the 771-pair denominator.",
+    "Call area preservation exact input-grid foreground cardinality only.",
+    "Label development bootstrap and transfer analyses descriptive and pointwise.",
+    "Do not describe spatial shuffle seeds as training seeds or robustness replication.",
+    "Use receipt runtimes approximately 41.6 s and 165.6 s, or mark current values approximate."
+  ]
+}

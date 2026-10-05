@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_35b5fc92113d47a98a70094c52332e12",
+  "study_id": "STUDY_0d9e14b39d5e4fafba576b311b4321c1",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "scripts/train_benefit_gate.py",
+    "--manifest",
+    "/root/coefficient_expected_benefit_20260927/MANIFEST.json",
+    "--scores",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_504a6a764f714baca3fc42d34310e5ab",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_10cd105b47514a51a73038c8a478920f",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_d7fc4c8b8ee64dd79fd24085f73903ed",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_d325294a7db0476bbc9c8d65d8a90f52",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_9264566bf4fd46568df4ddf3b2d29042",
+    "--out",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_35b5fc92113d47a98a70094c52332e12"
+  ],
+  "working_directory": "/root/coefficient_expected_benefit_20260927",
+  "status": "failed",
+  "created_at": "2026-09-26T19:07:09.571+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/MANIFEST.json",
+      "exists": true,
+      "sha256": "4076d968ca1724772c38af601d2f1388e3713c5b0ebb210095c859001f2b04be",
+      "size": 310029
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_504a6a764f714baca3fc42d34310e5ab/COMPLETE.json",
+      "exists": true,
+      "sha256": "e99b264420b24104553389966e1be97ea19f481d56c5ddd469aa9d1d74faa924",
+      "size": 203
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_10cd105b47514a51a73038c8a478920f/COMPLETE.json",
+      "exists": true,
+      "sha256": "67c8d1e6acfd9ee036ba10f819cfdf68aaa72eff85a9a93ce6c2d966a8eb3dd8",
+      "size": 203
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_d7fc4c8b8ee64dd79fd24085f73903ed/COMPLETE.json",
+      "exists": true,
+      "sha256": "ebd3b4f4013b34b0779403f6be4347bd4551ca9bb0bb4786f0eea2a73e8e8531",
+      "size": 203
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_d325294a7db0476bbc9c8d65d8a90f52/COMPLETE.json",
+      "exists": true,
+      "sha256": "9354d9357e943c70876ea1ceb123b58739de50cb40c01ebf10457d9b2f72b1a6",
+      "size": 203
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_9264566bf4fd46568df4ddf3b2d29042/COMPLETE.json",
+      "exists": true,
+      "sha256": "43b47a8bed11dcdb005a5bea7e00a746a8b4ead2d934ffe76371219282b6b999",
+      "size": 203
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/scripts/train_benefit_gate.py",
+      "revision": "ffebcf2dbeadbe352e6cb9d40cc98847f1c323f2733397040caf1f02c3d65e0c",
+      "snapshot": "snapshots/ffebcf2dbeadbe352e6cb9d40cc98847f1c323f2733397040caf1f02c3d65e0c"
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/PROTOCOL.md",
+      "revision": "1123c424f5f875930866e70881e14626691cb7d63b9b07506a6637fe4250473d",
+      "snapshot": "snapshots/1123c424f5f875930866e70881e14626691cb7d63b9b07506a6637fe4250473d"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_35b5fc92113d47a98a70094c52332e12/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_35b5fc92113d47a98a70094c52332e12"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 6849,
+  "started_at": "2026-09-26T19:07:09.676+00:00",
+  "last_heartbeat": "2026-09-26T19:07:39.689+00:00",
+  "return_code": 1,
+  "finished_at": "2026-09-26T19:07:41.076+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "runs/RUN_35b5fc92113d47a98a70094c52332e12/COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_35b5fc92113d47a98a70094c52332e12/COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

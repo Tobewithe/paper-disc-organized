@@ -1,0 +1,39 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_20261004_quality_smoke_v6",
+  "study_id": "mask_quality_score_training_20261004",
+  "status": "completed",
+  "host": "28358lan",
+  "working_directory": "D:/coco_wire/research/mask_quality_score_training_20261004",
+  "command": "PYTHONPATH=D:/coco_wire/py python D:/coco_wire/research/mask_quality_score_training_20261004/scripts/train_quality_smoke.py --weights D:/coco_wire/models/yolo26m-seg.pt --data D:/coco_wire/research/mask_quality_score_training_20261004/coco_smoke.yaml --project D:/coco_wire/research/mask_quality_score_training_20261004/runs --name quality_smoke_v6 --epochs 1 --batch 2 --imgsz 640",
+  "environment": {
+    "python": "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "python_version": "3.12.3",
+    "torch": "2.5.1",
+    "ultralytics": "8.4.100",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "seed": 0
+  },
+  "inputs": {
+    "weights": "D:/coco_wire/models/yolo26m-seg.pt",
+    "data": "D:/coco_wire/research/mask_quality_score_training_20261004/coco_smoke.yaml",
+    "train_images": 8,
+    "val_images": 3,
+    "mask_ratio": 4,
+    "overlap_mask": true,
+    "nms": false
+  },
+  "result": {
+    "quality_hook_active": true,
+    "quality_positive_targets": 68,
+    "quality_batches": 5,
+    "quality_mean_target": 0.16951715595558195,
+    "finite_loss": true,
+    "train_mask_map50_95": 0.56839,
+    "train_box_map50_95": 0.60559
+  },
+  "limitations": [
+    "1 epoch and 8 training images are only an implementation smoke test",
+    "no method performance claim is made"
+  ]
+}

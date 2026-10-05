@@ -1,0 +1,51 @@
+{
+  "source_run": "RUN_f9df48632ac742248343184263262429",
+  "images": 4500,
+  "ordinary_gt": 32831,
+  "response_vs_baseline_ap_pp": 0.4739393176478368,
+  "response_vs_smooth_ap_pp": 0.09747769359391611,
+  "response_vs_selected_global_ap_pp": 0.2272684918289798,
+  "paired_r75": {
+    "area_vs_fixed_smooth": {
+      "delta_r75_pp": -0.13706557826444518,
+      "paired_image_bootstrap_95ci_pp": [
+        -0.2321398495961049,
+        -0.033190210509076834
+      ]
+    },
+    "shape_vs_area": {
+      "delta_r75_pp": 0.0913770521762968,
+      "paired_image_bootstrap_95ci_pp": [
+        -0.02990085915884617,
+        0.20901734864184693
+      ]
+    },
+    "shape_vs_fixed_smooth": {
+      "delta_r75_pp": -0.0456885260881484,
+      "paired_image_bootstrap_95ci_pp": [
+        -0.15720365964638006,
+        0.06648894851631677
+      ]
+    },
+    "response_vs_area": {
+      "delta_r75_pp": 0.3045901739209893,
+      "paired_image_bootstrap_95ci_pp": [
+        0.18844340439695398,
+        0.4172446972619474
+      ]
+    },
+    "response_vs_fixed_smooth": {
+      "delta_r75_pp": 0.16752459565654412,
+      "paired_image_bootstrap_95ci_pp": [
+        0.06980606456053282,
+        0.27011303772619594
+      ]
+    }
+  },
+  "limitations": [
+    "same previously explored COCO images, not new blind data",
+    "one transfer checkpoint",
+    "no AP uncertainty estimate",
+    "cost measured separately on m, not s"
+  ]
+}

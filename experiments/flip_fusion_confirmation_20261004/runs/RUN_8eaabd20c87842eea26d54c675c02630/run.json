@@ -1,0 +1,260 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_8eaabd20c87842eea26d54c675c02630",
+  "study_id": "STUDY_6416b6c4f32b474a8c736f4592b34f4c",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/flip_fusion_confirmation_20261004/scripts/confirm_stream.py",
+    "--config",
+    "/root/flip_fusion_confirmation_20261004/RUN_CONFIG.json",
+    "--out",
+    "/root/flip_fusion_confirmation_20261004/runs/RUN_8eaabd20c87842eea26d54c675c02630",
+    "--smoke"
+  ],
+  "working_directory": "/root/flip_fusion_confirmation_20261004",
+  "status": "completed",
+  "created_at": "2026-10-03T20:13:00.235+00:00",
+  "host": "autodl-container-7gyvcd108y-b99fe683",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-168-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/RUN_CONFIG.json",
+      "path_relative_to_cwd": "RUN_CONFIG.json",
+      "exists": true,
+      "sha256": "5e022fb27f95bcec92c37ae354256d0a2ee757212865d00a111bbef6d9df2ea6",
+      "size": 3082
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/RUN_IDS.json",
+      "path_relative_to_cwd": "RUN_IDS.json",
+      "exists": true,
+      "sha256": "b73d525ba9c06e5b5ccf29ad47280543fda5009686506c892658eb236877cd78",
+      "size": 186
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/CONFIRM_IDS.json",
+      "path_relative_to_cwd": "CONFIRM_IDS.json",
+      "exists": true,
+      "sha256": "a1c99db0f5b4d5cea2234220ee7789e3b22a7094d1a60fc8b5b89bcae4251b07",
+      "size": 18917
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/EXCLUSION_IDS.json",
+      "path_relative_to_cwd": "EXCLUSION_IDS.json",
+      "exists": true,
+      "sha256": "1726df487f3f42c1b769b2952f4cbd0850cbb5f84c262e40503311522c4d5855",
+      "size": 228162
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/EXPOSURE_AUDIT.json",
+      "path_relative_to_cwd": "EXPOSURE_AUDIT.json",
+      "exists": true,
+      "sha256": "6ab983195b201a57f4dfbb5316039f8855e94d647c13ca81e8d19e70ba0823b6",
+      "size": 285393
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/POWER_PLAN.json",
+      "path_relative_to_cwd": "POWER_PLAN.json",
+      "exists": true,
+      "sha256": "c2776d258b12edbd59e4f0a8d48053cb375b1826d3450cad6a7174035a45f8bd",
+      "size": 12511
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/CODE_READY.json",
+      "path_relative_to_cwd": "CODE_READY.json",
+      "exists": true,
+      "sha256": "375d68b207991691e97bc1204a0c4375a12cc561411bf09c6d6984a0dc87850d",
+      "size": 1812
+    },
+    {
+      "path": "/root/autodl-tmp/prototype_guided_evidence_selection_20261003/models/yolo26m-seg.pt",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "/root/autodl-tmp/prototype_guided_evidence_selection_20261003/runner.py",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "a79be21c01abddb361965450ae178fcdfabd71f2de411b88a84e366ecb7a8008",
+      "size": 10072
+    },
+    {
+      "path": "/root/autodl-tmp/prototype_guided_evidence_selection_20261003/data/instances_train2017.json",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "size": 469785474
+    },
+    {
+      "path": "/root/autodl-tmp/prototype_guided_evidence_selection_20261003/data/instances_val2017.json",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    },
+    {
+      "path": "/root/flip_response_projection_20261004/runs/RUN_eb9eeafabad047c7b26557958811b80c/PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "4b2900ee2dd414e89db52a0001b671fdcf69c2968962c13aa2286d74bbf41501",
+      "size": 4839539
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/PROTOCOL.md",
+      "path_relative_to_cwd": "PROTOCOL.md",
+      "revision": "42871a1b6e1cd65f9a23c61030a7c4d2b83af86a795904b389785660aa604528",
+      "snapshot": "snapshots/42871a1b6e1cd65f9a23c61030a7c4d2b83af86a795904b389785660aa604528"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/RUN_CONFIG.json",
+      "path_relative_to_cwd": "RUN_CONFIG.json",
+      "revision": "5e022fb27f95bcec92c37ae354256d0a2ee757212865d00a111bbef6d9df2ea6",
+      "snapshot": "snapshots/5e022fb27f95bcec92c37ae354256d0a2ee757212865d00a111bbef6d9df2ea6"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/RUN_IDS.json",
+      "path_relative_to_cwd": "RUN_IDS.json",
+      "revision": "b73d525ba9c06e5b5ccf29ad47280543fda5009686506c892658eb236877cd78",
+      "snapshot": "snapshots/b73d525ba9c06e5b5ccf29ad47280543fda5009686506c892658eb236877cd78"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/CONFIRM_IDS.json",
+      "path_relative_to_cwd": "CONFIRM_IDS.json",
+      "revision": "a1c99db0f5b4d5cea2234220ee7789e3b22a7094d1a60fc8b5b89bcae4251b07",
+      "snapshot": "snapshots/a1c99db0f5b4d5cea2234220ee7789e3b22a7094d1a60fc8b5b89bcae4251b07"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/EXCLUSION_IDS.json",
+      "path_relative_to_cwd": "EXCLUSION_IDS.json",
+      "revision": "1726df487f3f42c1b769b2952f4cbd0850cbb5f84c262e40503311522c4d5855",
+      "snapshot": "snapshots/1726df487f3f42c1b769b2952f4cbd0850cbb5f84c262e40503311522c4d5855"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/EXPOSURE_AUDIT.json",
+      "path_relative_to_cwd": "EXPOSURE_AUDIT.json",
+      "revision": "6ab983195b201a57f4dfbb5316039f8855e94d647c13ca81e8d19e70ba0823b6",
+      "snapshot": "snapshots/6ab983195b201a57f4dfbb5316039f8855e94d647c13ca81e8d19e70ba0823b6"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/POWER_PLAN.json",
+      "path_relative_to_cwd": "POWER_PLAN.json",
+      "revision": "c2776d258b12edbd59e4f0a8d48053cb375b1826d3450cad6a7174035a45f8bd",
+      "snapshot": "snapshots/c2776d258b12edbd59e4f0a8d48053cb375b1826d3450cad6a7174035a45f8bd"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/CODE_READY.json",
+      "path_relative_to_cwd": "CODE_READY.json",
+      "revision": "375d68b207991691e97bc1204a0c4375a12cc561411bf09c6d6984a0dc87850d",
+      "snapshot": "snapshots/375d68b207991691e97bc1204a0c4375a12cc561411bf09c6d6984a0dc87850d"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/collect_confirm.py",
+      "path_relative_to_cwd": "scripts/collect_confirm.py",
+      "revision": "50a841e92155275ef751a2c4daa028c230632e2a5b192be1bd45a31ab5c8087f",
+      "snapshot": "snapshots/50a841e92155275ef751a2c4daa028c230632e2a5b192be1bd45a31ab5c8087f"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/confirm_stream.py",
+      "path_relative_to_cwd": "scripts/confirm_stream.py",
+      "revision": "b4344c675bf6e3bfb9d52a45ee469950dbd469c143f2b01c39eb5e30794a7507",
+      "snapshot": "snapshots/b4344c675bf6e3bfb9d52a45ee469950dbd469c143f2b01c39eb5e30794a7507"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/evaluation_metrics.py",
+      "path_relative_to_cwd": "scripts/evaluation_metrics.py",
+      "revision": "36d539b9dac612233b68c3383737588e3e16c7c2393d9a7f19e8b630034a98e7",
+      "snapshot": "snapshots/36d539b9dac612233b68c3383737588e3e16c7c2393d9a7f19e8b630034a98e7"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/flip_source.py",
+      "path_relative_to_cwd": "scripts/flip_source.py",
+      "revision": "9ba3e4cc0bd8621a697139f37f483dddbcddf9c5489065a610d05a4e6f99f552",
+      "snapshot": "snapshots/9ba3e4cc0bd8621a697139f37f483dddbcddf9c5489065a610d05a4e6f99f552"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/freeze_cohort.py",
+      "path_relative_to_cwd": "scripts/freeze_cohort.py",
+      "revision": "3be93ac7b52057388282f0b5aea871cff2f6f09395823fb97341a5e5ada82203",
+      "snapshot": "snapshots/3be93ac7b52057388282f0b5aea871cff2f6f09395823fb97341a5e5ada82203"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/legacy_prepare_cache.py",
+      "path_relative_to_cwd": "scripts/legacy_prepare_cache.py",
+      "revision": "e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df",
+      "snapshot": "snapshots/e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/online_runtime.py",
+      "path_relative_to_cwd": "scripts/online_runtime.py",
+      "revision": "769ede5bdf9742e4aa45f971ac42d273815615ff2169d5c0c9ebfc47998e67a0",
+      "snapshot": "snapshots/769ede5bdf9742e4aa45f971ac42d273815615ff2169d5c0c9ebfc47998e67a0"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/pipeline_confirm.py",
+      "path_relative_to_cwd": "scripts/pipeline_confirm.py",
+      "revision": "653493afd915e3a9a453e0eaa9f4f83e21c30def02d0cb4cf4918185ab1a839b",
+      "snapshot": "snapshots/653493afd915e3a9a453e0eaa9f4f83e21c30def02d0cb4cf4918185ab1a839b"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/scripts/transport_control.py",
+      "path_relative_to_cwd": "scripts/transport_control.py",
+      "revision": "4db666b20b8c3db8b250061332bce29971d06a25d8ebeacb6d06f18e3693d8aa",
+      "snapshot": "snapshots/4db666b20b8c3db8b250061332bce29971d06a25d8ebeacb6d06f18e3693d8aa"
+    },
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/REUSED_CODE.json",
+      "path_relative_to_cwd": "REUSED_CODE.json",
+      "revision": "a526530864673d2c56aff8ac1132852e0e0e7d9f3120bcf750ad1dd1abe50277",
+      "snapshot": "snapshots/a526530864673d2c56aff8ac1132852e0e0e7d9f3120bcf750ad1dd1abe50277"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/flip_fusion_confirmation_20261004/runs/RUN_8eaabd20c87842eea26d54c675c02630/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-7gyvcd108y-b99fe683",
+      "path": "/root/flip_fusion_confirmation_20261004/runs/RUN_8eaabd20c87842eea26d54c675c02630"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 26556,
+  "started_at": "2026-10-03T20:13:01.820+00:00",
+  "last_heartbeat": "2026-10-03T20:13:31.963+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-03T20:13:35.335+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/flip_fusion_confirmation_20261004/runs/RUN_8eaabd20c87842eea26d54c675c02630/COMPLETE.json",
+      "path_relative_to_cwd": "/root/flip_fusion_confirmation_20261004/runs/RUN_8eaabd20c87842eea26d54c675c02630/COMPLETE.json",
+      "exists": true,
+      "sha256": "724e8d033ff7ca122bb443237e9c50c4e2e699df1e55b02c0733fa030ab9109d"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "config": {
+    "fit": "runs/RUN_62e3a1994b804eceb03fb8e616a4f946/fit.pt",
+    "dev": "runs/RUN_62e3a1994b804eceb03fb8e616a4f946/dev.pt",
+    "val": "runs/RUN_62e3a1994b804eceb03fb8e616a4f946/val.pt",
+    "out": "runs/SHARED_FULL_IND",
+    "limit": 0,
+    "dev_limit": 0,
+    "val_limit": 0,
+    "shared_iter": 1,
+    "independent_iter": 80,
+    "independent_limit": 5872,
+    "independent_batch": 32,
+    "chunk_size": 128,
+    "init_scale": 0.0,
+    "threads": 8
+  },
+  "lambda": 0.003,
+  "fit": {
+    "records": 5872,
+    "images": 796,
+    "levels": {
+      "0": 1880,
+      "1": 2156,
+      "2": 1836
+    }
+  },
+  "shared_fit": {
+    "objective": 0.3892339143876484,
+    "bce": 0.38910930351083867,
+    "regularizer": 0.0001246108768098963,
+    "stationarity_norm": 0.06266432478402867,
+    "elapsed": 11.805369310081005,
+    "iterations": 1
+  },
+  "original_fit": {
+    "objective": 0.4197276170166108,
+    "records": 5872
+  },
+  "shared_dev": {
+    "objective": 0.3931532591642767,
+    "bce": 0.3930244721292252,
+    "regularizer": 0.000128787035051517,
+    "records": 1375
+  },
+  "shared_val": {
+    "objective": 0.3860894379504736,
+    "bce": 0.38597214067540075,
+    "regularizer": 0.00011729727507282514,
+    "records": 1301
+  },
+  "independent_fit_prefix": {
+    "objective": 0.20127589300035653,
+    "bce": 0.16884502992060346,
+    "regularizer": 0.032430863079753174,
+    "max_batch_stationarity": 1.4435483159948722e-07,
+    "records": 5872
+  },
+  "original_fit_prefix": {
+    "objective": 0.4197276170166108,
+    "records": 5872
+  },
+  "decomposition_prefix": {
+    "J0_minus_Jshared": 0.030493702628962394,
+    "Jshared_minus_Jind": 0.1879580213872919,
+    "J0_minus_Jind": 0.2184517240162543
+  }
+}

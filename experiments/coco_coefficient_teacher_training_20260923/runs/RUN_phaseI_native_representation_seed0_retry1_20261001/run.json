@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_phaseI_native_representation_seed0_retry1_20261001",
+  "study_id": "STUDY_8c3ee4f4c2134a5a8c623ef35fbc35f8",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/phaseI_native_representation_20261001/scripts/phaseI_train.py",
+    "--config",
+    "/root/phaseI_native_representation_20261001/PHASE_I_RUN_CONFIG.json",
+    "--weights",
+    "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+    "--cache",
+    "/root/official_tal_affine_20260930/runs/official_cache",
+    "--oracle",
+    "/root/official_tal_affine_20260930/runs/RUN_official_oracle_complete/ORACLE_fit.pt",
+    "--data",
+    "/root/autodl-tmp/datasets/coco2017",
+    "--out",
+    "/root/phaseI_native_representation_20261001/runs/RUN_phaseI_native_representation_seed0_retry1_20261001"
+  ],
+  "working_directory": "/root/phaseI_native_representation_20261001",
+  "status": "failed",
+  "created_at": "2026-09-30T18:19:36.847+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "/root/official_tal_affine_20260930/runs/official_cache/INDEX.json",
+      "exists": true,
+      "sha256": "c8c528b115781153dd33ca94d2084a9795d04006417bf966147fb60a27ffb4b7",
+      "size": 61964
+    },
+    {
+      "path": "/root/official_tal_affine_20260930/runs/RUN_official_oracle_complete/ORACLE_fit.pt",
+      "exists": true,
+      "sha256": "1a56af46c9a438de32eacaa4af9777580435caa493a6aff6a391826a1b48cbe9",
+      "size": 2077054
+    },
+    {
+      "path": "/root/phaseI_native_representation_20261001/PHASE_I_RUN_CONFIG.json",
+      "exists": true,
+      "sha256": "7217faa790b6d93a5fa995673171a1dec5a314b2f5cb7c592e3116855a0d92fe",
+      "size": 2506
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/phaseI_native_representation_20261001/PHASE_I_RUN_CONFIG.json",
+      "revision": "7217faa790b6d93a5fa995673171a1dec5a314b2f5cb7c592e3116855a0d92fe",
+      "snapshot": "snapshots/7217faa790b6d93a5fa995673171a1dec5a314b2f5cb7c592e3116855a0d92fe"
+    },
+    {
+      "path": "/root/phaseI_native_representation_20261001/scripts/phaseI_train.py",
+      "revision": "8cce2e0eb4812a34d4316d1bd87841f4af374450d96c1fd9cbec6361f5a4c253",
+      "snapshot": "snapshots/8cce2e0eb4812a34d4316d1bd87841f4af374450d96c1fd9cbec6361f5a4c253"
+    },
+    {
+      "path": "/root/phaseI_native_representation_20261001/scripts/runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/phaseI_native_representation_20261001/runs/RUN_phaseI_native_representation_seed0_retry1_20261001/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/phaseI_native_representation_20261001/runs/RUN_phaseI_native_representation_seed0_retry1_20261001"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 20224,
+  "started_at": "2026-09-30T18:19:37.029+00:00",
+  "last_heartbeat": "2026-09-30T18:21:47.302+00:00",
+  "metrics_read_error": "[Errno 2] No such file or directory: '/root/phaseI_native_representation_20261001/runs/RUN_phaseI_native_representation_seed0_retry1_20261001/SUMMARY.json'",
+  "return_code": 1,
+  "finished_at": "2026-09-30T18:21:52.268+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "/root/phaseI_native_representation_20261001/runs/RUN_phaseI_native_representation_seed0_retry1_20261001/COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "/root/phaseI_native_representation_20261001/runs/RUN_phaseI_native_representation_seed0_retry1_20261001/COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

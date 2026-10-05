@@ -1,0 +1,101 @@
+{
+  "protocol": {
+    "dataset": "MS COCO val2017",
+    "images_processed": 5000,
+    "ordinary_gt_excludes_iscrowd_and_ignore": true,
+    "core_edge": "same category and (mask IoU >= 0.50 OR GT coverage >= 0.50)",
+    "weak_edge": "same category and mask IoU >= 0.50 and coverage >= 0.10, excluding core",
+    "one_to_one_threshold": "coverage and purity both use 0.75",
+    "purity": "intersection / prediction pixels",
+    "stage_limit": "final-output cache cannot distinguish RAW/TOPK/CONF; all stage labels remain UNRESOLVED_FINAL_CACHE_ONLY",
+    "relation_scope": "O/M/X describe final connected-component topology, not causal mechanism"
+  },
+  "counts": {
+    "images": 5000,
+    "ordinary_gt": 36335,
+    "final_predictions": 446097,
+    "gt_relation": {
+      "C": 9932,
+      "I": 521,
+      "L": 1180,
+      "M": 94,
+      "MISS": 2189,
+      "O": 14383,
+      "S": 227,
+      "X": 7809
+    },
+    "prediction_relation": {
+      "FP_no_same_class_core": 354898,
+      "M": 46,
+      "O": 50706,
+      "X": 28587,
+      "linked_one_to_one": 11860
+    },
+    "weak_same_class_miss_flags": 337,
+    "wrong_class_core_miss_flags": 1719
+  },
+  "relation_subtype": {
+    "duplicate_like": 447,
+    "many_to_many_mixed": 7809,
+    "merge_like": 94,
+    "multi_output_complex": 13412,
+    "no_same_class_core_edge": 2189,
+    "one_to_one": 11860,
+    "split_like": 524
+  },
+  "error_surface": {
+    "background": 17041,
+    "mixed": 2227,
+    "other_neighbor": 6066,
+    "same_neighbor": 4317,
+    "target_fn": 4495,
+    "unresolved_without_core_prediction": 2189
+  },
+  "by_mask_density_group": {
+    "high": {
+      "C": 1675,
+      "I": 95,
+      "L": 193,
+      "M": 79,
+      "MISS": 373,
+      "O": 2824,
+      "S": 56,
+      "X": 4158
+    },
+    "low": {
+      "C": 6469,
+      "I": 343,
+      "L": 870,
+      "M": 4,
+      "MISS": 1581,
+      "O": 9905,
+      "S": 152,
+      "X": 2067
+    },
+    "middle": {
+      "C": 1771,
+      "I": 80,
+      "L": 111,
+      "M": 11,
+      "MISS": 195,
+      "O": 1587,
+      "S": 16,
+      "X": 1571
+    },
+    "undefined": {
+      "C": 17,
+      "I": 3,
+      "L": 6,
+      "MISS": 40,
+      "O": 67,
+      "S": 3,
+      "X": 13
+    }
+  },
+  "limitations": [
+    "This is a descriptive classification of final outputs; it is not an upstream causal attribution.",
+    "A MISS means no final same-class core edge, not that the network never generated a raw candidate.",
+    "Crowd annotations are excluded from ordinary GT relation totals and should be reported separately.",
+    "Background error is normalized by predicted pixels and should not be interpreted as stronger causality solely from its area."
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_e410dcb65ade4be287784bc4538fa54f",
+  "study_id": "STUDY_82ea1e5264ca430a97dff79b8912f847",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/pixel_damage_audit.py",
+    "--source",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6",
+    "--score",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6",
+    "--mode",
+    "safe_full",
+    "--annotations",
+    "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json",
+    "--out",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e410dcb65ade4be287784bc4538fa54f"
+  ],
+  "working_directory": "/root/autodl-tmp/coco_mask_spatial_probe_20260916",
+  "status": "completed",
+  "created_at": "2026-09-16T06:30:30.908+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/pixel_damage_audit.py",
+      "revision": "f596b7975a6c53a48f2d041128af8f3ecd65856fc58c6bc7802c7f29e36aa5ac",
+      "snapshot": "snapshots/f596b7975a6c53a48f2d041128af8f3ecd65856fc58c6bc7802c7f29e36aa5ac"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e410dcb65ade4be287784bc4538fa54f/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e410dcb65ade4be287784bc4538fa54f"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 7807,
+  "started_at": "2026-09-16T06:30:31.017+00:00",
+  "last_heartbeat": "2026-09-16T06:30:56.067+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-16T06:31:00.959+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e410dcb65ade4be287784bc4538fa54f/COMPLETE.json",
+      "exists": true,
+      "sha256": "da0e7fea9ae8d9bd2c6a4e16c1ad6b8c72e93ccab4368ffc3b61e2f5a1bb0702"
+    }
+  ]
+}

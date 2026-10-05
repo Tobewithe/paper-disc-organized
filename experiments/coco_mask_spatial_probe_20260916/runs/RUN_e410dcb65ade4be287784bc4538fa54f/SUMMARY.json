@@ -1,0 +1,55 @@
+{
+  "damaged": {
+    "total_gt": 903,
+    "fixed_references": 903,
+    "retained_good_mask75": 7,
+    "delta_iou_points": -10.095285997216932,
+    "delta_coverage_points": -10.190571138137184,
+    "delta_purity_points": -0.7667566850452903,
+    "lost_target": 786,
+    "increased_fp": 227,
+    "target_loss_and_fp_increase": 110,
+    "size": {
+      "small": 547,
+      "medium": 237,
+      "large": 119
+    },
+    "normalized_pixel_change": {
+      "added_target": 0.0057933875008530835,
+      "removed_target": 0.10769909888222491,
+      "added_background": 0.02185043597478189,
+      "removed_background": 0.03318534201825534,
+      "added_neighbor": 0.0570313565551805,
+      "removed_neighbor": 0.010358345916718009
+    }
+  },
+  "repaired": {
+    "total_gt": 1543,
+    "fixed_references": 1543,
+    "retained_good_mask75": 1350,
+    "delta_iou_points": 6.556572989993728,
+    "delta_coverage_points": -0.8085829368854623,
+    "delta_purity_points": 7.5572316139638955,
+    "lost_target": 1135,
+    "increased_fp": 113,
+    "target_loss_and_fp_increase": 5,
+    "size": {
+      "small": 1103,
+      "medium": 283,
+      "large": 157
+    },
+    "normalized_pixel_change": {
+      "added_target": 0.023732396070238748,
+      "removed_target": 0.03181822543909337,
+      "added_background": 0.002361793489352506,
+      "removed_background": 0.0962448402735408,
+      "added_neighbor": 0.004387051242262971,
+      "removed_neighbor": 0.02818268425245411
+    }
+  },
+  "limitations": [
+    "Fixed identity is GT-oracle best original same-class mask, not original COCO assignment.",
+    "GT transition groups use COCO matching; competition can change matched identities.",
+    "Pixel changes do not identify the network root cause."
+  ]
+}

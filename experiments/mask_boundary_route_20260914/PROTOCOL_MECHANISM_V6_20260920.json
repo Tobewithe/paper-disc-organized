@@ -1,0 +1,59 @@
+{
+  "protocol_id": "PROTOCOL_rcmc_spatial_response_20260920_v1",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "environment": {
+    "python": "3.12.3",
+    "ultralytics": "8.4.100",
+    "torch": "2.5.1",
+    "numpy": "2.4.3",
+    "opencv": "4.13.0",
+    "pycocotools": "2.0.11",
+    "scipy": "1.15.2",
+    "scikit-learn": "1.6.1"
+  },
+  "package_root": "D:/coco_wire/py",
+  "bank": "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_2ae67d6556a14848bceb5783a72e5790",
+  "decisions": "D:/coco_wire/scripts/rcmc_mechanism_20260920/inputs/decisions.csv",
+  "response_model": "D:/coco_wire/scripts/rcmc_mechanism_20260920/inputs/response.json",
+  "annotations": "D:/coco_wire/data/annotations/instances_val2017.json",
+  "images": "D:/coco_wire/data/images/val2017",
+  "weights": "D:/mdoeldata/pigcv-task05/models/yolo26m-seg.pt",
+  "panel_seed": 20260920,
+  "panel_targets": 256,
+  "thresholds": [
+    0,
+    0.05,
+    0.1,
+    0.2,
+    0.35,
+    0.5,
+    0.75,
+    1,
+    1.5,
+    2,
+    3,
+    4,
+    6,
+    8
+  ],
+  "coverage_loss_budgets": [
+    0.01,
+    0.02
+  ],
+  "inference": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "max_det": 300,
+    "batch": 1,
+    "half": false,
+    "retina_masks": false,
+    "branch": "one2one"
+  },
+  "scope": "First describe archived final-output slots; replay panel separately. No training and no claim that all full-validation raw candidates are classified.",
+  "sampling": "baseline class/size stratification, at most two objects/image; success controls matched on pre-intervention geometry; raw stage uses no score/class restrictions for geometry",
+  "notes": [
+    "Runtime source overlay version is asserted; installed ultralytics metadata may be older and is not used.",
+    "Continuous GT bbox outside fraction is a spatial proxy, not official loss support.",
+    "Existing 4500 validation images have been explored; partitions are not a blind test."
+  ]
+}

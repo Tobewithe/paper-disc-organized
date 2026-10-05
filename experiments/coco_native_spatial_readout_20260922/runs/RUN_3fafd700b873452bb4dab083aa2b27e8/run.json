@@ -1,0 +1,152 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_3fafd700b873452bb4dab083aa2b27e8",
+  "study_id": "STUDY_e57da2b0fb7f4d7782d792c826beabde",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/coco_native_spatial_readout_20260922/scripts/native_spatial_readout.py",
+    "train",
+    "--mode",
+    "response_spatial",
+    "--bank",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e83cf453bd6e47feb025ef4259bc8499/training_bank.pt",
+    "--features",
+    "/root/coco_spatial_calibration_mechanism_20260922/runs/RUN_098ba724d6034a1eab6ae058362d2ba0/coefficient_features.pt",
+    "--geometry",
+    "/root/coco_template_source_20260921/runs/RUN_143f4861823342c8afdca4251ee764d8/geometry.pt",
+    "--split",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6/SPLIT.json",
+    "--out",
+    "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8"
+  ],
+  "working_directory": "/root/coco_native_spatial_readout_20260922",
+  "status": "completed",
+  "created_at": "2026-09-21T22:55:54.755+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e83cf453bd6e47feb025ef4259bc8499/training_bank.pt",
+      "exists": true,
+      "sha256": "ec53f310d814caf3284ccd0eb35b9d49fda98e0f14b5bf9594744a333e092894",
+      "size": 2574345303
+    },
+    {
+      "path": "/root/coco_spatial_calibration_mechanism_20260922/runs/RUN_098ba724d6034a1eab6ae058362d2ba0/coefficient_features.pt",
+      "exists": true,
+      "sha256": "116732ecefb9f814d08315f64d31dc4466c59b0f78a6b5b5dd537400a4858fb0",
+      "size": 7655116
+    },
+    {
+      "path": "/root/coco_template_source_20260921/runs/RUN_143f4861823342c8afdca4251ee764d8/geometry.pt",
+      "exists": true,
+      "sha256": "7ae1a21e9068ce92c64ee90fceb5716ee610b33a9e33e30454a323ccc385c775",
+      "size": 706538
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6/SPLIT.json",
+      "exists": true,
+      "sha256": "341c7bb9f2f6186f9985d800e0986ffea6f1baeb48b2c200dfeab25aab046ade",
+      "size": 47212
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/PROTOCOL.json",
+      "revision": "dfb47ee872689110743bd622f573253d153cbca6a4a07245893bf9099bbd1980",
+      "snapshot": "snapshots/dfb47ee872689110743bd622f573253d153cbca6a4a07245893bf9099bbd1980"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/scripts/component_seed_probe.py",
+      "revision": "453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190",
+      "snapshot": "snapshots/453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/scripts/learn_refinement.py",
+      "revision": "47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912",
+      "snapshot": "snapshots/47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/scripts/native_coefficient_control.py",
+      "revision": "dba2a6b9788c92ae92658f2ddc1e39dda59a6357734c1acaa34f19ae7eb917ba",
+      "snapshot": "snapshots/dba2a6b9788c92ae92658f2ddc1e39dda59a6357734c1acaa34f19ae7eb917ba"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/scripts/native_spatial_readout.py",
+      "revision": "11db0d088ac5bbb3723cdd6c7d115c8edae15f5fb0b6e54babb2cec05155d74c",
+      "snapshot": "snapshots/11db0d088ac5bbb3723cdd6c7d115c8edae15f5fb0b6e54babb2cec05155d74c"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/scripts/repair_refinement.py",
+      "revision": "bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5",
+      "snapshot": "snapshots/bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/scripts/run_queue.py",
+      "revision": "946a133c4ce4ca9a47fbfe8576ccdef72b9b4367972ab1d52194897445e5cca8",
+      "snapshot": "snapshots/946a133c4ce4ca9a47fbfe8576ccdef72b9b4367972ab1d52194897445e5cca8"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/scripts/shared_shape_head.py",
+      "revision": "76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379",
+      "snapshot": "snapshots/76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8/epoch8.pt",
+    "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8/SELECTION.json",
+    "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 10027,
+  "started_at": "2026-09-21T22:55:58.094+00:00",
+  "last_heartbeat": "2026-09-21T22:56:08.096+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-21T22:56:11.453+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8/epoch8.pt",
+      "exists": true,
+      "sha256": "43e1b363f6ea29fb7b7ae22a9fe457bb058bb87810ff24019071c42ade0688e7"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8/SELECTION.json",
+      "exists": true,
+      "sha256": "74a20ccf5d64fc35cb4ce343b6a6c103ff32a547885dbfb5744f2cbc98a4e29b"
+    },
+    {
+      "path": "/root/coco_native_spatial_readout_20260922/runs/RUN_3fafd700b873452bb4dab083aa2b27e8/COMPLETE.json",
+      "exists": true,
+      "sha256": "74a20ccf5d64fc35cb4ce343b6a6c103ff32a547885dbfb5744f2cbc98a4e29b"
+    }
+  ]
+}

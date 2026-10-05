@@ -1,0 +1,139 @@
+{
+  "images": 4500,
+  "ordinary_gt": 32831,
+  "matched": 30426,
+  "targets": 1701,
+  "original_successes": 19065,
+  "outcomes": {
+    "single_local": {
+      "target_repairs": 452,
+      "all_repairs": 786,
+      "damages": 390,
+      "target_mean_iou_gain_pp": 3.292395489685453,
+      "target_mean_coverage_loss_pp": 1.5733272892668602,
+      "net_repairs": 396
+    },
+    "multi_local": {
+      "target_repairs": 475,
+      "all_repairs": 840,
+      "damages": 405,
+      "target_mean_iou_gain_pp": 3.6205731691605445,
+      "target_mean_coverage_loss_pp": 1.6721556039408727,
+      "net_repairs": 435
+    }
+  },
+  "metrics": {
+    "single_local": {
+      "ap": 43.95348638457812,
+      "ap75": 47.7627940853096,
+      "stats": [
+        0.4395348638457812,
+        0.6638283260434509,
+        0.477627940853096,
+        0.2350262571721785,
+        0.4787208860719264,
+        0.6409651598121648,
+        0.3424578609054237,
+        0.5583637047897527,
+        0.6037766238317451,
+        0.42341747520077594,
+        0.6581025955906229,
+        0.7673701598482012
+      ],
+      "predictions": 506966
+    },
+    "multi_local": {
+      "ap": 44.003437329484946,
+      "ap75": 47.81557484570414,
+      "stats": [
+        0.44003437329484946,
+        0.6641508273959568,
+        0.4781557484570414,
+        0.23631927747402426,
+        0.4790444536362965,
+        0.6418018557505497,
+        0.342905664251328,
+        0.5590806017133337,
+        0.6046787858666436,
+        0.42404303010172095,
+        0.6594070054542874,
+        0.7684572490755912
+      ],
+      "predictions": 506966
+    }
+  },
+  "verdict": {
+    "single_local": {
+      "checks": {
+        "frozen_rcmc": {
+          "target_repair_delta": -5,
+          "damage_delta": -55,
+          "ap_delta": 0.013942176009216212,
+          "passes": false
+        },
+        "direct": {
+          "target_repair_delta": 0,
+          "damage_delta": -37,
+          "ap_delta": 0.011422136821671813,
+          "passes": true
+        }
+      },
+      "passes": false
+    },
+    "multi_local": {
+      "checks": {
+        "frozen_rcmc": {
+          "target_repair_delta": 18,
+          "damage_delta": -40,
+          "ap_delta": 0.06389312091604182,
+          "passes": true
+        },
+        "direct": {
+          "target_repair_delta": 23,
+          "damage_delta": -22,
+          "ap_delta": 0.061373081728497425,
+          "passes": true
+        }
+      },
+      "passes": true
+    }
+  },
+  "full_baseline_rle_parity": 506966,
+  "action_counts": {
+    "single_local": {
+      "0": 295255,
+      "-1": 211711
+    },
+    "multi_local": {
+      "1": 72678,
+      "0": 123869,
+      "3": 17600,
+      "-1": 165788,
+      "4": 63648,
+      "2": 63383
+    }
+  },
+  "policies": {
+    "single_shape": {
+      "cutoff": 0
+    },
+    "single_local": {
+      "cutoff": 0
+    },
+    "multi_shape": {
+      "cutoff": 0.005
+    },
+    "multi_local": {
+      "cutoff": 0
+    }
+  },
+  "numeric_policy_matches_selection": true,
+  "elapsed_seconds": 2934.868868400008,
+  "decision": "needs_independent_confirmation",
+  "limitations": [
+    "Historical explored COCO val; not a fresh blind test.",
+    "No changes in boxes, scores, categories or prediction counts.",
+    "One seed; frozen after train selection; AP point estimates only.",
+    "Timing includes research diagnostics and RLE, not a deployment benchmark."
+  ]
+}

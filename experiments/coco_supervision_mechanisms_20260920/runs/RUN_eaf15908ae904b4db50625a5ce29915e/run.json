@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_eaf15908ae904b4db50625a5ce29915e",
+  "study_id": "STUDY_3c1ec86ea1ac42fcbe080285570de10d",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/coco_supervision_mechanisms_20260920/scripts/analyze.py",
+    "--source",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_ab9354b893f5463398bae67c4305635f",
+    "--out",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_eaf15908ae904b4db50625a5ce29915e"
+  ],
+  "working_directory": "/root/coco_supervision_mechanisms_20260920",
+  "status": "completed",
+  "created_at": "2026-09-20T08:19:34.077+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_ab9354b893f5463398bae67c4305635f/instances.jsonl",
+      "exists": true,
+      "sha256": "b46d9ac0cb7eab6c59c293317828b836299e17bef6ff14e760672fa923ce8b24",
+      "size": 9748854
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/scripts/analyze.py",
+      "revision": "79dd4ba5e1909fa6e206b368a172b0389d841b2a56a75d58c9935256bff5225b",
+      "snapshot": "snapshots/79dd4ba5e1909fa6e206b368a172b0389d841b2a56a75d58c9935256bff5225b"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_eaf15908ae904b4db50625a5ce29915e/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_eaf15908ae904b4db50625a5ce29915e"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 3103,
+  "started_at": "2026-09-20T08:19:34.195+00:00",
+  "last_heartbeat": "2026-09-20T08:19:34.195+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-20T08:19:36.726+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_eaf15908ae904b4db50625a5ce29915e/SUMMARY.json",
+      "exists": true,
+      "sha256": "cb841b4c962ffad6dc4ae11e02227ce43db4c9a1c49760fe39887d7435ff7396"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_011a55236e984af39f3883cbc73b0f88",
+  "study_id": "STUDY_4e1c74a75b3b4988b7181511c45799da",
+  "source_kind": "subprocess_observed",
+  "kind": "evaluation",
+  "arm": "original",
+  "checkpoint": "best",
+  "status": "completed",
+  "started_at": "2026-09-15T12:50:04.583762+08:00",
+  "retry_of": null,
+  "finished_at": "2026-09-15T12:58:28.361397+08:00",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_011a55236e984af39f3883cbc73b0f88/snapshots/evaluate_checkpoint.py",
+    "--study",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915",
+    "--out",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_011a55236e984af39f3883cbc73b0f88",
+    "--weight",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_0c943bc6c5bb433193ed0f37bbcd6f3c/weights/best.pt",
+    "--arm",
+    "original",
+    "--checkpoint",
+    "best"
+  ],
+  "working_directory": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_011a55236e984af39f3883cbc73b0f88/snapshots",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_0c943bc6c5bb433193ed0f37bbcd6f3c/weights/best.pt",
+      "exists": true
+    },
+    {
+      "path": "/root/autodl-tmp/counterfactual_p3_20260914/selection_remote.csv",
+      "exists": true
+    },
+    {
+      "path": "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json",
+      "exists": true
+    }
+  ],
+  "snapshots_directory": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_011a55236e984af39f3883cbc73b0f88/snapshots",
+  "locations": [
+    {
+      "kind": "remote",
+      "path": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_011a55236e984af39f3883cbc73b0f88"
+    }
+  ],
+  "environment": {
+    "python": "/root/miniconda3/bin/python",
+    "python_version": "3.12.3",
+    "packages": {
+      "ultralytics": "8.4.100",
+      "torch": "2.8.0+cu128",
+      "numpy": "2.3.2"
+    }
+  },
+  "scientific_outcome": "not_assessed",
+  "pid": 261068,
+  "exit_code": 0
+}

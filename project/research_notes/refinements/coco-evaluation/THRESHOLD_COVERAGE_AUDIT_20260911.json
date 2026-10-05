@@ -1,0 +1,298 @@
+{
+  "audit_skill": "experiment-audit",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T19:08:39+08:00",
+  "project": "COCO clean threshold coverage control",
+  "scope": "bounded audit of threshold_coverage_control.py, frozen_mechanism_probe.py, eval_full_local_comparison.py, run_threshold_coverage.sh, completed threshold_coverage_control_20260911 artifacts, and frozen full_local_comparison_20260911 input",
+  "agent_id": "/root/audit_threshold_control",
+  "verdict_id": "/root/audit_threshold_control",
+  "executor_model": "codex-parent-runtime",
+  "executor_family": "openai",
+  "reviewer_model": "codex-gpt-6",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "runtime-default deep audit",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "trace_path": null,
+  "trace_status": "not written because the delegated task explicitly limited writes to this Markdown/JSON pair",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "reason_code": "coverage_matching_did_not_transfer_and_reused_validation_scope",
+  "fatal_bugs_found": [],
+  "table_invalidated": false,
+  "summary": "No fatal implementation, provenance, or numeric-reconstruction defect was found. Development-only threshold locking and all saved values reproduce. Evaluation coverage remained 1.290 pp lower for BCE and 1.102 pp lower for Dice on high ICI, so experiment A is not a matched-coverage or lossless-separation test; it is also conditional on fixed bbox ownership in reused COCO val2017.",
+  "evaluation_classification": {
+    "type": "real_gt",
+    "subtype": "frozen-candidate fixed-bbox-ownership mask diagnostic",
+    "official_task_metric": false,
+    "task_ap_computed": false,
+    "precision_matched_recall_computed": false
+  },
+  "audited_input_hashes": {
+    "experiments/coco_clean_20260911/threshold_coverage_control.py": "sha256:916390caf9510d5f8cfac886a0002c0a42488b277c2220c4898056022fed5d4f",
+    "experiments/coco_clean_20260911/frozen_mechanism_probe.py": "sha256:e1cd6a4859761d37e88cdfd01ade1cb04d4c50edbf1cbc587b9ef65568fae256",
+    "experiments/coco_clean_20260911/eval_full_local_comparison.py": "sha256:9bfaea1d8effb0e7df5987cef3bb8e588dab932d7513eab46f796b9bce26a91e",
+    "experiments/coco_clean_20260911/run_threshold_coverage.sh": "sha256:2b2e272b5c0e24c561232c6523d3f034028fb1441fbfc863ec0c3367ad1be36b",
+    "diagnostics/full_local_comparison_20260911/protocol.json": "sha256:c6cb84381c6868708e7914246d66cf10e391535e1fcbe905654d3f0890017d5f",
+    "diagnostics/full_local_comparison_20260911/spatial.csv": "sha256:3578a56e3c7f6eb6d5e050c6a06d552eb6bca996101ce135a39aa77920b7354f",
+    "data/annotations/instances_val2017.json": "sha256:e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+    "census/COCO_EVAL_INSTANCE_MANIFEST.csv": "sha256:3542c884ae4452c8e3bc4641324bc5703b0837d518bf71445d63641f82721b7f"
+  },
+  "audited_output_hashes": {
+    "protocol.json": "sha256:3e40cedfee7b6748ed6226f42cafe1a5641e208eeeacd387186c045ac4f3a791",
+    "development_grid_spatial.csv": "sha256:8d855580533943e3eadaa43d94040ff81fe3458602964b53436664d4de4ff627",
+    "SELECTED_THRESHOLDS.json": "sha256:c18f8fab492abfc5cec504e268ba7d69cd9cde47934869c0b641d31c26bb8865",
+    "development_confirmation_spatial.csv": "sha256:c034e8654e800ac78885846fd8c36efecc97806d61e0b77c8d803cd96fdfd482",
+    "DEVELOPMENT_CONFIRMATION.json": "sha256:0444affccb13d9d35c5795a83f7fc1270c9e36fb030b11921e08916227381187",
+    "evaluation_spatial.csv": "sha256:279fff5f77120d8f0e6fc8aa8ae4a42e19f657193402f91a06bb2d2567916953",
+    "evaluation_curve.csv": "sha256:51c9e7e7f4b1c037d7fe29a6c42ccc014bd9737599f460974038230e3ebc27ff",
+    "summary.csv": "sha256:225467331206f16e0a2e3f14c69a734a3fed2d3543693e12a38418166098093b",
+    "PAIRED_ANALYSIS.json": "sha256:ee86916c5fdd492ebc552c94076e92870b079449a25774ccb4e40d3f6d15b486",
+    "COMPLETE.json": "sha256:3d8d9533cba8c486bb1b0c4b8b507ae0ce6ca5eed390d077a3765e715fbe83ff"
+  },
+  "checks": {
+    "A_ground_truth_provenance": {
+      "status": "PASS",
+      "gt_source": "COCO instances_val2017.json annToMask",
+      "ici_source": "frozen COCO_EVAL_INSTANCE_MANIFEST.csv",
+      "gt_derived_from_model_output": false,
+      "fixed_ownership": "official one-to-one bbox COCO matching at IoU 0.5, cached before this diagnostic",
+      "gt_used_after_prediction_construction": true,
+      "evidence": [
+        "threshold_coverage_control.py:35",
+        "threshold_coverage_control.py:39",
+        "threshold_coverage_control.py:44",
+        "frozen_mechanism_probe.py:93",
+        "frozen_mechanism_probe.py:102",
+        "eval_full_local_comparison.py:99",
+        "eval_full_local_comparison.py:100"
+      ]
+    },
+    "A_parameter_selection_isolation": {
+      "status": "PASS",
+      "development_images": 300,
+      "evaluation_images": 600,
+      "unique_development_images": 300,
+      "unique_evaluation_images": 600,
+      "intersection_images": 0,
+      "development_ids_equal_frozen_protocol": true,
+      "evaluation_ids_equal_sha256_rule": true,
+      "threshold_file_written_before_evaluation": true,
+      "evaluation_gt_used_for_parameter_selection": false,
+      "pristine_test_split": false,
+      "evidence": [
+        "threshold_coverage_control.py:93",
+        "threshold_coverage_control.py:99",
+        "threshold_coverage_control.py:100",
+        "threshold_coverage_control.py:127",
+        "threshold_coverage_control.py:130",
+        "threshold_coverage_control.py:138",
+        "threshold_coverage_control.py:146"
+      ]
+    },
+    "B_score_normalization": {
+      "status": "PASS",
+      "prediction_statistic_denominator_used": false,
+      "denominators": {
+        "coverage_same_neighbor_neighbor_background": "valid target GT area",
+        "mask_iou": "GT/prediction union expressed as target area plus neighbor plus background"
+      },
+      "metric_identity_max_abs_error": 2.220446049250313e-16,
+      "all_values_finite": true,
+      "evidence": [
+        "threshold_coverage_control.py:53",
+        "threshold_coverage_control.py:63",
+        "threshold_coverage_control.py:65",
+        "frozen_mechanism_probe.py:147"
+      ]
+    },
+    "C_result_existence": {
+      "status": "PASS",
+      "complete_status": "COMPLETE",
+      "all_recorded_input_hashes_match": true,
+      "all_recorded_output_hashes_match": true,
+      "measured_replay_pixel_xor": 0,
+      "spatial_replay_max_error": 0.0,
+      "evidence": [
+        "diagnostics/threshold_coverage_control_20260911/COMPLETE.json:2",
+        "diagnostics/threshold_coverage_control_20260911/COMPLETE.json:6",
+        "diagnostics/threshold_coverage_control_20260911/COMPLETE.json:9"
+      ]
+    },
+    "C_numeric_reconstruction": {
+      "status": "PASS",
+      "development_grid_rows": 77496,
+      "development_thresholds": 24,
+      "development_targets": 3229,
+      "evaluation_grid_rows": 10785,
+      "evaluation_thresholds": 3,
+      "evaluation_targets": 3595,
+      "selected_threshold_max_abs_error": 0.0,
+      "development_confirmation_max_abs_error": 0.0,
+      "development_curve_max_abs_error": 0.0,
+      "evaluation_curve_max_abs_error": 0.0,
+      "summary_max_abs_error": 0.0,
+      "paired_analysis_max_abs_error": 4.440892098500626e-16,
+      "zero_replay_rows": 6824,
+      "zero_replay_max_abs_error": 0.0
+    },
+    "D_dead_code": {
+      "status": "PASS",
+      "metric_functions_called": true,
+      "all_five_fields_reach_summary": true,
+      "all_five_fields_reach_paired_analysis": true,
+      "runner_invokes_exact_audited_script": true,
+      "evidence": [
+        "threshold_coverage_control.py:115",
+        "threshold_coverage_control.py:120",
+        "threshold_coverage_control.py:127",
+        "threshold_coverage_control.py:165",
+        "threshold_coverage_control.py:169",
+        "run_threshold_coverage.sh:5"
+      ]
+    },
+    "D_decoder_parity": {
+      "status": "PASS",
+      "exact_sampling": "bilinear coefficient-prototype logits at input resolution, strict z > tau, fixed predicted-box crop, stock scale_masks to original resolution, final > 0.5",
+      "zero_threshold_compared_to_official_process_mask": true,
+      "official_pixel_xor": 0,
+      "prior_spatial_replay_max_abs_error": 0.0,
+      "python_assertions_enabled": true,
+      "evidence": [
+        "threshold_coverage_control.py:39",
+        "threshold_coverage_control.py:40",
+        "threshold_coverage_control.py:43",
+        "threshold_coverage_control.py:59",
+        "threshold_coverage_control.py:61",
+        "threshold_coverage_control.py:62",
+        "threshold_coverage_control.py:68",
+        "threshold_coverage_control.py:72"
+      ]
+    },
+    "E_scope": {
+      "status": "WARN",
+      "evaluation_selected_images": 600,
+      "evaluation_images_with_mapped_targets": 588,
+      "evaluation_mapped_targets": 3595,
+      "high_ici_targets": 475,
+      "high_ici_images": 168,
+      "low_ici_targets": 3120,
+      "low_ici_images": 583,
+      "learned_seeds": 3,
+      "seeds_averaged_before_bootstrap": true,
+      "bootstrap_draws": 2000,
+      "bootstrap_unit": "image cluster",
+      "minimum_bootstrap_denominators": {
+        "all": 3139,
+        "high": 326,
+        "low": 2684
+      },
+      "multiplicity_adjusted": false,
+      "development_selection_uncertainty_propagated": false,
+      "seed_variance_propagated": false,
+      "fixed_bbox_attribution": true,
+      "unmatched_gt_excluded": true,
+      "reused_coco_val2017": true,
+      "task_ap_computed": false,
+      "evidence": [
+        "diagnostics/threshold_coverage_control_20260911/protocol.json:938",
+        "diagnostics/threshold_coverage_control_20260911/protocol.json:939",
+        "threshold_coverage_control.py:155",
+        "threshold_coverage_control.py:160",
+        "threshold_coverage_control.py:161",
+        "threshold_coverage_control.py:170",
+        "diagnostics/threshold_coverage_control_20260911/PAIRED_ANALYSIS.json:2"
+      ]
+    },
+    "E_coverage_transfer": {
+      "status": "WARN",
+      "development_match_passed": true,
+      "evaluation_match_passed": false,
+      "bce_high_learned_minus_threshold_coverage_pp": -1.290404879192728,
+      "bce_high_coverage_interval_pp": [-1.8514612204713667, -0.7722640729273716],
+      "dice_high_learned_minus_threshold_coverage_pp": -1.1024698916631457,
+      "dice_high_coverage_interval_pp": [-1.5674457874418206, -0.6479878097752024],
+      "bce_all_learned_minus_threshold_coverage_pp": -1.777086628323941,
+      "dice_all_learned_minus_threshold_coverage_pp": -1.6887007553251046,
+      "matched_coverage_claim_justified": false,
+      "lossless_separation_claim_justified": false,
+      "supported_interpretation": "development-calibrated threshold transfer test with failed evaluation coverage transfer",
+      "evidence": [
+        "diagnostics/threshold_coverage_control_20260911/DEVELOPMENT_CONFIRMATION.json:6",
+        "diagnostics/threshold_coverage_control_20260911/DEVELOPMENT_CONFIRMATION.json:12",
+        "diagnostics/threshold_coverage_control_20260911/PAIRED_ANALYSIS.json:60",
+        "diagnostics/threshold_coverage_control_20260911/PAIRED_ANALYSIS.json:160",
+        "diagnostics/threshold_coverage_control_20260911/PAIRED_ANALYSIS.json:260",
+        "diagnostics/threshold_coverage_control_20260911/PAIRED_ANALYSIS.json:360"
+      ]
+    },
+    "E_cohort_guards": {
+      "status": "WARN",
+      "current_run_all_seed_queues_equal": true,
+      "current_run_duplicates": 0,
+      "current_run_empty_cohorts": false,
+      "evaluation_seed_queue_assertions_present": true,
+      "development_seed_queue_assertions_present": false,
+      "impact_on_current_results": false,
+      "recommended_fix": "assert each development seed's complete annotation queue before computing the advertised three-seed target",
+      "evidence": [
+        "threshold_coverage_control.py:130",
+        "threshold_coverage_control.py:131",
+        "threshold_coverage_control.py:156",
+        "threshold_coverage_control.py:158",
+        "threshold_coverage_control.py:164"
+      ]
+    },
+    "F_evaluation_type": {
+      "status": "PASS",
+      "classification": "real_gt",
+      "details": "Original COCO masks define target, neighbor, background, crowd-validity, and metric denominators. Learned output supplies only an explicitly labeled development comparator target.",
+      "evidence": [
+        "threshold_coverage_control.py:45",
+        "threshold_coverage_control.py:47",
+        "threshold_coverage_control.py:50",
+        "threshold_coverage_control.py:75"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "Parameters were selected on disjoint development IDs and fixed before evaluation",
+      "impact": "supported"
+    },
+    {
+      "id": "C2",
+      "claim": "Uniform scalar thresholds matched learned high-ICI mean coverage on development",
+      "impact": "supported"
+    },
+    {
+      "id": "C3",
+      "claim": "The evaluation contrasts are matched/equal coverage",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C4",
+      "claim": "Learned residuals improve separation beyond uniform shrinkage at equal coverage",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C5",
+      "claim": "Saved metrics describe fixed-ownership pixel behavior on the evaluated mapped cohort",
+      "impact": "supported"
+    },
+    {
+      "id": "C6",
+      "claim": "The experiment establishes task AP, recall, unmatched-instance recovery, or deployment behavior",
+      "impact": "unsupported"
+    }
+  ],
+  "action_items": [
+    "Report experiment A as a development-calibrated threshold transfer control whose evaluation coverage transfer failed.",
+    "Do not call the evaluation comparison matched coverage, equal coverage, lossless, or pure separation.",
+    "Keep fixed bbox ownership, mapped-target conditioning, reused val2017, three observed seeds, pointwise intervals, and no AP adjacent to claims.",
+    "For future reruns, assert exact per-seed development annotation queues and explicit cohort presence before averaging."
+  ],
+  "broader_experiment_acceptance": false
+}

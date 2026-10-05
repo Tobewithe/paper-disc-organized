@@ -1,0 +1,935 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_cplus_readout_smoke100_retry3_20261001",
+  "study_id": "STUDY_0c53a62f6f2d4d1bb0f7a5d8c91e6a42",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "scripts/cplus_readout.py",
+    "--weights",
+    "D:\\coco_wire\\models\\yolo26m-seg.pt",
+    "--c-final",
+    "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+    "--cache",
+    "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache",
+    "--data",
+    "D:\\coco_wire\\data",
+    "--out",
+    "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_smoke100_retry3_20261001",
+    "--epochs",
+    "1",
+    "--lr",
+    "0.0003",
+    "--max-images",
+    "100"
+  ],
+  "working_directory": "D:\\coco_wire\\varpro",
+  "status": "completed",
+  "created_at": "2026-10-01T08:16:36.667+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+      "exists": true,
+      "sha256": "62576938390c461aeef61d82f5640bb5e23ab9fb99a29bf24d1b3241aac9c396",
+      "size": 3438629
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\cplus_readout.py",
+      "exists": true,
+      "sha256": "90b483eb778f177b44d1e5fc5480179160b65bbc7a8f9cab67ef47d163ba7638",
+      "size": 9055
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\VARPRO_RUN_CONFIG.json",
+      "exists": true,
+      "sha256": "508e7b79863a13a00e7441b3563372062a34ed480f0d654e362ad4f5dcb96662",
+      "size": 862
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\cplus_readout.py",
+      "revision": "90b483eb778f177b44d1e5fc5480179160b65bbc7a8f9cab67ef47d163ba7638",
+      "snapshot": "snapshots/90b483eb778f177b44d1e5fc5480179160b65bbc7a8f9cab67ef47d163ba7638"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_cplus_readout_smoke100_retry3_20261001/SUMMARY.json",
+    "runs/RUN_cplus_readout_smoke100_retry3_20261001/C_READOUT.pt"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_smoke100_retry3_20261001"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 9260,
+  "started_at": "2026-10-01T08:16:37.061+00:00",
+  "last_heartbeat": "2026-10-01T08:17:12.204+00:00",
+  "metrics": {
+    "config": {
+      "weights": "D:\\coco_wire\\models\\yolo26m-seg.pt",
+      "c_final": "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+      "cache": "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache",
+      "data": "D:\\coco_wire\\data",
+      "out": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_smoke100_retry3_20261001",
+      "epochs": 1,
+      "lr": 0.0003,
+      "lambda_eval": 0.003,
+      "max_images": 100
+    },
+    "prepare": [
+      {
+        "image_id": 113,
+        "rows": 18,
+        "h_shape": [
+          18,
+          64
+        ]
+      },
+      {
+        "image_id": 693,
+        "rows": 12,
+        "h_shape": [
+          12,
+          64
+        ]
+      },
+      {
+        "image_id": 706,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 1146,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 1505,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 2466,
+        "rows": 26,
+        "h_shape": [
+          26,
+          64
+        ]
+      },
+      {
+        "image_id": 2931,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 3474,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 4066,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 4376,
+        "rows": 40,
+        "h_shape": [
+          40,
+          64
+        ]
+      },
+      {
+        "image_id": 4574,
+        "rows": 15,
+        "h_shape": [
+          15,
+          64
+        ]
+      },
+      {
+        "image_id": 5638,
+        "rows": 14,
+        "h_shape": [
+          14,
+          64
+        ]
+      },
+      {
+        "image_id": 7260,
+        "rows": 19,
+        "h_shape": [
+          19,
+          64
+        ]
+      },
+      {
+        "image_id": 7504,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 8369,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 10176,
+        "rows": 13,
+        "h_shape": [
+          13,
+          64
+        ]
+      },
+      {
+        "image_id": 11004,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 12313,
+        "rows": 6,
+        "h_shape": [
+          6,
+          64
+        ]
+      },
+      {
+        "image_id": 13267,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 13420,
+        "rows": 15,
+        "h_shape": [
+          15,
+          64
+        ]
+      },
+      {
+        "image_id": 13920,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 14773,
+        "rows": 8,
+        "h_shape": [
+          8,
+          64
+        ]
+      },
+      {
+        "image_id": 15002,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 16257,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 17236,
+        "rows": 12,
+        "h_shape": [
+          12,
+          64
+        ]
+      },
+      {
+        "image_id": 17644,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 18224,
+        "rows": 18,
+        "h_shape": [
+          18,
+          64
+        ]
+      },
+      {
+        "image_id": 18309,
+        "rows": 13,
+        "h_shape": [
+          13,
+          64
+        ]
+      },
+      {
+        "image_id": 18864,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 19022,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 19145,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 20188,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 21678,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 22097,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 22658,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 24019,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 24149,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 24980,
+        "rows": 7,
+        "h_shape": [
+          7,
+          64
+        ]
+      },
+      {
+        "image_id": 26097,
+        "rows": 6,
+        "h_shape": [
+          6,
+          64
+        ]
+      },
+      {
+        "image_id": 26321,
+        "rows": 18,
+        "h_shape": [
+          18,
+          64
+        ]
+      },
+      {
+        "image_id": 26454,
+        "rows": 7,
+        "h_shape": [
+          7,
+          64
+        ]
+      },
+      {
+        "image_id": 26747,
+        "rows": 23,
+        "h_shape": [
+          23,
+          64
+        ]
+      },
+      {
+        "image_id": 29041,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 30231,
+        "rows": 11,
+        "h_shape": [
+          11,
+          64
+        ]
+      },
+      {
+        "image_id": 31187,
+        "rows": 9,
+        "h_shape": [
+          9,
+          64
+        ]
+      },
+      {
+        "image_id": 32101,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 32329,
+        "rows": 13,
+        "h_shape": [
+          13,
+          64
+        ]
+      },
+      {
+        "image_id": 32675,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 33732,
+        "rows": 12,
+        "h_shape": [
+          12,
+          64
+        ]
+      },
+      {
+        "image_id": 36149,
+        "rows": 22,
+        "h_shape": [
+          22,
+          64
+        ]
+      },
+      {
+        "image_id": 36904,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 38259,
+        "rows": 13,
+        "h_shape": [
+          13,
+          64
+        ]
+      },
+      {
+        "image_id": 39538,
+        "rows": 16,
+        "h_shape": [
+          16,
+          64
+        ]
+      },
+      {
+        "image_id": 39900,
+        "rows": 19,
+        "h_shape": [
+          19,
+          64
+        ]
+      },
+      {
+        "image_id": 40708,
+        "rows": 16,
+        "h_shape": [
+          16,
+          64
+        ]
+      },
+      {
+        "image_id": 41456,
+        "rows": 15,
+        "h_shape": [
+          15,
+          64
+        ]
+      },
+      {
+        "image_id": 41572,
+        "rows": 17,
+        "h_shape": [
+          17,
+          64
+        ]
+      },
+      {
+        "image_id": 43692,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 44774,
+        "rows": 33,
+        "h_shape": [
+          33,
+          64
+        ]
+      },
+      {
+        "image_id": 46077,
+        "rows": 13,
+        "h_shape": [
+          13,
+          64
+        ]
+      },
+      {
+        "image_id": 46753,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 47981,
+        "rows": 16,
+        "h_shape": [
+          16,
+          64
+        ]
+      },
+      {
+        "image_id": 49648,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 51390,
+        "rows": 19,
+        "h_shape": [
+          19,
+          64
+        ]
+      },
+      {
+        "image_id": 52003,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 52386,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 52448,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 52661,
+        "rows": 16,
+        "h_shape": [
+          16,
+          64
+        ]
+      },
+      {
+        "image_id": 52886,
+        "rows": 7,
+        "h_shape": [
+          7,
+          64
+        ]
+      },
+      {
+        "image_id": 53095,
+        "rows": 12,
+        "h_shape": [
+          12,
+          64
+        ]
+      },
+      {
+        "image_id": 53431,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 54962,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 55201,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 56892,
+        "rows": 8,
+        "h_shape": [
+          8,
+          64
+        ]
+      },
+      {
+        "image_id": 57323,
+        "rows": 30,
+        "h_shape": [
+          30,
+          64
+        ]
+      },
+      {
+        "image_id": 60993,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 61139,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 61559,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 61844,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 62151,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 62251,
+        "rows": 14,
+        "h_shape": [
+          14,
+          64
+        ]
+      },
+      {
+        "image_id": 62459,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 62518,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 62743,
+        "rows": 53,
+        "h_shape": [
+          53,
+          64
+        ]
+      },
+      {
+        "image_id": 63334,
+        "rows": 8,
+        "h_shape": [
+          8,
+          64
+        ]
+      },
+      {
+        "image_id": 63426,
+        "rows": 21,
+        "h_shape": [
+          21,
+          64
+        ]
+      },
+      {
+        "image_id": 63571,
+        "rows": 6,
+        "h_shape": [
+          6,
+          64
+        ]
+      },
+      {
+        "image_id": 66182,
+        "rows": 1,
+        "h_shape": [
+          1,
+          64
+        ]
+      },
+      {
+        "image_id": 66369,
+        "rows": 8,
+        "h_shape": [
+          8,
+          64
+        ]
+      },
+      {
+        "image_id": 66385,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 67779,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 68198,
+        "rows": 4,
+        "h_shape": [
+          4,
+          64
+        ]
+      },
+      {
+        "image_id": 68482,
+        "rows": 8,
+        "h_shape": [
+          8,
+          64
+        ]
+      },
+      {
+        "image_id": 68895,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 70059,
+        "rows": 5,
+        "h_shape": [
+          5,
+          64
+        ]
+      },
+      {
+        "image_id": 70197,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 70261,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 70265,
+        "rows": 3,
+        "h_shape": [
+          3,
+          64
+        ]
+      },
+      {
+        "image_id": 70426,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      },
+      {
+        "image_id": 73508,
+        "rows": 2,
+        "h_shape": [
+          2,
+          64
+        ]
+      }
+    ],
+    "evaluation": {
+      "candidates": 877,
+      "bce": 5.050450436813394,
+      "regularizer": 0.011954157568284437,
+      "J_eval": 5.062404594381678,
+      "A_bce": 5.541917037868717,
+      "A_J_eval": 5.541917037868717,
+      "delta_vs_A": -0.4795124434870388
+    }
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_smoke100_retry3_20261001\\SUMMARY.json",
+    "sha256": "d4aff05b6ac849a8f41a1a9118836fa228ea460f06ffb5b9b76080d635158b32"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-01T08:17:15.699+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_smoke100_retry3_20261001\\SUMMARY.json",
+      "exists": true,
+      "sha256": "d4aff05b6ac849a8f41a1a9118836fa228ea460f06ffb5b9b76080d635158b32"
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_smoke100_retry3_20261001\\C_READOUT.pt",
+      "exists": true,
+      "sha256": "2cd48fee6b612812156d256993604738167230d5be2d8003271f26194e6a440a"
+    }
+  ]
+}

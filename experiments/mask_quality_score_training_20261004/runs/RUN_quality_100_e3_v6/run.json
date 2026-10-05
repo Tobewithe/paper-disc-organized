@@ -1,0 +1,13 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_quality_100_e3_v6",
+  "study_id": "mask_quality_score_training_20261004",
+  "status": "completed",
+  "host": "28358lan",
+  "runtime_actual": "Ultralytics 8.4.100 via run_fixed_runtime.py; runner environment probe reports system 8.4.27",
+  "dataset": {"train_images": 100, "val_images": 50, "epochs": 3, "batch": 2, "imgsz": 640},
+  "method": {"quality_weight": 0.1, "quality_targets": 3834, "quality_batches": 150, "mean_quality_target": 0.6944004128112355},
+  "result": {"mask_map50_95": 0.51393, "box_map50_95": 0.59508, "mask_map50": 0.69345, "box_map50": 0.7207},
+  "comparison": {"official_baseline_mask_map50_95": 0.52486, "official_baseline_box_map50_95": 0.60517, "mask_delta": -0.01093, "box_delta": -0.01009},
+  "limitations": ["small pilot only", "single seed", "not a COCO full training result", "runner package probe does not include wrapper-inserted runtime path"]
+}

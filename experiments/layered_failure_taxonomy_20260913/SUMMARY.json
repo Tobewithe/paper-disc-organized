@@ -1,0 +1,606 @@
+{
+  "protocol": {
+    "population": "COCO val2017 ordinary GT, crowd/ignore excluded",
+    "density": "continuous same-class E4 plus descriptive quartiles; density never defines cause",
+    "failure_scope": "final slot -> box quality -> box GT support -> mask error surface",
+    "surface_threshold": "raw fractions retained; substantial_surface is >=5% of valid GT area",
+    "relation": "final candidate topology joined as context only",
+    "limitations": [
+      "no_final_slot cannot distinguish raw candidate absence, classification, NMS, or score filtering",
+      "primary/substantial surface is descriptive and can hide mixed errors; use raw fractions for claims",
+      "fixed-slot IoU is an attribution diagnostic, not official AP assignment"
+    ]
+  },
+  "counts": {
+    "gt": 36335,
+    "undefined_density": 0,
+    "density_quartile_cuts": [
+      0.0,
+      0.2151006501625406
+    ]
+  },
+  "tables": {
+    "failure_scope": [
+      {
+        "failure_scope": "box_good_support_limited",
+        "n": 1158
+      },
+      {
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 4417
+      },
+      {
+        "failure_scope": "box_limited",
+        "n": 6584
+      },
+      {
+        "failure_scope": "mask_success",
+        "n": 20472
+      },
+      {
+        "failure_scope": "no_final_slot",
+        "n": 3704
+      }
+    ],
+    "scope_by_density_q": [
+      {
+        "density_q": "Q2",
+        "failure_scope": "box_good_support_limited",
+        "n": 837
+      },
+      {
+        "density_q": "Q2",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 3272
+      },
+      {
+        "density_q": "Q2",
+        "failure_scope": "box_limited",
+        "n": 4370
+      },
+      {
+        "density_q": "Q2",
+        "failure_scope": "mask_success",
+        "n": 16114
+      },
+      {
+        "density_q": "Q2",
+        "failure_scope": "no_final_slot",
+        "n": 2695
+      },
+      {
+        "density_q": "Q3",
+        "failure_scope": "box_good_support_limited",
+        "n": 321
+      },
+      {
+        "density_q": "Q3",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 1145
+      },
+      {
+        "density_q": "Q3",
+        "failure_scope": "box_limited",
+        "n": 2214
+      },
+      {
+        "density_q": "Q3",
+        "failure_scope": "mask_success",
+        "n": 4358
+      },
+      {
+        "density_q": "Q3",
+        "failure_scope": "no_final_slot",
+        "n": 1009
+      }
+    ],
+    "surface_by_density_q": [
+      {
+        "density_q": "Q2",
+        "substantial_surface": "background_fp",
+        "n": 12150
+      },
+      {
+        "density_q": "Q2",
+        "substantial_surface": "none_below_5pct",
+        "n": 6069
+      },
+      {
+        "density_q": "Q2",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 2473
+      },
+      {
+        "density_q": "Q2",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 190
+      },
+      {
+        "density_q": "Q2",
+        "substantial_surface": "self_fn",
+        "n": 6406
+      },
+      {
+        "density_q": "Q3",
+        "substantial_surface": "background_fp",
+        "n": 3159
+      },
+      {
+        "density_q": "Q3",
+        "substantial_surface": "none_below_5pct",
+        "n": 1762
+      },
+      {
+        "density_q": "Q3",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 298
+      },
+      {
+        "density_q": "Q3",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 1394
+      },
+      {
+        "density_q": "Q3",
+        "substantial_surface": "self_fn",
+        "n": 2434
+      }
+    ],
+    "state_by_density_q": [
+      {
+        "density_q": "Q2",
+        "state": "box_bad__mask_bad",
+        "n": 4370
+      },
+      {
+        "density_q": "Q2",
+        "state": "box_bad__mask_good",
+        "n": 806
+      },
+      {
+        "density_q": "Q2",
+        "state": "box_good__mask_bad",
+        "n": 4109
+      },
+      {
+        "density_q": "Q2",
+        "state": "box_good__mask_good",
+        "n": 15308
+      },
+      {
+        "density_q": "Q2",
+        "state": "no_bbox50_match",
+        "n": 2695
+      },
+      {
+        "density_q": "Q3",
+        "state": "box_bad__mask_bad",
+        "n": 2214
+      },
+      {
+        "density_q": "Q3",
+        "state": "box_bad__mask_good",
+        "n": 300
+      },
+      {
+        "density_q": "Q3",
+        "state": "box_good__mask_bad",
+        "n": 1466
+      },
+      {
+        "density_q": "Q3",
+        "state": "box_good__mask_good",
+        "n": 4058
+      },
+      {
+        "density_q": "Q3",
+        "state": "no_bbox50_match",
+        "n": 1009
+      }
+    ],
+    "relation_by_scope": [
+      {
+        "relation": "C",
+        "failure_scope": "box_good_support_limited",
+        "n": 237
+      },
+      {
+        "relation": "C",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 769
+      },
+      {
+        "relation": "C",
+        "failure_scope": "box_limited",
+        "n": 409
+      },
+      {
+        "relation": "C",
+        "failure_scope": "mask_success",
+        "n": 16499
+      },
+      {
+        "relation": "C",
+        "failure_scope": "no_final_slot",
+        "n": 15
+      },
+      {
+        "relation": "I",
+        "failure_scope": "box_good_support_limited",
+        "n": 127
+      },
+      {
+        "relation": "I",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 349
+      },
+      {
+        "relation": "I",
+        "failure_scope": "box_limited",
+        "n": 455
+      },
+      {
+        "relation": "I",
+        "failure_scope": "mask_success",
+        "n": 17
+      },
+      {
+        "relation": "I",
+        "failure_scope": "no_final_slot",
+        "n": 35
+      },
+      {
+        "relation": "L",
+        "failure_scope": "box_good_support_limited",
+        "n": 240
+      },
+      {
+        "relation": "L",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 1565
+      },
+      {
+        "relation": "L",
+        "failure_scope": "box_limited",
+        "n": 1405
+      },
+      {
+        "relation": "L",
+        "failure_scope": "mask_success",
+        "n": 101
+      },
+      {
+        "relation": "L",
+        "failure_scope": "no_final_slot",
+        "n": 187
+      },
+      {
+        "relation": "M",
+        "failure_scope": "box_good_support_limited",
+        "n": 30
+      },
+      {
+        "relation": "M",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 146
+      },
+      {
+        "relation": "M",
+        "failure_scope": "box_limited",
+        "n": 331
+      },
+      {
+        "relation": "M",
+        "failure_scope": "mask_success",
+        "n": 186
+      },
+      {
+        "relation": "M",
+        "failure_scope": "no_final_slot",
+        "n": 224
+      },
+      {
+        "relation": "MISS",
+        "failure_scope": "box_good_support_limited",
+        "n": 242
+      },
+      {
+        "relation": "MISS",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 611
+      },
+      {
+        "relation": "MISS",
+        "failure_scope": "box_limited",
+        "n": 1774
+      },
+      {
+        "relation": "MISS",
+        "failure_scope": "mask_success",
+        "n": 1007
+      },
+      {
+        "relation": "MISS",
+        "failure_scope": "no_final_slot",
+        "n": 2940
+      },
+      {
+        "relation": "O",
+        "failure_scope": "box_good_support_limited",
+        "n": 163
+      },
+      {
+        "relation": "O",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 598
+      },
+      {
+        "relation": "O",
+        "failure_scope": "box_limited",
+        "n": 1235
+      },
+      {
+        "relation": "O",
+        "failure_scope": "mask_success",
+        "n": 1939
+      },
+      {
+        "relation": "O",
+        "failure_scope": "no_final_slot",
+        "n": 58
+      },
+      {
+        "relation": "S",
+        "failure_scope": "box_good_support_limited",
+        "n": 41
+      },
+      {
+        "relation": "S",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 68
+      },
+      {
+        "relation": "S",
+        "failure_scope": "box_limited",
+        "n": 205
+      },
+      {
+        "relation": "S",
+        "failure_scope": "mask_success",
+        "n": 1
+      },
+      {
+        "relation": "S",
+        "failure_scope": "no_final_slot",
+        "n": 56
+      },
+      {
+        "relation": "X",
+        "failure_scope": "box_good_support_limited",
+        "n": 78
+      },
+      {
+        "relation": "X",
+        "failure_scope": "box_good_support_sufficient_mask_failure",
+        "n": 311
+      },
+      {
+        "relation": "X",
+        "failure_scope": "box_limited",
+        "n": 770
+      },
+      {
+        "relation": "X",
+        "failure_scope": "mask_success",
+        "n": 722
+      },
+      {
+        "relation": "X",
+        "failure_scope": "no_final_slot",
+        "n": 189
+      }
+    ],
+    "surface_by_relation": [
+      {
+        "relation": "C",
+        "substantial_surface": "background_fp",
+        "n": 8137
+      },
+      {
+        "relation": "C",
+        "substantial_surface": "none_below_5pct",
+        "n": 3635
+      },
+      {
+        "relation": "C",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 1158
+      },
+      {
+        "relation": "C",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 225
+      },
+      {
+        "relation": "C",
+        "substantial_surface": "self_fn",
+        "n": 4774
+      },
+      {
+        "relation": "I",
+        "substantial_surface": "background_fp",
+        "n": 27
+      },
+      {
+        "relation": "I",
+        "substantial_surface": "none_below_5pct",
+        "n": 36
+      },
+      {
+        "relation": "I",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 13
+      },
+      {
+        "relation": "I",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 9
+      },
+      {
+        "relation": "I",
+        "substantial_surface": "self_fn",
+        "n": 898
+      },
+      {
+        "relation": "L",
+        "substantial_surface": "background_fp",
+        "n": 2549
+      },
+      {
+        "relation": "L",
+        "substantial_surface": "none_below_5pct",
+        "n": 215
+      },
+      {
+        "relation": "L",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 481
+      },
+      {
+        "relation": "L",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 157
+      },
+      {
+        "relation": "L",
+        "substantial_surface": "self_fn",
+        "n": 96
+      },
+      {
+        "relation": "M",
+        "substantial_surface": "background_fp",
+        "n": 242
+      },
+      {
+        "relation": "M",
+        "substantial_surface": "none_below_5pct",
+        "n": 238
+      },
+      {
+        "relation": "M",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 22
+      },
+      {
+        "relation": "M",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 289
+      },
+      {
+        "relation": "M",
+        "substantial_surface": "self_fn",
+        "n": 126
+      },
+      {
+        "relation": "MISS",
+        "substantial_surface": "background_fp",
+        "n": 1608
+      },
+      {
+        "relation": "MISS",
+        "substantial_surface": "none_below_5pct",
+        "n": 3072
+      },
+      {
+        "relation": "MISS",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 509
+      },
+      {
+        "relation": "MISS",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 204
+      },
+      {
+        "relation": "MISS",
+        "substantial_surface": "self_fn",
+        "n": 1181
+      },
+      {
+        "relation": "O",
+        "substantial_surface": "background_fp",
+        "n": 1951
+      },
+      {
+        "relation": "O",
+        "substantial_surface": "none_below_5pct",
+        "n": 279
+      },
+      {
+        "relation": "O",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 432
+      },
+      {
+        "relation": "O",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 144
+      },
+      {
+        "relation": "O",
+        "substantial_surface": "self_fn",
+        "n": 1187
+      },
+      {
+        "relation": "S",
+        "substantial_surface": "background_fp",
+        "n": 129
+      },
+      {
+        "relation": "S",
+        "substantial_surface": "none_below_5pct",
+        "n": 58
+      },
+      {
+        "relation": "S",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 36
+      },
+      {
+        "relation": "S",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 16
+      },
+      {
+        "relation": "S",
+        "substantial_surface": "self_fn",
+        "n": 132
+      },
+      {
+        "relation": "X",
+        "substantial_surface": "background_fp",
+        "n": 666
+      },
+      {
+        "relation": "X",
+        "substantial_surface": "none_below_5pct",
+        "n": 298
+      },
+      {
+        "relation": "X",
+        "substantial_surface": "other_neighbor_fp",
+        "n": 120
+      },
+      {
+        "relation": "X",
+        "substantial_surface": "same_neighbor_fp",
+        "n": 540
+      },
+      {
+        "relation": "X",
+        "substantial_surface": "self_fn",
+        "n": 446
+      }
+    ]
+  }
+}

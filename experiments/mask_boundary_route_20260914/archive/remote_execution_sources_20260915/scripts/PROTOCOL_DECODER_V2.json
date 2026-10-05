@@ -1,0 +1,24 @@
+{
+  "protocol_id": "PROTOCOL_mask_decoder_controls_v2_20260915",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "purpose": "Translate the observed scale-conditioned threshold effect into the official decoder ordering, compare simple controls, and quantify repaired versus damaged instances.",
+  "model": {"ultralytics": "8.4.100", "checkpoint": "D:/mdoeldata/pigcv-task05/models/yolo26m-seg.pt", "training": false, "primary_branch": "one2one", "imgsz": 640, "conf": 0.001, "max_det": 300, "half": false, "batch": 1},
+  "data": {"dataset": "COCO val2017", "annotations": "D:/coco_wire/data/annotations/instances_val2017.json", "images": "D:/coco_wire/data/images/val2017", "development": "first 500 sorted COCO image IDs", "confirmation": "remaining 4500 IDs, already inspected during earlier route development; no new blind-test claim", "all_gt": "retain official crowd semantics in COCOeval; ordinary GT only for structural diagnosis"},
+  "variants": {
+    "official_zero": "interpolate proto-coefficient logits to input grid, crop, threshold at zero, resize binary to original shape and byte-cast as official 8.4.100 scale_preds",
+    "official_gated": "same pipeline; measure baseline exported original-image mask area; if area<2304 apply logit threshold .75 on input grid; otherwise zero",
+    "official_global": "same pipeline, logit threshold .75 for all instances",
+    "official_erode": "3x3 one-pixel erosion in original coordinates on baseline masks with area<2304; zero padding outside image",
+    "smooth_gated": "same official order; threshold .75/(1+(A/2304)^2), with A from baseline exported mask",
+    "input_area_gated": "same official order; area<2304 is measured on input-grid binary mask, a comparator for coordinate-system dependence",
+    "legacy_zero": "historical diagnostic order: input-grid logit crop, resize continuous logits to original shape, threshold zero",
+    "legacy_gated": "historical diagnostic order, original-grid area<2304 then threshold .75"
+  },
+  "identities": "same candidate index in one forward for every variant; never match predictions using rounded confidence scores; empty masks are counted and omitted from all AP exports using the same rule",
+  "diagnostics": {"slots": "confidence-first stable one-to-one same-class Box IoU>=.50 from nonempty official baseline candidates; fixed for all variants", "states": "six structural states using Box IoU .75, Mask IoU .75, and GT coverage by predicted box .95; keep no-slot GT", "mechanism_cohort": "Box IoU>=.75, actual baseline mask recall>=.95, baseline Mask IoU<.75; actual mask recall differs from box support", "pixel_measures": ["IoU", "target recall", "purity", "removed true positive pixels", "removed false positive pixels", "repair and damage counts"]},
+  "checks": ["zero-threshold wrapper must equal ops.process_mask pixel for pixel on first three real images; mismatch stops run", "also measure parity to process_mask_native at input resolution", "save original predictions before COCO.loadRes mutation", "record exact image IDs, runtime source version, progress, summary and per-GT records"],
+  "primary_metrics": ["Mask AP", "AP50", "AP75", "APsmall", "APmedium", "APlarge", "AR100", "fixed-slot R75 repair/damage"],
+  "decision": "First execute all fixed controls on the development 500. If official_gated improves overall AP and net fixed-slot R75 versus official_zero, run the frozen official_gated and simple controls on the remaining 4500 in a separate Run. Do not change constants using the 4500 results. Smoothness is optional and is retained only if supported by development evidence.",
+  "timing_scope": "isolated decoder on a single real tensor shape, CUDA synchronized warmups/repeats; not a claim of end-to-end latency",
+  "history": "Preserve earlier PROTOCOL.json and results as their original scope. This v2 protocol does not retroactively validate historical decoder equivalence."
+}

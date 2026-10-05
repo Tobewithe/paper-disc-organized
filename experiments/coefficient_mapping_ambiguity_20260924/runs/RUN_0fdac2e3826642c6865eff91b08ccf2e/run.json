@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_b41af434572f42beba3292e7e8e142e2",
+  "study_id": "STUDY_d51b11193286402db7f912fc64fbb21b",
+  "source_kind": "runner_observed",
+  "command": [
+    "python",
+    "-u",
+    "scripts/mapping_ambiguity.py",
+    "--source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--oracle",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_0c62bc2c9d8a48d78af75436f0d0eef0",
+    "--out",
+    "/root/autodl-tmp/coefficient_mapping_ambiguity_20260924/runs/RUN_0fdac2e3826642c6865eff91b08ccf2e"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_mapping_ambiguity_20260924",
+  "status": "completed",
+  "created_at": "2026-09-24T18:49:29.527+08:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_0c62bc2c9d8a48d78af75436f0d0eef0/COMPLETE.json",
+      "exists": true,
+      "sha256": "34a4db1d1487aa367a52e1ec87739a4023dd58b0a6f1516466992860809e99c8",
+      "size": 37
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_mapping_ambiguity_20260924/scripts/mapping_ambiguity.py",
+      "revision": "24567dafcb912cea2bc199f95eeffb85b713f7cb6553f9ca9fee9b7c0428fee0",
+      "snapshot": "snapshots/24567dafcb912cea2bc199f95eeffb85b713f7cb6553f9ca9fee9b7c0428fee0"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coefficient_mapping_ambiguity_20260924/runs/RUN_0fdac2e3826642c6865eff91b08ccf2e/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_mapping_ambiguity_20260924/runs/RUN_0fdac2e3826642c6865eff91b08ccf2e"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 13128,
+  "started_at": "2026-09-24T18:49:29.63+08:00",
+  "last_heartbeat": "2026-09-24T18:49:34.631+08:00",
+  "return_code": 0,
+  "finished_at": "2026-09-24T18:49:36.053+08:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_mapping_ambiguity_20260924/runs/RUN_0fdac2e3826642c6865eff91b08ccf2e/COMPLETE.json",
+      "exists": true,
+      "sha256": "58586c4474b9c189722e1ddbba611876d9953c362b863d9df5e465c0c40f511d"
+    }
+  ],
+  "recorder_study_argument": "/root/autodl-tmp/coefficient_mapping_ambiguity_20260924/study.json"
+}

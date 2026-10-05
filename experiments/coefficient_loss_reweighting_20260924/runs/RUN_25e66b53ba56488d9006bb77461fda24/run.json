@@ -1,0 +1,98 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_25e66b53ba56488d9006bb77461fda24",
+  "study_id": "STUDY_5f2b2b33d3f84c6a8cbca2b485d92f2d",
+  "source_kind": "runner_observed",
+  "command": [
+    "python",
+    "-u",
+    "scripts/loss_reweighting.py",
+    "--source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--oracle",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_0c62bc2c9d8a48d78af75436f0d0eef0",
+    "--out",
+    "runs/RUN_25e66b53ba56488d9006bb77461fda24",
+    "--epochs",
+    "15",
+    "--min-epochs",
+    "10",
+    "--patience",
+    "5",
+    "--seed",
+    "20260924"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_loss_reweighting_20260924",
+  "status": "failed",
+  "created_at": "2026-09-24T14:21:04.959+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+      "exists": false,
+      "sha256": "",
+      "size": null
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_0c62bc2c9d8a48d78af75436f0d0eef0",
+      "exists": false,
+      "sha256": "",
+      "size": null
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_loss_reweighting_20260924/scripts/loss_reweighting.py",
+      "revision": "404632e6107d74c523a82aeab9da2a4686662ae2dbf9b564ea72c46f0d80e921",
+      "snapshot": "snapshots/404632e6107d74c523a82aeab9da2a4686662ae2dbf9b564ea72c46f0d80e921"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_25e66b53ba56488d9006bb77461fda24/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_loss_reweighting_20260924/runs/RUN_25e66b53ba56488d9006bb77461fda24"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 45794,
+  "started_at": "2026-09-24T14:21:05.067+00:00",
+  "last_heartbeat": "2026-09-24T14:30:40.447+00:00",
+  "return_code": -15,
+  "finished_at": "2026-09-24T14:30:44.702+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "runs/RUN_25e66b53ba56488d9006bb77461fda24/COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_loss_reweighting_20260924/runs/RUN_25e66b53ba56488d9006bb77461fda24/COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

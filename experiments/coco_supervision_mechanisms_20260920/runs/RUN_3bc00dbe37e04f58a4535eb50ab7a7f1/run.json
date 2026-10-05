@@ -1,0 +1,91 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_3bc00dbe37e04f58a4535eb50ab7a7f1",
+  "study_id": "STUDY_3c1ec86ea1ac42fcbe080285570de10d",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "scripts/analyze_parameter_probe.py",
+    "--run",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_c0dd8189ad264d28802f2036e7833afb",
+    "--pairs",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_ef11b55c15324433bf498805273d3ff4/matched_ids.json",
+    "--out",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_3bc00dbe37e04f58a4535eb50ab7a7f1"
+  ],
+  "working_directory": "/root/coco_supervision_mechanisms_20260920",
+  "status": "completed",
+  "created_at": "2026-09-20T08:42:58.675+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_c0dd8189ad264d28802f2036e7833afb/instances.jsonl",
+      "exists": true,
+      "sha256": "3179001865b4a56cec72cbeea20133bbd4529f50f6f63a3fedf98f64d3176c44",
+      "size": 5564048
+    },
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_c0dd8189ad264d28802f2036e7833afb/images.jsonl",
+      "exists": true,
+      "sha256": "00e79c221c0cbc7d2233a46ed1d66d4b5088c2be23ada507d07ef94f90d3ff21",
+      "size": 76293
+    },
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_ef11b55c15324433bf498805273d3ff4/matched_ids.json",
+      "exists": true,
+      "sha256": "9109a206eacc912d89f5a8d8abd7a88059dc9cc337b550b0581c9d9bbf493c33",
+      "size": 18300
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/scripts/analyze_parameter_probe.py",
+      "revision": "50b6245eab71fd2b08e7be8fb8ef4466a3d9eb89a6293d81b94b090ba33de567",
+      "snapshot": "snapshots/50b6245eab71fd2b08e7be8fb8ef4466a3d9eb89a6293d81b94b090ba33de567"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_3bc00dbe37e04f58a4535eb50ab7a7f1/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_3bc00dbe37e04f58a4535eb50ab7a7f1"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 4639,
+  "started_at": "2026-09-20T08:42:58.794+00:00",
+  "last_heartbeat": "2026-09-20T08:42:58.794+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-20T08:43:01.246+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_3bc00dbe37e04f58a4535eb50ab7a7f1/SUMMARY.json",
+      "exists": true,
+      "sha256": "608cf7fbd4bf2c7ca9d862c3eeb19bbb75f8bbf06e148355a71ccc2f301423e0"
+    }
+  ]
+}

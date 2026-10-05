@@ -1,0 +1,27 @@
+{
+  "study_id": "STUDY_3c1ec86ea1ac42fcbe080285570de10d",
+  "created": "2026-09-20",
+  "phase": "mechanism_screen_not_training",
+  "environment": "Ultralytics8.4.100, official COCO YOLO26m-seg; remote56018 Torch2.8.0+cu128; no environment upgrade",
+  "cohorts": {
+    "explore": 500,
+    "confirmation_reserved": 500,
+    "source": "fullCOCOtrain2017 image IDs shuffled seed20260920",
+    "holdout": "Do not inspect confirmation outputs before fixing interventions. Independent of new-method selection, not unseen to original COCO pretraining."
+  },
+  "inference": "Original unaugmented images, official LetterBox auto stride32 size640, FP32 end2end one2one, all raw candidates before confidence/class filtering. Existing exact support-pruned geometry evaluator, same normal predicted crop. No inference GT edits.",
+  "mapping": "Full raw geometry classification, M_B75 witness with stable raw-ID tie-break. No score/class filter. Candidate witness does not replace candidate-pool state or one-to-one matching.",
+  "labels": "Official8.4.100 convert_coco use_segments; exact converter row identity ledger; official YOLODataset verification, segment resampling, LetterBox, Format mask_ratio1 overlapTrue. No random augmentation for isolation. Evaluation always original COCO masks; training-format support separately named.",
+  "phase1": [
+    "Exact raw GT geometry on500explore",
+    "Actual training-label semantic downsampling survival and same-class semantic coverage",
+    "Replay actual training-label one2many/one2one assignments",
+    "TP/FP/FN partition inside/outside actual training-crop support and independent pixel-removal oracle upper bounds",
+    "GT-assisted fixed-coefficient one-step probes: jointBCE/foreground/background/balanced/random, RMSlogitstep0.1and0.3 within sameGTcrop. Freeze proto,predictionbox,rawID,scores. Report IoU75repairs/damage and continuousIoU/coverage/purity/BCE."
+  ],
+  "interpretation": "Negative coefficient-gradient dot products or sampling label loss are screening evidence, not proof of shared-network causal conflict. No AP/generalization claim from GT-assisted readout changes. Network-level controlled updates and matched/image-bootstrap confirmation remain subsequent phase.",
+  "analysis": "Control class,size,boxquality and investigate fillfraction; resample images for uncertainty. Reserve confirmation500. Use existing fullval5000 for contextual distribution/final evaluation; do not rerun fullval network here.",
+  "remote_root": "/root/coco_supervision_mechanisms_20260920",
+  "data": "/root/autodl-tmp/datasets/coco2017",
+  "disk": "Read existing dataset/weights in place; new artifacts on system disk; no deletions or old-run modifications"
+}

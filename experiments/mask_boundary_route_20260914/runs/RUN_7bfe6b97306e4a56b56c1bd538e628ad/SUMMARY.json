@@ -1,0 +1,54 @@
+{
+  "groups": {
+    "target": {
+      "n": 3,
+      "grid_oracle_repairs": 1,
+      "response_repairs": 1,
+      "response_damage": 0,
+      "grid_endpoint_selected": 0,
+      "coverage_loss_0.01": {
+        "repaired": 1,
+        "mean_iou_gain": 0.07966486502706734
+      },
+      "coverage_loss_0.02": {
+        "repaired": 1,
+        "mean_iou_gain": 0.09500965347416601
+      }
+    },
+    "control": {
+      "n": 0,
+      "grid_oracle_repairs": 0,
+      "response_repairs": 0,
+      "response_damage": 0,
+      "grid_endpoint_selected": 0,
+      "coverage_loss_0.01": {
+        "repaired": 0,
+        "mean_iou_gain": null
+      },
+      "coverage_loss_0.02": {
+        "repaired": 0,
+        "mean_iou_gain": null
+      }
+    }
+  },
+  "images": 3,
+  "instances": 3,
+  "baseline_pixel_parity": true,
+  "environment": {
+    "python": "3.12.3",
+    "ultralytics": "8.4.100",
+    "torch": "2.5.1",
+    "numpy": "2.4.3",
+    "opencv": "4.13.0",
+    "pycocotools": "2.0.11",
+    "scipy": "1.15.2",
+    "scikit-learn": "1.6.1"
+  },
+  "elapsed_seconds": 3.259572700000035,
+  "raw_capture": "complete pre-top-k boxes, all class scores, coefficients and prototypes captured per image; five-state geometry not yet evaluated",
+  "limitations": [
+    "GT chosen grid thresholds are diagnostic oracles, not deployable improvements.",
+    "Panel has baseline-stratified sampling, not natural population prevalence.",
+    "Current panel partitions were previously explored validation images."
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_varpro_outer_full_seed0_20261001",
+  "study_id": "STUDY_0c53a62f6f2d4d1bb0f7a5d8c91e6a42",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "scripts/varpro_outer.py",
+    "--weights",
+    "D:\\coco_wire\\models\\yolo26m-seg.pt",
+    "--c-final",
+    "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+    "--readout",
+    "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_full_seed0_retry5_area_fix_20261001\\C_READOUT.pt",
+    "--cache",
+    "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache",
+    "--data",
+    "D:\\coco_wire\\data",
+    "--out",
+    "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_full_seed0_20261001",
+    "--outer-epochs",
+    "1",
+    "--lr",
+    "0.00001",
+    "--accum-images",
+    "8"
+  ],
+  "working_directory": "D:\\coco_wire\\varpro",
+  "status": "completed",
+  "created_at": "2026-10-01T09:00:55.512+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+      "exists": true,
+      "sha256": "62576938390c461aeef61d82f5640bb5e23ab9fb99a29bf24d1b3241aac9c396",
+      "size": 3438629
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_full_seed0_retry5_area_fix_20261001\\C_READOUT.pt",
+      "exists": true,
+      "sha256": "8337ca52cfc0aaf3d81a9ee29f99ed0605365971bb97d46e5080e65dfd246dbb",
+      "size": 28124
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\varpro_outer.py",
+      "exists": true,
+      "sha256": "6f194aee3af3c794ddcabe906e59dfd0668b1347c053e30d8eb26ebfc81ceee4",
+      "size": 8318
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\VARPRO_RUN_CONFIG.json",
+      "exists": true,
+      "sha256": "508e7b79863a13a00e7441b3563372062a34ed480f0d654e362ad4f5dcb96662",
+      "size": 862
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\varpro_outer.py",
+      "revision": "6f194aee3af3c794ddcabe906e59dfd0668b1347c053e30d8eb26ebfc81ceee4",
+      "snapshot": "snapshots/6f194aee3af3c794ddcabe906e59dfd0668b1347c053e30d8eb26ebfc81ceee4"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_varpro_outer_full_seed0_20261001/SUMMARY.json",
+    "runs/RUN_varpro_outer_full_seed0_20261001/VARPRO_OUTER.pt"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_full_seed0_20261001"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 16748,
+  "started_at": "2026-10-01T09:00:55.965+00:00",
+  "last_heartbeat": "2026-10-01T09:02:06.225+00:00",
+  "metrics": {
+    "config": {
+      "weights": "D:\\coco_wire\\models\\yolo26m-seg.pt",
+      "c_final": "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+      "readout": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_full_seed0_retry5_area_fix_20261001\\C_READOUT.pt",
+      "cache": "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache",
+      "data": "D:\\coco_wire\\data",
+      "out": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_full_seed0_20261001",
+      "max_images": 0,
+      "outer_epochs": 1,
+      "lr": 1e-05,
+      "accum_images": 8,
+      "lambda_eval": 0.003
+    },
+    "result": {
+      "mode": "varpro_outer_pre_readout",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "images": 796,
+      "candidates": 6058,
+      "outer_epochs": 1,
+      "lr": 1e-05,
+      "accum_images": 8,
+      "lambda_eval": 0.003,
+      "weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "logs": [
+        {
+          "epoch": 1,
+          "objective_estimate": 2.286193194002408,
+          "candidates": 6058,
+          "last_grad_norm": 0.008640885353088379,
+          "elapsed_s": 63.437999999994645
+        }
+      ]
+    }
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_full_seed0_20261001\\SUMMARY.json",
+    "sha256": "ad7f7f62888a7fb8228d6a292b29e773a794d1042b4d65c3c5dd75e60d63c028"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-01T09:02:08.611+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_full_seed0_20261001\\SUMMARY.json",
+      "exists": true,
+      "sha256": "ad7f7f62888a7fb8228d6a292b29e773a794d1042b4d65c3c5dd75e60d63c028"
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_full_seed0_20261001\\VARPRO_OUTER.pt",
+      "exists": true,
+      "sha256": "2ad1ca36c0e75d11983057d4e14854a41f277cb7a3979ff3d37de811f36ddccf"
+    }
+  ]
+}

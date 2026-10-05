@@ -1,0 +1,1098 @@
+{
+  "verdicts": {
+    "decomposed": {
+      "verdict": "not_supported_in_this_setting",
+      "checks": {
+        "direct": {
+          "target_repair_count_delta": 19,
+          "all_success_damage_count_delta": 35,
+          "delta_ap_points": 0.0021932706141782887,
+          "pareto_point_condition": false,
+          "ap_nondecrease": true,
+          "better_dimension_resolved": true
+        },
+        "frozen_rcmc": {
+          "target_repair_count_delta": 14,
+          "all_success_damage_count_delta": 17,
+          "delta_ap_points": 0.004713309801722687,
+          "pareto_point_condition": false,
+          "ap_nondecrease": true,
+          "better_dimension_resolved": true
+        }
+      }
+    },
+    "decomposed_protected": {
+      "verdict": "not_supported_in_this_setting",
+      "checks": {
+        "direct": {
+          "target_repair_count_delta": -398,
+          "all_success_damage_count_delta": -398,
+          "delta_ap_points": -0.3803353722751126,
+          "pareto_point_condition": false,
+          "ap_nondecrease": false,
+          "better_dimension_resolved": true
+        },
+        "frozen_rcmc": {
+          "target_repair_count_delta": -403,
+          "all_success_damage_count_delta": -416,
+          "delta_ap_points": -0.3778153330875682,
+          "pareto_point_condition": false,
+          "ap_nondecrease": false,
+          "better_dimension_resolved": true
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "direct_vs_frozen_rcmc": {
+      "target_repair_rate": {
+        "difference_pp": -0.29394473838918245,
+        "paired_image_bootstrap_ci95_pp": [
+          -0.772900911848944,
+          0.12173039870176144
+        ]
+      },
+      "all_success_damage_rate": {
+        "difference_pp": -0.09441384736427993,
+        "paired_image_bootstrap_ci95_pp": [
+          -0.15069792711777463,
+          -0.03732925655660879
+        ]
+      },
+      "net_r75_all_gt": {
+        "difference_pp": 0.018275410435259376,
+        "paired_image_bootstrap_ci95_pp": [
+          -0.032824081343268925,
+          0.061451486318553336
+        ]
+      }
+    },
+    "direct_vs_decomposed": {
+      "target_repair_rate": {
+        "difference_pp": -1.1169900058788933,
+        "paired_image_bootstrap_ci95_pp": [
+          -1.724137931034484,
+          -0.5398839296888815
+        ]
+      },
+      "all_success_damage_rate": {
+        "difference_pp": -0.1835824809861002,
+        "paired_image_bootstrap_ci95_pp": [
+          -0.27272466273992024,
+          -0.0947111706233134
+        ]
+      },
+      "net_r75_all_gt": {
+        "difference_pp": 0.01218360695683951,
+        "paired_image_bootstrap_ci95_pp": [
+          -0.05418498456372627,
+          0.08001374508648325
+        ]
+      }
+    },
+    "decomposed_vs_frozen_rcmc": {
+      "target_repair_rate": {
+        "difference_pp": 0.8230452674897109,
+        "paired_image_bootstrap_ci95_pp": [
+          0.24446903312928736,
+          1.4060406817130524
+        ]
+      },
+      "all_success_damage_rate": {
+        "difference_pp": 0.08916863362182026,
+        "paired_image_bootstrap_ci95_pp": [
+          0.01043156733029782,
+          0.16648544050376005
+        ]
+      },
+      "net_r75_all_gt": {
+        "difference_pp": 0.006091803478419866,
+        "paired_image_bootstrap_ci95_pp": [
+          -0.055007696423008574,
+          0.06488476514840368
+        ]
+      }
+    },
+    "decomposed_vs_direct": {
+      "target_repair_rate": {
+        "difference_pp": 1.1169900058788933,
+        "paired_image_bootstrap_ci95_pp": [
+          0.5398839296888814,
+          1.724137931034484
+        ]
+      },
+      "all_success_damage_rate": {
+        "difference_pp": 0.1835824809861002,
+        "paired_image_bootstrap_ci95_pp": [
+          0.09471117062331338,
+          0.2727246627399201
+        ]
+      },
+      "net_r75_all_gt": {
+        "difference_pp": -0.01218360695683951,
+        "paired_image_bootstrap_ci95_pp": [
+          -0.08001374508648328,
+          0.05418498456372621
+        ]
+      }
+    },
+    "decomposed_protected_vs_frozen_rcmc": {
+      "target_repair_rate": {
+        "difference_pp": -23.691945914168137,
+        "paired_image_bootstrap_ci95_pp": [
+          -25.64896852499773,
+          -21.616571010449775
+        ]
+      },
+      "all_success_damage_rate": {
+        "difference_pp": -2.182008916863362,
+        "paired_image_bootstrap_ci95_pp": [
+          -2.4111766459711896,
+          -1.9568099628809181
+        ]
+      },
+      "net_r75_all_gt": {
+        "difference_pp": -0.8680819956748196,
+        "paired_image_bootstrap_ci95_pp": [
+          -1.0764568405369537,
+          -0.6558442428051661
+        ]
+      }
+    },
+    "decomposed_protected_vs_direct": {
+      "target_repair_rate": {
+        "difference_pp": -23.398001175778955,
+        "paired_image_bootstrap_ci95_pp": [
+          -25.351637941300062,
+          -21.33965619442798
+        ]
+      },
+      "all_success_damage_rate": {
+        "difference_pp": -2.0875950694990824,
+        "paired_image_bootstrap_ci95_pp": [
+          -2.3079691344269824,
+          -1.8669190854886246
+        ]
+      },
+      "net_r75_all_gt": {
+        "difference_pp": -0.886357406110079,
+        "paired_image_bootstrap_ci95_pp": [
+          -1.084458312214674,
+          -0.6766763897174931
+        ]
+      }
+    },
+    "decomposed_protected_vs_decomposed": {
+      "target_repair_rate": {
+        "difference_pp": -24.514991181657848,
+        "paired_image_bootstrap_ci95_pp": [
+          -26.545005762947582,
+          -22.48626459222912
+        ]
+      },
+      "all_success_damage_rate": {
+        "difference_pp": -2.2711775504851826,
+        "paired_image_bootstrap_ci95_pp": [
+          -2.5005418909689805,
+          -2.0305990138025054
+        ]
+      },
+      "net_r75_all_gt": {
+        "difference_pp": -0.8741737991532395,
+        "paired_image_bootstrap_ci95_pp": [
+          -1.0872697871174086,
+          -0.6575037265364895
+        ]
+      }
+    }
+  },
+  "groups": {
+    "all_matched": {
+      "baseline": {
+        "n": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "repairs": 801,
+        "target_repairs": 457,
+        "damages": 445,
+        "iou_delta_sum": 145.32286502256855,
+        "coverage_loss_sum": 489.9197745222816
+      },
+      "direct": {
+        "n": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "repairs": 789,
+        "target_repairs": 452,
+        "damages": 427,
+        "iou_delta_sum": 145.69621667703473,
+        "coverage_loss_sum": 480.0493493832502
+      },
+      "decomposed": {
+        "n": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "repairs": 820,
+        "target_repairs": 471,
+        "damages": 462,
+        "iou_delta_sum": 147.04997010217127,
+        "coverage_loss_sum": 494.8415206053007
+      },
+      "decomposed_protected": {
+        "n": 30426,
+        "targets": 1701,
+        "successes": 19065,
+        "repairs": 100,
+        "target_repairs": 54,
+        "damages": 29,
+        "iou_delta_sum": 36.35221003051871,
+        "coverage_loss_sum": 65.14107026388922
+      }
+    },
+    "large": {
+      "baseline": {
+        "n": 7715,
+        "targets": 107,
+        "successes": 6464,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 7715,
+        "targets": 107,
+        "successes": 6464,
+        "repairs": 3,
+        "target_repairs": 1,
+        "damages": 4,
+        "iou_delta_sum": -0.8184821264744634,
+        "coverage_loss_sum": 3.738510954934813
+      },
+      "direct": {
+        "n": 7715,
+        "targets": 107,
+        "successes": 6464,
+        "repairs": 3,
+        "target_repairs": 1,
+        "damages": 2,
+        "iou_delta_sum": -0.734170016896402,
+        "coverage_loss_sum": 3.255802394620197
+      },
+      "decomposed": {
+        "n": 7715,
+        "targets": 107,
+        "successes": 6464,
+        "repairs": 3,
+        "target_repairs": 1,
+        "damages": 3,
+        "iou_delta_sum": -0.9588527551118976,
+        "coverage_loss_sum": 3.9881437787818044
+      },
+      "decomposed_protected": {
+        "n": 7715,
+        "targets": 107,
+        "successes": 6464,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": -0.03649040599614417,
+        "coverage_loss_sum": 0.05365589955763235
+      }
+    },
+    "coverage_high": {
+      "baseline": {
+        "n": 14634,
+        "targets": 1701,
+        "successes": 11177,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 14634,
+        "targets": 1701,
+        "successes": 11177,
+        "repairs": 554,
+        "target_repairs": 457,
+        "damages": 13,
+        "iou_delta_sum": 190.6104198058792,
+        "coverage_loss_sum": 145.64987140942722
+      },
+      "direct": {
+        "n": 14634,
+        "targets": 1701,
+        "successes": 11177,
+        "repairs": 548,
+        "target_repairs": 452,
+        "damages": 12,
+        "iou_delta_sum": 188.29742502207802,
+        "coverage_loss_sum": 143.4815417901753
+      },
+      "decomposed": {
+        "n": 14634,
+        "targets": 1701,
+        "successes": 11177,
+        "repairs": 570,
+        "target_repairs": 471,
+        "damages": 12,
+        "iou_delta_sum": 192.13880853751587,
+        "coverage_loss_sum": 146.96275642947623
+      },
+      "decomposed_protected": {
+        "n": 14634,
+        "targets": 1701,
+        "successes": 11177,
+        "repairs": 73,
+        "target_repairs": 54,
+        "damages": 1,
+        "iou_delta_sum": 39.97537261671079,
+        "coverage_loss_sum": 28.006884957036128
+      }
+    },
+    "other": {
+      "baseline": {
+        "n": 28725,
+        "targets": 0,
+        "successes": 19065,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 28725,
+        "targets": 0,
+        "successes": 19065,
+        "repairs": 344,
+        "target_repairs": 0,
+        "damages": 445,
+        "iou_delta_sum": 88.8202292104838,
+        "coverage_loss_sum": 462.37721188535687
+      },
+      "direct": {
+        "n": 28725,
+        "targets": 0,
+        "successes": 19065,
+        "repairs": 337,
+        "target_repairs": 0,
+        "damages": 427,
+        "iou_delta_sum": 90.35502499858158,
+        "coverage_loss_sum": 453.6437897004602
+      },
+      "decomposed": {
+        "n": 28725,
+        "targets": 0,
+        "successes": 19065,
+        "repairs": 349,
+        "target_repairs": 0,
+        "damages": 462,
+        "iou_delta_sum": 89.99256375449824,
+        "coverage_loss_sum": 467.09476695346666
+      },
+      "decomposed_protected": {
+        "n": 28725,
+        "targets": 0,
+        "successes": 19065,
+        "repairs": 46,
+        "target_repairs": 0,
+        "damages": 29,
+        "iou_delta_sum": 31.750460209715587,
+        "coverage_loss_sum": 63.74446117368569
+      }
+    },
+    "medium": {
+      "baseline": {
+        "n": 10855,
+        "targets": 311,
+        "successes": 7951,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 10855,
+        "targets": 311,
+        "successes": 7951,
+        "repairs": 109,
+        "target_repairs": 53,
+        "damages": 110,
+        "iou_delta_sum": 9.667648445618648,
+        "coverage_loss_sum": 125.10920322671585
+      },
+      "direct": {
+        "n": 10855,
+        "targets": 311,
+        "successes": 7951,
+        "repairs": 109,
+        "target_repairs": 55,
+        "damages": 102,
+        "iou_delta_sum": 9.815565827038643,
+        "coverage_loss_sum": 120.47912238935243
+      },
+      "decomposed": {
+        "n": 10855,
+        "targets": 311,
+        "successes": 7951,
+        "repairs": 131,
+        "target_repairs": 67,
+        "damages": 136,
+        "iou_delta_sum": 9.291108763393856,
+        "coverage_loss_sum": 140.89922464952792
+      },
+      "decomposed_protected": {
+        "n": 10855,
+        "targets": 311,
+        "successes": 7951,
+        "repairs": 41,
+        "target_repairs": 24,
+        "damages": 16,
+        "iou_delta_sum": 11.776011975558879,
+        "coverage_loss_sum": 44.25766327870376
+      }
+    },
+    "small": {
+      "baseline": {
+        "n": 11856,
+        "targets": 1283,
+        "successes": 4650,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 11856,
+        "targets": 1283,
+        "successes": 4650,
+        "repairs": 689,
+        "target_repairs": 403,
+        "damages": 331,
+        "iou_delta_sum": 136.47369870342507,
+        "coverage_loss_sum": 361.0720603406328
+      },
+      "direct": {
+        "n": 11856,
+        "targets": 1283,
+        "successes": 4650,
+        "repairs": 677,
+        "target_repairs": 396,
+        "damages": 323,
+        "iou_delta_sum": 136.61482086689279,
+        "coverage_loss_sum": 356.3144245992791
+      },
+      "decomposed": {
+        "n": 11856,
+        "targets": 1283,
+        "successes": 4650,
+        "repairs": 686,
+        "target_repairs": 403,
+        "damages": 323,
+        "iou_delta_sum": 138.71771409388975,
+        "coverage_loss_sum": 349.95415217699167
+      },
+      "decomposed_protected": {
+        "n": 11856,
+        "targets": 1283,
+        "successes": 4650,
+        "repairs": 59,
+        "target_repairs": 30,
+        "damages": 13,
+        "iou_delta_sum": 24.612688460956008,
+        "coverage_loss_sum": 20.829751085627706
+      }
+    },
+    "coverage_low": {
+      "baseline": {
+        "n": 15792,
+        "targets": 0,
+        "successes": 7888,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 15792,
+        "targets": 0,
+        "successes": 7888,
+        "repairs": 247,
+        "target_repairs": 0,
+        "damages": 432,
+        "iou_delta_sum": -45.28755478331082,
+        "coverage_loss_sum": 344.2699031128567
+      },
+      "direct": {
+        "n": 15792,
+        "targets": 0,
+        "successes": 7888,
+        "repairs": 241,
+        "target_repairs": 0,
+        "damages": 415,
+        "iou_delta_sum": -42.601208345043645,
+        "coverage_loss_sum": 336.5678075930771
+      },
+      "decomposed": {
+        "n": 15792,
+        "targets": 0,
+        "successes": 7888,
+        "repairs": 250,
+        "target_repairs": 0,
+        "damages": 450,
+        "iou_delta_sum": -45.08883843534477,
+        "coverage_loss_sum": 347.8787641758266
+      },
+      "decomposed_protected": {
+        "n": 15792,
+        "targets": 0,
+        "successes": 7888,
+        "repairs": 27,
+        "target_repairs": 0,
+        "damages": 28,
+        "iou_delta_sum": -3.623162586192022,
+        "coverage_loss_sum": 37.1341853068529
+      }
+    },
+    "target": {
+      "baseline": {
+        "n": 1701,
+        "targets": 1701,
+        "successes": 0,
+        "repairs": 0,
+        "target_repairs": 0,
+        "damages": 0,
+        "iou_delta_sum": 0.0,
+        "coverage_loss_sum": 0.0
+      },
+      "frozen_rcmc": {
+        "n": 1701,
+        "targets": 1701,
+        "successes": 0,
+        "repairs": 457,
+        "target_repairs": 457,
+        "damages": 0,
+        "iou_delta_sum": 56.50263581208487,
+        "coverage_loss_sum": 27.542562636924075
+      },
+      "direct": {
+        "n": 1701,
+        "targets": 1701,
+        "successes": 0,
+        "repairs": 452,
+        "target_repairs": 452,
+        "damages": 0,
+        "iou_delta_sum": 55.34119167845315,
+        "coverage_loss_sum": 26.405559682789324
+      },
+      "decomposed": {
+        "n": 1701,
+        "targets": 1701,
+        "successes": 0,
+        "repairs": 471,
+        "target_repairs": 471,
+        "damages": 0,
+        "iou_delta_sum": 57.057406347673165,
+        "coverage_loss_sum": 27.746753651833526
+      },
+      "decomposed_protected": {
+        "n": 1701,
+        "targets": 1701,
+        "successes": 0,
+        "repairs": 54,
+        "target_repairs": 54,
+        "damages": 0,
+        "iou_delta_sum": 4.6017498208031,
+        "coverage_loss_sum": 1.3966090902034831
+      }
+    }
+  },
+  "corrected_coverage_only_success_groups": {
+    "coverage_high": {
+      "success": 11177,
+      "damage": 13
+    },
+    "coverage_low": {
+      "success": 7888,
+      "damage": 432
+    }
+  },
+  "denominators": {
+    "target_failures": 1701,
+    "original_successes": 19065,
+    "ordinary_gt": 32831
+  },
+  "metrics": {
+    "baseline": {
+      "stats": [
+        0.43378829983113415,
+        0.6616103654915565,
+        0.4684069936360102,
+        0.22717460051292646,
+        0.4751352465852975,
+        0.6410397905220456,
+        0.3395109945152272,
+        0.5514948652072141,
+        0.5958809836986783,
+        0.406178605654886,
+        0.656283403965914,
+        0.7681753462516039
+      ],
+      "ap": 43.37882998311341,
+      "ap75": 46.84069936360102,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 57.52265299999999
+    },
+    "frozen_rcmc": {
+      "stats": [
+        0.43939544208568904,
+        0.6646033772884464,
+        0.47618547554974916,
+        0.2359510502928063,
+        0.47844330743749763,
+        0.6408905123608387,
+        0.3422867350409306,
+        0.5575812792542757,
+        0.6030409441940308,
+        0.42202696836356457,
+        0.6572537884277639,
+        0.7671065516027301
+      ],
+      "ap": 43.939544208568904,
+      "ap75": 47.61854755497492,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.338599099999556
+    },
+    "direct": {
+      "stats": [
+        0.4394206424775645,
+        0.6645747068377525,
+        0.4767919722260881,
+        0.23579405572882733,
+        0.4787430870876804,
+        0.640896740922864,
+        0.3423686977500735,
+        0.5576324930615203,
+        0.603140648842828,
+        0.42238483157857004,
+        0.6574708747676941,
+        0.7671513609390419
+      ],
+      "ap": 43.94206424775645,
+      "ap75": 47.67919722260881,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.02740850000009
+    },
+    "decomposed": {
+      "stats": [
+        0.4394425751837063,
+        0.6643834950453925,
+        0.47637590707556243,
+        0.2355254690853817,
+        0.47858983271664896,
+        0.6409483124218884,
+        0.3423879000507695,
+        0.5576723050432237,
+        0.6031163572538675,
+        0.4220226717504428,
+        0.6571412283260432,
+        0.7671658910033814
+      ],
+      "ap": 43.94425751837063,
+      "ap75": 47.63759070755624,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.17147230000046
+    },
+    "decomposed_protected": {
+      "stats": [
+        0.43561728875481337,
+        0.6617051936382574,
+        0.47048576992806657,
+        0.2284913076040994,
+        0.477445383791778,
+        0.6410404257677647,
+        0.3406792613008324,
+        0.5534014257603779,
+        0.5978911678873453,
+        0.40862599180209547,
+        0.6579949606915693,
+        0.7681672293684869
+      ],
+      "ap": 43.561728875481336,
+      "ap75": 47.04857699280666,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.14097120000042
+    }
+  },
+  "outcomes": {
+    "baseline": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 0,
+      "all_repairs": 0,
+      "damages": 0,
+      "iou_gain_sum": 0.0,
+      "coverage_loss_sum": 0.0,
+      "net_repairs": 0
+    },
+    "frozen_rcmc": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 457,
+      "all_repairs": 801,
+      "damages": 445,
+      "iou_gain_sum": 145.32286502256855,
+      "coverage_loss_sum": 489.9197745222816,
+      "net_repairs": 356
+    },
+    "direct": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 452,
+      "all_repairs": 789,
+      "damages": 427,
+      "iou_gain_sum": 145.69621667703473,
+      "coverage_loss_sum": 480.0493493832502,
+      "net_repairs": 362
+    },
+    "decomposed": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 471,
+      "all_repairs": 820,
+      "damages": 462,
+      "iou_gain_sum": 147.04997010217127,
+      "coverage_loss_sum": 494.8415206053007,
+      "net_repairs": 358
+    },
+    "decomposed_protected": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 54,
+      "all_repairs": 100,
+      "damages": 29,
+      "iou_gain_sum": 36.35221003051871,
+      "coverage_loss_sum": 65.14107026388922,
+      "net_repairs": 71
+    }
+  },
+  "policies": {
+    "direct": {
+      "cutoff": 0,
+      "selection_outcomes": {
+        "variant": "direct",
+        "cutoff": 0,
+        "feasible": true,
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 50,
+        "all_repairs": 87,
+        "damages": 47,
+        "iou_gain_sum": 15.566337017367985,
+        "coverage_loss_sum": 50.65437115929336,
+        "net_repairs": 40
+      },
+      "coverage_budget": null
+    },
+    "decomposed": {
+      "cutoff": -0.005,
+      "selection_outcomes": {
+        "variant": "decomposed",
+        "cutoff": -0.005,
+        "feasible": true,
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 52,
+        "all_repairs": 90,
+        "damages": 46,
+        "iou_gain_sum": 15.961992977707604,
+        "coverage_loss_sum": 51.785571997553554,
+        "net_repairs": 44
+      },
+      "coverage_budget": null
+    },
+    "decomposed_protected": {
+      "cutoff": 0.001,
+      "selection_outcomes": {
+        "variant": "decomposed_protected",
+        "cutoff": 0.001,
+        "feasible": true,
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 8,
+        "all_repairs": 14,
+        "damages": 5,
+        "iou_gain_sum": 3.930466386219043,
+        "coverage_loss_sum": 7.58894172558619,
+        "net_repairs": 9
+      },
+      "coverage_budget": 0.02
+    }
+  },
+  "fit": {
+    "training_rows": 10288,
+    "training_images": 1486,
+    "models": {
+      "direct": {
+        "trees": 300,
+        "leaves": 2100,
+        "nodes": 3900,
+        "json_bytes": 196787,
+        "fit_seconds": 0.231527100000676,
+        "training_mse": 0.0010719113644133964,
+        "portable_max_abs_error": 0.0
+      },
+      "purity": {
+        "trees": 100,
+        "leaves": 700,
+        "nodes": 1300,
+        "json_bytes": 65000,
+        "fit_seconds": 0.07316259999970498,
+        "training_mse": 0.014776063087771883,
+        "portable_max_abs_error": 0.0
+      },
+      "coverage": {
+        "trees": 100,
+        "leaves": 700,
+        "nodes": 1300,
+        "json_bytes": 65288,
+        "fit_seconds": 0.08293509999930393,
+        "training_mse": 0.00979103406560587,
+        "portable_max_abs_error": 0.0
+      },
+      "removed_purity": {
+        "trees": 100,
+        "leaves": 700,
+        "nodes": 1300,
+        "json_bytes": 64371,
+        "fit_seconds": 0.07038230000034673,
+        "training_mse": 0.06272141049439402,
+        "portable_max_abs_error": 0.0
+      }
+    },
+    "protocol": "PROTOCOL_coverage_cost_decomposition_v7_20260920",
+    "label_equations_max_error": 9.992007221626409e-16,
+    "elapsed_seconds": 5.428219499999614,
+    "direct_total_trees": 300,
+    "decomposed_total_trees": 300
+  },
+  "inference": {
+    "parity": {
+      "baseline": {
+        "images": 6,
+        "masks": 638,
+        "pixel_mismatches": 0,
+        "max_box_error": 0.0
+      },
+      "frozen_rcmc": {
+        "images": 6,
+        "masks": 638,
+        "pixel_mismatches": 0,
+        "max_box_error": 0.0
+      },
+      "direct": {
+        "images": 6,
+        "masks": 638,
+        "pixel_mismatches": 0,
+        "max_box_error": 0.0
+      },
+      "decomposed": {
+        "images": 6,
+        "masks": 638,
+        "pixel_mismatches": 0,
+        "max_box_error": 0.0
+      },
+      "decomposed_protected": {
+        "images": 6,
+        "masks": 638,
+        "pixel_mismatches": 0,
+        "max_box_error": 0.0
+      }
+    },
+    "timing": {
+      "baseline": {
+        "calls": 72,
+        "mean_ms": 35.002986111067,
+        "median_ms": 34.172949999629054,
+        "p95_ms": 44.72033999991255,
+        "peak_gpu_allocated_mib": 634.07958984375,
+        "block_mean_ms": [
+          38.115412499867794,
+          33.508212500009904,
+          33.38533333332331
+        ]
+      },
+      "frozen_rcmc": {
+        "calls": 72,
+        "mean_ms": 57.23692777784587,
+        "median_ms": 57.6005000002624,
+        "p95_ms": 94.93683499958934,
+        "peak_gpu_allocated_mib": 479.509765625,
+        "block_mean_ms": [
+          56.65400416667884,
+          56.678329166743424,
+          58.37845000011536
+        ]
+      },
+      "direct": {
+        "calls": 72,
+        "mean_ms": 64.60363333346524,
+        "median_ms": 63.46140000005107,
+        "p95_ms": 112.9996650008252,
+        "peak_gpu_allocated_mib": 479.509765625,
+        "block_mean_ms": [
+          65.97961666693664,
+          64.54222916681829,
+          63.2890541666408
+        ]
+      },
+      "decomposed": {
+        "calls": 72,
+        "mean_ms": 67.4368069445437,
+        "median_ms": 67.71729999945819,
+        "p95_ms": 118.28617000037411,
+        "peak_gpu_allocated_mib": 479.509765625,
+        "block_mean_ms": [
+          67.14971666656311,
+          68.58675833344326,
+          66.57394583362475
+        ]
+      },
+      "decomposed_protected": {
+        "calls": 72,
+        "mean_ms": 65.8974666668352,
+        "median_ms": 64.92730000081792,
+        "p95_ms": 120.82811999980552,
+        "peak_gpu_allocated_mib": 479.509765625,
+        "block_mean_ms": [
+          65.15195416674639,
+          66.9186666668035,
+          65.6217791669557
+        ]
+      }
+    },
+    "image_ids": [
+      57027,
+      81594,
+      105014,
+      128658,
+      151662,
+      171740,
+      190756,
+      214703,
+      236426,
+      261318,
+      285047,
+      306582,
+      329323,
+      352491,
+      374083,
+      397354,
+      420069,
+      445602,
+      464689,
+      486573,
+      511453,
+      534601,
+      560011,
+      581781
+    ],
+    "fixed_versions": {
+      "python": "3.12.3",
+      "ultralytics": "8.4.100",
+      "torch": "2.5.1",
+      "numpy": "2.4.3",
+      "opencv": "4.13.0",
+      "pycocotools": "2.0.11",
+      "scipy": "1.15.2",
+      "scikit-learn": "1.6.1"
+    },
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "scope": "6 fixed images for exact mask parity; 24 evenly spaced fixed images x 3 cyclic-order passes per variant, CUDA synchronized, batch 1 FP32",
+    "included": "preprocess, YOLO forward, normal postprocessing, feature extraction, CPU transfers, required predictor heads and mask selection",
+    "excluded": "image disk IO, model/predictor setup and warmup, RLE export and COCO evaluation",
+    "limitations": [
+      "single laptop hardware and operating state",
+      "test GT is used for offline COCO metrics only, not adapter inputs or policy",
+      "timings are sampled pipeline costs, not full-dataset throughput"
+    ]
+  },
+  "bootstrap": {
+    "n": 2000,
+    "seed": 20260915,
+    "unit": "complete images, paired across all variants; fixed original groups",
+    "scope": "pointwise exploratory intervals on repair/damage/net R75, not AP confidence intervals"
+  },
+  "termination": "Single-seed fixed comparison is complete; no validation-driven retuning, more seeds, YOLO training or new architecture in this goal.",
+  "limitations": [
+    "One seed; no YOLO training; no new features/data/action intensities.",
+    "val has prior exploratory use; no new blind-test claim.",
+    "Equal ceiling of 300 trees x 7 leaves in matched direct/decomposed calibrators, actual leaf counts/fit time/file size reported; multi-output allocation remains an inductive-bias difference.",
+    "Old RCMC has 100 trees and is reported independently, not misrepresented as capacity matched.",
+    "Regression components diagnose learnability but do not identify the unique origin of spillover."
+  ],
+  "same_cutoff_protection_diagnostic": {
+    "decomposed_unprotected": {
+      "cutoff": -0.005,
+      "protection": false,
+      "target_repairs": 471,
+      "all_repairs": 820,
+      "damages": 462,
+      "iou_gain_sum": 147.04997010217127,
+      "coverage_loss_sum": 494.8415206053007
+    },
+    "decomposed_protected": {
+      "cutoff": -0.005,
+      "protection": true,
+      "target_repairs": 59,
+      "all_repairs": 111,
+      "damages": 45,
+      "iou_gain_sum": 38.52778161508295,
+      "coverage_loss_sum": 83.6521995759882
+    },
+    "decomposed_protected_unprotected": {
+      "cutoff": 0.001,
+      "protection": false,
+      "target_repairs": 425,
+      "all_repairs": 735,
+      "damages": 355,
+      "iou_gain_sum": 143.74561535953487,
+      "coverage_loss_sum": 405.20702832979526
+    },
+    "decomposed_protected_protected": {
+      "cutoff": 0.001,
+      "protection": true,
+      "target_repairs": 54,
+      "all_repairs": 100,
+      "damages": 29,
+      "iou_gain_sum": 36.35221003051871,
+      "coverage_loss_sum": 65.14107026388922
+    }
+  },
+  "same_cutoff_diagnostic_scope": "Fixed-slot descriptive switch only at already train-selected cutoffs; no new AP selection or deployed variant."
+}

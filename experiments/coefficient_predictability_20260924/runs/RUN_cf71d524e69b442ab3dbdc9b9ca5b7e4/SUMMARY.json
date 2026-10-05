@@ -1,0 +1,30 @@
+{
+  "counts": {
+    "images": 200,
+    "gt": 1354,
+    "one2one_positive_candidates": 1346,
+    "one2one_gt_with_positive": 1346,
+    "geometric_not_positive": 985,
+    "one2many_positive_candidates": 11736,
+    "one2many_gt_with_positive": 1336,
+    "geometric_same_gt_positive": 311,
+    "geometric_different_gt_positive": 5
+  },
+  "assigners": {
+    "one2one": {
+      "topk": 7,
+      "topk2": 1,
+      "alpha": 0.5,
+      "beta": 6.0
+    },
+    "one2many": {
+      "topk": 10,
+      "topk2": 10,
+      "alpha": 0.5,
+      "beta": 6.0
+    }
+  },
+  "replay": "Direct official get_assigned_targets_and_loss, both branches, same frozen square input and original COCO boxes/classes; no private reimplementation",
+  "limits": "Frozen unaugmented checkpoint replay, not pretrained training history or polygon-converted/overlap-rasterized full loader reproduction.",
+  "loss_correction": "At checkpoint mask_ratio=1, official segmentation loss upsamples prototype to mask size. Prior native160 objective is a separate diagnostic."
+}

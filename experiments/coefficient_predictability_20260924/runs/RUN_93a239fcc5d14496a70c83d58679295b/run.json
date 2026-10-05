@@ -1,0 +1,104 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_02453b59e1484bfba9434909ee735d4a",
+  "study_id": "STUDY_67821036f497467aa3baf93c4fb9ee30",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coefficient_predictability_20260924/scripts/official_pipeline.py",
+    "analyze",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_e7a2bb3bf89a4f39bc194b0cd7046428",
+    "--probe",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_dcadc33e81ff446687016472845dc1f4",
+    "--oracle",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_3aec3357d36c47609aa3f35dabcfd271",
+    "--out",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_93a239fcc5d14496a70c83d58679295b"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_predictability_20260924",
+  "status": "completed",
+  "created_at": "2026-09-24T06:28:17.197+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_3aec3357d36c47609aa3f35dabcfd271/COMPLETE.json",
+      "exists": true,
+      "sha256": "5cf31b6e4c5ce178e1d54802504aaa91dad093af944d592a36cb0b1291983de0",
+      "size": 34
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_dcadc33e81ff446687016472845dc1f4/COMPLETE.json",
+      "exists": true,
+      "sha256": "0b27c321a3c6e978bae53a08b50db3723e6ddf81a3bc36315cd9140d09565618",
+      "size": 175
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/scripts/official_pipeline.py",
+      "revision": "e6ab8db4d1b76a8f176fdc000a9b5b36d3cde33bf850f452f8e49eb6e4d23827",
+      "snapshot": "snapshots/e6ab8db4d1b76a8f176fdc000a9b5b36d3cde33bf850f452f8e49eb6e4d23827"
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/scripts/feature_probes.py",
+      "revision": "23ed7932c233eb7ff1be06374f42dcd4e9f2bd1a2fefd8f8b6016041159402a0",
+      "snapshot": "snapshots/23ed7932c233eb7ff1be06374f42dcd4e9f2bd1a2fefd8f8b6016041159402a0"
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/scripts/run_official_sequence.py",
+      "revision": "2fe7fe7a87912a168168c85d3239383516c2b661104f87ef361a4469ad7c5e19",
+      "snapshot": "snapshots/2fe7fe7a87912a168168c85d3239383516c2b661104f87ef361a4469ad7c5e19"
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/OFFICIAL_PROTOCOL.md",
+      "revision": "bc6e8a0aaed03b247a65863f092324521396e94c0b97934c46ac03de07b0f867",
+      "snapshot": "snapshots/bc6e8a0aaed03b247a65863f092324521396e94c0b97934c46ac03de07b0f867"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_93a239fcc5d14496a70c83d58679295b/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_93a239fcc5d14496a70c83d58679295b"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 4095,
+  "started_at": "2026-09-24T06:28:17.302+00:00",
+  "last_heartbeat": "2026-09-24T06:28:17.302+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-24T06:28:19.377+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_93a239fcc5d14496a70c83d58679295b/COMPLETE.json",
+      "exists": true,
+      "sha256": "3cf2d69163132d76567678b44da711918d1955128dd94e57d10d1f519fea7aa0"
+    }
+  ]
+}

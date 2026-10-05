@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_918b85c4fdd34e48bfac64c791fa3a25",
+  "study_id": "STUDY_67821036f497467aa3baf93c4fb9ee30",
+  "source_kind": "runner_observed",
+  "command": [
+    "python",
+    "-u",
+    "scripts/feature_probes.py",
+    "--bank",
+    "runs/RUN_62e3a1994b804eceb03fb8e616a4f946",
+    "--annotations",
+    "data/annotations/instances_val2017.json",
+    "--out",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_1cc6a28171ab4d3489576d6d20b67aca",
+    "--epochs",
+    "30",
+    "--arms",
+    "mlp_large"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_predictability_20260924",
+  "status": "completed",
+  "created_at": "2026-09-24T05:46:06.225+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/scripts/feature_probes.py",
+      "revision": "2d2b70ffc7ae3c69312f032781e43f275326dbe56a73604d836eaba810a83875",
+      "snapshot": "snapshots/2d2b70ffc7ae3c69312f032781e43f275326dbe56a73604d836eaba810a83875"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_1cc6a28171ab4d3489576d6d20b67aca/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_1cc6a28171ab4d3489576d6d20b67aca"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 2687,
+  "started_at": "2026-09-24T05:46:06.330+00:00",
+  "last_heartbeat": "2026-09-24T05:46:41.341+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-24T05:46:44.363+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_1cc6a28171ab4d3489576d6d20b67aca/COMPLETE.json",
+      "exists": true,
+      "sha256": "b8aaaf3ed00abcf1f7a4a403900921f02d2bb695b658cbf954547033d051699d"
+    }
+  ]
+}

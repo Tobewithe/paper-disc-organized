@@ -1,0 +1,191 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_8ecb45b277cc42c5a0d37217e010f5ab",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:/coco_wire/scripts/deployment_v2/visualize_repairs.py",
+    "--package-root",
+    "D:/coco_wire/py",
+    "--weights",
+    "D:/mdoeldata/pigcv-task05/models/yolo26m-seg.pt",
+    "--images",
+    "D:/coco_wire/data/images/val2017",
+    "--annotations",
+    "D:/coco_wire/data/annotations/instances_val2017.json",
+    "--records",
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_c0797f4ee9644d459f825cfd76ea90d6/instance_records.csv",
+    "--output",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8ecb45b277cc42c5a0d37217e010f5ab"
+  ],
+  "working_directory": "D:\\coco_wire",
+  "status": "completed",
+  "created_at": "2026-09-14T20:44:14.787+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_c0797f4ee9644d459f825cfd76ea90d6\\instance_records.csv",
+      "exists": true,
+      "sha256": "84a10d016335908996f25c3ae3cec67d2665e14be2c6819d96ceccb9d921fc2a",
+      "size": 6543668
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    },
+    {
+      "path": "D:\\mdoeldata\\pigcv-task05\\models\\yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\scripts\\deployment_v2\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\deployment_v2\\visualize_repairs.py",
+      "revision": "f74f64ee69e52cd1afe07c73fb23c550be1aff518d7e38d33f5464c6edb12936",
+      "snapshot": "snapshots/f74f64ee69e52cd1afe07c73fb23c550be1aff518d7e38d33f5464c6edb12936"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8ecb45b277cc42c5a0d37217e010f5ab/SUMMARY.json",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8ecb45b277cc42c5a0d37217e010f5ab/repair_damage_examples.png"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8ecb45b277cc42c5a0d37217e010f5ab"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 5684,
+  "started_at": "2026-09-14T20:44:15.331+00:00",
+  "last_heartbeat": "2026-09-14T20:44:20.341+00:00",
+  "metrics": {
+    "run_id": "RUN_8ecb45b277cc42c5a0d37217e010f5ab",
+    "selection": "Median absolute IoU change within each development transition group; tie break image and annotation ID",
+    "records": [
+      {
+        "selection_group": "Coverage-sufficient repair",
+        "eligible": 63,
+        "image_id": 54967,
+        "annotation_id": 360620,
+        "candidate_index": 19,
+        "baseline": {
+          "iou": 0.704,
+          "recall": 0.9887640449438202,
+          "purity": 0.7096774193548387
+        },
+        "method": {
+          "iou": 0.75,
+          "recall": 0.9775280898876404,
+          "purity": 0.7631578947368421
+        },
+        "crop_xyxy": [
+          217,
+          402,
+          253,
+          437
+        ]
+      },
+      {
+        "selection_group": "Other repair",
+        "eligible": 42,
+        "image_id": 3934,
+        "annotation_id": 2155391,
+        "candidate_index": 15,
+        "baseline": {
+          "iou": 0.7351778656126482,
+          "recall": 0.916256157635468,
+          "purity": 0.788135593220339
+        },
+        "method": {
+          "iou": 0.7757847533632287,
+          "recall": 0.8522167487684729,
+          "purity": 0.8963730569948186
+        },
+        "crop_xyxy": [
+          247,
+          130,
+          290,
+          175
+        ]
+      },
+      {
+        "selection_group": "Damage",
+        "eligible": 61,
+        "image_id": 25603,
+        "annotation_id": 2017204,
+        "candidate_index": 12,
+        "baseline": {
+          "iou": 0.7752545027407988,
+          "recall": 0.7850911974623315,
+          "purity": 0.9840954274353877
+        },
+        "method": {
+          "iou": 0.7121451104100947,
+          "recall": 0.7160983346550357,
+          "purity": 0.9923076923076923
+        },
+        "crop_xyxy": [
+          505,
+          36,
+          581,
+          122
+        ]
+      }
+    ],
+    "limitations": [
+      "Illustrative examples, not a population estimate",
+      "GT used only for post-evaluation selection and pixel diagnostics"
+    ]
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8ecb45b277cc42c5a0d37217e010f5ab\\SUMMARY.json",
+    "sha256": "2d9b6867beb0aa124654c3db454a8d5ce271b13e6580ae4551d52efc81a879ec"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-14T20:44:24.788+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8ecb45b277cc42c5a0d37217e010f5ab\\SUMMARY.json",
+      "exists": true,
+      "sha256": "2d9b6867beb0aa124654c3db454a8d5ce271b13e6580ae4551d52efc81a879ec"
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_8ecb45b277cc42c5a0d37217e010f5ab\\repair_damage_examples.png",
+      "exists": true,
+      "sha256": "9737b4dfa4e7d95cf519a781fecc07c12b5a652321529317630857b79494fb8b"
+    }
+  ]
+}

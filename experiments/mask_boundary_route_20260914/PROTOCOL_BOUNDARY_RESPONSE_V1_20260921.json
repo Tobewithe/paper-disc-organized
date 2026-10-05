@@ -1,0 +1,101 @@
+{
+  "protocol_id": "PROTOCOL_boundary_response_factorial_v1_20260921",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "environment": {
+    "python": "3.12.3",
+    "ultralytics": "8.4.100",
+    "torch": "2.5.1",
+    "numpy": "2.4.3",
+    "opencv": "4.13.0",
+    "pycocotools": "2.0.11",
+    "scipy": "1.15.2",
+    "scikit-learn": "1.6.1"
+  },
+  "package_root": "D:/coco_wire/py",
+  "weights": "D:/mdoeldata/pigcv-task05/models/yolo26m-seg.pt",
+  "images": "D:/coco_wire/data/images/train2017",
+  "annotations": "D:/coco_wire/data/annotations/calibration2000_train2017.json",
+  "bank": "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_a8504db0ec7a4975b28edafeca0bc4dd",
+  "split": "D:/coco_wire/data/annotations/calibration2000_split.json",
+  "frozen_rcmc": "D:/coco_wire/scripts/rcmc_mechanism_20260920/inputs/response.json",
+  "seed": 20260915,
+  "actions": [
+    {
+      "name": "smooth_gated",
+      "tau": "0.75/(1+(area/2304)^2)"
+    },
+    {
+      "name": "global_0.25",
+      "tau": 0.25
+    },
+    {
+      "name": "global_0.5",
+      "tau": 0.5
+    },
+    {
+      "name": "official_global",
+      "tau": 0.75
+    },
+    {
+      "name": "global_1.0",
+      "tau": 1.0
+    }
+  ],
+  "features": [
+    "log_area",
+    "log_elongation",
+    "extent",
+    "log_compactness",
+    "removed_fraction"
+  ],
+  "local_features": [
+    "removed_mean_logit",
+    "removed_std_logit",
+    "retained_mean_logit",
+    "retained_std_logit",
+    "inner_boundary_mean_logit",
+    "inner_boundary_std_logit",
+    "removed_boundary_fraction",
+    "removed_touch_retained_fraction",
+    "inner_boundary_fraction",
+    "positive_fraction_below_025",
+    "positive_fraction_below_075",
+    "positive_fraction_below_100"
+  ],
+  "feature_definition": "Statistics on frozen cropped input-grid logits clipped to [-20,20]; 3x3 inner boundary including image border; empty region statistics zero; base five features follow existing original-grid export; each multi-action row adds its numeric threshold as action descriptor",
+  "variants": [
+    "single_shape",
+    "single_local",
+    "multi_shape",
+    "multi_local"
+  ],
+  "estimator": {
+    "loss": "squared_error",
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 80,
+    "l2_regularization": 1.0,
+    "early_stopping": false,
+    "random_state": 20260915
+  },
+  "trees": 300,
+  "cutoff_grid": [
+    -0.005,
+    0,
+    0.001,
+    0.002,
+    0.005,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    1.0
+  ],
+  "selection": "Same 1500/500 train2017 split. Same matched identities and all success/failure groups. Max target repairs under frozen RCMC damage budget, then fewer damages, more overall repairs, summed IoU, higher cutoff. Multi-action rows have equal 1/K weight per original instance. Same total 300 seven-leaf trees in all variants. No selection using val results.",
+  "scope": "Pilot on fixed matched slots only; not COCO AP, not new blind confirmation. Extract only matched objects to minimize runtime. Single seed, no tree or feature retuning. GT creates labels and verifies parity only; all model inputs are prediction derived.",
+  "advance_rule": "A candidate must Pareto improve target repair versus BOTH single_shape and frozen RCMC on selection at frozen policies. Then freeze and proceed to all-prediction AP evaluation; selection is not independent proof. If none passes stop this pilot without searching.",
+  "runs": {
+    "fit_select": "RUN_a893d59e5d16441fadd42ef21e81a842",
+    "extract": "RUN_45aad6fe6aa54e2787d1332ca92ed597"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "config": {
+    "weights": "D:\\coco_wire\\models\\yolo26m-seg.pt",
+    "c_final": "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+    "readout": "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_full_seed0_retry5_area_fix_20261001\\C_READOUT.pt",
+    "cache": "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache",
+    "data": "D:\\coco_wire\\data",
+    "out": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_full_seed0_20261001",
+    "max_images": 0,
+    "outer_epochs": 1,
+    "lr": 1e-05,
+    "accum_images": 8,
+    "lambda_eval": 0.003
+  },
+  "result": {
+    "mode": "varpro_outer_pre_readout",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "images": 796,
+    "candidates": 6058,
+    "outer_epochs": 1,
+    "lr": 1e-05,
+    "accum_images": 8,
+    "lambda_eval": 0.003,
+    "weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "logs": [
+      {
+        "epoch": 1,
+        "objective_estimate": 2.286193194002408,
+        "candidates": 6058,
+        "last_grad_norm": 0.008640885353088379,
+        "elapsed_s": 63.437999999994645
+      }
+    ]
+  }
+}

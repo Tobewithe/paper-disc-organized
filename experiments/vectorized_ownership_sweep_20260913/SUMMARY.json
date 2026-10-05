@@ -1,0 +1,64 @@
+{
+  "status": "COMPLETE",
+  "images": 300,
+  "margins": [
+    0.0,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "rows": [
+    {
+      "arm": "original",
+      "mask_ap": 0.5158569875266273,
+      "mask_ap50": 0.7422522440109773,
+      "mask_ap75": 0.5588836732839895,
+      "predictions": 24565,
+      "changed": 0,
+      "removed": 0,
+      "images": 300
+    },
+    {
+      "arm": "own_m0p0",
+      "mask_ap": 0.43591978976310325,
+      "mask_ap50": 0.651483381967997,
+      "mask_ap75": 0.4539845535859665,
+      "predictions": 23118,
+      "changed": 56588316,
+      "removed": 56588316,
+      "images": 300
+    },
+    {
+      "arm": "own_m0p25",
+      "mask_ap": 0.4620888722233312,
+      "mask_ap50": 0.6921355746841628,
+      "mask_ap75": 0.4919803129159353,
+      "predictions": 24134,
+      "changed": 49394860,
+      "removed": 49394860,
+      "images": 300
+    },
+    {
+      "arm": "own_m0p5",
+      "mask_ap": 0.47829723162749743,
+      "mask_ap50": 0.7086560042833108,
+      "mask_ap75": 0.513542736060458,
+      "predictions": 24397,
+      "changed": 42571717,
+      "removed": 42571717,
+      "images": 300
+    },
+    {
+      "arm": "own_m1p0",
+      "mask_ap": 0.4954771322084938,
+      "mask_ap50": 0.7298253359979572,
+      "mask_ap75": 0.5292076636057774,
+      "predictions": 24508,
+      "changed": 31036048,
+      "removed": 31036048,
+      "images": 300
+    }
+  ],
+  "GT_used_in_inference": false,
+  "rule": "classwise max logit in candidate crop; suppress only when winner margin exceeds tau"
+}

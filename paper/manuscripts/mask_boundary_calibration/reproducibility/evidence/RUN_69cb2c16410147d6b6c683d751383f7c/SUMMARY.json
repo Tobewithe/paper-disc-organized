@@ -1,0 +1,181 @@
+{
+  "run_id": "RUN_69cb2c16410147d6b6c683d751383f7c",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_run_id": "RUN_2ae67d6556a14848bceb5783a72e5790",
+  "source_execution_status": "observed interrupted: no process, stale heartbeat, exit code unknown",
+  "recovery": "reuse three completed COCO evaluations; compute missing boundary_only evaluation from saved predictions; no model inference",
+  "branch": "one2one",
+  "images": 4500,
+  "start": 500,
+  "ordinary_gt": 32831,
+  "metrics": {
+    "official_zero": [
+      0.43378829983113415,
+      0.6616103654915565,
+      0.4684069936360102,
+      0.22717460051292646,
+      0.4751352465852975,
+      0.6410397905220456,
+      0.3395109945152272,
+      0.5514948652072141,
+      0.5958809836986783,
+      0.406178605654886,
+      0.656283403965914,
+      0.7681753462516039
+    ],
+    "smooth_gated": [
+      0.43828221067019196,
+      0.6629828199992381,
+      0.4756587568256892,
+      0.23109899534927347,
+      0.4781058646194709,
+      0.6409168507629428,
+      0.34221360052919253,
+      0.5559908770317828,
+      0.6000865258971667,
+      0.4181614773650159,
+      0.6536084373039732,
+      0.7670959386353285
+    ],
+    "filter_only": [
+      0.433797312306396,
+      0.6616253149066759,
+      0.4684147346547634,
+      0.2271911032632723,
+      0.47513578406321205,
+      0.6410396453805658,
+      0.33952526857721743,
+      0.5515077518051522,
+      0.59587730722809,
+      0.4061734946611385,
+      0.656283403965914,
+      0.7681753462516039
+    ],
+    "boundary_only": [
+      0.43827286660163206,
+      0.662962526438424,
+      0.47565085293727355,
+      0.23108380249891794,
+      0.47810525674388876,
+      0.6409169874131411,
+      0.3421993264672023,
+      0.5559865814991367,
+      0.6000838892364417,
+      0.4181532639083971,
+      0.6536084373039732,
+      0.7670959386353285
+    ]
+  },
+  "delta_vs_official": {
+    "official_zero": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "smooth_gated": [
+      0.004493910839057813,
+      0.001372454507681642,
+      0.007251763189679017,
+      0.003924394836347017,
+      0.0029706180341734223,
+      -0.00012293975910282473,
+      0.002702606013965325,
+      0.004496011824568713,
+      0.0042055421984884545,
+      0.011982871710129905,
+      -0.002674966661940781,
+      -0.0010794076162753408
+    ],
+    "filter_only": [
+      9.012475261860331e-06,
+      1.4949415119369647e-05,
+      7.741018753226747e-06,
+      1.6502750345842587e-05,
+      5.37477914563933e-07,
+      -1.451414798347983e-07,
+      1.4274061990227072e-05,
+      1.288659793807767e-05,
+      -3.6764705882985638e-06,
+      -5.110993747503567e-06,
+      0.0,
+      0.0
+    ],
+    "boundary_only": [
+      0.004484566770497911,
+      0.00135216094686752,
+      0.007243859301263367,
+      0.003909201985991484,
+      0.002970010158591274,
+      -0.0001228031089045567,
+      0.002688331951975098,
+      0.004491716291922576,
+      0.004202905537763479,
+      0.011974658253511072,
+      -0.002674966661940781,
+      -0.0010794076162753408
+    ]
+  },
+  "counts": {
+    "official_zero": {
+      "exported_nonempty": 506966
+    },
+    "smooth_gated": {
+      "exported_nonempty": 505968
+    },
+    "filter_only": {
+      "exported_nonempty": 505968
+    },
+    "boundary_only": {
+      "exported_nonempty": 506966
+    }
+  },
+  "all_candidates": 507043,
+  "baseline_empty": 77,
+  "smooth_empty": 1075,
+  "factorial_identity_checks": "all exported candidate IDs, categories, exact scores and mask RLEs verified for both counterfactuals",
+  "fixed_slot_transitions": {
+    "official_zero": {
+      "repaired": 0,
+      "damaged": 0,
+      "matched": 30426
+    },
+    "smooth_gated": {
+      "repaired": 907,
+      "damaged": 576,
+      "matched": 30426
+    },
+    "filter_only": {
+      "repaired": 0,
+      "damaged": 0,
+      "matched": 30426
+    },
+    "boundary_only": {
+      "repaired": 907,
+      "damaged": 576,
+      "matched": 30426
+    }
+  },
+  "factorial_effects_ap_points": {
+    "boundary_at_original_candidates": 0.4484566770497911,
+    "filter_at_original_masks": 0.0009012475261860331,
+    "boundary_at_filtered_candidates": 0.4484898363795953,
+    "filter_at_calibrated_masks": 0.0009344068559902219,
+    "interaction": 3.3159329804188786e-05
+  },
+  "limitations": [
+    "Previously explored COCO val2017, single model",
+    "Original job did not finish; its run.json remains untouched",
+    "AP point estimates, no AP significance claim",
+    "Original three-image parity output was not saved in a completed summary"
+  ],
+  "elapsed_seconds": 35.17458270000134
+}

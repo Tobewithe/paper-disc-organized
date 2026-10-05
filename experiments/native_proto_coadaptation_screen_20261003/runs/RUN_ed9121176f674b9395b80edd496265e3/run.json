@@ -1,0 +1,193 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_ed9121176f674b9395b80edd496265e3",
+  "study_id": "STUDY_be7a937ee973488d958f2eef5930b1dd",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/native_proto_coadaptation_screen_20261003/scripts/evaluate_proto.py",
+    "--config",
+    "/root/native_proto_coadaptation_screen_20261003/RUN_CONFIG.json",
+    "--out",
+    "/root/native_proto_coadaptation_screen_20261003/runs/RUN_ed9121176f674b9395b80edd496265e3"
+  ],
+  "working_directory": "/root/native_proto_coadaptation_screen_20261003",
+  "status": "completed",
+  "created_at": "2026-10-03T15:35:52.189+00:00",
+  "host": "autodl-container-7gyvcd108y-b99fe683",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-168-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/RUN_CONFIG.json",
+      "path_relative_to_cwd": "RUN_CONFIG.json",
+      "exists": true,
+      "sha256": "1ef73fb6b6485c9493197d4195985d0ed69de6e787f3b598847e1256731b74e0",
+      "size": 2806
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/SPLIT.json",
+      "path_relative_to_cwd": "SPLIT.json",
+      "exists": true,
+      "sha256": "a0223f98cc17fb318f394746ed02edee03bc1c9fd3645b0621ee766c7b8c553a",
+      "size": 16435
+    },
+    {
+      "path": "/root/autodl-tmp/prototype_guided_evidence_selection_20261003/models/yolo26m-seg.pt",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "/root/prototype_readout_fast_screen_20261003/cache/CACHE_IDENTITY.json",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "ade26783a4bb9de12b639b4cc433e4808bb8fca8e8f0dd98725b3b87791377e2",
+      "size": 845
+    },
+    {
+      "path": "/root/prototype_readout_fast_screen_20261003/runs/RUN_4d6e6904e02a4aa88ef8d33515768f6b/PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "5508561768932075523eefc864dff710703a051221d5cf864565c0c52faf257d",
+      "size": 5014596
+    },
+    {
+      "path": "/root/prototype_readout_fast_screen_20261003/runs/RUN_bd203c92371e45f986a3cdfe999ae143/final.pt",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "9474c5ab46bf6c19f91220fbf3043328a6a37064d0517786f2ac88c3f4f92210",
+      "size": 10307025
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/PROTOCOL.md",
+      "path_relative_to_cwd": "PROTOCOL.md",
+      "revision": "90b9c73a27b37199c05425c48562278831ca9e3f1a3517f3545ff41b2186f829",
+      "snapshot": "snapshots/90b9c73a27b37199c05425c48562278831ca9e3f1a3517f3545ff41b2186f829"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/RUN_CONFIG.json",
+      "path_relative_to_cwd": "RUN_CONFIG.json",
+      "revision": "1ef73fb6b6485c9493197d4195985d0ed69de6e787f3b598847e1256731b74e0",
+      "snapshot": "snapshots/1ef73fb6b6485c9493197d4195985d0ed69de6e787f3b598847e1256731b74e0"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/RUN_IDS.json",
+      "path_relative_to_cwd": "RUN_IDS.json",
+      "revision": "449e6e4a9fc318db56aed4835a729daa7d779378db709979c86f0b7a03679b86",
+      "snapshot": "snapshots/449e6e4a9fc318db56aed4835a729daa7d779378db709979c86f0b7a03679b86"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/REUSED_CODE.json",
+      "path_relative_to_cwd": "REUSED_CODE.json",
+      "revision": "9784ed144ecb8940bd2cbe7a44894b570ea73f28b6c3423deb9df513a8683517",
+      "snapshot": "snapshots/9784ed144ecb8940bd2cbe7a44894b570ea73f28b6c3423deb9df513a8683517"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/box_guided_head.py",
+      "path_relative_to_cwd": "scripts/box_guided_head.py",
+      "revision": "8541c61c5a6731f7447c4bfe4b92af1267f67cdf053c47e7d6775e05b92ae7d8",
+      "snapshot": "snapshots/8541c61c5a6731f7447c4bfe4b92af1267f67cdf053c47e7d6775e05b92ae7d8"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/collect_proto.py",
+      "path_relative_to_cwd": "scripts/collect_proto.py",
+      "revision": "1f3eeddd3045d4b4f275221edc1e7a0b68d45aee304429f5c3780c6c2d4ef660",
+      "snapshot": "snapshots/1f3eeddd3045d4b4f275221edc1e7a0b68d45aee304429f5c3780c6c2d4ef660"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/evaluate_proto.py",
+      "path_relative_to_cwd": "scripts/evaluate_proto.py",
+      "revision": "668815ca84093b8e3466cbea0cdab171f29ce055a8dc35a34f7b5328369a994c",
+      "snapshot": "snapshots/668815ca84093b8e3466cbea0cdab171f29ce055a8dc35a34f7b5328369a994c"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/evaluation_metrics.py",
+      "path_relative_to_cwd": "scripts/evaluation_metrics.py",
+      "revision": "36d539b9dac612233b68c3383737588e3e16c7c2393d9a7f19e8b630034a98e7",
+      "snapshot": "snapshots/36d539b9dac612233b68c3383737588e3e16c7c2393d9a7f19e8b630034a98e7"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/frozen_evaluation.py",
+      "path_relative_to_cwd": "scripts/frozen_evaluation.py",
+      "revision": "cd7b7a8b508eb6a40a7ab4a70db0cfffcc10b8e70ecddf58fe646fa82e4ceadf",
+      "snapshot": "snapshots/cd7b7a8b508eb6a40a7ab4a70db0cfffcc10b8e70ecddf58fe646fa82e4ceadf"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/native_proto_model.py",
+      "path_relative_to_cwd": "scripts/native_proto_model.py",
+      "revision": "bf302f12d5afa0f824572400cccd36eae574237afdef182474a818e55e24277e",
+      "snapshot": "snapshots/bf302f12d5afa0f824572400cccd36eae574237afdef182474a818e55e24277e"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/online_runtime.py",
+      "path_relative_to_cwd": "scripts/online_runtime.py",
+      "revision": "769ede5bdf9742e4aa45f971ac42d273815615ff2169d5c0c9ebfc47998e67a0",
+      "snapshot": "snapshots/769ede5bdf9742e4aa45f971ac42d273815615ff2169d5c0c9ebfc47998e67a0"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/pipeline_proto.py",
+      "path_relative_to_cwd": "scripts/pipeline_proto.py",
+      "revision": "02a2fd6975e967d9e0425fd8c668f89b0644d22cb5df7bf28764bf2c3e38b10a",
+      "snapshot": "snapshots/02a2fd6975e967d9e0425fd8c668f89b0644d22cb5df7bf28764bf2c3e38b10a"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/runtime_utils.py",
+      "path_relative_to_cwd": "scripts/runtime_utils.py",
+      "revision": "e997a4992ae6a8129d0ebd8a7c52cbd7a616159d6d9a1519437c1cdd865b7d6d",
+      "snapshot": "snapshots/e997a4992ae6a8129d0ebd8a7c52cbd7a616159d6d9a1519437c1cdd865b7d6d"
+    },
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/scripts/train_proto.py",
+      "path_relative_to_cwd": "scripts/train_proto.py",
+      "revision": "6261c2abed60b52372dbf3fb6e0be1ba5a9034a53b8813716108f9eebd6b1d7a",
+      "snapshot": "snapshots/6261c2abed60b52372dbf3fb6e0be1ba5a9034a53b8813716108f9eebd6b1d7a"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/native_proto_coadaptation_screen_20261003/runs/RUN_ed9121176f674b9395b80edd496265e3/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-7gyvcd108y-b99fe683",
+      "path": "/root/native_proto_coadaptation_screen_20261003/runs/RUN_ed9121176f674b9395b80edd496265e3"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 17327,
+  "started_at": "2026-10-03T15:35:52.542+00:00",
+  "last_heartbeat": "2026-10-03T15:37:13.027+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-03T15:37:16.446+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/native_proto_coadaptation_screen_20261003/runs/RUN_ed9121176f674b9395b80edd496265e3/COMPLETE.json",
+      "path_relative_to_cwd": "/root/native_proto_coadaptation_screen_20261003/runs/RUN_ed9121176f674b9395b80edd496265e3/COMPLETE.json",
+      "exists": true,
+      "sha256": "893a6509465ff58697bed4148e31cde9387a327c39b0f051004f927e632a99bc"
+    }
+  ]
+}

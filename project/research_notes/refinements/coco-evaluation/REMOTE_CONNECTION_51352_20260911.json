@@ -1,0 +1,26 @@
+{
+  "checked_local": "2026-09-11 08:13:19",
+  "host": "connect.westc.seetacloud.com",
+  "port": 51352,
+  "user": "root",
+  "authentication": "success; supplied password used in memory only",
+  "host_key_sha256": "962677eaf342b0d70d757796b387fe83964884f33f66284ff37e2fc6cf1496a7",
+  "session_closed": true,
+  "remote_mutations": false,
+  "findings": {
+    "/root/autodl-tmp": [
+      ".autodl"
+    ],
+    "/mnt": [],
+    "/home": [],
+    "/root/tf-logs": [],
+    "/root/miniconda3/envs": []
+  },
+  "absent_paths": [
+    "/root/autodl-tmp/datasets/coco",
+    "/root/autodl-fs",
+    "/data",
+    "/workspace"
+  ],
+  "conclusion": "Connection succeeds, but inspected working/data locations contain no historical COCO project, labels or cache. Old disk/project restore or correct prior server required for direct historical-cache audit. No files uploaded, installed, edited or removed."
+}

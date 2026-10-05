@@ -1,0 +1,161 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_efc09385a0224d8b8bb355d12716af9c",
+  "study_id": "STUDY_807e983e44a8416f8d44686c7d053dee",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/train_bridge.py",
+    "--study",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916",
+    "--out",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c",
+    "--arm",
+    "hard_gt"
+  ],
+  "working_directory": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source",
+  "status": "completed",
+  "created_at": "2026-09-15T17:02:43.210+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/protocol.json",
+      "exists": true,
+      "sha256": "6c21028aaa382504b4e8f6fe9ebedd96e1399f319ae0243b874325ced8fd29c0",
+      "size": 2456
+    },
+    {
+      "path": "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/data/train.yaml",
+      "exists": true,
+      "sha256": "74cb4c537b5dd2f1df30c8a387b52c9f9b20060c8392403d8b6961fae25b2542",
+      "size": 1290
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/data/train.txt",
+      "exists": true,
+      "sha256": "26f1674b48b76696acf86af137e1cc54d127305371646e2832ef65d4f496720c",
+      "size": 69000
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/coco_metrics.py",
+      "revision": "5944b3847063eed43db55dc3030d5b9bdac88d6a6707fbdb59995f9db8e1706a",
+      "snapshot": "snapshots/5944b3847063eed43db55dc3030d5b9bdac88d6a6707fbdb59995f9db8e1706a"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/evaluate_bridge.py",
+      "revision": "9cc895644547598133a93753623f06678b905478214e6537537f2b5d7bfd791a",
+      "snapshot": "snapshots/9cc895644547598133a93753623f06678b905478214e6537537f2b5d7bfd791a"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/prepare.py",
+      "revision": "e84a73968f4b7d19da5fcd5d9559810be726f5f1ef0a5c5eacd39b7f70382e27",
+      "snapshot": "snapshots/e84a73968f4b7d19da5fcd5d9559810be726f5f1ef0a5c5eacd39b7f70382e27"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/recording.py",
+      "revision": "a2953a182b4b4f1b02c2b7319d52fa542feb1ce19299b74a12ab0f8469650498",
+      "snapshot": "snapshots/a2953a182b4b4f1b02c2b7319d52fa542feb1ce19299b74a12ab0f8469650498"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/run_queue.py",
+      "revision": "73655209b4b223d532632e0025e2bec25a3dee06fa3bc5f141c38c00168b4afd",
+      "snapshot": "snapshots/73655209b4b223d532632e0025e2bec25a3dee06fa3bc5f141c38c00168b4afd"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/summarize.py",
+      "revision": "827b047fbe46881d425b6138c916d39d1f80844b5f25d80d6f394dcc6bb3e49e",
+      "snapshot": "snapshots/827b047fbe46881d425b6138c916d39d1f80844b5f25d80d6f394dcc6bb3e49e"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/train_bridge.py",
+      "revision": "837aabc19f55f09223da4c103dca03d2b06f16b19a5d4ca70e7aeaf4c404d311",
+      "snapshot": "snapshots/837aabc19f55f09223da4c103dca03d2b06f16b19a5d4ca70e7aeaf4c404d311"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/verify_saved.py",
+      "revision": "ed4a6f65c36b250c9fc38826b3cab6ca6e043757785c9f98006bab4625375ee3",
+      "snapshot": "snapshots/ed4a6f65c36b250c9fc38826b3cab6ca6e043757785c9f98006bab4625375ee3"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/execution_source/protocol.json",
+      "revision": "6c21028aaa382504b4e8f6fe9ebedd96e1399f319ae0243b874325ced8fd29c0",
+      "snapshot": "snapshots/6c21028aaa382504b4e8f6fe9ebedd96e1399f319ae0243b874325ced8fd29c0"
+    }
+  ],
+  "scope": {
+    "kind": "training",
+    "arm": "hard_gt",
+    "seed": 0,
+    "epochs": 1,
+    "train_images": 1000
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/TRAINING_COMPLETE.json",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/weights/last.pt",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/auxiliary_epochs.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 3740,
+  "started_at": "2026-09-15T17:02:43.436+00:00",
+  "last_heartbeat": "2026-09-15T17:04:53.559+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-15T17:04:56.577+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/TRAINING_COMPLETE.json",
+      "exists": true,
+      "sha256": "dd5cb77390e1574edd6b7443280b2143f81e34205497409a13767e22bf30d180"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/weights/last.pt",
+      "exists": true,
+      "sha256": "27a65f13e88b05815a2df26dc6479d681caec5ae6a380252124525997b42f651"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_efc09385a0224d8b8bb355d12716af9c/auxiliary_epochs.json",
+      "exists": true,
+      "sha256": "98e86169999b17e86b10319d898b44ac6c5e90bba074b851a127030f031bcd5b"
+    }
+  ]
+}

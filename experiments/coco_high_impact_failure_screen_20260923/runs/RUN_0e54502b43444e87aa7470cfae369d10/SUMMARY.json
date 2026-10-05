@@ -1,0 +1,73 @@
+{
+  "selected_images": 5,
+  "candidate_images": 370,
+  "selection_image_ids": [
+    182611,
+    183391,
+    227511,
+    266981,
+    291634
+  ],
+  "counts": {
+    "verified_images": 5,
+    "ambiguous_raw_excluded": 4
+  },
+  "groups": {
+    "adjacent": {
+      "pairs": 8,
+      "images": 4,
+      "endpoints": 5,
+      "mean_weight_grad_cos": 0.17362235666950832,
+      "negative_weight_grad_fraction": 0.375,
+      "mean_bias_grad_cos": 0.20050826482474804,
+      "mean_feature_cos": 0.6167175769805908,
+      "mean_coefficient_cos": 0.7342401221394539,
+      "mean_left_to_right_leak_pixels": 24.875,
+      "leak_positive_fraction": 0.625
+    },
+    "nonadjacent": {
+      "pairs": 22,
+      "images": 4,
+      "endpoints": 5,
+      "mean_weight_grad_cos": 0.09963462809820565,
+      "negative_weight_grad_fraction": 0.36363636363636365,
+      "mean_bias_grad_cos": 0.16040919585661453,
+      "mean_feature_cos": 0.3667180050503124,
+      "mean_coefficient_cos": 0.5652646571397781,
+      "mean_left_to_right_leak_pixels": 0.0,
+      "leak_positive_fraction": 0.0
+    },
+    "adjacent_size2": {
+      "pairs": 2,
+      "images": 2,
+      "endpoints": 2,
+      "mean_weight_grad_cos": 0.37480480963579677,
+      "negative_weight_grad_fraction": 0.0,
+      "mean_bias_grad_cos": 0.5070320814847946,
+      "mean_feature_cos": 0.7067704498767853,
+      "mean_coefficient_cos": 0.7519573867321014,
+      "mean_left_to_right_leak_pixels": 58.5,
+      "leak_positive_fraction": 0.5
+    },
+    "nonadjacent_size2": {
+      "pairs": 11,
+      "images": 4,
+      "endpoints": 5,
+      "mean_weight_grad_cos": 0.19266494034950216,
+      "negative_weight_grad_fraction": 0.2727272727272727,
+      "mean_bias_grad_cos": 0.3335770341483029,
+      "mean_feature_cos": 0.5007059926336462,
+      "mean_coefficient_cos": 0.6387156600301916,
+      "mean_left_to_right_leak_pixels": 0.0,
+      "leak_positive_fraction": 0.0
+    }
+  },
+  "paired_failure_endpoints": 4,
+  "paired_images": 3,
+  "paired_image_mean_adjacent_minus_nonadjacent_weight_grad_cos": 0.19788442241237036,
+  "paired_image_bootstrap95": [
+    -0.020090505684255522,
+    0.3440533563773173
+  ],
+  "limitations": "Current output, fixed proto and last coefficient readout only; paired image bootstrap does not account for model-training variability."
+}

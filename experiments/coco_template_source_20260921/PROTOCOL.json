@@ -1,0 +1,25 @@
+{
+  "status": "authorized_ready_to_run",
+  "question": "Does spatial calibration need the old learned template or work with simple/data-residual templates?",
+  "model": "Official COCO YOLO26m-seg, Ultralytics8.4.100; frozen boxes/scores/prototypes/coefficients",
+  "data": "Reuse original800fit200selection and bank; no val fitting; all5000val normal outputs",
+  "arms": {
+    "analytic_center": "4x4 grid at linspace(-1,1,4) node coordinates: -(x*x+y*y). No old local head or training labels needed to generate shape.",
+    "shuffled_learned": "One permutation of all16 old-template values using numpy default_rng(20260921); fixed globally before evaluation. Value multiset preserved; interpolation geometry can change.",
+    "fit_residual": "For each filtered fit-bank record only, pool target-sigmoid(original_base) from32x32 to4x4; average per image, then across fit images. This is mean negative BCE logit-gradient shape, not average GT silhouettes and not old network outputs."
+  },
+  "controls": "Reuse existing seed0 scalar, local16 and independent learned-template head under pixel-center decoding. No new control training.",
+  "training": "Each new arm independent same two-output architecture,seed0,8epochs,AdamWlr3e-4wd1e-4,batch64,BCE+0.5Dice,clip10,last epoch. ROI and full-crop normalization as existing shared2 code.",
+  "alpha_selection": "Only original200trainselection images: [0,.25,.5,1], choose meanROI IoU,tie lower. Evaluate all three arms, including poor/zero-strength arms.",
+  "budget": "Three new heads,one seed each; no additional architecture or alpha search, no automatic seed1/2 extension. This is exploratory ablation,not final multi-seed claim.",
+  "metrics": "Official all5000val COCO AP/AP75/APS/APM/APL/AR, Mask75 repaired/damaged GT; reuse evaluator that omits bbox in segm loadRes. No theorem of equivalence from similar point estimates.",
+  "interpretation": "If analytic performs similarly, learned template source may be unnecessary; if permutation similar, special learned layout not established; if fit_residual retains gains, old local head may be removable. Single seed and one permutation are limited controls.",
+  "boundaries": [
+    "Train GT used for fit/selection only; none in test-time refinement.",
+    "Different template source splits (old200 vs newfit800) are disclosed; this is removal of old-head dependency,not a pure source-only randomized comparison.",
+    "Val2017 has been explored repeatedly; no independent confirmation claim.",
+    "A permuted template may alter spatial smoothness; do not attribute all performance differences uniquely to semantic layout.",
+    "Current code remains unoptimized; do not infer latency reduction from two outputs."
+  ],
+  "execution_decision": "2026-09-22: 用户指示开始，恢复本轮预先设计的三组模板对照。单种子，8轮，完整5000图评价；不自动扩大预算。"
+}

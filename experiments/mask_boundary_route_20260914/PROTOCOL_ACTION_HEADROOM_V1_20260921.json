@@ -1,0 +1,27 @@
+{
+  "protocol_id": "PROTOCOL_action_headroom_v1_20260921",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "environment": {
+    "python": "3.12.3",
+    "ultralytics": "8.4.100",
+    "torch": "2.5.1",
+    "numpy": "2.4.3",
+    "opencv": "4.13.0",
+    "pycocotools": "2.0.11",
+    "scipy": "1.15.2",
+    "scikit-learn": "1.6.1"
+  },
+  "package_root": "D:/coco_wire/py",
+  "decisions": "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_fc304c4383b84944b974ffd6a635669f/instance_decisions.csv",
+  "image_ids": "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_2ae67d6556a14848bceb5783a72e5790/image_ids.json",
+  "threshold_pixels": "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_9fa3374a7519409fb2b09995ce37affb/threshold_pixels.csv",
+  "bootstrap_repeats": 2000,
+  "seed": 20260921,
+  "run_id": "RUN_f0637eedd3bc42c0bc4e564a2f96519a",
+  "oracle_rule": "Maximize fixed-slot IoU with baseline included; ties lower coverage cost then baseline; empty intervention restores baseline",
+  "budgets": [
+    0.01,
+    0.02
+  ],
+  "scope": "Single action full cohort; nested single vs single+existing grid on the same panel only; no AP or new forward"
+}

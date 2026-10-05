@@ -1,0 +1,91 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_699bcf7ff3ce49d8aec8cd01ccf22cd3",
+  "study_id": "STUDY_d9b0759cb83e468398f7326ef4418aad",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coefficient_gradient_geometry_20260925/scripts/gradient_geometry.py",
+    "--source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--oracle",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_0c62bc2c9d8a48d78af75436f0d0eef0",
+    "--out",
+    "/root/autodl-tmp/coefficient_gradient_geometry_20260925/runs/RUN_699bcf7ff3ce49d8aec8cd01ccf22cd3",
+    "--iterations",
+    "60"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_gradient_geometry_20260925",
+  "status": "failed",
+  "created_at": "2026-09-24T17:32:16.953+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_0c62bc2c9d8a48d78af75436f0d0eef0/COMPLETE.json",
+      "exists": true,
+      "sha256": "34a4db1d1487aa367a52e1ec87739a4023dd58b0a6f1516466992860809e99c8",
+      "size": 37
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_gradient_geometry_20260925/scripts/gradient_geometry.py",
+      "revision": "f8fbde17ab9aed1abe5bb4f702a6cb2d7b88b6f1da0b8ad6536c8987f9906990",
+      "snapshot": "snapshots/f8fbde17ab9aed1abe5bb4f702a6cb2d7b88b6f1da0b8ad6536c8987f9906990"
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_gradient_geometry_20260925/scripts/PROTOCOL.md",
+      "revision": "ec3b2d50f2dde5fab5de116119d2523f79822700a50f85ac78ad6c4e1788b697",
+      "snapshot": "snapshots/ec3b2d50f2dde5fab5de116119d2523f79822700a50f85ac78ad6c4e1788b697"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_699bcf7ff3ce49d8aec8cd01ccf22cd3/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_gradient_geometry_20260925/runs/RUN_699bcf7ff3ce49d8aec8cd01ccf22cd3"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 50895,
+  "started_at": "2026-09-24T17:32:17.056+00:00",
+  "last_heartbeat": "2026-09-24T17:32:32.060+00:00",
+  "return_code": 1,
+  "finished_at": "2026-09-24T17:32:33.868+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "runs/RUN_699bcf7ff3ce49d8aec8cd01ccf22cd3/COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_gradient_geometry_20260925/runs/RUN_699bcf7ff3ce49d8aec8cd01ccf22cd3/COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

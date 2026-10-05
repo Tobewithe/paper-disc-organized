@@ -1,0 +1,23 @@
+{
+  "question": "Do detection-oriented candidate selection and positive assignment miss available segmentation-quality positions in official pretrained YOLO26m-seg?",
+  "model": "official COCO pretrained yolo26m-seg.pt; Ultralytics 8.4.100; no fine-tuning",
+  "phase1": {
+    "data": "all 5000 COCO val2017 images; all original annotations; crowd retained for COCOeval",
+    "sources": ["RUN_c0797f4ee9644d459f825cfd76ea90d6", "RUN_8fe82201101b4e9d941cb07a3496c110"],
+    "branch": "one2one",
+    "mask_export": "official input-grid process_mask, then validator-style binary scale and byte; empty masks omitted by original exporter",
+    "evaluation": "concatenate original zero-threshold prediction lists and recompute COCOeval segm; never average AP; cached predictions lack native bbox so no full Box AP claim",
+    "structure": "existing confidence-ordered unique same-class Box50 slots; Box75/Mask75 split; unmatched original GT retained; distinct from official segm matches",
+    "error_budget": "coverage TP/G below .75 needs own-pixel recovery; coverage at least .75 admits ideal FP removal; neither identifies network cause",
+    "candidate_opportunity": "best same-class exported mask per GT; also maximum bipartite Mask75 matching to account for competition; these are diagnostic opportunities, not deployment gains"
+  },
+  "phase2": {
+    "sample": "32 randomly selected unique-image Box75-good Mask75-bad slots plus 32 nearest same-class log-area successful controls; seed 20260916; preserve all GT competitors in each image",
+    "forward": "batch1, FP32, imgsz640 stride32 auto-letterbox; frozen eval model, both raw branches available; one2one primary",
+    "assignment": "reuse native TaskAlignedAssigner via v8DetectionLoss; one2many topk10; one2one topk7 topk2=1; replay on all original noncrowd COCO boxes in input coordinates, not historical augmented training assignment",
+    "candidate_pool": "per GT union native assigned positions, top 32 box-IoU positions, top 32 GT-class-score positions among BoxIoU>=.5, and exact retained one2one slot; pool-bounded best only",
+    "mask_comparison": "native predicted box crop and common fixed retained-box crop; shared prototype and decoder; chunk8",
+    "metrics": "selected/best-box/best-mask/best-own-assigned Mask IoU, Mask75 recovery, native assignment ownership, GT score, scale, fixed-crop residual advantage",
+    "limitations": "GT-assisted diagnosis; one model; COCO val previously explored; no proof of historical gradient starvation or causal training error; no new training in this study"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_93b2703f5c574c79a3d6e367027dc6f7",
+  "study_id": "STUDY_c7916dd6f40b4ecd8db522684b811a69",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/scripts/evaluate_spatial.py",
+    "--official-source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--metrics-source",
+    "/root/autodl-tmp/coefficient_gradient_geometry_20260925",
+    "--val-targets",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_783b955a16ac42369921f39803a26eee",
+    "--val-descriptors",
+    "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_f37cd3665b7e4093a87f5fc5e6cd865c",
+    "--training",
+    "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_f74e710d78684f8e8e8cd5fcbc41581e",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--annotations",
+    "/root/autodl-tmp/coefficient_predictability_20260924/data/annotations/instances_val2017.json",
+    "--out",
+    "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_93b2703f5c574c79a3d6e367027dc6f7"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925",
+  "status": "completed",
+  "created_at": "2026-09-25T15:16:49.300+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_f74e710d78684f8e8e8cd5fcbc41581e/COMPLETE.json",
+      "exists": true,
+      "sha256": "5f67e3314e5da6ea6ea040933ccb9c45a5afa9c707cbdc4549eeeb0c70d04d51",
+      "size": 211
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_f37cd3665b7e4093a87f5fc5e6cd865c/COMPLETE.json",
+      "exists": true,
+      "sha256": "f8a78924192353dc5ef5cc8226829c13c94f9066671a1e5748845cc72cf9f34e",
+      "size": 183
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/scripts/evaluate_spatial.py",
+      "revision": "a3508ca5db245522c5554293c2fe992f2bbc1e34b01efe99c34a4874fcbd840b",
+      "snapshot": "snapshots/a3508ca5db245522c5554293c2fe992f2bbc1e34b01efe99c34a4874fcbd840b"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_93b2703f5c574c79a3d6e367027dc6f7/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_93b2703f5c574c79a3d6e367027dc6f7"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 4685,
+  "started_at": "2026-09-25T15:16:49.406+00:00",
+  "last_heartbeat": "2026-09-25T15:17:14.414+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-25T15:17:19.343+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_spatial_descriptor_20260925/runs/RUN_93b2703f5c574c79a3d6e367027dc6f7/COMPLETE.json",
+      "exists": true,
+      "sha256": "1b320a2ba744d10dbd63ad1c8d781c195076092f2deecb87cbbcefff2e335fe2"
+    }
+  ]
+}

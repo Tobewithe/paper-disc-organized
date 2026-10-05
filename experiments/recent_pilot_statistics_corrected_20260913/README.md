@@ -1,0 +1,5 @@
+# Recent pilot statistical correction
+
+S063 and S065 earlier isin-based bootstrap intervals are withdrawn. The paired image bootstrap here preserves resampling multiplicities and all 300 image IDs. Point estimates use the full sample, not the mean of bootstrap draws. Three fixed training seeds are paired; pooled CIs average their responses within each resampled image, not pool GT as independent replicates. CIs do not include multiple-testing correction or unseen training seed variance. All runs reused an extensively explored transfer set from train2017. Historical r75_low means ICI nonhigh (<=.5), not genuinely low density. No AP confidence intervals computed. Checkpoint receipts inherited 135; actual count is 90. Do not overwrite historical receipts.
+
+Loss caveats: S063 reweights BCE only, with unnormalized 1+3E4, so global BCE/Dice scale changes. S065 normalizes an instance BCE weight; samples are selected in GT-box support. S066 also applies factor to Dice, unlike raw, and changes mean BCE scale. Thus none identifies uncertainty or density as a causal mechanism in isolation.

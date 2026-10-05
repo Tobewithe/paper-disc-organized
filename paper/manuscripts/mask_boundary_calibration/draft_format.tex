@@ -1,0 +1,10 @@
+% Draft-only front matter overrides for the licensed 2013 PRL template.
+% Body geometry, font size, column widths, caption style remain from prletters.
+% Do not print fictitious publisher copyright, receipt dates, or publisher logo.
+\makeatletter
+\def\ps@PRlettersTitle{\def\@oddhead{\small Pattern Recognition Letters\hfill Research manuscript\quad\thepage}\let\@evenhead\@oddhead\def\@oddfoot{}\let\@evenfoot\@oddfoot}
+\renewenvironment{abstract}{\global\setbox\absbox=\vbox\bgroup\hsize=\textwidth\noindent\textbf{Abstract}\par\small\noindent}{\par\egroup}
+\def\keyword{\global\setbox\keybox=\vbox\bgroup\hsize=\textwidth\small\noindent\textit{Keywords: }\def\sep{;\space}\ignorespaces}
+\def\endkeyword{\par\egroup}
+\long\def\MaketitleBox{\resetTitleCounters\begin{flushleft}\Large\bfseries\@title\par\vskip12pt\normalfont\small\elsauthors\par\vskip12pt\unvbox\absbox\vskip8pt\unvbox\keybox\end{flushleft}\vskip12pt}
+\makeatother

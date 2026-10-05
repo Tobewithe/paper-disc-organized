@@ -1,0 +1,161 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_afe902507dec4c8e8f88ac0de896e73c",
+  "study_id": "STUDY_705a9cfe855647889acac003537d7748",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/scripts/scale_curve.py",
+    "--source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--train-bank",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3",
+    "--order",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3/ORDER.json",
+    "--anchor-oracle",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_8a85608c855a47d188541dab2a0d3168/ROWS.json",
+    "--images",
+    "16",
+    "--epochs",
+    "200",
+    "--min-epochs",
+    "200",
+    "--out",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_afe902507dec4c8e8f88ac0de896e73c"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_data_scaling_20260924",
+  "status": "completed",
+  "created_at": "2026-09-24T17:07:24.251+08:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3/COMPLETE.json",
+      "exists": true,
+      "sha256": "3bd5b70b75c65e0d32c70b33c9966d98b33673e2a00d6a7ecb376201a43e387d",
+      "size": 295
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3/ORDER.json",
+      "exists": true,
+      "sha256": "01941e0d9ec4e8b578514bb975293bc4d80b66b3494a6d0681be9a33099f8bd2",
+      "size": 120636
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_8a85608c855a47d188541dab2a0d3168/ROWS.json",
+      "exists": true,
+      "sha256": "5aa5ea8fecf9652f208a0b9ed4e72a05c3d506d97c87f9a5ad9a63a6cb7e7b82",
+      "size": 33478
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/scripts/scale_curve.py",
+      "revision": "6d7d1c1e19954eaca9033c0a807a10566918cb5cd3833e5be5108322f8768e5f",
+      "snapshot": "snapshots/6d7d1c1e19954eaca9033c0a807a10566918cb5cd3833e5be5108322f8768e5f"
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/PROTOCOL.md",
+      "revision": "45cb92841d79ece2fc7baf7f99ca3a24527e75dbfff2bed71fe3c007a8abb733",
+      "snapshot": "snapshots/45cb92841d79ece2fc7baf7f99ca3a24527e75dbfff2bed71fe3c007a8abb733"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_afe902507dec4c8e8f88ac0de896e73c/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_afe902507dec4c8e8f88ac0de896e73c"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 9454,
+  "started_at": "2026-09-24T17:07:24.353+08:00",
+  "last_heartbeat": "2026-09-24T17:11:39.643+08:00",
+  "metrics": {
+    "images": 16,
+    "chosen_epoch": 0,
+    "last_epoch": 200,
+    "dev_original": 0.2597816614792835,
+    "best_dev_loss": 0.2597816614792835,
+    "last_checkpoint_gaps": {
+      "train_anchor": {
+        "n": 82,
+        "original_loss": 0.19856738744349015,
+        "oracle_loss": 0.05642997880957853,
+        "selected_loss": 0.08613121055248307,
+        "gap_closed": 0.7910386011088546
+      },
+      "val_oracle": {
+        "n": 200,
+        "original_loss": 0.29681318225339054,
+        "oracle_loss": 0.047567771430441025,
+        "selected_loss": 1.8985533397458494,
+        "gap_closed": -6.426357669751635
+      }
+    },
+    "train_anchor": {
+      "n": 82,
+      "original_loss": 0.19856738744349015,
+      "oracle_loss": 0.05642997880957853,
+      "selected_loss": 0.1985673849902502,
+      "gap_closed": 1.725963612411285E-08
+    },
+    "val_oracle": {
+      "n": 200,
+      "original_loss": 0.29681318225339054,
+      "oracle_loss": 0.047567771430441025,
+      "selected_loss": 0.2968131799250841,
+      "gap_closed": 9.341421488368344E-09
+    },
+    "val_all": {
+      "n": 1346,
+      "mean_iou_original": 0.7485404117031864,
+      "mean_iou_selected": 0.7485404117031864,
+      "mask75_original": 831,
+      "mask75_selected": 831,
+      "repairs": 0,
+      "damages": 0
+    },
+    "scope": "Single-seed frozen one2one candidate diagnostic, not COCO AP"
+  },
+  "metrics_source": {
+    "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_afe902507dec4c8e8f88ac0de896e73c/SUMMARY.json",
+    "sha256": "67f8483424c2f828868eb40bc354f6a800b2d6f09f15fe835d946ef3dfa41cae"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-24T17:11:42.748+08:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_afe902507dec4c8e8f88ac0de896e73c/COMPLETE.json",
+      "exists": true,
+      "sha256": "6dc66c2ef0c6b0557ab9db45f4a3c9416957a64b51b5c26a9e3dfdbf0b9849e9"
+    }
+  ],
+  "recorder_study_argument": "/root/autodl-tmp/coefficient_data_scaling_20260924/study.json"
+}

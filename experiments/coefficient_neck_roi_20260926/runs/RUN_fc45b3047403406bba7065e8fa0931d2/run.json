@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_fc45b3047403406bba7065e8fa0931d2",
+  "study_id": "STUDY_e18b3b2aafa348e4aad53d03a51afe7d",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "scripts/evaluate_neck.py",
+    "--official-source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--metrics-source",
+    "/root/autodl-tmp/coefficient_gradient_geometry_20260925",
+    "--val-targets",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_783b955a16ac42369921f39803a26eee",
+    "--val-metadata",
+    "/root/autodl-tmp/coefficient_neck_roi_20260926/runs/RUN_4e0cb808a4e64f2ebd7c365fd8e9dc0b/val",
+    "--val-neck",
+    "/root/autodl-tmp/coefficient_neck_roi_20260926/runs/RUN_d7f5e571d429471390c524cb402e90ee",
+    "--training",
+    "/root/autodl-tmp/coefficient_neck_roi_20260926/runs/RUN_e81f2cce17144df394e6d52646197537",
+    "--bank",
+    "/root/autodl-tmp/coefficient_predictability_20260924/runs/RUN_d2e3941a644c4cdbbf43405b3b54035f",
+    "--annotations",
+    "/root/autodl-tmp/coefficient_predictability_20260924/data/annotations/instances_val2017.json",
+    "--out",
+    "/root/autodl-tmp/coefficient_neck_roi_20260926/runs/RUN_fc45b3047403406bba7065e8fa0931d2"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_neck_roi_20260926",
+  "status": "completed",
+  "created_at": "2026-09-25T16:45:31.280+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_neck_roi_20260926/scripts/evaluate_neck.py",
+      "revision": "373de80bfcd4f9d45e00602ae373444a31e6ad5f023161a5db70657d2f904a3e",
+      "snapshot": "snapshots/373de80bfcd4f9d45e00602ae373444a31e6ad5f023161a5db70657d2f904a3e"
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_neck_roi_20260926/scripts/train_neck.py",
+      "revision": "dd0306d7776604dbcf43cfbc775fb7839334915e1099cbd57bbc3ef3bd959229",
+      "snapshot": "snapshots/dd0306d7776604dbcf43cfbc775fb7839334915e1099cbd57bbc3ef3bd959229"
+    },
+    {
+      "path": "/root/autodl-tmp/coefficient_neck_roi_20260926/PROTOCOL.md",
+      "revision": "bc49f3e21a97b55f498d4cab73bbead3953a259fd58b7896432fa193eeb447b8",
+      "snapshot": "snapshots/bc49f3e21a97b55f498d4cab73bbead3953a259fd58b7896432fa193eeb447b8"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_fc45b3047403406bba7065e8fa0931d2/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_neck_roi_20260926/runs/RUN_fc45b3047403406bba7065e8fa0931d2"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 8216,
+  "started_at": "2026-09-25T16:45:31.386+00:00",
+  "last_heartbeat": "2026-09-25T16:45:56.396+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-25T16:45:58.857+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_neck_roi_20260926/runs/RUN_fc45b3047403406bba7065e8fa0931d2/COMPLETE.json",
+      "exists": true,
+      "sha256": "1d1f2d8818d29bc801e0c384498e7d69a43a7eb5104311884b66d81afcf9129a"
+    }
+  ]
+}

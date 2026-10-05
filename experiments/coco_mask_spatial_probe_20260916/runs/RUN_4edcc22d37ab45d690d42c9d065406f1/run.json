@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_9afa87325057424bac19e16ddd6de44d",
+  "study_id": "STUDY_82ea1e5264ca430a97dff79b8912f847",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/component_seed_probe.py",
+    "train",
+    "--reference",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6",
+    "--out",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_4edcc22d37ab45d690d42c9d065406f1",
+    "--bank",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_e83cf453bd6e47feb025ef4259bc8499/training_bank.pt",
+    "--mode",
+    "coeff",
+    "--seed",
+    "0"
+  ],
+  "working_directory": "/root/autodl-tmp/coco_mask_spatial_probe_20260916",
+  "status": "completed",
+  "created_at": "2026-09-16T06:51:11.210+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_690c1580277a44679752ff727705f2e6/SPLIT.json",
+      "exists": true,
+      "sha256": "341c7bb9f2f6186f9985d800e0986ffea6f1baeb48b2c200dfeab25aab046ade",
+      "size": 47212
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/ablation_manifest.json",
+      "exists": true,
+      "sha256": "885e4e16e54dde9ca36f8d590148d5426abad179c5a04e68a3e1ce5888e66a03",
+      "size": 897
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/component_seed_probe.py",
+      "revision": "c36e82c42698dbe62449a7ef9f808427c333aa0d824d1ebad44ac1ce296ac115",
+      "snapshot": "snapshots/c36e82c42698dbe62449a7ef9f808427c333aa0d824d1ebad44ac1ce296ac115"
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/learn_refinement.py",
+      "revision": "47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912",
+      "snapshot": "snapshots/47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912"
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/scripts/repair_refinement.py",
+      "revision": "d666b292e46dde34e5ba76910a7e7c3a91cb40e7d03352123141d2a8638b8165",
+      "snapshot": "snapshots/d666b292e46dde34e5ba76910a7e7c3a91cb40e7d03352123141d2a8638b8165"
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/ABLATION_PROTOCOL.json",
+      "revision": "6b53aa6cd79f07d7e594bd7fdfd0f347b0a36c5325599874abb5af0f75a44dfc",
+      "snapshot": "snapshots/6b53aa6cd79f07d7e594bd7fdfd0f347b0a36c5325599874abb5af0f75a44dfc"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_4edcc22d37ab45d690d42c9d065406f1/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_4edcc22d37ab45d690d42c9d065406f1"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 8801,
+  "started_at": "2026-09-16T06:51:11.321+00:00",
+  "last_heartbeat": "2026-09-16T06:51:26.325+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-16T06:51:28.069+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/runs/RUN_4edcc22d37ab45d690d42c9d065406f1/COMPLETE.json",
+      "exists": true,
+      "sha256": "39ad9037dbc4c798e5acd646035f2bdf4aa501a554940c5c43f28a60756e73a7"
+    }
+  ]
+}

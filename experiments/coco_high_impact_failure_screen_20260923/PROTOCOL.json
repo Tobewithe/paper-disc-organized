@@ -1,0 +1,9 @@
+{
+  "question": "Which common COCO failure object offers substantial but still unexplained improvement potential after stronger spatial readout controls nearly match overall AP?",
+  "source": "Full 5000-image val2017 raw-capability study RUN_a7c840bb695d45b4b66bc346715ca1aa, same official YOLO26m-seg one-to-one weight and declared decoder",
+  "population": "All 36335 ordinary GT; primary cohort is 6688 GT with a Box75 raw candidate but no Mask75 candidate anywhere in the raw pool, independent of score and class",
+  "representative": "The pre-existing best-mask candidate among Box75 raw candidates; GT-assisted only for diagnostic pixel arithmetic, not deployment or AP",
+  "groups": "COCO small/medium/large by annotation area; foreground-to-box fill from COCO annotation area divided by bbox area",
+  "diagnostics": "Coverage, purity, crop support, foreground/background/neighbor FP, and whether ideal FP-only removal or FN-only fill crosses Mask75; mutually exclusive based on saved representative",
+  "guards": "Do not infer network cause from pixel arithmetic; do not treat a representative as a global raw-candidate oracle; compare with existing official-output AP repairs only at their declared scope; all val findings exploratory"
+}

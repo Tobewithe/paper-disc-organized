@@ -1,0 +1,64 @@
+{
+  "schema_version": 2,
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "kind": "method",
+  "title": "预测尺度条件化的掩码边界校准",
+  "status": "exploring",
+  "research_line_id": "LINE_f2b78b79b389409f80ed61f8480ee459",
+  "entrypoints": [
+    "REPORT.md",
+    "PROTOCOL_DECODER_V2.json",
+    "scripts/mask_calibration.py",
+    "scripts/predict_calibrated.py",
+    "scripts/decoder_calibration_experiment.py",
+    "LOCAL_USAGE.md"
+  ],
+  "source_inventory": {
+    "path": "_maintenance/workbench_alignment/thread_01a09fc8/inventory.json",
+    "revision": "c5ba2ba3d78539381781f55900d429377a77807a88cfb9b8eb33dda00872f056"
+  },
+  "locations": [
+    {
+      "host": "local",
+      "path": "experiments/mask_boundary_route_20260914",
+      "role": "primary_editable_source_and_complete_task_results"
+    },
+    {
+      "host": "28358lan",
+      "path": "D:\\coco_wire\\results\\mask_boundary_route_20260914",
+      "role": "execution_results"
+    },
+    {
+      "role": "runner_observed_execution",
+      "path": "D:/coco_wire/runs/mask_boundary_route_20260914",
+      "host": "28358lan"
+    }
+  ],
+  "record_limitations": [
+    "历史直跑记录未完整保存执行身份；2026-09-15起的新运行使用独立Run",
+    "PROTOCOL.json为历史范围，当前以PROTOCOL_DECODER_V2.json及对应代码快照为准"
+  ],
+  "report": "REPORT.md",
+  "asset_references": [
+    {
+      "path": "assets/datasets/coco/images/val2017",
+      "role": "full_5000_validation_images"
+    },
+    {
+      "path": "assets/datasets/coco/annotations/instances_val2017.json",
+      "role": "original_coco_annotations"
+    },
+    {
+      "path": "assets/models/coco_clean_20260911/yolo26m-seg.pt",
+      "role": "matching_pretrained_weights"
+    },
+    {
+      "path": "shared/vendor/ultralytics_8_4_100",
+      "role": "observed_8_4_100_source_overlay"
+    },
+    {
+      "path": "shared/tools/research_runner/runner.py",
+      "role": "preserved_execution_recorder"
+    }
+  ]
+}

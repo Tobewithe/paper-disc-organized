@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_8c0d01745a4843ada1dac9640d45d5cc",
+  "study_id": "STUDY_4e1c74a75b3b4988b7181511c45799da",
+  "source_kind": "subprocess_observed",
+  "kind": "training",
+  "arm": "baseline",
+  "checkpoint": null,
+  "status": "completed",
+  "started_at": "2026-09-15T07:13:16.480899+08:00",
+  "retry_of": "RUN_36f5517015704aa78ea93048648ca13e",
+  "finished_at": "2026-09-15T08:44:39.030270+08:00",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_8c0d01745a4843ada1dac9640d45d5cc/snapshots/train_ablation.py",
+    "--study",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915",
+    "--out",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_8c0d01745a4843ada1dac9640d45d5cc",
+    "--data",
+    "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_a5374d46b43246029e867aae474b3a43/data/data.yaml",
+    "--arm",
+    "baseline"
+  ],
+  "working_directory": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_8c0d01745a4843ada1dac9640d45d5cc/snapshots",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+      "exists": true
+    },
+    {
+      "path": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_a5374d46b43246029e867aae474b3a43/data/data.yaml",
+      "exists": true
+    }
+  ],
+  "snapshots_directory": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_8c0d01745a4843ada1dac9640d45d5cc/snapshots",
+  "locations": [
+    {
+      "kind": "remote",
+      "path": "/root/autodl-tmp/p3_aux_class_ablation_20260915/runs/RUN_8c0d01745a4843ada1dac9640d45d5cc"
+    }
+  ],
+  "environment": {
+    "python": "/root/miniconda3/bin/python",
+    "python_version": "3.12.3",
+    "packages": {
+      "ultralytics": "8.4.100",
+      "torch": "2.8.0+cu128",
+      "numpy": "2.3.2"
+    }
+  },
+  "scientific_outcome": "not_assessed",
+  "pid": 124082,
+  "exit_code": 0
+}

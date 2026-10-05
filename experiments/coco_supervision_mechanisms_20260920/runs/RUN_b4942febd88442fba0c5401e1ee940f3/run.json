@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_b4942febd88442fba0c5401e1ee940f3",
+  "study_id": "STUDY_3c1ec86ea1ac42fcbe080285570de10d",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "scripts/error_region_probe.py",
+    "--root",
+    "/root/coco_supervision_mechanisms_20260920",
+    "--raw",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_ccefb9111ea049638b4d7908f3b37a5c",
+    "--source",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_ab9354b893f5463398bae67c4305635f/instances.jsonl",
+    "--out",
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_b4942febd88442fba0c5401e1ee940f3",
+    "--limit",
+    "2"
+  ],
+  "working_directory": "/root/coco_supervision_mechanisms_20260920",
+  "status": "completed",
+  "created_at": "2026-09-20T09:03:49.576+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/ERROR_REGION_PROTOCOL.json",
+      "exists": true,
+      "sha256": "1f5d3b935b008fd41c160787e6911b8f1e1a45105d33e274acb700a7db69e327",
+      "size": 2771
+    },
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_ab9354b893f5463398bae67c4305635f/instances.jsonl",
+      "exists": true,
+      "sha256": "b46d9ac0cb7eab6c59c293317828b836299e17bef6ff14e760672fa923ce8b24",
+      "size": 9748854
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/scripts/error_region_probe.py",
+      "revision": "dfe3f3a4736b33551808b7d91feb90a60fecc16a153e0978c93fd0bd5c8601ed",
+      "snapshot": "snapshots/dfe3f3a4736b33551808b7d91feb90a60fecc16a153e0978c93fd0bd5c8601ed"
+    },
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/scripts/parameter_probe.py",
+      "revision": "620af41f879a54947ea0b0778ea93cac8ba26f521cc95ce8b790eb5bbf827a71",
+      "snapshot": "snapshots/620af41f879a54947ea0b0778ea93cac8ba26f521cc95ce8b790eb5bbf827a71"
+    },
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/scripts/supervision_probe.py",
+      "revision": "52cb2bdd471b61763fb7468b3e2ea5113d4d01109ebe554f38744a1c28b01bdc",
+      "snapshot": "snapshots/52cb2bdd471b61763fb7468b3e2ea5113d4d01109ebe554f38744a1c28b01bdc"
+    },
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/scripts/prepare.py",
+      "revision": "681cfc92195c0d82ae732ffb8bc15885ccaec341a87406cc66a791b472b5eeca",
+      "snapshot": "snapshots/681cfc92195c0d82ae732ffb8bc15885ccaec341a87406cc66a791b472b5eeca"
+    },
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/ERROR_REGION_PROTOCOL.json",
+      "revision": "1f5d3b935b008fd41c160787e6911b8f1e1a45105d33e274acb700a7db69e327",
+      "snapshot": "snapshots/1f5d3b935b008fd41c160787e6911b8f1e1a45105d33e274acb700a7db69e327"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/coco_supervision_mechanisms_20260920/runs/RUN_b4942febd88442fba0c5401e1ee940f3/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_b4942febd88442fba0c5401e1ee940f3"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 5347,
+  "started_at": "2026-09-20T09:03:49.777+00:00",
+  "last_heartbeat": "2026-09-20T09:04:14.785+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-20T09:04:17.190+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coco_supervision_mechanisms_20260920/runs/RUN_b4942febd88442fba0c5401e1ee940f3/COMPLETE.json",
+      "exists": true,
+      "sha256": "2d4a173111b8deadea275e44fe1f61fca06fd6cf079e49a7cf70aa597ce52782"
+    }
+  ]
+}

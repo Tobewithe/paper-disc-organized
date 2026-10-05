@@ -1,0 +1,114 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_3477524a5581416aa6ec399468c94b21",
+  "study_id": "STUDY_a390425fa51e46f19f9578f0bca2542a",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/gate_audit.py",
+    "--data",
+    "/root/autodl-tmp/datasets/coco2017/coco_full.yaml",
+    "--source",
+    "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+    "--baseline",
+    "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/baseline_s0_full/weights/best.pt",
+    "--method",
+    "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/cfp3r_s0_full/weights/best.pt",
+    "--pilot",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/pilot_1000_images.csv",
+    "--out",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/gate_panel"
+  ],
+  "working_directory": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code",
+  "status": "completed",
+  "created_at": "2026-09-14T21:28:34.251+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/pilot_1000_images.csv",
+      "exists": true,
+      "sha256": "b9b38736ebdaae40c6bfae184a35c55e4bbb2809cd6df7bee60553616a4f0a2b",
+      "size": 164604
+    },
+    {
+      "path": "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/baseline_s0_full/weights/best.pt",
+      "exists": true,
+      "sha256": "c5e4f7e3d1ee193b407a8859dba08327d447ac8b82acd2db43741c8876c4727a",
+      "size": 54722865
+    },
+    {
+      "path": "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/cfp3r_s0_full/weights/best.pt",
+      "exists": true,
+      "sha256": "562eb91908af886fa4e45666532333453d4f3592f3959197ab693bc7a0dbc01f",
+      "size": 54722865
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/gate_audit.py",
+      "revision": "e57fe03358a34a89016806a06e1a78cc1679ac023d1d17642d7bd2c7826d188d",
+      "snapshot": "snapshots/e57fe03358a34a89016806a06e1a78cc1679ac023d1d17642d7bd2c7826d188d"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/code/method_source.py",
+      "revision": "67b00a30b0495ab487ac66a680a01c9ab40a19fde77f6424cbcbe0c1614dff10",
+      "snapshot": "snapshots/67b00a30b0495ab487ac66a680a01c9ab40a19fde77f6424cbcbe0c1614dff10"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/gate_panel/summary.json",
+    "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/gate_panel/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/gate_panel"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 111983,
+  "started_at": "2026-09-14T21:28:34.569+00:00",
+  "last_heartbeat": "2026-09-14T21:29:44.641+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-14T21:29:47.251+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/gate_panel/summary.json",
+      "exists": true,
+      "sha256": "139e4a32e32ac26a1922f67a63d0e7d5ca0749f48d22553917f404ddd3bb32f8"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_branch_gate_diagnostic_20260915/runs/gate_panel/COMPLETE.json",
+      "exists": true,
+      "sha256": "72fa2288fffc0f4c87ffe30387892b0f6fa60475023f6ef05cb09a5df2b9a2e0"
+    }
+  ]
+}

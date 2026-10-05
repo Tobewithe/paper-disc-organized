@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_12944cf151014819b4b34a7f6aca63c3",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\verify_risk_adapter.py",
+    "--package-root",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\vendor\\ultralytics_8_4_100",
+    "--weights",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\models\\coco_clean_20260911\\yolo26m-seg.pt",
+    "--model",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_d01ffdef9f3c498fa3529d96cea875eb\\response.joblib",
+    "--images",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\images\\val2017",
+    "--ids",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_2ae67d6556a14848bceb5783a72e5790\\image_ids.json",
+    "--output",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_12944cf151014819b4b34a7f6aca63c3"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-09-15T06:38:43.514+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_d01ffdef9f3c498fa3529d96cea875eb\\response.joblib",
+      "exists": true,
+      "sha256": "a7a4e63670f7891b3fd206e63e1d7b073457033546833055a514006c4f2cf900",
+      "size": 104560
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\models\\coco_clean_20260911\\yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\verify_risk_adapter.py",
+      "revision": "e5f6709cf647f6eb5ca3666585cee8218047b6ab75c99b5e8b21257bf48f6970",
+      "snapshot": "snapshots/e5f6709cf647f6eb5ca3666585cee8218047b6ab75c99b5e8b21257bf48f6970"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\scripts\\risk_calibration.py",
+      "revision": "3680e94a61fd70a9d29717adbcbddf291f20432e3a5be12378bc58ccc43d748c",
+      "snapshot": "snapshots/3680e94a61fd70a9d29717adbcbddf291f20432e3a5be12378bc58ccc43d748c"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_12944cf151014819b4b34a7f6aca63c3\\SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_12944cf151014819b4b34a7f6aca63c3"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 24396,
+  "started_at": "2026-09-15T06:38:43.732+00:00",
+  "last_heartbeat": "2026-09-15T06:38:48.738+00:00",
+  "metrics": {
+    "run_id": "RUN_12944cf151014819b4b34a7f6aca63c3",
+    "checks": [
+      {
+        "image": "000000057027.jpg",
+        "candidates": 29,
+        "output_masks": 29,
+        "calibrated": 23,
+        "feature_max_abs_error": 1.3134939713665972e-07,
+        "mask_mismatch_pixels": 0
+      },
+      {
+        "image": "000000057149.jpg",
+        "candidates": 94,
+        "output_masks": 94,
+        "calibrated": 87,
+        "feature_max_abs_error": 1.0569641850644018e-07,
+        "mask_mismatch_pixels": 0
+      },
+      {
+        "image": "000000057150.jpg",
+        "candidates": 300,
+        "output_masks": 300,
+        "calibrated": 177,
+        "feature_max_abs_error": 1.2012695260743556e-07,
+        "mask_mismatch_pixels": 0
+      }
+    ],
+    "images": 3,
+    "device": "cpu",
+    "claim": "prediction-only feature and mask-output parity on identical real-forward tensors; no GPU/CPU parity or end-to-end latency claim"
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_12944cf151014819b4b34a7f6aca63c3\\SUMMARY.json",
+    "sha256": "4d8d8604fd3f4af98d45d108f00c9c53b64c790ce120d487ac7d3ce969dc797c"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-15T06:38:48.956+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_boundary_route_20260914\\runs\\RUN_12944cf151014819b4b34a7f6aca63c3\\SUMMARY.json",
+      "exists": true,
+      "sha256": "4d8d8604fd3f4af98d45d108f00c9c53b64c790ce120d487ac7d3ce969dc797c"
+    }
+  ]
+}

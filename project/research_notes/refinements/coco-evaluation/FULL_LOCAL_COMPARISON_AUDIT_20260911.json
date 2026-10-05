@@ -1,0 +1,149 @@
+{
+  "audit": "experiment-audit",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T17:53:11+08:00",
+  "scope": "completed full_local_comparison_20260911 output and explicitly requested implementation/provenance files",
+  "reviewer": "Codex fresh same-family reviewer",
+  "reviewer_model": "codex-gpt-5.1",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "verdict": "WARN",
+  "integrity_status": "warn",
+  "fatal_bugs_found": [],
+  "table_invalidated": false,
+  "summary": "No fatal implementation or data-integrity defect was found. The 5,000-image official COCOeval table and custom R75 aggregates reproduce exactly. Warnings concern a hard-coded parity counter, incomplete direct provenance recording, reused-val/frozen-candidate scope, and overbroad mechanism interpretations.",
+  "checks": {
+    "original_gt_provenance": {
+      "status": "PASS",
+      "gt_file": "data/annotations/instances_val2017.json",
+      "gt_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "images": 5000,
+      "annotations": 36781,
+      "noncrowd_annotations": 36335,
+      "crowd_annotations": 446,
+      "categories": 80,
+      "evaluated_ids_equal_complete_gt_ids": true,
+      "gt_used_in_inference": false
+    },
+    "model_and_cache_provenance": {
+      "status": "PASS_WITH_RECORDING_GAPS",
+      "recorded_checkpoint_hashes_verified": 15,
+      "all_recorded_checkpoint_hashes_match": true,
+      "bce_training_protocol_hash_matches": true,
+      "cache_protocol_hash_matches": true,
+      "cache_train_images": 0,
+      "cache_val_images": 5000,
+      "base_weight_sha256_prefix": "16b636f",
+      "missing_direct_protocol_hashes": [
+        "GT JSON",
+        "census manifest",
+        "Dice training protocol",
+        "BCE normalizer",
+        "Dice normalizer",
+        "spatial_coefficient_head.py",
+        "frozen_mechanism_probe.py"
+      ]
+    },
+    "official_cocoeval": {
+      "status": "PASS",
+      "iou_type": "segm",
+      "default_iou_area_maxdet_settings": true,
+      "ap_max_absdiff_from_saved_cocoeval": 0.0,
+      "box_ap_common": 0.5255434778769922
+    },
+    "full_val_scope": {
+      "status": "PASS_WITH_SCOPE_LIMITATION",
+      "images": 5000,
+      "arms": 16,
+      "unique_image_ids": 5000,
+      "complete_coco_val2017_id_set": true,
+      "reused_validation_split": true
+    },
+    "zero_parity": {
+      "status": "WARN",
+      "per_image_tensor_equality_assertion": true,
+      "reported_initial_replay_pixel_xor": 0,
+      "reported_value_is_measured": false,
+      "reason": "decode() returns literal zero after an assert rather than returning or accumulating a measured XOR count; assert can be disabled by optimized Python"
+    },
+    "aggregate_counts": {
+      "status": "PASS",
+      "gt_recovery_rows": 581360,
+      "expected_rows": 581360,
+      "arms": 16,
+      "noncrowd_gt_per_arm": 36335,
+      "r75_max_absdiff": 0.0
+    },
+    "seed_aggregation": {
+      "status": "WARN",
+      "seeds": [0, 1, 2],
+      "paired_fixed_seed_means_used_in_paired_analysis": true,
+      "aggregate_rows_in_summary_csv": false,
+      "bootstrap_draws": 2000,
+      "bootstrap_unit": "image cluster",
+      "multiplicity_adjusted": false,
+      "ap_confidence_intervals_present": false
+    },
+    "oracle_scope": {
+      "status": "PASS",
+      "evaluation_gt_supplied_to_decoder": false,
+      "frozen_components": [
+        "detection boxes",
+        "classes",
+        "scores",
+        "prototypes",
+        "candidate coefficients"
+      ],
+      "nonempty_prediction_count_can_change": true
+    }
+  },
+  "claim_constraints": [
+    {
+      "claim": "BCE local improves high-ICI recovery over BCE global",
+      "assessment": "supported narrowly",
+      "high_r75_difference_percentage_points": 0.3304735,
+      "high_r75_interval_percentage_points": [0.12329, 0.54686],
+      "pair_recovery_difference_percentage_points": 0.2860697,
+      "pair_recovery_interval_percentage_points": [0.08985, 0.48280],
+      "limitation": "overall and low-ICI R75 are not supported as positive; AP is effectively tied and mean AP75 is slightly lower"
+    },
+    {
+      "claim": "Dice local improves high-ICI or pair recovery over Dice global",
+      "assessment": "not supported",
+      "high_r75_difference_percentage_points": 0.0127105,
+      "pair_recovery_difference_percentage_points": -0.0621891
+    },
+    {
+      "claim": "Dice gains are pure instance separation",
+      "assessment": "not supported",
+      "dice_global_vs_initial_high_r75_percentage_points": 1.83667,
+      "dice_global_vs_initial_high_coverage_percentage_points": -2.39529,
+      "dice_global_vs_initial_same_neighbor_leakage_percentage_points": -0.96248,
+      "dice_global_vs_initial_mask_iou_percentage_points": 0.33041,
+      "dice_global_vs_bce_global_high_coverage_percentage_points": 1.84925,
+      "dice_global_vs_bce_global_same_neighbor_leakage_percentage_points": 1.99701,
+      "dice_global_vs_bce_global_mask_iou_percentage_points": 0.332998
+    },
+    {
+      "claim": "R75 is an official COCO recall metric",
+      "assessment": "false",
+      "correct_scope": "custom nonignored-GT micro-recall at IoU 0.75 under COCO matching and maxDet=100"
+    }
+  ],
+  "bounded_limitations": [
+    "COCO val2017 was reused during method development",
+    "frozen-candidate coefficient-residual head-only experiment",
+    "training and evaluation use slightly different coordinate/resizing paths",
+    "custom R75 and pair recovery are not official or precision-matched metrics",
+    "paired intervals are exploratory percentile intervals without multiplicity correction",
+    "upstream cache-construction source was outside this bounded code review"
+  ],
+  "required_record_fixes": [
+    "measure and accumulate decoder XOR/mismatch counts instead of returning literal zero",
+    "record assertion/runtime optimization state",
+    "add direct hashes for GT, manifest, Dice protocol, normalizers, and imported helper scripts",
+    "hash the summary, diagnostic CSVs, and COCOeval artifacts in the completion record",
+    "publish paired three-seed aggregates and analysis limitations with comparative claims"
+  ],
+  "broader_experiment_acceptance": false
+}

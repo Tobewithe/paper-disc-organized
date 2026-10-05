@@ -1,0 +1,111 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_d325294a7db0476bbc9c8d65d8a90f52",
+  "study_id": "STUDY_0d9e14b39d5e4fafba576b311b4321c1",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "scripts/score_oof_benefit.py",
+    "--manifest",
+    "/root/coefficient_expected_benefit_20260927/MANIFEST.json",
+    "--targets",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_9ad188b832fd9bc49c0aafc7a61de989",
+    "--bank",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3",
+    "--annotations",
+    "/root/autodl-tmp/coefficient_data_scaling_20260924/runs/RUN_a24f6c759f714fb9bfcd5a59bb04e6d3/conversion_input/instances_train2017.json",
+    "--weights",
+    "/root/autodl-tmp/coefficient_predictability_20260924/yolo26m-seg.pt",
+    "--official-source",
+    "/root/autodl-tmp/coefficient_predictability_20260924",
+    "--checkpoint",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_776616ea3d98485f91bf3a5dd0d8e9d9/BEST.pt",
+    "--fold",
+    "3",
+    "--shard-images",
+    "100",
+    "--out",
+    "/root/coefficient_expected_benefit_20260927/runs/RUN_d325294a7db0476bbc9c8d65d8a90f52"
+  ],
+  "working_directory": "/root/coefficient_expected_benefit_20260927",
+  "status": "completed",
+  "created_at": "2026-09-26T19:02:39.264+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/MANIFEST.json",
+      "exists": true,
+      "sha256": "4076d968ca1724772c38af601d2f1388e3713c5b0ebb210095c859001f2b04be",
+      "size": 310029
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_9ad188b832fd9bc49c0aafc7a61de989/COMPLETE.json",
+      "exists": true,
+      "sha256": "f983355a959ceaa8148a8b996fe4a04d709728425c8d3d2533ceecdf22cea10d",
+      "size": 205
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_776616ea3d98485f91bf3a5dd0d8e9d9/BEST.pt",
+      "exists": true,
+      "sha256": "c9b4575bef61e17971137b7c0945d274dd80ca1fee9a51fb5269c630a66a9278",
+      "size": 1229065
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/scripts/score_oof_benefit.py",
+      "revision": "c523172ffcfd082cee520c10a21e805a10953f455091cd11f6d7f50cc7638651",
+      "snapshot": "snapshots/c523172ffcfd082cee520c10a21e805a10953f455091cd11f6d7f50cc7638651"
+    },
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/PROTOCOL.md",
+      "revision": "1123c424f5f875930866e70881e14626691cb7d63b9b07506a6637fe4250473d",
+      "snapshot": "snapshots/1123c424f5f875930866e70881e14626691cb7d63b9b07506a6637fe4250473d"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_d325294a7db0476bbc9c8d65d8a90f52/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_d325294a7db0476bbc9c8d65d8a90f52"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 6566,
+  "started_at": "2026-09-26T19:02:39.363+00:00",
+  "last_heartbeat": "2026-09-26T19:04:49.403+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-26T19:04:53.010+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coefficient_expected_benefit_20260927/runs/RUN_d325294a7db0476bbc9c8d65d8a90f52/COMPLETE.json",
+      "exists": true,
+      "sha256": "9354d9357e943c70876ea1ceb123b58739de50cb40c01ebf10457d9b2f72b1a6"
+    }
+  ]
+}

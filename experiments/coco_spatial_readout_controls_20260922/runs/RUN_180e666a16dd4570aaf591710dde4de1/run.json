@@ -1,0 +1,144 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_180e666a16dd4570aaf591710dde4de1",
+  "study_id": "STUDY_bebb26eb3e34403f99ac9b7046900e12",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "-u",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\scripts\\review_cached_predictions.py",
+    "--source",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_4a00a5215db34b6b8702d3099ec7d453",
+    "--annotations",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+    "--reference",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_calibration_mechanism_20260922\\runs\\RUN_984bb9ff1cd2432bae2c2c08c3042c66\\MATCHED_GT75.json",
+    "--arm",
+    "native_coeff_mlp",
+    "--selection",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_3f1eb436ded84c14a7b35216071ff2f3",
+    "--out",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922",
+  "status": "completed",
+  "created_at": "2026-09-23T06:28:29.691+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_4a00a5215db34b6b8702d3099ec7d453\\predictions_native_coeff_mlp.jsonl.gz",
+      "exists": true,
+      "sha256": "7073db7dd56ef4dcb9131e300a3c94c1e5c8d5a53b277fbb6294c5b919a9a5cc",
+      "size": 70439619
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_4a00a5215db34b6b8702d3099ec7d453\\progress.json",
+      "exists": true,
+      "sha256": "7db51da205afcbadfa4148a622b18fdc30db0745ba1c9ed1c6b29bf6ed3a7fc8",
+      "size": 62
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_4a00a5215db34b6b8702d3099ec7d453\\RESULTS.json",
+      "exists": true,
+      "sha256": "499e9afdc6af7522ad9883b8cbff821ebb706fb250aa888199dd77662fd55ed4",
+      "size": 468
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_3f1eb436ded84c14a7b35216071ff2f3\\SELECTION.json",
+      "exists": true,
+      "sha256": "4b4c59d1a9f5252813fde72a9878fa6044c4dd1cda1b196d63044c7193aceb5a",
+      "size": 714
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_calibration_mechanism_20260922\\runs\\RUN_984bb9ff1cd2432bae2c2c08c3042c66\\MATCHED_GT75.json",
+      "exists": true,
+      "sha256": "f18c21b6a7207cbe16d90b2e929799db0f2beec4a2bce280bd41dc74f177d9a5",
+      "size": 389137
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_0143c1c41081430dac938912318b5279\\run.json",
+      "exists": true,
+      "sha256": "8c2ea3f5e9f2be1b74ac342d99901c9839f2ded1b31ff3236efef3488fa1ee50",
+      "size": 5151
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\LOCAL_SCORE_PROTOCOL.json",
+      "revision": "485a4dd894d16d76a4cba570a74df7c0f641e659472ed810ad3907e73003e2e6",
+      "snapshot": "snapshots/485a4dd894d16d76a4cba570a74df7c0f641e659472ed810ad3907e73003e2e6"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\scripts\\run_local_scoring.py",
+      "revision": "a258408cda44da6da067891734cb14c8be29e3665ff2597be8f384835aa8f963",
+      "snapshot": "snapshots/a258408cda44da6da067891734cb14c8be29e3665ff2597be8f384835aa8f963"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\scripts\\review_cached_predictions.py",
+      "revision": "e3ccb8861acc64f71ea75021622fb3deb4b1de14d2251f57de5e5bb35d35aab1",
+      "snapshot": "snapshots/e3ccb8861acc64f71ea75021622fb3deb4b1de14d2251f57de5e5bb35d35aab1"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1\\RESULTS.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1\\MATCHED_GT75.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1\\COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 24496,
+  "started_at": "2026-09-23T06:28:29.888+00:00",
+  "last_heartbeat": "2026-09-23T06:28:54.939+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-23T06:28:59.923+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1\\RESULTS.json",
+      "exists": true,
+      "sha256": "34c3d8dffcaab34a657cfae1e37122d05612abb9dea85c1225e9c9e0f024a906"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1\\MATCHED_GT75.json",
+      "exists": true,
+      "sha256": "0c547331f01d7536a1bdc7668b718c65fba7a2873677e1760d9789d5593a5406"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\coco_spatial_readout_controls_20260922\\runs\\RUN_180e666a16dd4570aaf591710dde4de1\\COMPLETE.json",
+      "exists": true,
+      "sha256": "77358cb995a5c8e4530d4c530a3965133679fcbb4c250eee6434c4b632d84803"
+    }
+  ]
+}

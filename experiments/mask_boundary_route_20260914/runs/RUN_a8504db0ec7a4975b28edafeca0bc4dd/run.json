@@ -1,0 +1,181 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_a8504db0ec7a4975b28edafeca0bc4dd",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "-u",
+    "D:\\coco_wire\\scripts\\risk_v4_20260915\\decoder_calibration_experiment.py",
+    "--package-root",
+    "D:\\coco_wire\\py",
+    "--images",
+    "D:/coco_wire/data/images/train2017",
+    "--annotations",
+    "D:/coco_wire/data/annotations/calibration2000_train2017.json",
+    "--weights",
+    "D:\\mdoeldata\\pigcv-task05\\models\\yolo26m-seg.pt",
+    "--protocol",
+    "D:\\coco_wire\\scripts\\risk_v4_20260915\\PROTOCOL_RISK_V4.json",
+    "--output",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd",
+    "--branch",
+    "one2one",
+    "--start",
+    "0",
+    "--limit",
+    "2000",
+    "--variants",
+    "official_zero,smooth_gated,global_0.25,global_0.5,official_global,global_1.0",
+    "--benchmark-repeats",
+    "0",
+    "--export-only"
+  ],
+  "working_directory": "D:\\coco_wire",
+  "status": "completed",
+  "created_at": "2026-09-15T06:08:49.660+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\calibration2000_train2017.json",
+      "exists": true,
+      "sha256": "0a232f32cba63257424c2e6cf0a25187ab4ea206c6b191a9201ef7a5819e7285",
+      "size": 8869810
+    },
+    {
+      "path": "D:\\mdoeldata\\pigcv-task05\\models\\yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\scripts\\risk_v4_20260915\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\risk_v4_20260915\\decoder_calibration_experiment.py",
+      "revision": "8fcd1e31c592b21f4f515b167e3e80bb0544488b1c85302cf93f685ed27816ec",
+      "snapshot": "snapshots/8fcd1e31c592b21f4f515b167e3e80bb0544488b1c85302cf93f685ed27816ec"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\risk_v4_20260915\\PROTOCOL_RISK_V4.json",
+      "revision": "3624949f445c24967dd302b85d6cca54f8e32966be23b71d1c0d465ebd80e38d",
+      "snapshot": "snapshots/3624949f445c24967dd302b85d6cca54f8e32966be23b71d1c0d465ebd80e38d"
+    },
+    {
+      "path": "D:\\coco_wire\\py\\ultralytics\\utils\\ops.py",
+      "revision": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5",
+      "snapshot": "snapshots/3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5"
+    },
+    {
+      "path": "D:\\coco_wire\\py\\ultralytics\\models\\yolo\\segment\\predict.py",
+      "revision": "2f80c259782f330b12b3f4b5eb11345416b83e99d6af86da3bbe594089bde01c",
+      "snapshot": "snapshots/2f80c259782f330b12b3f4b5eb11345416b83e99d6af86da3bbe594089bde01c"
+    },
+    {
+      "path": "D:\\coco_wire\\py\\ultralytics\\models\\yolo\\segment\\val.py",
+      "revision": "701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6",
+      "snapshot": "snapshots/701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\SUMMARY.json",
+    "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\instance_records.csv"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 6656,
+  "started_at": "2026-09-15T06:08:50.149+00:00",
+  "last_heartbeat": "2026-09-15T06:25:59.721+00:00",
+  "metrics": {
+    "run_id": "RUN_a8504db0ec7a4975b28edafeca0bc4dd",
+    "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+    "export_only": true,
+    "images": 2000,
+    "ordinary_gt": 14433,
+    "branch": "one2one",
+    "ultralytics": "8.4.100",
+    "package_file": "D:\\coco_wire\\py\\ultralytics\\__init__.py",
+    "protocol_sha256": "3624949f445c24967dd302b85d6cca54f8e32966be23b71d1c0d465ebd80e38d",
+    "counts": {
+      "official_zero": {
+        "candidates": 221282,
+        "empty": 41
+      },
+      "smooth_gated": {
+        "candidates": 221282,
+        "empty": 513
+      },
+      "global_0.25": {
+        "candidates": 221282,
+        "empty": 109
+      },
+      "global_0.5": {
+        "candidates": 221282,
+        "empty": 285
+      },
+      "official_global": {
+        "candidates": 221282,
+        "empty": 725
+      },
+      "global_1.0": {
+        "candidates": 221282,
+        "empty": 1592
+      }
+    },
+    "parity": {
+      "official_input_mask_mismatches": 0,
+      "checked_masks": 475,
+      "native_input_mask_mismatches": 0
+    },
+    "elapsed_seconds": 1023.6349127999856
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\SUMMARY.json",
+    "sha256": "5861b8941b6a80720254bceff3f38a78b40fcc6449ac72bf8e549a126e264a5b"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-15T06:26:00.330+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\SUMMARY.json",
+      "exists": true,
+      "sha256": "5861b8941b6a80720254bceff3f38a78b40fcc6449ac72bf8e549a126e264a5b"
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\instance_records.csv",
+      "exists": true,
+      "sha256": "d994ed5e8405c9831fa777ecc684cd80d2f6e210f4f3647f80415fe2e2d40453"
+    }
+  ]
+}

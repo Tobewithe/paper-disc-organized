@@ -1,0 +1,850 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_ee9199def842431c88b72d836a1f4f9b",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "-u",
+    "D:/coco_wire/scripts/coverage_calibration_20260920/evaluate_calibrator.py",
+    "--protocol",
+    "D:/coco_wire/scripts/coverage_calibration_20260920/PROTOCOL_COVERAGE_V7_20260920.json",
+    "--output",
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_ee9199def842431c88b72d836a1f4f9b",
+    "--models",
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_6b816e23401b401eaebdb9a59604de19",
+    "--phase",
+    "selection"
+  ],
+  "working_directory": "D:\\coco_wire",
+  "status": "completed",
+  "created_at": "2026-09-20T11:58:24.584+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\PROTOCOL_COVERAGE_V7_20260920.json",
+      "exists": true,
+      "sha256": "fff137354a2ee500ff75227baac603ea81f81cc4d3f99f584a39eb9cf2dd19d8",
+      "size": 5520
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\calibration2000_split.json",
+      "exists": true,
+      "sha256": "1b75dfea2ca011dc43aaa8a7b863900c3bae913472b849f76934361366d9d8ce",
+      "size": 15851
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\rcmc_mechanism_20260920\\inputs\\response.json",
+      "exists": true,
+      "sha256": "eb2fca8b9bbb0192d62723e3da086c303729752772aa1a357ea64f61f70888b9",
+      "size": 65621
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\candidate_records.csv",
+      "exists": true,
+      "sha256": "2581f744de6692c8aaac4ec1b5ac8e75149e7cfd5d32c4c68b6bfebfcfe19b21",
+      "size": 46280394
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\instance_records.csv",
+      "exists": true,
+      "sha256": "d994ed5e8405c9831fa777ecc684cd80d2f6e210f4f3647f80415fe2e2d40453",
+      "size": 20986086
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\image_ids.json",
+      "exists": true,
+      "sha256": "f80723d0f41baff3af8909a126bf270d56cca67e701b43ce9df4d0ee1249d545",
+      "size": 15629
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\direct.json",
+      "exists": true,
+      "sha256": "4389494cbddab56190c3db6ed0ce81ae9dd0287c4f8b1c3658fb22bf458fa052",
+      "size": 196787
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\purity.json",
+      "exists": true,
+      "sha256": "abd1c2b799f3316482fd4239b0c11099e8c0ea6ab248a604eb5079c42e90f59e",
+      "size": 65000
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\coverage.json",
+      "exists": true,
+      "sha256": "c6412e21a67ad65100a2bc1f90efa91d460c4e98c22ee37905957b74937105f7",
+      "size": 65288
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_6b816e23401b401eaebdb9a59604de19\\removed_purity.json",
+      "exists": true,
+      "sha256": "3de0ce99219d38077812b552e30b06c971deb0b09c247cfbb28396ec53c77a29",
+      "size": 64371
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\predictions_official_zero.json",
+      "exists": true,
+      "sha256": "6eafc06a216911a4a26b008ab6ca6ee94e0c4f0e8a442eef804407ba8e18dc91",
+      "size": 98760762
+    },
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd\\predictions_smooth_gated.json",
+      "exists": true,
+      "sha256": "83bfd8ffc28e9104f63f6acd6fb1fbd3109cdb51872249a5247f1fc6b769e226",
+      "size": 97122450
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\calibration2000_train2017.json",
+      "exists": true,
+      "sha256": "0a232f32cba63257424c2e6cf0a25187ab4ea206c6b191a9201ef7a5819e7285",
+      "size": 8869810
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\PROTOCOL_COVERAGE_V7_20260920.json",
+      "revision": "fff137354a2ee500ff75227baac603ea81f81cc4d3f99f584a39eb9cf2dd19d8",
+      "snapshot": "snapshots/fff137354a2ee500ff75227baac603ea81f81cc4d3f99f584a39eb9cf2dd19d8"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\resume_selection.ps1",
+      "revision": "9bdfa9313dfc755aceb95fc9875641abbaf0c16dc25e976c21ab051e3a552d31",
+      "snapshot": "snapshots/9bdfa9313dfc755aceb95fc9875641abbaf0c16dc25e976c21ab051e3a552d31"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\calibrator.py",
+      "revision": "8b4c45c8e608be727b9430ef2b41f7c3dd43acfe3b4b2a3f2f0a527dfabdf1c1",
+      "snapshot": "snapshots/8b4c45c8e608be727b9430ef2b41f7c3dd43acfe3b4b2a3f2f0a527dfabdf1c1"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\data_access.py",
+      "revision": "95c1b44edd50f11ccfd0bb619aab7d1aa7d129bc08a186dfd5232ee504a9601e",
+      "snapshot": "snapshots/95c1b44edd50f11ccfd0bb619aab7d1aa7d129bc08a186dfd5232ee504a9601e"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\fit_calibrator.py",
+      "revision": "2df1a2ee405fd0ba27bb02f9f8501a85acf52755fe162def1f9e22dca601d7da",
+      "snapshot": "snapshots/2df1a2ee405fd0ba27bb02f9f8501a85acf52755fe162def1f9e22dca601d7da"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\evaluate_calibrator.py",
+      "revision": "5180204a0f8df3c9a7b0231b71204ad5906adaa4d8d58710d104969f6599ee69",
+      "snapshot": "snapshots/5180204a0f8df3c9a7b0231b71204ad5906adaa4d8d58710d104969f6599ee69"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\common.py",
+      "revision": "248263d5bef5c868d232e7e5b949c09554fa193d02ac201d061397f897716601",
+      "snapshot": "snapshots/248263d5bef5c868d232e7e5b949c09554fa193d02ac201d061397f897716601"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\portable_risk.py",
+      "revision": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+      "snapshot": "snapshots/b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\risk_calibration.py",
+      "revision": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "snapshot": "snapshots/b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f"
+    },
+    {
+      "path": "D:\\coco_wire\\scripts\\coverage_calibration_20260920\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:/coco_wire/runs/mask_boundary_route_20260914/RUN_ee9199def842431c88b72d836a1f4f9b/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_ee9199def842431c88b72d836a1f4f9b"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 12660,
+  "started_at": "2026-09-20T11:58:25.329+00:00",
+  "last_heartbeat": "2026-09-20T11:59:50.622+00:00",
+  "metrics": {
+    "phase": "selection",
+    "images": 500,
+    "policies": {
+      "direct": {
+        "cutoff": 0,
+        "selection_outcomes": {
+          "variant": "direct",
+          "cutoff": 0,
+          "feasible": true,
+          "matched": 3298,
+          "targets": 175,
+          "successes": 2160,
+          "target_repairs": 50,
+          "all_repairs": 87,
+          "damages": 47,
+          "iou_gain_sum": 15.566337017367985,
+          "coverage_loss_sum": 50.65437115929336,
+          "net_repairs": 40
+        },
+        "coverage_budget": null
+      },
+      "decomposed": {
+        "cutoff": -0.005,
+        "selection_outcomes": {
+          "variant": "decomposed",
+          "cutoff": -0.005,
+          "feasible": true,
+          "matched": 3298,
+          "targets": 175,
+          "successes": 2160,
+          "target_repairs": 52,
+          "all_repairs": 90,
+          "damages": 46,
+          "iou_gain_sum": 15.961992977707604,
+          "coverage_loss_sum": 51.785571997553554,
+          "net_repairs": 44
+        },
+        "coverage_budget": null
+      },
+      "decomposed_protected": {
+        "cutoff": 0.001,
+        "selection_outcomes": {
+          "variant": "decomposed_protected",
+          "cutoff": 0.001,
+          "feasible": true,
+          "matched": 3298,
+          "targets": 175,
+          "successes": 2160,
+          "target_repairs": 8,
+          "all_repairs": 14,
+          "damages": 5,
+          "iou_gain_sum": 3.930466386219043,
+          "coverage_loss_sum": 7.58894172558619,
+          "net_repairs": 9
+        },
+        "coverage_budget": 0.02
+      }
+    },
+    "outcomes": {
+      "baseline": {
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 0,
+        "all_repairs": 0,
+        "damages": 0,
+        "iou_gain_sum": 0.0,
+        "coverage_loss_sum": 0.0,
+        "net_repairs": 0
+      },
+      "frozen_rcmc": {
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 52,
+        "all_repairs": 89,
+        "damages": 47,
+        "iou_gain_sum": 16.096883307012344,
+        "coverage_loss_sum": 51.59415132063749,
+        "net_repairs": 42
+      },
+      "direct": {
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 50,
+        "all_repairs": 87,
+        "damages": 47,
+        "iou_gain_sum": 15.566337017367985,
+        "coverage_loss_sum": 50.65437115929336,
+        "net_repairs": 40
+      },
+      "decomposed": {
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 52,
+        "all_repairs": 90,
+        "damages": 46,
+        "iou_gain_sum": 15.961992977707604,
+        "coverage_loss_sum": 51.785571997553554,
+        "net_repairs": 44
+      },
+      "decomposed_protected": {
+        "matched": 3298,
+        "targets": 175,
+        "successes": 2160,
+        "target_repairs": 8,
+        "all_repairs": 14,
+        "damages": 5,
+        "iou_gain_sum": 3.930466386219043,
+        "coverage_loss_sum": 7.58894172558619,
+        "net_repairs": 9
+      }
+    },
+    "metrics": {
+      "baseline": {
+        "stats": [
+          0.5230957673052786,
+          0.772282606305923,
+          0.5675145491669823,
+          0.29346819319018635,
+          0.5869373420352544,
+          0.7489812177146968,
+          0.3837275603428273,
+          0.6062214761764688,
+          0.6364198598844208,
+          0.45041618406446515,
+          0.6975325447330216,
+          0.8142566181727598
+        ],
+        "ap": 52.309576730527866,
+        "ap75": 56.75145491669823,
+        "prediction_count": 52702,
+        "cocoeval_seconds": 5.921736599999349
+      },
+      "frozen_rcmc": {
+        "stats": [
+          0.5278213417346947,
+          0.7744088281630063,
+          0.5809513091305795,
+          0.3063798239037663,
+          0.5902084364534049,
+          0.7491275432454019,
+          0.38534377703316763,
+          0.6113311354649711,
+          0.6430044204764847,
+          0.4719994973985932,
+          0.7000859604031572,
+          0.8142403504707337
+        ],
+        "ap": 52.78213417346947,
+        "ap75": 58.09513091305794,
+        "prediction_count": 52702,
+        "cocoeval_seconds": 5.912108200000148
+      },
+      "direct": {
+        "stats": [
+          0.5279426957766673,
+          0.7739985387067174,
+          0.5809680760335251,
+          0.3064560565301612,
+          0.5905310036680546,
+          0.7491274220356835,
+          0.385390389931693,
+          0.6116975497358655,
+          0.6426823235246202,
+          0.4716568966122751,
+          0.7003231177891148,
+          0.8142403504707337
+        ],
+        "ap": 52.79426957766673,
+        "ap75": 58.09680760335251,
+        "prediction_count": 52702,
+        "cocoeval_seconds": 5.788866099999723
+      },
+      "decomposed": {
+        "stats": [
+          0.5282356091855409,
+          0.7752708129730158,
+          0.5809825113174434,
+          0.3065841829017796,
+          0.590486128605102,
+          0.7491278759091604,
+          0.38564857423249604,
+          0.6115286115420414,
+          0.643247835519237,
+          0.4724852818855143,
+          0.6996653659600063,
+          0.8142403504707337
+        ],
+        "ap": 52.823560918554094,
+        "ap75": 58.09825113174434,
+        "prediction_count": 52702,
+        "cocoeval_seconds": 5.804325799999788
+      },
+      "decomposed_protected": {
+        "stats": [
+          0.5249920337913754,
+          0.7722840109070339,
+          0.5707547027199293,
+          0.297306666480989,
+          0.5888039654927992,
+          0.7489812177146968,
+          0.384482901322752,
+          0.6080510325869758,
+          0.6384443077648012,
+          0.45459857514951224,
+          0.6996142723175868,
+          0.8142566181727598
+        ],
+        "ap": 52.49920337913754,
+        "ap75": 57.075470271992934,
+        "prediction_count": 52702,
+        "cocoeval_seconds": 5.7849100999992515
+      }
+    },
+    "model_run": "RUN_6b816e23401b401eaebdb9a59604de19",
+    "bank": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_a8504db0ec7a4975b28edafeca0bc4dd",
+    "ordinary_gt": 3504,
+    "prediction_seconds_all_candidates": 43.746777599999405,
+    "component_quality": {
+      "purity": {
+        "n": 3298,
+        "mae": 0.08394938261544962,
+        "mean_prediction": 0.8356842440836276,
+        "mean_truth": 0.836804862736109,
+        "rmse": 0.12017303638780456,
+        "quantile_calibration": [
+          {
+            "n": 330,
+            "prediction": 0.631219523261383,
+            "truth": 0.6256822545022384
+          },
+          {
+            "n": 330,
+            "prediction": 0.7280880572995868,
+            "truth": 0.7408892074916471
+          },
+          {
+            "n": 330,
+            "prediction": 0.7818970869801495,
+            "truth": 0.7700256198568356
+          },
+          {
+            "n": 329,
+            "prediction": 0.8229885162975521,
+            "truth": 0.8271813576987521
+          },
+          {
+            "n": 330,
+            "prediction": 0.8522282682839332,
+            "truth": 0.8678243196869012
+          },
+          {
+            "n": 330,
+            "prediction": 0.8788826542307695,
+            "truth": 0.8720102465528805
+          },
+          {
+            "n": 329,
+            "prediction": 0.8949218049718537,
+            "truth": 0.8953347294794118
+          },
+          {
+            "n": 329,
+            "prediction": 0.9061294684202365,
+            "truth": 0.9054808364494646
+          },
+          {
+            "n": 331,
+            "prediction": 0.9226346147816906,
+            "truth": 0.9263206078428988
+          },
+          {
+            "n": 330,
+            "prediction": 0.9379434665719728,
+            "truth": 0.9373844980737336
+          }
+        ]
+      },
+      "coverage": {
+        "n": 3298,
+        "mae": 0.06541328808115014,
+        "mean_prediction": 0.9077877703097091,
+        "mean_truth": 0.9090267274836404,
+        "rmse": 0.09587867470833306,
+        "quantile_calibration": [
+          {
+            "n": 330,
+            "prediction": 0.7767143996635949,
+            "truth": 0.7765492519694897
+          },
+          {
+            "n": 328,
+            "prediction": 0.8704016661780922,
+            "truth": 0.8670247040067228
+          },
+          {
+            "n": 332,
+            "prediction": 0.8925940680074357,
+            "truth": 0.892709063972062
+          },
+          {
+            "n": 328,
+            "prediction": 0.904825380417178,
+            "truth": 0.9029494367741583
+          },
+          {
+            "n": 330,
+            "prediction": 0.9160172751979362,
+            "truth": 0.9146655363343763
+          },
+          {
+            "n": 323,
+            "prediction": 0.9260253302279489,
+            "truth": 0.9216332642036164
+          },
+          {
+            "n": 337,
+            "prediction": 0.936346455951135,
+            "truth": 0.9422575663449895
+          },
+          {
+            "n": 330,
+            "prediction": 0.944163773684811,
+            "truth": 0.9474055140050658
+          },
+          {
+            "n": 329,
+            "prediction": 0.951379523960288,
+            "truth": 0.9589983223600903
+          },
+          {
+            "n": 331,
+            "prediction": 0.9590153048257266,
+            "truth": 0.9654251595521018
+          }
+        ]
+      },
+      "removed_purity": {
+        "n": 3239,
+        "mae": 0.2111878124159604,
+        "mean_prediction": 0.39023015424816604,
+        "mean_truth": 0.38723215421215035,
+        "rmse": 0.25638721218091054,
+        "quantile_calibration": [
+          {
+            "n": 324,
+            "prediction": 0.251535571555896,
+            "truth": 0.24640285978504406
+          },
+          {
+            "n": 323,
+            "prediction": 0.331154366515319,
+            "truth": 0.3477335094844186
+          },
+          {
+            "n": 324,
+            "prediction": 0.36197922051528525,
+            "truth": 0.3688560331505471
+          },
+          {
+            "n": 324,
+            "prediction": 0.39027466997425814,
+            "truth": 0.3942255554173413
+          },
+          {
+            "n": 316,
+            "prediction": 0.4030679211854856,
+            "truth": 0.39926701179082374
+          },
+          {
+            "n": 305,
+            "prediction": 0.4112023025366942,
+            "truth": 0.3982250178561833
+          },
+          {
+            "n": 328,
+            "prediction": 0.4177699383144323,
+            "truth": 0.4107456608613042
+          },
+          {
+            "n": 338,
+            "prediction": 0.4257228635604598,
+            "truth": 0.4169563968173426
+          },
+          {
+            "n": 333,
+            "prediction": 0.4357002676836822,
+            "truth": 0.41345341545517733
+          },
+          {
+            "n": 324,
+            "prediction": 0.4721222264354901,
+            "truth": 0.4749729328949321
+          }
+        ]
+      },
+      "coverage_cost": {
+        "n": 3298,
+        "mae": 0.011706622360606376,
+        "mean_prediction": 0.027426449334174936,
+        "mean_truth": 0.0255175186740717,
+        "rmse": 0.02904662082652082,
+        "quantile_calibration": [
+          {
+            "n": 330,
+            "prediction": 2.2604950009426004e-05,
+            "truth": 2.157424081361115e-05
+          },
+          {
+            "n": 330,
+            "prediction": 0.00020042869722045677,
+            "truth": 0.0001836938155846953
+          },
+          {
+            "n": 330,
+            "prediction": 0.001044902895139248,
+            "truth": 0.0009667901768176469
+          },
+          {
+            "n": 329,
+            "prediction": 0.003848853715906599,
+            "truth": 0.0036921594278025937
+          },
+          {
+            "n": 330,
+            "prediction": 0.009205472065518592,
+            "truth": 0.008554074587018425
+          },
+          {
+            "n": 330,
+            "prediction": 0.015943302003729183,
+            "truth": 0.014884461792092952
+          },
+          {
+            "n": 329,
+            "prediction": 0.024355162413142374,
+            "truth": 0.02283426582176337
+          },
+          {
+            "n": 330,
+            "prediction": 0.034580529651172934,
+            "truth": 0.031241503840004632
+          },
+          {
+            "n": 330,
+            "prediction": 0.052557977284751416,
+            "truth": 0.048890475757962265
+          },
+          {
+            "n": 330,
+            "prediction": 0.1324245054756461,
+            "truth": 0.123831918759346
+          }
+        ]
+      },
+      "removed_fp_per_gt": {
+        "n": 3298,
+        "mae": 0.028112426108386723,
+        "mean_prediction": 0.04595788720313741,
+        "mean_truth": 0.056041891890080506,
+        "rmse": 0.08902365299524877,
+        "quantile_calibration": [
+          {
+            "n": 330,
+            "prediction": 2.717268992053925e-05,
+            "truth": 2.9059231773767222e-05
+          },
+          {
+            "n": 330,
+            "prediction": 0.0002627939992299169,
+            "truth": 0.00029084977891621216
+          },
+          {
+            "n": 330,
+            "prediction": 0.001480199627805237,
+            "truth": 0.001632387685001082
+          },
+          {
+            "n": 329,
+            "prediction": 0.005894248569823377,
+            "truth": 0.006450924241841214
+          },
+          {
+            "n": 330,
+            "prediction": 0.0154439880140235,
+            "truth": 0.016745670314537626
+          },
+          {
+            "n": 330,
+            "prediction": 0.028128771396460583,
+            "truth": 0.03078243901303939
+          },
+          {
+            "n": 329,
+            "prediction": 0.04363107781125272,
+            "truth": 0.04492276009998557
+          },
+          {
+            "n": 330,
+            "prediction": 0.06353519510324604,
+            "truth": 0.06959938570234604
+          },
+          {
+            "n": 330,
+            "prediction": 0.09721540679045892,
+            "truth": 0.11361341479735693
+          },
+          {
+            "n": 330,
+            "prediction": 0.20383156212604672,
+            "truth": 0.2761680580377092
+          }
+        ]
+      },
+      "gain": {
+        "n": 3298,
+        "mae": 0.017932553950492324,
+        "mean_prediction": 0.0017522753539960338,
+        "mean_truth": 0.003160099094934942,
+        "rmse": 0.03401025992537148,
+        "quantile_calibration": [
+          {
+            "n": 330,
+            "prediction": -0.02544938877637031,
+            "truth": -0.017264751170046156
+          },
+          {
+            "n": 330,
+            "prediction": -4.0010205405351736e-05,
+            "truth": -0.00020866935509268426
+          },
+          {
+            "n": 330,
+            "prediction": 1.4600954562162278e-05,
+            "truth": -7.062155797110316e-05
+          },
+          {
+            "n": 329,
+            "prediction": 0.00013769959350929683,
+            "truth": 0.00024201972051856387
+          },
+          {
+            "n": 330,
+            "prediction": 0.0005922259111385701,
+            "truth": 0.002220761582119028
+          },
+          {
+            "n": 330,
+            "prediction": 0.0016463688435467488,
+            "truth": 0.0018552001663266194
+          },
+          {
+            "n": 329,
+            "prediction": 0.003473044518308753,
+            "truth": 0.005292561116454411
+          },
+          {
+            "n": 330,
+            "prediction": 0.006267900769874171,
+            "truth": 0.007303853960788328
+          },
+          {
+            "n": 329,
+            "prediction": 0.011100565641878026,
+            "truth": 0.011045867197657055
+          },
+          {
+            "n": 331,
+            "prediction": 0.019753846025343608,
+            "truth": 0.0211517646981306
+          }
+        ]
+      },
+      "direct": {
+        "n": 3298,
+        "mae": 0.017990464092113998,
+        "mean_prediction": 0.002410748087629015,
+        "mean_truth": 0.003160099094934942,
+        "rmse": 0.03367738694024093,
+        "quantile_calibration": [
+          {
+            "n": 330,
+            "prediction": -0.02669102133299143,
+            "truth": -0.015846907462924362
+          },
+          {
+            "n": 330,
+            "prediction": 7.013420395583877e-05,
+            "truth": 0.0004132502570659243
+          },
+          {
+            "n": 330,
+            "prediction": 0.000370562824730662,
+            "truth": 9.950339651526333e-05
+          },
+          {
+            "n": 321,
+            "prediction": 0.0006620422684246991,
+            "truth": -0.000340925485454612
+          },
+          {
+            "n": 338,
+            "prediction": 0.0008929546976498393,
+            "truth": 0.0011802793737715174
+          },
+          {
+            "n": 330,
+            "prediction": 0.0018815771629007185,
+            "truth": 0.0006480257750721108
+          },
+          {
+            "n": 329,
+            "prediction": 0.004304148729744048,
+            "truth": 0.004205539010171807
+          },
+          {
+            "n": 328,
+            "prediction": 0.007805542131614131,
+            "truth": 0.009674147603608643
+          },
+          {
+            "n": 332,
+            "prediction": 0.013041577416888555,
+            "truth": 0.00995671877172906
+          },
+          {
+            "n": 330,
+            "prediction": 0.02173306981827782,
+            "truth": 0.021565328298051033
+          }
+        ]
+      }
+    },
+    "elapsed_seconds": 83.17217190000156,
+    "all_variants_preserve_scores_categories_boxes_counts": true,
+    "limitations": [
+      "One seed; no YOLO training; no new features/data/action intensities.",
+      "val has prior exploratory use; no new blind-test claim.",
+      "Equal ceiling of 300 trees x 7 leaves in matched direct/decomposed calibrators, actual leaf counts/fit time/file size reported; multi-output allocation remains an inductive-bias difference.",
+      "Old RCMC has 100 trees and is reported independently, not misrepresented as capacity matched.",
+      "Regression components diagnose learnability but do not identify the unique origin of spillover."
+    ]
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_ee9199def842431c88b72d836a1f4f9b\\SUMMARY.json",
+    "sha256": "5ea1289918edd48c4a0fc86d96e63f54b0e3c758ce74d101e4bee1ad12f0adba"
+  },
+  "return_code": 0,
+  "finished_at": "2026-09-20T11:59:52.054+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\runs\\mask_boundary_route_20260914\\RUN_ee9199def842431c88b72d836a1f4f9b\\SUMMARY.json",
+      "exists": true,
+      "sha256": "5ea1289918edd48c4a0fc86d96e63f54b0e3c758ce74d101e4bee1ad12f0adba"
+    }
+  ]
+}

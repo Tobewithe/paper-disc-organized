@@ -1,0 +1,443 @@
+{
+  "evaluation": {
+    "images": 4500,
+    "ordinary_gt": 32831,
+    "matched": 30426,
+    "targets": 1701,
+    "original_successes": 19065,
+    "outcomes": {
+      "single_local": {
+        "target_repairs": 452,
+        "all_repairs": 786,
+        "damages": 390,
+        "target_mean_iou_gain_pp": 3.292395489685453,
+        "target_mean_coverage_loss_pp": 1.5733272892668602,
+        "net_repairs": 396
+      },
+      "multi_local": {
+        "target_repairs": 475,
+        "all_repairs": 840,
+        "damages": 405,
+        "target_mean_iou_gain_pp": 3.6205731691605445,
+        "target_mean_coverage_loss_pp": 1.6721556039408727,
+        "net_repairs": 435
+      }
+    },
+    "metrics": {
+      "single_local": {
+        "ap": 43.95348638457812,
+        "ap75": 47.7627940853096,
+        "stats": [
+          0.4395348638457812,
+          0.6638283260434509,
+          0.477627940853096,
+          0.2350262571721785,
+          0.4787208860719264,
+          0.6409651598121648,
+          0.3424578609054237,
+          0.5583637047897527,
+          0.6037766238317451,
+          0.42341747520077594,
+          0.6581025955906229,
+          0.7673701598482012
+        ],
+        "predictions": 506966
+      },
+      "multi_local": {
+        "ap": 44.003437329484946,
+        "ap75": 47.81557484570414,
+        "stats": [
+          0.44003437329484946,
+          0.6641508273959568,
+          0.4781557484570414,
+          0.23631927747402426,
+          0.4790444536362965,
+          0.6418018557505497,
+          0.342905664251328,
+          0.5590806017133337,
+          0.6046787858666436,
+          0.42404303010172095,
+          0.6594070054542874,
+          0.7684572490755912
+        ],
+        "predictions": 506966
+      }
+    },
+    "verdict": {
+      "single_local": {
+        "checks": {
+          "frozen_rcmc": {
+            "target_repair_delta": -5,
+            "damage_delta": -55,
+            "ap_delta": 0.013942176009216212,
+            "passes": false
+          },
+          "direct": {
+            "target_repair_delta": 0,
+            "damage_delta": -37,
+            "ap_delta": 0.011422136821671813,
+            "passes": true
+          }
+        },
+        "passes": false
+      },
+      "multi_local": {
+        "checks": {
+          "frozen_rcmc": {
+            "target_repair_delta": 18,
+            "damage_delta": -40,
+            "ap_delta": 0.06389312091604182,
+            "passes": true
+          },
+          "direct": {
+            "target_repair_delta": 23,
+            "damage_delta": -22,
+            "ap_delta": 0.061373081728497425,
+            "passes": true
+          }
+        },
+        "passes": true
+      }
+    },
+    "full_baseline_rle_parity": 506966,
+    "action_counts": {
+      "single_local": {
+        "0": 295255,
+        "-1": 211711
+      },
+      "multi_local": {
+        "1": 72678,
+        "0": 123869,
+        "3": 17600,
+        "-1": 165788,
+        "4": 63648,
+        "2": 63383
+      }
+    },
+    "policies": {
+      "single_shape": {
+        "cutoff": 0
+      },
+      "single_local": {
+        "cutoff": 0
+      },
+      "multi_shape": {
+        "cutoff": 0.005
+      },
+      "multi_local": {
+        "cutoff": 0
+      }
+    },
+    "numeric_policy_matches_selection": true,
+    "elapsed_seconds": 2934.868868400008,
+    "decision": "needs_independent_confirmation",
+    "limitations": [
+      "Historical explored COCO val; not a fresh blind test.",
+      "No changes in boxes, scores, categories or prediction counts.",
+      "One seed; frozen after train selection; AP point estimates only.",
+      "Timing includes research diagnostics and RLE, not a deployment benchmark."
+    ]
+  },
+  "reference_outcomes": {
+    "baseline": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 0,
+      "all_repairs": 0,
+      "damages": 0,
+      "iou_gain_sum": 0.0,
+      "coverage_loss_sum": 0.0,
+      "net_repairs": 0
+    },
+    "frozen_rcmc": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 457,
+      "all_repairs": 801,
+      "damages": 445,
+      "iou_gain_sum": 145.32286502256855,
+      "coverage_loss_sum": 489.9197745222816,
+      "net_repairs": 356
+    },
+    "direct": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 452,
+      "all_repairs": 789,
+      "damages": 427,
+      "iou_gain_sum": 145.69621667703473,
+      "coverage_loss_sum": 480.0493493832502,
+      "net_repairs": 362
+    },
+    "decomposed": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 471,
+      "all_repairs": 820,
+      "damages": 462,
+      "iou_gain_sum": 147.04997010217127,
+      "coverage_loss_sum": 494.8415206053007,
+      "net_repairs": 358
+    },
+    "decomposed_protected": {
+      "matched": 30426,
+      "targets": 1701,
+      "successes": 19065,
+      "target_repairs": 54,
+      "all_repairs": 100,
+      "damages": 29,
+      "iou_gain_sum": 36.35221003051871,
+      "coverage_loss_sum": 65.14107026388922,
+      "net_repairs": 71
+    }
+  },
+  "reference_metrics": {
+    "baseline": {
+      "stats": [
+        0.43378829983113415,
+        0.6616103654915565,
+        0.4684069936360102,
+        0.22717460051292646,
+        0.4751352465852975,
+        0.6410397905220456,
+        0.3395109945152272,
+        0.5514948652072141,
+        0.5958809836986783,
+        0.406178605654886,
+        0.656283403965914,
+        0.7681753462516039
+      ],
+      "ap": 43.37882998311341,
+      "ap75": 46.84069936360102,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 57.52265299999999
+    },
+    "frozen_rcmc": {
+      "stats": [
+        0.43939544208568904,
+        0.6646033772884464,
+        0.47618547554974916,
+        0.2359510502928063,
+        0.47844330743749763,
+        0.6408905123608387,
+        0.3422867350409306,
+        0.5575812792542757,
+        0.6030409441940308,
+        0.42202696836356457,
+        0.6572537884277639,
+        0.7671065516027301
+      ],
+      "ap": 43.939544208568904,
+      "ap75": 47.61854755497492,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.338599099999556
+    },
+    "direct": {
+      "stats": [
+        0.4394206424775645,
+        0.6645747068377525,
+        0.4767919722260881,
+        0.23579405572882733,
+        0.4787430870876804,
+        0.640896740922864,
+        0.3423686977500735,
+        0.5576324930615203,
+        0.603140648842828,
+        0.42238483157857004,
+        0.6574708747676941,
+        0.7671513609390419
+      ],
+      "ap": 43.94206424775645,
+      "ap75": 47.67919722260881,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.02740850000009
+    },
+    "decomposed": {
+      "stats": [
+        0.4394425751837063,
+        0.6643834950453925,
+        0.47637590707556243,
+        0.2355254690853817,
+        0.47858983271664896,
+        0.6409483124218884,
+        0.3423879000507695,
+        0.5576723050432237,
+        0.6031163572538675,
+        0.4220226717504428,
+        0.6571412283260432,
+        0.7671658910033814
+      ],
+      "ap": 43.94425751837063,
+      "ap75": 47.63759070755624,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.17147230000046
+    },
+    "decomposed_protected": {
+      "stats": [
+        0.43561728875481337,
+        0.6617051936382574,
+        0.47048576992806657,
+        0.2284913076040994,
+        0.477445383791778,
+        0.6410404257677647,
+        0.3406792613008324,
+        0.5534014257603779,
+        0.5978911678873453,
+        0.40862599180209547,
+        0.6579949606915693,
+        0.7681672293684869
+      ],
+      "ap": 43.561728875481336,
+      "ap75": 47.04857699280666,
+      "prediction_count": 506966,
+      "cocoeval_seconds": 56.14097120000042
+    }
+  },
+  "paired_image_comparisons": {
+    "single_local_vs_frozen_rcmc": {
+      "target_repair_pp": {
+        "difference": -0.29394473838918245,
+        "ci95": [
+          -1.120334304787923,
+          0.4939971260371773
+        ]
+      },
+      "success_damage_pp": {
+        "difference": -0.28848675583530037,
+        "ci95": [
+          -0.40705762983443516,
+          -0.17293944579086554
+        ]
+      },
+      "net_repair_count": {
+        "difference": 40.0,
+        "ci95": [
+          11.0,
+          69.0
+        ]
+      }
+    },
+    "single_local_vs_direct": {
+      "target_repair_pp": {
+        "difference": 0.0,
+        "ci95": [
+          -0.7758070716883281,
+          0.7581645526238263
+        ]
+      },
+      "success_damage_pp": {
+        "difference": -0.19407290847102043,
+        "ci95": [
+          -0.3089211353028397,
+          -0.08387869614677863
+        ]
+      },
+      "net_repair_count": {
+        "difference": 34.0,
+        "ci95": [
+          7.0,
+          62.0
+        ]
+      }
+    },
+    "multi_local_vs_frozen_rcmc": {
+      "target_repair_pp": {
+        "difference": 1.0582010582010568,
+        "ci95": [
+          -0.22900352848605204,
+          2.3598364473809177
+        ]
+      },
+      "success_damage_pp": {
+        "difference": -0.2098085496983999,
+        "ci95": [
+          -0.38424601826521904,
+          -0.04285226093735196
+        ]
+      },
+      "net_repair_count": {
+        "difference": 79.0,
+        "ci95": [
+          35.0,
+          124.0
+        ]
+      }
+    },
+    "multi_local_vs_direct": {
+      "target_repair_pp": {
+        "difference": 1.3521457965902393,
+        "ci95": [
+          0.1164788483775994,
+          2.6690787458948004
+        ]
+      },
+      "success_damage_pp": {
+        "difference": -0.11539470233411997,
+        "ci95": [
+          -0.28115161178239306,
+          0.04286087323073916
+        ]
+      },
+      "net_repair_count": {
+        "difference": 73.0,
+        "ci95": [
+          29.0,
+          117.02499999999986
+        ]
+      }
+    }
+  },
+  "coverage_groups": {
+    "success_high_coverage": {
+      "frozen_rcmc": {
+        "n": 11177,
+        "damages": 13
+      },
+      "direct": {
+        "n": 11177,
+        "damages": 12
+      },
+      "single_local": {
+        "n": 11177,
+        "damages": 13
+      },
+      "multi_local": {
+        "n": 11177,
+        "damages": 14
+      }
+    },
+    "success_low_coverage": {
+      "frozen_rcmc": {
+        "n": 7888,
+        "damages": 432
+      },
+      "direct": {
+        "n": 7888,
+        "damages": 415
+      },
+      "single_local": {
+        "n": 7888,
+        "damages": 377
+      },
+      "multi_local": {
+        "n": 7888,
+        "damages": 391
+      }
+    }
+  },
+  "comparator_parity": {
+    "equal_structure_and_leaf_values": true,
+    "threshold_rounding_gaps": 35,
+    "inputs_in_gaps": 0
+  },
+  "bootstrap": {
+    "repeats": 2000,
+    "seed": 20260921,
+    "images": 4500,
+    "scope": "Complete paired images including zero-target images; fixed baseline groups; not AP intervals."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "study_id": "mask_quality_score_training_20261004",
+  "kind": "method",
+  "title": "训练期掩码质量与分类分数对齐",
+  "line": "neighbor_sensitive_p3",
+  "question": "若候选已正确覆盖目标，能否在训练期让分类分数反映实例掩码质量，从而降低候选排序造成的掩码质量遗憾？",
+  "status": "pilot_negative_route_paused",
+  "dataset": "COCO train2017/val2017 official converted labels",
+  "model": "YOLO26m-seg COCO pretrained",
+  "ultralytics": "8.4.100",
+  "gt_role": "training supervision only; inference remains GT-free",
+  "method": "one-to-one auxiliary BCE aligning class logits with detached soft mask IoU targets",
+  "created_at": "2026-10-04",
+  "latest_run": "RUN_20261004_quality_smoke_v6",
+  "result": "Implementation smoke passed, but 100-image 3-epoch pilot decreased Mask mAP50-95 by 1.09 pp; route paused pending a new quality-target design"
+}

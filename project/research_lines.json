@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "project_id": "paper-disc",
+  "default_line_id": "LINE_540602779c8740cf8a69ec9cd637dad8",
+  "organization": "同一研究方向中的独立论文线；主机和目录只记录位置，不决定科研身份",
+  "sources": [
+    {
+      "path": "_maintenance/workbench_alignment/thread_01a09da9/inventory.json",
+      "revision": "98e6d63028d8ff7b1bfd2f077ceb5484fc923f7cfb7d3d84375d59dbe66de8f8"
+    },
+    {
+      "path": "_maintenance/workbench_alignment/thread_01a09fc8/inventory.json",
+      "revision": "c5ba2ba3d78539381781f55900d429377a77807a88cfb9b8eb33dda00872f056"
+    },
+    {
+      "path": "project/research_notes/COPY_MIGRATION_HANDOFF_20260915.md",
+      "revision": "c1e898e286804a7e8b92df6aa19e832f04ea9cbd5aeb226c2bc6e57114d289b9"
+    }
+  ],
+  "lines": [
+    {
+      "line_id": "LINE_540602779c8740cf8a69ec9cd637dad8",
+      "key": "neighbor_sensitive_p3",
+      "title": "固定原型系数可恢复性与原生预测诊断",
+      "status": "research_draft",
+      "entrypoint": "paper/manuscripts/neighbor_sensitive_p3/README.md",
+      "paper_directory": "paper/manuscripts/neighbor_sensitive_p3",
+      "study_ids": [
+        "STUDY_184872788c0c4e749250861b0f636041",
+        "STUDY_264905075c14466ab53ceb3ec3be6a5f",
+        "paper-disc:diagnostic:no_final_slot_lineage_20260914",
+        "paper-disc:diagnostic:small_object_causal_interventions_20260914",
+        "paper-disc:diagnostic:small_raw_geometry_origin_20260914",
+        "paper-disc:experiment:counterfactual_p3_distillation_20260914",
+        "STUDY_136961893d3745eea566e31f1859d5f3",
+        "STUDY_a390425fa51e46f19f9578f0bca2542a"
+      ],
+      "focus_documents": [
+        "paper/manuscripts/neighbor_sensitive_p3/README.md",
+        "paper/manuscripts/neighbor_sensitive_p3/DEVELOPMENT_PLAN.md",
+        "paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_MAP.md"
+      ],
+      "owner_thread_id": "01a09da9-5107-7cb2-81b4-7ef90f80f19f",
+      "source_inventory": {
+        "path": "_maintenance/workbench_alignment/thread_01a09da9/inventory.json",
+        "revision": "98e6d63028d8ff7b1bfd2f077ceb5484fc923f7cfb7d3d84375d59dbe66de8f8"
+      },
+      "locations": [
+        {
+          "host": "local",
+          "role": "research_sources_and_manuscript"
+        },
+        {
+          "host": "56018",
+          "role": "active_fullcoco_execution"
+        }
+      ],
+      "limits": [
+        "同名本地一轮和远端三轮运行保留区别",
+        "全量训练及后评估依赖的目录保持原位"
+      ]
+    },
+    {
+      "line_id": "LINE_f2b78b79b389409f80ed61f8480ee459",
+      "key": "mask_boundary_calibration",
+      "title": "预测修正收益的选择性掩码读出校准",
+      "status": "research_draft",
+      "entrypoint": "paper/manuscripts/mask_boundary_calibration/README.md",
+      "paper_directory": "paper/manuscripts/mask_boundary_calibration",
+      "study_ids": [
+        "STUDY_8fb3468ebb704682a2225ebed0e16206",
+        "STUDY_ec98ffd7aa82450283a3fef032be63ef"
+      ],
+      "focus_documents": [
+        "paper/manuscripts/mask_boundary_calibration/README.md",
+        "paper/manuscripts/mask_boundary_calibration/EVIDENCE_MAP.md",
+        "paper/manuscripts/mask_boundary_calibration/VENUE_AND_FORMAT.md",
+        "experiments/mask_boundary_route_20260914/REPORT.md"
+      ],
+      "owner_thread_id": "01a09fc8-1ce1-7ec0-b7e6-8cecdbc0605c",
+      "source_inventory": {
+        "path": "_maintenance/workbench_alignment/thread_01a09fc8/inventory.json",
+        "revision": "c5ba2ba3d78539381781f55900d429377a77807a88cfb9b8eb33dda00872f056"
+      },
+      "locations": [
+        {
+          "host": "local",
+          "role": "editable_source_and_selected_results"
+        },
+        {
+          "host": "28358lan",
+          "role": "execution_and_full_prediction_outputs"
+        }
+      ],
+      "limits": [
+        "当前稿件为 4500 图 one-to-one 冻结规则确认；验证集曾参与早期探索，不是全新盲测。",
+        "仅两个预训练模型尺度、一次门控拟合；无 AP 置信区间；额外推理开销明确报告。",
+        "旧 one-to-many、2472 图等历史结果保留原范围，不进入本稿主表。",
+        "研究稿已完成；作者信息待填写；未正式投稿。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_2026723c982844b4aaf0989897996067",
+  "study_id": "STUDY_82ea1e5264ca430a97dff79b8912f847",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "scripts/analyze_shared2.py",
+    "--source",
+    "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323",
+    "--annotations",
+    "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json",
+    "--out",
+    "/root/coco_shared2_20260920/runs/RUN_2026723c982844b4aaf0989897996067"
+  ],
+  "working_directory": "/root/coco_shared2_20260920",
+  "status": "completed",
+  "created_at": "2026-09-20T12:17:44.538+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323/RESULTS.json",
+      "exists": true,
+      "sha256": "b02ad7877a5cf48541e86ee434ae21f0320b1dce4a4f98d51cb983c3720ad141",
+      "size": 3219
+    },
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323/MATCHED_GT75.json",
+      "exists": true,
+      "sha256": "f47b9c049cdfd9fd61a68a87a1075ba61fbffafbcf4301088d0ac25508ad0647",
+      "size": 986057
+    },
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323/GATE.json",
+      "exists": true,
+      "sha256": "d58150e17af29b55a2e25b527a626a1eccd6cc220f913f54c9877f9b5e765679",
+      "size": 128
+    },
+    {
+      "path": "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coco_shared2_20260920/SHARED2_PROTOCOL.json",
+      "revision": "2304c2fef24853857ad14fda96aba2c01fa47a9df50ca532e5bff2f64f3c5ffa",
+      "snapshot": "snapshots/2304c2fef24853857ad14fda96aba2c01fa47a9df50ca532e5bff2f64f3c5ffa"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/SHARED2_REPLICATION.json",
+      "revision": "2d0fb3c24e636e30c188838af6af1f028b579b7c10102631dce374e89dc5d453",
+      "snapshot": "snapshots/2d0fb3c24e636e30c188838af6af1f028b579b7c10102631dce374e89dc5d453"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/analyze_shared2.py",
+      "revision": "e618c4c641650af97095a5c86b5cd7eb2d7dff7b9ef2ad8951ec3cb489f0309f",
+      "snapshot": "snapshots/e618c4c641650af97095a5c86b5cd7eb2d7dff7b9ef2ad8951ec3cb489f0309f"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/learn_refinement.py",
+      "revision": "47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912",
+      "snapshot": "snapshots/47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/shared_shape_head.py",
+      "revision": "76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379",
+      "snapshot": "snapshots/76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/repair_refinement.py",
+      "revision": "bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5",
+      "snapshot": "snapshots/bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/component_seed_probe.py",
+      "revision": "453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190",
+      "snapshot": "snapshots/453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/coco_shared2_20260920/runs/RUN_2026723c982844b4aaf0989897996067/ANALYSIS.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/coco_shared2_20260920/runs/RUN_2026723c982844b4aaf0989897996067"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 14949,
+  "started_at": "2026-09-20T12:17:44.665+00:00",
+  "last_heartbeat": "2026-09-20T12:17:49.667+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-20T12:17:49.920+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_2026723c982844b4aaf0989897996067/ANALYSIS.json",
+      "exists": true,
+      "sha256": "f5162f194e8fc51f7ebb5c568cfaab684e7e19e7bea932c816ea577531c77d3e"
+    }
+  ],
+  "source_study_reference": "/root/coco_shared2_20260920/study.json",
+  "local_metadata_note": "Normalized study_id from remote study.json path to existing stable Study ID after return; original observed record retained in remote_run_record.original.json. Execution facts unchanged."
+}

@@ -1,0 +1,80 @@
+{
+  "run_id": "RUN_20261004_1000",
+  "status": "completed",
+  "host": "28358lan (Windows notebook, RTX 4060 Laptop 8GB)",
+  "remote_root": "D:/coco_wire/mask_support_candidate_audit_20261004/run_1000",
+  "runtime": {
+    "python": "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "ultralytics": "8.4.100",
+    "torch": "2.5.1",
+    "device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+  },
+  "scope": "diagnostic only; GT used offline to compare candidate mask quality, no GT-dependent inference",
+  "candidate_pool": "one-to-one raw candidates, top 300 by max class score",
+  "gt_alignment": "same category and candidate Box IoU >= 0.50",
+  "neighbor_definition": "same-category GT box IoU > 0.10",
+  "artifacts": [
+    "rows.csv",
+    "SUMMARY.json",
+    "ANALYSIS.json",
+    "ANALYSIS_IMAGE_BOOT.json"
+  ],
+  "result": "supports candidate-quality/routing line; does not establish deployable AP gain",
+  "schema_version": 2,
+  "study_id": "mask_support_candidate_audit_20261004",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "-u",
+    "D:\\coco_wire\\mask_support_audit.py",
+    "--root",
+    "D:\\coco_wire",
+    "--out",
+    "D:\\coco_wire\\mask_support_candidate_audit_20261004\\run_1000",
+    "--images",
+    "1000",
+    "--start",
+    "0",
+    "--imgsz",
+    "640"
+  ],
+  "working_directory": "D:\\coco_wire\\mask_support_candidate_audit_20261004",
+  "created_at": "2026-10-04T00:00:00+08:00",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows notebook",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\models\\yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"
+    },
+    {
+      "path": "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+      "exists": true
+    },
+    {
+      "path": "D:\\coco_wire\\mask_support_audit.py",
+      "exists": true,
+      "sha256": "f68b87f477ab658e8a865d529ff28ea3ec3fb41be127b3b48a7a959ebae2274a"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\mask_support_audit.py",
+      "revision": "f68b87f477ab658e8a865d529ff28ea3ec3fb41be127b3b48a7a959ebae2274a",
+      "snapshot": "mask_support_audit.py.sha256"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "protocol_id": "PROTOCOL_mask_boundary_filter_factorial_v3_20260915",
+  "study_id": "STUDY_8fb3468ebb704682a2225ebed0e16206",
+  "purpose": "Separate mask-boundary calibration from removal of newly empty candidates and characterize repair/damage objects.",
+  "status": "fixed before execution",
+  "model": {"ultralytics": "8.4.100", "weights": "COCO-pretrained YOLO26m-seg", "branch": "one2one", "imgsz": 640, "conf": 0.001, "max_det": 300, "batch": 1, "half": false, "training": false},
+  "data": {"dataset": "COCO val2017", "selection": "sorted IDs [500:5000], 4500 previously explored confirmation images", "annotations": "original COCO, crowd semantics retained for COCOeval", "fixed_slot_diagnosis": "all ordinary GT denominator; baseline nonempty predictions assigned confidence-first with same class and Box IoU>=.50, then frozen"},
+  "decoder": "same as PROTOCOL_DECODER_V2: input-grid upsample, predicted-box crop, threshold, official binary export to original grid",
+  "threshold": "0.75/(1+(A/2304)^2), A=baseline exported predicted area; constants unchanged",
+  "variants": {
+    "official_zero": "original masks and original nonempty candidate population",
+    "filter_only": "original masks, remove exactly the candidates made empty by smooth calibration",
+    "boundary_only": "smooth masks for survivors; restore original masks for newly empty candidates, preserving original candidate population",
+    "smooth_gated": "smooth masks, omit newly empty candidates"
+  },
+  "identities": "persist image_id and candidate_index in every COCO prediction plus candidate_records.csv for all predictions including empties; same forward, boxes, categories, scores and ranking",
+  "controls": ["smooth masks subset of baseline", "baseline official decoder parity first three images", "boundary_only count equals baseline; filter_only count equals full calibration", "original candidate order preserved; no score-based reconstruction"],
+  "primary_metrics": ["COCO Mask AP", "AP75", "AP by size", "AR100", "fixed-slot R75 repair/damage"],
+  "interpretation": "AP is nonlinear: report both conditional effects and factorial interaction, not additive causal percentages. Boundary-only estimand applies to masks that remain nonempty; emptied masks retain baseline in this counterfactual.",
+  "object_analysis": {"existing_records": "coverage/purity, baseline mask area inferred when TP>0, GT shape and GT adjacency are explanatory only", "new_prediction_features": ["actual baseline mask area", "mask bbox elongation and extent", "four-connected input-grid perimeter compactness", "class score", "removed foreground fraction"], "denominators": "repair/failure, damage/success and net/all matched within each group; no-slot GT retained separately for overall recall", "inference_limit": "GT-derived variables and post-calibration removal fraction do not establish a deployable pre-calibration risk predictor"},
+  "limitations": ["single model and previously explored data", "no parameter fitting or rule selection on these results", "fixed-slot recall is not official COCO recall", "preserves established predict path, not a new claim of full model.val identity"]
+}

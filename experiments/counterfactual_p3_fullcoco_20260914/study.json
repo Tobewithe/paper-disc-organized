@@ -1,0 +1,37 @@
+{
+  "id": "counterfactual_p3_fullcoco_20260914",
+  "kind": "experiment",
+  "title": "Full COCO seed-0 controlled-intervention-guided P3 rescue screen",
+  "status": "seed0_pair_complete",
+  "parent": "counterfactual_p3_distillation_20260914",
+  "question": "Does training-only controlled-intervention-guided P3 rescue retain its direct mechanism gains when trained on all COCO2017 train images?",
+  "arms": [
+    "baseline_s0",
+    "cfp3r_s0"
+  ],
+  "budget": {
+    "seeds": [
+      0
+    ],
+    "epochs": 1,
+    "train_images": 118287,
+    "val_images": 5000,
+    "batch": 2
+  },
+  "remote": {
+    "screen": "fullcoco_pair",
+    "path": "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914",
+    "queue": [
+      "baseline_s0",
+      "cfp3r_s0"
+    ]
+  },
+  "decision_rule": "Retain when a scientifically meaningful predeclared mechanism or downstream failure metric improves with acceptable aggregate cost; no requirement that every metric improves.",
+  "result_summary": "RESULTS_20260915.md",
+  "completed_evaluation_run": "RUN_f3cab37941e8429690fa659377cabbd0",
+  "result_scope": "One full train2017 epoch, seed 0; corrected official val2017 evaluation and frozen targeted diagnostics",
+  "superseded_evaluation": "remote_snapshot_20260915/official_cocoeval: invalid category IDs and image scope; see RESULTS_20260915.md",
+  "study_id": "counterfactual_p3_fullcoco_20260914",
+  "report": "RESULTS_20260915.md",
+  "scripts_directory": "scripts"
+}

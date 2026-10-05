@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_a956387004414a52b7335387957f09ed",
+  "study_id": "STUDY_840c6dec95084151adee21405db247bb",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/scripts/summarize_eval.py",
+    "--evaluation",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_78ecc90a32c64cbd88cac662c4e93f50",
+    "--out",
+    "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_a956387004414a52b7335387957f09ed"
+  ],
+  "working_directory": "/root/autodl-tmp/coefficient_direction_predictability_20260925",
+  "status": "completed",
+  "created_at": "2026-09-24T19:00:03.488+00:00",
+  "host": "autodl-container-4e834bbbd8-0b3cc58a",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-143-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_78ecc90a32c64cbd88cac662c4e93f50/COMPLETE.json",
+      "exists": true,
+      "sha256": "ec555f55e36076d8d44166de2bac3a62a6ffb6f0f0004ef8a2ea5e794e833d2d",
+      "size": 212
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/scripts/summarize_eval.py",
+      "revision": "3d3a612035a47c7e890fdf8507dc9a089fc73d5a0b140d0693c19e3ddc91a0d1",
+      "snapshot": "snapshots/3d3a612035a47c7e890fdf8507dc9a089fc73d5a0b140d0693c19e3ddc91a0d1"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_a956387004414a52b7335387957f09ed/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-4e834bbbd8-0b3cc58a",
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_a956387004414a52b7335387957f09ed"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 54012,
+  "started_at": "2026-09-24T19:00:03.594+00:00",
+  "last_heartbeat": "2026-09-24T19:00:48.608+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-24T19:00:49.608+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/coefficient_direction_predictability_20260925/runs/RUN_a956387004414a52b7335387957f09ed/SUMMARY.json",
+      "exists": true,
+      "sha256": "bad0ca78eb9958a5eccfb82b9e2b7b72f0ae53b3737345aec11f83536a6ca40f"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_e641c67057624fcdb8ae4d9f43f5012b",
+  "study_id": "STUDY_136961893d3745eea566e31f1859d5f3",
+  "source_kind": "historical_receipt_import",
+  "status": "completed",
+  "status_basis": "Existing TRAINING_COMPLETE.json reports complete; no execution was started during migration.",
+  "started_at": null,
+  "finished_at": null,
+  "command": null,
+  "working_directory": null,
+  "environment": {
+    "packages": {
+      "ultralytics": "8.4.100"
+    },
+    "source": "Existing completion receipt; other environment fields unknown"
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/datasets/coco2017/coco_full.yaml",
+      "source": "TRAINING_COMPLETE.json:data",
+      "revision": null
+    },
+    {
+      "path": "/root/autodl-tmp/boundary_code_20260914/yolo26m-seg.pt",
+      "source": "TRAINING_COMPLETE.json:source_weight",
+      "revision": null
+    }
+  ],
+  "snapshots": [],
+  "execution_location": "/root/autodl-tmp/counterfactual_p3_fullcoco_20260914/runs/baseline_s0_full",
+  "reported_configuration": {
+    "arm": "baseline",
+    "seed": 0,
+    "epochs": 1,
+    "batch": 2,
+    "workers": 8,
+    "aux_weight": 0.0
+  },
+  "source_documents": [
+    "TRAINING_COMPLETE.json",
+    "args.yaml",
+    "results.csv"
+  ],
+  "identity_source": "_maintenance/physical_layout_20260915/plan.json",
+  "available_artifacts": [
+    "args.yaml",
+    "results.csv",
+    "TRAINING_COMPLETE.json"
+  ],
+  "provenance_limits": [
+    "Exact start/end timestamps, command, working directory and launch-time dependency hashes were not captured in the available receipt.",
+    "File copy timestamps are not execution timestamps. Existing execution ID retained; no new run is inferred."
+  ]
+}

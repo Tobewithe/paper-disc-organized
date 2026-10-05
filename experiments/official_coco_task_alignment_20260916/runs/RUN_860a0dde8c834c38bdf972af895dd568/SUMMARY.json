@@ -1,0 +1,460 @@
+{
+  "contract_tests_passed": [
+    "box-best candidate cannot override actual mask success",
+    "good box and empty/failed mask remain linked",
+    "bad box does not exclude a correct mask",
+    "one prediction cannot count for two GTs",
+    "wrong category cannot silently become a success",
+    "ignored prediction cannot be borrowed",
+    "out-of-budget prediction cannot be borrowed",
+    "diagnostic association is not a Mask75 true positive",
+    "duplicate remains visible on prediction side",
+    "same-mask pixel accounting"
+  ],
+  "discrepancy_gt": 26,
+  "images": 22,
+  "reason_counts": {
+    "outside_max_detections": 25,
+    "prediction_assigned_to_other_gt": 1
+  },
+  "instances": [
+    {
+      "annotation_id": 1987085,
+      "image_id": 632,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.8578838174273858,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 561,
+          "score": 0.012185772880911827,
+          "mask_iou": 0.8578838174273858,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1469717,
+      "image_id": 17959,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.9372375174988334,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 21116,
+          "score": 0.0021148580126464367,
+          "mask_iou": 0.9372375174988334,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1494928,
+      "image_id": 25394,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7961783439490446,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 27645,
+          "score": 0.010483421385288239,
+          "mask_iou": 0.7961783439490446,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 524440,
+      "image_id": 43314,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7681532764450169,
+      "reason": "prediction_assigned_to_other_gt",
+      "witnesses": [
+        {
+          "source_prediction_id": 43280,
+          "score": 0.8831385374069214,
+          "mask_iou": 0.7681532764450169,
+          "reason": "prediction_assigned_to_other_gt",
+          "matched_gt": 477579
+        }
+      ]
+    },
+    {
+      "annotation_id": 1652487,
+      "image_id": 61333,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7767857142857143,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 60179,
+          "score": 0.009214387275278568,
+          "mask_iou": 0.7767857142857143,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1984431,
+      "image_id": 61333,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.765625,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 60220,
+          "score": 0.005015447735786438,
+          "mask_iou": 0.765625,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        },
+        {
+          "source_prediction_id": 60261,
+          "score": 0.003136548213660717,
+          "mask_iou": 0.765625,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1751607,
+      "image_id": 65455,
+      "old_state": "box_bad_mask_good",
+      "old_mask_iou": 0.7748447204968945,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 64277,
+          "score": 0.0026544425636529922,
+          "mask_iou": 0.7748447204968945,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1543762,
+      "image_id": 90891,
+      "old_state": "box_bad_mask_good",
+      "old_mask_iou": 0.7823392718822618,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 87012,
+          "score": 0.008037782274186611,
+          "mask_iou": 0.7823392718822618,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1914584,
+      "image_id": 153510,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7914544425580079,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 146631,
+          "score": 0.001019782037474215,
+          "mask_iou": 0.7914544425580079,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1331826,
+      "image_id": 203931,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.8119858989424207,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 198839,
+          "score": 0.006129520013928413,
+          "mask_iou": 0.8119858989424207,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        },
+        {
+          "source_prediction_id": 198961,
+          "score": 0.0023268291261047125,
+          "mask_iou": 0.7715617715617715,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1711353,
+      "image_id": 261097,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7943262411347518,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 250652,
+          "score": 0.0064031146466732025,
+          "mask_iou": 0.7943262411347518,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1551417,
+      "image_id": 303566,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.8523985239852399,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 293395,
+          "score": 0.009574281983077526,
+          "mask_iou": 0.8523985239852399,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1552005,
+      "image_id": 303566,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.784366576819407,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 293405,
+          "score": 0.00887701753526926,
+          "mask_iou": 0.784366576819407,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1447424,
+      "image_id": 360097,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.8733031674208145,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 346351,
+          "score": 0.0014637461863458157,
+          "mask_iou": 0.8733031674208145,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1905714,
+      "image_id": 378515,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7711864406779662,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 367834,
+          "score": 0.006828021723777056,
+          "mask_iou": 0.7711864406779662,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1919821,
+      "image_id": 397351,
+      "old_state": "box_bad_mask_good",
+      "old_mask_iou": 0.7596899224806202,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 384097,
+          "score": 0.010302046313881874,
+          "mask_iou": 0.7596899224806202,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1918251,
+      "image_id": 397681,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7707423580786026,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 384699,
+          "score": 0.034830838441848755,
+          "mask_iou": 0.7707423580786026,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1683056,
+      "image_id": 439994,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7528089887640449,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 423601,
+          "score": 0.008011220954358578,
+          "mask_iou": 0.7528089887640449,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        },
+        {
+          "source_prediction_id": 423686,
+          "score": 0.004479608498513699,
+          "mask_iou": 0.7628458498023716,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1755535,
+      "image_id": 439994,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7708628005657708,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 423572,
+          "score": 0.009526807814836502,
+          "mask_iou": 0.7708628005657708,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1916460,
+      "image_id": 465585,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.8374881666140739,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 450517,
+          "score": 0.0036687699612230062,
+          "mask_iou": 0.8374881666140739,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 2114414,
+      "image_id": 465585,
+      "old_state": "box_bad_mask_good",
+      "old_mask_iou": 0.8245531514581373,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 450404,
+          "score": 0.008281726390123367,
+          "mask_iou": 0.8245531514581373,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1989069,
+      "image_id": 471893,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7932692307692307,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 457216,
+          "score": 0.01029629074037075,
+          "mask_iou": 0.7932692307692307,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1243962,
+      "image_id": 476770,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.7532467532467533,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 462544,
+          "score": 0.0023693644907325506,
+          "mask_iou": 0.7532467532467533,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 2196985,
+      "image_id": 484351,
+      "old_state": "box_bad_mask_good",
+      "old_mask_iou": 0.8434782608695652,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 471113,
+          "score": 0.01328248344361782,
+          "mask_iou": 0.8434782608695652,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1548102,
+      "image_id": 527029,
+      "old_state": "box_good_mask_good",
+      "old_mask_iou": 0.8973214285714286,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 509944,
+          "score": 0.0031249660532921553,
+          "mask_iou": 0.8973214285714286,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    },
+    {
+      "annotation_id": 1657335,
+      "image_id": 580410,
+      "old_state": "box_bad_mask_good",
+      "old_mask_iou": 0.75,
+      "reason": "outside_max_detections",
+      "witnesses": [
+        {
+          "source_prediction_id": 560921,
+          "score": 0.010272488929331303,
+          "mask_iou": 0.75,
+          "reason": "outside_max_detections",
+          "matched_gt": null
+        }
+      ]
+    }
+  ],
+  "scope": "Only mapping-contract validation and explanation of 26 previously reported discrepant GTs; no new model-performance claim"
+}

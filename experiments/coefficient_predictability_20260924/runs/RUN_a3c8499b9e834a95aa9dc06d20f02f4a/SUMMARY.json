@@ -1,0 +1,86 @@
+{
+  "images": 200,
+  "pairs": 500,
+  "summary": {
+    "principal_cos_mean": {
+      "mean": 0.30145358690619467,
+      "median": 0.29411907494068146,
+      "q10": 0.25730037987232207,
+      "q90": 0.3578596711158753
+    },
+    "principal_cos_min": {
+      "mean": 0.005484499664098621,
+      "median": 0.004412492271512747,
+      "q10": 0.0006891615863423795,
+      "q90": 0.011320796050131322
+    },
+    "principal_cos_q10": {
+      "mean": 0.046182690877467396,
+      "median": 0.042455095797777176,
+      "q10": 0.03005158305168152,
+      "q90": 0.06439699828624726
+    },
+    "channel_abs_corr_mean": {
+      "mean": 0.09227751445025206,
+      "median": 0.08775430545210838,
+      "q10": 0.06560727283358574,
+      "q90": 0.12398500964045525
+    },
+    "channel_hungarian_mean": {
+      "mean": 0.2441767563521862,
+      "median": 0.22847431898117065,
+      "q10": 0.1791260302066803,
+      "q90": 0.33087079823017124
+    },
+    "channel_hungarian_min": {
+      "mean": 0.05836710007465445,
+      "median": 0.05474724434316158,
+      "q10": 0.023631859757006168,
+      "q90": 0.09666508436203004
+    },
+    "procrustes_residual_before": {
+      "mean": 0.007905067413114012,
+      "median": 0.00799685949459672,
+      "q10": 0.007294445438310504,
+      "q90": 0.008395163714885712
+    },
+    "procrustes_residual_after": {
+      "mean": 0.007240633461624384,
+      "median": 0.007300822297111154,
+      "q10": 0.006804624106734991,
+      "q90": 0.00759895695373416
+    },
+    "procrustes_relative_reduction": {
+      "mean": 0.08324223586619091,
+      "median": 0.08318183492761597,
+      "q10": 0.05327755149974923,
+      "q90": 0.11307368999209733
+    }
+  },
+  "controls": {
+    "identity": {
+      "principal_cos_mean": 0.9999999403953552,
+      "principal_cos_min": 0.9999996423721313,
+      "principal_cos_q10": 0.9999997615814209,
+      "channel_abs_corr_mean": 0.30660560727119446,
+      "channel_hungarian_mean": 1.000000238418579,
+      "channel_hungarian_min": 0.9999992251396179,
+      "procrustes_residual_before": 0.0,
+      "procrustes_residual_after": 3.739535792135484e-09,
+      "procrustes_relative_reduction": -0.37395357921354844
+    },
+    "channel_permutation": {
+      "principal_cos_mean": 0.9999994039535522,
+      "principal_cos_min": 0.9999948740005493,
+      "principal_cos_q10": 0.9999974370002747,
+      "channel_abs_corr_mean": 0.30660560727119446,
+      "channel_hungarian_mean": 1.000000238418579,
+      "channel_hungarian_min": 0.9999992251396179,
+      "procrustes_residual_before": 0.008319856598973274,
+      "procrustes_residual_after": 4.076668336239209e-09,
+      "procrustes_relative_reduction": 0.9999995100073796
+    }
+  },
+  "protocol": "Prototype channels are compared in common 640-letterbox pixel coordinates after per-channel centering and normalization. Orthogonal Procrustes is descriptive; it does not establish channel drift or causality. No GT is used.",
+  "limitations": "Content and spatial-layout changes can produce the same geometry; cross-image angles alone cannot prove coefficient-head failure."
+}

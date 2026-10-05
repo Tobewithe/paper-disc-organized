@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_ef0507282ab24ba2b5d35a18716ba46b",
+  "study_id": "STUDY_9d7e51a3cda2409e8c1d333d0b175467",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python3.12",
+    "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/scripts/build_oracle_fast.py",
+    "--cache",
+    "/root/prototype_readout_fast_screen_20261003/cache",
+    "--split",
+    "/root/prototype_readout_fast_screen_20261003/SPLIT.json",
+    "--out",
+    "ORACLE_fast_fit.pt",
+    "--batch",
+    "16",
+    "--max-iter",
+    "100"
+  ],
+  "working_directory": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_ef0507282ab24ba2b5d35a18716ba46b",
+  "status": "completed",
+  "created_at": "2026-10-04T16:17:21.062+00:00",
+  "host": "autodl-container-7gyvcd108y-b99fe683",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python3.12",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-168-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python3.12",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2"
+      }
+    }
+  },
+  "inputs": [],
+  "snapshots": [],
+  "scope": {
+    "kind": "finite_oracle_retry",
+    "lambda": 0.003,
+    "images": 1024
+  },
+  "expected_outputs": [
+    "ORACLE_fast_fit.pt",
+    "ORACLE_fast_fit.SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-7gyvcd108y-b99fe683",
+      "path": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_ef0507282ab24ba2b5d35a18716ba46b"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 100755,
+  "started_at": "2026-10-04T16:17:21.167+00:00",
+  "last_heartbeat": "2026-10-04T16:23:51.389+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-04T16:23:54.829+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_ef0507282ab24ba2b5d35a18716ba46b/ORACLE_fast_fit.pt",
+      "path_relative_to_cwd": "ORACLE_fast_fit.pt",
+      "exists": true,
+      "sha256": "f1c6122c1df154f831cb4ec87416c697698d2130b7d78616bbbc144615a06f78"
+    },
+    {
+      "path": "/root/position_dynamic_prototype_gate_spatial_teacher_20261005/runs/RUN_ef0507282ab24ba2b5d35a18716ba46b/ORACLE_fast_fit.SUMMARY.json",
+      "path_relative_to_cwd": "ORACLE_fast_fit.SUMMARY.json",
+      "exists": true,
+      "sha256": "dc6af79ca27e8864ea79162fcf2b44b80e580723c7107cc36eac8f50f4455bd0"
+    }
+  ]
+}

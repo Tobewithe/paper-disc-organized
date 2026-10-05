@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "dataset": "COCO val2017 all 5000 images; original instances_val2017.json; noncrowd geometry GT, original crowd retained for COCOeval",
+  "model": "official COCO yolo26m-seg.pt",
+  "ultralytics": "8.4.100",
+  "device": "local CUDA 0",
+  "input": "640 auto letterbox stride32 batch1 FP32 unfused eval",
+  "primary_branch": "one2one",
+  "geometry": "class- and score-independent full raw candidates; own predicted-box normal process_mask upsample then scale_masks byte to original grid",
+  "main_thresholds": [
+    0.5,
+    0.75
+  ],
+  "five_classes": "EXPERIMENT_SPEC_STANDARD 1.6 section6.2.1",
+  "geometry_pruning": "conservative crop-support bound from separable linear interpolation positive-support envelope; decode if can improve either maximum or admit a Mask50 edge; validate against exhaustive on same images",
+  "normal_output": {
+    "head_topk": 300,
+    "conf": 0.001,
+    "empty_mask": "retained in audit, omitted from segmentation export",
+    "cocoeval_maxDets": [
+      1,
+      10,
+      100
+    ]
+  },
+  "assignment": "current-weight TAL replay on transformed original noncrowd boxes for both heads; no historical training claim; primary head coefficients assessed",
+  "save": "per-image float32 raw reconstruction npz, scores/boxes/coefs/proto, GT metrics, edges, normal predictions, progress; resumes use new Run with source shards explicit",
+  "literature": "TIDE error oracles, Mask Scoring R-CNN quality versus confidence, Boundary IoU and additional verified conference/journal methods; adapt only after failure evidence",
+  "selection": "No density prefilter, no outcome-selected images",
+  "limitations": [
+    "val2017 used for exploration, future method confirmation requires separate evaluation design",
+    "GT-assisted raw capability is diagnostic, not deployment AP",
+    "mask decoder profile is stated explicitly, not claimed identical to every official val configuration"
+  ],
+  "mask_numerics": "Compute all raw coefficient-prototype FP32 dot products once per image; reuse fixed logits for every witness/export/geometry decode. Then official bilinear upsample, predicted-box crop, >0 byte, scale_masks byte. This removes repeated-GEMM batch-shape sign changes.",
+  "validation": {
+    "initial_exhaustive_run": "RUN_28dd1d64ff054e48ab2cba56299c1618",
+    "stopped_full_run": "RUN_450dcd49398a4d588ff8464445599224: same-candidate re-decode mismatch after32images",
+    "fixed_logits_exhaustive_run": "RUN_e95ae8b8630043668d7f3967c0f09c59: triggering image2592 and next2685 passed"
+  }
+}

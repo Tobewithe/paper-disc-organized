@@ -1,0 +1,14 @@
+{
+  "study_id": "mask_quality_boundary_branch_20261004",
+  "kind": "method",
+  "title": "掩码边界归属质量分支",
+  "line": "neighbor_sensitive_p3",
+  "question": "候选排序与掩码质量错位时，独立的掩码边界质量分支能否修正 one-to-one 候选保留而不破坏分类与框回归？",
+  "status": "pilot_positive_candidate",
+  "dataset": "COCO train2017/val2017 official converted labels",
+  "model": "YOLO26m-seg COCO pretrained",
+  "ultralytics": "8.4.100",
+  "gt_role": "training quality supervision only; inference joint score is GT-free",
+  "method": "dedicated candidate quality head from mask-response statistics, coefficients and decoded geometry; inference score fusion",
+  "created_at": "2026-10-04"
+}

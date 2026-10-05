@@ -1,0 +1,191 @@
+[
+  {
+    "id": "2208.04438",
+    "title": "Occlusion-Aware Instance Segmentation via BiLayer Network Architectures",
+    "authors": [
+      "Lei Ke",
+      "Yu-Wing Tai",
+      "Chi-Keung Tang"
+    ],
+    "abstract": "Segmenting highly-overlapping image objects is challenging, because there is typically no distinction between real object contours and occlusion boundaries on images. Unlike previous instance segmentation methods, we model image formation as a composition of two overlapping layers, and propose Bilayer Convolutional Network (BCNet), where the top layer detects occluding objects (occluders) and the bottom layer infers partially occluded instances (occludees). The explicit modeling of occlusion relationship with bilayer structure naturally decouples the boundaries of both the occluding and occluded instances, and considers the interaction between them during mask regression. We investigate the efficacy of bilayer structure using two popular convolutional network designs, namely, Fully Convolutional Network (FCN) and Graph Convolutional Network (GCN). Further, we formulate bilayer decoupling using the vision transformer (ViT), by representing instances in the image as separate learnable occluder and occludee queries. Large and consistent improvements using one/two-stage and query-based object detectors with various backbones and network layer choices validate the generalization ability of bilayer decoupling, as shown by extensive experiments on image instance segmentation benchmarks (COCO, KINS, COCOA) and video instance segmentation benchmarks (YTVIS, OVIS, BDD100K MOTS), especially for heavy occlusion cases. Code and data are available at https://github.com/lkeab/BCNet.",
+    "published": "2022-08-08",
+    "updated": "2023-03-10",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2208.04438.pdf",
+    "abs_url": "https://arxiv.org/abs/2208.04438"
+  },
+  {
+    "id": "2209.13899",
+    "title": "Strong Instance Segmentation Pipeline for MMSports Challenge",
+    "authors": [
+      "Bo Yan",
+      "Fengliang Qi",
+      "Zhuang Li",
+      "Yadong Li",
+      "Hongbin Wang"
+    ],
+    "abstract": "The goal of ACM MMSports2022 DeepSportRadar Instance Segmentation Challenge is to tackle the segmentation of individual humans including players, coaches and referees on a basketball court. And the main characteristics of this challenge are there is a high level of occlusions between players and the amount of data is quite limited. In order to address these problems, we designed a strong instance segmentation pipeline. Firstly, we employed a proper data augmentation strategy for this task mainly including photometric distortion transform and copy-paste strategy, which can generate more image instances with a wider distribution. Secondly, we employed a strong segmentation model, Hybrid Task Cascade based detector on the Swin-Base based CBNetV2 backbone, and we add MaskIoU head to HTCMaskHead that can simply and effectively improve the performance of instance segmentation. Finally, the SWA training strategy was applied to improve the performance further. Experimental results demonstrate the proposed pipeline can achieve a competitive result on the DeepSportRadar challenge, with 0.768AP@0.50:0.95 on the challenge set. Source code is available at https://github.com/YJingyu/Instanc_Segmentation_Pro.",
+    "published": "2022-09-28",
+    "updated": "2022-09-28",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2209.13899.pdf",
+    "abs_url": "https://arxiv.org/abs/2209.13899"
+  },
+  {
+    "id": "2012.02107",
+    "title": "Robust Instance Segmentation through Reasoning about Multi-Object Occlusion",
+    "authors": [
+      "Xiaoding Yuan",
+      "Adam Kortylewski",
+      "Yihong Sun",
+      "Alan Yuille"
+    ],
+    "abstract": "Analyzing complex scenes with Deep Neural Networks is a challenging task, particularly when images contain multiple objects that partially occlude each other. Existing approaches to image analysis mostly process objects independently and do not take into account the relative occlusion of nearby objects. In this paper, we propose a deep network for multi-object instance segmentation that is robust to occlusion and can be trained from bounding box supervision only. Our work builds on Compositional Networks, which learn a generative model of neural feature activations to locate occluders and to classify objects based on their non-occluded parts. We extend their generative model to include multiple objects and introduce a framework for efficient inference in challenging occlusion scenarios. In particular, we obtain feed-forward predictions of the object classes and their instance and occluder segmentations. We introduce an Occlusion Reasoning Module (ORM) that locates erroneous segmentations and estimates the occlusion order to correct them. The improved segmentation masks are, in turn, integrated into the network in a top-down manner to improve the image classification. Our experiments on the KITTI INStance dataset (KINS) and a synthetic occlusion dataset demonstrate the effectiveness and robustness of our model at multi-object instance segmentation under occlusion. Code is publically available at https://github.com/XD7479/Multi-Object-Occlusion.",
+    "published": "2020-12-03",
+    "updated": "2021-04-01",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2012.02107.pdf",
+    "abs_url": "https://arxiv.org/abs/2012.02107"
+  },
+  {
+    "id": "2110.00470",
+    "title": "Instance Segmentation Challenge Track Technical Report, VIPriors Workshop at ICCV 2021: Task-Specific Copy-Paste Data Augmentation Method for Instance Segmentation",
+    "authors": [
+      "Jahongir Yunusov",
+      "Shohruh Rakhmatov",
+      "Abdulaziz Namozov",
+      "Abdulaziz Gaybulayev",
+      "Tae-Hyong Kim"
+    ],
+    "abstract": "Copy-Paste has proven to be a very effective data augmentation for instance segmentation which can improve the generalization of the model. We used a task-specific Copy-Paste data augmentation method to achieve good performance on the instance segmentation track of the 2nd VIPriors workshop challenge. We also applied additional data augmentation techniques including RandAugment and GridMask. Our segmentation model is the HTC detector on the CBSwin-B with CBFPN with some tweaks. This model was trained at the multi-scale mode by a random sampler on the 6x schedule and tested at the single-scale mode. By combining these techniques, we achieved 0.398 AP@0.50:0.95 with the validation set and 0.433 AP@0.50:0.95 with the test set. Finally, we reached 0.477 AP@0.50:0.95 with the test set by adding the validation set to the training data. Source code is available at https://github.com/jahongir7174/VIP2021.",
+    "published": "2021-10-01",
+    "updated": "2021-10-01",
+    "categories": [
+      "cs.CV",
+      "cs.AI"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2110.00470.pdf",
+    "abs_url": "https://arxiv.org/abs/2110.00470"
+  },
+  {
+    "id": "2212.09277",
+    "title": "Building Height Prediction with Instance Segmentation",
+    "authors": [
+      "Furkan Burak Bagci",
+      "Ahmet Alp Kindriroglu",
+      "Metehan Yalcin",
+      "Ufuk Uyan",
+      "Mahiye Uluyagmur Ozturk"
+    ],
+    "abstract": "Extracting building heights from satellite images is an active research area used in many fields such as telecommunications, city planning, etc. Many studies utilize DSM (Digital Surface Models) generated with lidars or stereo images for this purpose. Predicting the height of the buildings using only RGB images is challenging due to the insufficient amount of data, low data quality, variations of building types, different angles of light and shadow, etc. In this study, we present an instance segmentation-based building height extraction method to predict building masks with their respective heights from a single RGB satellite image. We used satellite images with building height annotations of certain cities along with an open-source satellite dataset with the transfer learning approach. We reached, the bounding box mAP 59, the mask mAP 52.6, and the average accuracy value of 70% for buildings belonging to each height class in our test set.",
+    "published": "2022-12-19",
+    "updated": "2022-12-19",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2212.09277.pdf",
+    "abs_url": "https://arxiv.org/abs/2212.09277"
+  },
+  {
+    "id": "2109.11103",
+    "title": "Unseen Object Amodal Instance Segmentation via Hierarchical Occlusion Modeling",
+    "authors": [
+      "Seunghyeok Back",
+      "Joosoon Lee",
+      "Taewon Kim",
+      "Sangjun Noh",
+      "Raeyoung Kang",
+      "Seongho Bak",
+      "Kyoobin Lee"
+    ],
+    "abstract": "Instance-aware segmentation of unseen objects is essential for a robotic system in an unstructured environment. Although previous works achieved encouraging results, they were limited to segmenting the only visible regions of unseen objects. For robotic manipulation in a cluttered scene, amodal perception is required to handle the occluded objects behind others. This paper addresses Unseen Object Amodal Instance Segmentation (UOAIS) to detect 1) visible masks, 2) amodal masks, and 3) occlusions on unseen object instances. For this, we propose a Hierarchical Occlusion Modeling (HOM) scheme designed to reason about the occlusion by assigning a hierarchy to a feature fusion and prediction order. We evaluated our method on three benchmarks (tabletop, indoors, and bin environments) and achieved state-of-the-art (SOTA) performance. Robot demos for picking up occluded objects, codes, and datasets are available at https://sites.google.com/view/uoais",
+    "published": "2021-09-23",
+    "updated": "2022-02-28",
+    "categories": [
+      "cs.RO",
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2109.11103.pdf",
+    "abs_url": "https://arxiv.org/abs/2109.11103"
+  },
+  {
+    "id": "2504.14054",
+    "title": "Occlusion-Ordered Semantic Instance Segmentation",
+    "authors": [
+      "Soroosh Baselizadeh",
+      "Cheuk-To Yu",
+      "Olga Veksler",
+      "Yuri Boykov"
+    ],
+    "abstract": "Standard semantic instance segmentation provides useful, but inherently 2D information from a single image. To enable 3D analysis, one usually integrates absolute monocular depth estimation with instance segmentation. However, monocular depth is a difficult task. Instead, we leverage a simpler single-image task, occlusion-based relative depth ordering, providing coarser but useful 3D information. We show that relative depth ordering works more reliably from occlusions than from absolute depth. We propose to solve the joint task of relative depth ordering and segmentation of instances based on occlusions. We call this task Occlusion-Ordered Semantic Instance Segmentation (OOSIS). We develop an approach to OOSIS that extracts instances and their occlusion order simultaneously from oriented occlusion boundaries and semantic segmentation. Unlike popular detect-and-segment framework for instance segmentation, combining occlusion ordering with instance segmentation allows a simple and clean formulation of OOSIS as a labeling problem. As a part of our solution for OOSIS, we develop a novel oriented occlusion boundaries approach that significantly outperforms prior work. We also develop a new joint OOSIS metric based both on instance mask accuracy and correctness of their occlusion order. We achieve better performance than strong baselines on KINS and COCOA datasets.",
+    "published": "2025-04-18",
+    "updated": "2025-04-18",
+    "categories": [
+      "cs.CV",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2504.14054.pdf",
+    "abs_url": "https://arxiv.org/abs/2504.14054"
+  },
+  {
+    "id": "2211.11282",
+    "title": "Task-Specific Data Augmentation and Inference Processing for VIPriors Instance Segmentation Challenge",
+    "authors": [
+      "Bo Yan",
+      "Xingran Zhao",
+      "Yadong Li",
+      "Hongbin Wang"
+    ],
+    "abstract": "Instance segmentation is applied widely in image editing, image analysis and autonomous driving, etc. However, insufficient data is a common problem in practical applications. The Visual Inductive Priors(VIPriors) Instance Segmentation Challenge has focused on this problem. VIPriors for Data-Efficient Computer Vision Challenges ask competitors to train models from scratch in a data-deficient setting, but there are some visual inductive priors that can be used. In order to address the VIPriors instance segmentation problem, we designed a Task-Specific Data Augmentation(TS-DA) strategy and Inference Processing(TS-IP) strategy. The main purpose of task-specific data augmentation strategy is to tackle the data-deficient problem. And in order to make the most of visual inductive priors, we designed a task-specific inference processing strategy. We demonstrate the applicability of proposed method on VIPriors Instance Segmentation Challenge. The segmentation model applied is Hybrid Task Cascade based detector on the Swin-Base based CBNetV2 backbone. Experimental results demonstrate that proposed method can achieve a competitive result on the test set of 2022 VIPriors Instance Segmentation Challenge, with 0.531 AP@0.50:0.95.",
+    "published": "2022-11-21",
+    "updated": "2022-11-21",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2211.11282.pdf",
+    "abs_url": "https://arxiv.org/abs/2211.11282"
+  },
+  {
+    "id": "2604.01742",
+    "title": "Dense Point-to-Mask Optimization with Reinforced Point Selection for Crowd Instance Segmentation",
+    "authors": [
+      "Hongru Chen",
+      "Jiyang Huang",
+      "Jia Wan",
+      "Antoni B. Chan"
+    ],
+    "abstract": "Crowd instance segmentation is a crucial task with a wide range of applications, including surveillance and transportation. Currently, point labels are common in crowd datasets, while region labels (e.g., boxes) are rare and inaccurate. The masks obtained through segmentation help to improve the accuracy of region labels and resolve the correspondence between individual location coordinates and crowd density maps. However, directly applying currently popular large foundation models such as SAM does not yield ideal results in dense crowds. To this end, we first propose Dense Point-to-Mask Optimization (DPMO), which integrates SAM with the Nearest Neighbor Exclusive Circle (NNEC) constraint to generate dense instance segmentation from point annotations. With DPMO and manual correction, we obtain mask annotations from the existing point annotations for traditional crowd datasets. Then, to predict instance segmentation in dense crowds, we propose a Reinforced Point Selection (RPS) framework trained with Group Relative Policy Optimization (GRPO), which selects the best predicted point from a sampling of the initial point prediction. Through extensive experiments, we achieve state-of-the-art crowd instance segmentation performance on ShanghaiTech, UCF-QNRF, JHU-CROWD++, and NWPU-Crowd datasets. Furthermore, we design new loss functions supervised by masks that boost counting performance across different models, demonstrating the significant role of mask annotations in enhancing counting accuracy.",
+    "published": "2026-04-02",
+    "updated": "2026-08-09",
+    "categories": [
+      "cs.CV"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2604.01742.pdf",
+    "abs_url": "https://arxiv.org/abs/2604.01742"
+  },
+  {
+    "id": "2205.06218",
+    "title": "Delving into High-Quality Synthetic Face Occlusion Segmentation Datasets",
+    "authors": [
+      "Kenny T. R. Voo",
+      "Liming Jiang",
+      "Chen Change Loy"
+    ],
+    "abstract": "This paper performs comprehensive analysis on datasets for occlusion-aware face segmentation, a task that is crucial for many downstream applications. The collection and annotation of such datasets are time-consuming and labor-intensive. Although some efforts have been made in synthetic data generation, the naturalistic aspect of data remains less explored. In our study, we propose two occlusion generation techniques, Naturalistic Occlusion Generation (NatOcc), for producing high-quality naturalistic synthetic occluded faces; and Random Occlusion Generation (RandOcc), a more general synthetic occluded data generation method. We empirically show the effectiveness and robustness of both methods, even for unseen occlusions. To facilitate model evaluation, we present two high-resolution real-world occluded face datasets with fine-grained annotations, RealOcc and RealOcc-Wild, featuring both careful alignment preprocessing and an in-the-wild setting for robustness test. We further conduct a comprehensive analysis on a newly introduced segmentation benchmark, offering insights for future exploration.",
+    "published": "2022-05-12",
+    "updated": "2022-05-12",
+    "categories": [
+      "cs.CV",
+      "cs.LG"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2205.06218.pdf",
+    "abs_url": "https://arxiv.org/abs/2205.06218"
+  }
+]

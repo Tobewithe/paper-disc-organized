@@ -1,0 +1,138 @@
+{
+  "config": {
+    "phase": "I_native_one2one_representation_relearning",
+    "seed": 0,
+    "epochs": 8,
+    "batch_images": 8,
+    "gradient_accumulation": 1,
+    "amp": false,
+    "deterministic": true,
+    "imgsz": 640,
+    "lambda_eval": 0.003,
+    "teacher": {
+      "beta": 0.5,
+      "huber_tau": 1.0,
+      "pixel_reduction": "mean_over_fixed_GT_box_support_per_candidate_then_mean_over_candidates",
+      "support": "official_GT_box_crop_at_640",
+      "target": "fixed_ORACLE_fit_delta_from_same_official_TAL_identity"
+    },
+    "optimizer": {
+      "name": "MuSGD",
+      "lr0": 0.00038,
+      "lrf": 0.88219,
+      "momentum": 0.94751,
+      "weight_decay": 0.00027,
+      "nesterov": true,
+      "muon_weight": 0.2,
+      "sgd_weight": 1.0,
+      "scheduler": "linear_lr_factor_from_1_to_lrf_over_epochs",
+      "clip_grad_norm": null
+    },
+    "arms": {
+      "B": "fixed_original_h0_only_native_one2one_last_64_to_32_with_teacher",
+      "C": "native_one2one_cv4_relearning_with_reference_mask_BCE_only",
+      "D": "native_one2one_cv4_relearning_with_reference_mask_BCE_plus_functional_Huber_teacher"
+    },
+    "train_losses": {
+      "B": "L_ref + beta * L_teach",
+      "C": "L_ref",
+      "D": "L_ref + beta * L_teach",
+      "teacher_excluded_from_J_eval": true
+    },
+    "freeze": {
+      "backbone": true,
+      "neck": true,
+      "prototype": true,
+      "box_branch": true,
+      "class_branch": true,
+      "one2one_cv4_batchnorm_parameters": true,
+      "one2one_cv4_batchnorm_buffers": true,
+      "trainable_B": "one2one_cv4 final Conv2d weight and bias only",
+      "trainable_C_D": "all one2one_cv4 Conv2d weights and biases; BatchNorm affine and buffers frozen",
+      "one2one_input_detached": true
+    },
+    "acceptance": {
+      "old_fixed_representation_certificate": 2.2529118805,
+      "certificate_margin": 0.0001,
+      "material_teacher_delta_J": 0.01,
+      "primary_comparison": "J_eval(C)-J_eval(D)",
+      "phase_II_requires": "D_eval_plus_eval_error_below_certificate_minus_margin AND D_minus_C_at_least_material_teacher_delta"
+    },
+    "data_scope": {
+      "split": "official_TAL_fit",
+      "images": 796,
+      "candidates": 6058,
+      "candidate_identity": "image_id,annotation_id,branch,raw_id,pyramid_level,target_gt_idx",
+      "augmentation": "fixed_original_640_letterbox_view; no mosaic/mixup/random_geometry"
+    },
+    "evaluation": {
+      "objective": "candidate_mean[official_reference_ROI_BCE(c_theta)+lambda_eval/2*||c_theta-c0||^2]",
+      "full_support": true,
+      "precision": "float64 objective and gradient audit; float32 training",
+      "teacher_term_not_included": true
+    }
+  },
+  "weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+  "identity": {
+    "images": 796,
+    "candidates": 6058,
+    "split": "official_TAL_fit"
+  },
+  "arms": {
+    "A": {
+      "mode": "A",
+      "candidates": 6058,
+      "bce": 2.5625873548155496,
+      "regularizer": 0.0,
+      "J_eval": 2.5625873548155496,
+      "teacher_huber": null
+    },
+    "B": {
+      "mode": "B",
+      "candidates": 6058,
+      "bce": 2.5707849540165664,
+      "regularizer": 0.0011188246789111684,
+      "J_eval": 2.5719037786954777,
+      "teacher_huber": 1.687257639580422,
+      "delta_vs_A": 0.009316423879928148
+    },
+    "C": {
+      "mode": "C",
+      "candidates": 6058,
+      "bce": 2.275183355515056,
+      "regularizer": 0.01296822331038386,
+      "J_eval": 2.2881515788254396,
+      "teacher_huber": null,
+      "delta_vs_A": -0.27443577599010993
+    },
+    "D": {
+      "mode": "D",
+      "candidates": 6058,
+      "bce": 2.276666204454903,
+      "regularizer": 0.03493975396253465,
+      "J_eval": 2.3116059584174375,
+      "teacher_huber": 1.3094854974678323,
+      "delta_vs_A": -0.250981396398112
+    }
+  },
+  "decision": {
+    "J0": 2.5625873548155496,
+    "certificate": 2.2529118805,
+    "certificate_margin": 0.0001,
+    "evaluation_error_bound": 1e-06,
+    "B_crosses": false,
+    "C_crosses": false,
+    "D_crosses": false,
+    "teacher_delta_J_C_minus_D": -0.02345437959199792,
+    "teacher_material_threshold": 0.01,
+    "teacher_pass": false,
+    "phase_II_pass": false,
+    "interpretation": "D-C is the only teacher-effect comparison; A is untouched reference; B is diagnostic fixed-h control"
+  },
+  "limits": [
+    "fit-set fixed-objective evidence only",
+    "no phase-II new-image utility evaluated",
+    "certificate is conditional on prior FP64 audit assumptions",
+    "teacher improvement does not isolate all optimization-vs-target effects"
+  ]
+}

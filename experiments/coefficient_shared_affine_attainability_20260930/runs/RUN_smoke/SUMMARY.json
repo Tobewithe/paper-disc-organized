@@ -1,0 +1,68 @@
+{
+  "config": {
+    "fit": "runs/RUN_62e3a1994b804eceb03fb8e616a4f946/fit.pt",
+    "dev": "runs/RUN_62e3a1994b804eceb03fb8e616a4f946/dev.pt",
+    "val": "runs/RUN_62e3a1994b804eceb03fb8e616a4f946/val.pt",
+    "out": "runs/SHARED_SMOKE2",
+    "limit": 100,
+    "dev_limit": 100,
+    "val_limit": 100,
+    "shared_iter": 12,
+    "independent_iter": 20,
+    "independent_limit": 100,
+    "independent_batch": 16,
+    "chunk_size": 16,
+    "init_scale": 0.0,
+    "threads": 1
+  },
+  "lambda": 0.003,
+  "fit": {
+    "records": 100,
+    "images": 10,
+    "levels": {
+      "0": 31,
+      "1": 44,
+      "2": 25
+    }
+  },
+  "shared_fit": {
+    "objective": 0.2840245366038913,
+    "bce": 0.2744186473959604,
+    "regularizer": 0.009605889207930936,
+    "stationarity_norm": 0.02515238313081692,
+    "elapsed": 0.5767619386315346,
+    "iterations": 12
+  },
+  "original_fit": {
+    "objective": 0.4289655742784558,
+    "records": 100
+  },
+  "shared_dev": {
+    "objective": 0.36948427681673335,
+    "bce": 0.3621516042594688,
+    "regularizer": 0.007332672557264647,
+    "records": 100
+  },
+  "shared_val": {
+    "objective": 0.3478192173794404,
+    "bce": 0.3413186765767455,
+    "regularizer": 0.006500540802694834,
+    "records": 100
+  },
+  "independent_fit_prefix": {
+    "objective": 0.2140411653688693,
+    "bce": 0.18244694325638647,
+    "regularizer": 0.03159422211248281,
+    "max_batch_stationarity": 0.006690331257165177,
+    "records": 100
+  },
+  "original_fit_prefix": {
+    "objective": 0.4289655742784558,
+    "records": 100
+  },
+  "decomposition_prefix": {
+    "J0_minus_Jshared": 0.14494103767456445,
+    "Jshared_minus_Jind": 0.06998337123502202,
+    "J0_minus_Jind": 0.21492440890958647
+  }
+}

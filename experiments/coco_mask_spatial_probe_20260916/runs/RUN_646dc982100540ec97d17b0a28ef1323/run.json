@@ -1,0 +1,178 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_646dc982100540ec97d17b0a28ef1323",
+  "study_id": "STUDY_82ea1e5264ca430a97dff79b8912f847",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "scripts/evaluate_shared2.py",
+    "--train",
+    "/root/coco_shared2_20260920/runs/RUN_0f8aa46eb59e49f4b9ddcf37bd8a818a",
+    "--template",
+    "/root/coco_spatial_layout_20260920/runs/RUN_f08ae1e528144ca98c002691b2b919c2/SHARED_FIELD.json",
+    "--data",
+    "/root/autodl-tmp/datasets/coco2017",
+    "--weights",
+    "/root/autodl-tmp/coco_mask_spatial_probe_20260916/yolo26m-seg.pt",
+    "--reference",
+    "/root/coco_spatial_layout_20260920/runs/RUN_01ed738ccd4344bbaf428027bc00434d",
+    "--scalar-reference",
+    "/root/coco_shared2_20260920/controls/scalar_eval",
+    "--scalar-key",
+    "scalar_s1",
+    "--local-control",
+    "/root/coco_shared2_20260920/controls/local_s1.pt",
+    "--out",
+    "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323"
+  ],
+  "working_directory": "/root/coco_shared2_20260920",
+  "status": "completed",
+  "created_at": "2026-09-20T12:05:49.020+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_0f8aa46eb59e49f4b9ddcf37bd8a818a/epoch8.pt",
+      "exists": true,
+      "sha256": "4f09a92d172721397b0359f45fd0acca063e49ef80c1399fc35508c54700cc4c",
+      "size": 381951
+    },
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_0f8aa46eb59e49f4b9ddcf37bd8a818a/SELECTION.json",
+      "exists": true,
+      "sha256": "b2973135663b96a23d0245d0d9130af79bcd2181e57ec5cb3ed893f8c23d7136",
+      "size": 1166
+    },
+    {
+      "path": "/root/autodl-tmp/coco_mask_spatial_probe_20260916/yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "/root/coco_spatial_layout_20260920/runs/RUN_f08ae1e528144ca98c002691b2b919c2/SHARED_FIELD.json",
+      "exists": true,
+      "sha256": "b001e0753bcdd6081b53181bb3062ec540f440ec27734b09be59c4f4688d19fd",
+      "size": 655
+    },
+    {
+      "path": "/root/coco_shared2_20260920/controls/local_s1.pt",
+      "exists": true,
+      "sha256": "c0b83950fa558bb88eacf72d88ec73cb64d030763cbfcefafde37d6b15ec0ecf",
+      "size": 388671
+    },
+    {
+      "path": "/root/coco_spatial_layout_20260920/runs/RUN_01ed738ccd4344bbaf428027bc00434d/RESULTS.json",
+      "exists": true,
+      "sha256": "622cf8e35cb401162e42cac638af8a4d2fd6efde1a2b2c4ced31b0d098965312",
+      "size": 1737
+    },
+    {
+      "path": "/root/coco_spatial_layout_20260920/runs/RUN_01ed738ccd4344bbaf428027bc00434d/MATCHED_GT75.json",
+      "exists": true,
+      "sha256": "13398251decb2e4d893177aa7659c37488bf70421e54b1381d24261d6d6f1884",
+      "size": 591334
+    },
+    {
+      "path": "/root/coco_shared2_20260920/controls/scalar_eval/RESULTS.json",
+      "exists": true,
+      "sha256": "d472c2824e977655b7acdcf776b3c74260b9b6dc8171d3a8250cf109e1f62521",
+      "size": 6185
+    },
+    {
+      "path": "/root/coco_shared2_20260920/controls/scalar_eval/MATCHED_GT75.json",
+      "exists": true,
+      "sha256": "deb163e7f0d5286da1c8ca64d6efc524e0e5e94074ecd1cc93007c203ca643a3",
+      "size": 1773588
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/coco_shared2_20260920/SHARED2_PROTOCOL.json",
+      "revision": "2304c2fef24853857ad14fda96aba2c01fa47a9df50ca532e5bff2f64f3c5ffa",
+      "snapshot": "snapshots/2304c2fef24853857ad14fda96aba2c01fa47a9df50ca532e5bff2f64f3c5ffa"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/SHARED2_REPLICATION.json",
+      "revision": "2d0fb3c24e636e30c188838af6af1f028b579b7c10102631dce374e89dc5d453",
+      "snapshot": "snapshots/2d0fb3c24e636e30c188838af6af1f028b579b7c10102631dce374e89dc5d453"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/learn_refinement.py",
+      "revision": "47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912",
+      "snapshot": "snapshots/47ab7afed58adc2466edb0d0b970c192f1c2fccdb31eb59a2d85a01b15ab2912"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/shared_shape_head.py",
+      "revision": "76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379",
+      "snapshot": "snapshots/76dacd470c7dad922b216d5fafc0669dfe2c4f5ab923762fe06335e2200c0379"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/evaluate_shared2.py",
+      "revision": "7f85a2962f157cff49a14939a7989e774265550d9d151d9235f50b4ca8226fc3",
+      "snapshot": "snapshots/7f85a2962f157cff49a14939a7989e774265550d9d151d9235f50b4ca8226fc3"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/repair_refinement.py",
+      "revision": "bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5",
+      "snapshot": "snapshots/bb0b91c096b857a52a7ca9db05e16fb968ae36f2c47b5083bfc424a501ca76c5"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/scripts/component_seed_probe.py",
+      "revision": "453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190",
+      "snapshot": "snapshots/453659c2c64ff8ee0542f4db07ee891568a22d9c6cfa604ceb217833cd28c190"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323/GATE.json",
+    "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 14329,
+  "started_at": "2026-09-20T12:05:49.213+00:00",
+  "last_heartbeat": "2026-09-20T12:17:39.618+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-20T12:17:44.477+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323/GATE.json",
+      "exists": true,
+      "sha256": "d58150e17af29b55a2e25b527a626a1eccd6cc220f913f54c9877f9b5e765679"
+    },
+    {
+      "path": "/root/coco_shared2_20260920/runs/RUN_646dc982100540ec97d17b0a28ef1323/COMPLETE.json",
+      "exists": true,
+      "sha256": "16c1137655501e4b6e2f9356350223cc3144c7f12e4c660cfc685034eec66366"
+    }
+  ],
+  "source_study_reference": "/root/coco_shared2_20260920/study.json",
+  "local_metadata_note": "Normalized study_id from remote study.json path to existing stable Study ID after return; original observed record retained in remote_run_record.original.json. Execution facts unchanged."
+}

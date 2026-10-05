@@ -1,0 +1,13 @@
+{
+  "stage": "Prepare an independent YOLO26s bank; final method training/evaluation follows interpretation of the existing structural controls.",
+  "question": "Does the diagnosed and corrected mask-readout phenomenon transfer from the officialm model to a second pretrained model scale?",
+  "weights": "Officiallocalasset assets/models/coco_clean_20260911/yolo26s-seg.pt, copied to/root/project_assets/yolo26s-seg.pt. Runtime8.4.100; checkpointmetadata8.3.222/2025-12-02 reflects originaltrainingrevision, not a changedruntime.",
+  "scope": "Cross-model-scale evaluation, not a differentdataset orunseenarchitecture. No claim ofzero-shottransfer of the entirehead: nativehiddenchannels differ32vs64.",
+  "data": "Exactly the original800fit/200selection COCOtrain2017imageIDs; freshSmodelpredictions/GTownership, never reuseMcoefficients, prototypes, hiddenfeatures, orGTmatches. Eventualtestall5000val2017.",
+  "matching": "For eachretainedone2one top300>.001candidate, assign sameclass highestBoxIoU GT ifIoU>=.5; skipcrowd/ignore. Drop allambiguous(image,raw_id)GTownership; keep firstuniqueidentity. No maskqualityfilter.",
+  "labels": "OriginalCOCOannToMask unionsmultipart segmentation. Resize toletterboxedinput by samebilinearGT rule asoriginalMbank; sample32x32ROI withoriginal.features grid. These are postdetectiontrainingtargets, not officialTALpositives.",
+  "features": "Cache normalizedP32, existing67channelROIfeatures, originallogits,softGT, nativehiddeninputs,featurelevel,prototypeRMS,originalnativeoutputweights. Inferhiddendimension fromcheckpoint and verifyreconstructedcoefficients.",
+  "template_transfer": "Prepare geometry for the fixedMfit-residualtemplate onScandidates. NoSvaldata orlabels used. This isolates fieldtransfer from model-specificreadoutadaptation. A newSlearnedtemplate is not automaticallycreated.",
+  "boundaries": "Preparation only; no AP or transferclaim before finalSfullvalidation. The pretrainedSmodel already sawCOCOtrain2017. Sameimagebudget mayyielddifferentnumbers ofeligiblecandidates; reportthosecounts.",
+  "execution": "OneGPU preparation run after the currentlyqueuedstructuralcontrols; artifacts under/root to avoidfullautodldatadisk. Finitequeue, noautomatictraining."
+}

@@ -1,0 +1,287 @@
+{
+  "audit_skill": "experiment-audit",
+  "audit_scope": "three-region frozen representation diagnostic, summaries, artifact report, deterministic verification, and post-hoc common/difference decomposition",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T21:18:37+08:00",
+  "auditor": "codex-gpt-6-fresh-agent",
+  "agent_id": "/root/audit_three_region",
+  "verdict_id": "/root/audit_three_region",
+  "executor_model": "codex-gpt-6",
+  "executor_family": "openai",
+  "reviewer_model": "codex-gpt-6",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "not_recorded_by_runtime",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "trace_path": ".aris/traces/experiment-audit/2026-09-11_run02/",
+  "audit_completion": "bounded_complete_with_explicit_exclusions",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "fatal_issue_found": false,
+  "reason_codes": [
+    "conditional_matched_pair_scope",
+    "same_image_gt_oracle",
+    "heldout_coverage_drift",
+    "previously_explored_validation_data",
+    "protocol_wording_mismatch",
+    "post_hoc_analysis_not_independent",
+    "smoke_artifacts_not_locally_reviewed",
+    "same_family_provisional_review"
+  ],
+  "summary": "No fatal computation error, fake GT, self-normalization, phantom result, missing fold, or report-number mismatch was found. Main artifact integrity passes. Scientific scope remains WARN because the oracle is fitted to GT pixels within each evaluation image, eligibility is narrow, held-out threshold coverage drifts, val data were previously explored, and the common/difference decomposition is post hoc.",
+  "evaluation": {
+    "primary_type": "real_gt",
+    "subtypes": [
+      "frozen_response_real_gt_pixel_diagnostic",
+      "real_gt_assisted_same_image_oracle",
+      "real_gt_negative_control",
+      "post_hoc_real_gt_descriptive_decomposition"
+    ],
+    "not_task_metrics": [
+      "Mask AP",
+      "Mask IoU",
+      "full-image leakage rate",
+      "end-to-end model improvement"
+    ]
+  },
+  "checks": {
+    "A_gt_provenance": {
+      "status": "pass",
+      "classification": "real_gt",
+      "details": "COCO annotations are loaded by split and rasterized with pycocotools annToMask. Own/neighbor/background regions derive from dataset GT; prediction caches supply frozen model tensors and official bbox50 matching only. No model-derived GT was found.",
+      "evidence": [
+        "experiments/coco_clean_20260911/three_region_probe.py:54",
+        "experiments/coco_clean_20260911/three_region_probe.py:67",
+        "experiments/coco_clean_20260911/three_region_probe.py:88",
+        "experiments/coco_clean_20260911/three_region_probe.py:149",
+        "experiments/coco_clean_20260911/frozen_mechanism_probe.py:93",
+        "experiments/coco_clean_20260911/relative_ownership_experiment.py:190",
+        "experiments/coco_clean_20260911/audits/data_source_audit.json:5"
+      ],
+      "limitation": "Full annotation and input-cache source bytes were not present locally, so this reviewer did not independently rehash all raw source inputs."
+    },
+    "B_score_normalization": {
+      "status": "pass",
+      "details": "AUC is computed from raw pairwise ranks. Ridge mean/std and weights use the train fold only; the held-out fold reuses train statistics. Thresholds use train-fold own pixels only. No model-output self-normalization was found.",
+      "warnings": [
+        "Three pixel classes are balanced, but the binary ridge labels are 1/3 own positive and 2/3 neighbor/background negative, not binary 1:1 balanced.",
+        "The 10th-percentile threshold with strict greater-than targets about 90% train coverage but does not guarantee exact 90% under finite samples or ties.",
+        "sampled_precision is valid only under the artificial equal-three-class sampled distribution."
+      ],
+      "evidence": [
+        "experiments/coco_clean_20260911/three_region_probe.py:25",
+        "experiments/coco_clean_20260911/three_region_probe.py:29",
+        "experiments/coco_clean_20260911/three_region_probe.py:43",
+        "experiments/coco_clean_20260911/three_region_probe.py:121"
+      ]
+    },
+    "C_result_existence": {
+      "status": "pass_with_unreviewed_smoke_subitem",
+      "main_status": "pass",
+      "smoke_v2_status": "not_fully_reviewed",
+      "details": "Main and summary receipts exist and all referenced hashes match. Raw, target, summary, status, contrast, and post-hoc files exist with the expected schemas and counts. The result report's key numbers match artifacts and deterministic recomputation. Smoke v2 was observed complete remotely early in the audit but was not downloaded for full local row review.",
+      "counts": {
+        "selected_images": {
+          "train": 160,
+          "val": 200
+        },
+        "status_rows": 993,
+        "successful_target_domains": 565,
+        "raw_readout_rows": 11300,
+        "raw_target_readout_groups": 5650,
+        "target_readout_rows_including_shuffle_means": 6215,
+        "summary_rows": 132,
+        "paired_contrasts": 1188,
+        "domain_point_estimates": 22,
+        "eligibility_summary_rows": 8,
+        "post_hoc_rows": 4520
+      },
+      "deterministic_verification": {
+        "status": "pass",
+        "hashed_receipt_entries": 11,
+        "paired_deltas_checked": 1188,
+        "recomputed_ci_count": 40,
+        "max_arithmetic_abs": 3.3306690738754696e-16,
+        "max_ci_abs_pp": 7.105427357601002e-15
+      }
+    },
+    "D_dead_code": {
+      "status": "pass",
+      "details": "All ten readouts returned by scores() are called in both cross-fit directions and occur in every successful target-domain-fold output. The summarizer's hash checks, fold aggregation, shuffle aggregation, bootstrap, and output writers all have corresponding artifacts.",
+      "warning": "zero_* fields are emitted for oracle and shuffle readouts although the protocol only declares fixed-zero mask interpretation for actual_own and foreground_safe; do not interpret oracle/control zero thresholds as deployable masks.",
+      "evidence": [
+        "experiments/coco_clean_20260911/three_region_probe.py:36",
+        "experiments/coco_clean_20260911/three_region_probe.py:117",
+        "experiments/coco_clean_20260911/summarize_three_region.py:14",
+        "experiments/coco_clean_20260911/summarize_three_region.py:20",
+        "experiments/coco_clean_20260911/summarize_three_region.py:80"
+      ]
+    },
+    "E_scope": {
+      "status": "warn",
+      "details": "The evaluation is conditioned on one hash-selected same-class overlapping GT pair, both detections passing bbox50 matching, and sufficient exclusive own/neighbor/background pixels in both spatial folds. Val support is 75 targets/48 images in the crop domain and 107 targets/57 images in the expanded domain; high-ICI support is 30/26 and 46/34. The val pool was previously explored, oracle fitting is within image, intervals are pointwise and unadjusted, and no task AP or model training was run.",
+      "val_eligibility": {
+        "selected_images": 200,
+        "no_gt_pair_images": 124,
+        "pair_not_both_bbox50_matched_images": 7,
+        "ok_target_domains": 182,
+        "ok_images_any_domain": 58,
+        "insufficient_target_domains": 94,
+        "insufficient_images": 42,
+        "predicted_crop": {
+          "targets": 75,
+          "images": 48,
+          "high_ici_targets": 30,
+          "high_ici_images": 26
+        },
+        "expand_each_side_20pct": {
+          "targets": 107,
+          "images": 57,
+          "high_ici_targets": 46,
+          "high_ici_images": 34
+        },
+        "common_between_domains": {
+          "targets": 74,
+          "images": 47
+        }
+      }
+    },
+    "F_evaluation_type": {
+      "status": "pass",
+      "type": "real_gt",
+      "qualification": "Same-image GT-assisted oracle for learned readouts; frozen-response pixel diagnostic for actual scores; post-hoc descriptive analysis for common/difference decomposition. This is not blind model performance."
+    }
+  },
+  "sampling_and_leakage": {
+    "three_class_equal_sampling": "pass",
+    "successful_pixel_count_range_per_class_per_fold": [12, 128],
+    "successful_statuses_with_disjoint_stencil_witness": 565,
+    "successful_statuses_without_disjoint_stencil_witness": 0,
+    "shuffle_seed_records": 3390,
+    "duplicate_shuffle_seed_values": 0,
+    "train_val_image_overlap": 0,
+    "remaining_dependence": [
+      "shared deep receptive fields",
+      "shared same-image prototype computation",
+      "shared instance coefficients and context",
+      "within-image rather than cross-image fitting"
+    ]
+  },
+  "threshold_coverage": {
+    "method": "10th percentile of train-fold own scores with strict greater-than",
+    "val_all": {
+      "predicted_crop": {
+        "oracle_proto32_train_coverage": 0.8938,
+        "oracle_proto32_heldout_coverage": 0.7974,
+        "oracle_proto32_internal_drift_pp": -9.64,
+        "oracle_proto32_minus_actual_heldout_coverage_pp": -7.54,
+        "oracle_proto32_minus_actual_coverage_ci_pp": [-10.14, -5.16],
+        "oracle_coordinate32_heldout_coverage": 0.5625
+      },
+      "expand_each_side_20pct": {
+        "oracle_proto32_train_coverage": 0.8960,
+        "oracle_proto32_heldout_coverage": 0.7832,
+        "oracle_proto32_internal_drift_pp": -11.28,
+        "oracle_proto32_minus_actual_heldout_coverage_pp": -8.19,
+        "oracle_proto32_minus_actual_coverage_ci_pp": [-11.34, -5.47],
+        "oracle_coordinate32_heldout_coverage": 0.4888
+      }
+    },
+    "claim_ceiling": "AUC supports rank-readability statements only; FPR reductions are not same-coverage improvements."
+  },
+  "ridge_comparison_limits": [
+    "All readouts use the same pixels, folds, train-only standardization, fixed ridge 0.1, and centered-label intercept.",
+    "proto32 and coordinate32 have the same nominal dimension but different feature families and effective capacity.",
+    "two_logits is a two-dimensional projection nested within proto32; proto32 has more degrees of freedom.",
+    "A fixed ridge coefficient does not equalize effective complexity across dimensions.",
+    "The coordinate controls rule out only the tested coordinate baselines, not all geometry or composition confounding."
+  ],
+  "post_hoc_common_difference": {
+    "status": "warn_descriptive_only",
+    "post_hoc": true,
+    "network_training": false,
+    "replay_rows_checked": 11300,
+    "replay_max_abs": 0.0,
+    "input_hashes_match": true,
+    "new_rows": 4520,
+    "max_algebra_abs": 3.5527136788005e-15,
+    "supported": "Descriptive algebraic decomposition on exactly the parent samples.",
+    "unsupported": "Independent confirmation, semantic objectness identification, causal mechanism, deployable method, or task performance."
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "On eligible samples, signed own-minus-neighbor response improves neighbor ranking while degrading background ranking.",
+      "impact": "supported_with_scope_qualifier"
+    },
+    {
+      "id": "C2",
+      "claim": "Frozen proto32 contains same-image GT-linearly-readable three-region ranking information beyond the actual own response.",
+      "impact": "supported_with_oracle_and_coverage_qualifiers"
+    },
+    {
+      "id": "C3",
+      "claim": "The proto32 oracle gives a deployable or same-coverage improvement.",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C4",
+      "claim": "The coefficient head or CCL is the unique causal root cause.",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C5",
+      "claim": "The common/difference decomposition is consistent with shared foreground versus relative identity information on these samples.",
+      "impact": "post_hoc_descriptive_only"
+    },
+    {
+      "id": "C6",
+      "claim": "The results establish Mask AP, Mask IoU, full-image leakage, cross-image generalization, or model improvement.",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C7",
+      "claim": "The effect is specific to high-ICI or dense instances.",
+      "impact": "unsupported"
+    }
+  ],
+  "uncovered": [
+    "Independent local rehash of full COCO annotation and all 360 source cache bytes",
+    "Full local row-level review of three_region_smoke_v2_20260911",
+    "Independent CUDA rerun of the main probe",
+    "Independent execution of verify_and_present_three_region.py in this reviewer shell",
+    "Human semantic image inspection",
+    "Official COCO mask task evaluation",
+    "Cross-image no-evaluation-GT fitting",
+    "Independent training seeds, hyperparameter robustness, multiplicity-adjusted inference, and external replication",
+    "Cross-family review"
+  ],
+  "action_items": [
+    "Keep the result artifact-only and do not infer model improvement from source integrity or oracle AUC.",
+    "Describe sampling as equal three-class sampling with a 1:2 binary label ratio.",
+    "Describe the threshold as a train-fold 10th percentile and report measured train and held-out coverage.",
+    "Require a separately predeclared cross-image, no-evaluation-GT experiment with same-coverage controls and official task metrics before any method claim.",
+    "Retain exact conditional denominators and pointwise-unadjusted interval language in any downstream use."
+  ],
+  "audited_input_hashes": {
+    "experiments/coco_clean_20260911/three_region_protocol.json": "sha256:0c96bd0e206835c12dbcb658c78ee563b92f937df1bf944535f160d59b43866e",
+    "experiments/coco_clean_20260911/three_region_probe.py": "sha256:05d797ffb4d0c0d65682295f7e804d6a915f686612fc86db760cdb35ba7b0ff8",
+    "experiments/coco_clean_20260911/summarize_three_region.py": "sha256:74466f957af34606c261a7b4380dcc5febf326f5aab036c45528e36abf32b9b4",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/COMPLETE.json": "sha256:497285181d0ee7302cee12b8f1acf6c57eda7873002e80716b7989727e3fb2da",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/SUMMARY_COMPLETE.json": "sha256:9cd0bc244fde35b394aa2af1ab08c1b33bacbfb2edfcba434e2a07a6b55b712a",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/readouts.csv": "sha256:ebe8c7203c245d71dff2583510f3832f971cb7cc215ea5532ad4ae8ac683d9ab",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/statuses.csv": "sha256:8f070cc8cb17755dcb89bb951a7242548e55b9080e71e55c3db026f4d3b9f5a0",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/target_readouts.csv": "sha256:6abfc587985d2853d238528ff4ac404a6e22094039f4457ddf8e4ce9e2e593e7",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/summary.csv": "sha256:c0cfe1ee67a1e8a97b6e368f27f1a51f4bdd0670b7ec7cb122d76f6713f68aa8",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/PAIRED_ANALYSIS.json": "sha256:95966ae2ee87234db19b0879da1f5b3b9338449a86fc0e6f72ea76499cc0275f",
+    "experiments/coco_clean_20260911/verify_and_present_three_region.py": "sha256:426e79224d9866a1b5bd1af1aa200ec7d710037eda6f535850b64f65f53f6f84",
+    "experiments/coco_clean_20260911/diagnostics/three_region_20260911/LOCAL_VERIFICATION.json": "sha256:e78b50b6aff1c94693d2f92a89baf79b06d912777e35acbef3199c0ced5c51f3",
+    "refine-logs/coco-structure/THREE_REGION_RESULTS_20260911.md": "sha256:754b7cf5856f0e5be2dfedc6389deee7e3772dad58a522596114e90aa119555b",
+    "experiments/coco_clean_20260911/common_difference_probe.py": "sha256:713278ea492bae49648526896ad3f65eb95282c14e96854cf2ade368aa5377c7",
+    "experiments/coco_clean_20260911/diagnostics/common_difference_20260911/COMPLETE.json": "sha256:4fb2130db3f99f183c6b24839c60e0cdae38fe17c554bf0bf618dd2ac12daf68",
+    "experiments/coco_clean_20260911/diagnostics/common_difference_20260911/SUMMARY_COMPLETE.json": "sha256:55347bdc04608307788ea06a77648d186c2ad12e837a824996f8d29554b2b2f5",
+    "experiments/coco_clean_20260911/diagnostics/common_difference_20260911/readouts.csv": "sha256:c4a54e7a14d1b470db456098a814d4bb828d8f57616966354b0983155bf5027f",
+    "experiments/coco_clean_20260911/diagnostics/common_difference_20260911/summary.csv": "sha256:8c491b187496348874c07b4eac179129abb6a575c9cd0fa2304c31fb72f955c6"
+  }
+}

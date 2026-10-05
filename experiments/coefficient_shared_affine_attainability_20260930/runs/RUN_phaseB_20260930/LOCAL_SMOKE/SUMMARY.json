@@ -1,0 +1,11 @@
+{
+  "tables": {},
+  "protocol": {
+    "decoder": "ultralytics-8.4.100 process_mask upsample=True then scale_masks nearest",
+    "main_comparison": "B_minus_A",
+    "bootstrap": 5000,
+    "auc": "continuous full-resolution logit restricted to fixed predicted box support",
+    "gt_use": "fit only for shared solve; dev/val only for evaluation",
+    "forward": "same frozen YOLO26m-seg checkpoint; candidate raw_id/level loaded from Phase-A identity list"
+  }
+}

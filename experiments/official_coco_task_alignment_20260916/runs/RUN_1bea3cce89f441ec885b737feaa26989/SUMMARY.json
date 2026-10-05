@@ -1,0 +1,117 @@
+{
+  "images": 5000,
+  "ordinary_gt": 36335,
+  "predictions": 561859,
+  "states": {
+    "no_fixed_sameclass_box50_slot": 2655,
+    "box_good_mask_good": 19972,
+    "box_good_supported_mask_bad": 4348,
+    "box_bad_mask_bad": 6977,
+    "box_bad_mask_good": 1155,
+    "box_good_support_limited_mask_bad": 1228
+  },
+  "pixel_directions": [
+    {
+      "state": "no_fixed_sameclass_box50_slot",
+      "direction": "no_slot",
+      "count": 2655
+    },
+    {
+      "state": "box_good_mask_good",
+      "direction": "mask75_success",
+      "count": 19972
+    },
+    {
+      "state": "box_good_supported_mask_bad",
+      "direction": "fp_removal_admits_recovery",
+      "count": 3670
+    },
+    {
+      "state": "box_bad_mask_bad",
+      "direction": "fp_removal_admits_recovery",
+      "count": 4679
+    },
+    {
+      "state": "box_bad_mask_bad",
+      "direction": "needs_own_pixels",
+      "count": 2298
+    },
+    {
+      "state": "box_good_supported_mask_bad",
+      "direction": "needs_own_pixels",
+      "count": 678
+    },
+    {
+      "state": "box_bad_mask_good",
+      "direction": "mask75_success",
+      "count": 1155
+    },
+    {
+      "state": "box_good_support_limited_mask_bad",
+      "direction": "needs_own_pixels",
+      "count": 354
+    },
+    {
+      "state": "box_good_support_limited_mask_bad",
+      "direction": "fp_removal_admits_recovery",
+      "count": 874
+    }
+  ],
+  "opportunity": {
+    "any_exported_sameclass_mask75": 22878,
+    "matched_slot_mask75": 21127,
+    "slot_failed_but_other_mask75": 1751,
+    "unique_candidate_maximum_mask75_matches": 22875
+  },
+  "provenance": [
+    {
+      "run_id": "RUN_c0797f4ee9644d459f825cfd76ea90d6",
+      "counts": {
+        "candidates": 54904,
+        "empty": 11
+      },
+      "parity": {
+        "official_input_mask_mismatches": 0,
+        "checked_masks": 602,
+        "native_input_mask_mismatches": 0
+      }
+    },
+    {
+      "run_id": "RUN_8fe82201101b4e9d941cb07a3496c110",
+      "counts": {
+        "candidates": 507043,
+        "empty": 77
+      },
+      "parity": {
+        "official_input_mask_mismatches": 0,
+        "checked_masks": 422,
+        "native_input_mask_mismatches": 0
+      }
+    }
+  ],
+  "limitations": [
+    "No full Box AP: source export lacks actual detection boxes",
+    "Nonempty mask export only; original empty counts retained",
+    "Fixed Box50 slots are not official segmentation matches",
+    "Maximum bipartite matching is GT-assisted opportunity, not AP gain",
+    "COCO val is exploratory"
+  ],
+  "segm_metrics": {
+    "AP": 0.43515306090223993,
+    "AP50": 0.6629853169921749,
+    "AP75": 0.47026898415728097,
+    "APS": 0.22489767929744342,
+    "APM": 0.4755048286090488,
+    "APL": 0.6343889580112075,
+    "AR1": 0.3409585890000676,
+    "AR10": 0.5537245768173971,
+    "AR100": 0.5969602281407081,
+    "ARS": 0.4030601695576268,
+    "ARM": 0.6558394578007956,
+    "ARL": 0.7640029181327086
+  },
+  "official_gt_mask75": {
+    "gt": 36335,
+    "matched": 22773
+  }
+}

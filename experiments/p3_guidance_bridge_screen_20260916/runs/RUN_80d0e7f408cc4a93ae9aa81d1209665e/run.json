@@ -1,0 +1,180 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_80d0e7f408cc4a93ae9aa81d1209665e",
+  "study_id": "STUDY_807e983e44a8416f8d44686c7d053dee",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "-u",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/evaluate_bridge.py",
+    "--study",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916",
+    "--out",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e",
+    "--arm",
+    "baseline",
+    "--weight",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_0de113ba8a7f4a19a0c3d3be56c35b01/weights/last.pt"
+  ],
+  "working_directory": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source",
+  "status": "completed",
+  "created_at": "2026-09-15T17:09:44.654+00:00",
+  "host": "autodl-container-59db4f87a9-dc45f2dc",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/protocol.json",
+      "exists": true,
+      "sha256": "6c21028aaa382504b4e8f6fe9ebedd96e1399f319ae0243b874325ced8fd29c0",
+      "size": 2456
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_0de113ba8a7f4a19a0c3d3be56c35b01/weights/last.pt",
+      "exists": true,
+      "sha256": "f2ac0d54342ead6b3acc81032b55e1603514f25e8b451e694d0471130b373804",
+      "size": 54733489
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/data/manifest.json",
+      "exists": true,
+      "sha256": "599dde19b83860bff4fc2c68c9d7065bf336640d46fa7ac950643252a0bc93a6",
+      "size": 11062
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/data/panel.csv",
+      "exists": true,
+      "sha256": "c913a691b5478a67e409c66fb390b6a059fcea81e0958921a4cb8da4999122bf",
+      "size": 9730
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/data/evaluate.yaml",
+      "exists": true,
+      "sha256": "49d58f633cb09ac4272b2bfa7bf1008a835df03c45811c478cdb8ded3c4747c3",
+      "size": 1289
+    },
+    {
+      "path": "/root/autodl-tmp/datasets/coco2017/annotations/instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/coco_metrics.py",
+      "revision": "5944b3847063eed43db55dc3030d5b9bdac88d6a6707fbdb59995f9db8e1706a",
+      "snapshot": "snapshots/5944b3847063eed43db55dc3030d5b9bdac88d6a6707fbdb59995f9db8e1706a"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/evaluate_bridge.py",
+      "revision": "f7d755516058e730abe568e2de90a4c7d2358ccdec9af0fc19771c9f9609bc75",
+      "snapshot": "snapshots/f7d755516058e730abe568e2de90a4c7d2358ccdec9af0fc19771c9f9609bc75"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/prepare.py",
+      "revision": "e84a73968f4b7d19da5fcd5d9559810be726f5f1ef0a5c5eacd39b7f70382e27",
+      "snapshot": "snapshots/e84a73968f4b7d19da5fcd5d9559810be726f5f1ef0a5c5eacd39b7f70382e27"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/recording.py",
+      "revision": "a2953a182b4b4f1b02c2b7319d52fa542feb1ce19299b74a12ab0f8469650498",
+      "snapshot": "snapshots/a2953a182b4b4f1b02c2b7319d52fa542feb1ce19299b74a12ab0f8469650498"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/run_queue.py",
+      "revision": "73655209b4b223d532632e0025e2bec25a3dee06fa3bc5f141c38c00168b4afd",
+      "snapshot": "snapshots/73655209b4b223d532632e0025e2bec25a3dee06fa3bc5f141c38c00168b4afd"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/summarize.py",
+      "revision": "b776cab73376b6ef4b7be4dc860d02bbb7797d1ad3848bc457a04e17bf399cf0",
+      "snapshot": "snapshots/b776cab73376b6ef4b7be4dc860d02bbb7797d1ad3848bc457a04e17bf399cf0"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/train_bridge.py",
+      "revision": "837aabc19f55f09223da4c103dca03d2b06f16b19a5d4ca70e7aeaf4c404d311",
+      "snapshot": "snapshots/837aabc19f55f09223da4c103dca03d2b06f16b19a5d4ca70e7aeaf4c404d311"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/verify_saved.py",
+      "revision": "ed4a6f65c36b250c9fc38826b3cab6ca6e043757785c9f98006bab4625375ee3",
+      "snapshot": "snapshots/ed4a6f65c36b250c9fc38826b3cab6ca6e043757785c9f98006bab4625375ee3"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/pack_records.py",
+      "revision": "47c643f187967802f1867036f5a3ca3b5578bdee1a12a28441215b24b51b52a6",
+      "snapshot": "snapshots/47c643f187967802f1867036f5a3ca3b5578bdee1a12a28441215b24b51b52a6"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/execution_source/protocol.json",
+      "revision": "6c21028aaa382504b4e8f6fe9ebedd96e1399f319ae0243b874325ced8fd29c0",
+      "snapshot": "snapshots/6c21028aaa382504b4e8f6fe9ebedd96e1399f319ae0243b874325ced8fd29c0"
+    }
+  ],
+  "scope": {
+    "kind": "evaluation",
+    "arm": "baseline",
+    "seed": 0,
+    "epochs": 1,
+    "train_images": 1000
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/COMPLETE.json",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/metrics.json",
+    "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/per_gt.csv"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-59db4f87a9-dc45f2dc",
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 4343,
+  "started_at": "2026-09-15T17:09:44.839+00:00",
+  "last_heartbeat": "2026-09-15T17:10:15.003+00:00",
+  "return_code": 0,
+  "finished_at": "2026-09-15T17:10:18.178+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/COMPLETE.json",
+      "exists": true,
+      "sha256": "6cbd395517324a81bacedd0a03eaf18a53c80a6c7a96daca306833c0a4f8f7c9"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/metrics.json",
+      "exists": true,
+      "sha256": "8faf83c1ecbe60f25ab36c7448f7be77e7f33c6dbce1685a3ce081810db4666b"
+    },
+    {
+      "path": "/root/autodl-tmp/p3_guidance_bridge_screen_20260916/runs/RUN_80d0e7f408cc4a93ae9aa81d1209665e/per_gt.csv",
+      "exists": true,
+      "sha256": "3cdb651a5e560fe8b6f080e1b28712ee34f970cc83577614ee032cb4d6bbfffa"
+    }
+  ]
+}

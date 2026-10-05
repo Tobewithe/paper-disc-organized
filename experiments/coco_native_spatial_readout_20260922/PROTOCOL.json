@@ -1,0 +1,15 @@
+{
+  "question": "Can already computed native coefficient-head features drive the beneficial low-dimensional spatial correction, without the extra67-channel ROI convolutional head?",
+  "source_study": "STUDY_9475cf4fd17d402e97db2851a6139d66",
+  "arms": {
+    "native_scalar": "Native64D final-layer input +3D level onehot; MLP67->64->2, second output disabled. Per-instance uniform bias control.",
+    "native_spatial": "Identical input/MLP; use both outputs for bias plus fixed fit-residual spatial field.",
+    "response_spatial": "Native67D input plus16 values formed by4x4 adaptive averaging of the original32x32 ROI logits divided by8 and clipped to[-4,4]. MLP83->64->2. No67-channel ROI map or spatial convolution."
+  },
+  "training": "Same800fit/200selection train2017 images and14204/3723 unique candidates. Freeze original model. Seed0,8epochs,AdamW3e-4,wd1e-4,batch64,clip10,BCE+0.5Dice. Input mean/std estimated only on fit; std clamp_min0.05; zero final layer; tanh outputs. Same shared fit-residual template and discrete crop normalization as prior method.",
+  "selection": "Last epoch; choose alpha from[0,.25,.5,1] by original200train-selection fixed-ROI meanIoU only. No val2017 tuning. Report all arms on5000val, not only a winner.",
+  "native_sensitivity": "Using already trained native6240-parameter final-layer control, additionally evaluate alpha0.25 and0.5, alongside its train-selection-chosen alpha1. This is post-hoc sensitivity, not validation-based model selection and not a new main result chosen by maximum test AP.",
+  "evaluation": "Shared frozen forward across all arms, original one2one top300 score>.001, original mask decoder and COCOeval segmentation with bbox omitted. Keep boxes/scores unchanged. Write RLE predictions for all arms and evaluate official12metrics plus repaired/harmed GT atMask75.",
+  "identity": "During preparation, verify coefficients reconstructed from native hidden inputs and verify mean-pooled ROI logits agree with cached-bank values up to half precision rounding. Evaluation alpha0 masks compared against originalprocess_mask on a bounded image check. No changes to standard decode to inflate score.",
+  "decision": "Mechanism/interface experiment, not parameter-matched benchmark. Meaningful spatial-over-scalar gain supports position-dependent correction; response_spatial over native_spatial would suggest raw mask state helps. Failure of native-only prediction does not prove upstream information absent. Keep all negative results. No automatic LR/architecture search."
+}

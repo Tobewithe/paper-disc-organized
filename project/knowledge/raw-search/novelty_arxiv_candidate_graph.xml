@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/H+NSlHHrW+PAKWxu8qLoBxCbVE4</id>
+  <title>arXiv Query: search_query=all:"instance segmentation" AND (all:graph OR all:set) AND (all:global OR all:consistency OR all:candidate OR all:selection)&amp;id_list=&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-04T15:46:35Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22instance+segmentation%22+AND+((all:graph+OR+all:set)+AND+(all:global+OR+(all:consistency+OR+(all:candidate+OR+all:selection))))&amp;start=0&amp;max_results=10&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>210</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2208.04438v2</id>
+    <title>Occlusion-Aware Instance Segmentation via BiLayer Network Architectures</title>
+    <updated>2023-03-10T12:24:50Z</updated>
+    <link href="https://arxiv.org/abs/2208.04438v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2208.04438v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Segmenting highly-overlapping image objects is challenging, because there is typically no distinction between real object contours and occlusion boundaries on images. Unlike previous instance segmentation methods, we model image formation as a composition of two overlapping layers, and propose Bilayer Convolutional Network (BCNet), where the top layer detects occluding objects (occluders) and the bottom layer infers partially occluded instances (occludees). The explicit modeling of occlusion relationship with bilayer structure naturally decouples the boundaries of both the occluding and occluded instances, and considers the interaction between them during mask regression. We investigate the efficacy of bilayer structure using two popular convolutional network designs, namely, Fully Convolutional Network (FCN) and Graph Convolutional Network (GCN). Further, we formulate bilayer decoupling using the vision transformer (ViT), by representing instances in the image as separate learnable occluder and occludee queries. Large and consistent improvements using one/two-stage and query-based object detectors with various backbones and network layer choices validate the generalization ability of bilayer decoupling, as shown by extensive experiments on image instance segmentation benchmarks (COCO, KINS, COCOA) and video instance segmentation benchmarks (YTVIS, OVIS, BDD100K MOTS), especially for heavy occlusion cases. Code and data are available at https://github.com/lkeab/BCNet.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-08-08T21:39:26Z</published>
+    <arxiv:comment>Extended version of "Deep Occlusion-Aware Instance Segmentation with Overlapping BiLayers", CVPR 2021 (arXiv:2103.12340)</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Lei Ke</name>
+    </author>
+    <author>
+      <name>Yu-Wing Tai</name>
+    </author>
+    <author>
+      <name>Chi-Keung Tang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2401.06370v1</id>
+    <title>Graph Relation Distillation for Efficient Biomedical Instance Segmentation</title>
+    <updated>2024-01-12T04:41:23Z</updated>
+    <link href="https://arxiv.org/abs/2401.06370v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2401.06370v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Instance-aware embeddings predicted by deep neural networks have revolutionized biomedical instance segmentation, but its resource requirements are substantial. Knowledge distillation offers a solution by transferring distilled knowledge from heavy teacher networks to lightweight yet high-performance student networks. However, existing knowledge distillation methods struggle to extract knowledge for distinguishing instances and overlook global relation information. To address these challenges, we propose a graph relation distillation approach for efficient biomedical instance segmentation, which considers three essential types of knowledge: instance-level features, instance relations, and pixel-level boundaries. We introduce two graph distillation schemes deployed at both the intra-image level and the inter-image level: instance graph distillation (IGD) and affinity graph distillation (AGD). IGD constructs a graph representing instance features and relations, transferring these two types of knowledge by enforcing instance graph consistency. AGD constructs an affinity graph representing pixel relations to capture structured knowledge of instance boundaries, transferring boundary-related knowledge by ensuring pixel affinity consistency. Experimental results on a number of biomedical datasets validate the effectiveness of our approach, enabling student models with less than $ 1\%$ parameters and less than $10\%$ inference time while achieving promising performance compared to teacher models.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-01-12T04:41:23Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Xiaoyu Liu</name>
+    </author>
+    <author>
+      <name>Yueyi Zhang</name>
+    </author>
+    <author>
+      <name>Zhiwei Xiong</name>
+    </author>
+    <author>
+      <name>Wei Huang</name>
+    </author>
+    <author>
+      <name>Bo Hu</name>
+    </author>
+    <author>
+      <name>Xiaoyan Sun</name>
+    </author>
+    <author>
+      <name>Feng Wu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2208.09023v2</id>
+    <title>Single-Stage Open-world Instance Segmentation with Cross-task Consistency Regularization</title>
+    <updated>2022-10-18T15:53:31Z</updated>
+    <link href="https://arxiv.org/abs/2208.09023v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2208.09023v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Open-World Instance Segmentation (OWIS) is an emerging research topic that aims to segment class-agnostic object instances from images. The mainstream approaches use a two-stage segmentation framework, which first locates the candidate object bounding boxes and then performs instance segmentation. In this work, we instead promote a single-stage framework for OWIS. We argue that the end-to-end training process in the single-stage framework can be more convenient for directly regularizing the localization of class-agnostic object pixels. Based on the single-stage instance segmentation framework, we propose a regularization model to predict foreground pixels and use its relation to instance segmentation to construct a cross-task consistency loss. We show that such a consistency loss could alleviate the problem of incomplete instance annotation -- a common problem in the existing OWIS datasets. We also show that the proposed loss lends itself to an effective solution to semi-supervised OWIS that could be considered an extreme case that all object annotations are absent for some images. Our extensive experiments demonstrate that the proposed method achieves impressive results in both fully-supervised and semi-supervised settings. Compared to SOTA methods, the proposed method significantly improves the $AP_{100}$ score by 4.75\% in UVO$\rightarrow$UVO setting and 4.05\% in COCO$\rightarrow$UVO setting. In the case of semi-supervised learning, our model learned with only 30\% labeled data, even outperforms its fully-supervised counterpart with 50\% labeled data. The code will be released soon.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-08-18T18:55:09Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Xizhe Xue</name>
+    </author>
+    <author>
+      <name>Dongdong Yu</name>
+    </author>
+    <author>
+      <name>Lingqiao Liu</name>
+    </author>
+    <author>
+      <name>Yu Liu</name>
+    </author>
+    <author>
+      <name>Satoshi Tsutsui</name>
+    </author>
+    <author>
+      <name>Ying Li</name>
+    </author>
+    <author>
+      <name>Zehuan Yuan</name>
+    </author>
+    <author>
+      <name>Ping Song</name>
+    </author>
+    <author>
+      <name>Mike Zheng Shou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.11607v1</id>
+    <title>Topology-Aware Query Selection for Surgical Instrument Instance Segmentation</title>
+    <updated>2026-08-12T03:29:47Z</updated>
+    <link href="https://arxiv.org/abs/2608.11607v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.11607v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate foreground masks can still form an incorrect surgical-instrument instance set: duplicate, fragmented, merged, missed, or empty-frame predictions may preserve favorable pixel overlap while violating object identity and count. Final query selection is therefore a relational, variable-cardinality problem rather than a collection of independent candidate decisions. We evaluate topology-aware query selection, which represents the nonempty candidates of a fixed Mask2Former as a complete graph, learns relational candidate and pair representations, predicts set cardinality, and solves an exact structured subset problem. The formal comparison is the complete relational path versus a node-feature-matched path; it evaluates the combined effect of pairwise geometry, message passing, and the additional relational-path capacity, not an isolated component. On the sealed 22-case source test, all three discovery seeds supported instance-set performance improvement with segmentation fidelity and predefined technical-safety preservation: instance F1 increased by 0.0504--0.0612 and positive-frame set-failure rate decreased by 0.0848--0.1060. Direct ROBUST-MIPS transfer reproduced the complete result in all three seeds. Endoscapes supported only one of three seeds and therefore did not establish stable direct transfer. Taken together, the results support a bounded conclusion: the evaluated complete path improved coherent instance-set construction from fixed Mask2Former candidates in specified native-instance contracts, while stable cross-domain transfer and component-specific effects remain unestablished.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.IV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-12T03:29:47Z</published>
+    <arxiv:comment>Preprint. Main manuscript and supplementary material included. Code and reproducibility materials: https://github.com/yqjyzzz/structured-instance-set-selection</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Ze Zhang</name>
+    </author>
+    <author>
+      <name>Yang Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1907.09140v2</id>
+    <title>Multi-scale Cell Instance Segmentation with Keypoint Graph based Bounding Boxes</title>
+    <updated>2019-07-25T18:01:59Z</updated>
+    <link href="https://arxiv.org/abs/1907.09140v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1907.09140v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Most existing methods handle cell instance segmentation problems directly without relying on additional detection boxes. These methods generally fails to separate touching cells due to the lack of global understanding of the objects. In contrast, box-based instance segmentation solves this problem by combining object detection with segmentation. However, existing methods typically utilize anchor box-based detectors, which would lead to inferior instance segmentation performance due to the class imbalance issue. In this paper, we propose a new box-based cell instance segmentation method. In particular, we first detect the five pre-defined points of a cell via keypoints detection. Then we group these points according to a keypoint graph and subsequently extract the bounding box for each cell. Finally, cell segmentation is performed on feature maps within the bounding boxes. We validate our method on two cell datasets with distinct object shapes, and empirically demonstrate the superiority of our method compared to other instance segmentation techniques. Code is available at: https://github.com/yijingru/KG_Instance_Segmentation.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2019-07-22T05:25:01Z</published>
+    <arxiv:comment>accepted by MICCAI 2019</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Jingru Yi</name>
+    </author>
+    <author>
+      <name>Pengxiang Wu</name>
+    </author>
+    <author>
+      <name>Qiaoying Huang</name>
+    </author>
+    <author>
+      <name>Hui Qu</name>
+    </author>
+    <author>
+      <name>Bo Liu</name>
+    </author>
+    <author>
+      <name>Daniel J. Hoeppner</name>
+    </author>
+    <author>
+      <name>Dimitris N. Metaxas</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2206.01309v1</id>
+    <title>H-EMD: A Hierarchical Earth Mover's Distance Method for Instance Segmentation</title>
+    <updated>2022-06-02T21:27:27Z</updated>
+    <link href="https://arxiv.org/abs/2206.01309v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2206.01309v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Deep learning (DL) based semantic segmentation methods have achieved excellent performance in biomedical image segmentation, producing high quality probability maps to allow extraction of rich instance information to facilitate good instance segmentation. While numerous efforts were put into developing new DL semantic segmentation models, less attention was paid to a key issue of how to effectively explore their probability maps to attain the best possible instance segmentation. We observe that probability maps by DL semantic segmentation models can be used to generate many possible instance candidates, and accurate instance segmentation can be achieved by selecting from them a set of "optimized" candidates as output instances. Further, the generated instance candidates form a well-behaved hierarchical structure (a forest), which allows selecting instances in an optimized manner. Hence, we propose a novel framework, called hierarchical earth mover's distance (H-EMD), for instance segmentation in biomedical 2D+time videos and 3D images, which judiciously incorporates consistent instance selection with semantic-segmentation-generated probability maps. H-EMD contains two main stages. (1) Instance candidate generation: capturing instance-structured information in probability maps by generating many instance candidates in a forest structure. (2) Instance candidate selection: selecting instances from the candidate set for final instance segmentation. We formulate a key instance selection problem on the instance candidate forest as an optimization problem based on the earth mover's distance (EMD), and solve it by integer linear programming. Extensive experiments on eight biomedical video or 3D datasets demonstrate that H-EMD consistently boosts DL semantic segmentation models and is highly competitive with state-of-the-art methods.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-06-02T21:27:27Z</published>
+    <arxiv:comment>Accepted at IEEE Transactions On Medical Imaging (TMI)</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Peixian Liang</name>
+    </author>
+    <author>
+      <name>Yizhe Zhang</name>
+    </author>
+    <author>
+      <name>Yifan Ding</name>
+    </author>
+    <author>
+      <name>Jianxu Chen</name>
+    </author>
+    <author>
+      <name>Chinedu S. Madukoma</name>
+    </author>
+    <author>
+      <name>Tim Weninger</name>
+    </author>
+    <author>
+      <name>Joshua D. Shrout</name>
+    </author>
+    <author>
+      <name>Danny Z. Chen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2212.01579v1</id>
+    <title>Box2Mask: Box-supervised Instance Segmentation via Level-set Evolution</title>
+    <updated>2022-12-03T09:32:14Z</updated>
+    <link href="https://arxiv.org/abs/2212.01579v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2212.01579v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In contrast to fully supervised methods using pixel-wise mask labels, box-supervised instance segmentation takes advantage of simple box annotations, which has recently attracted increasing research attention. This paper presents a novel single-shot instance segmentation approach, namely Box2Mask, which integrates the classical level-set evolution model into deep neural network learning to achieve accurate mask prediction with only bounding box supervision. Specifically, both the input image and its deep features are employed to evolve the level-set curves implicitly, and a local consistency module based on a pixel affinity kernel is used to mine the local context and spatial relations. Two types of single-stage frameworks, i.e., CNN-based and transformer-based frameworks, are developed to empower the level-set evolution for box-supervised instance segmentation, and each framework consists of three essential components: instance-aware decoder, box-level matching assignment and level-set evolution. By minimizing the level-set energy function, the mask map of each instance can be iteratively optimized within its bounding box annotation. The experimental results on five challenging testbeds, covering general scenes, remote sensing, medical and scene text images, demonstrate the outstanding performance of our proposed Box2Mask approach for box-supervised instance segmentation. In particular, with the Swin-Transformer large backbone, our Box2Mask obtains 42.4% mask AP on COCO, which is on par with the recently developed fully mask-supervised methods. The code is available at: https://github.com/LiWentomng/boxlevelset.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-12-03T09:32:14Z</published>
+    <arxiv:comment>29 pages, 7 figures, 14 tables. arXiv admin note: text overlap with arXiv:2207.09055</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Wentong Li</name>
+    </author>
+    <author>
+      <name>Wenyu Liu</name>
+    </author>
+    <author>
+      <name>Jianke Zhu</name>
+    </author>
+    <author>
+      <name>Miaomiao Cui</name>
+    </author>
+    <author>
+      <name>Risheng Yu</name>
+    </author>
+    <author>
+      <name>Xiansheng Hua</name>
+    </author>
+    <author>
+      <name>Lei Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2312.07584v1</id>
+    <title>DFGET: Displacement-Field Assisted Graph Energy Transmitter for Gland Instance Segmentation</title>
+    <updated>2023-12-11T01:42:10Z</updated>
+    <link href="https://arxiv.org/abs/2312.07584v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2312.07584v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Gland instance segmentation is an essential but challenging task in the diagnosis and treatment of adenocarcinoma. The existing models usually achieve gland instance segmentation through multi-task learning and boundary loss constraint. However, how to deal with the problems of gland adhesion and inaccurate boundary in segmenting the complex samples remains a challenge. In this work, we propose a displacement-field assisted graph energy transmitter (DFGET) framework to solve these problems. Specifically, a novel message passing manner based on anisotropic diffusion is developed to update the node features, which can distinguish the isomorphic graphs and improve the expressivity of graph nodes for complex samples. Using such graph framework, the gland semantic segmentation map and the displacement field (DF) of the graph nodes are estimated with two graph network branches. With the constraint of DF, a graph cluster module based on diffusion theory is presented to improve the intra-class feature consistency and inter-class feature discrepancy, as well as to separate the adherent glands from the semantic segmentation maps. Extensive comparison and ablation experiments on the GlaS dataset demonstrate the superiority of DFGET and effectiveness of the proposed anisotropic message passing manner and clustering method. Compared to the best comparative model, DFGET increases the object-Dice and object-F1 score by 2.5% and 3.4% respectively, while decreases the object-HD by 32.4%, achieving state-of-the-art performance.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-12-11T01:42:10Z</published>
+    <arxiv:comment>10 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Caiqing Jian</name>
+    </author>
+    <author>
+      <name>Yongbin Qin</name>
+    </author>
+    <author>
+      <name>Lihui Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2004.01658v1</id>
+    <title>PointGroup: Dual-Set Point Grouping for 3D Instance Segmentation</title>
+    <updated>2020-04-03T16:26:37Z</updated>
+    <link href="https://arxiv.org/abs/2004.01658v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2004.01658v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Instance segmentation is an important task for scene understanding. Compared to the fully-developed 2D, 3D instance segmentation for point clouds have much room to improve. In this paper, we present PointGroup, a new end-to-end bottom-up architecture, specifically focused on better grouping the points by exploring the void space between objects. We design a two-branch network to extract point features and predict semantic labels and offsets, for shifting each point towards its respective instance centroid. A clustering component is followed to utilize both the original and offset-shifted point coordinate sets, taking advantage of their complementary strength. Further, we formulate the ScoreNet to evaluate the candidate instances, followed by the Non-Maximum Suppression (NMS) to remove duplicates. We conduct extensive experiments on two challenging datasets, ScanNet v2 and S3DIS, on which our method achieves the highest performance, 63.6% and 64.0%, compared to 54.9% and 54.4% achieved by former best solutions in terms of mAP with IoU threshold 0.5.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-04-03T16:26:37Z</published>
+    <arxiv:comment>CVPR 2020</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Li Jiang</name>
+    </author>
+    <author>
+      <name>Hengshuang Zhao</name>
+    </author>
+    <author>
+      <name>Shaoshuai Shi</name>
+    </author>
+    <author>
+      <name>Shu Liu</name>
+    </author>
+    <author>
+      <name>Chi-Wing Fu</name>
+    </author>
+    <author>
+      <name>Jiaya Jia</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2504.01383v1</id>
+    <title>v-CLR: View-Consistent Learning for Open-World Instance Segmentation</title>
+    <updated>2025-04-02T05:52:30Z</updated>
+    <link href="https://arxiv.org/abs/2504.01383v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.01383v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this paper, we address the challenging problem of open-world instance segmentation. Existing works have shown that vanilla visual networks are biased toward learning appearance information, \eg texture, to recognize objects. This implicit bias causes the model to fail in detecting novel objects with unseen textures in the open-world setting. To address this challenge, we propose a learning framework, called view-Consistent LeaRning (v-CLR), which aims to enforce the model to learn appearance-invariant representations for robust instance segmentation. In v-CLR, we first introduce additional views for each image, where the texture undergoes significant alterations while preserving the image's underlying structure. We then encourage the model to learn the appearance-invariant representation by enforcing the consistency between object features across different views, for which we obtain class-agnostic object proposals using off-the-shelf unsupervised models that possess strong object-awareness. These proposals enable cross-view object feature matching, greatly reducing the appearance dependency while enhancing the object-awareness. We thoroughly evaluate our method on public benchmarks under both cross-class and cross-dataset settings, achieving state-of-the-art performance. Project page: https://visual-ai.github.io/vclr</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-02T05:52:30Z</published>
+    <arxiv:comment>Accepted by CVPR 2025, Project page: https://visual-ai.github.io/vclr, Code: https://github.com/Visual-AI/vCLR</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Chang-Bin Zhang</name>
+    </author>
+    <author>
+      <name>Jinhong Ni</name>
+    </author>
+    <author>
+      <name>Yujie Zhong</name>
+    </author>
+    <author>
+      <name>Kai Han</name>
+    </author>
+  </entry>
+</feed>
+

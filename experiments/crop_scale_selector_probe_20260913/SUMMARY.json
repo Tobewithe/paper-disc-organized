@@ -1,0 +1,65 @@
+{
+  "status": "COMPLETE",
+  "input": "C:\\Dpan\\codexproject\\paper-disc\\experiments\\coco_clean_20260911\\diagnostics\\crop_support_failure_cross_20260913\\per_target.csv",
+  "fit_targets": 7811,
+  "transfer_targets": 1815,
+  "features": [
+    "ring_positive_fraction",
+    "inside_positive_fraction",
+    "ring_inside_ratio",
+    "candidate_score",
+    "candidate_class_index"
+  ],
+  "scales": [
+    0.8,
+    0.9,
+    1.0,
+    1.1,
+    1.2,
+    1.3,
+    1.4
+  ],
+  "model": "ExtraTreesRegressor(n_estimators=100,min_samples_leaf=20,max_features=1.0)",
+  "selected_scale_counts": {
+    "0.8": 0,
+    "0.9": 223,
+    "1.0": 1373,
+    "1.1": 83,
+    "1.2": 71,
+    "1.3": 47,
+    "1.4": 18
+  },
+  "transfer": {
+    "n": 1815,
+    "base_iou": 0.7712190594113302,
+    "selected_iou": 0.771343028402734,
+    "selected_delta": 0.0001239689914039181,
+    "oracle_delta": 0.015349014389238342,
+    "high": {
+      "n": 181,
+      "selected_delta": -0.0019550066120718372,
+      "oracle_delta": 0.017415252061512124
+    },
+    "low": {
+      "n": 1634,
+      "selected_delta": 0.0003542594346285887,
+      "oracle_delta": 0.015120134940840819
+    },
+    "support_sufficient_mask_bad": {
+      "n": 468,
+      "selected_delta": 0.007943734860542756,
+      "oracle_delta": 0.034931924840098896
+    },
+    "support_low_mask_bad": {
+      "n": 177,
+      "selected_delta": -0.006056266592840807,
+      "oracle_delta": 0.030808969839260007
+    },
+    "mask_good": {
+      "n": 1170,
+      "selected_delta": -0.002068978639660748,
+      "oracle_delta": 0.005177036435685719
+    }
+  },
+  "limitations": "Fit labels use GT-derived IoU; transfer selection uses only inference-visible features. Frozen paired-candidate diagnostic; no end-to-end AP or training."
+}

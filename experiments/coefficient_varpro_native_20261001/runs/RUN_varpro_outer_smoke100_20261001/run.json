@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_varpro_outer_smoke100_20261001",
+  "study_id": "STUDY_0c53a62f6f2d4d1bb0f7a5d8c91e6a42",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "scripts/varpro_outer.py",
+    "--weights",
+    "D:\\coco_wire\\models\\yolo26m-seg.pt",
+    "--c-final",
+    "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+    "--readout",
+    "D:\\coco_wire\\varpro\\runs\\RUN_cplus_readout_full_seed0_retry5_area_fix_20261001\\C_READOUT.pt",
+    "--cache",
+    "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache",
+    "--data",
+    "D:\\coco_wire\\data",
+    "--out",
+    "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_smoke100_20261001",
+    "--outer-epochs",
+    "1",
+    "--lr",
+    "0.00001",
+    "--accum-images",
+    "8",
+    "--max-images",
+    "100"
+  ],
+  "working_directory": "D:\\coco_wire\\varpro",
+  "status": "failed",
+  "created_at": "2026-10-01T08:54:41.696+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\varpro\\phaseI_reference\\C_final.pt",
+      "exists": true,
+      "sha256": "62576938390c461aeef61d82f5640bb5e23ab9fb99a29bf24d1b3241aac9c396",
+      "size": 3438629
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\varpro_outer.py",
+      "exists": true,
+      "sha256": "a1dcc8c431f197b2914f3eed967adb7dce7e6e4958da33c40f4ffaed2e8d0170",
+      "size": 8071
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\VARPRO_RUN_CONFIG.json",
+      "exists": true,
+      "sha256": "508e7b79863a13a00e7441b3563372062a34ed480f0d654e362ad4f5dcb96662",
+      "size": 862
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\varpro\\scripts\\varpro_outer.py",
+      "revision": "a1dcc8c431f197b2914f3eed967adb7dce7e6e4958da33c40f4ffaed2e8d0170",
+      "snapshot": "snapshots/a1dcc8c431f197b2914f3eed967adb7dce7e6e4958da33c40f4ffaed2e8d0170"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_varpro_outer_smoke100_20261001/SUMMARY.json",
+    "runs/RUN_varpro_outer_smoke100_20261001/VARPRO_OUTER.pt"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_smoke100_20261001"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 21464,
+  "started_at": "2026-10-01T08:54:42.145+00:00",
+  "last_heartbeat": "2026-10-01T08:54:47.156+00:00",
+  "metrics_read_error": "[WinError 2] 系统找不到指定的文件。: 'D:\\\\coco_wire\\\\varpro\\\\runs\\\\RUN_varpro_outer_smoke100_20261001\\\\SUMMARY.json'",
+  "return_code": 1,
+  "finished_at": "2026-10-01T08:54:49.489+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "runs/RUN_varpro_outer_smoke100_20261001/SUMMARY.json",
+    "runs/RUN_varpro_outer_smoke100_20261001/VARPRO_OUTER.pt"
+  ],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_smoke100_20261001\\SUMMARY.json",
+      "exists": false,
+      "sha256": ""
+    },
+    {
+      "path": "D:\\coco_wire\\varpro\\runs\\RUN_varpro_outer_smoke100_20261001\\VARPRO_OUTER.pt",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

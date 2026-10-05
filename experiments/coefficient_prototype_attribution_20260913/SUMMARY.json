@@ -1,0 +1,308 @@
+{
+  "experiment": "S080_COEFFICIENT_PROTOTYPE_ATTRIBUTION",
+  "status": "COMPLETE",
+  "input": "C:\\Dpan\\codexproject\\paper-disc\\experiments\\coco_clean_20260911\\diagnostics\\fixed_prototype_split_20260913_v5\\instances.csv",
+  "n_total": 140,
+  "n_baseline_bad": 94,
+  "definition": {
+    "coefficient_recoverable": "baseline_iou < 0.75 and allfit_iou >= 0.75",
+    "fixed_prototype_limited": "baseline_iou < 0.75 and allfit_iou < 0.75",
+    "allfit": "GT-assisted coefficient fit on all sampled pixels with prototype, box and decoder fixed"
+  },
+  "summary": [
+    {
+      "density": "all",
+      "residual": "all",
+      "n": 94,
+      "coeff_reaches_75_n": 33,
+      "coeff_reaches_75_fraction": 0.35106382978723405,
+      "split_reaches_75_n": 30,
+      "split_reaches_75_fraction": 0.3191489361702128,
+      "fixed_p_below_75_n": 61,
+      "coeff_gain_points": {
+        "mean": 20.314337237563567,
+        "ci95": [
+          17.62140586588156,
+          23.06853971247396
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 10.159484196115436,
+        "ci95": [
+          7.655216338310352,
+          12.852625647707942
+        ]
+      }
+    },
+    {
+      "density": "all",
+      "residual": "mask_good_control",
+      "n": 0,
+      "coeff_reaches_75_n": 0,
+      "coeff_reaches_75_fraction": null,
+      "split_reaches_75_n": 0,
+      "split_reaches_75_fraction": null,
+      "fixed_p_below_75_n": 0,
+      "coeff_gain_points": {
+        "mean": null,
+        "ci95": [
+          null,
+          null
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": null,
+        "ci95": [
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "density": "all",
+      "residual": "requires_target_pixel_recovery",
+      "n": 48,
+      "coeff_reaches_75_n": 8,
+      "coeff_reaches_75_fraction": 0.16666666666666666,
+      "split_reaches_75_n": 8,
+      "split_reaches_75_fraction": 0.16666666666666666,
+      "fixed_p_below_75_n": 40,
+      "coeff_gain_points": {
+        "mean": 18.787299574366052,
+        "ci95": [
+          14.916874259320908,
+          23.063506285690632
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 14.624225650798882,
+        "ci95": [
+          11.011556232770195,
+          18.52247154316558
+        ]
+      }
+    },
+    {
+      "density": "all",
+      "residual": "sufficient_true_pixels_but_residual_false_pixels",
+      "n": 46,
+      "coeff_reaches_75_n": 25,
+      "coeff_reaches_75_fraction": 0.5434782608695652,
+      "split_reaches_75_n": 22,
+      "split_reaches_75_fraction": 0.4782608695652174,
+      "fixed_p_below_75_n": 21,
+      "coeff_gain_points": {
+        "mean": 21.907767842639238,
+        "ci95": [
+          18.268720440857678,
+          25.659082407002373
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 5.5006235477500995,
+        "ci95": [
+          2.9211151551296015,
+          8.641150789173944
+        ]
+      }
+    },
+    {
+      "density": "high",
+      "residual": "all",
+      "n": 48,
+      "coeff_reaches_75_n": 17,
+      "coeff_reaches_75_fraction": 0.3541666666666667,
+      "split_reaches_75_n": 15,
+      "split_reaches_75_fraction": 0.3125,
+      "fixed_p_below_75_n": 31,
+      "coeff_gain_points": {
+        "mean": 21.425560547310454,
+        "ci95": [
+          17.738232316206552,
+          25.332413601383713
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 9.780954181852739,
+        "ci95": [
+          6.779277048059874,
+          13.11242506295483
+        ]
+      }
+    },
+    {
+      "density": "high",
+      "residual": "mask_good_control",
+      "n": 0,
+      "coeff_reaches_75_n": 0,
+      "coeff_reaches_75_fraction": null,
+      "split_reaches_75_n": 0,
+      "split_reaches_75_fraction": null,
+      "fixed_p_below_75_n": 0,
+      "coeff_gain_points": {
+        "mean": null,
+        "ci95": [
+          null,
+          null
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": null,
+        "ci95": [
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "density": "high",
+      "residual": "requires_target_pixel_recovery",
+      "n": 24,
+      "coeff_reaches_75_n": 4,
+      "coeff_reaches_75_fraction": 0.16666666666666666,
+      "split_reaches_75_n": 4,
+      "split_reaches_75_fraction": 0.16666666666666666,
+      "fixed_p_below_75_n": 20,
+      "coeff_gain_points": {
+        "mean": 17.229934731853763,
+        "ci95": [
+          12.83535783806853,
+          22.220028375341773
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 16.571134354075898,
+        "ci95": [
+          11.9393837524596,
+          21.351710759562987
+        ]
+      }
+    },
+    {
+      "density": "high",
+      "residual": "sufficient_true_pixels_but_residual_false_pixels",
+      "n": 24,
+      "coeff_reaches_75_n": 13,
+      "coeff_reaches_75_fraction": 0.5416666666666666,
+      "split_reaches_75_n": 11,
+      "split_reaches_75_fraction": 0.4583333333333333,
+      "fixed_p_below_75_n": 11,
+      "coeff_gain_points": {
+        "mean": 25.62118636276715,
+        "ci95": [
+          20.390504093320168,
+          30.944623824380642
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 2.990774009629582,
+        "ci95": [
+          1.2132385416173395,
+          5.108240964714297
+        ]
+      }
+    },
+    {
+      "density": "low",
+      "residual": "all",
+      "n": 46,
+      "coeff_reaches_75_n": 16,
+      "coeff_reaches_75_fraction": 0.34782608695652173,
+      "split_reaches_75_n": 15,
+      "split_reaches_75_fraction": 0.32608695652173914,
+      "fixed_p_below_75_n": 30,
+      "coeff_gain_points": {
+        "mean": 19.154799870871155,
+        "ci95": [
+          15.255241069909323,
+          23.076856740988955
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 10.554472037085205,
+        "ci95": [
+          6.807813565456162,
+          14.731306831424048
+        ]
+      }
+    },
+    {
+      "density": "low",
+      "residual": "mask_good_control",
+      "n": 0,
+      "coeff_reaches_75_n": 0,
+      "coeff_reaches_75_fraction": null,
+      "split_reaches_75_n": 0,
+      "split_reaches_75_fraction": null,
+      "fixed_p_below_75_n": 0,
+      "coeff_gain_points": {
+        "mean": null,
+        "ci95": [
+          null,
+          null
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": null,
+        "ci95": [
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "density": "low",
+      "residual": "requires_target_pixel_recovery",
+      "n": 24,
+      "coeff_reaches_75_n": 4,
+      "coeff_reaches_75_fraction": 0.16666666666666666,
+      "split_reaches_75_n": 4,
+      "split_reaches_75_fraction": 0.16666666666666666,
+      "fixed_p_below_75_n": 20,
+      "coeff_gain_points": {
+        "mean": 20.344664416878338,
+        "ci95": [
+          13.857003973443174,
+          27.140992350443593
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 12.677316947521867,
+        "ci95": [
+          7.309789097402503,
+          18.726853633256166
+        ]
+      }
+    },
+    {
+      "density": "low",
+      "residual": "sufficient_true_pixels_but_residual_false_pixels",
+      "n": 22,
+      "coeff_reaches_75_n": 12,
+      "coeff_reaches_75_fraction": 0.5454545454545454,
+      "split_reaches_75_n": 11,
+      "split_reaches_75_fraction": 0.5,
+      "fixed_p_below_75_n": 10,
+      "coeff_gain_points": {
+        "mean": 17.856765820681503,
+        "ci95": [
+          13.745378278476057,
+          22.400641531096188
+        ]
+      },
+      "fixed_p_gap_points": {
+        "mean": 8.238641225699753,
+        "ci95": [
+          3.0738949931103288,
+          14.018879057507545
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "This is a re-analysis of S074, not a new forward pass, training run, or AP result.",
+    "The all-fit coefficient is GT-assisted and is an upper-bound opportunity, not a deployable predictor.",
+    "fixed_prototype_limited means the fixed-P conditional fit remains below threshold; it does not uniquely prove prototype causality.",
+    "The queue was outcome-stratified and contains only 140 selected instances."
+  ]
+}
