@@ -88,6 +88,8 @@ def _install_class_hooks():
 class BoundaryQualityE2ELoss(OfficialE2ELoss):
     quality_weight = 0.10
     total_targets = 0
+    epoch_quality_sum = 0.0
+    epoch_quality_targets = 0
 
     def __init__(self, model, loss_fn=None):
         super().__init__(model, loss_fn=loss_fn or tasks.v8SegmentationLoss)
@@ -138,6 +140,8 @@ class BoundaryQualityE2ELoss(OfficialE2ELoss):
             target = self._targets(one2one, batch, fg_mask, target_gt_idx, boxes).detach()
             qloss = F.binary_cross_entropy_with_logits(selected_logits, target)
             type(self).total_targets += int(target.numel())
+            type(self).epoch_quality_sum += float(qloss.detach()) * int(target.numel())
+            type(self).epoch_quality_targets += int(target.numel())
         else:
             qloss = quality_logits.sum() * 0.0
         total = loss_one2many[0] * self.o2m + loss_one2one[0] * self.o2o
@@ -165,6 +169,18 @@ def install_quality_head(model, alpha=1.0):
     return _attach_quality_head_to_segmodel(model.model, alpha=alpha)
 
 
+def _quality_epoch_end(trainer):
+    """Emit a per-epoch quality-head loss for convergence auditing."""
+    cls = BoundaryQualityE2ELoss
+    count = int(cls.epoch_quality_targets)
+    mean = cls.epoch_quality_sum / count if count else None
+    print(json.dumps({"quality_epoch": int(trainer.epoch) + 1,
+                      "quality_bce": mean,
+                      "quality_targets_epoch": count}, allow_nan=True), flush=True)
+    cls.epoch_quality_sum = 0.0
+    cls.epoch_quality_targets = 0
+
+
 _official_init = tasks.SegmentationModel.init_criterion
 
 
@@ -184,6 +200,10 @@ def main():
     ap.add_argument("--batch", type=int, default=2)
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--quality-weight", type=float, default=0.1)
+    ap.add_argument("--save-period", type=int, default=1,
+                    help="save a checkpoint every N epochs for convergence auditing")
+    ap.add_argument("--freeze-original", action="store_true",
+                    help="freeze all pretrained detector/segmenter parameters and train only quality_head")
     args = ap.parse_args()
     assert __import__("ultralytics").__version__ == "8.4.100"
     tasks.SegmentationModel.init_criterion = _quality_init
@@ -197,12 +217,32 @@ def main():
         _attach_quality_head_to_segmodel(seg_model, alpha=1.0)
         return seg_model
     SegmentationTrainer.get_model = _get_model_with_quality
+    if args.freeze_original:
+        _trainer_setup_train = SegmentationTrainer._setup_train
+        def _setup_train_frozen(self):
+            _trainer_setup_train(self)
+            # ``requires_grad=False`` does not freeze BatchNorm running
+            # statistics.  Ultralytics calls ``model.train()`` at every
+            # epoch, so explicitly reuse its native freeze-layer mechanism
+            # to put every original-model BatchNorm layer back in eval mode.
+            # The quality head has no BatchNorm layers and remains trainable.
+            self.freeze_layer_names = ["model"]
+            trainable = []
+            for name, parameter in self.model.named_parameters():
+                parameter.requires_grad = ("quality_head" in name)
+                if parameter.requires_grad:
+                    trainable.append(name)
+            if not trainable:
+                raise RuntimeError("freeze-original left no trainable quality head parameters")
+            print(json.dumps({"freeze_original": True, "trainable_parameters": trainable}), flush=True)
+        SegmentationTrainer._setup_train = _setup_train_frozen
     from ultralytics import YOLO
     model = YOLO(args.weights)
     head = install_quality_head(model)
     BoundaryQualityE2ELoss.quality_weight = args.quality_weight
+    model.add_callback("on_train_epoch_end", _quality_epoch_end)
     print(json.dumps({"ultralytics": __import__("ultralytics").__version__, "quality_head": sum(p.numel() for p in head.quality_head.parameters()), "end2end": bool(getattr(model.model, "end2end", False))}), flush=True)
-    model.train(data=args.data, epochs=args.epochs, imgsz=args.imgsz, batch=args.batch, workers=0, device=0, project=args.project, name=args.name, exist_ok=True, plots=False, verbose=False, cache=False, pretrained=args.weights, save=True, val=False, seed=0)
+    model.train(data=args.data, epochs=args.epochs, imgsz=args.imgsz, batch=args.batch, workers=0, device=0, project=args.project, name=args.name, exist_ok=True, plots=False, verbose=False, cache=False, pretrained=args.weights, save=True, save_period=args.save_period, val=False, seed=0)
     print(json.dumps({"quality_targets": BoundaryQualityE2ELoss.total_targets}), flush=True)
     print("BOUNDARY_QUALITY_COMPLETE", flush=True)
 

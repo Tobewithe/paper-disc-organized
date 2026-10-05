@@ -7,3 +7,5 @@
 首轮 100/50 结果：同 seed、同 3 epoch 预算下，Mask mAP50-95 为 0.52899，官方基线为 0.52486；Box mAP50-95 为 0.60696，官方基线为 0.60517。该结果只作为实现通过和扩大实验的依据。
 
 决定性扩大实验使用当前远端已经完成官方实例标签转换的全部可用列表（7,753 train / 1,997 val），官方基线与方法均从同一 YOLO26m-seg COCO 预训练权重开始，batch=2、imgsz=640、3 epoch、seed=0、Ultralytics 8.4.100。报告中将该范围写作“COCO official converted available split”，不把 1,997 张标注图称作 COCO val2017 5k 全集。成功门槛是方法 Mask AP50-95 至少不低于同预算基线，且候选质量排序的有效性指标改善；若扩大实验跨过零或下降，则停止当前质量排序路线。
+
+训练完成后另用官方 `convert_coco(use_segments=True, cls91to80=True)` 生成的 5,000 张 COCO val2017 标签进行独立复评。首次复评因嵌套 junction 解析到旧标签路径而得到零标签，已标为无效并重跑；有效复评强制使用独立数据根和绝对 val 路径。
