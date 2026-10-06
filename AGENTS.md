@@ -31,7 +31,7 @@ experiments/<实验>/
 - 只做文件整理、报告撰写或普通分析：按上面六条即可。
 - 设计训练、消融或正式评价：读取 `project/guidelines/EXPERIMENT_SPEC_STANDARD.md` 的相关章节，再读取 `project/WORKBENCH_CONVENTIONS.md` 的存储规则。
 - 需要干预术语或研究计划时，按问题读取 `INTERVENTION_TERMINOLOGY.md` 或 `RESEARCH_PLAYBOOK_20261004.md`；不要默认通读整个 `project/guidelines/`。
-- 研究线入口：本机 `paper/manuscripts/neighbor_sensitive_p3/`；并行论文线 `paper/manuscripts/mask_boundary_calibration/`。论文只是引用实验的视角。
+- 研究线不在本文件中固定。需要论文上下文时，读取 `project/research_lines.json`、对应 `paper/manuscripts/<论文>/` 文件夹和当前线程已明确的研究目录；未选择研究线时按项目范围工作。论文只是引用实验的视角。
 
 ## 执行与工作台边界
 

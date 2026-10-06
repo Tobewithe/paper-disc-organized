@@ -20,6 +20,6 @@
 
 ## 研究线
 
-本机主线入口为 `paper/manuscripts/neighbor_sensitive_p3/`；并行论文线入口为 `paper/manuscripts/mask_boundary_calibration/`。论文按需引用实验，实验不为论文复制。迁移盘点保存在 `_maintenance/workbench_alignment/`，仅用于迁移协调。
+研究线由 `project/research_lines.json` 和 `paper/manuscripts/<论文>/` 的实际文件发现；线程关联若已登记在 `owner_thread_id` 中只作来源信息，不决定默认研究线。未选择研究线时按项目范围工作。论文按需引用实验，实验不为论文复制。迁移盘点保存在 `_maintenance/workbench_alignment/`，仅用于迁移协调。
 
 详细外部接入和运行格式见工作台 `workbench/research/EXTERNAL_CONTRACT.md` 与 `workbench/research/README.md`。本文件不要求 AI 启动同步、检查 UI 或填写审批表。
