@@ -1,47 +1,42 @@
-# 科研文件落盘：最小约定
+# 科研任务最小约定
 
-工作根目录：`C:\Dpan\codexproject\paper-disc-organized`。默认 PowerShell 7.6.4；深度学习使用 conda `pytorch` 环境。外部接入合同见 `C:\Dpan\codexproject\Aggregation Workbench\workbench\research\EXTERNAL_CONTRACT.md`。
+本目录是工作台映射的科研文件根目录：`C:\Dpan\codexproject\paper-disc-organized`。用户与 AI 在 Codex 中推进研究；AI 负责把文件写入正确目录，工作台自动扫描。不要为了入库填写表单、手动改索引或检查网页。
 
-AI 按以下规则保存文件，工作台服务运行时自动扫描。日常无需调用 `researchctl`、同步或校验索引、检查工作台状态；其他说明中旧的手动维护要求不作为文件入库前提。
+## 只记住这六条
 
-1. **普通文件：直接保存。** 实验专用脚本放在该实验的 `scripts/`，报告放在实验目录，每次执行的产物放在该实验的 `runs/<运行>/`。共享数据/权重放 `assets/`，共享代码放 `shared/`，论文文档放 `paper/manuscripts/<论文>/`。无需逐文件登记。
-2. **新实验：加一个 `study.json`。** 统一放在 `experiments/<实验>/`，包括诊断、方法、消融和复现。保存稳定 ID、名称和类型，示例见下方；已有实验复用原目录和 ID。论文关联可为空，也可引用到多篇论文。
-3. **新 Run：加一个 `run.json`。** 放在所属实验的 `runs/<运行>/`，保存稳定 Run ID；工作台由所在实验目录识别归属，无需重复填写 `study_id`。已有记录含 `study_id` 时保持与所属实验一致。不同 seed、重试和独立评估各用一个 Run，同次执行回传沿用原 ID。
-4. **已知信息如实保存。** 需要按开始时间排序时，`run.json` 加 `started_at`，填写带时区的实际时间，如 `2026-09-15T14:30:00+08:00`；未知则省略，不用复制时间代替。状态、报告入口、命令、日志、配置和快照有现成记录就保留，不为入库补造信息、补写完整审查或重跑实验。已有 JSON 字段保留，修改前读取当前内容，避免覆盖其他任务的改动。
-5. **落盘即完成。** 简要返回目录/结果入口即可；不检查网页或索引。整理旧文件采用复制，保留原文件；远端回传到对应实验的 `runs/` 后才进入本机扫描，未回传如实说明。原项目 `C:\Dpan\codexproject\paper-disc` 不改动，数据库、`.research/` 和自动生成的 `project/structure.json` 由工作台维护。
+1. 普通文件直接写入：实验脚本放实验目录的 `scripts/`，报告放实验目录，执行产物放对应 `runs/<Run ID>/`；共享数据/权重放 `assets/`，共享代码放 `shared/`，论文材料放 `paper/manuscripts/<论文>/`。
+2. 新实验在 `experiments/<稳定目录名>/` 新建 `study.json`；诊断、方法、消融和复现都属于实验，用 `kind` 区分。已有目录和 ID 继续沿用。
+3. 新执行在所属实验下新建 `runs/<稳定 Run ID>/run.json`。不同 seed、重试和独立评估分别建 Run；Run 不能脱离实验单独挂在项目根目录。
+4. 论文关联是可选、多对多的。没有论文关联不算缺失；不要为论文复制实验或创建占位论文。
+5. 只写已知事实。缺失、未回传、未验证的信息保持未知；普通代码编辑不额外写研究日志。
+6. 用户形成决定、运行前后或解释结果时，补最小记录：问题/选择、运行与产物、观察、范围限制、下一步。结论引用原文和版本，不复制出第二份结论。
 
-Run 的执行状态、产物状态、回传状态和文件可用性分别记录；远端 Run 回传时附 `transfer.json` 与 `manifest.sha256`，不以“尚未回传”代替“执行失败”。
+最小结构：
 
 ```text
 experiments/<实验>/
   study.json
-  REPORT.md                 有报告时保存
-  scripts/                  实验专用脚本
-  runs/<运行>/
+  REPORT.md                 # 有报告时才建
+  scripts/
+  runs/<Run ID>/
     run.json
-    ...本次结果、日志等文件
+    ...本次结果与日志
 ```
 
-新 `study.json` 的简短示例（占位 ID 换成新生成的唯一 ID，类型按实际填写）：
+`study.json` 最小示例：`{"study_id":"STUDY_<UUID>","title":"实验名称","kind":"diagnostic"}`。
+`run.json` 最小示例：`{"run_id":"RUN_<UUID>","started_at":"2026-10-06T12:00:00+08:00"}`。时间未知就省略，不用文件时间代替。
 
-```json
-{"study_id":"STUDY_<UUID>","title":"实验名称","kind":"diagnostic"}
-```
+## 何时读取额外规范
 
-新 `run.json` 的最小示例（占位 ID 换成新生成的唯一 ID）：
+- 只做文件整理、报告撰写或普通分析：按上面六条即可。
+- 设计训练、消融或正式评价：读取 `project/guidelines/EXPERIMENT_SPEC_STANDARD.md` 的相关章节，再读取 `project/WORKBENCH_CONVENTIONS.md` 的存储规则。
+- 需要干预术语或研究计划时，按问题读取 `INTERVENTION_TERMINOLOGY.md` 或 `RESEARCH_PLAYBOOK_20261004.md`；不要默认通读整个 `project/guidelines/`。
+- 研究线入口：本机 `paper/manuscripts/neighbor_sensitive_p3/`；并行论文线 `paper/manuscripts/mask_boundary_calibration/`。论文只是引用实验的视角。
 
-```json
-{"run_id":"RUN_<UUID>"}
-```
+## 执行与工作台边界
 
-已有实验追加普通文件不重写登记；只有新实验、新 Run 才需要相应的新 JSON。最小记录足以建立文件和实验/Run 的映射，未记录的执行信息与科学证据仍保持未知。科研任务本身需要的分析、论证和验证照常进行。
+实际训练/评估可用工作台 `workbench/research/runner.py`，每个 Run 保留实际命令、环境、输入、状态和产物。工作台数据库、`.research/` 与 `project/structure.json` 自动维护；不要直接编辑。
 
-## 工作规范
+只有在用户要求排查索引、保存修订或验证记录时，才使用 `researchctl record/source/sync/validate`。外部机器回传 Run 时保留 `transfer.json` 和 `manifest.sha256`；未回传不等于失败。
 
-开始新的重要实验、训练、微调、消融或正式评价前，必须先完整阅读工作根目录 project/guidelines/ 目录下的全部规范文件。当前包括：
-
-- EXPERIMENT_SPEC_STANDARD.md
-- INTERVENTION_TERMINOLOGY.md
-- RESEARCH_PLAYBOOK_20261004.md
-
-执行时以这些文件的最新内容为准：先收敛当前状态并核对历史正负结果、原模型实现、数学性质和相关文献；明确独立问题、竞争假设、判别对照、数据范围、指标、预算和停止条件；训练实验必须写明冻结/解冻范围、有效样本量、优化器/学习率、checkpoint、seed 和公平 baseline，并按“新增模块 → 相关原生分支 → 更大范围微调”逐级解冻。损失下降、机制指标改善和最终任务收益分开判断；阴性结果不得临时加数据、解冻、扫参或延长训练挽救。实验完成后保留支持/不支持的范围限制和原始 Run 记录。
+更完整的接口细节见工作台 [科研记忆说明](C:/Dpan/codexproject/Aggregation%20Workbench/workbench/research/README.md) 与 [外部接入合同](C:/Dpan/codexproject/Aggregation%20Workbench/workbench/research/EXTERNAL_CONTRACT.md)。当前用户指示优先于本文件；历史报告和旧规范只在其原适用范围内有效。
