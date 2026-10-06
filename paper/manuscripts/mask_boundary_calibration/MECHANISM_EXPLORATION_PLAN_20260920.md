@@ -21,7 +21,7 @@
 ### 2.1 两种视图保持独立
 
 - **原输出视图**：保留论文中已有、固定的同类 Box50 关联，以复核旧结果。目标组仍是同一预测 Box IoU≥.75、实际 mask coverage≥.95、mask IoU<.75。并保留高覆盖成功组、覆盖不足失败组及未关联 GT。每个干预前后固定 annotation_id 和候选身份。
-- **新 raw 几何视图**：按 [当前规范第 6 节](../../../project/guidelines/EXPERIMENT_SPEC_STANDARD.md)采集 head top-k、分数过滤之前的完整 raw 候选；预测类别、分数不参与几何关联。计算 B、M、M_B75、J 五类状态及必要的一对一最大匹配，之后追踪正常输出。只在实际补采的图像上声称已完成新分类。
+- **新 raw 几何视图**：按本研究线 `RESEARCH_RULES.md` 和对应实验协议采集 head top-k、分数过滤之前的完整 raw 候选；预测类别、分数不参与几何关联。计算 B、M、M_B75、J 五类状态及必要的一对一最大匹配，之后追踪正常输出。只在实际补采的图像上声称已完成新分类。
 
 两种视图通过 raw 来源连接，不能将旧输出失败直接改名为“候选池没有好 mask”。旧 candidate_index 不是已经验证过的完整 raw ID。先在诊断面板补 raw 身份即可，不把 5,000 图重新分类作为全部分析的前置门槛。
 
@@ -135,4 +135,4 @@
 
 本文件是研究计划，不是已开始运行的实验，也不是用户审批节点。当前先安排第 3、4 节，依据结果决定第 5 节分支。实际新执行继续使用 `experiments/mask_boundary_route_20260914/` 的既有 Study ID，每个诊断、重试、训练和独立评估有独立 Run，runner 包裹实际命令并保存输入、代码、协议及日志；新增可独立复用的研究问题再创建新 Study。主机、笔记本按可用设备选择，文件经已配置的共享通道传输，不为本计划预先启动或停止训练。
 
-主要参考原文：[已有证据及版本](EVIDENCE_MAP.md)、[当前分类规范](../../../project/guidelines/EXPERIMENT_SPEC_STANDARD.md)、[官方 loss 实现](../../../shared/vendor/ultralytics_8_4_100/ultralytics/utils/loss.py)、[训练责任源码核对](../../../experiments/official_coco_task_alignment_20260916/REPORT.md#8-训练分配与损失源码核对)、[旧导出脚本](../../../experiments/mask_boundary_route_20260914/scripts/decoder_calibration_experiment.py)。
+主要参考原文：[已有证据及版本](EVIDENCE_MAP.md)、[本研究线规范](RESEARCH_RULES.md)、[官方 loss 实现](../../../shared/vendor/ultralytics_8_4_100/ultralytics/utils/loss.py)、[训练责任源码核对](../../../experiments/official_coco_task_alignment_20260916/REPORT.md#8-训练分配与损失源码核对)、[旧导出脚本](../../../experiments/mask_boundary_route_20260914/scripts/decoder_calibration_experiment.py)。
