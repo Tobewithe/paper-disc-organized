@@ -1,0 +1,34 @@
+{
+  "training_source": "Existing official convert_coco labels; no new label conversion or GT-based selection",
+  "sources": {
+    "fit": {
+      "source_list": "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache\\official_data\\fit.txt",
+      "source_sha256": "e04cde8e908656035bb4e9d0cc1eaa599a34ca691a298eda90407cbff8f09535",
+      "count": 796
+    },
+    "dev": {
+      "source_list": "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache\\official_data\\dev.txt",
+      "source_sha256": "a35fcf65802b1fc2ef88133a0803caf8160efad091d6d08fdedb1c333ec76837",
+      "count": 197
+    },
+    "val": {
+      "source_list": "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache\\official_data\\val.txt",
+      "source_sha256": "ad51b3d6e0b4559f52a0e9926a193fe2d3b7aced02e210d3efe7c220be8c8473",
+      "count": 196
+    }
+  },
+  "smoke_train_images": 32,
+  "smoke_val_images": 8,
+  "final_evaluation_images": 5000,
+  "annotations": "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+  "annotation_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+  "lists": {
+    "dev.txt": "25e7b02ab6f9666941c623f9663806a97dafdd396277c640646c162e9a64943d",
+    "fit.txt": "8a74c5b218f314a67d51dcdd6d96f7b2b15200b83536eb6343c7dd606a684e08",
+    "smoke_train.txt": "13eabff31b0b46b4c6927d26e92daffc740f7695b1c1f718d82b7a54684dc84e",
+    "smoke_val.txt": "9d9ad20bf61a8a813d1146ff0a7ff017adfc5eb1b3e9dc0c91f2954e3c51ce53",
+    "val.txt": "9114edbea6fecec390675c53053514c935f3bf88eeb4eb92500d49ccb2413547",
+    "val_full.txt": "b20742148d06ff75864eb0ffe47cb3a3e010e8913dafdcd46ceeb1ca498d09db"
+  },
+  "scope": "796-image feasibility training cohort reused from historical research; full val2017 is not a new blind test"
+}

@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-10-06T10:53:50.589962+00:00",
+  "torch": "2.5.1",
+  "ultralytics": "8.4.100",
+  "ultralytics_path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\__init__.py",
+  "training_script": "D:\\coco_wire\\experiments\\acd_native_coefficient_20261006\\scripts\\train_acd.py",
+  "training_script_sha256": "f95749d1ed34283d6ab4f3f9ab44b2bbbda0b081434826ffaa81a33b71732e4d",
+  "verification_script_sha256": "77fa48b48505e72a62b1088e0aa9771f53faa4edaeebbac6509365cae2dc8752",
+  "device": "cpu",
+  "checks": [
+    {
+      "branch": "one2many",
+      "instance_ids": [
+        1,
+        2
+      ],
+      "accepted_instances": 2,
+      "penalized_pixels": 4,
+      "auxiliary_loss": 0.825939416885376,
+      "coefficient_gradient_l1": 1.264897108078003,
+      "outside_support_gradient_exact_zero": true,
+      "only_segmentation_component_changes": true,
+      "batch_two_optimization_and_display_scaling_correct": true,
+      "no_eligible_action_differentiable_zero": true,
+      "assignment_calls_per_patched_loss": 1,
+      "disabled_eval_no_grad_zero_weight_exact": true
+    },
+    {
+      "branch": "one2one",
+      "instance_ids": [
+        1,
+        2
+      ],
+      "accepted_instances": 2,
+      "penalized_pixels": 4,
+      "auxiliary_loss": 0.825939416885376,
+      "coefficient_gradient_l1": 1.264897108078003,
+      "outside_support_gradient_exact_zero": true,
+      "only_segmentation_component_changes": true,
+      "batch_two_optimization_and_display_scaling_correct": true,
+      "no_eligible_action_differentiable_zero": true,
+      "assignment_calls_per_patched_loss": 1,
+      "disabled_eval_no_grad_zero_weight_exact": true
+    }
+  ],
+  "scope": "Synthetic objective checks with real official mask BCE and fixed assignments; no detector, dataloader, optimizer or AP claim."
+}

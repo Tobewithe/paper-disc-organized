@@ -1,0 +1,319 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-10-06T10:53:45.829852+00:00",
+  "torch": "2.5.1",
+  "ultralytics": "8.4.100",
+  "ultralytics_path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\__init__.py",
+  "training_script": "D:\\coco_wire\\experiments\\acd_native_coefficient_20261006\\scripts\\train_acd.py",
+  "training_script_sha256": "f95749d1ed34283d6ab4f3f9ab44b2bbbda0b081434826ffaa81a33b71732e4d",
+  "verification_script_sha256": "175d8f2fad34c385e5617d5e0b647e58042b822dc85e7c9b15e39b9f76c426fa",
+  "device": "cpu",
+  "amp_flag": true,
+  "real_grad_scaler_enabled": true,
+  "synthetic_optimizer": "SGD",
+  "synthetic_learning_rate": 0.05,
+  "synthetic_init_scale": 8.0,
+  "effects": [
+    {
+      "attempt": 1,
+      "phase": "finite",
+      "changed_coefficient_parameters": [
+        "model.23.cv4.weight",
+        "model.23.one2one_cv4.weight"
+      ],
+      "live_coefficient_sha256": {
+        "model.23.cv4.weight": "45c7644f6946a63c935b8961b5b9b5e646ad3d60a0f8f7e7bc238ae0f7740bb4",
+        "model.23.one2one_cv4.weight": "0fd85a6315bbe7eee75d7bea7263d804746357cccdbdc99e093e5479f3b5b8bb"
+      },
+      "scale_before": 8.0,
+      "scale_after": 8.0,
+      "ema_updates_before": 0,
+      "ema_updates_after": 1,
+      "frozen_live_and_ema_exact": true,
+      "official_parameter_and_coefficient_ema_exact": true
+    },
+    {
+      "attempt": 2,
+      "phase": "injected_inf",
+      "changed_coefficient_parameters": [],
+      "live_coefficient_sha256": {
+        "model.23.cv4.weight": "45c7644f6946a63c935b8961b5b9b5e646ad3d60a0f8f7e7bc238ae0f7740bb4",
+        "model.23.one2one_cv4.weight": "0fd85a6315bbe7eee75d7bea7263d804746357cccdbdc99e093e5479f3b5b8bb"
+      },
+      "scale_before": 8.0,
+      "scale_after": 4.0,
+      "ema_updates_before": 1,
+      "ema_updates_after": 2,
+      "frozen_live_and_ema_exact": true,
+      "official_parameter_and_coefficient_ema_exact": true
+    },
+    {
+      "attempt": 3,
+      "phase": "finite_after_overflow",
+      "changed_coefficient_parameters": [
+        "model.23.cv4.weight",
+        "model.23.one2one_cv4.weight"
+      ],
+      "live_coefficient_sha256": {
+        "model.23.cv4.weight": "ef409b13fc6ba64f7833ce833594603caa39744757892d8046a41566dc787054",
+        "model.23.one2one_cv4.weight": "c85a6528308810d935d5a7512d30f9cbe8f4d0e6bd3f04f38de849f61a096dcc"
+      },
+      "scale_before": 4.0,
+      "scale_after": 4.0,
+      "ema_updates_before": 2,
+      "ema_updates_after": 3,
+      "frozen_live_and_ema_exact": true,
+      "official_parameter_and_coefficient_ema_exact": true
+    }
+  ],
+  "optimizer_counters": {
+    "all_finite": true,
+    "observed_all_gradients_finite": false,
+    "observed_all_scaled_gradients_finite": true,
+    "all_observed_nonfinite_steps_skipped": true,
+    "all_applied_gradients_finite": true,
+    "maximum_absolute_gradient": 0.0,
+    "unclassified_skipped_steps": 0,
+    "attempted_steps": 3,
+    "ema_updates": 3,
+    "applied_steps": 2,
+    "observed_nonfinite_gradient_steps": 1,
+    "observed_nonfinite_skipped_overflow_steps": 1,
+    "skipped_overflow_steps": 1,
+    "unsafe_step_prevented_count": 0
+  },
+  "branch_counters": {
+    "one2many": {
+      "all_finite": true,
+      "observed_all_gradients_finite": false,
+      "observed_all_scaled_gradients_finite": false,
+      "all_observed_nonfinite_steps_skipped": true,
+      "all_applied_gradients_finite": true,
+      "maximum_absolute_gradient": 3.199968099594116,
+      "unclassified_skipped_steps": 0,
+      "optimizer_steps_checked": 3,
+      "attempted_steps": 3,
+      "skipped_overflow_steps": 1,
+      "observed_nonfinite_scaled_gradient_steps": 1,
+      "observed_nonfinite_gradient_steps": 1,
+      "observed_nonfinite_skipped_overflow_steps": 1,
+      "applied_steps": 2,
+      "nonzero_steps": 2,
+      "applied_zero_gradient_steps": 0
+    },
+    "one2one": {
+      "all_finite": true,
+      "observed_all_gradients_finite": true,
+      "observed_all_scaled_gradients_finite": true,
+      "all_observed_nonfinite_steps_skipped": true,
+      "all_applied_gradients_finite": true,
+      "maximum_absolute_gradient": 5.5999436378479,
+      "unclassified_skipped_steps": 0,
+      "optimizer_steps_checked": 3,
+      "attempted_steps": 3,
+      "skipped_overflow_steps": 1,
+      "observed_nonfinite_scaled_gradient_steps": 0,
+      "observed_nonfinite_gradient_steps": 0,
+      "observed_nonfinite_skipped_overflow_steps": 0,
+      "applied_steps": 2,
+      "nonzero_steps": 2,
+      "applied_zero_gradient_steps": 0
+    }
+  },
+  "optimizer_step_records": [
+    {
+      "accumulate": 1,
+      "amp": true,
+      "at_optimizer_call": {
+        "one2many": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 3.199968099594116,
+          "nonfinite_gradient_parameters": []
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 5.5999436378479,
+          "nonfinite_gradient_parameters": []
+        }
+      },
+      "attempt": 1,
+      "ema_updates_after": 1,
+      "ema_updates_before": 0,
+      "epoch": 1,
+      "exception": null,
+      "input_batches_seen": 1,
+      "learning_rates": [
+        0.05
+      ],
+      "optimizer_applied": true,
+      "optimizer_invoked": true,
+      "scale_after": 8.0,
+      "scale_before": 8.0,
+      "scaled": {
+        "one2many": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 25.59974479675293,
+          "nonfinite_gradient_parameters": []
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 44.7995491027832,
+          "nonfinite_gradient_parameters": []
+        }
+      },
+      "scaler_enabled": true,
+      "skipped_overflow_step": false,
+      "unsafe_step_prevented": false,
+      "unscaled": {
+        "one2many": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 3.199968099594116,
+          "nonfinite_gradient_parameters": []
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 5.5999436378479,
+          "nonfinite_gradient_parameters": []
+        }
+      }
+    },
+    {
+      "accumulate": 1,
+      "amp": true,
+      "at_optimizer_call": null,
+      "attempt": 2,
+      "ema_updates_after": 2,
+      "ema_updates_before": 1,
+      "epoch": 1,
+      "exception": null,
+      "input_batches_seen": 2,
+      "learning_rates": [
+        0.05
+      ],
+      "optimizer_applied": false,
+      "optimizer_invoked": false,
+      "scale_after": 4.0,
+      "scale_before": 8.0,
+      "scaled": {
+        "one2many": {
+          "all_gradients_finite": false,
+          "finite_nonzero_gradient": false,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": null,
+          "nonfinite_gradient_parameters": [
+            "model.23.cv4.weight"
+          ]
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 22.399999618530273,
+          "nonfinite_gradient_parameters": []
+        }
+      },
+      "scaler_enabled": true,
+      "skipped_overflow_step": true,
+      "unsafe_step_prevented": false,
+      "unscaled": {
+        "one2many": {
+          "all_gradients_finite": false,
+          "finite_nonzero_gradient": false,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": null,
+          "nonfinite_gradient_parameters": [
+            "model.23.cv4.weight"
+          ]
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 2.799999952316284,
+          "nonfinite_gradient_parameters": []
+        }
+      }
+    },
+    {
+      "accumulate": 1,
+      "amp": true,
+      "at_optimizer_call": {
+        "one2many": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 1.600000023841858,
+          "nonfinite_gradient_parameters": []
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 2.799999952316284,
+          "nonfinite_gradient_parameters": []
+        }
+      },
+      "attempt": 3,
+      "ema_updates_after": 3,
+      "ema_updates_before": 2,
+      "epoch": 1,
+      "exception": null,
+      "input_batches_seen": 3,
+      "learning_rates": [
+        0.05
+      ],
+      "optimizer_applied": true,
+      "optimizer_invoked": true,
+      "scale_after": 4.0,
+      "scale_before": 4.0,
+      "scaled": {
+        "one2many": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 6.400000095367432,
+          "nonfinite_gradient_parameters": []
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 11.199999809265137,
+          "nonfinite_gradient_parameters": []
+        }
+      },
+      "scaler_enabled": true,
+      "skipped_overflow_step": false,
+      "unsafe_step_prevented": false,
+      "unscaled": {
+        "one2many": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 1.600000023841858,
+          "nonfinite_gradient_parameters": []
+        },
+        "one2one": {
+          "all_gradients_finite": true,
+          "finite_nonzero_gradient": true,
+          "gradient_tensor_count": 1,
+          "maximum_absolute_gradient": 2.799999952316284,
+          "nonfinite_gradient_parameters": []
+        }
+      }
+    }
+  ],
+  "scope": "Tiny CPU instrumentation test with real GradScaler; explicit Inf injection. No experiment optimizer, loss, AMP setting, data or hyperparameter was changed."
+}

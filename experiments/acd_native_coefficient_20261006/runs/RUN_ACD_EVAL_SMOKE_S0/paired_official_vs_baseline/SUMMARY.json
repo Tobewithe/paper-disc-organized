@@ -1,0 +1,84 @@
+{
+  "input_identity": {
+    "baseline_predictions": "942d69370a59b919c2edd802a3de016e9323cf7f9f46081ee7530dd73876abf6",
+    "method_predictions": "942d69370a59b919c2edd802a3de016e9323cf7f9f46081ee7530dd73876abf6",
+    "evaluator_version": "acd_native_eval_v2",
+    "bootstrap": 100,
+    "bootstrap_seed": 0
+  },
+  "parity": {
+    "frozen_state_exact_equal": true,
+    "image_count": 8,
+    "detection_count_mismatch_images": 0,
+    "class_mismatch_detections": 0,
+    "box_max_abs_error": 0.0,
+    "confidence_max_abs_error": 0.0,
+    "detection_index_equal": true,
+    "all_images_box_class_exact_equal": true,
+    "pairing": "same native postprocess detection index; no mask-dependent filtering"
+  },
+  "paired_readout_valid": true,
+  "definition": "all baseline detections conf>.001, same-class highest-box-IoU noncrowd GT>=.5; duplicate detection-to-GT matches allowed; success/damage/repair at maskIoU=.75",
+  "unique_matched_gt_instances": 43,
+  "statistics": {
+    "matched_detection_count": 111,
+    "baseline_success_count": 56,
+    "damage_count": 0,
+    "baseline_failure_count": 55,
+    "repair_count": 0,
+    "images": 8,
+    "images_with_matched_detections": 8,
+    "bootstrap_samples": 100,
+    "bootstrap_seed": 0,
+    "bootstrap_unit": "supplied images, paired across arms; ratio of clustered sums",
+    "mean_mask_iou_delta": {
+      "value": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_bootstrap_draws": 100
+    },
+    "damage_rate_of_baseline_success": {
+      "value": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_bootstrap_draws": 100
+    },
+    "repair_rate_of_baseline_failure": {
+      "value": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_bootstrap_draws": 100
+    },
+    "baseline_mean_mask_iou": {
+      "value": 0.7028085861277801,
+      "ci95": [
+        0.6573212756794552,
+        0.752250752354349
+      ],
+      "valid_bootstrap_draws": 100
+    },
+    "method_mean_mask_iou": {
+      "value": 0.7028085861277801,
+      "ci95": [
+        0.6573212756794552,
+        0.752250752354349
+      ],
+      "valid_bootstrap_draws": 100
+    },
+    "baseline_success_mean_iou_delta": {
+      "value": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_bootstrap_draws": 100
+    },
+    "image_macro_mask_iou_delta": 0.0
+  }
+}

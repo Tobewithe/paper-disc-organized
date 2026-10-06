@@ -1,0 +1,60 @@
+{
+  "evaluator_version": "acd_native_eval_v2",
+  "evaluator_sha256": "1f9b765b782e6b1c78f05cf10cc175a472ef0101141214cc3c00e2afab8d9c3b",
+  "ultralytics": "8.4.100",
+  "torch": "2.5.1",
+  "vendor_source_sha256": {
+    "segment_validator": "701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6",
+    "ops": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5",
+    "nms": "588f81e4cdebd58d3ba16cd0106623b776b961a56d198424db1a5d58f40a7b7e",
+    "letterbox": "eddb75a3b0a803f2cb6ef6e740e1bb117d99d841d89e0954a53aa9ec6df7cfbf"
+  },
+  "annotations": {
+    "path": "D:\\coco_wire\\data\\annotations\\instances_val2017.json",
+    "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f"
+  },
+  "images_list": {
+    "path": "D:\\coco_wire\\experiments\\acd_native_coefficient_20261006\\data\\smoke_val.txt",
+    "sha256": "9d9ad20bf61a8a813d1146ff0a7ff017adfc5eb1b3e9dc0c91f2954e3c51ce53"
+  },
+  "image_ids": [
+    285,
+    1675,
+    1761,
+    3934,
+    5193,
+    5529,
+    6818,
+    7574
+  ],
+  "config": {
+    "imgsz": 640,
+    "shape": [
+      640,
+      640
+    ],
+    "batch": 1,
+    "half": false,
+    "conf": 0.001,
+    "max_det": 300,
+    "coco_maxDets": [
+      1,
+      10,
+      100
+    ],
+    "rect": false,
+    "scaleup": false,
+    "augment": false,
+    "native_one2one": true,
+    "decode": "SegmentationValidator.save_json=True: process_mask_native; scale_preds.byte()",
+    "device": "cuda:0",
+    "tf32": false
+  },
+  "weights": {
+    "checkpoint": {
+      "path": "D:\\coco_wire\\models\\yolo26m-seg.pt",
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "bytes": 54750385
+    }
+  }
+}

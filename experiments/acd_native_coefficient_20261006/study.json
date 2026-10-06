@@ -1,0 +1,21 @@
+{
+  "study_id": "STUDY_ACD_NATIVE_COEFFICIENT_20261006",
+  "title": "Action-guided native coefficient distillation for mask boundary suppression",
+  "kind": "method",
+  "status": "completed",
+  "protocol": "PROTOCOL.md",
+  "report": "REPORT.md",
+  "current_stage": "finished",
+  "runtime": {
+    "ultralytics": "8.4.100",
+    "model": "official COCO yolo26m-seg.pt",
+    "branches": "one-to-many and one-to-one"
+  },
+  "scope": "Completed fixed one-epoch paired smoke, three-epoch paired coefficient-only training, and full 5000-image original COCO validation; single-seed feasibility result",
+  "latest_run_id": "RUN_ACD_PAIRED_EVAL_S0",
+  "outcome": "negative",
+  "gate_status": "fail",
+  "automatic_next_stage": false,
+  "decision": "runs/RUN_ACD_PAIRED_EVAL_S0/DECISION.json",
+  "result_limitation": "The AP gain is below the locked +0.003 threshold; this single-seed short-budget screen does not establish method-wide ineffectiveness."
+}
