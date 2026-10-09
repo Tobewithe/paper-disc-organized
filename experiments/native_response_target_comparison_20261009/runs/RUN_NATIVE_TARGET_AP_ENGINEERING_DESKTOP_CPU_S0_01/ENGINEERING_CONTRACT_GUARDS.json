@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "cases": {
+    "failed_despite_passed_summary": {
+      "rejected": true,
+      "reason": "Recorded process did not actually complete"
+    },
+    "cancelled_despite_passed_summary": {
+      "rejected": true,
+      "reason": "Recorded process did not actually complete"
+    },
+    "running_despite_passed_summary": {
+      "rejected": true,
+      "reason": "Recorded process did not actually complete"
+    },
+    "modified_NPZ": {
+      "rejected": true,
+      "reason": "Sealed output SHA differs: CACHE.npz",
+      "original_seal": {
+        "CACHE.npz": {
+          "sha256": "8ad64ade69cdfdafe335846c8bc0d3e587ee6d4ed80afe36f9c4a067d7a0686d",
+          "size_bytes": 298
+        }
+      },
+      "actual_sha256_after_intentional_change": "2221275259dd621cb5c83b7826e81c48ced51a83ea1e42c448ba13ae4955de00"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_13053770912e485aa0ea6122a549aa32",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/qcr_run/qcr_train_fixed.py",
+    "--config",
+    "/root/mask_quality_energy_refinement_20261005/RUN_CONFIG.json",
+    "--manifest",
+    "/root/autodl-tmp/qcr_run/assets/CANDIDATE_MANIFEST.json",
+    "--stage",
+    "eval",
+    "--mode",
+    "quality",
+    "--checkpoint",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0/final.pt",
+    "--out",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_dev_seed0_retry1",
+    "--split",
+    "dev"
+  ],
+  "working_directory": "/root/autodl-tmp/qcr_run",
+  "status": "completed",
+  "created_at": "2026-10-06T08:57:59.690+00:00",
+  "host": "autodl-container-3trrlc6l9f-e83c9305",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0/final.pt",
+      "path_relative_to_cwd": "runs/RUN_stage1_quality_seed0/final.pt",
+      "exists": true,
+      "sha256": "07796b8d5600827979073d167ea8e00236a6a287947f51962a6415730005c065",
+      "size": 342885
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/qcr_train_fixed.py",
+      "path_relative_to_cwd": "qcr_train_fixed.py",
+      "revision": "52836de5af4b5923ef6c6c527e1d3740319261a6efcbd7b6a94a323f6594ebb2",
+      "snapshot": "snapshots/52836de5af4b5923ef6c6c527e1d3740319261a6efcbd7b6a94a323f6594ebb2"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/online_runtime.py",
+      "path_relative_to_cwd": "online_runtime.py",
+      "revision": "56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb",
+      "snapshot": "snapshots/56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb"
+    },
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/RUN_CONFIG.json",
+      "path_relative_to_cwd": "",
+      "revision": "7c2e561cd6f1b8847d9e7cbe6be4369d49b7d3236b965264040e9484f36b8d62",
+      "snapshot": "snapshots/7c2e561cd6f1b8847d9e7cbe6be4369d49b7d3236b965264040e9484f36b8d62"
+    },
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/PROTOCOL.md",
+      "path_relative_to_cwd": "",
+      "revision": "d8cb1deba60349c15afa0cbb6d9b37158cd5b02cd2bfebe0466df984186a27a7",
+      "snapshot": "snapshots/d8cb1deba60349c15afa0cbb6d9b37158cd5b02cd2bfebe0466df984186a27a7"
+    }
+  ],
+  "scope": {
+    "dataset": "COCO train2017 2k DEV",
+    "protocol": "QCR Stage I eval",
+    "seed": 0,
+    "mode": "quality",
+    "split": "dev",
+    "retry": 1
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_dev_seed0_retry1/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-3trrlc6l9f-e83c9305",
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_dev_seed0_retry1"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 113415,
+  "started_at": "2026-10-06T08:57:59.793+00:00",
+  "last_heartbeat": "2026-10-06T09:03:59.966+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-06T09:04:04.762+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_dev_seed0_retry1/COMPLETE.json",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_dev_seed0_retry1/COMPLETE.json",
+      "exists": true,
+      "sha256": "3d7a97070c232eeed0bd1dde0df7b30a3cdb466b886ceb46e785ce088e30f9d3"
+    }
+  ]
+}

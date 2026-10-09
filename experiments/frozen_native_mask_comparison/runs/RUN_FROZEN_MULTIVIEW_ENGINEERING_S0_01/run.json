@@ -1,0 +1,168 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_FROZEN_MULTIVIEW_ENGINEERING_S0_01",
+  "study_id": "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+    "experiments/frozen_native_mask_comparison/scripts/check_multiview_readout.py",
+    "--out-dir",
+    "experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_MULTIVIEW_ENGINEERING_S0_01",
+    "--protocol",
+    "experiments/frozen_native_mask_comparison/MULTIVIEW_READOUT_PROTOCOL.md",
+    "--boundary-vendor",
+    "experiments/coco_native_spatial_readout_20260922/vendor/boundary_iou_api",
+    "--boundary-provenance",
+    "experiments/frozen_native_mask_comparison/assets/boundary_vendor_content_lock.json"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-10-08T17:49:50.166+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\MULTIVIEW_READOUT_PROTOCOL.md",
+      "exists": true,
+      "sha256": "3a23bee75f80e8d1204cd79b5f30b38b111edc392d74242b44c671cdf171d469",
+      "size": 5508
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\assets\\boundary_vendor_content_lock.json",
+      "exists": true,
+      "sha256": "d9f2d7fa96d3ce42fb6392531c05bc5b815a331ba75aac903cfb1cd49078524c",
+      "size": 1421
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\multiview_readout.py",
+      "revision": "1076fc8da0de20b20d84b6aee2d871b17e69a39a7cebe41264e00f47f8242172",
+      "snapshot": "snapshots/1076fc8da0de20b20d84b6aee2d871b17e69a39a7cebe41264e00f47f8242172"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\check_multiview_readout.py",
+      "revision": "fc3437a4084300ecea51bde7fb21a0810c088a3ec9547f2faac17f358a38f773",
+      "snapshot": "snapshots/fc3437a4084300ecea51bde7fb21a0810c088a3ec9547f2faac17f358a38f773"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\assets\\boundary_vendor_content_lock.json",
+      "revision": "d9f2d7fa96d3ce42fb6392531c05bc5b815a331ba75aac903cfb1cd49078524c",
+      "snapshot": "snapshots/d9f2d7fa96d3ce42fb6392531c05bc5b815a331ba75aac903cfb1cd49078524c"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\evaluation\\gt_prediction_mapping.py",
+      "revision": "d8b7916dde76dbf0fc4502d948fa8ff6b946dabedbf61f7a272748a689afaf54",
+      "snapshot": "snapshots/d8b7916dde76dbf0fc4502d948fa8ff6b946dabedbf61f7a272748a689afaf54"
+    }
+  ],
+  "scope": {
+    "stage": "synthetic_cpu_engineering",
+    "GPU_or_model_execution": false,
+    "formal_method_metrics": false
+  },
+  "expected_outputs": [
+    "experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_MULTIVIEW_ENGINEERING_S0_01/ENGINEERING_COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_MULTIVIEW_ENGINEERING_S0_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 86912,
+  "started_at": "2026-10-08T17:49:50.583+00:00",
+  "last_heartbeat": "2026-10-08T17:49:50.583+00:00",
+  "metrics": {
+    "status": "passed",
+    "passed": true,
+    "engineering_only": true,
+    "synthetic_masks": true,
+    "tests": {
+      "pixel_formula_closed_counts": true,
+      "empty_prediction_purity_null": true,
+      "zero_denominator_null": true,
+      "paired_defined_denominators": true,
+      "candidate_duplicate_GT_denominator": true,
+      "image_macro_equal_image_weights": true,
+      "normal_vendor_COCO_parity": true,
+      "segmentation_loadRes_mask_area": true,
+      "predictions_unchanged_including_empty": true,
+      "normal_and_boundary_independent_matching": true,
+      "boundary_border_padding": true,
+      "vendor_revision_unknown_retained": true
+    },
+    "synthetic_normal_metrics": {
+      "AP": 0.9999999999999998,
+      "AP50": 0.9999999999999999,
+      "AP75": 0.9999999999999999,
+      "APsmall": null,
+      "APmedium": 0.9999999999999998,
+      "APlarge": null,
+      "AR1": 1.0,
+      "AR10": 1.0,
+      "AR100": 1.0,
+      "ARsmall": null,
+      "ARmedium": 1.0,
+      "ARlarge": null
+    },
+    "synthetic_boundary_metrics": {
+      "AP": 0.49999999999999994,
+      "AP50": 0.9999999999999999,
+      "AP75": 0.0,
+      "APsmall": null,
+      "APmedium": 0.49999999999999994,
+      "APlarge": null,
+      "AR1": 0.5,
+      "AR10": 0.5,
+      "AR100": 0.5,
+      "ARsmall": null,
+      "ARmedium": 0.5,
+      "ARlarge": null
+    },
+    "formal_seven_arm_metrics": null,
+    "method_efficacy_claimed": false,
+    "GPU_or_model_execution": false,
+    "source_lock_sha256": "9516c92c682824931320aed554ec18b06cf538bb202d083bb161c4168d562220",
+    "memory_parent_process": {
+      "current_working_set_bytes": 113299456,
+      "process_lifetime_peak_working_set_bytes": 117592064,
+      "source": "Windows GetProcessMemoryInfo",
+      "error": null
+    }
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_MULTIVIEW_ENGINEERING_S0_01\\ENGINEERING_COMPLETE.json",
+    "sha256": "6abfaeb14fb6cd4bc39d70282c56955c5675666f06cf0b9db2ca848e2f88cdac"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T17:49:53.033+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_MULTIVIEW_ENGINEERING_S0_01\\ENGINEERING_COMPLETE.json",
+      "exists": true,
+      "sha256": "6abfaeb14fb6cd4bc39d70282c56955c5675666f06cf0b9db2ca848e2f88cdac"
+    }
+  ]
+}

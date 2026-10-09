@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "error": "ValueError('CPU scientific stage failed; preserve and stop: RUN_NATIVE_TARGET_FORMAL_SCORING_CPU_S0_01')",
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\run_target_scoring_pipeline.py\", line 235, in main\n    score = execute(plan, \"score\", \"RUN_NATIVE_TARGET_FORMAL_SCORING_CPU_S0_01\", [\"--run\", str(inference), \"--annotations\", plan[\"annotations\"],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\run_target_scoring_pipeline.py\", line 189, in execute\n    check(result.returncode == 0, \"CPU scientific stage failed; preserve and stop: \" + name)\n  File \"D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\run_target_scoring_pipeline.py\", line 29, in check\n    raise ValueError(message)\nValueError: CPU scientific stage failed; preserve and stop: RUN_NATIVE_TARGET_FORMAL_SCORING_CPU_S0_01\n",
+  "stages": {},
+  "failed_at": "2026-10-09T00:57:03.113869+00:00",
+  "partial_scientific_outputs_preserved": true,
+  "automatic_retry": false
+}

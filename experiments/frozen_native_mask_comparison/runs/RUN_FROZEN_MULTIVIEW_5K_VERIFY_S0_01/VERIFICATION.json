@@ -1,0 +1,4404 @@
+{
+  "version": "frozen_native_multiview_independent_verify_v1",
+  "status": "passed",
+  "passed": true,
+  "formal_5000": true,
+  "image_count": 5000,
+  "arm_names": [
+    "baseline",
+    "RCMC_full",
+    "global_minus025_full",
+    "RCMC_first64",
+    "global_minus025_first64",
+    "multi_local_full",
+    "multi_local_first64"
+  ],
+  "source_run": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_MULTIVIEW_5K_READOUT_S0_01",
+  "source_run_id": "RUN_FROZEN_MULTIVIEW_5K_READOUT_S0_01",
+  "source_summary_sha256": "3dffb22124ee1e6cade098c51081424fbfddc33eda3b6f629911fca880352c4f",
+  "source_readout_complete_sha256": "a95eb7717a1b59d679a4728e058684a6a7a7fe5abf51c1de1e9601b85a3fd639",
+  "source_lock_sha256": "5a997647ea09d77ac25f2cf912a37efec436d4cd49c3c8cc2aecd1f19c7d6e5d",
+  "verification_source_sha256": "a82993ef7d17282b185b3d82b179afc124db78a979a3d85bef6fd55c20641184",
+  "python": "3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+  "numpy": "2.2.6",
+  "reconstructed_pixels": {
+    "arms": {
+      "baseline": {
+        "counts": {
+          "all_candidate_count": 555445,
+          "fixed_pair_count": 86600,
+          "unassociated_candidate_count": 468845,
+          "empty_prediction_count": 33,
+          "empty_paired_prediction_count": 4,
+          "baseline_success_count": 36266,
+          "baseline_failure_count": 50334,
+          "repair_count": 0,
+          "damage_count": 0,
+          "zero_GT_pixel_area_count": 0,
+          "undefined_pixel_mask_iou_count": 0
+        },
+        "damage_rate_of_baseline_success": 0.0,
+        "repair_rate_of_baseline_failure": 0.0,
+        "candidate_macro": {
+          "all_fixed_pairs": {
+            "row_count": 86600,
+            "fields": {
+              "tp": {
+                "sum": 791630890.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 9141.23429561201
+              },
+              "fp": {
+                "sum": 127025107.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 1466.8026212471132
+              },
+              "fn": {
+                "sum": 259347038.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 2994.769491916859
+              },
+              "gt_pixel_area": {
+                "sum": 1050977928.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 12136.003787528869
+              },
+              "prediction_pixel_area": {
+                "sum": 918655997.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 10608.036916859122
+              },
+              "mask_iou": {
+                "sum": 57813.91527148579,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.6675971740356327
+              },
+              "target_coverage": {
+                "sum": 70100.62865494336,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.8094760814658586
+              },
+              "prediction_purity": {
+                "sum": 68271.57461780115,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.7883917804263609
+              },
+              "fp_per_gt_area": {
+                "sum": 23861.50732019863,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.2755370360300073
+              },
+              "fn_per_gt_area": {
+                "sum": 16499.371345057778,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.19052391853415448
+              },
+              "delta_mask_iou": {
+                "sum": 0.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_target_coverage": {
+                "sum": 0.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_prediction_purity": {
+                "sum": 0.0,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.0
+              },
+              "delta_fp_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.0
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 36266,
+            "fields": {
+              "tp": {
+                "sum": 516163229.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14232.703606683946
+              },
+              "fp": {
+                "sum": 30587877.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 843.4312303534991
+              },
+              "fn": {
+                "sum": 35196558.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 970.5111674846964
+              },
+              "gt_pixel_area": {
+                "sum": 551359787.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15203.214774168642
+              },
+              "prediction_pixel_area": {
+                "sum": 546751106.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15076.134837037445
+              },
+              "mask_iou": {
+                "sum": 31006.073271785328,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.8549625895269765
+              },
+              "target_coverage": {
+                "sum": 33911.94567241856,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9350892205486836
+              },
+              "prediction_purity": {
+                "sum": 33039.38817676979,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9110292885007938
+              },
+              "fp_per_gt_area": {
+                "sum": 3513.0712634697816,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.09686955449924947
+              },
+              "fn_per_gt_area": {
+                "sum": 2354.054327581781,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.06491077945132578
+              },
+              "delta_mask_iou": {
+                "sum": 0.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_target_coverage": {
+                "sum": 0.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_prediction_purity": {
+                "sum": 0.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_fp_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 50334,
+            "fields": {
+              "tp": {
+                "sum": 275467661.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 5472.794949735765
+              },
+              "fp": {
+                "sum": 96437230.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 1915.9460801843684
+              },
+              "fn": {
+                "sum": 224150480.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 4453.26181110184
+              },
+              "gt_pixel_area": {
+                "sum": 499618141.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 9926.056760837604
+              },
+              "prediction_pixel_area": {
+                "sum": 371904891.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 7388.741029920134
+              },
+              "mask_iou": {
+                "sum": 26807.84199970091,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.5325990781519632
+              },
+              "target_coverage": {
+                "sum": 36188.682982524006,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.7189709338126119
+              },
+              "prediction_purity": {
+                "sum": 35232.18644103066,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.7000235732372474
+              },
+              "fp_per_gt_area": {
+                "sum": 20348.43605672883,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.404268209495149
+              },
+              "fn_per_gt_area": {
+                "sum": 14145.317017475929,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.2810290661873868
+              },
+              "delta_mask_iou": {
+                "sum": 0.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_target_coverage": {
+                "sum": 0.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_prediction_purity": {
+                "sum": 0.0,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.0
+              },
+              "delta_fp_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.0
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.0
+              }
+            }
+          }
+        },
+        "image_macro": {
+          "all_fixed_pairs": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 99826858.26123156,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 20183.351852250617
+              },
+              "fp": {
+                "sum": 11447869.040796727,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 2314.5711768695364
+              },
+              "fn": {
+                "sum": 20212812.27853601,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 4086.698802777196
+              },
+              "gt_pixel_area": {
+                "sum": 120039670.5397676,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 24270.05065502782
+              },
+              "prediction_pixel_area": {
+                "sum": 111274727.3020283,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 22497.923029120157
+              },
+              "mask_iou": {
+                "sum": 3610.6717950705847,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.7300185594562444
+              },
+              "target_coverage": {
+                "sum": 4190.723503755658,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8472954920654384
+              },
+              "prediction_purity": {
+                "sum": 4126.323418619678,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8342748521269061
+              },
+              "fp_per_gt_area": {
+                "sum": 1055.0707098723656,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.21331797611653167
+              },
+              "fn_per_gt_area": {
+                "sum": 755.276496244335,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.15270450793456025
+              },
+              "delta_mask_iou": {
+                "sum": 0.0,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.0
+              },
+              "delta_target_coverage": {
+                "sum": 0.0,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.0
+              },
+              "delta_prediction_purity": {
+                "sum": 0.0,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.0
+              },
+              "delta_fp_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.0
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.0
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 117149758.47342885,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 24090.01819317887
+              },
+              "fp": {
+                "sum": 6178283.479805432,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1270.4675056149356
+              },
+              "fn": {
+                "sum": 6827062.804993925,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1403.8788412490078
+              },
+              "gt_pixel_area": {
+                "sum": 123976821.27842268,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25493.89703442786
+              },
+              "prediction_pixel_area": {
+                "sum": 123328041.95323467,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25360.485698793887
+              },
+              "mask_iou": {
+                "sum": 4218.920280199061,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.8675550648157642
+              },
+              "target_coverage": {
+                "sum": 4576.198870314085,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.941023826920437
+              },
+              "prediction_purity": {
+                "sum": 4469.002327909097,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9189805321630881
+              },
+              "fp_per_gt_area": {
+                "sum": 427.7787488001118,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.08796601867162489
+              },
+              "fn_per_gt_area": {
+                "sum": 286.80112968591476,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.058976173079562974
+              },
+              "delta_mask_iou": {
+                "sum": 0.0,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0
+              },
+              "delta_target_coverage": {
+                "sum": 0.0,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0
+              },
+              "delta_prediction_purity": {
+                "sum": 0.0,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0
+              },
+              "delta_fp_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 42272790.29295983,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 10825.298410489073
+              },
+              "fp": {
+                "sum": 14477981.430752713,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 3707.549662164587
+              },
+              "fn": {
+                "sum": 30505366.35120064,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 7811.873585454709
+              },
+              "gt_pixel_area": {
+                "sum": 72778156.64416052,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 18637.171995943798
+              },
+              "prediction_pixel_area": {
+                "sum": 56750771.723712504,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 14532.84807265365
+              },
+              "mask_iou": {
+                "sum": 2133.4155690456064,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.5463292110232026
+              },
+              "target_coverage": {
+                "sum": 2804.6267633122716,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7182142799775343
+              },
+              "prediction_purity": {
+                "sum": 2846.3792975515607,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7289063502052653
+              },
+              "fp_per_gt_area": {
+                "sum": 1416.877328543188,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.3628367038522889
+              },
+              "fn_per_gt_area": {
+                "sum": 1100.3732366877275,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.28178572002246544
+              },
+              "delta_mask_iou": {
+                "sum": 0.0,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0
+              },
+              "delta_target_coverage": {
+                "sum": 0.0,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0
+              },
+              "delta_prediction_purity": {
+                "sum": 0.0,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0
+              },
+              "delta_fp_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 0.0,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0
+              }
+            }
+          }
+        }
+      },
+      "RCMC_full": {
+        "counts": {
+          "all_candidate_count": 555445,
+          "fixed_pair_count": 86600,
+          "unassociated_candidate_count": 468845,
+          "empty_prediction_count": 33,
+          "empty_paired_prediction_count": 4,
+          "baseline_success_count": 36266,
+          "baseline_failure_count": 50334,
+          "repair_count": 1826,
+          "damage_count": 1250,
+          "zero_GT_pixel_area_count": 0,
+          "undefined_pixel_mask_iou_count": 0
+        },
+        "damage_rate_of_baseline_success": 0.03446754535928969,
+        "repair_rate_of_baseline_failure": 0.036277665196487466,
+        "candidate_macro": {
+          "all_fixed_pairs": {
+            "row_count": 86600,
+            "fields": {
+              "tp": {
+                "sum": 789976250.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 9122.127598152425
+              },
+              "fp": {
+                "sum": 124984134.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 1443.23480369515
+              },
+              "fn": {
+                "sum": 261001678.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 3013.8761893764436
+              },
+              "gt_pixel_area": {
+                "sum": 1050977928.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 12136.003787528869
+              },
+              "prediction_pixel_area": {
+                "sum": 914960384.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 10565.362401847575
+              },
+              "mask_iou": {
+                "sum": 57958.993864030934,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.6692724464668699
+              },
+              "target_coverage": {
+                "sum": 68664.03437904427,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.792887233014368
+              },
+              "prediction_purity": {
+                "sum": 69751.9292842128,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.805486734770807
+              },
+              "fp_per_gt_area": {
+                "sum": 21087.99754200554,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.24351036422639194
+              },
+              "fn_per_gt_area": {
+                "sum": 17935.96562095751,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.20711276698565256
+              },
+              "delta_mask_iou": {
+                "sum": 145.07859254502318,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.0016752724312358335
+              },
+              "delta_target_coverage": {
+                "sum": -1436.5942758998647,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.01658884845149959
+              },
+              "delta_prediction_purity": {
+                "sum": 1480.3546664117212,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.01709495434444687
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -2773.5097781929253,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.03202667180361345
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 1436.5942758998647,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.01658884845149959
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 36266,
+            "fields": {
+              "tp": {
+                "sum": 515430520.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14212.499862129818
+              },
+              "fp": {
+                "sum": 29724675.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 819.6292670821155
+              },
+              "fn": {
+                "sum": 35929267.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 990.7149120388242
+              },
+              "gt_pixel_area": {
+                "sum": 551359787.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15203.214774168642
+              },
+              "prediction_pixel_area": {
+                "sum": 545155195.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15032.129129211935
+              },
+              "mask_iou": {
+                "sum": 31019.320330166775,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.8553278643954881
+              },
+              "target_coverage": {
+                "sum": 33363.886410452775,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.919977014571576
+              },
+              "prediction_purity": {
+                "sum": 33588.680219510614,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9261754872197269
+              },
+              "fp_per_gt_area": {
+                "sum": 2809.0126870873987,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.07745581776560412
+              },
+              "fn_per_gt_area": {
+                "sum": 2902.113589547426,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.08002298542842955
+              },
+              "delta_mask_iou": {
+                "sum": 13.247058381332486,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.00036527486850858895
+              },
+              "delta_target_coverage": {
+                "sum": -548.0592619656168,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.015112205977102982
+              },
+              "delta_prediction_purity": {
+                "sum": 549.2920427403615,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.01514619871892024
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -704.0585763823749,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.019413736733645146
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 548.0592619656172,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.015112205977102996
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 50334,
+            "fields": {
+              "tp": {
+                "sum": 274545730.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 5454.478682401557
+              },
+              "fp": {
+                "sum": 95259459.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 1892.5469662653475
+              },
+              "fn": {
+                "sum": 225072411.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 4471.578078436047
+              },
+              "gt_pixel_area": {
+                "sum": 499618141.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 9926.056760837604
+              },
+              "prediction_pixel_area": {
+                "sum": 369805189.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 7347.025648666905
+              },
+              "mask_iou": {
+                "sum": 26939.673533864516,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.5352182130143545
+              },
+              "target_coverage": {
+                "sum": 35300.147968589605,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.7013181541023882
+              },
+              "prediction_purity": {
+                "sum": 36163.24906470181,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.7185227312676696
+              },
+              "fp_per_gt_area": {
+                "sum": 18278.984854918323,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.3631538295171916
+              },
+              "fn_per_gt_area": {
+                "sum": 15033.852031410057,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.29868184589760516
+              },
+              "delta_mask_iou": {
+                "sum": 131.83153416369132,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.0026191348623930406
+              },
+              "delta_target_coverage": {
+                "sum": -888.5350139342494,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.017652779710220712
+              },
+              "delta_prediction_purity": {
+                "sum": 931.0626236713446,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.01849915803042608
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -2069.45120181054,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.04111437997795804
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 888.5350139342494,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.017652779710220712
+              }
+            }
+          }
+        },
+        "image_macro": {
+          "all_fixed_pairs": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 99744665.42174014,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 20166.733809490528
+              },
+              "fp": {
+                "sum": 11345207.898783673,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 2293.8147793739736
+              },
+              "fn": {
+                "sum": 20295005.118027113,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 4103.316845537224
+              },
+              "gt_pixel_area": {
+                "sum": 120039670.5397676,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 24270.05065502782
+              },
+              "prediction_pixel_area": {
+                "sum": 111089873.32052374,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 22460.548588864483
+              },
+              "mask_iou": {
+                "sum": 3617.507439392452,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.7314006145152552
+              },
+              "target_coverage": {
+                "sum": 4133.016211360424,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8356280249414524
+              },
+              "prediction_purity": {
+                "sum": 4186.954854138597,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.846533532983946
+              },
+              "fp_per_gt_area": {
+                "sum": 945.1287964226914,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.19108952616714342
+              },
+              "fn_per_gt_area": {
+                "sum": 812.9837886395778,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.1643719750585479
+              },
+              "delta_mask_iou": {
+                "sum": 6.835644321865899,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.001382055059010493
+              },
+              "delta_target_coverage": {
+                "sum": -57.707292395239875,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.011667467123987035
+              },
+              "delta_prediction_purity": {
+                "sum": 60.63143551891659,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.012258680857039343
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -109.94191344967336,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.022228449949388066
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 57.707292395239875,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.011667467123987035
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 117072566.68146996,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 24074.14490673863
+              },
+              "fp": {
+                "sum": 6082760.5673188865,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1250.8247105323642
+              },
+              "fn": {
+                "sum": 6904254.596952862,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1419.752127689258
+              },
+              "gt_pixel_area": {
+                "sum": 123976821.27842268,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25493.89703442786
+              },
+              "prediction_pixel_area": {
+                "sum": 123155327.24878891,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25324.969617271006
+              },
+              "mask_iou": {
+                "sum": 4221.572817756999,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.8681005177374047
+              },
+              "target_coverage": {
+                "sum": 4523.098857074709,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9301046385101189
+              },
+              "prediction_purity": {
+                "sum": 4523.24675714612,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9301350518499116
+              },
+              "fp_per_gt_area": {
+                "sum": 357.8385499858291,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0735839091066891
+              },
+              "fn_per_gt_area": {
+                "sum": 339.9011429252836,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.06989536148987942
+              },
+              "delta_mask_iou": {
+                "sum": 2.652537557927973,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0005454529216384891
+              },
+              "delta_target_coverage": {
+                "sum": -53.10001323936842,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.010919188410316352
+              },
+              "delta_prediction_purity": {
+                "sum": 54.24442923699252,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.011154519686817297
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -69.9401988142814,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.014382109564935514
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 53.100013239368444,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.010919188410316357
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 42194604.754421115,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 10805.276505613601
+              },
+              "fp": {
+                "sum": 14383292.729614535,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 3683.3015952918145
+              },
+              "fn": {
+                "sum": 30583551.889739364,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 7831.895490330183
+              },
+              "gt_pixel_area": {
+                "sum": 72778156.64416052,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 18637.171995943798
+              },
+              "prediction_pixel_area": {
+                "sum": 56577897.48403575,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 14488.578100905443
+              },
+              "mask_iou": {
+                "sum": 2140.8699376545896,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.5482381402444532
+              },
+              "target_coverage": {
+                "sum": 2747.906075767889,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.703689135920074
+              },
+              "prediction_purity": {
+                "sum": 2905.953562666832,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7441622439607765
+              },
+              "fp_per_gt_area": {
+                "sum": 1289.1329148639943,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.3301236657782316
+              },
+              "fn_per_gt_area": {
+                "sum": 1157.0939242321256,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.29631086407992974
+              },
+              "delta_mask_iou": {
+                "sum": 7.454368608980811,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0019089292212498877
+              },
+              "delta_target_coverage": {
+                "sum": -56.72068754439796,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.014525144057464266
+              },
+              "delta_prediction_purity": {
+                "sum": 59.57426511526547,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.015255893755509724
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -127.74441367918782,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.032713038074055775
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 56.720687544397975,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.01452514405746427
+              }
+            }
+          }
+        }
+      },
+      "global_minus025_full": {
+        "counts": {
+          "all_candidate_count": 555445,
+          "fixed_pair_count": 86600,
+          "unassociated_candidate_count": 468845,
+          "empty_prediction_count": 124,
+          "empty_paired_prediction_count": 39,
+          "baseline_success_count": 36266,
+          "baseline_failure_count": 50334,
+          "repair_count": 1319,
+          "damage_count": 1368,
+          "zero_GT_pixel_area_count": 0,
+          "undefined_pixel_mask_iou_count": 0
+        },
+        "damage_rate_of_baseline_success": 0.03772128164120664,
+        "repair_rate_of_baseline_failure": 0.02620495092780228,
+        "candidate_macro": {
+          "all_fixed_pairs": {
+            "row_count": 86600,
+            "fields": {
+              "tp": {
+                "sum": 768167407.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 8870.293383371825
+              },
+              "fp": {
+                "sum": 110883219.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 1280.4066859122402
+              },
+              "fn": {
+                "sum": 282810521.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 3265.7104041570437
+              },
+              "gt_pixel_area": {
+                "sum": 1050977928.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 12136.003787528869
+              },
+              "prediction_pixel_area": {
+                "sum": 879050626.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 10150.700069284065
+              },
+              "mask_iou": {
+                "sum": 57247.32017592874,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.661054505495713
+              },
+              "target_coverage": {
+                "sum": 67883.9896859569,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.7838797885214422
+              },
+              "prediction_purity": {
+                "sum": 69510.9520204601,
+                "valid_count": 86561,
+                "missing_count": 39,
+                "mean": 0.8030285234743141
+              },
+              "fp_per_gt_area": {
+                "sum": 20591.945272852605,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.23778227797751275
+              },
+              "fn_per_gt_area": {
+                "sum": 18716.01031404354,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.2161202114785628
+              },
+              "delta_mask_iou": {
+                "sum": -566.5950955575072,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.0065426685399250254
+              },
+              "delta_target_coverage": {
+                "sum": -2216.6389689859857,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.02559629294441092
+              },
+              "delta_prediction_purity": {
+                "sum": 1260.2675417558369,
+                "valid_count": 86561,
+                "missing_count": 39,
+                "mean": 0.01455929970489986
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -3269.5620473462764,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.037754758052497416
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 2216.638968985986,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.025596292944410924
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 36266,
+            "fields": {
+              "tp": {
+                "sum": 509363300.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14045.202117685987
+              },
+              "fp": {
+                "sum": 25968221.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 716.0486681740473
+              },
+              "fn": {
+                "sum": 41996487.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 1158.012656482656
+              },
+              "gt_pixel_area": {
+                "sum": 551359787.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15203.214774168642
+              },
+              "prediction_pixel_area": {
+                "sum": 535331521.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14761.250785860035
+              },
+              "mask_iou": {
+                "sum": 30954.294582302475,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.8535348420642606
+              },
+              "target_coverage": {
+                "sum": 33410.532881321604,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9212632460519937
+              },
+              "prediction_purity": {
+                "sum": 33476.62333340642,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9230856265760333
+              },
+              "fp_per_gt_area": {
+                "sum": 2954.312388014631,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.08146231699152459
+              },
+              "fn_per_gt_area": {
+                "sum": 2855.4671186783603,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0787367539480053
+              },
+              "delta_mask_iou": {
+                "sum": -51.77868948290369,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.0014277474627172472
+              },
+              "delta_target_coverage": {
+                "sum": -501.4127910965935,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.013825974496679907
+              },
+              "delta_prediction_purity": {
+                "sum": 437.23515663667905,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.012056338075240695
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -558.758875455144,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.0154072375077247
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 501.41279109659393,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.013825974496679919
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 50334,
+            "fields": {
+              "tp": {
+                "sum": 258804107.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 5141.735347876187
+              },
+              "fp": {
+                "sum": 84914998.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 1687.03059562125
+              },
+              "fn": {
+                "sum": 240814034.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 4784.321412961418
+              },
+              "gt_pixel_area": {
+                "sum": 499618141.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 9926.056760837604
+              },
+              "prediction_pixel_area": {
+                "sum": 343719105.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 6828.765943497438
+              },
+              "mask_iou": {
+                "sum": 26293.02559362621,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.5223710731041883
+              },
+              "target_coverage": {
+                "sum": 34473.45680463495,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.6848940438795834
+              },
+              "prediction_purity": {
+                "sum": 36034.328687052235,
+                "valid_count": 50295,
+                "missing_count": 39,
+                "mean": 0.7164594629098764
+              },
+              "fp_per_gt_area": {
+                "sum": 17637.632884837927,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.3504119061635858
+              },
+              "fn_per_gt_area": {
+                "sum": 15860.54319536523,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.3151059561204202
+              },
+              "delta_mask_iou": {
+                "sum": -514.8164060746029,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.010228005047772935
+              },
+              "delta_target_coverage": {
+                "sum": -1715.2261778893824,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.034076889933034975
+              },
+              "delta_prediction_purity": {
+                "sum": 823.0323851191564,
+                "valid_count": 50295,
+                "missing_count": 39,
+                "mean": 0.016364099515243192
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -2710.8031718911056,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.05385630333156725
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 1715.2261778893826,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.03407688993303498
+              }
+            }
+          }
+        },
+        "image_macro": {
+          "all_fixed_pairs": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 98060847.08516686,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 19826.293385597826
+              },
+              "fp": {
+                "sum": 10167925.378517512,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 2055.7875815846164
+              },
+              "fn": {
+                "sum": 21978823.45460041,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 4443.757269429925
+              },
+              "gt_pixel_area": {
+                "sum": 120039670.5397676,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 24270.05065502782
+              },
+              "prediction_pixel_area": {
+                "sum": 108228772.46368475,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 21882.080967182523
+              },
+              "mask_iou": {
+                "sum": 3588.3770488584582,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.7255109277918436
+              },
+              "target_coverage": {
+                "sum": 4093.724098441021,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8276838047798263
+              },
+              "prediction_purity": {
+                "sum": 4187.039485032232,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8465506439612276
+              },
+              "fp_per_gt_area": {
+                "sum": 917.4689397367305,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.18549715724559857
+              },
+              "fn_per_gt_area": {
+                "sum": 852.275901558971,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.17231619522017205
+              },
+              "delta_mask_iou": {
+                "sum": -22.29474621210646,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.004507631664396777
+              },
+              "delta_target_coverage": {
+                "sum": -96.99940531463398,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.0196116872856114
+              },
+              "delta_prediction_purity": {
+                "sum": 60.586772767848764,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.01224965078201552
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -137.60177013563307,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.027820818870932688
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 96.99940531463396,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.019611687285611395
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 115930790.7454873,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 23839.356517681947
+              },
+              "fp": {
+                "sum": 5304369.430333437,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1090.7607300706225
+              },
+              "fn": {
+                "sum": 8046030.532935491,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1654.5405167459369
+              },
+              "gt_pixel_area": {
+                "sum": 123976821.27842268,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25493.89703442786
+              },
+              "prediction_pixel_area": {
+                "sum": 121235160.17582083,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 24930.117247752587
+              },
+              "mask_iou": {
+                "sum": 4214.998314353637,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.866748573792646
+              },
+              "target_coverage": {
+                "sum": 4518.84021686175,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9292289156614745
+              },
+              "prediction_purity": {
+                "sum": 4521.030986661181,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.929679413255435
+              },
+              "fp_per_gt_area": {
+                "sum": 362.0182137353236,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.07444339167907128
+              },
+              "fn_per_gt_area": {
+                "sum": 344.1597831382555,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.07077108433852673
+              },
+              "delta_mask_iou": {
+                "sum": -3.921965845420757,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.000806491023117573
+              },
+              "delta_target_coverage": {
+                "sum": -57.35865345234051,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.011794911258963708
+              },
+              "delta_prediction_purity": {
+                "sum": 52.02865875206513,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.01069888109234323
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -65.76053506478694,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.01352262699255335
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 57.35865345234056,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.011794911258963718
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 40215771.8981018,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 10298.533136517746
+              },
+              "fp": {
+                "sum": 13090209.827666195,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 3352.1664091334687
+              },
+              "fn": {
+                "sum": 32562384.7460586,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 8338.638859426017
+              },
+              "gt_pixel_area": {
+                "sum": 72778156.64416052,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 18637.171995943798
+              },
+              "prediction_pixel_area": {
+                "sum": 53305981.72576797,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 13650.699545651209
+              },
+              "mask_iou": {
+                "sum": 2092.6517019329176,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.535890320597418
+              },
+              "target_coverage": {
+                "sum": 2685.0583302312775,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.6875949629273438
+              },
+              "prediction_purity": {
+                "sum": 2901.9702192759296,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7431421816327605
+              },
+              "fp_per_gt_area": {
+                "sum": 1245.4091211808054,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.3189267915955968
+              },
+              "fn_per_gt_area": {
+                "sum": 1219.941669768724,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.3124050370726566
+              },
+              "delta_mask_iou": {
+                "sum": -40.76386711268825,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.010438890425784443
+              },
+              "delta_target_coverage": {
+                "sum": -119.568433080999,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.030619317050191806
+              },
+              "delta_prediction_purity": {
+                "sum": 55.475996492270205,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.014206401150389297
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -171.46820736237947,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.04390991225669129
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 119.568433080999,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.030619317050191806
+              }
+            }
+          }
+        }
+      },
+      "RCMC_first64": {
+        "counts": {
+          "all_candidate_count": 555445,
+          "fixed_pair_count": 86600,
+          "unassociated_candidate_count": 468845,
+          "empty_prediction_count": 33,
+          "empty_paired_prediction_count": 4,
+          "baseline_success_count": 36266,
+          "baseline_failure_count": 50334,
+          "repair_count": 1280,
+          "damage_count": 813,
+          "zero_GT_pixel_area_count": 0,
+          "undefined_pixel_mask_iou_count": 0
+        },
+        "damage_rate_of_baseline_success": 0.022417691501682015,
+        "repair_rate_of_baseline_failure": 0.025430126753288037,
+        "candidate_macro": {
+          "all_fixed_pairs": {
+            "row_count": 86600,
+            "fields": {
+              "tp": {
+                "sum": 790580385.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 9129.103752886836
+              },
+              "fp": {
+                "sum": 125646548.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 1450.8839260969976
+              },
+              "fn": {
+                "sum": 260397543.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 3006.9000346420326
+              },
+              "gt_pixel_area": {
+                "sum": 1050977928.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 12136.003787528869
+              },
+              "prediction_pixel_area": {
+                "sum": 916226933.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 10579.987678983834
+              },
+              "mask_iou": {
+                "sum": 57957.515758222675,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.6692553782704697
+              },
+              "target_coverage": {
+                "sum": 69204.92631721546,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.7991330983512178
+              },
+              "prediction_purity": {
+                "sum": 69236.22849555383,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.7995314852366603
+              },
+              "fp_per_gt_area": {
+                "sum": 22090.706059423937,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.2550889845199069
+              },
+              "fn_per_gt_area": {
+                "sum": 17395.07368278566,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.20086690164879514
+              },
+              "delta_mask_iou": {
+                "sum": 143.6004867370264,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.001658204234838642
+              },
+              "delta_target_coverage": {
+                "sum": -895.7023377280855,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.010342983114643019
+              },
+              "delta_prediction_purity": {
+                "sum": 964.6538777526104,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.011139704810298516
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -1770.8012607745943,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.020448051510099242
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 895.7023377280861,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.010342983114643028
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 36266,
+            "fields": {
+              "tp": {
+                "sum": 515626761.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14217.9110185849
+              },
+              "fp": {
+                "sum": 29917012.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 824.9327744995312
+              },
+              "fn": {
+                "sum": 35733026.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 985.3037555837424
+              },
+              "gt_pixel_area": {
+                "sum": 551359787.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15203.214774168642
+              },
+              "prediction_pixel_area": {
+                "sum": 545543773.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15042.843793084432
+              },
+              "mask_iou": {
+                "sum": 31036.002463668647,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.8557878581500206
+              },
+              "target_coverage": {
+                "sum": 33522.57703804973,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9243527556954096
+              },
+              "prediction_purity": {
+                "sum": 33448.12350828393,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9222997713639202
+              },
+              "fp_per_gt_area": {
+                "sum": 2987.526852990832,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.082378173854046
+              },
+              "fn_per_gt_area": {
+                "sum": 2743.4229619503603,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.07564724430459274
+              },
+              "delta_mask_iou": {
+                "sum": 29.929191883103456,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0008252686230382026
+              },
+              "delta_target_coverage": {
+                "sum": -389.36863436855066,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.010736464853266162
+              },
+              "delta_prediction_purity": {
+                "sum": 408.7353315137679,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.011270482863116084
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -525.5444104789393,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.014491380645203202
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 389.36863436855117,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.010736464853266178
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 50334,
+            "fields": {
+              "tp": {
+                "sum": 274953624.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 5462.582429371796
+              },
+              "fp": {
+                "sum": 95729536.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 1901.8861207136329
+              },
+              "fn": {
+                "sum": 224664517.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 4463.474331465808
+              },
+              "gt_pixel_area": {
+                "sum": 499618141.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 9926.056760837604
+              },
+              "prediction_pixel_area": {
+                "sum": 370683160.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 7364.468550085429
+              },
+              "mask_iou": {
+                "sum": 26921.513294554738,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.5348574183366063
+              },
+              "target_coverage": {
+                "sum": 35682.34927916452,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.7089114570501951
+              },
+              "prediction_purity": {
+                "sum": 35788.104987269224,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.711069044054624
+              },
+              "fp_per_gt_area": {
+                "sum": 19103.179206433233,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.3795283348518543
+              },
+              "fn_per_gt_area": {
+                "sum": 14651.65072083535,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.29108854294980235
+              },
+              "delta_mask_iou": {
+                "sum": 113.6712948539234,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.002258340184645039
+              },
+              "delta_target_coverage": {
+                "sum": -506.3337033595392,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.010059476762417833
+              },
+              "delta_prediction_purity": {
+                "sum": 555.9185462388419,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.011045470817382117
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -1245.2568502956592,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.024739874643295967
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 506.33370335953924,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.010059476762417833
+              }
+            }
+          }
+        },
+        "image_macro": {
+          "all_fixed_pairs": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 99763071.28069754,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 20170.455171997077
+              },
+              "fp": {
+                "sum": 11364694.684349785,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 2297.7546874949016
+              },
+              "fn": {
+                "sum": 20276599.259069994,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 4099.595483030731
+              },
+              "gt_pixel_area": {
+                "sum": 120039670.5397676,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 24270.05065502782
+              },
+              "prediction_pixel_area": {
+                "sum": 111127765.9650472,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 22468.20985949195
+              },
+              "mask_iou": {
+                "sum": 3617.5765043113033,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.731414578307987
+              },
+              "target_coverage": {
+                "sum": 4148.01021168503,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8386595656459827
+              },
+              "prediction_purity": {
+                "sum": 4172.661294829895,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8436436099534766
+              },
+              "fp_per_gt_area": {
+                "sum": 972.716886294869,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.19666738501715914
+              },
+              "fn_per_gt_area": {
+                "sum": 797.9897883149721,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.16134043435401782
+              },
+              "delta_mask_iou": {
+                "sum": 6.904709240728652,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.0013960188517445717
+              },
+              "delta_target_coverage": {
+                "sum": -42.71329207063525,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.008635926419457186
+              },
+              "delta_prediction_purity": {
+                "sum": 46.33787621020943,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.00936875782656883
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -82.35382357749454,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.016650591099372128
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 42.71329207063524,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.008635926419457186
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 117086248.31159125,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 24076.958320294314
+              },
+              "fp": {
+                "sum": 6096170.216672966,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1253.582195491048
+              },
+              "fn": {
+                "sum": 6890572.966831616,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1416.9387141335835
+              },
+              "gt_pixel_area": {
+                "sum": 123976821.27842268,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25493.89703442786
+              },
+              "prediction_pixel_area": {
+                "sum": 123182418.52826409,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25330.540515785335
+              },
+              "mask_iou": {
+                "sum": 4222.771150740792,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.8683469362000396
+              },
+              "target_coverage": {
+                "sum": 4534.448618107783,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9324385396067824
+              },
+              "prediction_purity": {
+                "sum": 4513.254585487134,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9280803178052919
+              },
+              "fp_per_gt_area": {
+                "sum": 370.62556347445144,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.07621335872392586
+              },
+              "fn_per_gt_area": {
+                "sum": 328.5513818922122,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.06756146039321657
+              },
+              "delta_mask_iou": {
+                "sum": 3.8508705417215765,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0007918713842734067
+              },
+              "delta_target_coverage": {
+                "sum": -41.7502522062969,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.008585287313653486
+              },
+              "delta_prediction_purity": {
+                "sum": 44.252257577997575,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.009099785642195676
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -57.15318532565891,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.011752659947698727
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 41.750252206296885,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.008585287313653482
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 42216709.37649791,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 10810.937100255547
+              },
+              "fp": {
+                "sum": 14407354.438053964,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 3689.4633644184287
+              },
+              "fn": {
+                "sum": 30561447.267662525,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 7826.234895688227
+              },
+              "gt_pixel_area": {
+                "sum": 72778156.64416052,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 18637.171995943798
+              },
+              "prediction_pixel_area": {
+                "sum": 56624063.81455184,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 14500.400464673967
+              },
+              "mask_iou": {
+                "sum": 2140.378335425314,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.5481122497888129
+              },
+              "target_coverage": {
+                "sum": 2765.2762102054858,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7081373137530054
+              },
+              "prediction_purity": {
+                "sum": 2888.898364357621,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.739794715584538
+              },
+              "fp_per_gt_area": {
+                "sum": 1325.4464090763454,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.33942289605028053
+              },
+              "fn_per_gt_area": {
+                "sum": 1139.7237897945265,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.29186268624699785
+              },
+              "delta_mask_iou": {
+                "sum": 6.962766379704173,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0017830387656092633
+              },
+              "delta_target_coverage": {
+                "sum": -39.35055310679864,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.010076966224532302
+              },
+              "delta_prediction_purity": {
+                "sum": 42.519066806058696,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.010888365379272394
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -91.43091946684338,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.023413807802008548
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 39.35055310679864,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.010076966224532302
+              }
+            }
+          }
+        }
+      },
+      "global_minus025_first64": {
+        "counts": {
+          "all_candidate_count": 555445,
+          "fixed_pair_count": 86600,
+          "unassociated_candidate_count": 468845,
+          "empty_prediction_count": 48,
+          "empty_paired_prediction_count": 11,
+          "baseline_success_count": 36266,
+          "baseline_failure_count": 50334,
+          "repair_count": 882,
+          "damage_count": 762,
+          "zero_GT_pixel_area_count": 0,
+          "undefined_pixel_mask_iou_count": 0
+        },
+        "damage_rate_of_baseline_success": 0.021011415651022998,
+        "repair_rate_of_baseline_failure": 0.017522946715937536,
+        "candidate_macro": {
+          "all_fixed_pairs": {
+            "row_count": 86600,
+            "fields": {
+              "tp": {
+                "sum": 776324225.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 8964.482967667436
+              },
+              "fp": {
+                "sum": 115566935.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 1334.491166281755
+              },
+              "fn": {
+                "sum": 274653703.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 3171.520819861432
+              },
+              "gt_pixel_area": {
+                "sum": 1050977928.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 12136.003787528869
+              },
+              "prediction_pixel_area": {
+                "sum": 891891160.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 10298.974133949192
+              },
+              "mask_iou": {
+                "sum": 57666.308072222906,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.6658927029125047
+              },
+              "target_coverage": {
+                "sum": 69006.7797940337,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.7968450322636687
+              },
+              "prediction_purity": {
+                "sum": 69046.72806630518,
+                "valid_count": 86589,
+                "missing_count": 11,
+                "mean": 0.7974076160517523
+              },
+              "fp_per_gt_area": {
+                "sum": 22084.669976712863,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.25501928379576055
+              },
+              "fn_per_gt_area": {
+                "sum": 17593.22020596688,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.20315496773633812
+              },
+              "delta_mask_iou": {
+                "sum": -147.6071992628647,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.001704471123127768
+              },
+              "delta_target_coverage": {
+                "sum": -1093.8488609092958,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.012631049202185864
+              },
+              "delta_prediction_purity": {
+                "sum": 781.1293256966611,
+                "valid_count": 86589,
+                "missing_count": 11,
+                "mean": 0.00902111498800842
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -1776.837343485983,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.020517752234249224
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 1093.8488609092963,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.012631049202185869
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 36266,
+            "fields": {
+              "tp": {
+                "sum": 510838714.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14085.885236860971
+              },
+              "fp": {
+                "sum": 26641551.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 734.6150940274638
+              },
+              "fn": {
+                "sum": 40521073.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 1117.329537307671
+              },
+              "gt_pixel_area": {
+                "sum": 551359787.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15203.214774168642
+              },
+              "prediction_pixel_area": {
+                "sum": 537480265.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14820.500330888435
+              },
+              "mask_iou": {
+                "sum": 31002.26897415556,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.854857689686085
+              },
+              "target_coverage": {
+                "sum": 33572.83591740615,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9257385958585492
+              },
+              "prediction_purity": {
+                "sum": 33366.43324480368,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.920047241074386
+              },
+              "fp_per_gt_area": {
+                "sum": 3097.2301465587384,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.08540313645173822
+              },
+              "fn_per_gt_area": {
+                "sum": 2693.164082593798,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.07426140414144923
+              },
+              "delta_mask_iou": {
+                "sum": -3.8042976298904962,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.00010489984089479116
+              },
+              "delta_target_coverage": {
+                "sum": -339.1097550120209,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.009350624690123557
+              },
+              "delta_prediction_purity": {
+                "sum": 327.04506803402387,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.00901795257359576
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -415.8411169110545,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.011466418047511567
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 339.1097550120215,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.009350624690123573
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 50334,
+            "fields": {
+              "tp": {
+                "sum": 265485511.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 5274.476715540191
+              },
+              "fp": {
+                "sum": 88925384.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 1766.7060833631342
+              },
+              "fn": {
+                "sum": 234132630.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 4651.580045297414
+              },
+              "gt_pixel_area": {
+                "sum": 499618141.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 9926.056760837604
+              },
+              "prediction_pixel_area": {
+                "sum": 354410895.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 7041.182798903325
+              },
+              "mask_iou": {
+                "sum": 26664.03909806794,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.5297421047019498
+              },
+              "target_coverage": {
+                "sum": 35433.94387662701,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.7039763157433745
+              },
+              "prediction_purity": {
+                "sum": 35680.29482150021,
+                "valid_count": 50323,
+                "missing_count": 11,
+                "mean": 0.7090255911114244
+              },
+              "fp_per_gt_area": {
+                "sum": 18987.43983015412,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.3772289075009759
+              },
+              "fn_per_gt_area": {
+                "sum": 14900.05612337314,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.2960236842566285
+              },
+              "delta_mask_iou": {
+                "sum": -143.80290163297428,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.002856973450013396
+              },
+              "delta_target_coverage": {
+                "sum": -754.7391058972788,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.014994618069243033
+              },
+              "delta_prediction_purity": {
+                "sum": 454.08425766263935,
+                "valid_count": 50323,
+                "missing_count": 11,
+                "mean": 0.009023394027832986
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -1360.9962265749236,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.027039301994177367
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 754.7391058972789,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.014994618069243034
+              }
+            }
+          }
+        },
+        "image_macro": {
+          "all_fixed_pairs": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 98389523.04587357,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 19892.746268878604
+              },
+              "fp": {
+                "sum": 10338923.803604769,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 2090.360655803633
+              },
+              "fn": {
+                "sum": 21650147.493894055,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 4377.304386149222
+              },
+              "gt_pixel_area": {
+                "sum": 120039670.5397676,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 24270.05065502782
+              },
+              "prediction_pixel_area": {
+                "sum": 108728446.84947817,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 21983.1069246822
+              },
+              "mask_iou": {
+                "sum": 3600.9467500390692,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.728052315009921
+              },
+              "target_coverage": {
+                "sum": 4125.739079325878,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8341567083149775
+              },
+              "prediction_purity": {
+                "sum": 4173.436244503755,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8438002920549444
+              },
+              "fp_per_gt_area": {
+                "sum": 957.8326903956167,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.19365804496474257
+              },
+              "fn_per_gt_area": {
+                "sum": 820.260920674115,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.16584329168502124
+              },
+              "delta_mask_iou": {
+                "sum": -9.725045031496993,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.0019662444463196507
+              },
+              "delta_target_coverage": {
+                "sum": -64.98442442977797,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.013138783750460568
+              },
+              "delta_prediction_purity": {
+                "sum": 47.1215664645484,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.009527207129912738
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -97.2380194767462,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.019659931151788556
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 64.98442442977799,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.013138783750460572
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 116066125.52378401,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 23867.18600118939
+              },
+              "fp": {
+                "sum": 5362447.833671637,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1102.7036466526088
+              },
+              "fn": {
+                "sum": 7910695.754639142,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1626.711033238565
+              },
+              "gt_pixel_area": {
+                "sum": 123976821.27842268,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25493.89703442786
+              },
+              "prediction_pixel_area": {
+                "sum": 121428573.35745528,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 24969.889647841926
+              },
+              "mask_iou": {
+                "sum": 4218.419068925444,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.867451998545228
+              },
+              "target_coverage": {
+                "sum": 4530.624194096785,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9316521065385122
+              },
+              "prediction_purity": {
+                "sum": 4512.9797649576885,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9280238052555395
+              },
+              "fp_per_gt_area": {
+                "sum": 372.4888248713601,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0765965093299116
+              },
+              "fn_per_gt_area": {
+                "sum": 332.37580590322796,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.06834789346149042
+              },
+              "delta_mask_iou": {
+                "sum": -0.5012112736230555,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.00010306627053733405
+              },
+              "delta_target_coverage": {
+                "sum": -45.574676217314305,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.009371720381927679
+              },
+              "delta_prediction_purity": {
+                "sum": 43.977437048578714,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.009043273092448841
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -55.28992392875002,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.011369509341712939
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 45.57467621731436,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.009371720381927691
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 40705900.861220226,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 10424.046315293272
+              },
+              "fp": {
+                "sum": 13341384.216211949,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 3416.4876353935847
+              },
+              "fn": {
+                "sum": 32072255.782940183,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 8213.125680650495
+              },
+              "gt_pixel_area": {
+                "sum": 72778156.64416052,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 18637.171995943798
+              },
+              "prediction_pixel_area": {
+                "sum": 54047285.077432275,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 13840.533950686882
+              },
+              "mask_iou": {
+                "sum": 2112.5351417250386,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.5409821105569881
+              },
+              "target_coverage": {
+                "sum": 2731.141926616342,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.6993961399785767
+              },
+              "prediction_purity": {
+                "sum": 2885.3233969765174,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.738879230979902
+              },
+              "fp_per_gt_area": {
+                "sum": 1303.3823668073792,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.3337726931645017
+              },
+              "fn_per_gt_area": {
+                "sum": 1173.858073383663,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.3006038600214246
+              },
+              "delta_mask_iou": {
+                "sum": -20.88042732056697,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.005347100466214332
+              },
+              "delta_target_coverage": {
+                "sum": -73.484836695937,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.01881813999895954
+              },
+              "delta_prediction_purity": {
+                "sum": 39.00563376866348,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.009988638609132773
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -113.49496173580683,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.029064010687786638
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 73.48483669593699,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.018818139998959538
+              }
+            }
+          }
+        }
+      },
+      "multi_local_full": {
+        "counts": {
+          "all_candidate_count": 555445,
+          "fixed_pair_count": 86600,
+          "unassociated_candidate_count": 468845,
+          "empty_prediction_count": 33,
+          "empty_paired_prediction_count": 4,
+          "baseline_success_count": 36266,
+          "baseline_failure_count": 50334,
+          "repair_count": 1842,
+          "damage_count": 1108,
+          "zero_GT_pixel_area_count": 0,
+          "undefined_pixel_mask_iou_count": 0
+        },
+        "damage_rate_of_baseline_success": 0.030552032206474383,
+        "repair_rate_of_baseline_failure": 0.036595541780903566,
+        "candidate_macro": {
+          "all_fixed_pairs": {
+            "row_count": 86600,
+            "fields": {
+              "tp": {
+                "sum": 789258105.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 9113.834930715935
+              },
+              "fp": {
+                "sum": 124439721.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 1436.9482794457274
+              },
+              "fn": {
+                "sum": 261719823.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 3022.168856812933
+              },
+              "gt_pixel_area": {
+                "sum": 1050977928.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 12136.003787528869
+              },
+              "prediction_pixel_area": {
+                "sum": 913697826.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 10550.783210161662
+              },
+              "mask_iou": {
+                "sum": 58009.621743360425,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.6698570640110904
+              },
+              "target_coverage": {
+                "sum": 68593.73641752571,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.7920754782624216
+              },
+              "prediction_purity": {
+                "sum": 69857.65301130328,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.8067076194201035
+              },
+              "fp_per_gt_area": {
+                "sum": 20806.074306862713,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.24025489961735233
+              },
+              "fn_per_gt_area": {
+                "sum": 18006.26358247622,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.20792452173760068
+              },
+              "delta_mask_iou": {
+                "sum": 195.70647187442322,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.0022598899754552332
+              },
+              "delta_target_coverage": {
+                "sum": -1506.8922374183192,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.017400603203444793
+              },
+              "delta_prediction_purity": {
+                "sum": 1586.0783935018858,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.01831583899373973
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -3055.433013335719,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.03528213641265264
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 1506.8922374183192,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.017400603203444793
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 36266,
+            "fields": {
+              "tp": {
+                "sum": 515035836.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14201.61683119175
+              },
+              "fp": {
+                "sum": 29326464.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 808.648982518061
+              },
+              "fn": {
+                "sum": 36323951.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 1001.5979429768929
+              },
+              "gt_pixel_area": {
+                "sum": 551359787.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15203.214774168642
+              },
+              "prediction_pixel_area": {
+                "sum": 544362300.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15010.265813709811
+              },
+              "mask_iou": {
+                "sum": 31038.871944012153,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.8558669813051385
+              },
+              "target_coverage": {
+                "sum": 33352.71513235106,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9196689773438224
+              },
+              "prediction_purity": {
+                "sum": 33620.1323346765,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9270427489846275
+              },
+              "fp_per_gt_area": {
+                "sum": 2777.3289930421165,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.07658217043627961
+              },
+              "fn_per_gt_area": {
+                "sum": 2913.2848676489893,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.08033102265617904
+              },
+              "delta_mask_iou": {
+                "sum": 32.79867222680352,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0009043917781614602
+              },
+              "delta_target_coverage": {
+                "sum": -559.2305400672043,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.015420243204853148
+              },
+              "delta_prediction_purity": {
+                "sum": 580.744157906567,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.016013460483829674
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -735.7422704276319,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.020287384062968948
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 559.2305400672047,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.01542024320485316
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 50334,
+            "fields": {
+              "tp": {
+                "sum": 274222269.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 5448.052390034569
+              },
+              "fp": {
+                "sum": 95113257.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 1889.6423292406723
+              },
+              "fn": {
+                "sum": 225395872.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 4478.004370803035
+              },
+              "gt_pixel_area": {
+                "sum": 499618141.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 9926.056760837604
+              },
+              "prediction_pixel_area": {
+                "sum": 369335526.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 7337.694719275241
+              },
+              "mask_iou": {
+                "sum": 26970.749799348254,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.5358356140848781
+              },
+              "target_coverage": {
+                "sum": 35241.02128517305,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.7001434673416189
+              },
+              "prediction_purity": {
+                "sum": 36237.520676626205,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.719998423934556
+              },
+              "fp_per_gt_area": {
+                "sum": 18028.74531382058,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.3581822488540664
+              },
+              "fn_per_gt_area": {
+                "sum": 15092.978714827106,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.29985653265838413
+              },
+              "delta_mask_iou": {
+                "sum": 162.9077996476204,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.003236535932920499
+              },
+              "delta_target_coverage": {
+                "sum": -947.661697351129,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.018827466470996323
+              },
+              "delta_prediction_purity": {
+                "sum": 1005.3342355953166,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.019974850697304126
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -2319.6907429081057,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.0460859606410797
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 947.6616973511289,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.018827466470996323
+              }
+            }
+          }
+        },
+        "image_macro": {
+          "all_fixed_pairs": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 99641179.5234593,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 20145.810659817893
+              },
+              "fp": {
+                "sum": 11253979.132570053,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 2275.369820576234
+              },
+              "fn": {
+                "sum": 20398491.01630793,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 4124.239995209853
+              },
+              "gt_pixel_area": {
+                "sum": 120039670.5397676,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 24270.05065502782
+              },
+              "prediction_pixel_area": {
+                "sum": 110895158.65602951,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 22421.18048039416
+              },
+              "mask_iou": {
+                "sum": 3619.54688838253,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.731812957618789
+              },
+              "target_coverage": {
+                "sum": 4127.579826521994,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8345288771779202
+              },
+              "prediction_purity": {
+                "sum": 4193.853083960768,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8479282418036329
+              },
+              "fp_per_gt_area": {
+                "sum": 931.5559075199882,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.1883453108612997
+              },
+              "fn_per_gt_area": {
+                "sum": 818.420173478012,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.16547112282208087
+              },
+              "delta_mask_iou": {
+                "sum": 8.875093311950543,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.0017943981625456011
+              },
+              "delta_target_coverage": {
+                "sum": -63.14367723367766,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.012766614887520756
+              },
+              "delta_prediction_purity": {
+                "sum": 67.52966534109918,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.013653389676728503
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -123.51480235237494,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.02497266525523149
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 63.14367723367765,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.012766614887520754
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 116971490.73983984,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 24053.36021793951
+              },
+              "fp": {
+                "sum": 5983044.849274408,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1230.3197304697528
+              },
+              "fn": {
+                "sum": 7005330.538582866,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1440.5368164883541
+              },
+              "gt_pixel_area": {
+                "sum": 123976821.27842268,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25493.89703442786
+              },
+              "prediction_pixel_area": {
+                "sum": 122954535.58911432,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25283.679948409277
+              },
+              "mask_iou": {
+                "sum": 4223.353364496289,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.868466659365883
+              },
+              "target_coverage": {
+                "sum": 4518.4674895294775,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9291522701068224
+              },
+              "prediction_purity": {
+                "sum": 4529.676810654703,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9314572919298176
+              },
+              "fp_per_gt_area": {
+                "sum": 350.9189759187125,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0721610067692191
+              },
+              "fn_per_gt_area": {
+                "sum": 344.53251047051504,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.07084772989317603
+              },
+              "delta_mask_iou": {
+                "sum": 4.433084297225114,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0009115945501182632
+              },
+              "delta_target_coverage": {
+                "sum": -57.73138078459904,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.011871556813612799
+              },
+              "delta_prediction_purity": {
+                "sum": 60.6744827455825,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.012476759766724759
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -76.85977288139823,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.015805011902405557
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 57.73138078459904,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.011871556813612799
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 42130224.06730855,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 10788.789773958657
+              },
+              "fp": {
+                "sum": 14346706.759657295,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 3673.932588900716
+              },
+              "fn": {
+                "sum": 30647932.576851733,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 7848.382221985079
+              },
+              "gt_pixel_area": {
+                "sum": 72778156.64416052,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 18637.171995943798
+              },
+              "prediction_pixel_area": {
+                "sum": 56476930.826965846,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 14462.722362859371
+              },
+              "mask_iou": {
+                "sum": 2143.0851850793943,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.5488054251163622
+              },
+              "target_coverage": {
+                "sum": 2745.8166900825186,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7031540819673543
+              },
+              "prediction_purity": {
+                "sum": 2909.2201784431286,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7449987652863326
+              },
+              "fp_per_gt_area": {
+                "sum": 1276.4575775667063,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.32687774073411174
+              },
+              "fn_per_gt_area": {
+                "sum": 1159.1833099174805,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.2968459180326455
+              },
+              "delta_mask_iou": {
+                "sum": 9.66961603379094,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0024762140931602916
+              },
+              "delta_target_coverage": {
+                "sum": -58.81007322975115,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.01506019801017955
+              },
+              "delta_prediction_purity": {
+                "sum": 62.84088089156272,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.016092415081065996
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -140.41975097648051,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.035958963118176826
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 58.81007322975116,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.015060198010179555
+              }
+            }
+          }
+        }
+      },
+      "multi_local_first64": {
+        "counts": {
+          "all_candidate_count": 555445,
+          "fixed_pair_count": 86600,
+          "unassociated_candidate_count": 468845,
+          "empty_prediction_count": 33,
+          "empty_paired_prediction_count": 4,
+          "baseline_success_count": 36266,
+          "baseline_failure_count": 50334,
+          "repair_count": 1312,
+          "damage_count": 757,
+          "zero_GT_pixel_area_count": 0,
+          "undefined_pixel_mask_iou_count": 0
+        },
+        "damage_rate_of_baseline_success": 0.02087354546958584,
+        "repair_rate_of_baseline_failure": 0.026065879922120238,
+        "candidate_macro": {
+          "all_fixed_pairs": {
+            "row_count": 86600,
+            "fields": {
+              "tp": {
+                "sum": 789844457.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 9120.605739030023
+              },
+              "fp": {
+                "sum": 125015308.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 1443.594780600462
+              },
+              "fn": {
+                "sum": 261133471.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 3015.398048498845
+              },
+              "gt_pixel_area": {
+                "sum": 1050977928.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 12136.003787528869
+              },
+              "prediction_pixel_area": {
+                "sum": 914859765.0,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 10564.200519630485
+              },
+              "mask_iou": {
+                "sum": 57982.08440120034,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.6695390808452696
+              },
+              "target_coverage": {
+                "sum": 69123.84153101161,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.7981967844227669
+              },
+              "prediction_purity": {
+                "sum": 69334.579391767,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.8006672293381565
+              },
+              "fp_per_gt_area": {
+                "sum": 21888.791691397433,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.2527574098313791
+              },
+              "fn_per_gt_area": {
+                "sum": 17476.15846898978,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.20180321557724917
+              },
+              "delta_mask_iou": {
+                "sum": 168.16912971465885,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.0019419068096380929
+              },
+              "delta_target_coverage": {
+                "sum": -976.7871239320235,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.01127929704309496
+              },
+              "delta_prediction_purity": {
+                "sum": 1063.004773965873,
+                "valid_count": 86596,
+                "missing_count": 4,
+                "mean": 0.012275448911795845
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -1972.715628801054,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": -0.02277962619862649
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 976.7871239320234,
+                "valid_count": 86600,
+                "missing_count": 0,
+                "mean": 0.011279297043094959
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 36266,
+            "fields": {
+              "tp": {
+                "sum": 515175388.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 14205.464843103733
+              },
+              "fp": {
+                "sum": 29483849.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 812.9887222191585
+              },
+              "fn": {
+                "sum": 36184399.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 997.7499310649093
+              },
+              "gt_pixel_area": {
+                "sum": 551359787.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15203.214774168642
+              },
+              "prediction_pixel_area": {
+                "sum": 544659237.0,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 15018.453565322892
+              },
+              "mask_iou": {
+                "sum": 31040.31862914892,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.8559068722535962
+              },
+              "target_coverage": {
+                "sum": 33482.491125303524,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9232474252827311
+              },
+              "prediction_purity": {
+                "sum": 33492.850850858056,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.9235330847310995
+              },
+              "fp_per_gt_area": {
+                "sum": 2939.1385025820837,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0810439117239862
+              },
+              "fn_per_gt_area": {
+                "sum": 2783.508874696464,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.07675257471726862
+              },
+              "delta_mask_iou": {
+                "sum": 34.245357363412914,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.0009442827266148159
+              },
+              "delta_target_coverage": {
+                "sum": -429.45454711466886,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.011841795265942449
+              },
+              "delta_prediction_purity": {
+                "sum": 453.46267408816226,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.012503796230302825
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -573.9327608876807,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": -0.0158256427752628
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 429.454547114669,
+                "valid_count": 36266,
+                "missing_count": 0,
+                "mean": 0.011841795265942454
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 50334,
+            "fields": {
+              "tp": {
+                "sum": 274669069.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 5456.929093654388
+              },
+              "fp": {
+                "sum": 95531459.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 1897.9508682004212
+              },
+              "fn": {
+                "sum": 224949072.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 4469.1276671832165
+              },
+              "gt_pixel_area": {
+                "sum": 499618141.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 9926.056760837604
+              },
+              "prediction_pixel_area": {
+                "sum": 370200528.0,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 7354.87996185481
+              },
+              "mask_iou": {
+                "sum": 26941.765772051967,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.5352597801099052
+              },
+              "target_coverage": {
+                "sum": 35641.35040570702,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.7080969206839715
+              },
+              "prediction_purity": {
+                "sum": 35841.728540908276,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.7121344832288551
+              },
+              "fp_per_gt_area": {
+                "sum": 18949.653188815373,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.37647818947064354
+              },
+              "fn_per_gt_area": {
+                "sum": 14692.649594293347,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.2919030793160358
+              },
+              "delta_mask_iou": {
+                "sum": 133.92377235124567,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.002660701957945835
+              },
+              "delta_target_coverage": {
+                "sum": -547.332576817362,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.010874013128647872
+              },
+              "delta_prediction_purity": {
+                "sum": 609.542099877718,
+                "valid_count": 50330,
+                "missing_count": 4,
+                "mean": 0.012110909991609735
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -1398.7828679133904,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": -0.02779002002450412
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 547.3325768173619,
+                "valid_count": 50334,
+                "missing_count": 0,
+                "mean": 0.01087401312864787
+              }
+            }
+          }
+        },
+        "image_macro": {
+          "all_fixed_pairs": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 99660351.00745702,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 20149.686819138096
+              },
+              "fp": {
+                "sum": 11271086.94792171,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 2278.828739976084
+              },
+              "fn": {
+                "sum": 20379319.532310214,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 4120.363835889651
+              },
+              "gt_pixel_area": {
+                "sum": 120039670.5397676,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 24270.05065502782
+              },
+              "prediction_pixel_area": {
+                "sum": 110931437.95537877,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 22428.51555911419
+              },
+              "mask_iou": {
+                "sum": 3618.81269293606,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.7316645153530247
+              },
+              "target_coverage": {
+                "sum": 4142.0874950649295,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8374620895804548
+              },
+              "prediction_purity": {
+                "sum": 4179.423759279654,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.8450108692437636
+              },
+              "fp_per_gt_area": {
+                "sum": 961.0007513213909,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.19429857487290556
+              },
+              "fn_per_gt_area": {
+                "sum": 803.9125049350638,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.16253791041954382
+              },
+              "delta_mask_iou": {
+                "sum": 8.140897865476536,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.001645955896780537
+              },
+              "delta_target_coverage": {
+                "sum": -48.63600869073164,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.009833402484984157
+              },
+              "delta_prediction_purity": {
+                "sum": 53.100340659977896,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.010736017116857642
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -94.06995855097195,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": -0.019019401243625545
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 48.63600869073163,
+                "valid_count": 4946,
+                "missing_count": 54,
+                "mean": 0.009833402484984155
+              }
+            }
+          },
+          "baseline_success": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 116981784.61316499,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 24055.47699221982
+              },
+              "fp": {
+                "sum": 5995359.954592067,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1232.8521395418604
+              },
+              "fn": {
+                "sum": 6995036.665257687,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 1438.4200422080376
+              },
+              "gt_pixel_area": {
+                "sum": 123976821.27842268,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25493.89703442786
+              },
+              "prediction_pixel_area": {
+                "sum": 122977144.567757,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 25288.329131761668
+              },
+              "mask_iou": {
+                "sum": 4223.378314347402,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.8684717899130994
+              },
+              "target_coverage": {
+                "sum": 4527.766303369159,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.9310644259447171
+              },
+              "prediction_purity": {
+                "sum": 4520.538106361522,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.929578060119581
+              },
+              "fp_per_gt_area": {
+                "sum": 362.6513194499567,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.074573579981484
+              },
+              "fn_per_gt_area": {
+                "sum": 335.2336966308407,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.06893557405528289
+              },
+              "delta_mask_iou": {
+                "sum": 4.458034148337993,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.0009167250973345657
+              },
+              "delta_target_coverage": {
+                "sum": -48.43256694492466,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.00995940097571965
+              },
+              "delta_prediction_purity": {
+                "sum": 51.53577845241703,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.010597527956491265
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -65.12742935015402,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": -0.013392438690140658
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 48.43256694492466,
+                "valid_count": 4863,
+                "missing_count": 137,
+                "mean": 0.00995940097571965
+              }
+            }
+          },
+          "baseline_failure": {
+            "row_count": 5000,
+            "fields": {
+              "tp": {
+                "sum": 42155495.499490194,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 10795.261331495569
+              },
+              "fp": {
+                "sum": 14367179.617443953,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 3679.1753181674653
+              },
+              "fn": {
+                "sum": 30622661.144670155,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 7841.9106644481835
+              },
+              "gt_pixel_area": {
+                "sum": 72778156.64416052,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 18637.171995943798
+              },
+              "prediction_pixel_area": {
+                "sum": 56522675.116934255,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 14474.436649663061
+              },
+              "mask_iou": {
+                "sum": 2142.0310454472487,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.5485354789877718
+              },
+              "target_coverage": {
+                "sum": 2763.313731354473,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7076347583494169
+              },
+              "prediction_purity": {
+                "sum": 2891.766171022757,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.7405291090967367
+              },
+              "fp_per_gt_area": {
+                "sum": 1315.6232580425526,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.33690736441550645
+              },
+              "fn_per_gt_area": {
+                "sum": 1141.686268645531,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.29236524165058414
+              },
+              "delta_mask_iou": {
+                "sum": 8.615476401641915,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.0022062679645689924
+              },
+              "delta_target_coverage": {
+                "sum": -41.31303195780073,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.010579521628117984
+              },
+              "delta_prediction_purity": {
+                "sum": 45.38687347119363,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.01162275889147084
+              },
+              "delta_fp_per_gt_area": {
+                "sum": -101.25407050063592,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": -0.025929339436782564
+              },
+              "delta_fn_per_gt_area": {
+                "sum": 41.31303195780072,
+                "valid_count": 3905,
+                "missing_count": 1095,
+                "mean": 0.010579521628117981
+              }
+            }
+          }
+        }
+      }
+    },
+    "unique_associated_GT_count": 33644,
+    "zero_native_candidate_images": [
+      267946,
+      268996,
+      374727,
+      560371
+    ],
+    "empty_ordinal_sha256": {
+      "baseline": "94d378ba6d2de8f0e7883f1c14af8ca6c50089afc3d71a06b5de94fce0848f2e",
+      "RCMC_full": "94d378ba6d2de8f0e7883f1c14af8ca6c50089afc3d71a06b5de94fce0848f2e",
+      "global_minus025_full": "87a6b54ea9cbea5cdf034fa4461bd4e2b7bb74ebf0a7f1f6f7bbbafe506a6ad6",
+      "RCMC_first64": "94d378ba6d2de8f0e7883f1c14af8ca6c50089afc3d71a06b5de94fce0848f2e",
+      "global_minus025_first64": "7aa23c19642930f0ca99dccfd131306939bfbe1463fbd4126f4af74e083ebf56",
+      "multi_local_full": "94d378ba6d2de8f0e7883f1c14af8ca6c50089afc3d71a06b5de94fce0848f2e",
+      "multi_local_first64": "94d378ba6d2de8f0e7883f1c14af8ca6c50089afc3d71a06b5de94fce0848f2e"
+    }
+  },
+  "reconstructed_AP_AR": {
+    "ordinary_baseline": {
+      "AP": 0.43685372378950255,
+      "AP50": 0.6635370986867941,
+      "AP75": 0.47294843690396404,
+      "APsmall": 0.22401824607801366,
+      "APmedium": 0.4767020916129805,
+      "APlarge": 0.6357173377148859,
+      "AR1": 0.33956846003896707,
+      "AR10": 0.5542167692984568,
+      "AR100": 0.5981037560603596,
+      "ARsmall": 0.4143372897073416,
+      "ARmedium": 0.6554198750665258,
+      "ARlarge": 0.767272689774783
+    },
+    "boundary": {
+      "baseline": {
+        "AP": 0.29571367091917566,
+        "AP50": 0.6017557775763036,
+        "AP75": 0.2608313761826812,
+        "APsmall": 0.22379696575603428,
+        "APmedium": 0.4112648092609408,
+        "APlarge": 0.3201955112653306,
+        "AR1": 0.24535738628671488,
+        "AR10": 0.426976833665744,
+        "AR100": 0.46825295788466215,
+        "ARsmall": 0.4137257174641053,
+        "ARmedium": 0.5865200065739244,
+        "ARlarge": 0.44123242149276437
+      },
+      "RCMC_full": {
+        "AP": 0.2998455476427505,
+        "AP50": 0.6035359065701887,
+        "AP75": 0.2683878266409876,
+        "APsmall": 0.23010110840922723,
+        "APmedium": 0.4153663869375021,
+        "APlarge": 0.3204484294403816,
+        "AR1": 0.2481133391473075,
+        "AR10": 0.4324087859200453,
+        "AR100": 0.4744968855282665,
+        "ARsmall": 0.42430455207005235,
+        "ARmedium": 0.5889978068251055,
+        "ARlarge": 0.44148914698149105
+      },
+      "global_minus025_full": {
+        "AP": 0.29897244506753895,
+        "AP50": 0.6000809206375456,
+        "AP75": 0.26754513836028393,
+        "APsmall": 0.22606075722563673,
+        "APmedium": 0.41583369620452454,
+        "APlarge": 0.3233376484246022,
+        "AR1": 0.24818822838518048,
+        "AR10": 0.43133306969898777,
+        "AR100": 0.4725145214687413,
+        "ARsmall": 0.42056763147077747,
+        "ARmedium": 0.5896210144819575,
+        "ARlarge": 0.4425331753884325
+      },
+      "RCMC_first64": {
+        "AP": 0.2998269305272589,
+        "AP50": 0.6035838866826521,
+        "AP75": 0.26818900866151646,
+        "APsmall": 0.23015772658520706,
+        "APmedium": 0.41534315351675105,
+        "APlarge": 0.32044985517613994,
+        "AR1": 0.24809616469530912,
+        "AR10": 0.4324813638421388,
+        "AR100": 0.4743174851714451,
+        "ARsmall": 0.42477419059747007,
+        "ARmedium": 0.5891584648067625,
+        "ARlarge": 0.44150716821914826
+      },
+      "global_minus025_first64": {
+        "AP": 0.2989513747485399,
+        "AP50": 0.600084884500915,
+        "AP75": 0.2674809342755973,
+        "APsmall": 0.2260193034330271,
+        "APmedium": 0.4158619394742045,
+        "APlarge": 0.32336836830839494,
+        "AR1": 0.24813953300816066,
+        "AR10": 0.4312046685023305,
+        "AR100": 0.47222068598544864,
+        "ARsmall": 0.4193455926472039,
+        "ARmedium": 0.5903127864351763,
+        "ARlarge": 0.4431092169863067
+      },
+      "multi_local_full": {
+        "AP": 0.29931268186076004,
+        "AP50": 0.6033506923686079,
+        "AP75": 0.26729444744085995,
+        "APsmall": 0.2301258789585619,
+        "APmedium": 0.4150392775353124,
+        "APlarge": 0.3197219952287871,
+        "AR1": 0.24812605968164747,
+        "AR10": 0.43275981617713233,
+        "AR100": 0.4750265915919006,
+        "ARsmall": 0.4252315236604051,
+        "ARmedium": 0.5900753514068667,
+        "ARlarge": 0.4411447323995111
+      },
+      "multi_local_first64": {
+        "AP": 0.29928265500029066,
+        "AP50": 0.6033309655990607,
+        "AP75": 0.26715323647411254,
+        "APsmall": 0.2301861965899913,
+        "APmedium": 0.41501198742821155,
+        "APlarge": 0.3197217316312651,
+        "AR1": 0.2480849458008305,
+        "AR10": 0.43297832717365053,
+        "AR100": 0.47482141480926815,
+        "ARsmall": 0.4252218749904682,
+        "ARmedium": 0.5904115464312294,
+        "ARlarge": 0.4412865910713499
+      }
+    },
+    "category_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      27,
+      28,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      67,
+      70,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90
+    ],
+    "vendor_source_hashes": {
+      "boundary_iou/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "boundary_iou/coco_instance_api/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "boundary_iou/coco_instance_api/coco.py": "2fcbf65890836179db481312bb14a31cef808462e2d742f139a8970ee48255a2",
+      "boundary_iou/coco_instance_api/cocoeval.py": "18ac1a7dc3c8c038e3ddfd3675ee02ff88a69ed2045c0e2d23bd9738f1818724",
+      "boundary_iou/utils/__init__.py": "6cbde9611ad3b83a8f8dcdb00d7a3e80c43a3190ee3e6535f98c2c19dabf4507",
+      "boundary_iou/utils/boundary_utils.py": "f67cf8e160523c179f056cd0a6fdf8e2d13c04e12e6d31245d750725cc466d33"
+    },
+    "actual_upstream_revision": null,
+    "dilation_ratio": 0.02
+  },
+  "GPU_or_model_execution": false,
+  "GT_rematched": false,
+  "torch_imported": false,
+  "pycocotools_imported": false,
+  "scope": "Independent saved-record formulas, native/raw/category ordinal bridges, fixed final8 associations, field-wise candidate/image means, counts, labels, and 12 standard accumulated-array summaries per evaluation",
+  "limitations": [
+    "GT/prediction masks are not decoded or independently recounted; saved TP/FP/FN closure and ratios are checked",
+    "COCO matching and boundary-mask construction are not replayed; AP/AR are reconstructed from sealed accumulated arrays",
+    "Candidate streams omit bbox/score; their exact identity is inherited from the completed original Score audit",
+    "Undefined pixel-IoU outcome convention is checked against sealed Score paired rows, not reconstructed from masks",
+    "No new model forward, training, raw-pool geometry, TAL, AUC, exact-n, confidence interval, or causal proof"
+  ],
+  "seconds": 198.68270550004672,
+  "completed_at": "2026-10-08T19:59:25.588489+00:00"
+}

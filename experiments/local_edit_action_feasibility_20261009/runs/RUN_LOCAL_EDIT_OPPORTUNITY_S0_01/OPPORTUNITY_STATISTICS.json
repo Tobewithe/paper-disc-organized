@@ -1,0 +1,89 @@
+{
+  "bootstrap_samples": 5000,
+  "bootstrap_seed": 20261009,
+  "bootstrap_unit": "paired supplied image clusters; ratio of candidate sums; no-match images retained",
+  "images": 512,
+  "images_with_labelable_candidates": 505,
+  "labelable_matched_candidates": 9449,
+  "baseline_success_count": 4038,
+  "baseline_failure_count": 5411,
+  "local_marginal_mask_iou": {
+    "value": 0.0010857884819855746,
+    "ci95": [
+      0.000985576878612924,
+      0.001193404021437225
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "equal_direction_vs_old_mask_iou": {
+    "value": 0.009753663174216134,
+    "ci95": [
+      0.008419878834352591,
+      0.011427719465538274
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "old_oracle_mean_mask_iou": {
+    "value": 0.6901192733851143,
+    "ci95": [
+      0.6783613350338057,
+      0.7011631339142445
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "equal_oracle_mean_mask_iou": {
+    "value": 0.6998729365593309,
+    "ci95": [
+      0.6886274972498526,
+      0.7105186096158845
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "local_oracle_mean_mask_iou": {
+    "value": 0.7009587250413166,
+    "ci95": [
+      0.6897697925944116,
+      0.7115555575668652
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "old_oracle_repair_rate": {
+    "value": 0.08242469044538903,
+    "ci95": [
+      0.07126867326439339,
+      0.09422273444984687
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "equal_oracle_repair_rate": {
+    "value": 0.10201441508039179,
+    "ci95": [
+      0.08993205674495947,
+      0.11451954070992229
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "local_oracle_repair_rate": {
+    "value": 0.10589539826279801,
+    "ci95": [
+      0.0937550470018221,
+      0.11851868919610856
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "local_additional_repair_rate": {
+    "value": 0.0038809831824062097,
+    "ci95": [
+      0.0024113938530699276,
+      0.005533735498975366
+    ],
+    "valid_bootstrap_draws": 5000
+  },
+  "investment_gate": {
+    "decision": "stop_current_configuration",
+    "threshold": 0.002,
+    "metric": "best(G_eq+L)-best(G_eq), matched candidate mean",
+    "rule": "lower95CI>=.002 invest; upper95CI<.002 stop; otherwise insufficient",
+    "meaning": "artificial finite-action route investment gate; not AP prediction, deployment evidence, or method upper bound"
+  }
+}

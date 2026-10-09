@@ -1,0 +1,68 @@
+# 执行与审查记录
+
+## 2026-10-09 B：AP累积核心工程与消费边界
+
+RUN_NATIVE_TARGET_AP_ENGINEERING_DESKTOP_CPU_S0_01实际于05:44:31.830完成，runner为completed/exit0；约05:47:25是向笔记本传递工程包的时间。B只读审查34份唯一文件的大小、SHA及输入/源码/产物封口绑定；7个合成draw与真实首四图的3个draw均实际执行官方独立image/GT/DT副本匹配。保存的AP和完整precision/recall数组最大差为0，B从缓存独立重聚合10个draw的AP与官方保存结果最大差1.11e-16。覆盖重复抽图、抽样顺序、同分稳定排序、同类105候选的max100截断、空mask/零检测、GT-only/DT-only图、多类及crowd ignore。接受reaccumulate/category_precision核心的一致性；这不是正式I/H三臂共享排序接线、5k×1000次区间、拟合或部署的实际验收。B未重跑COCOeval或GPU模型。
+
+该AP工程还执行了消费保护测试：failed/cancelled/running使用构造状态字典调用真实guard，并非实际中断子进程；同尺寸NPZ由zeros改ones确被SHA拒绝。正常run_target_pipeline拒绝旧子目录并要求runner completed/exit0/artifact complete，未发现当前链误吃partial的具体路径。单独调用fit_target或infer_targets仅查内部COMPLETE/SUMMARY、不查上游run.json，故不能将当前pipeline保护推广到未来绕过它的手动续接。正式20k产物尚未回传验收。
+
+RUN_NATIVE_TARGET_LIFECYCLE_ENGINEERING_S0_01目前仅有LAUNCH_RECEIPT及源码，回执记录启动返回但未观察到runner，未见run.json、STARTED或SUMMARY；原因未知，不能称该Run完整通过，也不能把AP工程的测试归到该目录。保留原始记录。
+
+固定引用：AP工程SUMMARY SHA256为1a94ebf5795cf65c6542031b3d3123db78b77219e9cb9361a16246cc6842c75f，COMPLETE为96340e22a045331bd6e8f7444be06e922df3d2e879cbe7a547eeb44a3590134a，SOURCE_LOCK为91a2f84943d372f612519f540af38327a14d8c383c1af317b74d91e07530f19d；状态/NPZ保护回执ENGINEERING_CONTRACT_GUARDS为994404f6d37b94d63395827e46b3ad5315ecd7848c7e13fd86de8eac43054bb5。
+
+正式CI验收另固定补核验replicate 0、1、499、999：对同一draw逐臂调用已验reaccumulate，让每臂自行展开图片副本及排序，再与生产paired_aps、保存的三臂AP及H−I逐项比较，容差沿用1e-14。现有verify对这四组重放仍调用生产paired_aps；cache_contract及完整原序列的逐臂检查虽已约束共享排序输入，却不能替代这层独立接线核验。当前仅确定验证办法，尚未执行；不修改冻结生产源码，不改变抽样或筛选结果，不冒称独立重算全部1000次。
+
+## 2026-10-09 B：有限生命周期路线停止，科学链保持
+
+只读接收RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01封存包：17个源文件、15844字节与包内/外清单及runner绑定全部一致。05/06均真实failed/exit1/artifact_complete，分别在05:51:46与05:54:29结束；均写出STARTED及5秒后SUMMARY，但in_job=true、passed=false，未满足预定脱Job门槛。06的冻结启动器确含CreateFlags=16777216，结果仍失败。核验源码仅查询Windows Job、等待及写文件，未操作模型、GT或GPU。collection的passed=true只表示失败凭据成功封包，原transfer_complete=false保留，本次独立核实本地已收到相同字节。
+
+这些测试没有提供实际断SSH后存活的证据，也不能由in_job=true反推所有断连都必然杀掉任务。A报告原20k→两fit→5k链仍由其foreground SSH session30622承载；B接受停止此有限启动路线，保持现有科学链，不建立新的恢复controller。当前不能承诺关闭桌面或断开SSH后续跑；这是执行环境限制，不是训练或质量失败，不改变研究方向。
+
+失败ZIP SHA256为fcd69d560f9545ebebe88fe2bafab03cbc04dcf4ce023af6ff0dd9109ac6a204，BUNDLE_MANIFEST为cd4d319e6330ca56bea2de8257f2f26debc681e63f39773f44b038c95f0a0763；包内05 run.json为454245cbfd2baeb140bf1be31c0f7ca13acc8063e3baa4d3718a4099cc61a898，06 run.json为1a7af4e9c40203cac038c9937000b905ebc94b5b6ffc2ab7d02f39f2ffc39648。
+
+## 2026-10-09 B：新20k三臂成本实现审查
+
+成本协议与实现源码审查未发现实质错接：baseline不加载gate，I/H各走自身一次smooth、五维特征与新模型预测；预载RGB至全部CPU binary的端点包含预处理、YOLO和自身方法，RLE及写盘在外。原前32图、三臂三重复共288条，由9个fresh进程按三轮平衡顺序执行，各4图warmup；正式5k终态、模型/输入绑定及逐候选输出一致性均有检查。统计保留同图同repeat的有符号增量，CPU峰值覆盖进程全程，GPU峰值含常驻模型及热allocator。资源检查为启动时快照，串行和无重任务并发仍由A实际安排；verifier核验保存数据而非重测墙钟。
+
+接受范围仅为源码与COST_PROTOCOL一致，正式成本尚未执行和验收。COST_PROTOCOL SHA256为f3c22f25334316c429027df81e6250fe874dc44daf9a08f7ab8da365b71c11f1，benchmark_target_cost.py为0fca24abdec1591a9d7b2aa49bfb794108fa3c8bef1956ea82afcb79b2045345，verify_target_cost.py为e9b0d8bf58a5a7f211aec05e230467319e7aaea0a18082fc79295a64a43aafac。
+
+## 2026-10-09 B：完整20k、两fit及5k生产产物验收
+
+此前仅回传元数据的阶段已结束。B实查10个producer Run的15499件原文件、2495182765字节及原归档/manifest/终态，均为completed/0/complete且回传完整；含旧02对照等按路径去重共20534件、4074681589字节，零散列差异。正式5k实际于07:40:47.492—08:16:52.587执行。没有重新读取远端原权重、训练GT、train20k清单、全部JPEG或远端vendor树，也未重新运行模型或GT匹配；这些仍沿原生产来源记录的证据范围。
+
+独立读取200个正式parts并重聚合：完整20000图、909964个supported行，235427监督行来自19817图，674537未知行两目标均保持NaN；全部身份/顺序与原生账一致。以保存整数TP/union重算y_I、含向下跨越的y_H及ticks均零差异；H有30308负标签、共扣42567 ticks。共同X、监督行顺序、单位weight及目标字节摘要与两fit一致，21项完整参数相同，两numeric模型各100棵树、每树7叶、最大深度6，仅监督目标不同。portable的全235427训练行abs0/sign0为冻结fit代码与生产回执绑定的证据；本次未反序列化joblib或重新预测。缓存v2未进入本轮fit/infer，不据此声称本轮重新拟合或提速。
+
+空trial字段须按真实范围解释：newly_empty_fallback_rows=1197含92个baseline原空，真正新空为1105；监督fallback546含41个原空，真正新空监督行为505。全部已监督fallback两目标为0，未知仍NaN；仅修正解释，不改封存字段或标签。
+
+B逐图核对5000张baseline全部身份/顺序/RLE与旧02相同，并流式核对555445个native行及228974个supported行的五特征、smooth参数、nonempty和support。4个零候选图在三臂保留，215次空trial均回退；逐图回执重聚合I/H分别应用180324/181331次、不同决策6309。6249个不同二值输出为生产回执值，本次未独立重算该项。此处支持受控目标替换确实改变策略；完整AP、误伤/像素/Boundary与1000次区间尚未验收，不能据此判定H更好或存在方法创新。
+
+固定摘要：EXTRACT SUMMARY=835636a5e9138d323fcdf1f0a835a4e74acc2dd572f1a22d8c4b39db57f33d19；FIT I SUMMARY=09b5ade79cf499807cd89a34496eb56c8fd98717ddee7f1c61d3dbf0a514d82d；FIT H SUMMARY=198d5537cc1b0a8caee30d82f5fe9cc89e8519707446e8d4087c80070fc21210；INFERENCE SUMMARY=87f013343e0758480d1d9debe1a11587f078ac1bf6ef45d2cd4d9dc146674695；BASELINE_PARITY=a75d9033b5944f9e083ba5fd2500d294a6435847f1cd9510bbd8514b0d06ba04；PRODUCTION_RETURN_VERIFY SUMMARY=2a8ab53575f4b3ce87281ac257e59e7bb66f96b0bb849881612318f9dfd84219。
+
+## 2026-10-09 B：接受新20k三臂独立成本
+
+两原cost Run均completed/0/complete，47+365件payload及两份manifest共414件源文件实查一致。正式PANEL为原32图×3重复×3臂，共288条/9个fresh进程，顺序B/I/H、I/H/B、H/B/I，每进程4图warmup；ENGINEERING的4图仅作工程检查。B独立重聚合288条时延、子进程顺序和34317条固定候选身份；保存mask的完整RLE重构由已绑定v2 checker执行，本次B未重测时钟或重新运行模型。
+
+| 臂 | 每图均值ms | 每图中位数ms | 配对增量均值ms | 负增量数 |
+|---|---:|---:|---:|---:|
+| baseline | 63.40517 | 61.88155 | 0 | — |
+| target_I | 81.33645 | 80.68085 | 17.93128 | 8/96 |
+| target_H | 80.93439 | 81.09345 | 17.52922 | 9/96 |
+
+有符号差值保留；96次观测仍来自32图，协议无成本CI，不能由约0.4ms均值差宣称H更快。端点沿原COST_PROTOCOL，CPU为fresh进程lifetime峰值，CUDA含常驻模型及热allocator；单次资源快照与child计数不证明全时段无其他负载或系统级峰值。benchmark及旧checker原字节保持；v2实际还加强来源、冻结模型与回传完整性，不仅是memory/childscope，但未变为重新测量。PANEL SUMMARY SHA256=7369d02d4e11aa47b65c638f7a5eeb250cd7668bbfb5e63ad561e1594cfceeb6，独立VERIFICATION=f1eddab56f2606f9c8f47d21365f8ec4c3fb8451e7a740dc0d9f568309635a7a，v2 checker=5abfb6fadb99989e6f81c493bb08b7c6f125c54cab2528a17e37a8ab4b144161。
+
+## 2026-10-09 B：评分路径修复的有限验收
+
+旧supervisor01/PID9412已由A观察为不存在，退出原因和返回码未知，旧running记录保持。supervisor02及首个正式scoring01随后真实failed/exit1/artifactmissing；B核对15+7件清单文件，错误在fixed_source入口解析错误paired/INSTANCES路径，未产metrics或CI。新plan仅改为原paired_triflow_vs_baseline位置，driver仅更换三个未成功子Run编号，launcher仅换新driver；四冻结评分核心和所有旧版本不变。新预检真实completed/0/complete并调用原fixed_source gate通过86600/36266/50334；20092项存在性检查对应20086个唯一路径，其中16个做摘要前后锁，并非重新散列全部文件。三份历史源文件本地字节与预检锁一致，预检SUMMARY=f3bbc8e17e126c35ddf7968d6fbeabd47d25f9560586e9dd5bd77e30ad637bdd。B接受位置修正与预检；supervisor03启动目前按A回报，正式评分/区间及此前固定四draw逐臂核验仍待实际完整产物，不把恢复或工程通过当质量通过。
+
+
+## 2026-10-09 B：正式评分、区间及独立四draw验收，结束当前H替换配置
+
+Supervisor03、Scoring02、Bootstrap02、Verify02已于09:45前后全部实际completed/exit0/artifact complete，约09:46完整回传。B于12时发现并正式审查；此前等待完成消息漏接了已回传产物，不能把此前未读到结果写成实际未完成。全部82件原manifest文件、88920952字节实查一致；加控制与来源共145个去重文件、113321765字节，零散列错误。12快照、4输入、11个runner产物及23项显式尺寸匹配，score→bootstrap→verify→supervisor封口闭合。40259条来源引用对应20130个唯一路径，前后与跨锁一致；大批生产/旧baseline字节复用前次验收，本次没有重读远端权重、JPEG或4个pycocotools原安装文件，GT沿此前同SHA本地字节与预检证据。
+
+B从FIXED_PAIRS保存的整数像素账独立重建逐图17字段，与PAIRED_IMAGE_SUMS完全一致；candidate/image macro摘要最大舍入差2.22e-15。独立重算全部68个保存replicate区间，差异为0、每项1000次有效；按保存draw重聚合三臂损伤/修复1000次完全一致。这一检查不重新匹配GT，也不是独立重算全部1000次AP。有效分母、原固定重复GT关联和Boundary无CI等解释沿[正式报告](REPORT.md)。
+
+独立Run RUN_NATIVE_TARGET_INDEPENDENT_AP4_VERIFY_DESKTOP_CPU_S0_01 于12:02:18.963—12:02:23.002实际completed/exit0/artifact complete。原已审查脚本未改，固定replicate 0/1/499/999，每臂各自展开重复图片副本并稳定排序，12次reaccumulate与保存AP/H−I及生产共享排序重放比较，最大绝对差2.7755575615628914e-16，低于原AP fraction容差1e-14。100份输入及8份输出封口通过；无GPU、模型或新GT匹配。接受正式三臂接线与已保存1000次区间在此核验范围内，不冒称四draw覆盖每次AP实现或训练seed变异。
+
+按原判据结束本有限配置，不以H替代I进入扩大确认：H−I为+0.0004351784 AP点，95%区间[-0.0144975556,+0.0158306372]跨0；原成功队列损伤率差+0.0992665306个百分点，区间[+0.0580341715,+0.1431455291]。H多修复27、也多损伤36，不能将净计数替代AP。保存decision=AP_damage_tradeoff源于代码先看AP正点差与损伤增加，再判区间；原字段保留，科学结论写为“额外AP优势未证实且损伤增加”。这不是证实AP提升的权衡，更不是两方法等效证明或所有目标学习方法的能力上限。停止这次固定动作/五特征/容量/训练配置，不补阈值、seed、动作或重评分追显著。
+
+固定摘要：正式Scoring SUMMARY=160213a960bbe1a842e5a18962c2e54e3690e9fc56b32764ea30ec19f52617b8；Bootstrap SUMMARY=924f5b8af1bb782b9a3171244e5fda4853f8541427b9a5d9b06c8077be9ecf8c；原VERIFICATION=28b0956677c065deec52e2a42985d0523a4dde5d6e8b2d7334e99e43db9e5272；独立AP4 SUMMARY=c164e7568c0998b887a5fa203b022ec34bfcf8897407c3f286910f96108070f9、VERIFICATION=ff9cb515f1e7046f35b0e315e0d8f030639ab6d051c8e9276cee30411a1fb4a2、COMPLETE=3e6a7030f53bfff80b3319b1818a9b8938676f41f371a9a6818ea8f62b0ef3c2、SOURCE_LOCK=706b0fab5ec7360ea9c3a91cdce7073f506d4c437fd16d79477021a5d11c0391。

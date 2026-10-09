@@ -1,0 +1,1091 @@
+{
+  "review_id": "REVIEW_ACD_PROTO_TAIL_TRAINING_20261006",
+  "reviewed_at_utc": "2026-10-06T14:52:03.701376+00:00",
+  "status": "PASS_TRAINING_INTEGRITY",
+  "experiment_root": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006",
+  "scope": "Read-only review of the two completed formal training Runs. This derived report references original audits and does not replace them or assess final AP.",
+  "original_run_files_modified": false,
+  "remote_connection_or_execution_performed": false,
+  "arms": {
+    "baseline": {
+      "run_id": "RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0",
+      "run_path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0",
+      "completion_status": "complete",
+      "epochs": 3,
+      "seed": 0,
+      "batch": 2,
+      "train_images": 796,
+      "validation_images": 196,
+      "runtime_ultralytics": "8.4.100",
+      "official_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "trainable_parameter_count": 2306240,
+      "trainable_parameter_groups": {
+        "one2many": {
+          "prefixes": [
+            "model.23.cv4."
+          ],
+          "names": [
+            "model.23.cv4.0.0.conv.weight",
+            "model.23.cv4.0.1.conv.weight",
+            "model.23.cv4.0.2.bias",
+            "model.23.cv4.0.2.weight",
+            "model.23.cv4.1.0.conv.weight",
+            "model.23.cv4.1.1.conv.weight",
+            "model.23.cv4.1.2.bias",
+            "model.23.cv4.1.2.weight",
+            "model.23.cv4.2.0.conv.weight",
+            "model.23.cv4.2.1.conv.weight",
+            "model.23.cv4.2.2.bias",
+            "model.23.cv4.2.2.weight"
+          ],
+          "parameter_count": 854112
+        },
+        "one2one": {
+          "prefixes": [
+            "model.23.one2one_cv4."
+          ],
+          "names": [
+            "model.23.one2one_cv4.0.0.conv.weight",
+            "model.23.one2one_cv4.0.1.conv.weight",
+            "model.23.one2one_cv4.0.2.bias",
+            "model.23.one2one_cv4.0.2.weight",
+            "model.23.one2one_cv4.1.0.conv.weight",
+            "model.23.one2one_cv4.1.1.conv.weight",
+            "model.23.one2one_cv4.1.2.bias",
+            "model.23.one2one_cv4.1.2.weight",
+            "model.23.one2one_cv4.2.0.conv.weight",
+            "model.23.one2one_cv4.2.1.conv.weight",
+            "model.23.one2one_cv4.2.2.bias",
+            "model.23.one2one_cv4.2.2.weight"
+          ],
+          "parameter_count": 854112
+        },
+        "proto_tail": {
+          "prefixes": [
+            "model.23.proto.cv2.",
+            "model.23.proto.cv3."
+          ],
+          "names": [
+            "model.23.proto.cv2.conv.weight",
+            "model.23.proto.cv3.conv.weight"
+          ],
+          "parameter_count": 598016
+        }
+      },
+      "all_batchnorm_eval": true,
+      "all_batchnorm_affine_frozen": true,
+      "frozen_state": {
+        "tensor_count": 878,
+        "initial_sha256": "72244ee9b2d7de8884e4832271ef7f73e747053c60e4f6878d0b25c150489d8b",
+        "final_live_sha256": "72244ee9b2d7de8884e4832271ef7f73e747053c60e4f6878d0b25c150489d8b",
+        "final_ema_sha256": "72244ee9b2d7de8884e4832271ef7f73e747053c60e4f6878d0b25c150489d8b",
+        "full_tensor_hash_maps_exact_equal": true
+      },
+      "audit_passed": true,
+      "audit_failures": [],
+      "finite_training_loss": true,
+      "live_state_finite": true,
+      "ema_state_finite": true,
+      "parameter_updates": {
+        "one2many": {
+          "changed_parameters": [
+            "model.23.cv4.0.0.conv.weight",
+            "model.23.cv4.0.1.conv.weight",
+            "model.23.cv4.0.2.bias",
+            "model.23.cv4.0.2.weight",
+            "model.23.cv4.1.0.conv.weight",
+            "model.23.cv4.1.1.conv.weight",
+            "model.23.cv4.1.2.bias",
+            "model.23.cv4.1.2.weight",
+            "model.23.cv4.2.0.conv.weight",
+            "model.23.cv4.2.1.conv.weight",
+            "model.23.cv4.2.2.bias",
+            "model.23.cv4.2.2.weight"
+          ],
+          "changed_parameter_count": 12,
+          "max_absolute_delta": 0.04886597394943237,
+          "prefix_updates": {
+            "model.23.cv4.": {
+              "changed_parameters": [
+                "model.23.cv4.0.0.conv.weight",
+                "model.23.cv4.0.1.conv.weight",
+                "model.23.cv4.0.2.bias",
+                "model.23.cv4.0.2.weight",
+                "model.23.cv4.1.0.conv.weight",
+                "model.23.cv4.1.1.conv.weight",
+                "model.23.cv4.1.2.bias",
+                "model.23.cv4.1.2.weight",
+                "model.23.cv4.2.0.conv.weight",
+                "model.23.cv4.2.1.conv.weight",
+                "model.23.cv4.2.2.bias",
+                "model.23.cv4.2.2.weight"
+              ],
+              "changed_parameter_count": 12
+            }
+          },
+          "gradients": {
+            "optimizer_steps_checked": 69,
+            "attempted_steps": 69,
+            "applied_steps": 66,
+            "skipped_overflow_steps": 3,
+            "nonzero_steps": 66,
+            "all_finite": true,
+            "observed_all_gradients_finite": true,
+            "observed_all_scaled_gradients_finite": true,
+            "observed_nonfinite_gradient_steps": 0,
+            "observed_nonfinite_scaled_gradient_steps": 0,
+            "observed_nonfinite_skipped_overflow_steps": 0,
+            "all_observed_nonfinite_steps_skipped": true,
+            "all_applied_gradients_finite": true,
+            "applied_zero_gradient_steps": 0,
+            "maximum_absolute_gradient": 0.5465627908706665
+          }
+        },
+        "one2one": {
+          "changed_parameters": [
+            "model.23.one2one_cv4.0.0.conv.weight",
+            "model.23.one2one_cv4.0.1.conv.weight",
+            "model.23.one2one_cv4.0.2.bias",
+            "model.23.one2one_cv4.0.2.weight",
+            "model.23.one2one_cv4.1.0.conv.weight",
+            "model.23.one2one_cv4.1.1.conv.weight",
+            "model.23.one2one_cv4.1.2.bias",
+            "model.23.one2one_cv4.1.2.weight",
+            "model.23.one2one_cv4.2.0.conv.weight",
+            "model.23.one2one_cv4.2.1.conv.weight",
+            "model.23.one2one_cv4.2.2.bias",
+            "model.23.one2one_cv4.2.2.weight"
+          ],
+          "changed_parameter_count": 12,
+          "max_absolute_delta": 0.017944544553756714,
+          "prefix_updates": {
+            "model.23.one2one_cv4.": {
+              "changed_parameters": [
+                "model.23.one2one_cv4.0.0.conv.weight",
+                "model.23.one2one_cv4.0.1.conv.weight",
+                "model.23.one2one_cv4.0.2.bias",
+                "model.23.one2one_cv4.0.2.weight",
+                "model.23.one2one_cv4.1.0.conv.weight",
+                "model.23.one2one_cv4.1.1.conv.weight",
+                "model.23.one2one_cv4.1.2.bias",
+                "model.23.one2one_cv4.1.2.weight",
+                "model.23.one2one_cv4.2.0.conv.weight",
+                "model.23.one2one_cv4.2.1.conv.weight",
+                "model.23.one2one_cv4.2.2.bias",
+                "model.23.one2one_cv4.2.2.weight"
+              ],
+              "changed_parameter_count": 12
+            }
+          },
+          "gradients": {
+            "optimizer_steps_checked": 69,
+            "attempted_steps": 69,
+            "applied_steps": 66,
+            "skipped_overflow_steps": 3,
+            "nonzero_steps": 66,
+            "all_finite": true,
+            "observed_all_gradients_finite": true,
+            "observed_all_scaled_gradients_finite": true,
+            "observed_nonfinite_gradient_steps": 0,
+            "observed_nonfinite_scaled_gradient_steps": 0,
+            "observed_nonfinite_skipped_overflow_steps": 0,
+            "all_observed_nonfinite_steps_skipped": true,
+            "all_applied_gradients_finite": true,
+            "applied_zero_gradient_steps": 0,
+            "maximum_absolute_gradient": 0.46798068284988403
+          }
+        },
+        "proto_tail": {
+          "changed_parameters": [
+            "model.23.proto.cv2.conv.weight",
+            "model.23.proto.cv3.conv.weight"
+          ],
+          "changed_parameter_count": 2,
+          "max_absolute_delta": 0.00935404747724533,
+          "prefix_updates": {
+            "model.23.proto.cv2.": {
+              "changed_parameters": [
+                "model.23.proto.cv2.conv.weight"
+              ],
+              "changed_parameter_count": 1
+            },
+            "model.23.proto.cv3.": {
+              "changed_parameters": [
+                "model.23.proto.cv3.conv.weight"
+              ],
+              "changed_parameter_count": 1
+            }
+          },
+          "gradients": {
+            "optimizer_steps_checked": 69,
+            "attempted_steps": 69,
+            "applied_steps": 66,
+            "skipped_overflow_steps": 3,
+            "nonzero_steps": 66,
+            "all_finite": true,
+            "observed_all_gradients_finite": false,
+            "observed_all_scaled_gradients_finite": false,
+            "observed_nonfinite_gradient_steps": 3,
+            "observed_nonfinite_scaled_gradient_steps": 3,
+            "observed_nonfinite_skipped_overflow_steps": 3,
+            "all_observed_nonfinite_steps_skipped": true,
+            "all_applied_gradients_finite": true,
+            "applied_zero_gradient_steps": 0,
+            "maximum_absolute_gradient": 1.5928853750228882
+          }
+        }
+      },
+      "optimizer_audit": {
+        "attempted_steps": 69,
+        "applied_steps": 66,
+        "skipped_overflow_steps": 3,
+        "observed_all_gradients_finite": false,
+        "observed_nonfinite_gradient_steps": 3,
+        "observed_nonfinite_skipped_overflow_steps": 3,
+        "all_observed_nonfinite_steps_skipped": true,
+        "all_applied_gradients_finite": true,
+        "unsafe_step_prevented_count": 0,
+        "unclassified_skipped_steps": 0,
+        "ema_updates": 69
+      },
+      "epoch_optimizer_counts": {
+        "1": {
+          "attempted": 44,
+          "applied": 41,
+          "amp_skipped": 3
+        },
+        "2": {
+          "attempted": 13,
+          "applied": 13,
+          "amp_skipped": 0
+        },
+        "3": {
+          "attempted": 12,
+          "applied": 12,
+          "amp_skipped": 0
+        }
+      },
+      "amp_skip_records": [
+        {
+          "epoch": 1,
+          "attempt": 4,
+          "input_batches_seen": 4,
+          "scale_before": 65536.0,
+          "scale_after": 32768.0,
+          "optimizer_invoked": false,
+          "optimizer_applied": false,
+          "skipped_overflow_step": true,
+          "ema_updates_before": 3,
+          "ema_updates_after": 4,
+          "exception": null,
+          "unscaled_nonfinite_parameters": {
+            "one2many": [],
+            "one2one": [],
+            "proto_tail": [
+              "model.23.proto.cv3.conv.weight"
+            ]
+          }
+        },
+        {
+          "epoch": 1,
+          "attempt": 9,
+          "input_batches_seen": 11,
+          "scale_before": 32768.0,
+          "scale_after": 16384.0,
+          "optimizer_invoked": false,
+          "optimizer_applied": false,
+          "skipped_overflow_step": true,
+          "ema_updates_before": 8,
+          "ema_updates_after": 9,
+          "exception": null,
+          "unscaled_nonfinite_parameters": {
+            "one2many": [],
+            "one2one": [],
+            "proto_tail": [
+              "model.23.proto.cv3.conv.weight"
+            ]
+          }
+        },
+        {
+          "epoch": 1,
+          "attempt": 26,
+          "input_batches_seen": 77,
+          "scale_before": 16384.0,
+          "scale_after": 8192.0,
+          "optimizer_invoked": false,
+          "optimizer_applied": false,
+          "skipped_overflow_step": true,
+          "ema_updates_before": 25,
+          "ema_updates_after": 26,
+          "exception": null,
+          "unscaled_nonfinite_parameters": {
+            "one2many": [],
+            "one2one": [],
+            "proto_tail": [
+              "model.23.proto.cv3.conv.weight"
+            ]
+          }
+        }
+      ],
+      "optimizer_log_entries": 69,
+      "all_actual_step_gradients_finite": true,
+      "all_attempts_accounted": true,
+      "optimizer_exceptions": [],
+      "input_stream": {
+        "rows": 1194,
+        "normalized_sha256": "3bc535d443234cfcc45d057ebbde7f6aac090d29c0ba34d76cbd07c2d324380b",
+        "matches_audit": true
+      },
+      "final_accumulation_tail": {
+        "last_optimizer_attempt": 69,
+        "last_optimizer_attempt_input_batches_seen": 1177,
+        "final_input_batches": 1194,
+        "batches_after_last_optimizer_attempt": 17,
+        "no_later_optimizer_attempt_in_complete_log": true,
+        "interpretation": "The final 17 processed batches have no subsequent optimizer step; they must not be counted as extra parameter updates."
+      },
+      "acd_stats": {
+        "one2many": {
+          "loss_calls": 0,
+          "candidate_count": 0,
+          "action_positive": 0,
+          "pixel_terms": 0,
+          "aux_sum": 0.0
+        },
+        "one2one": {
+          "loss_calls": 0,
+          "candidate_count": 0,
+          "action_positive": 0,
+          "pixel_terms": 0,
+          "aux_sum": 0.0
+        }
+      },
+      "optimizer_parameter_groups": [
+        {
+          "index": 0,
+          "parameter_group": "weight",
+          "use_muon": false,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.00027,
+          "names": []
+        },
+        {
+          "index": 1,
+          "parameter_group": "weight",
+          "use_muon": false,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.00027,
+          "names": []
+        },
+        {
+          "index": 2,
+          "parameter_group": "bn",
+          "use_muon": false,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.0,
+          "names": []
+        },
+        {
+          "index": 3,
+          "parameter_group": "bn",
+          "use_muon": false,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.0,
+          "names": []
+        },
+        {
+          "index": 4,
+          "parameter_group": "bias",
+          "use_muon": false,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.0,
+          "names": []
+        },
+        {
+          "index": 5,
+          "parameter_group": "bias",
+          "use_muon": false,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.0,
+          "names": [
+            "model.23.cv4.0.2.bias",
+            "model.23.cv4.1.2.bias",
+            "model.23.cv4.2.2.bias",
+            "model.23.one2one_cv4.0.2.bias",
+            "model.23.one2one_cv4.1.2.bias",
+            "model.23.one2one_cv4.2.2.bias"
+          ]
+        },
+        {
+          "index": 6,
+          "parameter_group": "muon",
+          "use_muon": true,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.00027,
+          "names": [
+            "model.23.proto.cv3.conv.weight"
+          ]
+        },
+        {
+          "index": 7,
+          "parameter_group": "muon",
+          "use_muon": true,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.00027,
+          "names": [
+            "model.23.cv4.0.0.conv.weight",
+            "model.23.cv4.0.1.conv.weight",
+            "model.23.cv4.0.2.weight",
+            "model.23.cv4.1.0.conv.weight",
+            "model.23.cv4.1.1.conv.weight",
+            "model.23.cv4.1.2.weight",
+            "model.23.cv4.2.0.conv.weight",
+            "model.23.cv4.2.1.conv.weight",
+            "model.23.cv4.2.2.weight",
+            "model.23.one2one_cv4.0.0.conv.weight",
+            "model.23.one2one_cv4.0.1.conv.weight",
+            "model.23.one2one_cv4.0.2.weight",
+            "model.23.one2one_cv4.1.0.conv.weight",
+            "model.23.one2one_cv4.1.1.conv.weight",
+            "model.23.one2one_cv4.1.2.weight",
+            "model.23.one2one_cv4.2.0.conv.weight",
+            "model.23.one2one_cv4.2.1.conv.weight",
+            "model.23.one2one_cv4.2.2.weight",
+            "model.23.proto.cv2.conv.weight"
+          ]
+        }
+      ],
+      "epoch_metric_jsonl_exists": false,
+      "epoch_metric_source": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\trainer\\results.csv",
+      "epoch_metric_rows": 3,
+      "prototype_gradient_policy": "official one2many proto path; one2one proto remains detached"
+    },
+    "acd": {
+      "run_id": "RUN_PROTO_TAIL_ACD_FEASIBILITY_S0",
+      "run_path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0",
+      "completion_status": "complete",
+      "epochs": 3,
+      "seed": 0,
+      "batch": 2,
+      "train_images": 796,
+      "validation_images": 196,
+      "runtime_ultralytics": "8.4.100",
+      "official_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "trainable_parameter_count": 2306240,
+      "trainable_parameter_groups": {
+        "one2many": {
+          "prefixes": [
+            "model.23.cv4."
+          ],
+          "names": [
+            "model.23.cv4.0.0.conv.weight",
+            "model.23.cv4.0.1.conv.weight",
+            "model.23.cv4.0.2.bias",
+            "model.23.cv4.0.2.weight",
+            "model.23.cv4.1.0.conv.weight",
+            "model.23.cv4.1.1.conv.weight",
+            "model.23.cv4.1.2.bias",
+            "model.23.cv4.1.2.weight",
+            "model.23.cv4.2.0.conv.weight",
+            "model.23.cv4.2.1.conv.weight",
+            "model.23.cv4.2.2.bias",
+            "model.23.cv4.2.2.weight"
+          ],
+          "parameter_count": 854112
+        },
+        "one2one": {
+          "prefixes": [
+            "model.23.one2one_cv4."
+          ],
+          "names": [
+            "model.23.one2one_cv4.0.0.conv.weight",
+            "model.23.one2one_cv4.0.1.conv.weight",
+            "model.23.one2one_cv4.0.2.bias",
+            "model.23.one2one_cv4.0.2.weight",
+            "model.23.one2one_cv4.1.0.conv.weight",
+            "model.23.one2one_cv4.1.1.conv.weight",
+            "model.23.one2one_cv4.1.2.bias",
+            "model.23.one2one_cv4.1.2.weight",
+            "model.23.one2one_cv4.2.0.conv.weight",
+            "model.23.one2one_cv4.2.1.conv.weight",
+            "model.23.one2one_cv4.2.2.bias",
+            "model.23.one2one_cv4.2.2.weight"
+          ],
+          "parameter_count": 854112
+        },
+        "proto_tail": {
+          "prefixes": [
+            "model.23.proto.cv2.",
+            "model.23.proto.cv3."
+          ],
+          "names": [
+            "model.23.proto.cv2.conv.weight",
+            "model.23.proto.cv3.conv.weight"
+          ],
+          "parameter_count": 598016
+        }
+      },
+      "all_batchnorm_eval": true,
+      "all_batchnorm_affine_frozen": true,
+      "frozen_state": {
+        "tensor_count": 878,
+        "initial_sha256": "72244ee9b2d7de8884e4832271ef7f73e747053c60e4f6878d0b25c150489d8b",
+        "final_live_sha256": "72244ee9b2d7de8884e4832271ef7f73e747053c60e4f6878d0b25c150489d8b",
+        "final_ema_sha256": "72244ee9b2d7de8884e4832271ef7f73e747053c60e4f6878d0b25c150489d8b",
+        "full_tensor_hash_maps_exact_equal": true
+      },
+      "audit_passed": true,
+      "audit_failures": [],
+      "finite_training_loss": true,
+      "live_state_finite": true,
+      "ema_state_finite": true,
+      "parameter_updates": {
+        "one2many": {
+          "changed_parameters": [
+            "model.23.cv4.0.0.conv.weight",
+            "model.23.cv4.0.1.conv.weight",
+            "model.23.cv4.0.2.bias",
+            "model.23.cv4.0.2.weight",
+            "model.23.cv4.1.0.conv.weight",
+            "model.23.cv4.1.1.conv.weight",
+            "model.23.cv4.1.2.bias",
+            "model.23.cv4.1.2.weight",
+            "model.23.cv4.2.0.conv.weight",
+            "model.23.cv4.2.1.conv.weight",
+            "model.23.cv4.2.2.bias",
+            "model.23.cv4.2.2.weight"
+          ],
+          "changed_parameter_count": 12,
+          "max_absolute_delta": 0.057471632957458496,
+          "prefix_updates": {
+            "model.23.cv4.": {
+              "changed_parameters": [
+                "model.23.cv4.0.0.conv.weight",
+                "model.23.cv4.0.1.conv.weight",
+                "model.23.cv4.0.2.bias",
+                "model.23.cv4.0.2.weight",
+                "model.23.cv4.1.0.conv.weight",
+                "model.23.cv4.1.1.conv.weight",
+                "model.23.cv4.1.2.bias",
+                "model.23.cv4.1.2.weight",
+                "model.23.cv4.2.0.conv.weight",
+                "model.23.cv4.2.1.conv.weight",
+                "model.23.cv4.2.2.bias",
+                "model.23.cv4.2.2.weight"
+              ],
+              "changed_parameter_count": 12
+            }
+          },
+          "gradients": {
+            "optimizer_steps_checked": 69,
+            "attempted_steps": 69,
+            "applied_steps": 66,
+            "skipped_overflow_steps": 3,
+            "nonzero_steps": 66,
+            "all_finite": true,
+            "observed_all_gradients_finite": true,
+            "observed_all_scaled_gradients_finite": true,
+            "observed_nonfinite_gradient_steps": 0,
+            "observed_nonfinite_scaled_gradient_steps": 0,
+            "observed_nonfinite_skipped_overflow_steps": 0,
+            "all_observed_nonfinite_steps_skipped": true,
+            "all_applied_gradients_finite": true,
+            "applied_zero_gradient_steps": 0,
+            "maximum_absolute_gradient": 0.5420260429382324
+          }
+        },
+        "one2one": {
+          "changed_parameters": [
+            "model.23.one2one_cv4.0.0.conv.weight",
+            "model.23.one2one_cv4.0.1.conv.weight",
+            "model.23.one2one_cv4.0.2.bias",
+            "model.23.one2one_cv4.0.2.weight",
+            "model.23.one2one_cv4.1.0.conv.weight",
+            "model.23.one2one_cv4.1.1.conv.weight",
+            "model.23.one2one_cv4.1.2.bias",
+            "model.23.one2one_cv4.1.2.weight",
+            "model.23.one2one_cv4.2.0.conv.weight",
+            "model.23.one2one_cv4.2.1.conv.weight",
+            "model.23.one2one_cv4.2.2.bias",
+            "model.23.one2one_cv4.2.2.weight"
+          ],
+          "changed_parameter_count": 12,
+          "max_absolute_delta": 0.019830822944641113,
+          "prefix_updates": {
+            "model.23.one2one_cv4.": {
+              "changed_parameters": [
+                "model.23.one2one_cv4.0.0.conv.weight",
+                "model.23.one2one_cv4.0.1.conv.weight",
+                "model.23.one2one_cv4.0.2.bias",
+                "model.23.one2one_cv4.0.2.weight",
+                "model.23.one2one_cv4.1.0.conv.weight",
+                "model.23.one2one_cv4.1.1.conv.weight",
+                "model.23.one2one_cv4.1.2.bias",
+                "model.23.one2one_cv4.1.2.weight",
+                "model.23.one2one_cv4.2.0.conv.weight",
+                "model.23.one2one_cv4.2.1.conv.weight",
+                "model.23.one2one_cv4.2.2.bias",
+                "model.23.one2one_cv4.2.2.weight"
+              ],
+              "changed_parameter_count": 12
+            }
+          },
+          "gradients": {
+            "optimizer_steps_checked": 69,
+            "attempted_steps": 69,
+            "applied_steps": 66,
+            "skipped_overflow_steps": 3,
+            "nonzero_steps": 66,
+            "all_finite": true,
+            "observed_all_gradients_finite": true,
+            "observed_all_scaled_gradients_finite": true,
+            "observed_nonfinite_gradient_steps": 0,
+            "observed_nonfinite_scaled_gradient_steps": 0,
+            "observed_nonfinite_skipped_overflow_steps": 0,
+            "all_observed_nonfinite_steps_skipped": true,
+            "all_applied_gradients_finite": true,
+            "applied_zero_gradient_steps": 0,
+            "maximum_absolute_gradient": 0.477441668510437
+          }
+        },
+        "proto_tail": {
+          "changed_parameters": [
+            "model.23.proto.cv2.conv.weight",
+            "model.23.proto.cv3.conv.weight"
+          ],
+          "changed_parameter_count": 2,
+          "max_absolute_delta": 0.008591696619987488,
+          "prefix_updates": {
+            "model.23.proto.cv2.": {
+              "changed_parameters": [
+                "model.23.proto.cv2.conv.weight"
+              ],
+              "changed_parameter_count": 1
+            },
+            "model.23.proto.cv3.": {
+              "changed_parameters": [
+                "model.23.proto.cv3.conv.weight"
+              ],
+              "changed_parameter_count": 1
+            }
+          },
+          "gradients": {
+            "optimizer_steps_checked": 69,
+            "attempted_steps": 69,
+            "applied_steps": 66,
+            "skipped_overflow_steps": 3,
+            "nonzero_steps": 66,
+            "all_finite": true,
+            "observed_all_gradients_finite": false,
+            "observed_all_scaled_gradients_finite": false,
+            "observed_nonfinite_gradient_steps": 3,
+            "observed_nonfinite_scaled_gradient_steps": 3,
+            "observed_nonfinite_skipped_overflow_steps": 3,
+            "all_observed_nonfinite_steps_skipped": true,
+            "all_applied_gradients_finite": true,
+            "applied_zero_gradient_steps": 0,
+            "maximum_absolute_gradient": 1.5959296226501465
+          }
+        }
+      },
+      "optimizer_audit": {
+        "attempted_steps": 69,
+        "applied_steps": 66,
+        "skipped_overflow_steps": 3,
+        "observed_all_gradients_finite": false,
+        "observed_nonfinite_gradient_steps": 3,
+        "observed_nonfinite_skipped_overflow_steps": 3,
+        "all_observed_nonfinite_steps_skipped": true,
+        "all_applied_gradients_finite": true,
+        "unsafe_step_prevented_count": 0,
+        "unclassified_skipped_steps": 0,
+        "ema_updates": 69
+      },
+      "epoch_optimizer_counts": {
+        "1": {
+          "attempted": 44,
+          "applied": 41,
+          "amp_skipped": 3
+        },
+        "2": {
+          "attempted": 13,
+          "applied": 13,
+          "amp_skipped": 0
+        },
+        "3": {
+          "attempted": 12,
+          "applied": 12,
+          "amp_skipped": 0
+        }
+      },
+      "amp_skip_records": [
+        {
+          "epoch": 1,
+          "attempt": 4,
+          "input_batches_seen": 4,
+          "scale_before": 65536.0,
+          "scale_after": 32768.0,
+          "optimizer_invoked": false,
+          "optimizer_applied": false,
+          "skipped_overflow_step": true,
+          "ema_updates_before": 3,
+          "ema_updates_after": 4,
+          "exception": null,
+          "unscaled_nonfinite_parameters": {
+            "one2many": [],
+            "one2one": [],
+            "proto_tail": [
+              "model.23.proto.cv3.conv.weight"
+            ]
+          }
+        },
+        {
+          "epoch": 1,
+          "attempt": 9,
+          "input_batches_seen": 11,
+          "scale_before": 32768.0,
+          "scale_after": 16384.0,
+          "optimizer_invoked": false,
+          "optimizer_applied": false,
+          "skipped_overflow_step": true,
+          "ema_updates_before": 8,
+          "ema_updates_after": 9,
+          "exception": null,
+          "unscaled_nonfinite_parameters": {
+            "one2many": [],
+            "one2one": [],
+            "proto_tail": [
+              "model.23.proto.cv3.conv.weight"
+            ]
+          }
+        },
+        {
+          "epoch": 1,
+          "attempt": 26,
+          "input_batches_seen": 77,
+          "scale_before": 16384.0,
+          "scale_after": 8192.0,
+          "optimizer_invoked": false,
+          "optimizer_applied": false,
+          "skipped_overflow_step": true,
+          "ema_updates_before": 25,
+          "ema_updates_after": 26,
+          "exception": null,
+          "unscaled_nonfinite_parameters": {
+            "one2many": [],
+            "one2one": [],
+            "proto_tail": [
+              "model.23.proto.cv3.conv.weight"
+            ]
+          }
+        }
+      ],
+      "optimizer_log_entries": 69,
+      "all_actual_step_gradients_finite": true,
+      "all_attempts_accounted": true,
+      "optimizer_exceptions": [],
+      "input_stream": {
+        "rows": 1194,
+        "normalized_sha256": "3bc535d443234cfcc45d057ebbde7f6aac090d29c0ba34d76cbd07c2d324380b",
+        "matches_audit": true
+      },
+      "final_accumulation_tail": {
+        "last_optimizer_attempt": 69,
+        "last_optimizer_attempt_input_batches_seen": 1177,
+        "final_input_batches": 1194,
+        "batches_after_last_optimizer_attempt": 17,
+        "no_later_optimizer_attempt_in_complete_log": true,
+        "interpretation": "The final 17 processed batches have no subsequent optimizer step; they must not be counted as extra parameter updates."
+      },
+      "acd_stats": {
+        "one2many": {
+          "loss_calls": 1194,
+          "candidate_count": 28430,
+          "action_positive": 4663,
+          "pixel_terms": 2177078,
+          "aux_sum": 1158.2468338608742
+        },
+        "one2one": {
+          "loss_calls": 1194,
+          "candidate_count": 23851,
+          "action_positive": 4136,
+          "pixel_terms": 3235225,
+          "aux_sum": 1456.2145976424217
+        }
+      },
+      "optimizer_parameter_groups": [
+        {
+          "index": 0,
+          "parameter_group": "weight",
+          "use_muon": false,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.00027,
+          "names": []
+        },
+        {
+          "index": 1,
+          "parameter_group": "weight",
+          "use_muon": false,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.00027,
+          "names": []
+        },
+        {
+          "index": 2,
+          "parameter_group": "bn",
+          "use_muon": false,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.0,
+          "names": []
+        },
+        {
+          "index": 3,
+          "parameter_group": "bn",
+          "use_muon": false,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.0,
+          "names": []
+        },
+        {
+          "index": 4,
+          "parameter_group": "bias",
+          "use_muon": false,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.0,
+          "names": []
+        },
+        {
+          "index": 5,
+          "parameter_group": "bias",
+          "use_muon": false,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.0,
+          "names": [
+            "model.23.cv4.0.2.bias",
+            "model.23.cv4.1.2.bias",
+            "model.23.cv4.2.2.bias",
+            "model.23.one2one_cv4.0.2.bias",
+            "model.23.one2one_cv4.1.2.bias",
+            "model.23.one2one_cv4.2.2.bias"
+          ]
+        },
+        {
+          "index": 6,
+          "parameter_group": "muon",
+          "use_muon": true,
+          "learning_rate": 0.00114,
+          "weight_decay": 0.00027,
+          "names": [
+            "model.23.proto.cv3.conv.weight"
+          ]
+        },
+        {
+          "index": 7,
+          "parameter_group": "muon",
+          "use_muon": true,
+          "learning_rate": 0.00038,
+          "weight_decay": 0.00027,
+          "names": [
+            "model.23.cv4.0.0.conv.weight",
+            "model.23.cv4.0.1.conv.weight",
+            "model.23.cv4.0.2.weight",
+            "model.23.cv4.1.0.conv.weight",
+            "model.23.cv4.1.1.conv.weight",
+            "model.23.cv4.1.2.weight",
+            "model.23.cv4.2.0.conv.weight",
+            "model.23.cv4.2.1.conv.weight",
+            "model.23.cv4.2.2.weight",
+            "model.23.one2one_cv4.0.0.conv.weight",
+            "model.23.one2one_cv4.0.1.conv.weight",
+            "model.23.one2one_cv4.0.2.weight",
+            "model.23.one2one_cv4.1.0.conv.weight",
+            "model.23.one2one_cv4.1.1.conv.weight",
+            "model.23.one2one_cv4.1.2.weight",
+            "model.23.one2one_cv4.2.0.conv.weight",
+            "model.23.one2one_cv4.2.1.conv.weight",
+            "model.23.one2one_cv4.2.2.weight",
+            "model.23.proto.cv2.conv.weight"
+          ]
+        }
+      ],
+      "epoch_metric_jsonl_exists": false,
+      "epoch_metric_source": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\trainer\\results.csv",
+      "epoch_metric_rows": 3,
+      "prototype_gradient_policy": "official one2many proto path; one2one proto remains detached"
+    }
+  },
+  "paired_checks": {
+    "same_official_initial_weights": true,
+    "same_trainable_parameter_groups": true,
+    "same_frozen_state": true,
+    "same_input_stream": true,
+    "optimizer_schedule_and_outcomes_exact_equal": true,
+    "optimizer_schedule_compared_fields": [
+      "epoch",
+      "attempt",
+      "input_batches_seen",
+      "learning_rates",
+      "accumulate",
+      "amp",
+      "scaler_enabled",
+      "skipped_overflow_step",
+      "optimizer_applied",
+      "ema_updates_before",
+      "ema_updates_after"
+    ],
+    "amp_skip_records_exact_equal": true,
+    "same_training_source_sha256": true,
+    "same_protocol_source_sha256": true
+  },
+  "acd_totals": {
+    "accepted_actions": 8799,
+    "penalized_pixel_terms": 5412303,
+    "candidate_count": 52281,
+    "interpretation": "Repeated training candidate actions and pixel terms, not counts of unique instances or inference-time actions."
+  },
+  "musgd_scope_note": {
+    "optimizer": "MuSGD",
+    "official_saved_lr0": 0.00038,
+    "proto_cv2_base_group_lr": 0.00038,
+    "proto_cv3_base_group_lr": 0.00114,
+    "proto_cv3_multiplier": 3,
+    "reason": "Unmodified Ultralytics 8.4.100 optimizer name regex (?=.*23)(?=.*cv3)",
+    "actual_lrs": "Warmup and scheduling are recorded for every optimizer attempt; these setup rates are base group rates."
+  },
+  "limitations": [
+    "One seed (0), 796 fit images and only 66 applied optimizer steps per arm; this is a short feasibility screen, not convergence or repeatability evidence.",
+    "Applied steps by epoch are 41, 13, 12. The final 17 processed batches have no later optimizer attempt, following the unchanged official accumulation behavior equally in both arms.",
+    "Formal gradient audits observe total official loss plus ACD gradients. They do not measure the separate auxiliary/official gradient magnitudes or directions.",
+    "The official one2one prototype detach is retained; prototype-tail updates come through the one2many path. This does not test removing that detach or unfreezing backbone/neck/other prototype blocks.",
+    "The 196-image internal validation CSV is diagnostic. trainer_final_epoch_metrics.json uses the FP16 full last.pt checkpoint; neither replaces the 5000-image FP32 overlay primary evaluation.",
+    "No epoch_metrics.jsonl was generated. The existing trainer/results.csv has three epoch rows in each Run; absence of that JSONL is not a missing-transfer claim.",
+    "ACD action counts are repeated training decisions, not unique repaired evaluation instances or proof of AP improvement.",
+    "This review confirms execution integrity only; final scientific outcomes require the separate paired evaluation and protocol decision."
+  ],
+  "sources": {
+    "baseline": [
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\TRAINING_SETUP.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/TRAINING_SETUP.json",
+        "sha256": "5fa9191c5d3086e555ffbd4b821b1824fc3ee52bc2601751b8f6fe595653fabf",
+        "bytes": 107179
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\TRAINING_AUDIT.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/TRAINING_AUDIT.json",
+        "sha256": "b47b8bb99dd62b370111c04960d79bbff2da5fd17d1ae8e641e112b49de55c7c",
+        "bytes": 300296
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\TRAINING_COMPLETE.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/TRAINING_COMPLETE.json",
+        "sha256": "56bfa9d52681e9ccf18a7d6772ca4df711edb18cac38ed1b2df42aef90d6b70a",
+        "bytes": 307604
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\optimizer_step_audit.jsonl",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/optimizer_step_audit.jsonl",
+        "sha256": "be34beb92f179789013b729c18445c7b697c2bc4cef7ca9322c9866f148af191",
+        "bytes": 156798
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\input_batch_hashes.jsonl",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/input_batch_hashes.jsonl",
+        "sha256": "7bdc7c8c02b998399e6d7835a9fa5612a494737d6794e0ed310a8add20d6b9f5",
+        "bytes": 843048
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\trainer\\results.csv",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/trainer/results.csv",
+        "sha256": "754a32f61a64f87deb944aed45724973dd73398584dfc16259a6806cade49243",
+        "bytes": 1049
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\trainer_final_epoch_metrics.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/trainer_final_epoch_metrics.json",
+        "sha256": "1f52d57bc82b0d5fe70cf6d53e2ff203da9acbd0d9faec94e0b23727efe4142a",
+        "bytes": 685
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\SOURCE.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/SOURCE.json",
+        "sha256": "e13665f5b96b968f092ca707ffa8728b515c90bd096aa71e3132945170e8e654",
+        "bytes": 498
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\source\\train_acd.py",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/source/train_acd.py",
+        "sha256": "d5868a1d2dc3e57dded535561aec96554fab42f9b0b1ea71c1d863d3e009e763",
+        "bytes": 41016
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0\\source\\PROTOCOL.md",
+        "relative_path": "runs/RUN_PROTO_TAIL_BASELINE_FEASIBILITY_S0/source/PROTOCOL.md",
+        "sha256": "42059829e3e49175a093bb03d2df07e87ac2eb8adc398395ac0fbb22f351be0d",
+        "bytes": 9618
+      }
+    ],
+    "acd": [
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\TRAINING_SETUP.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/TRAINING_SETUP.json",
+        "sha256": "474217a7d8ad62eec133db37987c5b88f04827098e1cec2a155793dea43642e3",
+        "bytes": 107164
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\TRAINING_AUDIT.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/TRAINING_AUDIT.json",
+        "sha256": "8aa0702c6444e305ee7d6ad04b2a5489b4f3849948de407720e781794d576745",
+        "bytes": 300291
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\TRAINING_COMPLETE.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/TRAINING_COMPLETE.json",
+        "sha256": "4bd3a24d05f038f93142b666cf9644b253ab53a3593ea4e3cd638222fc82a2c5",
+        "bytes": 307640
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\optimizer_step_audit.jsonl",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/optimizer_step_audit.jsonl",
+        "sha256": "d05f353b34421fa89422b1fc365685be073ce99b747cfa84572bbe38fa62d056",
+        "bytes": 156706
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\input_batch_hashes.jsonl",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/input_batch_hashes.jsonl",
+        "sha256": "7bdc7c8c02b998399e6d7835a9fa5612a494737d6794e0ed310a8add20d6b9f5",
+        "bytes": 843048
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\trainer\\results.csv",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/trainer/results.csv",
+        "sha256": "005d116997f4045d2e308f9d2067383fab7ab38ac0fc4c0c6d2a18c7dd60f275",
+        "bytes": 1051
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\trainer_final_epoch_metrics.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/trainer_final_epoch_metrics.json",
+        "sha256": "a36d096625403a7999d44a2c9c423dc1d07da7bbfdd83598f039969e2937a98a",
+        "bytes": 679
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\SOURCE.json",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/SOURCE.json",
+        "sha256": "dbb8ebcd573163ffbbfde5118d7a5eb24f7dddd59b85ddcd004905762759f074",
+        "bytes": 493
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\source\\train_acd.py",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/source/train_acd.py",
+        "sha256": "d5868a1d2dc3e57dded535561aec96554fab42f9b0b1ea71c1d863d3e009e763",
+        "bytes": 41016
+      },
+      {
+        "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\acd_proto_tail_unfreeze_20261006\\runs\\RUN_PROTO_TAIL_ACD_FEASIBILITY_S0\\source\\PROTOCOL.md",
+        "relative_path": "runs/RUN_PROTO_TAIL_ACD_FEASIBILITY_S0/source/PROTOCOL.md",
+        "sha256": "42059829e3e49175a093bb03d2df07e87ac2eb8adc398395ac0fbb22f351be0d",
+        "bytes": 9618
+      }
+    ]
+  }
+}

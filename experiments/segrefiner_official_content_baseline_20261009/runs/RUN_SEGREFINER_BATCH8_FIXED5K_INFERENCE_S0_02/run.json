@@ -1,0 +1,158 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02",
+  "study_id": "STUDY_SEGREFINER_OFFICIAL_CONTENT_BASELINE_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/scripts/run_segrefiner_batch8.py",
+    "--root",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009",
+    "--run-id",
+    "RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02",
+    "--upstream",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/assets/upstream/SegRefiner-53419a2d38ea3da0b6e2be77e5b45e139195a0b3",
+    "--checkpoint",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/assets/models/segrefiner_lr_latest.pth",
+    "--native-run",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_02",
+    "--images-list",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/IMAGE_LIST.txt",
+    "--image-meta",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/IMAGE_META.json",
+    "--runtime-verification",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_BATCH8_GPU_VERIFY_S0_01/VERIFICATION.json",
+    "--engineering-receipt",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_BATCH8_ENGINEERING32_S0_01/SUMMARY.json"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009",
+  "status": "running",
+  "created_at": "2026-10-08T21:46:54.511+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\models\\segrefiner_lr_latest.pth",
+      "exists": true,
+      "sha256": "d5806a41a4bff6f1e313d1a9dcf18d11dab28e3a8e1497871a156214cd8fe07a",
+      "size": 474603251
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\IMAGE_LIST.txt",
+      "exists": true,
+      "sha256": "639a487ef88776a4c2a191fe70f8d57f5829e87c014153c38caf61d1aabd0c50",
+      "size": 685000
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\IMAGE_META.json",
+      "exists": true,
+      "sha256": "66c78111ab7eb87991e4c90a03e9cc4ebb19472bedef4aeb602a64a74a2175e4",
+      "size": 5144024
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_BATCH8_GPU_VERIFY_S0_01\\VERIFICATION.json",
+      "exists": true,
+      "sha256": "3076825c3fc2212ba747692f697b870e5fe90b8bf26b3d953a99be20e87fe9e2",
+      "size": 2704
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_BATCH8_ENGINEERING32_S0_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "3bfafab0125c10819d996d3ae5c63f0eaef6dd40dd0567821cb85c4140e9c8bd",
+      "size": 3502
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_BATCH8_ENGINEERING32_S0_01\\RESOURCE_FEASIBILITY.json",
+      "exists": true,
+      "sha256": "2a752c51b40f0f34a5f9c4d908665bc932e3923d9b6b837f888843fb420d5cba",
+      "size": 1909
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\run_segrefiner_batch8.py",
+      "revision": "c6a799f67b991a0aa6c263d52239093b3462187f7f10718157bc75a141416528",
+      "snapshot": "snapshots/c6a799f67b991a0aa6c263d52239093b3462187f7f10718157bc75a141416528"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\segrefiner_batch8_runtime.py",
+      "revision": "274b6b3b84813b81737cdb760a89aadad11b08469397205f4da5f7513b26f737",
+      "snapshot": "snapshots/274b6b3b84813b81737cdb760a89aadad11b08469397205f4da5f7513b26f737"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\segrefiner_runtime.py",
+      "revision": "5a296b083991adb6918db09a9f69204a0a2e4f65b582d5c9a2f2335d4183c107",
+      "snapshot": "snapshots/5a296b083991adb6918db09a9f69204a0a2e4f65b582d5c9a2f2335d4183c107"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\wddm_memory_probe.py",
+      "revision": "acb110856d89842d28e2b79ffdf20d5f769b4c3372e7bcc753b110e518a8c69f",
+      "snapshot": "snapshots/acb110856d89842d28e2b79ffdf20d5f769b4c3372e7bcc753b110e518a8c69f"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\run_segrefiner_inference.py",
+      "revision": "7f550762d2285453098e2d99b9b3211cdc0e2f9c6cb7e233307d85445d855445",
+      "snapshot": "snapshots/7f550762d2285453098e2d99b9b3211cdc0e2f9c6cb7e233307d85445d855445"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\PROTOCOL.md",
+      "revision": "f4703167b0fbb77fc324f89aa5d7d5b97ad6afe020371dc2ab3d2a2db11c1fde",
+      "snapshot": "snapshots/f4703167b0fbb77fc324f89aa5d7d5b97ad6afe020371dc2ab3d2a2db11c1fde"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\EXECUTION_SUPPLEMENT.md",
+      "revision": "4d4918a7a2844bd4bbb637915f9173dd9c163af01894a3a8267a41604ebf876a",
+      "snapshot": "snapshots/4d4918a7a2844bd4bbb637915f9173dd9c163af01894a3a8267a41604ebf876a"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\EXECUTION_BATCH8_ADAPTATION.md",
+      "revision": "59ce9e80d87947f63741f872d6421fe80ffc3884fa53267d0a6ecd2744fc7a1d",
+      "snapshot": "snapshots/59ce9e80d87947f63741f872d6421fe80ffc3884fa53267d0a6ecd2744fc7a1d"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\launch_segrefiner_batch8_full.ps1",
+      "revision": "e5dc6d89bef0ff59fe9b9d8f67704ea4533227ad63bace714585b9686ae3a737",
+      "snapshot": "snapshots/e5dc6d89bef0ff59fe9b9d8f67704ea4533227ad63bace714585b9686ae3a737"
+    }
+  ],
+  "scope": {
+    "type": "gtfree_fixed5000_batch8_officialLR_inference",
+    "images": 5000,
+    "native_supported_first64": true,
+    "no_yolo": true,
+    "no_gt": true,
+    "no_quality_selection": true,
+    "single_fixed_hardware_adaptation": true
+  },
+  "expected_outputs": [
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02/SUMMARY.json",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02/INFERENCE_COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 90740,
+  "started_at": "2026-10-08T21:46:55.178+00:00",
+  "last_heartbeat": "2026-10-09T06:26:27.994+00:00"
+}

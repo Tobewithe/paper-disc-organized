@@ -1,0 +1,19 @@
+# 固定终轮读出产物诊断
+
+本执行依据用户在独立 B 会话的原生消息 `01a11c2e-cbcd-79c0-9632-778d344b2df8` 所授权的持续 A/B 协作，以及 B 明确派发的本地 CPU 产物诊断。A（`01a11060-0433-7b23-ba4c-fe516b6a253a`）为唯一执行者，B（`01a11bf8-26b3-7490-b8bf-62b4b308b1ba`）独立审查；固定元规范 research-loop 3.0.0，正文 SHA256 `4d33b67d0a2fc22c63ecee2a1cb268303b82ef92ecae99336de5e71f2514eba2`，相关图谱固定 revision `6d4498d5acef14eb7dc1cf07e8c6f01503805e908e00fbe1e7b8c1be693bc231`。这次执行不调用远端或 GPU，不增加训练、推理、seed 或新数据；原预算与已发生消耗保留。
+
+唯一原数据来源是 `STUDY_TRIFLOW_20K_TRAINING_20261007/RUN_TRIFLOW_20K_EPOCH08_EVAL_S0` 已回传文件，原 final8 不按验证集重新挑轮次。根 `INPUTS.json` 在运行前固化主要输入的精确文件字节 SHA256；执行另锁定全部实际依赖及 5,000 张基线/方法身份链，校验输入前后不变，源码和本协议由 runner 保存快照。原件只读，所有新产物落所属 Run。
+
+身份连接固定为 `(image_id,detection_index)`：配对行连接基线导出，再通过 `eligible_output_rows[detection_index]` 转为 native output row；mapping 的 `post_conf_detection_index` 与该转换交叉核对，chunk 诊断按 `native_output_rows` 的局部位置取值。原始 score 只验证身份一致，不猜匹配；COCO category_id 与 model_class 分别保留。未选中、不支持 ROI、无配对、缺 raw 或不可靠关系单独标明，未知不填零。邻居输出资格 `score>=.001` 与导出 `score>.001` 有边界差异，未导出的邻居不能硬关联 GT。
+
+本次先验描述分层在首次执行前固定：trust_scale 为 `[0,.25)`、`[.25,.5)`、`[.5,.75)`、`[.75,t)`、`[t,1]`，其中 `t=FP32(.999999)=0.9999989867210388`；最终饱和状态以原记录的 `trust_saturated` 为权威。root 按无有效 boundary、root=0、root/boundary 比例 `(0,.25]`、`(.25,.5]`、`(.5,.75]`、`(.75,1]` 分组；邻居按有效槽 0/1/2，两个有效槽再分 raw 相同/不同/未知，并给出最终饱和 × 有无 root × 邻居 raw 重复的固定交叉表。分层只用于描述，不能据此调阈值或选择模型。
+
+另按 root_count 与最终 active_anchor_count 的零/非零固定 natural_channel 四组：no_constraints、anchor_only、boundary_only、mixed。原实现 boundary_weight 与 root_valid 相乘；无 root 且末 pass 无 active anchor 时，最终 RHS 应为零，以实际 `coefficient_max_abs_change` 及配对 IoU 增量核验零更新。自然子集只说明该次求解的输入状态，不等同全队列关闭某分支的消融或因果效果。
+
+候选级分母分开报告全部已导出候选、实际 refined、unsupported/未选中及已有 matched detection。每个分层先给候选数、已匹配数、基线成功/失败分母、damage/repair 计数及对应条件比例，再给连续 IoU 增量；成功仍为原 MaskIoU>=.75，保留同一 GT 可被多条 detection 关联的定义。原总体 86,600 matched、36,266 success、333 damage、50,334 failure、750 repair 应重聚合一致。
+
+图像级统计报告有候选/有匹配图数及图内汇总；唯一 GT 级按 `(image_id,annotation_id)` 报告已有关联覆盖、重复映射和 any/all 损伤或修复标签，不把候选损伤率改称 GT 损伤率。选中候选中的已知 own raw 重复仅代表可观察范围，不能证明缺失 raw 身份的候选唯一；raw 槽重复不证明同一真实实例或机制瓶颈。
+
+执行成本为本地 CPU 流式读取既有 5,000 图文件、约 55 万导出候选和已有配对表，不新增模型计算，预计几分钟内形成结果。输入或身份不变量失败则保留失败 Run 和具体缺失；独立验证另建 Run 重聚合候选、图像、GT 及全部分层，并核来源摘要和总体计数。小样本工程验证不得当训练能力结论；本分析覆盖全部已有终轮文件，但仍只形成关联和有限实现不变量。
+
+输出为原身份可追溯的 joined JSONL、图像/GT 汇总 JSONL、分层 SUMMARY、来源锁和独立 VERIFICATION。完成有判断价值阶段后直接通知 B；后续优先提出能区分势场学习、几何编译及 boundary-flow 相对 region-anchor 贡献的可证伪对照，先固定输入、对照、归一口径、队列、环境、成本和结束条件，不因本描述性结果自动放宽 trust 或扩大全量。

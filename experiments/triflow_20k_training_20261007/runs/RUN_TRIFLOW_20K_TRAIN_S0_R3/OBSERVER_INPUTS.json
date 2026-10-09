@@ -1,0 +1,87 @@
+{
+  "observer_version": "triflow_20k_epoch_observer_r3_v1",
+  "started_at": "2026-10-07T16:21:02.305454+00:00",
+  "training_run_id": "RUN_TRIFLOW_20K_TRAIN_S0_R3",
+  "observer_source_sha256": "6b6582094b69ab12713f64af3ac3b216d523755cf7465dbbcfd3e138cabe7559",
+  "observer_source_file": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_TRAIN_S0_R3\\source\\train_epoch_observer_r3.py",
+  "original_training_source_sha256": {
+    "train_20k.py": "944dcb27d75f1d1d9ce8cc950c206c607b73ba6023a7a5f19517134bbd2a86bb",
+    "stream_data.py": "6460a9277b47a8ca790e03213afbaa5d628592b9319608e0be70dd4799091fb6",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+  },
+  "protocol_sha256": "f6e85fa62dd97ef6f9c95ed34f5e85cd80019102b1f0e8daa60b9acf9f5cc2b8",
+  "addendum_source": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\EPOCH_EVALUATION_ADDENDUM.md",
+  "addendum_sha256": "4646dd64a09108d4bdac1735ee8b0e589b666a32d3bff9ef017f87a199076472",
+  "addendum_archive": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_TRAIN_S0_R3\\source\\EPOCH_ADDENDUM.md",
+  "callback_scripts": {
+    "epoch_evaluator": {
+      "path": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_PIPELINE_S0_R3\\source\\evaluate_epoch_r3.py",
+      "sha256": "b3d7a17b87ad8221fc04ea17c4e3fdb1981d1b7837477534cc47ab52502460a4"
+    },
+    "epoch_verifier": {
+      "path": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_PIPELINE_S0_R3\\source\\verify_epoch_readout_r3.py",
+      "sha256": "e4c6926e8225b41f17c6efdcb72c7c09ba2ceaaa0e5740906335b1ae4a59f734"
+    }
+  },
+  "diagnostics_execution": {
+    "version": "triflow_20k_diagnostics_execution_v1",
+    "actual_runtime_changed": true,
+    "original_scientific_contract_preserved": true,
+    "parity_evidence_scope": "engineering diagnostics-only numerical parity; no COCO efficacy claim",
+    "required_diagnostics": [
+      "boundary_valid_count",
+      "root_count",
+      "neighbor_transition_count",
+      "active_anchor_count",
+      "trust_saturated"
+    ],
+    "training_default_scope": "minimal",
+    "training_first_task_probe_scope": "full",
+    "runtime_source_file": "diagnostics_provenance/diagnostics_runtime.py",
+    "runtime_sha256": "c24bc853ff17c7f4a0be3bc847a8b6733283b2aa06bc16388ab1b84fca3380b3",
+    "parity_source_file": "diagnostics_provenance/DIAGNOSTICS_PARITY.json",
+    "parity_sha256": "8a0bedd31edae9223feb7550de035a2ff3cab15b39857585a111047ec1fad8d2",
+    "addendum_source_file": "diagnostics_provenance/DIAGNOSTICS_EXECUTION_ADDENDUM.md",
+    "addendum_sha256": "f3e909ebbcb78ffef810f9d4a71f17f92485f75cc7d7e2a60a8b6f50b9588cf8",
+    "adapter_source_file": "diagnostics_provenance/diagnostics_contract_r3.py",
+    "adapter_sha256": "cd0f43d742286365afb5fca193986422b65579f3b8ec814df4efbe3f19597e98",
+    "verifier_source_file": "diagnostics_provenance/verify_diagnostics_runtime.py",
+    "verifier_sha256": "a01f7f3c4579ae43cc054cef5d9f508821b6517d13d6b60c2f3d79baa9d25a77"
+  },
+  "engineering_only": false,
+  "complete5000_evaluation_required": true,
+  "epoch_run_prefix": "RUN_TRIFLOW_20K_EPOCH",
+  "epoch_run_suffix": "S0",
+  "original_trainer_args": [
+    "--root",
+    "D:\\coco_wire\\experiments\\triflow_20k_training_20261007",
+    "--run-id",
+    "RUN_TRIFLOW_20K_TRAIN_S0_R3",
+    "--weights",
+    "D:/coco_wire/models/yolo26m-seg.pt",
+    "--vendor",
+    "D:/coco_wire/vendor_8.4.100",
+    "--images-list",
+    "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\data\\train20k.txt",
+    "--annotations",
+    "D:/coco_wire/bgcr_native_20261002/data/annotations/instances_train2017.json",
+    "--epochs",
+    "8",
+    "--seed",
+    "0",
+    "--instance-chunk",
+    "4",
+    "--device",
+    "cuda",
+    "--resume-from",
+    "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_DIAGNOSTICS_REVISION_S0\\resume_snapshot.pt",
+    "--checkpoint-seconds",
+    "300",
+    "--trace-every",
+    "250"
+  ],
+  "routine_epochs_1_to_7": "complete5000 AP-only",
+  "epoch8": "complete5000 AP and paired readout",
+  "execution_change": "declared R3 diagnostics subclass plus synchronous epoch callbacks; original source4/contract preserved, actual runtime changed"
+}

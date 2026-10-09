@@ -1,0 +1,49 @@
+{
+  "literal_inference": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02",
+  "source_identity": {
+    "run_id": "RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02",
+    "created_at": "2026-10-08T21:46:54.511+00:00",
+    "command": [
+      "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/scripts/run_segrefiner_batch8.py",
+      "--root",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009",
+      "--run-id",
+      "RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02",
+      "--upstream",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/assets/upstream/SegRefiner-53419a2d38ea3da0b6e2be77e5b45e139195a0b3",
+      "--checkpoint",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/assets/models/segrefiner_lr_latest.pth",
+      "--native-run",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_02",
+      "--images-list",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/IMAGE_LIST.txt",
+      "--image-meta",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/IMAGE_META.json",
+      "--runtime-verification",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_BATCH8_GPU_VERIFY_S0_01/VERIFICATION.json",
+      "--engineering-receipt",
+      "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_BATCH8_ENGINEERING32_S0_01/SUMMARY.json"
+    ],
+    "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009",
+    "source_kind": "runner_observed",
+    "pid": 90740
+  },
+  "source_hashes": {
+    "run_segrefiner_scoring_pipeline.py": "10f342062057f1e09b3edb6d188f5a9729fd77b3623ce4cea53dce02f07ac837",
+    "segrefiner_scoring_bridge.py": "42070d5bfe56d3e7578dbf0b1e02120b3d7bb0450e9e05f66b791cde2ec04712",
+    "score_segrefiner_comparison.py": "e562d45d651c34eb5fc41da86b304b92f29ba4c03d711417b7a6d25e8a70e268"
+  },
+  "plan_sha256": "8cba606a2829c3ab9e56f3e7b0d5ec19753b9c54c8961fd8f05a1880638cc608",
+  "actual_interpreter": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+  "wait_max_seconds": 172800,
+  "started_at": "2026-10-08T22:26:19.826435+00:00",
+  "automatic_retry": false,
+  "execution_order": [
+    "actual_GPU_inference02_terminal",
+    "bounded_identity_engineering",
+    "ordinary_three_arm_CPU_score",
+    "pixels_and_Boundary02",
+    "saved_array_and_pixel_verification"
+  ]
+}

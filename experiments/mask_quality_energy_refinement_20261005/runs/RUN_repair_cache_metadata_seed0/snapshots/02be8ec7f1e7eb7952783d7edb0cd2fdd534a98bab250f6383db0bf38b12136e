@@ -1,0 +1,85 @@
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import tempfile
+import time
+from pathlib import Path
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def atomic_json(path: Path, payload: dict) -> None:
+    fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            json.dump(payload, stream, ensure_ascii=False, indent=2)
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(tmp_name, path)
+    finally:
+        if os.path.exists(tmp_name):
+            os.unlink(tmp_name)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--cache", required=True)
+    ap.add_argument("--out", required=True)
+    args = ap.parse_args()
+    root = Path(args.cache)
+    images = root / "images"
+    entries = sorted(images.glob("*.pt.gz"))
+    started = time.time()
+    changed = 0
+    unchanged = 0
+    total_bytes = 0
+    errors = []
+    for index, path in enumerate(entries, 1):
+        meta_path = path.with_name(path.name.replace(".pt.gz", ".meta.json"))
+        try:
+            meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            size = path.stat().st_size
+            digest = sha256(path)
+            total_bytes += size
+            if int(meta.get("compressed_bytes", -1)) != size:
+                raise RuntimeError(f"compressed_bytes mismatch: meta={meta.get('compressed_bytes')} actual={size}")
+            if meta.get("compressed_sha256") != digest:
+                meta["compressed_sha256"] = digest
+                atomic_json(meta_path, meta)
+                changed += 1
+            else:
+                unchanged += 1
+        except Exception as exc:
+            errors.append({"path": str(path), "error": repr(exc)})
+        if index % 500 == 0:
+            print(json.dumps({"processed": index, "total": len(entries), "changed": changed, "errors": len(errors)}, ensure_ascii=False), flush=True)
+    payload = {
+        "schema": "qcr-cache-metadata-repair-v1",
+        "cache": str(root),
+        "entries": len(entries),
+        "changed": changed,
+        "unchanged": unchanged,
+        "errors": errors,
+        "bytes_hashed": total_bytes,
+        "elapsed_s": time.time() - started,
+        "passed": not errors,
+    }
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if errors:
+        raise RuntimeError(f"cache metadata repair failed for {len(errors)} entries")
+
+
+if __name__ == "__main__":
+    main()

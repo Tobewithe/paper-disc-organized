@@ -1,0 +1,119 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02",
+  "study_id": "STUDY_NATIVE_RESPONSE_TARGET_COMPARISON_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\run_target_scoring_pipeline.py",
+    "--plan",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\assets\\scoring_followup_plan_20261009.json",
+    "--output",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02"
+  ],
+  "working_directory": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009",
+  "status": "failed",
+  "created_at": "2026-10-09T00:55:37.469+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\assets\\scoring_followup_plan_20261009.json",
+      "exists": true,
+      "sha256": "d50305ae81dfda695071094aeb701b56560d2172e27e7644b10e88d253ef8965",
+      "size": 2129
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\run_target_scoring_pipeline.py",
+      "revision": "bf2c7c083a50607a9d3eeea0dc6938235b0a002eaa3332193c664d38d1f59804",
+      "snapshot": "snapshots/bf2c7c083a50607a9d3eeea0dc6938235b0a002eaa3332193c664d38d1f59804"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\launch_target_scoring_pipeline.py",
+      "revision": "e8f2455d4509ebbfda63a9e784b8d99d8972b441a0f7ab07de3bf2c9c802f076",
+      "snapshot": "snapshots/e8f2455d4509ebbfda63a9e784b8d99d8972b441a0f7ab07de3bf2c9c802f076"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\evaluate_target_comparison.py",
+      "revision": "54e278c9450aad1111a4864415255055b5522e8bfca3fc48af53ca5e933f316d",
+      "snapshot": "snapshots/54e278c9450aad1111a4864415255055b5522e8bfca3fc48af53ca5e933f316d"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\bootstrap_target_ap.py",
+      "revision": "05978268aae334298212bd27559e41e249d62bbac94dde9f982b4ff368cbd4d9",
+      "snapshot": "snapshots/05978268aae334298212bd27559e41e249d62bbac94dde9f982b4ff368cbd4d9"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\verify_target_comparison.py",
+      "revision": "a69927ce7db1e1b61b13fd30976cb861ffdcc7dc6d5ca8234c55d6b6c08f58a3",
+      "snapshot": "snapshots/a69927ce7db1e1b61b13fd30976cb861ffdcc7dc6d5ca8234c55d6b6c08f58a3"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\target_scoring_common.py",
+      "revision": "a4441164d589e7c929196ddfb3612cb9bf0c2c04d1c296514d1d8a75de8ac835",
+      "snapshot": "snapshots/a4441164d589e7c929196ddfb3612cb9bf0c2c04d1c296514d1d8a75de8ac835"
+    }
+  ],
+  "scope": {
+    "type": "finite_target_CPU_scientific_followup",
+    "foreground_SSH_lifetime": true,
+    "SSH_independence_proven": false,
+    "WMI_used": false,
+    "all_producer_cost_collection_terminals_required_before_heavy_CPU": true,
+    "automatic_retry": false
+  },
+  "expected_outputs": [
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02\\SUMMARY.json",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02\\PIPELINE_COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 2232,
+  "started_at": "2026-10-09T00:55:37.860+00:00",
+  "last_heartbeat": "2026-10-09T00:56:58.208+00:00",
+  "metrics_read_error": "[WinError 2] 系统找不到指定的文件。: 'D:\\\\coco_wire\\\\experiments\\\\native_response_target_comparison_20261009\\\\runs\\\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02\\\\SUMMARY.json'",
+  "return_code": 1,
+  "finished_at": "2026-10-09T00:57:03.137+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02\\SUMMARY.json",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02\\PIPELINE_COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02\\SUMMARY.json",
+      "exists": false,
+      "sha256": ""
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_SCORING_FOLLOWUP_PIPELINE_S0_02\\PIPELINE_COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

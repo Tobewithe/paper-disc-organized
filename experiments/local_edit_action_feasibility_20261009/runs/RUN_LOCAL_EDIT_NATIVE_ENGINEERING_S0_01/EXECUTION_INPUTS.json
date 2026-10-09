@@ -1,0 +1,104 @@
+{
+  "configuration": {
+    "version": "local_edit_finite_opportunity_v1",
+    "adapter_version": "local_edit_native_opportunity_v1",
+    "mode": "engineering",
+    "panel_sha256": "ea51b6c8b1cb19de3d390d53b68595dbec9fae296410adbfa0d602405884e9d7",
+    "declared_source_lock_sha256": "f38519d98b5bcc7154fd9119b62b5bf601a8cd57cd61e14cf140a0c810f5d985",
+    "source_sha256": {
+      "run_opportunity": "d7574b87df2bbf27ba9bbcca6d608aa670645089845e4d0b1cfae3f84febec36",
+      "native_opportunity": "cfc7a0712d34d40be152319b1c686ebbffbb5391da8009b4eea129d9349d3ede",
+      "local_actions": "f69206636730b18c4a5195177c51bd063874ab6522b6c30548a5a1dee772f3ef",
+      "frozen_io": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "native_mask_adapter": "0a11d7cee6f73ec680ce7895f9501a2f87be5d97a8904d3fe6b3a62a958fa0c2",
+      "protocol": "a6eee3393d380e232456f438e9b12d019735056f032902a5fa494b661f48f206",
+      "vendor_ops": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5",
+      "vendor_nms": "588f81e4cdebd58d3ba16cd0106623b776b961a56d198424db1a5d58f40a7b7e",
+      "vendor_augment": "eddb75a3b0a803f2cb6ef6e740e1bb117d99d841d89e0954a53aa9ec6df7cfbf",
+      "vendor_segment_validator": "701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6",
+      "vendor_head": "759a454e03a9b4ebe4c69628292b0acc0469bb5f9dba278f7bc4b54c214bf209",
+      "mask_calibration": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "local_features": "a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6",
+      "risk_calibration": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "portable_risk": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9"
+    },
+    "image_ids": [
+      370,
+      2471,
+      4834,
+      4988
+    ],
+    "interpreter": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "weights": {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\models\\coco_clean_20260911\\yolo26m-seg.pt",
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"
+    },
+    "vendor": {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\vendor\\ultralytics_8_4_100",
+      "version": "8.4.100"
+    },
+    "device": "cuda:0",
+    "config": {
+      "input_shape": [
+        640,
+        640
+      ],
+      "fp32": true,
+      "tf32": false,
+      "conf": 0.001,
+      "max_det": 300,
+      "batch": 1,
+      "scaleup": false,
+      "rect": false,
+      "native_one2one": true,
+      "native_chunk_size": 78,
+      "decode": "process_mask_native input640; scale_preds binary explicit ratio_pad to original byte"
+    },
+    "actions": {
+      "groups": [
+        "G_old",
+        "G_eq",
+        "G_eq_plus_L"
+      ],
+      "global": [
+        [
+          "smooth",
+          null
+        ],
+        [
+          "global_025",
+          0.25
+        ],
+        [
+          "global_05",
+          0.5
+        ],
+        [
+          "global_075",
+          0.75
+        ],
+        [
+          "global_10",
+          1.0
+        ],
+        [
+          "global_expand_025",
+          -0.25
+        ]
+      ],
+      "smooth": ".75/(1+(original_baseline_pixel_area/2304)^2)",
+      "band_radius": 4,
+      "connectivity": 8,
+      "max_components_per_sign": 8,
+      "single_region_only": true,
+      "combinations": false,
+      "empty_actions_preserved": true
+    },
+    "GT_parsed": false,
+    "GT_used_for_action_generation": false,
+    "association": null,
+    "statistics": null
+  },
+  "configuration_sha256": "c87f141967c433ba0b91d0755c33a8c5b24632dabaec19b105f804c4151a945e",
+  "started_at": "2026-10-08T17:22:59.778194+00:00"
+}

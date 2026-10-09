@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_FROZEN_NATIVE_5K_VERIFY_S0_01",
+  "study_id": "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\score_and_verify_comparison.py",
+    "--verify-only",
+    "--run",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_SCORING_S0_01",
+    "--out-dir",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_VERIFY_S0_01"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "failed",
+  "created_at": "2026-10-08T19:07:05.460+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_SCORING_S0_01\\run.json",
+      "exists": true,
+      "sha256": "b728f7876db976ed5fef2df67a1bb4018af888eaf16d99fb76cd27f3a158ee44",
+      "size": 907278
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_SCORING_S0_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "313794cb3944ba329848cc513b10bd1d625f692a4f783d5e0224acc9ef8f62aa",
+      "size": 806874
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_SCORING_S0_01\\SCORE_COMPLETE.json",
+      "exists": true,
+      "sha256": "15d41419a6243ab9b696ef304286e37ac79c1fbc7439b9f0652430901ea8e0f6",
+      "size": 9259
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_SCORING_S0_01\\SOURCE_LOCK.json",
+      "exists": true,
+      "sha256": "779e31a83f6ef2f74876b8cfb1e230acbc8e02042bc742c50523e906c8ae8bfd",
+      "size": 15978207
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_SCORING_S0_01\\IDENTITY_IMAGES.jsonl",
+      "exists": true,
+      "sha256": "a78e442e38a0dffed761a362fb7b3cfa5d5437ba151340040f3c09b8389ceb4a",
+      "size": 3580261
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_SCORING_S0_01\\source_provenance\\FIXED_INSTANCES_SOURCE.jsonl",
+      "exists": true,
+      "sha256": "1a06dc886dc5d7f9db7059c7c65d2ba1299b4c29d5b641fe53f5b51194e9b58a",
+      "size": 32173837
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\score_and_verify_comparison.py",
+      "revision": "d0c0a5e4b4f3ae5236a295cf5255dd93e221278dc391c04c11dadce6b2e5eb8c",
+      "snapshot": "snapshots/d0c0a5e4b4f3ae5236a295cf5255dd93e221278dc391c04c11dadce6b2e5eb8c"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\comparison_io.py",
+      "revision": "000ea7e883307ed1383bf005f543f099897ed2b523f8ad3960645049e594cd34",
+      "snapshot": "snapshots/000ea7e883307ed1383bf005f543f099897ed2b523f8ad3960645049e594cd34"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\PROTOCOL.md",
+      "revision": "1c521d5d6d64a1eb38942c5e33dc5c99ac0d3159f67d7683fd0b34ddf2ba984a",
+      "snapshot": "snapshots/1c521d5d6d64a1eb38942c5e33dc5c99ac0d3159f67d7683fd0b34ddf2ba984a"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\tools\\research_runner\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    }
+  ],
+  "scope": {
+    "stage": "independent_CPU_saved_readout_verification",
+    "COCO_matching_replayed": false,
+    "GT_mask_replayed": false,
+    "GPU_execution": false,
+    "model_forward": false
+  },
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_VERIFY_S0_01\\VERIFICATION.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_VERIFY_S0_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 63696,
+  "started_at": "2026-10-08T19:07:05.943+00:00",
+  "last_heartbeat": "2026-10-08T19:07:56.012+00:00",
+  "metrics_read_error": "[WinError 2] 系统找不到指定的文件。: 'C:\\\\Dpan\\\\codexproject\\\\paper-disc-organized\\\\experiments\\\\frozen_native_mask_comparison\\\\runs\\\\RUN_FROZEN_NATIVE_5K_VERIFY_S0_01\\\\VERIFICATION.json'",
+  "return_code": 1,
+  "finished_at": "2026-10-08T19:07:56.113+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_VERIFY_S0_01\\VERIFICATION.json"
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_VERIFY_S0_01\\VERIFICATION.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

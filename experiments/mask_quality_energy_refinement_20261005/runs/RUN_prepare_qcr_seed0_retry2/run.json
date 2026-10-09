@@ -1,0 +1,103 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_0d40b0b441b34ba2a56ab1a9f2fb1e0c",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/mask_quality_energy_refinement_20261005/scripts/prepare_qcr_cache.py",
+    "--config",
+    "/root/mask_quality_energy_refinement_20261005/RUN_CONFIG.json",
+    "--out",
+    "/root/autodl-tmp/qcr_run/runs/RUN_prepare_qcr_seed0_retry2"
+  ],
+  "working_directory": "/root/mask_quality_energy_refinement_20261005",
+  "status": "failed",
+  "created_at": "2026-10-05T14:07:40.695+00:00",
+  "host": "autodl-container-3trrlc6l9f-e83c9305",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/IMAGE_SPLIT.json",
+      "path_relative_to_cwd": "",
+      "exists": true,
+      "sha256": "a1a3ee0a0e39582dfc13a403faa91ddd63ed5ca5ab16017a0ff84af028765291",
+      "size": 282069
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/scripts/prepare_qcr_cache.py",
+      "path_relative_to_cwd": "scripts/prepare_qcr_cache.py",
+      "revision": "0ced207d8b14b2c5fef925cfd437ac05a5fb25d33ebd868ed76def9a4fe3a93c",
+      "snapshot": "snapshots/0ced207d8b14b2c5fef925cfd437ac05a5fb25d33ebd868ed76def9a4fe3a93c"
+    },
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/scripts/box_guided_head.py",
+      "path_relative_to_cwd": "scripts/box_guided_head.py",
+      "revision": "8541c61c5a6731f7447c4bfe4b92af1267f67cdf053c47e7d6775e05b92ae7d8",
+      "snapshot": "snapshots/8541c61c5a6731f7447c4bfe4b92af1267f67cdf053c47e7d6775e05b92ae7d8"
+    },
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/RUN_CONFIG.json",
+      "path_relative_to_cwd": "RUN_CONFIG.json",
+      "revision": "326fbe740d86c3a00568b45650a877ea03172fc5f2983a28cf1bd7545a7c66cb",
+      "snapshot": "snapshots/326fbe740d86c3a00568b45650a877ea03172fc5f2983a28cf1bd7545a7c66cb"
+    },
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/PROTOCOL.md",
+      "path_relative_to_cwd": "PROTOCOL.md",
+      "revision": "d8cb1deba60349c15afa0cbb6d9b37158cd5b02cd2bfebe0466df984186a27a7",
+      "snapshot": "snapshots/d8cb1deba60349c15afa0cbb6d9b37158cd5b02cd2bfebe0466df984186a27a7"
+    }
+  ],
+  "scope": {
+    "dataset": "COCO train2017 20k/2k",
+    "protocol": "QCR Stage I",
+    "seed": 0,
+    "branch": "one-to-one"
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/qcr_run/runs/RUN_prepare_qcr_seed0_retry2/COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-3trrlc6l9f-e83c9305",
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_prepare_qcr_seed0_retry2"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 15244,
+  "started_at": "2026-10-05T14:07:40.776+00:00",
+  "last_heartbeat": "2026-10-05T14:45:11.790+00:00",
+  "return_code": 1,
+  "finished_at": "2026-10-05T14:45:12.488+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_prepare_qcr_seed0_retry2/COMPLETE.json",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_prepare_qcr_seed0_retry2/COMPLETE.json",
+      "exists": true,
+      "sha256": "cd7f87fbe5c89df452ecdfe2ac5d8bcd137b9bd2c78a8e279405e5eb325c752b"
+    }
+  ]
+}

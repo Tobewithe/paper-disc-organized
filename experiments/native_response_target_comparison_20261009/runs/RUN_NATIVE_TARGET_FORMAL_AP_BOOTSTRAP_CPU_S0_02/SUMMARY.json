@@ -1,0 +1,670 @@
+{
+  "status": "bootstrap_complete",
+  "passed": true,
+  "seed": 20261009,
+  "replicates": 1000,
+  "draw_size": 5000,
+  "ordered_independent_image_copies": true,
+  "score_tie_sort": "stable mergesort; sampled copy position then original class candidate sequence",
+  "metric": "actual COCOeval matching cache reaccumulated across copied images; 10 thresholds x101 recall grid; all-area/max100",
+  "intervals": {
+    "AP.baseline": {
+      "point": 0.43685372378950266,
+      "ci95": [
+        0.43099049548999935,
+        0.448880467980291
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "AP.target_I": {
+      "point": 0.44122977277925446,
+      "ci95": [
+        0.4354704921982765,
+        0.45331693521423755
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "AP.target_H": {
+      "point": 0.44123412456365774,
+      "ci95": [
+        0.43553931610109137,
+        0.4533318121073596
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "AP.H_minus_I": {
+      "point": 4.351784403278103e-06,
+      "ci95": [
+        -0.0001449755563859109,
+        0.0001583063716666999
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.damage": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_damage": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.damage": {
+      "point": 0.020377212816412065,
+      "ci95": [
+        0.018688943769465893,
+        0.02203165572421092
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_damage": {
+      "point": 0.01694271426679932,
+      "ci95": [
+        0.015251322652710377,
+        0.01884585038509933
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.damage": {
+      "point": 0.02136987812275961,
+      "ci95": [
+        0.01960429556891275,
+        0.023143301563935785
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_damage": {
+      "point": 0.01780593868870592,
+      "ci95": [
+        0.016082111109265135,
+        0.01974467616284191
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.damage": {
+      "point": 0.0009926653063475448,
+      "ci95": [
+        0.0005803417152542757,
+        0.0014314552910357108
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_damage": {
+      "point": 0.0008632244219065992,
+      "ci95": [
+        0.00040994541073631816,
+        0.0013085630686221102
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.repair": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_repair": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.repair": {
+      "point": 0.02497317916318989,
+      "ci95": [
+        0.023409474377227284,
+        0.026554736808503104
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_repair": {
+      "point": 0.02675371741999471,
+      "ci95": [
+        0.023979005777980445,
+        0.02980836121770598
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.repair": {
+      "point": 0.02550959589939206,
+      "ci95": [
+        0.02394985155508012,
+        0.027087649737034383
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_repair": {
+      "point": 0.02762019903159828,
+      "ci95": [
+        0.02471500059649935,
+        0.030739099577362903
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.repair": {
+      "point": 0.00053641673620217,
+      "ci95": [
+        0.00023580478280185743,
+        0.0008339938856461782
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_repair": {
+      "point": 0.0008664816116035721,
+      "ci95": [
+        0.0002443590160328168,
+        0.0017359938428895185
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.mask_iou": {
+      "point": 0.6675971740356371,
+      "ci95": [
+        0.6641648263661211,
+        0.6709025908151235
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_mask_iou": {
+      "point": 0.7300185594562425,
+      "ci95": [
+        0.7264430790045386,
+        0.7333081825358164
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.mask_iou": {
+      "point": 0.6694177270018263,
+      "ci95": [
+        0.665954015048229,
+        0.6728093762968164
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_mask_iou": {
+      "point": 0.7315861557586918,
+      "ci95": [
+        0.7280175486104807,
+        0.7348335131742796
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.mask_iou": {
+      "point": 0.6694095521820573,
+      "ci95": [
+        0.6659505324424945,
+        0.6727907833936672
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_mask_iou": {
+      "point": 0.7315817796536617,
+      "ci95": [
+        0.7279956524557185,
+        0.7348518130652116
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.mask_iou": {
+      "point": -8.174819769002362e-06,
+      "ci95": [
+        -4.745799551859053e-05,
+        3.531820702522002e-05
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_mask_iou": {
+      "point": -4.376105030123867e-06,
+      "ci95": [
+        -4.608066139391298e-05,
+        3.898490150041345e-05
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.delta_iou": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_delta_iou": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.delta_iou": {
+      "point": 0.0018205529661880636,
+      "ci95": [
+        0.0016554970979999438,
+        0.0020002108388622116
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_delta_iou": {
+      "point": 0.0015675963024492587,
+      "ci95": [
+        0.001374259627614421,
+        0.0017564465592030507
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.delta_iou": {
+      "point": 0.0018123781464197389,
+      "ci95": [
+        0.0016433941521008233,
+        0.002003438519427256
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_delta_iou": {
+      "point": 0.0015632201974191474,
+      "ci95": [
+        0.0013724324005469548,
+        0.0017538934896068974
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.delta_iou": {
+      "point": -8.174819768324735e-06,
+      "ci95": [
+        -4.74579955186935e-05,
+        3.5318207026149455e-05
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_delta_iou": {
+      "point": -4.37610503011129e-06,
+      "ci95": [
+        -4.608066139389103e-05,
+        3.898490150047599e-05
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.coverage": {
+      "point": 0.8094760814658477,
+      "ci95": [
+        0.8063164420290249,
+        0.8129008272173806
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_coverage": {
+      "point": 0.8472954920654397,
+      "ci95": [
+        0.8443815647549137,
+        0.8501394399619763
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.coverage": {
+      "point": 0.8001101077178601,
+      "ci95": [
+        0.7970415818511418,
+        0.8033682532847595
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_coverage": {
+      "point": 0.8394927670455693,
+      "ci95": [
+        0.8366230105628535,
+        0.8423722825286061
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.coverage": {
+      "point": 0.7996611448848796,
+      "ci95": [
+        0.7965892189955712,
+        0.8029112244844656
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_coverage": {
+      "point": 0.839146668437489,
+      "ci95": [
+        0.8362298969091865,
+        0.842025591085881
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.coverage": {
+      "point": -0.0004489628329804596,
+      "ci95": [
+        -0.0005193573505400423,
+        -0.00038095626819394937
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_coverage": {
+      "point": -0.0003460986080803252,
+      "ci95": [
+        -0.00042448967717287345,
+        -0.00027520242784188074
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.purity": {
+      "point": 0.7883917804263562,
+      "ci95": [
+        0.7853981345453307,
+        0.7915066312233
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_purity": {
+      "point": 0.8342748521269063,
+      "ci95": [
+        0.8314594256331822,
+        0.8369032577476466
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.purity": {
+      "point": 0.7988906855561712,
+      "ci95": [
+        0.795913710988664,
+        0.8019789336158752
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_purity": {
+      "point": 0.8431003794336501,
+      "ci95": [
+        0.8403914162494203,
+        0.8456571733570741
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.purity": {
+      "point": 0.799267552951471,
+      "ci95": [
+        0.7963242605271608,
+        0.8023472623152628
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_purity": {
+      "point": 0.8434022235691884,
+      "ci95": [
+        0.8406982166053547,
+        0.8459844771055959
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.purity": {
+      "point": 0.00037686739529985136,
+      "ci95": [
+        0.0003246239139515994,
+        0.0004336012697194913
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_purity": {
+      "point": 0.00030184413553824285,
+      "ci95": [
+        0.00024104780523854786,
+        0.00036608695436760036
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.FP_G": {
+      "point": 0.2755370360300085,
+      "ci95": [
+        0.2700966347941736,
+        0.28126974926023973
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_FP_G": {
+      "point": 0.21331797611653114,
+      "ci95": [
+        0.20827725935628494,
+        0.21866818781437097
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.FP_G": {
+      "point": 0.2568032997810673,
+      "ci95": [
+        0.2517069479850476,
+        0.2624025060169397
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_FP_G": {
+      "point": 0.19800822283796302,
+      "ci95": [
+        0.1932241483110613,
+        0.2031929246874139
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.FP_G": {
+      "point": 0.2559050691786836,
+      "ci95": [
+        0.2508404282905305,
+        0.2615409426195429
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_FP_G": {
+      "point": 0.19732751282292776,
+      "ci95": [
+        0.19256222553694427,
+        0.20253618516812513
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.FP_G": {
+      "point": -0.0008982306023836983,
+      "ci95": [
+        -0.0010413825733817412,
+        -0.0007528818036150021
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_FP_G": {
+      "point": -0.0006807100150352519,
+      "ci95": [
+        -0.0008310249194113821,
+        -0.0005416511506631507
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.FN_G": {
+      "point": 0.1905239185341528,
+      "ci95": [
+        0.1870991727826194,
+        0.1936835579709749
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "baseline.image_macro_FN_G": {
+      "point": 0.15270450793456042,
+      "ci95": [
+        0.14986056003802367,
+        0.15561843524508634
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.FN_G": {
+      "point": 0.19988989228213966,
+      "ci95": [
+        0.1966317467152413,
+        0.20295841814885884
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_I.image_macro_FN_G": {
+      "point": 0.1605072329544307,
+      "ci95": [
+        0.15762771747139395,
+        0.16337698943714643
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.FN_G": {
+      "point": 0.2003388551151201,
+      "ci95": [
+        0.19708877551553614,
+        0.20341078100442922
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "target_H.image_macro_FN_G": {
+      "point": 0.16085333156251108,
+      "ci95": [
+        0.15797440891411882,
+        0.1637701030908137
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.FN_G": {
+      "point": 0.0004489628329804318,
+      "ci95": [
+        0.000380956268193159,
+        0.0005193573505385677
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    },
+    "H_minus_I.image_macro_FN_G": {
+      "point": 0.00034609860808038073,
+      "ci95": [
+        0.00027520242784190573,
+        0.00042448967717298447
+      ],
+      "valid_replicates": 1000,
+      "interval": "percentile 2.5/97.5; conditional on the single fitted models"
+    }
+  },
+  "decision": "AP_damage_tradeoff",
+  "decision_is_safety_guarantee": false,
+  "scoring_run": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FORMAL_SCORING_CPU_S0_02",
+  "scoring_summary_sha256": "160213a960bbe1a842e5a18962c2e54e3690e9fc56b32764ea30ec19f52617b8",
+  "source_lock_sha256": "eb6b208d86ec41d289a66bf611393e63ea687184c94616ed6564d3b3c657961a",
+  "draws_sha256": "112c77d14342354adf4a09d022912622b192441a37a65aa7e88753f2bc080e55",
+  "artifacts": {
+    "BOOTSTRAP_DRAWS.npz": {
+      "sha256": "112c77d14342354adf4a09d022912622b192441a37a65aa7e88753f2bc080e55",
+      "size_bytes": 10474228
+    },
+    "BOOTSTRAP_REPLICATES.npz": {
+      "sha256": "f4a98787e2a8948448c46fb7ade2aed7c14a31dc3cfdf310aeb437aa6c9f1a0e",
+      "size_bytes": 449109
+    }
+  },
+  "actual_coco_modules": {
+    "pycocotools.coco": {
+      "path": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\Lib\\site-packages\\pycocotools\\coco.py",
+      "sha256": "8d70b2b3a3d8d788d6d5889898a44c7d441da7eb25b734dbcd6e0e2cf9158a96"
+    },
+    "pycocotools.cocoeval": {
+      "path": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\Lib\\site-packages\\pycocotools\\cocoeval.py",
+      "sha256": "84b0e75c6e972ca8b6fa3219fb03c1993dc9a3509df28447ca112c3f91828d61"
+    },
+    "pycocotools.mask": {
+      "path": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\Lib\\site-packages\\pycocotools\\mask.py",
+      "sha256": "1281ce0b5436ffe924c96521b2ae1d589f6f0e2a7b7281b6bb284f7b2245545c"
+    },
+    "pycocotools._mask": {
+      "path": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\Lib\\site-packages\\pycocotools\\_mask.pyd",
+      "sha256": "01783d2782ede36575a020b52b7410aa3e80cac857e54285dcb569f36e1e50c4"
+    }
+  },
+  "pycocotools_version": "2.0.11",
+  "replicates_sha256": "f4a98787e2a8948448c46fb7ade2aed7c14a31dc3cfdf310aeb437aa6c9f1a0e",
+  "seconds": 542.134891099995,
+  "boundary_CI": null,
+  "training_seed_uncertainty_included": false,
+  "GPU_or_model_execution": false,
+  "fixed_association_scope": "original final8 86600 detection-associated pairs; repeated GT is retained; separate from normal all-GT AP",
+  "limits": [
+    "Conditional single fit",
+    "Previously studied val5k; not an untouched final test",
+    "Finite outcome; no parameter or seed search"
+  ]
+}

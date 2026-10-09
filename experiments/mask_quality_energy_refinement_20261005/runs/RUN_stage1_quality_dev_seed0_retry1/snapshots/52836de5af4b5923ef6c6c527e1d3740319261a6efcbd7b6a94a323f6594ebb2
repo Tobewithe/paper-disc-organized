@@ -1,0 +1,211 @@
+from __future__ import annotations
+import argparse, json, math, random, sys, time, traceback
+from collections import defaultdict
+from pathlib import Path
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from ultralytics.utils import ops
+from pycocotools.coco import COCO
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from online_runtime import load_asset, load_index, dump, resolve_runtime_config
+
+SEED=20261005
+LAMBDA=0.003
+
+class EvidenceEncoder(nn.Module):
+    """Shared frozen-representation evidence encoder.
+
+    Input is the native candidate hidden vector, normalized predicted box, native
+    coefficient and differentiable 8x8 summary of Pc0. It never receives GT.
+    """
+    def __init__(self, in_dim=64+4+32+68, hidden=128, out_dim=128):
+        super().__init__(); self.net=nn.Sequential(nn.Linear(in_dim,hidden),nn.SiLU(),nn.Linear(hidden,out_dim),nn.SiLU())
+    def forward(self,x): return self.net(x)
+
+class Direct32(nn.Module):
+    def __init__(self, in_dim, hidden=128):
+        super().__init__(); self.head=nn.Sequential(nn.Linear(in_dim,hidden),nn.SiLU(),nn.Linear(hidden,32))
+    def forward(self,e,rho):
+        raw=self.head(e); n=raw.norm(dim=-1,keepdim=True).clamp_min(1e-8)
+        return rho*raw/n*torch.tanh(n)
+
+class QualityHead(nn.Module):
+    def __init__(self, e_dim=128, state_dim=32+68, hidden=128):
+        super().__init__(); self.head=nn.Sequential(nn.Linear(e_dim+state_dim,hidden),nn.SiLU(),nn.Linear(hidden,hidden),nn.SiLU(),nn.Linear(hidden,1))
+    def forward(self,e,c,zs): return self.head(torch.cat((e,c,zs),-1)).squeeze(-1)
+
+class QCR(nn.Module):
+    def __init__(self, mode, rho):
+        super().__init__(); self.mode=mode; self.rho=float(rho); self.encoder=EvidenceEncoder()
+        self.direct=Direct32(128) if mode=='direct' else None
+        self.quality=QualityHead() if mode=='quality' else None
+    def evidence_input(self,h,box,c0,z0):
+        b=box/640.; return torch.cat((h.float(),b.float(),c0.float(),summary(z0)),dim=-1)
+    def direct_delta(self,e): return self.direct(e,self.rho)
+    def quality_value(self,e,c,z): return self.quality(e,c,summary(z))
+
+def summary(z):
+    # differentiable prototype-space mask response descriptor
+    pooled=F.adaptive_avg_pool2d(z[:,None].float(),(8,8)).flatten(1)
+    mu=z.flatten(1).mean(1,keepdim=True); sd=z.flatten(1).std(1,keepdim=True).clamp_min(1e-6)
+    mx=z.flatten(1).amax(1,keepdim=True); mn=z.flatten(1).amin(1,keepdim=True)
+    return torch.cat((pooled,mu,sd,mx,mn),1)
+
+def z_from(proto,c): return torch.einsum('bchw,bc->bhw',proto.float(),c.float())
+
+def soft_iou(z,target,box):
+    if tuple(z.shape) != tuple(target.shape):
+        z=F.interpolate(z[None,None].float(),size=target.shape,mode='bilinear',align_corners=False)[0,0]
+    y=target.float(); p=torch.sigmoid(z)
+    support=ops.crop_mask(torch.ones((1,*p.shape),device=p.device),box.float()[None])[0].bool()
+    p=p[support]; y=y[support]
+    return (p*y).sum()/(p.sum()+y.sum()-(p*y).sum()+1e-6)
+
+def hard_iou(z,target,box):
+    if tuple(z.shape) != tuple(target.shape):
+        z=F.interpolate(z[None,None].float(),size=target.shape,mode='bilinear',align_corners=False)[0,0]
+    support=ops.crop_mask(torch.ones((1,*z.shape),device=z.device),box.float()[None])[0].bool(); p=(z>0)&support; y=target.bool()&support
+    return float((p&y).sum().item()/max(int((p|y).sum().item()),1))
+
+def decode_original_iou(z, x, box, annotation_id, coco, device):
+    z640=F.interpolate(z[None,None].float(),(640,640),mode='bilinear',align_corners=False)[0,0]
+    binary=ops.crop_mask(z640[None],box[None])[0]>0
+    scaled=ops.scale_masks(binary[None,None].float(),x['original_shape'],ratio_pad=x['ratio_pad'])[0,0]>.5
+    gt=torch.as_tensor(coco.annToMask(coco.anns[int(annotation_id)]).astype(bool),device=device)
+    inter=int((scaled&gt).sum()); union=int((scaled|gt).sum())
+    return inter/max(union,1)
+
+def read_oracle(path):
+    d=torch.load(path,map_location='cpu',weights_only=False); out={}
+    for i,ident in enumerate(d['identities']):
+        key=tuple(int(ident[k]) for k in ('image_id','annotation_id','raw_id','pyramid_level','target_gt_idx'))
+        out[key]=d['delta'][i].float()
+    return out
+
+def key_of(r): return tuple(int(r[k]) for k in ('image_id','annotation_id','raw_id','pyramid_level','target_gt_idx'))
+
+def states(c0, delta, kind, rho, seed):
+    if kind=='failure':
+        return torch.stack([c0,c0+.25*delta,c0+.5*delta,c0+.75*delta,c0+delta,c0-.5*delta,c0+rho*random_unit(32,seed,c0.device,c0.dtype),c0+rho*random_unit(32,seed+1,c0.device,c0.dtype)])
+    u1=random_unit(32,seed,c0.device,c0.dtype); u2=random_unit(32,seed+1,c0.device,c0.dtype); rr=.5*rho
+    return torch.stack([c0,c0+.25*rr*u1,c0-.25*rr*u1,c0+.5*rr*u1,c0-.5*rr*u1,c0+.5*rr*u2,c0-.5*rr*u2,c0+.25*rr*u2])
+
+def random_unit(n,seed,device=None,dtype=None):
+    g=torch.Generator(device='cpu').manual_seed(int(seed)); u=torch.randn(n,generator=g)
+    if device is not None: u=u.to(device=device,dtype=dtype)
+    return u/u.norm().clamp_min(1e-8)
+
+def load_manifest(path): return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+
+def candidate_payload(x,r):
+    k=int(r['row_index']); proto=x['proto'].float(); c0=x['c0'][k].float(); box=x['boxes'][k].float(); h=x['operator']['h0'][k].float(); z0=z_from(proto[None],c0[None])[0]; target=(x['masks']==int(x['owners'][k])+1)
+    return proto,c0,box,h,z0,target
+
+def collect_items(cfg,manifest,split):
+    # Return image-grouped selected fit records, or all official dev rows.
+    if split=='fit':
+        rows=[]
+        for kind in ('failure','success'):
+            for r in manifest['candidates'][kind]: rows.append({**r,'kind':kind})
+        by=defaultdict(list)
+        for r in rows: by[int(r['image_id'])].append(r)
+        return by
+    idx=load_index(cfg); by=defaultdict(list)
+    for e in idx.get(split,[]):
+        if int(e.get('n',0)):
+            x=load_asset(cfg,int(e['image_id']),verify=True)
+            for k,r in enumerate(x['rows']): by[int(e['image_id'])].append({'split':split,'image_id':int(e['image_id']),'annotation_id':int(r['annotation_id']),'branch':r['branch'],'raw_id':int(r['raw_id']),'pyramid_level':int(r['pyramid_level']),'target_gt_idx':int(r['target_gt_idx']),'row_index':k,'box_iou':float(r['box_iou']),'kind':'eval'})
+    return by
+
+def batch_fit(x,rs,oracle,rho,model,mode,device,train=True):
+    if not rs: return None,[]
+    proto=x['proto'].float().to(device); c0=[]; box=[]; h=[]; z0=[]; tgt=[]; kinds=[]; deltas=[]; ids=[]
+    for r in rs:
+        p,c,b,hh,z,y=candidate_payload(x,r); c0.append(c); box.append(b); h.append(hh); z0.append(z); tgt.append(y); kinds.append(r['kind']); ids.append(r)
+        if r['kind']=='failure':
+            d=oracle.get(key_of(r));
+            if d is None: continue
+            deltas.append(d)
+        else: deltas.append(torch.zeros(32))
+    if len(deltas)!=len(rs): return None,[]
+    c0=torch.stack(c0).to(device); box=torch.stack(box).to(device); h=torch.stack(h).to(device); z0=torch.stack(z0).to(device); tgt=torch.stack(tgt).to(device); deltas=torch.stack(deltas).to(device)
+    e=model.encoder(model.evidence_input(h,box,c0,z0))
+    if mode=='direct':
+        delta=model.direct_delta(e); cnew=c0+delta; z=z_from(proto[None].expand(len(rs),-1,-1,-1),cnew)
+        si=torch.stack([soft_iou(z[j],tgt[j],box[j]) for j in range(len(rs))]); loss=(1-si).mean()+LAMBDA*.5*delta.square().sum(1).mean()
+        return loss, [{'kind':r['kind'],'soft_iou':float(si[j].detach()),'delta_norm':float(delta[j].detach().norm())} for j,r in enumerate(rs)]
+    # quality model: use all state samples and train scalar quality/ranking
+    ps=[]; qs=[]; qtargets=[]; qgroups=[]
+    for j,r in enumerate(rs):
+        cs=states(c0[j],deltas[j],r['kind'],rho,SEED+int(r['image_id'])*1009+int(r['raw_id']))
+        zz=z_from(proto[None].expand(len(cs),-1,-1,-1),cs)
+        labels=torch.stack([soft_iou(zz[t],tgt[j],box[j]) for t in range(len(cs))]).detach()
+        ee=e[j].expand(len(cs),-1)
+        ps.append(model.quality_value(ee,cs,zz)); qs.append(labels); qgroups.append(len(cs))
+    pred=torch.cat(ps); lab=torch.cat(qs); loss=F.huber_loss(pred,lab,delta=.1)
+    off=0; rank=torch.zeros((),device=device)
+    for n in qgroups:
+        q=pred[off:off+n]; y=lab[off:off+n]; diff=y[:,None]-y[None,:]; valid=diff.abs()>.01
+        rank=rank+F.relu(.05-diff*(q[:,None]-q[None,:]))[valid].mean() if bool(valid.any()) else rank; off+=n
+    loss=loss+.5*rank/max(len(qgroups),1)
+    return loss, [{'kind':r['kind'],'q_corr':float(pred[sum(qgroups[:j])].detach()),'label_corr':float(lab[sum(qgroups[:j])].detach())} for j,r in enumerate(rs)]
+
+def train(cfg,manifest,mode,out,deadline):
+    random.seed(SEED); np.random.seed(SEED); torch.manual_seed(SEED); torch.cuda.manual_seed_all(SEED); torch.backends.cuda.matmul.allow_tf32=False; torch.backends.cudnn.benchmark=False; torch.backends.cudnn.deterministic=True
+    device=torch.device('cuda'); oracle=read_oracle(cfg['oracle_path']); norms=torch.stack(list(oracle.values())).norm(dim=1); rho=float(norms.median()); cfg['rho_runtime']=rho
+    model=QCR(mode,rho).to(device).float().train(); opt=torch.optim.AdamW(model.parameters(),lr=float(cfg['lr']),weight_decay=float(cfg['weight_decay']))
+    groups=collect_items(cfg,manifest,'fit'); history=[]; started=time.monotonic();
+    all_ids=list(groups)
+    dump(out/'MODEL.json',{'mode':mode,'rho':rho,'parameters':sum(p.numel() for p in model.parameters()),'trainable':sum(p.numel() for p in model.parameters() if p.requires_grad),'freeze_scope':'original YOLO not instantiated; cache P/h/c/box is immutable'})
+    for epoch in range(int(cfg['epochs'])):
+        rng=random.Random(SEED+epoch); rng.shuffle(all_ids); losses=[]; seen=0; accum=0; steps=0; gn=0.0; accum_target=max(1,int(cfg.get('gradient_accum_images',8))); opt.zero_grad(set_to_none=True)
+        for iid in all_ids:
+            if deadline and time.time()>=deadline: raise TimeoutError('training deadline reached')
+            x=load_asset(cfg,int(iid),verify=True); rs=groups[iid]; loss,info=batch_fit(x,rs,oracle,rho,model,mode,device,True)
+            if loss is None or not torch.isfinite(loss): continue
+            (loss/accum_target).backward(); losses.append(float(loss.detach())); seen+=len(rs); accum+=1
+            if accum>=accum_target:
+                gn=float(torch.nn.utils.clip_grad_norm_(model.parameters(),float(cfg['clip_grad_norm']),error_if_nonfinite=True)); opt.step(); opt.zero_grad(set_to_none=True); accum=0; steps+=1
+            if seen and seen%512< len(rs): print(json.dumps({'mode':mode,'epoch':epoch+1,'images_done':all_ids.index(iid)+1,'images_total':len(all_ids),'candidates':seen,'loss':float(np.mean(losses)),'elapsed_s':time.monotonic()-started}),flush=True)
+        if accum:
+            gn=float(torch.nn.utils.clip_grad_norm_(model.parameters(),float(cfg['clip_grad_norm']),error_if_nonfinite=True)); opt.step(); opt.zero_grad(set_to_none=True); steps+=1
+        rec={'epoch':epoch+1,'loss':float(np.mean(losses)) if losses else None,'candidates':seen,'images':len(all_ids),'optimizer_steps':steps,'gradient_accum_images':accum_target,'seconds':time.monotonic()-started,'grad_norm':gn if losses else None,'rho':rho}; history.append(rec); dump(out/'HISTORY.json',history); torch.save({'mode':mode,'state_dict':model.state_dict(),'epoch':epoch+1,'rho':rho,'config':cfg,'history':history},out/f'epoch{epoch+1}.pt')
+    torch.save({'mode':mode,'state_dict':model.state_dict(),'epoch':int(cfg['epochs']),'rho':rho,'config':cfg,'history':history},out/'final.pt'); dump(out/'COMPLETE.json',{'completed':True,'mode':mode,'epochs':int(cfg['epochs']),'candidates':sum(len(v) for v in groups.values()),'rho':rho,'elapsed_s':time.monotonic()-started})
+
+def refine(model,e,proto,c0,box,device,rho):
+    c=c0.detach().clone().requires_grad_(True); base=c0.detach();
+    for eta in (rho/2.,rho/4.):
+        z=z_from(proto[None],c[None])[0]; q=model.quality_value(e[None],c[None],z[None])[0]; energy=q-LAMBDA*.5*(c-base).square().sum(); g=torch.autograd.grad(energy,c)[0]; step=eta*g/(g.norm()+1e-8); new=base+(c+step-base); n=(new-base).norm();
+        if float(n)>rho: new=base+(new-base)*rho/n
+        c=new.detach().requires_grad_(True)
+    return c.detach()
+
+def evaluate(cfg,manifest,checkpoint,out,split='dev'):
+    device=torch.device('cuda'); ck=torch.load(checkpoint,map_location='cpu',weights_only=False); coco=COCO(cfg['annotations_val'] if split=='final' else cfg['annotations_train']); rho=float(ck['rho']); model=QCR(ck['mode'],rho).to(device).float(); model.load_state_dict(ck['state_dict']); model.eval(); groups=collect_items(cfg,manifest,split); rows=[]; started=time.monotonic()
+    for pos,iid in enumerate(groups):
+        x=load_asset(cfg,int(iid),verify=True); proto=x['proto'].float().to(device); rs=groups[iid]
+        for r in rs:
+            k=int(r['row_index']); p,c0,b,h,z0,t=candidate_payload(x,r); p=p.to(device); c0=c0.to(device); b=b.to(device); h=h.to(device); z0=z0.to(device); t=t.to(device); e=model.encoder(model.evidence_input(h[None],b[None],c0[None],z0[None])); zA=z0; d=torch.zeros_like(c0); zB=zA
+            if ck['mode']=='direct': d=model.direct_delta(e)[0].detach(); zB=z_from(p[None],(c0+d)[None])[0]
+            else:
+                c_ref=refine(model,e[0],p,c0,b,device,rho)
+                d=(c_ref-c0).detach(); zB=z_from(p[None],c_ref[None])[0]
+            iA=decode_original_iou(zA,x,b,int(r['annotation_id']),coco,device); iB=decode_original_iou(zB,x,b,int(r['annotation_id']),coco,device); rows.append({'split':split,'image_id':int(iid),'annotation_id':int(r['annotation_id']),'raw_id':int(r['raw_id']),'pyramid_level':int(r['pyramid_level']),'box_iou':float(r.get('box_iou',float('nan'))),'iou_A':iA,'iou_B':iB,'mask75_A':int(iA>=.75),'mask75_B':int(iB>=.75),'delta_iou':iB-iA,'delta_norm':float(d.norm())})
+        if pos%100==0: dump(out/'PROGRESS.json',{'images':pos+1,'total_images':len(groups),'rows':len(rows),'elapsed_s':time.monotonic()-started})
+    with (out/'PER_CANDIDATE.jsonl').open('w',encoding='utf-8') as f:
+        for r in rows:f.write(json.dumps(r)+'\n')
+    by=defaultdict(list)
+    for r in rows: by[r['image_id']].append(r)
+    diffs=[float(np.mean([r['delta_iou'] for r in v])) for v in by.values() if v]
+    fail=[r for r in rows if r['box_iou']>=.75 and r['iou_A']<.75]
+    summary={'split':split,'images':len(by),'candidates':len(rows),'strict_maskfail_candidates':len(fail),'macro_delta':float(np.mean(diffs)) if diffs else None,'candidate_delta':float(np.mean([r['delta_iou'] for r in rows])) if rows else None,'repair':sum(r['mask75_B']==1 and r['mask75_A']==0 for r in rows),'damage':sum(r['mask75_B']==0 and r['mask75_A']==1 for r in rows),'rho':rho,'checkpoint':str(checkpoint)}; dump(out/'SUMMARY.json',summary); dump(out/'COMPLETE.json',{'completed':True,**summary})
+
+def main():
+    ap=argparse.ArgumentParser(); ap.add_argument('--config',required=True); ap.add_argument('--stage',choices=('train','eval'),required=True); ap.add_argument('--mode',choices=('direct','quality')); ap.add_argument('--manifest',required=True); ap.add_argument('--checkpoint'); ap.add_argument('--out',required=True); ap.add_argument('--split',default='dev'); ap.add_argument('--deadline',type=float,default=0); a=ap.parse_args(); cfg=resolve_runtime_config(json.loads(Path(a.config).read_text(encoding='utf-8-sig'))); out=Path(a.out); out.mkdir(parents=True,exist_ok=True); manifest=load_manifest(a.manifest)
+    if a.stage=='train': train(cfg,manifest,a.mode,out,a.deadline)
+    else: evaluate(cfg,manifest,a.checkpoint,out,a.split)
+if __name__=='__main__':
+    try: main()
+    except BaseException as e: dump(Path(sys.argv[sys.argv.index('--out')+1])/'FAILURE.json',{'error_type':type(e).__name__,'error':str(e),'traceback':traceback.format_exc()}); raise

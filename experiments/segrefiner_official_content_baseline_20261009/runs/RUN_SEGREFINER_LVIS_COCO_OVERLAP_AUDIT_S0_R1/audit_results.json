@@ -1,0 +1,66 @@
+{
+  "audit_version": "segrefiner_lvis_coco_image_overlap_v1",
+  "completed_at_utc": "2026-10-08T20:26:41.159062+00:00",
+  "counts": {
+    "coco_val2017_distinct_image_ids": 5000,
+    "intersection_distinct_image_ids": 0,
+    "lvis_distinct_image_ids": 100170
+  },
+  "extraction": {
+    "json_bytes": 1097154875,
+    "status": "reused_existing_exact_size",
+    "zip_declared_uncompressed_bytes": 1097154875,
+    "zip_entry": "lvis_v1_train.json"
+  },
+  "id_list_sha256": {
+    "coco_val2017_sorted": "ea37cee007069bde6d45a67186cc6c2591d0c6d7effd3c481996b6b367e060b6",
+    "intersection_sorted": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lvis_train_sorted": "03a93da106befd9b3bdc99b1968082c11247c44d945256bf31c2efbd5e866bd7"
+  },
+  "image_record_metadata_checks": {
+    "coco_val2017": {
+      "coco_url_ends_with_file_name": 5000,
+      "coco_url_has_val2017_segment": 5000,
+      "numeric_file_stem_equals_id": 5000,
+      "records": 5000
+    },
+    "lvis_v1_train": {
+      "coco_url_has_train2017_segment": 100170,
+      "missing_file_name": 100170,
+      "records": 100170
+    }
+  },
+  "inputs": {
+    "coco_val_json": "C:\\Dpan\\document\\model_datasets\\datasets\\coco\\annotations\\instances_val2017.json",
+    "coco_val_json_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+    "lvis_extracted_json": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\training_provenance\\extracted\\lvis_v1_train.json",
+    "lvis_extracted_json_sha256": "3741bead824ff960d4f3780a33988588289a58fa3505ee8a6fb7d6a7b1629487",
+    "lvis_zip": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\training_provenance\\lvis_v1_train.json.zip",
+    "lvis_zip_sha256": "334a4caa374030a7817cf050364525e910f7960f9b6968cef47cffbf3893f8ba"
+  },
+  "interpretation": {
+    "checkpoint_manifest_status": "not available in this audit",
+    "evaluation_scope_decision": "reserved for B/root",
+    "training_data_evidence": "The locked released config declares LVIS v1 train; this audit establishes image-ID overlap of the downloaded LVIS annotation, not actual checkpoint training history."
+  },
+  "outputs": {
+    "coco_val2017_image_ids": "coco_val2017_image_ids.txt",
+    "lvis_train_image_ids": "lvis_train_image_ids.txt",
+    "overlap_image_ids": "overlap_image_ids.txt",
+    "overlap_url_audit": "overlap_url_audit.jsonl",
+    "overlap_url_audit_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "overlap_url_checks": {
+    "coco_url_exact_equal": 0,
+    "file_name_exact_equal": 0,
+    "lvis_url_ends_with_coco_filename": 0,
+    "lvis_url_has_val2017_segment": 0,
+    "missing_coco_coco_url": 0,
+    "missing_coco_file_name": 0,
+    "missing_lvis_coco_url": 0,
+    "missing_lvis_file_name": 0,
+    "records": 0
+  },
+  "scope": "streamed top-level images arrays only; no LVIS annotations/polygons decoded",
+  "status": "completed"
+}

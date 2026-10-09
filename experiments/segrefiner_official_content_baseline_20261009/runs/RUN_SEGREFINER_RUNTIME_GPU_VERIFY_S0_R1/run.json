@@ -1,0 +1,182 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1",
+  "study_id": "STUDY_SEGREFINER_OFFICIAL_CONTENT_BASELINE_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/scripts/verify_segrefiner_runtime.py",
+    "--root",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009",
+    "--run-id",
+    "RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1",
+    "--upstream",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/assets/upstream/SegRefiner-53419a2d38ea3da0b6e2be77e5b45e139195a0b3",
+    "--checkpoint",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/assets/models/segrefiner_lr_latest.pth",
+    "--normalization-reference",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/segrefiner_official_content_baseline_20261009/assets/upstream/mmcv_reference/photometric.py",
+    "--device",
+    "cuda"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009",
+  "status": "completed",
+  "created_at": "2026-10-08T21:03:51.349+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\models\\segrefiner_lr_latest.pth",
+      "exists": true,
+      "sha256": "d5806a41a4bff6f1e313d1a9dcf18d11dab28e3a8e1497871a156214cd8fe07a",
+      "size": 474603251
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\EXECUTION_SUPPLEMENT.md",
+      "exists": true,
+      "sha256": "4d4918a7a2844bd4bbb637915f9173dd9c163af01894a3a8267a41604ebf876a",
+      "size": 2269
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\segrefiner_runtime.py",
+      "revision": "5a296b083991adb6918db09a9f69204a0a2e4f65b582d5c9a2f2335d4183c107",
+      "snapshot": "snapshots/5a296b083991adb6918db09a9f69204a0a2e4f65b582d5c9a2f2335d4183c107"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\verify_segrefiner_runtime.py",
+      "revision": "27ec57f79fb09d43c5875e16c9c89830d8c250a482525cc4e3d1f6b1142fa198",
+      "snapshot": "snapshots/27ec57f79fb09d43c5875e16c9c89830d8c250a482525cc4e3d1f6b1142fa198"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\PROTOCOL.md",
+      "revision": "f4703167b0fbb77fc324f89aa5d7d5b97ad6afe020371dc2ab3d2a2db11c1fde",
+      "snapshot": "snapshots/f4703167b0fbb77fc324f89aa5d7d5b97ad6afe020371dc2ab3d2a2db11c1fde"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\EXECUTION_SUPPLEMENT.md",
+      "revision": "4d4918a7a2844bd4bbb637915f9173dd9c163af01894a3a8267a41604ebf876a",
+      "snapshot": "snapshots/4d4918a7a2844bd4bbb637915f9173dd9c163af01894a3a8267a41604ebf876a"
+    }
+  ],
+  "scope": {
+    "type": "bounded_same_state_author_core_vs_wrapper_rng_capture",
+    "synthetic_fixture": true,
+    "actual_official_denoiser_forward": true,
+    "no_gt": true
+  },
+  "expected_outputs": [
+    "runs/RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1/VERIFICATION.json",
+    "runs/RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1/MODEL_PROVENANCE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 2824,
+  "started_at": "2026-10-08T21:03:52.066+00:00",
+  "last_heartbeat": "2026-10-08T21:03:57.076+00:00",
+  "metrics": {
+    "status": "passed",
+    "passed": true,
+    "checks": {
+      "normalization_primary_function_tensor_bytes_exact": true,
+      "strict_complete455_keys": true,
+      "all_checkpoint_tensor_values_exact": true,
+      "author_input_normalized_photo_exact": true,
+      "author_alltiny_empty_identity_fallback_exact": true,
+      "alltiny_denoiser_and_sampling_skipped": true,
+      "zero_native_candidates_preserved": true,
+      "no_supported_scope_preserves_all_identity": true,
+      "official_weight_author_core_vs_wrapper_binary_exact": true,
+      "same_state_author_core_vs_wrapper_rng_exact": true,
+      "external_cpu_cuda_rng_restored": true,
+      "actual_six_step_forward_count": true,
+      "original_mask_ordinal_scatter_exact": true
+    },
+    "runtime_source_sha256": "5a296b083991adb6918db09a9f69204a0a2e4f65b582d5c9a2f2335d4183c107",
+    "verifier_source_sha256": "27ec57f79fb09d43c5875e16c9c89830d8c250a482525cc4e3d1f6b1142fa198",
+    "model_provenance_sha256": "0f70e5ad004730b7dbc1b7f14c5aa8917ba95a13b8644096618ff1c103ca792f",
+    "device": "cuda",
+    "actual_torch": "2.9.1+cu128",
+    "actual_gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "construction_and_strict_load_seconds": 1.4049925999715924,
+    "frozen_integrity": {
+      "passed": true,
+      "initial_state_sha256": "483d6de3cfc4672fcc8f67033a4d08220b4b2da9d799b290e441150660298a43",
+      "final_state_sha256": "483d6de3cfc4672fcc8f67033a4d08220b4b2da9d799b290e441150660298a43",
+      "all_parameter_values_exact": true,
+      "all_requires_grad_false": true,
+      "all_gradients_none": true
+    },
+    "official_weight_gpu_forward_exercised": true,
+    "synthetic_geometry_fixture_only": true,
+    "gt_used": false,
+    "ap_measured": false,
+    "same_state_fixture_diagnostics": {
+      "selected_supported_ordinals": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "model_valid_area512": 2,
+      "tiny_or_empty_fallback": 2,
+      "outside_scope_identity": 0,
+      "actual_denoiser_forward_calls": 6,
+      "seed": 20261148,
+      "torch_cpu_rng_before_sha256": "556d76ff7d2a68a357b9372b51469950f8902010b50bee1c8836631ddca1b7c5",
+      "torch_cpu_rng_after_sha256": "556d76ff7d2a68a357b9372b51469950f8902010b50bee1c8836631ddca1b7c5",
+      "torch_cuda_rng_before_sha256": "6adeb32be4e9fcdca0ad725cdf3f6e14af68935745a46b65f875ad9eb9bddf9f",
+      "torch_cuda_rng_after_sha256": "6a375c564871b6e63d39bd01e69bcb9de5ebab20dbea1d6edd9e3e884ed9e14e",
+      "all_ordinal_count_preserved": true,
+      "gt_used": false,
+      "fallback_only_case": null,
+      "external_torch_cpu_rng_restored": true,
+      "external_torch_cuda_rng_restored": true
+    },
+    "normalization_tensor_sha256": "8148fe8e422b32c3c5352742eef45f4d22329fd6c26bb0bfb6a3b807be1d94dd"
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1\\VERIFICATION.json",
+    "sha256": "c2922e43f9e3d5e38c2505587af06c9fb0bd2856b7b8989c51a870459e554104"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T21:03:57.786+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1\\VERIFICATION.json",
+      "exists": true,
+      "sha256": "c2922e43f9e3d5e38c2505587af06c9fb0bd2856b7b8989c51a870459e554104"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RUNTIME_GPU_VERIFY_S0_R1\\MODEL_PROVENANCE.json",
+      "exists": true,
+      "sha256": "0f70e5ad004730b7dbc1b7f14c5aa8917ba95a13b8644096618ff1c103ca792f"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "trainer_version": "triflow_module_train_v1",
+  "started_at": "2026-10-06T16:12:03.334572+00:00",
+  "completed_at": "2026-10-06T16:12:14.729758+00:00",
+  "epochs": 1,
+  "optimizer_attempts": 69,
+  "optimizer_applied": 69,
+  "skipped_updates": 0,
+  "all_applied_gradients_finite": true,
+  "gradient_finite_by_group": {
+    "token_projection": true,
+    "ownership_embeddings": true,
+    "ownership_projection": true,
+    "cross_attention": true,
+    "interaction_norm": true,
+    "field_head": true
+  },
+  "nonzero_gradient_steps_by_group": {
+    "token_projection": 69,
+    "ownership_embeddings": 69,
+    "ownership_projection": 69,
+    "cross_attention": 69,
+    "interaction_norm": 69,
+    "field_head": 69
+  },
+  "parameter_updates_by_group": {
+    "token_projection": {
+      "changed_tensors": 6,
+      "max_abs_delta": 0.015053564682602882
+    },
+    "ownership_embeddings": {
+      "changed_tensors": 1,
+      "max_abs_delta": 0.006730511784553528
+    },
+    "ownership_projection": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.012520462274551392
+    },
+    "cross_attention": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.011536307632923126
+    },
+    "interaction_norm": {
+      "changed_tensors": 2,
+      "max_abs_delta": 0.007498264312744141
+    },
+    "field_head": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.019674787297844887
+    }
+  },
+  "all_parameters_finite": true,
+  "initial_head_state_sha256": "5867b59007e8ff764659449f64473266549c940b7e621c7c3f21f59788071132",
+  "final_head_state_sha256": "5f3c4751cd96132a26eeb586be37bca692b6f7c6f72061f8a32f275e1cd4987f",
+  "all_groups_really_changed": true,
+  "compiler_task_gradient_observed_nonzero": true,
+  "task_gradient_evidence_file": "TASK_GRADIENT_EVIDENCE.json",
+  "no_hidden_warmup": true,
+  "frozen_yolo_instantiated": false,
+  "frozen_cache_receipt_integrity_passed": true,
+  "frozen_input_mutation_checks": 1,
+  "frozen_input_mutation_checks_passed": true,
+  "frozen_input_tensor_hashes": {
+    "1": {
+      "prototypes": "15a21c9363eb0d2e73a195a1d1d4520d7295b05fde0162479f878039b069aebb",
+      "coefficients": "a8cfd7b6ba1a4c651892610d4faf3f74d91fb3c63ed8db68912f3803979aebd3",
+      "visual": "57ba739a73de3be253ebe37f00ec0118a802ed60c1d35e523b092ab0c056b655",
+      "boxes": "b0ee928242def43cf749cab4acf69aeaca8e413d8110c0286c414ca391a00dbc",
+      "neighbor_logits": "452ef487fa21a3e32a1fccb638f8d78ee8e77f8bf0c47d88dd8e439f0d71d171",
+      "neighbor_valid": "507503b51960cceda8d924904fb85377fe7d177fb8dfcf56b24e4557644ed486",
+      "instance_hidden": "ab056f31a45a2337c09c961e744e6dfa159fa39adb5d4abad2105417dd6cb97e"
+    }
+  },
+  "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+  "cache_receipt_sha256": "c04170b1d026a99e2857f27a19385c4acdf1c4a4c33a92d955d332e86c4e6ae9",
+  "sources": {
+    "train_triflow.py": "6b2380fe606146c3427ea05754fffd860dad632ffe4b65354134ded5d0b1af7b",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+  },
+  "configuration_sha256": "f46dadac2d54d0fd0f482b0b37d2e70cdb32f1900476e16ed44aa54fd025c89a",
+  "trainable_parameters": 187651,
+  "elapsed_seconds": 11.39000000001397,
+  "passed": true
+}

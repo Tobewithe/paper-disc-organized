@@ -1,0 +1,34 @@
+{
+  "status": "GT_validation_contract_complete",
+  "passed": true,
+  "checks": {
+    "actual_val_GT_correct_SHA_locked": {
+      "validation_called": true,
+      "validation_completed": true,
+      "finish_called": true
+    },
+    "wrong_GT_SHA_rejected": {
+      "validation_called": true,
+      "validation_completed": false,
+      "finish_called": false,
+      "rejection": "Original val GT annotation SHA differs"
+    },
+    "GT_changed_after_validation_rejected_at_finish": {
+      "validation_called": true,
+      "validation_completed": true,
+      "finish_called": true,
+      "rejection": "Source bytes changed: C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_MULTIVIEW_GT_CONTRACT_CPU_S0_01\\fixtures\\same_GT_bytes_then_mutated.json"
+    }
+  },
+  "GT_parsed": false,
+  "GT_decoded": false,
+  "GPU_or_model_execution": false,
+  "COCO_or_Boundary_metrics_computed": false,
+  "actual_annotations": "C:\\Dpan\\document\\model_datasets\\datasets\\coco\\annotations\\instances_val2017.json",
+  "actual_annotations_size_bytes": 19987840,
+  "actual_annotations_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+  "scoring_v2_sha256": "f81718da1c2b81ae3da1e6d4d6f581adcbe875d23f65051b0f10601706fbdf2b",
+  "plan_sha256": "405daa6b4c758a50389d8f56aae47858d6a3b070b130e07cc06697fcb221f6eb",
+  "source_lock_sha256": "1bb80b0afc4055759c333822de0cf5c15ca1f2d9c64dea846584f9b3c323ad28",
+  "scope": "Actual v2 run_readout.validation closure and accepted InputLock tested; unrelated sources and metric loop are explicit stubs; no quality result"
+}

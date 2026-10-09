@@ -1,0 +1,152 @@
+{
+  "trainer_version": "triflow_module_train_v1",
+  "started_at": "2026-10-06T16:34:45.062139+00:00",
+  "completed_at": "2026-10-06T17:11:37.267849+00:00",
+  "epochs": 8,
+  "optimizer_attempts": 14856,
+  "optimizer_applied": 14856,
+  "skipped_updates": 0,
+  "all_applied_gradients_finite": true,
+  "gradient_finite_by_group": {
+    "token_projection": true,
+    "ownership_embeddings": true,
+    "ownership_projection": true,
+    "cross_attention": true,
+    "interaction_norm": true,
+    "field_head": true
+  },
+  "nonzero_gradient_steps_by_group": {
+    "token_projection": 14856,
+    "ownership_embeddings": 14856,
+    "ownership_projection": 14856,
+    "cross_attention": 14856,
+    "interaction_norm": 14856,
+    "field_head": 14856
+  },
+  "parameter_updates_by_group": {
+    "token_projection": {
+      "changed_tensors": 6,
+      "max_abs_delta": 0.5515682697296143
+    },
+    "ownership_embeddings": {
+      "changed_tensors": 1,
+      "max_abs_delta": 0.08803927153348923
+    },
+    "ownership_projection": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.18123655021190643
+    },
+    "cross_attention": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.21412993967533112
+    },
+    "interaction_norm": {
+      "changed_tensors": 2,
+      "max_abs_delta": 0.16292649507522583
+    },
+    "field_head": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.5942988395690918
+    }
+  },
+  "all_parameters_finite": true,
+  "initial_head_state_sha256": "5867b59007e8ff764659449f64473266549c940b7e621c7c3f21f59788071132",
+  "final_head_state_sha256": "24c14ba4ef5667c4609b35fc11d9011fe64008ee7ffd08d817c7eeefd4e6e4ae",
+  "all_groups_really_changed": true,
+  "compiler_task_gradient_observed_nonzero": true,
+  "compiler_task_phi_and_attention_same_probe_observed_nonzero": true,
+  "compiler_task_phi_nonzero_probe_count": 8,
+  "compiler_task_attention_nonzero_probe_count": 8,
+  "compiler_task_phi_attention_same_probe_count": 8,
+  "task_gradient_evidence_file": "TASK_GRADIENT_EVIDENCE.json",
+  "no_hidden_warmup": true,
+  "frozen_yolo_instantiated": false,
+  "frozen_cache_receipt_integrity_passed": true,
+  "frozen_input_mutation_checks": 8,
+  "frozen_input_mutation_checks_passed": true,
+  "frozen_input_tensor_hashes": {
+    "1": {
+      "prototypes": "55f6afb72a2ca8e2ec5ee7835f6ee3cff7f0ab036fe3f81dac0e1759e688821d",
+      "coefficients": "5001484fbc5be8c7fc81af34ba213d17b55aec3b77fb1b8d68df31940dabf6dd",
+      "visual": "ca334b4ccd873dc8e939a86fe6cd0aed95097cac645aeba3736ed62d8b870057",
+      "boxes": "e5ebb9e099dffbaafb5e006e6f509fb5fe1e94ac47b82dca62d56feafa08cdfd",
+      "neighbor_logits": "cd7aa29a0c683a2979891bfc126d62968519a345eac13066a38741d647b476c0",
+      "neighbor_valid": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
+      "instance_hidden": "8db6b6d966a9469f15b03ce87e28d0fe1940b7290d64900088931b552348a732"
+    },
+    "2": {
+      "prototypes": "fa0d07eb309bac4400fcbae7aa37288b056de3ae947a71dc5a1b2deac88816f0",
+      "coefficients": "4b0c4c58ecae75dace7d0db2dcbd519ed9bc1e04fa651ab3ea1c4e0a177555c9",
+      "visual": "87cc7eecc711c340e721103157f0ccb2ada39b9ae32f4973dbed5e25bf65ced9",
+      "boxes": "0b073521451ec0e6d161e42edfbf866849270d8de1c96cc5f995b557f20d8be7",
+      "neighbor_logits": "f75bd23784a3bd1cf702abb533596c9c6cac36444d96dd25154c5c1dff7d9009",
+      "neighbor_valid": "9dcf97a184f32623d11a73124ceb99a5709b083721e878a16d78f596718ba7b2",
+      "instance_hidden": "88a1e1ff005f564be15a4bbbc569fb2d2e0812cc14c2f3889f0782f60b86c04a"
+    },
+    "3": {
+      "prototypes": "bfbac6304b343529b6a13e0c5fd393febfb92fe93c8e48aa9bf65fe46ab17ae9",
+      "coefficients": "b4fd2b72f957d70ffc1b50955548863c9238ab0e873d4e487fd247dae60ce2bd",
+      "visual": "af33a2960d25a9bb3f6dbad3eae78060f01b29c8a4bd42c673129291e7e5bb4b",
+      "boxes": "8b4af8dbac981b8093b4928e39da920c8f88f01e67f6662cb34969f9eb269759",
+      "neighbor_logits": "c55735c2d9662fe00b6fcb4f47fea805f5c66dff0d63d4dd7e8c39675334cb7b",
+      "neighbor_valid": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
+      "instance_hidden": "7fb3186554c9f75ec9d44a135a70005f32d58540151fe85106f972adeeffc2cb"
+    },
+    "4": {
+      "prototypes": "93555f730982f3c86e72e01062050f6b351f4aabb52cc5475c8b98780fb864ec",
+      "coefficients": "67ed2a5b657e7055662398448f1f35da757ece90aed0f93391942c82593d084d",
+      "visual": "0fbd5014ccfc0a8497e70a8d0276f3af399e023f43d461ca9c80d689872dc0a0",
+      "boxes": "bf99733608ebc618f71587e5895e2f2f112d3f86fb497d441d8128a67dc396ae",
+      "neighbor_logits": "d6a1481ecb83f0a0ed41cf923be95a07eeb586d8483f95a411edcf26070b21ac",
+      "neighbor_valid": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
+      "instance_hidden": "27c9f848a45aad0f35f348fda693948d6eabeb5fa109c92524d20715eba87faa"
+    },
+    "5": {
+      "prototypes": "5f466242194616929e0a949738f496143178741cbb19d5671492e47414bbd33d",
+      "coefficients": "da6a162abb21e8da65bdce0074b40048b98507886cc24afb7d054b93c59417fc",
+      "visual": "12c57cd3c3b78c240d3a7aed27dae26347bf288dbf269fcbec46b8232bdcb8a6",
+      "boxes": "e5bf6011c1c299b134102c710ef426b4ce56d7c2d4b4e45641cb7d43221e35da",
+      "neighbor_logits": "00f164b29c789e5c317692c5ddc3530832cccbc4e607a48368026858b5c79b74",
+      "neighbor_valid": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
+      "instance_hidden": "92356f251acb57dac021237e592c41c55d43b2c5b403f6ae0b92db409b936cd0"
+    },
+    "6": {
+      "prototypes": "4b465392b99504a21ac34c9928904d2435e52caf8bf724ce5a8a98b4d3b9a262",
+      "coefficients": "2862a035b12ea6e46b764660571af1e9e67d419a78a2554807e405c69acdc367",
+      "visual": "de42187296143085f1be3bbd1cddb69ad741d7fc38d8c2c9896526177d10d285",
+      "boxes": "85f0065201da8e5c4c849f2315b2fa2a386b91d91472e2da31a075fc9a3c54e3",
+      "neighbor_logits": "ae03f729e33780ef7687aed569bb043be00975f115ce8b7e0d8f512bb2b31566",
+      "neighbor_valid": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
+      "instance_hidden": "1fa0605734a205932e1df8c9904d927ed08a19b9e06981f59cb75d7a08eae362"
+    },
+    "7": {
+      "prototypes": "bf7c867551000cc92c4145117a923821e4d600abc70be3facdd3634d40a0797f",
+      "coefficients": "c018381e369dd53ef1d3cc8eba5d53573f590a270081d55172a7e235a54778d5",
+      "visual": "a6fa0cea2de03a531dfa7410238e80453897e005619f1e5bf741b0450bc7409f",
+      "boxes": "c2d976da35586a66da0a86af45931bcf0102e44b59453c72396a3cd689ca544b",
+      "neighbor_logits": "b1f91319cd0a676117bffc8153bd73b0e9632d96bed90ba8230f6807db1184e9",
+      "neighbor_valid": "dfea2964b5deedea7b1ef077de529c3959e6788bdbb3441e70c77a1ae875bb48",
+      "instance_hidden": "355caf670b816e6a7bd4a09044fdae0057ab0a11a62fdb31ed89157d3d8df11e"
+    },
+    "8": {
+      "prototypes": "ce83dc0f8607a738ae96a21a11984227d60b0b7ee95674774ee03b3c50d49946",
+      "coefficients": "34561492c5e21cc34032f3ef9d6e14f5cba5bb56f5809a117ba280320755b1e5",
+      "visual": "d8a6022019a414341226caf1a4b8957eab1a4f97f635f738995d8d04c646dfe9",
+      "boxes": "e7ec25de4785b2f4925fab1408945b0831bba98b6496bf918a60cf7d72839dae",
+      "neighbor_logits": "b72167ef32f8ba4e7282d407eaba825fb4e344abc50d5d918c79743bf28c60ce",
+      "neighbor_valid": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
+      "instance_hidden": "357d9b9b05d6d1e2c3fdf5fbbd3d17e21cf16224ee991f6780de0c475703bec0"
+    }
+  },
+  "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+  "cache_receipt_sha256": "bec4e547a668e6fe9433ccc4caa4d432ee275310407f41c6299f48a588cd2fb2",
+  "sources": {
+    "train_triflow.py": "8a51a9bc2f94a19fd7c9822301f534ced9eb99430799485504798dc7e776717c",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+  },
+  "configuration_sha256": "f46dadac2d54d0fd0f482b0b37d2e70cdb32f1900476e16ed44aa54fd025c89a",
+  "trainable_parameters": 187651,
+  "elapsed_seconds": 2212.219000000041,
+  "passed": true
+}

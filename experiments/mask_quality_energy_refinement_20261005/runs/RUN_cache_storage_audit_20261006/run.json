@@ -1,0 +1,94 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_cache_storage_audit_20261006",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/qcr_run/qcr_cache_storage_audit.py",
+    "--config",
+    "/root/mask_quality_energy_refinement_20261005/RUN_CONFIG.json",
+    "--out",
+    "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006"
+  ],
+  "working_directory": "/root/autodl-tmp/qcr_run",
+  "status": "completed",
+  "created_at": "2026-10-06T10:16:39.485+00:00",
+  "host": "autodl-container-3trrlc6l9f-e83c9305",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/qcr_cache_storage_audit.py",
+      "path_relative_to_cwd": "qcr_cache_storage_audit.py",
+      "revision": "aa8b644f9d474bcf84d6524e7bc5e982455f01ca921e85ab30d8c4f7835f7e92",
+      "snapshot": "snapshots/aa8b644f9d474bcf84d6524e7bc5e982455f01ca921e85ab30d8c4f7835f7e92"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/online_runtime.py",
+      "path_relative_to_cwd": "online_runtime.py",
+      "revision": "56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb",
+      "snapshot": "snapshots/56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/cache/CACHE_IDENTITY.json",
+      "path_relative_to_cwd": "cache/CACHE_IDENTITY.json",
+      "revision": "95e2c260ed127e7f079c93b1a584f30ecb3426121562be4e1b3d43d68f61c50f",
+      "snapshot": "snapshots/95e2c260ed127e7f079c93b1a584f30ecb3426121562be4e1b3d43d68f61c50f"
+    }
+  ],
+  "scope": {
+    "purpose": "20-image storage audit",
+    "model_instantiated": false
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006/COMPLETE.json",
+    "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006/STORAGE_AUDIT.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-3trrlc6l9f-e83c9305",
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 115808,
+  "started_at": "2026-10-06T10:16:39.567+00:00",
+  "last_heartbeat": "2026-10-06T10:16:39.567+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-06T10:16:42.429+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006/COMPLETE.json",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006/COMPLETE.json",
+      "exists": true,
+      "sha256": "66144008ed12bcf6601e184b882995059d03fbab4b933a13a4fd1dde1b325070"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006/STORAGE_AUDIT.json",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_cache_storage_audit_20261006/STORAGE_AUDIT.json",
+      "exists": true,
+      "sha256": "590eb6000d3432a08aa41e7b5ab2dd7fec9a97b1a4af92a77ff82b8030feb329"
+    }
+  ]
+}

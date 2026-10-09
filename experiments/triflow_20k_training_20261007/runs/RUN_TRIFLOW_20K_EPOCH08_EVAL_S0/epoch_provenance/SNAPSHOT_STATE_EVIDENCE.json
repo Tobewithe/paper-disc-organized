@@ -1,0 +1,132 @@
+{
+  "derived_from_snapshot_sha256": "5c47c39dd5912999af8d8a11e0052a9bcb291c55413eb63b3c4bdc3c054707c8",
+  "kind": "triflow_20k_training_snapshot",
+  "run_id": "RUN_TRIFLOW_20K_TRAIN_S0_R3",
+  "reason": "epoch_boundary",
+  "cursor": {
+    "epoch": 9,
+    "image_position": 0,
+    "chunk_start": 0
+  },
+  "completed_epochs": 8,
+  "applied": 369448,
+  "attempts": 369448,
+  "instances": 1336016,
+  "finite_groups": {
+    "token_projection": true,
+    "ownership_embeddings": true,
+    "ownership_projection": true,
+    "cross_attention": true,
+    "interaction_norm": true,
+    "field_head": true
+  },
+  "optimizer_all_finite": true,
+  "head_state_all_finite_fp32": true,
+  "head_state_sha256": "9bbe280e1de3c61a92a2c4595aeb3b5e855665a105112b39ae9646a5602772e8",
+  "frozen_integrity": {
+    "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "all_state_exact": true,
+    "all_params_requires_grad_false": true,
+    "all_bn_eval": true,
+    "all_gradients_none": true,
+    "extracted_images": 119337,
+    "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "vendor": "D:\\coco_wire\\vendor_8.4.100",
+    "extractor_version": "triflow_frozen_io_v1",
+    "passed": true
+  },
+  "execution_diagnostics_metadata": {
+    "version": "triflow_20k_diagnostics_execution_v1",
+    "actual_runtime_changed": true,
+    "original_scientific_contract_preserved": true,
+    "parity_evidence_scope": "engineering diagnostics-only numerical parity; no COCO efficacy claim",
+    "required_diagnostics": [
+      "boundary_valid_count",
+      "root_count",
+      "neighbor_transition_count",
+      "active_anchor_count",
+      "trust_saturated"
+    ],
+    "training_default_scope": "minimal",
+    "training_first_task_probe_scope": "full",
+    "runtime_source_file": "diagnostics_provenance/diagnostics_runtime.py",
+    "runtime_sha256": "c24bc853ff17c7f4a0be3bc847a8b6733283b2aa06bc16388ab1b84fca3380b3",
+    "parity_source_file": "diagnostics_provenance/DIAGNOSTICS_PARITY.json",
+    "parity_sha256": "8a0bedd31edae9223feb7550de035a2ff3cab15b39857585a111047ec1fad8d2",
+    "addendum_source_file": "diagnostics_provenance/DIAGNOSTICS_EXECUTION_ADDENDUM.md",
+    "addendum_sha256": "f3e909ebbcb78ffef810f9d4a71f17f92485f75cc7d7e2a60a8b6f50b9588cf8",
+    "adapter_source_file": "diagnostics_provenance/diagnostics_contract_r3.py",
+    "adapter_sha256": "cd0f43d742286365afb5fca193986422b65579f3b8ec814df4efbe3f19597e98",
+    "verifier_source_file": "diagnostics_provenance/verify_diagnostics_runtime.py",
+    "verifier_sha256": "a01f7f3c4579ae43cc054cef5d9f508821b6517d13d6b60c2f3d79baa9d25a77"
+  },
+  "provider_state_evidence": {
+    "sources": {
+      "stream_data.py": "6460a9277b47a8ca790e03213afbaa5d628592b9319608e0be70dd4799091fb6",
+      "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+    },
+    "data_hashes": {
+      "annotation_sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "images_list_sha256": "be017cfda05e13ffab85c79aa877c4c6b4920edf835f1913d6f62524f2c60dc3",
+      "image_identity_sha256": "a437e58f26fb535cc386e37ad9afc5e59ffdd87248db93a65f532be55d44d9c8",
+      "declared_subset_identity_sha256": "a437e58f26fb535cc386e37ad9afc5e59ffdd87248db93a65f532be55d44d9c8",
+      "subset_selector_sha256": "e8aaeebfb2990c7d88710b7bf06343399e1dbc27e40ba21af870862729f96fc9"
+    },
+    "dimensions": {
+      "prototype_channels": 32,
+      "prototype_grid": [
+        160,
+        160
+      ],
+      "feature_channels": 256,
+      "feature_grid": [
+        80,
+        80
+      ],
+      "instance_hidden_channels": 64
+    },
+    "observed_unique_images": 20000,
+    "observed_image_identity_sha256": "a437e58f26fb535cc386e37ad9afc5e59ffdd87248db93a65f532be55d44d9c8",
+    "visits": {
+      "images": 160003,
+      "instances": 1336034,
+      "images_without_usable_instances": 1456,
+      "native_domain_rows": 7300932,
+      "unique_raw_domain_rows": 6151045,
+      "duplicate_raw_excluded_rows": 1149887,
+      "below_match_threshold_rows": 4141435,
+      "matched_but_over_budget_rows": 654304,
+      "ordinary_gt_without_domain_box_match": 119288,
+      "ordinary_gt": 1154944,
+      "images_without_ordinary_gt": 1416,
+      "unsupported_roi_exclusions": 552,
+      "empty_self_grid_exclusions": 1960,
+      "phi_neighbor_supervised_instances": 1270922,
+      "predicted_neighbor_available_instances": 1317770,
+      "crowd_ignored_instance_pixels": 185125992
+    },
+    "unique_images": {
+      "images": 20000,
+      "instances": 167002,
+      "images_without_usable_instances": 182,
+      "native_domain_rows": 912598,
+      "unique_raw_domain_rows": 768868,
+      "duplicate_raw_excluded_rows": 143730,
+      "below_match_threshold_rows": 517669,
+      "matched_but_over_budget_rows": 81788,
+      "ordinary_gt_without_domain_box_match": 14911,
+      "ordinary_gt": 144367,
+      "images_without_ordinary_gt": 177,
+      "unsupported_roi_exclusions": 69,
+      "empty_self_grid_exclusions": 245,
+      "phi_neighbor_supervised_instances": 158863,
+      "predicted_neighbor_available_instances": 164719,
+      "crowd_ignored_instance_pixels": 23140749
+    },
+    "frozen_initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5"
+  },
+  "contract_sha256": "f1b62a86060b52f3998997ebfd393b731b05dfd3d3c9db48f93b03a12e514a8b",
+  "is_final_training_audit": false
+}

@@ -1,0 +1,86 @@
+{
+  "runtime_version": "segrefiner_author_lr_framework_shim_v1",
+  "checkpoint_sha256": "d5806a41a4bff6f1e313d1a9dcf18d11dab28e3a8e1497871a156214cd8fe07a",
+  "upstream_revision": "53419a2d38ea3da0b6e2be77e5b45e139195a0b3",
+  "configuration": {
+    "task": "instance",
+    "step": 6,
+    "denoise_model": {
+      "type": "DenoiseUNet",
+      "in_channels": 4,
+      "out_channels": 1,
+      "model_channels": 128,
+      "num_res_blocks": 2,
+      "num_heads": 4,
+      "num_heads_upsample": -1,
+      "attention_strides": [
+        16,
+        32
+      ],
+      "learn_time_embd": true,
+      "channel_mult": [
+        1,
+        1,
+        2,
+        2,
+        4,
+        4
+      ],
+      "dropout": 0.0
+    },
+    "diffusion_cfg": {
+      "betas": {
+        "type": "linear",
+        "start": 0.8,
+        "stop": 0,
+        "num_timesteps": 6
+      },
+      "diff_iter": false
+    },
+    "test_cfg": {
+      "pad_width": 20,
+      "model_size": 256,
+      "batch_max": 32,
+      "area_thr": 512
+    }
+  },
+  "adaptation": {
+    "removed_framework_imports": {
+      "head": [
+        "from ..builder import HEADS",
+        "from mmcv.runner import BaseModule",
+        "from ..builder import HEADS"
+      ],
+      "base": [
+        "from mmcv.runner import BaseModule",
+        "from ..builder import DETECTORS, build_head, build_loss"
+      ],
+      "instance": [
+        "from .segrefiner_base import SegRefiner",
+        "from ..builder import DETECTORS"
+      ]
+    },
+    "original_method_bodies_changed": false,
+    "training_loss_forward_supported": false,
+    "state_keys_ignored": [],
+    "author_source_sha256": {
+      "mmdet\\models\\dense_heads\\diffusion_unet_head.py": "d782f93cbd402943928cbb504b62c709d2820514ec80674999b43e72d4c2e15e",
+      "mmdet\\models\\detectors\\segrefiner_base.py": "c94561e5d5ee9f5873c13f03e9bf6ff93b09d0e0e1ff9a24dd60de150cb0ea1a",
+      "mmdet\\models\\detectors\\segrefiner_instance.py": "b77677c507220ce076ae5595cbd476abca8236e977b6dd5c110b0f9b95f55049",
+      "mmdet\\models\\losses\\textrue_l1_loss.py": "390efdaf27dd65a58bc42de5f0cd48c8d37bb1aa73f42a186e648127f2198787",
+      "configs\\segrefiner\\segrefiner_lr.py": "ee0797eb75d075cd01b8cb78600fedcc4ce6d4428942d52954144c5fdea2ff40",
+      "configs\\segrefiner\\segrefiner_coco.py": "20bd9fa015632deaee8c3f988d35f1a7a7984f603fb3486f4168d06bcbbece1c"
+    }
+  },
+  "strict_loaded_state_keys": 455,
+  "denoise_state_keys": 453,
+  "sobel_state_keys": 2,
+  "all_loaded_tensor_bytes_exact": true,
+  "loaded_state_sha256": "483d6de3cfc4672fcc8f67033a4d08220b4b2da9d799b290e441150660298a43",
+  "base_seed": 20261009,
+  "per_image_seed_formula": "20261009 + original COCO image_id",
+  "author_sampling": "i=5..0; original torch.rand fine_map in first5 steps, sigmoid final step",
+  "input_normalization": "original RGB255, config mean/std float32 then float64; OpenCV subtract then multiply(float64 reciprocal std) into float32",
+  "gt_loader_constructed": false,
+  "training_loss_used": false
+}

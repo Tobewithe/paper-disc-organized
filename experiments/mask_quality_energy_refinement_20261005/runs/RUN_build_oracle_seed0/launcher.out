@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/root/autodl-tmp/qcr_run/runner.py", line 189, in <module>
+    raise SystemExit(execute(parser().parse_args()))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/qcr_run/runner.py", line 125, in execute
+    recorder = RunRecorder(root, args.run_id or f"RUN_{uuid.uuid4().hex}", args.study, command, Path(args.cwd), args.input, args.snapshot, args.expect,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/qcr_run/runner.py", line 78, in __init__
+    raise ValueError(f"快照文件不存在：{path}")
+ValueError: 快照文件不存在：/root/mask_quality_energy_refinement_202605/scripts/build_oracle_selected.py

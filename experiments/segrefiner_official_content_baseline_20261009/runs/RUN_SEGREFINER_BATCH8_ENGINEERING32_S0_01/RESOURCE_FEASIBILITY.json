@@ -1,0 +1,36 @@
+{
+  "unchanged_official_batch32_claimed": false,
+  "limitations": [
+    "Resource feasibility is based on fixed engineering32, not a guarantee for every unseen image",
+    "WDDM observations are sampled owned-process whole-adapter values, not exact instantaneous or pure-device cost",
+    "Observer overhead was not separately estimated; roughly19h is an engineering extrapolation, not a deadline",
+    "Batch8 changes stochastic draw partition and may change masks compared with original batch32; seed and method parameters remain fixed",
+    "No engineering AP or quality gate was used"
+  ],
+  "GPU_verification_sha256": "3076825c3fc2212ba747692f697b870e5fe90b8bf26b3d953a99be20e87fe9e2",
+  "observations": {
+    "WDDM_dedicated_sampled_peak_bytes": 10053316608,
+    "WDDM_committed_sampled_peak_bytes": 10135105536,
+    "WDDM_shared_sampled_peak_bytes": 81788928,
+    "deployment_mean_seconds": 13.660279756251839,
+    "full5000_engineering_extrapolation_seconds": 68301.3987812592
+  },
+  "engineering_summary_sha256": "3bfafab0125c10819d996d3ae5c63f0eaef6dd40dd0567821cb85c4140e9c8bd",
+  "physical_gpu_query": "NVIDIA GeForce RTX 5060 Ti, 16311",
+  "physical_GPU_bytes": 17103323136,
+  "engineering_runner_sha256": "825df35ac5eaeb439654749a5680649a412a6459a2ed30fc4b160058e254a0bf",
+  "execution_feasible": true,
+  "engineering_run_id": "RUN_SEGREFINER_BATCH8_ENGINEERING32_S0_01",
+  "decision": "Proceed with the preregistered single fixed batch8 5000-image inference",
+  "quality_selection": false,
+  "AP_measured": false,
+  "criteria": {
+    "strict_frozen455_and_same_state_GPU_proof": true,
+    "fixed32_identity_fallbacks_passed": true,
+    "engineering_completed_exit0": true,
+    "batch8_only_hardware_adaptation": true,
+    "sampled_committed_below_physical_capacity": true,
+    "finite_observed_cost": true,
+    "all32_WDDM_observation_available": true
+  }
+}

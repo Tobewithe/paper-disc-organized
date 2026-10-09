@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01",
+  "study_id": "STUDY_NATIVE_RESPONSE_TARGET_COMPARISON_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\preflight_target_scoring_input_paths.py",
+    "--plan",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\assets\\scoring_followup_plan_20261009_inputpath_v2.json",
+    "--output",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01"
+  ],
+  "working_directory": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009",
+  "status": "completed",
+  "created_at": "2026-10-09T01:01:57.697+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\assets\\scoring_followup_plan_20261009_inputpath_v2.json",
+      "exists": true,
+      "sha256": "8ad7bfb857fdb9deac36c251a516fa7b304c67e123c607e1cf0e9cef53da49d8",
+      "size": 2121
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\preflight_target_scoring_input_paths.py",
+      "revision": "84f408a272a8922ffc2bcf2a70b9a79d420803f634eb0b8bb1b4a1ecc891efe9",
+      "snapshot": "snapshots/84f408a272a8922ffc2bcf2a70b9a79d420803f634eb0b8bb1b4a1ecc891efe9"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\evaluate_target_comparison.py",
+      "revision": "54e278c9450aad1111a4864415255055b5522e8bfca3fc48af53ca5e933f316d",
+      "snapshot": "snapshots/54e278c9450aad1111a4864415255055b5522e8bfca3fc48af53ca5e933f316d"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\target_scoring_common.py",
+      "revision": "a4441164d589e7c929196ddfb3612cb9bf0c2c04d1c296514d1d8a75de8ac835",
+      "snapshot": "snapshots/a4441164d589e7c929196ddfb3612cb9bf0c2c04d1c296514d1d8a75de8ac835"
+    }
+  ],
+  "scope": {
+    "type": "fixed_source_input_path_deployment_preflight",
+    "GT_rematched": false,
+    "GPU_or_model_execution": false,
+    "metrics_computed": false
+  },
+  "expected_outputs": [
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01\\SUMMARY.json",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01\\COMPLETE.json",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01\\SOURCE_LOCK.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 17580,
+  "started_at": "2026-10-09T01:01:58.139+00:00",
+  "last_heartbeat": "2026-10-09T01:01:58.140+00:00",
+  "metrics": {
+    "status": "input_path_preflight_complete",
+    "passed": true,
+    "fixed_source": {
+      "instances": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_EPOCH08_EVAL_S0\\paired_triflow_vs_baseline\\INSTANCES.jsonl",
+      "instances_sha256": "1a06dc886dc5d7f9db7059c7c65d2ba1299b4c29d5b641fe53f5b51194e9b58a",
+      "paired_summary": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_EPOCH08_EVAL_S0\\paired_triflow_vs_baseline\\SUMMARY.json",
+      "paired_summary_sha256": "234c84be749861920362683b9f0bdbd0c52a5aeb16a96260e1d2c2b1794eb183",
+      "final_summary": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_EPOCH08_EVAL_S0\\SUMMARY.json",
+      "final_summary_sha256": "9dac293ec5aace746a75a0299b76dd66e25f3fd3f82af0d0864e0fa6b33397c8",
+      "definition": "all baseline detections conf>.001, same-class highest-box-IoU noncrowd GT>=.5; duplicate detection-to-GT matches allowed; success/damage/repair at maskIoU=.75",
+      "selected_rows": 86600,
+      "full_rows": 86600,
+      "full_baseline_success": 36266,
+      "full_baseline_failure": 50334,
+      "duplicate_matches_allowed": true,
+      "association_rematched": false
+    },
+    "required_files_present_count": 20092,
+    "expected_original_fixed_source_sha256": {
+      "INSTANCES.jsonl": "1a06dc886dc5d7f9db7059c7c65d2ba1299b4c29d5b641fe53f5b51194e9b58a",
+      "paired/SUMMARY.json": "234c84be749861920362683b9f0bdbd0c52a5aeb16a96260e1d2c2b1794eb183",
+      "final/SUMMARY.json": "9dac293ec5aace746a75a0299b76dd66e25f3fd3f82af0d0864e0fa6b33397c8"
+    },
+    "plan_sha256": "8ad7bfb857fdb9deac36c251a516fa7b304c67e123c607e1cf0e9cef53da49d8",
+    "source_lock_sha256": "13000112606a10bdafb771b659cf931a76e97b38da189823cfe844f694aed679",
+    "GT_parsed_or_decoded": false,
+    "GT_rematched": false,
+    "AP_or_Boundary_computed": false,
+    "GPU_or_model_execution": false,
+    "scope": "Exact source positions/existence and SHA plus unchanged frozen evaluator fixed_source read gate; no new statistical or quality result"
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01\\SUMMARY.json",
+    "sha256": "f3bbc8e17e126c35ddf7968d6fbeabd47d25f9560586e9dd5bd77e30ad637bdd"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-09T01:02:02.769+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "f3bbc8e17e126c35ddf7968d6fbeabd47d25f9560586e9dd5bd77e30ad637bdd"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01\\COMPLETE.json",
+      "exists": true,
+      "sha256": "f0a8ec928dc3883ab17c3dd49609a1fd22eaccb460de317a749d37e745214dd4"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_FIXED_SOURCE_PREFLIGHT_CPU_S0_01\\SOURCE_LOCK.json",
+      "exists": true,
+      "sha256": "13000112606a10bdafb771b659cf931a76e97b38da189823cfe844f694aed679"
+    }
+  ]
+}

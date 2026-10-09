@@ -1,0 +1,107 @@
+{
+  "derived_from_snapshot_sha256": "4657ac8d32f1c15f88a3fc762c6e340aa50654c7326830543baf770fe22a32e3",
+  "kind": "triflow_20k_training_snapshot",
+  "run_id": "RUN_TRIFLOW_20K_TRAIN_S0_R2",
+  "reason": "epoch_boundary",
+  "cursor": {
+    "epoch": 2,
+    "image_position": 0,
+    "chunk_start": 0
+  },
+  "completed_epochs": 1,
+  "applied": 46181,
+  "attempts": 46181,
+  "instances": 167002,
+  "finite_groups": {
+    "token_projection": true,
+    "ownership_embeddings": true,
+    "ownership_projection": true,
+    "cross_attention": true,
+    "interaction_norm": true,
+    "field_head": true
+  },
+  "optimizer_all_finite": true,
+  "head_state_all_finite_fp32": true,
+  "head_state_sha256": "614822beded7b9ec2e463a456cd6d74c1ba5fceccb3cc97221a4761e16dcc37f",
+  "frozen_integrity": {
+    "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "all_state_exact": true,
+    "all_params_requires_grad_false": true,
+    "all_bn_eval": true,
+    "all_gradients_none": true,
+    "extracted_images": 4126,
+    "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "vendor": "D:\\coco_wire\\vendor_8.4.100",
+    "extractor_version": "triflow_frozen_io_v1",
+    "passed": true
+  },
+  "provider_state_evidence": {
+    "sources": {
+      "stream_data.py": "6460a9277b47a8ca790e03213afbaa5d628592b9319608e0be70dd4799091fb6",
+      "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+    },
+    "data_hashes": {
+      "annotation_sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "images_list_sha256": "be017cfda05e13ffab85c79aa877c4c6b4920edf835f1913d6f62524f2c60dc3",
+      "image_identity_sha256": "a437e58f26fb535cc386e37ad9afc5e59ffdd87248db93a65f532be55d44d9c8",
+      "declared_subset_identity_sha256": "a437e58f26fb535cc386e37ad9afc5e59ffdd87248db93a65f532be55d44d9c8",
+      "subset_selector_sha256": "e8aaeebfb2990c7d88710b7bf06343399e1dbc27e40ba21af870862729f96fc9"
+    },
+    "dimensions": {
+      "prototype_channels": 32,
+      "prototype_grid": [
+        160,
+        160
+      ],
+      "feature_channels": 256,
+      "feature_grid": [
+        80,
+        80
+      ],
+      "instance_hidden_channels": 64
+    },
+    "observed_unique_images": 20000,
+    "observed_image_identity_sha256": "a437e58f26fb535cc386e37ad9afc5e59ffdd87248db93a65f532be55d44d9c8",
+    "visits": {
+      "images": 20002,
+      "instances": 167015,
+      "images_without_usable_instances": 182,
+      "native_domain_rows": 912682,
+      "unique_raw_domain_rows": 768928,
+      "duplicate_raw_excluded_rows": 143754,
+      "below_match_threshold_rows": 517716,
+      "matched_but_over_budget_rows": 81788,
+      "ordinary_gt_without_domain_box_match": 14911,
+      "ordinary_gt": 144372,
+      "images_without_ordinary_gt": 177,
+      "unsupported_roi_exclusions": 69,
+      "empty_self_grid_exclusions": 245,
+      "phi_neighbor_supervised_instances": 158876,
+      "predicted_neighbor_available_instances": 164732,
+      "crowd_ignored_instance_pixels": 23140749
+    },
+    "unique_images": {
+      "images": 20000,
+      "instances": 167002,
+      "images_without_usable_instances": 182,
+      "native_domain_rows": 912598,
+      "unique_raw_domain_rows": 768868,
+      "duplicate_raw_excluded_rows": 143730,
+      "below_match_threshold_rows": 517669,
+      "matched_but_over_budget_rows": 81788,
+      "ordinary_gt_without_domain_box_match": 14911,
+      "ordinary_gt": 144367,
+      "images_without_ordinary_gt": 177,
+      "unsupported_roi_exclusions": 69,
+      "empty_self_grid_exclusions": 245,
+      "phi_neighbor_supervised_instances": 158863,
+      "predicted_neighbor_available_instances": 164719,
+      "crowd_ignored_instance_pixels": 23140749
+    },
+    "frozen_initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5"
+  },
+  "contract_sha256": "f1b62a86060b52f3998997ebfd393b731b05dfd3d3c9db48f93b03a12e514a8b",
+  "is_final_training_audit": false
+}

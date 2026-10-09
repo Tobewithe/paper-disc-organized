@@ -1,0 +1,116 @@
+{
+  "trainer_version": "triflow_fullscale_online_v1",
+  "started_at": "2026-10-07T07:13:49.658032+00:00",
+  "completed_at": "2026-10-07T07:14:22.219825+00:00",
+  "epochs": 1,
+  "completed_epochs": 1,
+  "images_per_epoch": 32,
+  "optimizer_attempts": 69,
+  "optimizer_applied": 69,
+  "instances": 247,
+  "gradient_finite_by_group": {
+    "token_projection": true,
+    "ownership_embeddings": true,
+    "ownership_projection": true,
+    "cross_attention": true,
+    "interaction_norm": true,
+    "field_head": true
+  },
+  "all_applied_gradients_finite": true,
+  "all_parameters_finite": true,
+  "all_optimizer_states_finite": true,
+  "nonzero_gradient_steps_by_group": {
+    "token_projection": 69,
+    "ownership_embeddings": 69,
+    "ownership_projection": 69,
+    "cross_attention": 69,
+    "interaction_norm": 69,
+    "field_head": 69
+  },
+  "parameter_updates_by_group": {
+    "token_projection": {
+      "changed_tensors": 6,
+      "max_abs_delta": 0.015053564682602882
+    },
+    "ownership_embeddings": {
+      "changed_tensors": 1,
+      "max_abs_delta": 0.006730511784553528
+    },
+    "ownership_projection": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.012520462274551392
+    },
+    "cross_attention": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.011536307632923126
+    },
+    "interaction_norm": {
+      "changed_tensors": 2,
+      "max_abs_delta": 0.007498264312744141
+    },
+    "field_head": {
+      "changed_tensors": 4,
+      "max_abs_delta": 0.019674787297844887
+    }
+  },
+  "all_groups_really_changed": true,
+  "initial_head_state_sha256": "5867b59007e8ff764659449f64473266549c940b7e621c7c3f21f59788071132",
+  "final_head_state_sha256": "5f3c4751cd96132a26eeb586be37bca692b6f7c6f72061f8a32f275e1cd4987f",
+  "compiler_task_gradient_observed_nonzero": true,
+  "compiler_task_phi_and_attention_same_probe_observed_nonzero": true,
+  "compiler_task_phi_attention_same_probe_count": 1,
+  "compiler_task_phi_nonzero_probe_count": 1,
+  "compiler_task_attention_nonzero_probe_count": 1,
+  "task_gradient_evidence_sha256": "5abc3569f3849d9ae325c9fb159982deea03a109cd16cc92ca01e2e3b8ad7e69",
+  "no_hidden_warmup": true,
+  "frozen_yolo_online": true,
+  "frozen_integrity": {
+    "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "all_state_exact": true,
+    "all_params_requires_grad_false": true,
+    "all_bn_eval": true,
+    "all_gradients_none": true,
+    "extracted_images": 28,
+    "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "vendor": "D:\\coco_wire\\vendor_8.4.100",
+    "extractor_version": "triflow_frozen_io_v1",
+    "passed": true
+  },
+  "frozen_input_mutation_checks": 1,
+  "frozen_input_mutation_checks_passed": true,
+  "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+  "sources": {
+    "train_fullscale.py": "39139dc326b841e295fce9338a961c0959acae9f8950be0da6e634d1047baa1c",
+    "stream_data.py": "cbb8c8d4a8d9097d5d5f4361f8f060c47eac1173ffbac2d73d69f9cc7edc1dbe",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+  },
+  "data_hashes": {
+    "annotation_sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+    "images_list_sha256": "13eabff31b0b46b4c6927d26e92daffc740f7695b1c1f718d82b7a54684dc84e",
+    "image_identity_sha256": "5f873e69de5f4017fca0abb564e8ec5ca4edf65be4815871f55ae61b8a3b6dbc"
+  },
+  "configuration_sha256": "f46dadac2d54d0fd0f482b0b37d2e70cdb32f1900476e16ed44aa54fd025c89a",
+  "contract_sha256": "13bb0018fb1dab8bea56310b1f0e10c2e42cf50f94be273c99b18de87ef81ff3",
+  "smoke_only": true,
+  "complete_original_train_split": false,
+  "every_epoch_declared_images_complete": true,
+  "parent": {
+    "run_id": "RUN_TRIFLOW_FULL_ENGINEERING_INTERRUPTED_S0",
+    "snapshot_path": "D:\\coco_wire\\experiments\\triflow_fullscale_training_20261007\\runs\\RUN_TRIFLOW_FULL_ENGINEERING_INTERRUPTED_S0\\checkpoint_latest.pt",
+    "snapshot_sha256": "c70bdf063095f3a616a2cbf69edb61aff8b27c63eb7b1b7ec8e24b29a930ebab",
+    "durable_optimizer_applied": 10,
+    "next_cursor": {
+      "epoch": 1,
+      "image_position": 4,
+      "chunk_start": 8
+    },
+    "rollback": "former Run work after this snapshot, if any, is discarded and may be replayed; original files retained"
+  },
+  "trainable_parameters": 187651,
+  "module_bn_modules": 0,
+  "effective_training_seconds": 14.765999999945052,
+  "this_execution_seconds": 32.57799999997951,
+  "passed": true
+}

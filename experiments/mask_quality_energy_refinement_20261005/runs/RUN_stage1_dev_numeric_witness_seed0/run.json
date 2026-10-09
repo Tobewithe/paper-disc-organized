@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_stage1_dev_numeric_witness_seed0",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/qcr_run/qcr_fp32_cache_witness.py",
+    "--config",
+    "/root/autodl-tmp/qcr_run/EVALUATION_CONFIG_20261006.json",
+    "--out",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0",
+    "--cached-rows",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_original_metrics_seed0/PER_CANDIDATE.jsonl",
+    "--replayed-rows",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_fp32_witness_seed0/PER_CANDIDATE.jsonl"
+  ],
+  "working_directory": "/root/autodl-tmp/qcr_run",
+  "status": "completed",
+  "created_at": "2026-10-06T11:08:00.144+00:00",
+  "host": "autodl-container-3trrlc6l9f-e83c9305",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_original_metrics_seed0/PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "runs/RUN_stage1_dev_original_metrics_seed0/PER_CANDIDATE.jsonl",
+      "exists": true,
+      "sha256": "a16932c640820156add318839593754b9e3043e90b9952da094bae88cf54279c",
+      "size": 31531274
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_fp32_witness_seed0/PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "runs/RUN_stage1_dev_fp32_witness_seed0/PER_CANDIDATE.jsonl",
+      "exists": true,
+      "sha256": "9fad6ca71c1259ad40666333f99287ae361f2034dc538cb1640cfcd480399ec7",
+      "size": 239952
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/qcr_fp32_cache_witness.py",
+      "path_relative_to_cwd": "qcr_fp32_cache_witness.py",
+      "revision": "a34c3d3628cda86f7b09bd65251cf8a5f8ad673f5afce14a2f53db314f2db1a6",
+      "snapshot": "snapshots/a34c3d3628cda86f7b09bd65251cf8a5f8ad673f5afce14a2f53db314f2db1a6"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/qcr_streaming_data.py",
+      "path_relative_to_cwd": "qcr_streaming_data.py",
+      "revision": "d0ae7f35a6ee3ee87341c8512defd9bd530bba32489549b377569dba299569ee",
+      "snapshot": "snapshots/d0ae7f35a6ee3ee87341c8512defd9bd530bba32489549b377569dba299569ee"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/online_runtime.py",
+      "path_relative_to_cwd": "online_runtime.py",
+      "revision": "56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb",
+      "snapshot": "snapshots/56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/prepare_qcr_cache.py",
+      "path_relative_to_cwd": "prepare_qcr_cache.py",
+      "revision": "c0f32b020f506f897a45fa98fae053258b293042a0a6026ff41a30eb57888ac4",
+      "snapshot": "snapshots/c0f32b020f506f897a45fa98fae053258b293042a0a6026ff41a30eb57888ac4"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/legacy_prepare_cache.py",
+      "path_relative_to_cwd": "legacy_prepare_cache.py",
+      "revision": "e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df",
+      "snapshot": "snapshots/e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/EVALUATION_CONFIG_20261006.json",
+      "path_relative_to_cwd": "EVALUATION_CONFIG_20261006.json",
+      "revision": "ee9a5022e5d2d8e747a0837097b8119323accdb2e50ecb9bdc1d30ec18e39e82",
+      "snapshot": "snapshots/ee9a5022e5d2d8e747a0837097b8119323accdb2e50ecb9bdc1d30ec18e39e82"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/IMAGE_SPLIT.json",
+      "path_relative_to_cwd": "IMAGE_SPLIT.json",
+      "revision": "a1a3ee0a0e39582dfc13a403faa91ddd63ed5ca5ab16017a0ff84af028765291",
+      "snapshot": "snapshots/a1a3ee0a0e39582dfc13a403faa91ddd63ed5ca5ab16017a0ff84af028765291"
+    }
+  ],
+  "scope": {
+    "purpose": "ten-image FP32/cache numerical witness",
+    "split": "dev",
+    "new_heads_instantiated": false,
+    "training": false
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0/COMPLETE.json",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0/NUMERIC_WITNESS.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-3trrlc6l9f-e83c9305",
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 118001,
+  "started_at": "2026-10-06T11:08:00.351+00:00",
+  "last_heartbeat": "2026-10-06T11:08:20.356+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-06T11:08:23.517+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0/COMPLETE.json",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0/COMPLETE.json",
+      "exists": true,
+      "sha256": "aa0caad198f37216631eb45ed8905781f042c568ea6fa7e016db500678a6a8f3"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0/NUMERIC_WITNESS.json",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_dev_numeric_witness_seed0/NUMERIC_WITNESS.json",
+      "exists": true,
+      "sha256": "0c6b2d0ae387df4cfdef78af363d3311e98bd27d766f0b032cea3e32d3d05373"
+    }
+  ]
+}

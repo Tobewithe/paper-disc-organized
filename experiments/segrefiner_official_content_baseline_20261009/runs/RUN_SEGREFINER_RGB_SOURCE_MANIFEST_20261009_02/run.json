@@ -1,0 +1,113 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02",
+  "study_id": "STUDY_SEGREFINER_OFFICIAL_CONTENT_BASELINE_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "D:/coco_wire/experiments/segrefiner_official_content_baseline_20261009/scripts/prepare_rgb_cache.py",
+    "source",
+    "--output",
+    "D:/coco_wire/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02",
+    "--images-root",
+    "D:/coco_wire/data/images/val2017",
+    "--images-list",
+    "D:/coco_wire/experiments/triflow_20k_training_20261007/data/val_full.txt"
+  ],
+  "working_directory": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009",
+  "status": "completed",
+  "created_at": "2026-10-08T20:39:14.284+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\data\\val_full.txt",
+      "exists": true,
+      "sha256": "b20742148d06ff75864eb0ffe47cb3a3e010e8913dafdcd46ceeb1ca498d09db",
+      "size": 255000
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\prepare_rgb_cache.py",
+      "revision": "09420f08964e6c3d620f5f6350af40c823cf45ffba5e6257359c2b70f2ef1305",
+      "snapshot": "snapshots/09420f08964e6c3d620f5f6350af40c823cf45ffba5e6257359c2b70f2ef1305"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\source\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "D:/coco_wire/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02/SOURCE_IMAGE_LIST.txt",
+    "D:/coco_wire/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02/SOURCE_IMAGE_MANIFEST.json",
+    "D:/coco_wire/experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 24476,
+  "started_at": "2026-10-08T20:39:14.752+00:00",
+  "last_heartbeat": "2026-10-08T20:39:24.796+00:00",
+  "metrics": {
+    "status": "complete",
+    "passed": true,
+    "host": "YANGLEI",
+    "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "image_count": 5000,
+    "total_bytes": 814705164,
+    "gt_read": false,
+    "source_list_sha256": "b20742148d06ff75864eb0ffe47cb3a3e010e8913dafdcd46ceeb1ca498d09db",
+    "source_manifest_sha256": "3aeda9c162267c8d401a6ddc0dc1004524c986403f0014a831a06c5adf688aea",
+    "source_script_sha256": "09420f08964e6c3d620f5f6350af40c823cf45ffba5e6257359c2b70f2ef1305"
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\SUMMARY.json",
+    "sha256": "42fb4f92c97461b248486f00ff8925d7df4771b05d5624f9b9170d51a15bb65c"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T20:39:25.035+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\SOURCE_IMAGE_LIST.txt",
+      "exists": true,
+      "sha256": "b20742148d06ff75864eb0ffe47cb3a3e010e8913dafdcd46ceeb1ca498d09db"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\SOURCE_IMAGE_MANIFEST.json",
+      "exists": true,
+      "sha256": "3aeda9c162267c8d401a6ddc0dc1004524c986403f0014a831a06c5adf688aea"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\SUMMARY.json",
+      "exists": true,
+      "sha256": "42fb4f92c97461b248486f00ff8925d7df4771b05d5624f9b9170d51a15bb65c"
+    }
+  ]
+}

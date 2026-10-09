@@ -1,0 +1,149 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01",
+  "study_id": "STUDY_NATIVE_RESPONSE_TARGET_COMPARISON_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/scripts/seal_extra_runs.py",
+    "--run",
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/runs/RUN_NATIVE_TARGET_LIFECYCLE_ENGINEERING_S0_05",
+    "--run",
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/runs/RUN_NATIVE_TARGET_LIFECYCLE_ENGINEERING_S0_06",
+    "--output",
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/runs/RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01"
+  ],
+  "working_directory": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009",
+  "status": "completed",
+  "created_at": "2026-10-08T22:31:16.667+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_ENGINEERING_S0_05\\run.json",
+      "exists": true,
+      "sha256": "454245cbfd2baeb140bf1be31c0f7ca13acc8063e3baa4d3718a4099cc61a898",
+      "size": 3783
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_ENGINEERING_S0_06\\run.json",
+      "exists": true,
+      "sha256": "1a7af4e9c40203cac038c9937000b905ebc94b5b6ffc2ab7d02f39f2ffc39648",
+      "size": 4112
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\seal_extra_runs.py",
+      "revision": "48be3b01968b5284652fa07b50391c20b14d3bbbc9453bd0cc85c365d65ff5a3",
+      "snapshot": "snapshots/48be3b01968b5284652fa07b50391c20b14d3bbbc9453bd0cc85c365d65ff5a3"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\register_lifecycle_collection.ps1",
+      "revision": "27bf4449a6d1d07f65cdf725250e123b9a04a9506543dcdbbb6fbf602b450875",
+      "snapshot": "snapshots/27bf4449a6d1d07f65cdf725250e123b9a04a9506543dcdbbb6fbf602b450875"
+    }
+  ],
+  "scope": {
+    "phase": "preserve_failed_cpu_lifecycle_runs",
+    "source_runs": [
+      "05",
+      "06"
+    ],
+    "no_gpu": true,
+    "science_sources_unchanged": true,
+    "no_gt": true,
+    "environment": "local_laptop_28358lan"
+  },
+  "expected_outputs": [
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/runs/RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01/EXTRA_RUNS_BUNDLE.zip",
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/runs/RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01/BUNDLE_MANIFEST.json",
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/runs/RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01/COMPLETE.json",
+    "D:/coco_wire/experiments/native_response_target_comparison_20261009/runs/RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 26496,
+  "started_at": "2026-10-08T22:31:17.144+00:00",
+  "last_heartbeat": "2026-10-08T22:31:17.144+00:00",
+  "metrics": {
+    "passed": true,
+    "status": "sealed",
+    "source_runs": [
+      {
+        "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_ENGINEERING_S0_05",
+        "status": "failed",
+        "return_code": 1,
+        "artifact_completeness": "complete"
+      },
+      {
+        "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_ENGINEERING_S0_06",
+        "status": "failed",
+        "return_code": 1,
+        "artifact_completeness": "complete"
+      }
+    ],
+    "source_files": 17,
+    "source_bytes": 15844,
+    "bundle_sha256": "fcd69d560f9545ebebe88fe2bafab03cbc04dcf4ce023af6ff0dd9109ac6a204",
+    "bundle_bytes": 11643,
+    "manifest_sha256": "cd4d319e6330ca56bea2de8257f2f26debc681e63f39773f44b038c95f0a0763",
+    "elapsed_seconds": 0.0872215999988839,
+    "completed_at": "2026-10-08T22:31:17.394289+00:00",
+    "transfer_complete": false,
+    "source_unchanged": true
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01\\SUMMARY.json",
+    "sha256": "2d8fc36f53935d4ea83e8d07868dbce1a5e67c012e05ac85b04ce246f72b493b"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T22:31:17.420+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01\\EXTRA_RUNS_BUNDLE.zip",
+      "exists": true,
+      "sha256": "fcd69d560f9545ebebe88fe2bafab03cbc04dcf4ce023af6ff0dd9109ac6a204"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01\\BUNDLE_MANIFEST.json",
+      "exists": true,
+      "sha256": "cd4d319e6330ca56bea2de8257f2f26debc681e63f39773f44b038c95f0a0763"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01\\COMPLETE.json",
+      "exists": true,
+      "sha256": "78cfbc1faaffba8d1f73b3eccba4828053686279d0bdda6ca813a63395e07acb"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_LIFECYCLE_COLLECTION_S0_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "2d8fc36f53935d4ea83e8d07868dbce1a5e67c012e05ac85b04ce246f72b493b"
+    }
+  ]
+}

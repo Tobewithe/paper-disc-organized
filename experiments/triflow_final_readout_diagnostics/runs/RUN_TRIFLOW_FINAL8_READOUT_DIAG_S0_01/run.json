@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01",
+  "study_id": "STUDY_TRIFLOW_FINAL_READOUT_DIAGNOSTICS",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\scripts\\analyze_final8.py",
+    "--source-run",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_EPOCH08_EVAL_S0",
+    "--protocol",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\PROTOCOL.md",
+    "--run",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "failed",
+  "created_at": "2026-10-08T16:02:47.548+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "recorder_python_version": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "python_version": "3.12.14",
+      "packages": {
+        "numpy": "2.3.5"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_EPOCH08_EVAL_S0\\COMPILER_IMAGES.jsonl",
+      "exists": true,
+      "sha256": "fd37cad59aa20de797f3032b331e9b70843ad3facfb4f3886f269e22bd9ef13c",
+      "size": 252251556
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_EPOCH08_EVAL_S0\\paired_triflow_vs_baseline\\INSTANCES.jsonl",
+      "exists": true,
+      "sha256": "1a06dc886dc5d7f9db7059c7c65d2ba1299b4c29d5b641fe53f5b51194e9b58a",
+      "size": 32173837
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\INPUTS.json",
+      "exists": true,
+      "sha256": "be245a43a85bd94ca5bd52fd5661afb53966954bcc66056c5c7fd732d90c4ab9",
+      "size": 1692
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\PROTOCOL.md",
+      "revision": "99118ffdc6f9a4658dc110cbe606a88941de906b58b4740dfcb875831c142aef",
+      "snapshot": "snapshots/99118ffdc6f9a4658dc110cbe606a88941de906b58b4740dfcb875831c142aef"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\INPUTS.json",
+      "revision": "be245a43a85bd94ca5bd52fd5661afb53966954bcc66056c5c7fd732d90c4ab9",
+      "snapshot": "snapshots/be245a43a85bd94ca5bd52fd5661afb53966954bcc66056c5c7fd732d90c4ab9"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\EXECUTION_SCOPE.json",
+      "revision": "3f94d7537bf9e8a435408b7453f1693eaa0437fc68fb61938435424d0f1e2c67",
+      "snapshot": "snapshots/3f94d7537bf9e8a435408b7453f1693eaa0437fc68fb61938435424d0f1e2c67"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\scripts\\analyze_final8.py",
+      "revision": "b44ee5b80abb3fc95974faba0a4bbdf8e38cf9aec1552c96a290b1bf4b6055b1",
+      "snapshot": "snapshots/b44ee5b80abb3fc95974faba0a4bbdf8e38cf9aec1552c96a290b1bf4b6055b1"
+    }
+  ],
+  "scope": {
+    "no_training": true,
+    "source_run": "RUN_TRIFLOW_20K_EPOCH08_EVAL_S0",
+    "no_inference": true,
+    "owner_thread": "01a11060-0433-7b23-ba4c-fe516b6a253a",
+    "reviewer_thread": "01a11bf8-26b3-7490-b8bf-62b4b308b1ba",
+    "resource_cost": "CPU/file analysis only, record actual elapsed; no monetary cost contract supplied",
+    "spec_ref": {
+      "version": "3.0.0",
+      "spec_id": "research-loop",
+      "body_sha256": "4d33b67d0a2fc22c63ecee2a1cb268303b82ef92ecae99336de5e71f2514eba2"
+    },
+    "graph_revision": "6d4498d5acef14eb7dc1cf07e8c6f01503805e908e00fbe1e7b8c1be693bc231",
+    "authorization": "user_direct ongoing A/B cooperation plus B concrete CPU diagnostic",
+    "environment": "local_desktop_cpu",
+    "user_message_id": "01a11c2e-cbcd-79c0-9632-778d344b2df8",
+    "full_existing_evaluation_images": 5000,
+    "protocol": "experiments/triflow_final_readout_diagnostics/PROTOCOL.md"
+  },
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01\\ANALYSIS_COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 42648,
+  "started_at": "2026-10-08T16:02:48.129+00:00",
+  "last_heartbeat": "2026-10-08T16:02:48.129+00:00",
+  "metrics_read_error": "[WinError 2] 系统找不到指定的文件。: 'C:\\\\Dpan\\\\codexproject\\\\paper-disc-organized\\\\experiments\\\\triflow_final_readout_diagnostics\\\\runs\\\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01\\\\SUMMARY.json'",
+  "return_code": 1,
+  "finished_at": "2026-10-08T16:02:48.750+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01\\ANALYSIS_COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01\\SUMMARY.json",
+      "exists": false,
+      "sha256": ""
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_final_readout_diagnostics\\runs\\RUN_TRIFLOW_FINAL8_READOUT_DIAG_S0_01\\ANALYSIS_COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

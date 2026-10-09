@@ -1,0 +1,184 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01",
+  "study_id": "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/scripts/desktop_native_reference.py",
+    "--root",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison",
+    "--run-id",
+    "RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01",
+    "--weights",
+    "C:/Dpan/codexproject/paper-disc-organized/assets/models/coco_clean_20260911/yolo26m-seg.pt",
+    "--vendor",
+    "C:/Dpan/codexproject/paper-disc-organized/shared/vendor/ultralytics_8_4_100",
+    "--images-directory",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/assets/cost_panel/images",
+    "--old-native",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_02",
+    "--triflow-origin",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/triflow_20k_training_20261007/runs/RUN_TRIFLOW_20K_EPOCH08_EVAL_S0",
+    "--response-model",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/assets/response.json",
+    "--multi-model",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+    "--protocol",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/COST_PANEL_DESKTOP_LOCAL_REFERENCE_PROTOCOL.md"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison",
+  "status": "completed",
+  "created_at": "2026-10-08T20:06:27.223+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\COST_PANEL_DESKTOP_LOCAL_REFERENCE_PROTOCOL.md",
+      "exists": true,
+      "sha256": "f67d773459da9786f312d49acb77a8745ce83ded405e3ac0a6994e83f95b79a0",
+      "size": 2329
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_DESKTOP_DIFFERENCE_S0_01\\CROSS_ENVIRONMENT_DIFFERENCES.json",
+      "exists": true,
+      "sha256": "c1997bcd6279c09ee680f536b6193c918d6057bc30f93bed0ebb320316f721da",
+      "size": 225157
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\desktop_native_reference.py",
+      "revision": "cf6283ee4ec2a91e5face35ba9da9fdd71bb3842f0ba330edfc0c592d64c1305",
+      "snapshot": "snapshots/cf6283ee4ec2a91e5face35ba9da9fdd71bb3842f0ba330edfc0c592d64c1305"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\frozen_io.py",
+      "revision": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "snapshot": "snapshots/cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\native_mask_adapter.py",
+      "revision": "0a11d7cee6f73ec680ce7895f9501a2f87be5d97a8904d3fe6b3a62a958fa0c2",
+      "snapshot": "snapshots/0a11d7cee6f73ec680ce7895f9501a2f87be5d97a8904d3fe6b3a62a958fa0c2"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\COST_PANEL_DESKTOP_LOCAL_REFERENCE_PROTOCOL.md",
+      "revision": "f67d773459da9786f312d49acb77a8745ce83ded405e3ac0a6994e83f95b79a0",
+      "snapshot": "snapshots/f67d773459da9786f312d49acb77a8745ce83ded405e3ac0a6994e83f95b79a0"
+    }
+  ],
+  "scope": {
+    "type": "desktop_same_machine_reference",
+    "images": 32,
+    "original_seven_arm_and_final8_paths": true,
+    "isolated_executor_used": false,
+    "no_gt": true,
+    "no_ap": true
+  },
+  "expected_outputs": [
+    "runs/RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01/SUMMARY.json",
+    "runs/RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01/BASELINE_PARITY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 61680,
+  "started_at": "2026-10-08T20:06:27.680+00:00",
+  "last_heartbeat": "2026-10-08T20:07:02.743+00:00",
+  "metrics": {
+    "status": "completed",
+    "passed": true,
+    "image_count": 32,
+    "native_rows": 3813,
+    "diagnostic_only": false,
+    "source_sha256": {
+      "desktop_native_reference.py": "cf6283ee4ec2a91e5face35ba9da9fdd71bb3842f0ba330edfc0c592d64c1305",
+      "native_mask_adapter.py": "0a11d7cee6f73ec680ce7895f9501a2f87be5d97a8904d3fe6b3a62a958fa0c2",
+      "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "portable_risk.py": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+      "risk_calibration.py": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "local_features.py": "a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6",
+      "mask_calibration.py": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    },
+    "protocol_sha256": "f67d773459da9786f312d49acb77a8745ce83ded405e3ac0a6994e83f95b79a0",
+    "original_paths_used": [
+      "FrozenYOLO.extract",
+      "prepare_native",
+      "NativeMaskAdapter.decode_arms",
+      "original evaluate_epoch_r3.refine_coefficients/detection_records"
+    ],
+    "reference_arm_names": [
+      "baseline",
+      "RCMC_full",
+      "global_minus025_full",
+      "RCMC_first64",
+      "global_minus025_first64",
+      "multi_local_full",
+      "multi_local_first64",
+      "TriFlow_final8"
+    ],
+    "isolated_cost_executor_used": false,
+    "complete_common_baseline_exact": true,
+    "actual_torch": "2.9.1+cu128",
+    "actual_gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "frozen_integrity": {
+      "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+      "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+      "all_state_exact": true,
+      "all_params_requires_grad_false": true,
+      "all_bn_eval": true,
+      "all_gradients_none": true,
+      "extracted_images": 32,
+      "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "vendor": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\vendor\\ultralytics_8_4_100",
+      "extractor_version": "triflow_frozen_io_v1",
+      "passed": true
+    },
+    "gt_used": false,
+    "ap_measured": false,
+    "cross_device_quality_equivalence_claimed": false
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01\\SUMMARY.json",
+    "sha256": "c1b3bcfcc0a1a64694e6f81d4e90ae3fd5d778faef8070b3cfa2f0186d726482"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T20:07:04.905+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "c1b3bcfcc0a1a64694e6f81d4e90ae3fd5d778faef8070b3cfa2f0186d726482"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_DESKTOP_REFERENCE32_S0_01\\BASELINE_PARITY.json",
+      "exists": true,
+      "sha256": "0bb667e10919fdf446c3d667f3ff5b1a13d35801d000d8ae7312f78c6175342d"
+    }
+  ]
+}

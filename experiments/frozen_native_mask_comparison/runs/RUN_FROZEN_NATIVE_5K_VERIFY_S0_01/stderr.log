@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Dpan\codexproject\paper-disc-organized\experiments\frozen_native_mask_comparison\scripts\score_and_verify_comparison.py", line 627, in <module>
+    main()
+  File "C:\Dpan\codexproject\paper-disc-organized\experiments\frozen_native_mask_comparison\scripts\score_and_verify_comparison.py", line 616, in main
+    verify_scoring(args.run, args.out_dir)
+  File "C:\Dpan\codexproject\paper-disc-organized\experiments\frozen_native_mask_comparison\scripts\score_and_verify_comparison.py", line 505, in verify_scoring
+    check(row["arm_counts"][arm]["candidate_count"] == row["candidate_count"] and 0 <= row["arm_counts"][arm]["empty_mask_count"] <= row["candidate_count"], "Empty-preserving arm cardinality differs")
+KeyError: 'candidate_count'

@@ -1,0 +1,175 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01",
+  "study_id": "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/scripts/benchmark_desktop_cost.py",
+    "--root",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison",
+    "--run-id",
+    "RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01",
+    "--weights",
+    "C:/Dpan/codexproject/paper-disc-organized/assets/models/coco_clean_20260911/yolo26m-seg.pt",
+    "--vendor",
+    "C:/Dpan/codexproject/paper-disc-organized/shared/vendor/ultralytics_8_4_100",
+    "--images-list",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/assets/cost_panel/DESKTOP_PANEL_PATH_MAP.txt",
+    "--response-model",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/assets/response.json",
+    "--multi-model",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+    "--reference-run",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_02",
+    "--triflow-reference",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/assets/cost_panel/triflow_reference",
+    "--protocol",
+    "C:/Dpan/codexproject/paper-disc-organized/experiments/frozen_native_mask_comparison/COST_PANEL_DESKTOP_PROTOCOL.md",
+    "--device",
+    "cuda",
+    "--engineering"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison",
+  "status": "failed",
+  "created_at": "2026-10-08T19:52:06.805+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\COST_PANEL_DESKTOP_PROTOCOL.md",
+      "exists": true,
+      "sha256": "85ba9fb8b0534d1f34723ece2d8f1809ba9bb8ee446afe4757a1c68e7fc6c13f",
+      "size": 2107
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\assets\\cost_panel\\DESKTOP_PANEL_ASSETS_RECEIPT.json",
+      "exists": true,
+      "sha256": "8082f8de6afa88380f3ac84ed4e2908f610af19101287e811306e80eb60b560a",
+      "size": 2009
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\assets\\cost_panel\\DESKTOP_PANEL_PATH_MAP.txt",
+      "exists": true,
+      "sha256": "ab5fcb3c11956ceccd55779a342fea5d9c4800d5c5b33d7841aefc1c28fdc56b",
+      "size": 635000
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\assets\\cost_panel\\triflow_reference\\head_epoch_08.pt",
+      "exists": true,
+      "sha256": "5c47c39dd5912999af8d8a11e0052a9bcb291c55413eb63b3c4bdc3c054707c8",
+      "size": 6557404
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\benchmark_desktop_cost.py",
+      "revision": "173fa76b449ffe9cab20f1787709549c80e2ec3ae316b607e4bea6b80293ff71",
+      "snapshot": "snapshots/173fa76b449ffe9cab20f1787709549c80e2ec3ae316b607e4bea6b80293ff71"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\benchmark_individual_cost.py",
+      "revision": "8b6ccf6d770cdacc10ed43f625b59c15fb37f8df6ec5554692cb4a44be09bcd6",
+      "snapshot": "snapshots/8b6ccf6d770cdacc10ed43f625b59c15fb37f8df6ec5554692cb4a44be09bcd6"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\frozen_io.py",
+      "revision": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "snapshot": "snapshots/cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\native_mask_adapter.py",
+      "revision": "0a11d7cee6f73ec680ce7895f9501a2f87be5d97a8904d3fe6b3a62a958fa0c2",
+      "snapshot": "snapshots/0a11d7cee6f73ec680ce7895f9501a2f87be5d97a8904d3fe6b3a62a958fa0c2"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\portable_risk.py",
+      "revision": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+      "snapshot": "snapshots/b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\risk_calibration.py",
+      "revision": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "snapshot": "snapshots/b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\local_features.py",
+      "revision": "a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6",
+      "snapshot": "snapshots/a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\scripts\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\COST_PANEL_DESKTOP_PROTOCOL.md",
+      "revision": "85ba9fb8b0534d1f34723ece2d8f1809ba9bb8ee446afe4757a1c68e7fc6c13f",
+      "snapshot": "snapshots/85ba9fb8b0534d1f34723ece2d8f1809ba9bb8ee446afe4757a1c68e7fc6c13f"
+    }
+  ],
+  "scope": {
+    "type": "desktop_gpu_functionality_engineering",
+    "images": 4,
+    "repeats": 1,
+    "cpu_concurrent_cost_not_claimed": true,
+    "no_gt": true
+  },
+  "expected_outputs": [
+    "runs/RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01/SUMMARY.json",
+    "runs/RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01/COST_COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 76928,
+  "started_at": "2026-10-08T19:52:07.419+00:00",
+  "last_heartbeat": "2026-10-08T19:52:07.419+00:00",
+  "metrics_read_error": "[WinError 2] 系统找不到指定的文件。: 'C:\\\\Dpan\\\\codexproject\\\\paper-disc-organized\\\\experiments\\\\frozen_native_mask_comparison\\\\runs\\\\RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01\\\\SUMMARY.json'",
+  "return_code": 1,
+  "finished_at": "2026-10-08T19:52:07.574+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "runs/RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01/SUMMARY.json",
+    "runs/RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01/COST_COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01\\SUMMARY.json",
+      "exists": false,
+      "sha256": ""
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_COST_DESKTOP_ENGINEERING_S0_01\\COST_COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

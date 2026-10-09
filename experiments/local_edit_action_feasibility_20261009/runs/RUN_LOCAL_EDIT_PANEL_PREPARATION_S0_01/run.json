@@ -1,0 +1,269 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01",
+  "study_id": "STUDY_LOCAL_EDIT_ACTION_FEASIBILITY_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\scripts\\prepare_panel.py",
+    "--run",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01",
+    "--pool",
+    "experiments/triflow_20k_training_20261007/runs/RUN_TRIFLOW_20K_LOCAL_PREP_S0/SELECTED_IMAGE_IDS.json",
+    "--calibration-split",
+    "paper/manuscripts/mask_boundary_calibration/reproducibility/calibration_split.json",
+    "--annotations",
+    "C:/Dpan/document/model_datasets/datasets/coco/annotations/instances_train2017.json",
+    "--image-root",
+    "C:/Dpan/document/model_datasets/datasets/coco/downloads/train2017/train2017",
+    "--weights",
+    "assets/models/coco_clean_20260911/yolo26m-seg.pt",
+    "--vendor",
+    "shared/vendor/ultralytics_8_4_100"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-10-08T17:15:34.592+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\document\\model_datasets\\datasets\\coco\\annotations\\instances_train2017.json",
+      "exists": true,
+      "sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "size": 469785474
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\models\\coco_clean_20260911\\yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_LOCAL_PREP_S0\\SELECTED_IMAGE_IDS.json",
+      "exists": true,
+      "sha256": "ef3453e65b80a2d07997c882b0624a88f6d8161fcd32e2d629cdff3285ba3c63",
+      "size": 216136
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\paper\\manuscripts\\mask_boundary_calibration\\reproducibility\\calibration_split.json",
+      "exists": true,
+      "sha256": "1b75dfea2ca011dc43aaa8a7b863900c3bae913472b849f76934361366d9d8ce",
+      "size": 15851
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\PROTOCOL.md",
+      "revision": "a6eee3393d380e232456f438e9b12d019735056f032902a5fa494b661f48f206",
+      "snapshot": "snapshots/a6eee3393d380e232456f438e9b12d019735056f032902a5fa494b661f48f206"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\scripts\\prepare_panel.py",
+      "revision": "d59af497fc40647e97f2b5765c67fe09ffa339d5fd64e262d79422844fc91e0d",
+      "snapshot": "snapshots/d59af497fc40647e97f2b5765c67fe09ffa339d5fd64e262d79422844fc91e0d"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_LOCAL_PREP_S0\\SELECTED_IMAGE_IDS.json",
+      "revision": "ef3453e65b80a2d07997c882b0624a88f6d8161fcd32e2d629cdff3285ba3c63",
+      "snapshot": "snapshots/ef3453e65b80a2d07997c882b0624a88f6d8161fcd32e2d629cdff3285ba3c63"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\paper\\manuscripts\\mask_boundary_calibration\\reproducibility\\calibration_split.json",
+      "revision": "1b75dfea2ca011dc43aaa8a7b863900c3bae913472b849f76934361366d9d8ce",
+      "snapshot": "snapshots/1b75dfea2ca011dc43aaa8a7b863900c3bae913472b849f76934361366d9d8ce"
+    }
+  ],
+  "scope": {
+    "environment": "local_desktop_cpu",
+    "purpose": "fixed_512_image_panel_and_decode_verification_no_model",
+    "executor": "A",
+    "loop_spec": "research-loop 3.0.0",
+    "graph_revision": "1accdee1d8d80e7db4390084cc121996b8e3b5ae77a0f0d92d6f05c928bdda49",
+    "user_resource_authorization": "01a11c68-1fa4-7420-bf58-e9f839c0d398"
+  },
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\PANEL.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\ELIGIBLE_IMAGE_IDS.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\CALIBRATION_EXCLUSION_IDS.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\PREPARATION_SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 72240,
+  "started_at": "2026-10-08T17:15:35.297+00:00",
+  "last_heartbeat": "2026-10-08T17:15:45.312+00:00",
+  "metrics": {
+    "status": "prepared",
+    "passed": true,
+    "source_pool_count": 20000,
+    "excluded_known_calibration_count": 2000,
+    "fit_intersection": 277,
+    "selection_intersection": 85,
+    "eligible_pool_count": 19638,
+    "selected_images": 512,
+    "decoded_images": 512,
+    "missing_or_corrupt_images": 0,
+    "engineering_images": 4,
+    "panel_sha256": "ea51b6c8b1cb19de3d390d53b68595dbec9fae296410adbfa0d602405884e9d7",
+    "selected_id_identity_sha256": "46aa55efea5e3cb3385cee8a5a543b0ef447941ff4f821aad7761be8af8ac1a9",
+    "eligible_id_identity_sha256": "d3f290dc02d01338c6a377fe2bcd25a588c020f6bcc3d2826a2651edf6c1ec46",
+    "source_hashes_before": {
+      "pool": "ef3453e65b80a2d07997c882b0624a88f6d8161fcd32e2d629cdff3285ba3c63",
+      "calibration_split": "1b75dfea2ca011dc43aaa8a7b863900c3bae913472b849f76934361366d9d8ce",
+      "annotations": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "weights": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"
+    },
+    "source_hashes_after": {
+      "pool": "ef3453e65b80a2d07997c882b0624a88f6d8161fcd32e2d629cdff3285ba3c63",
+      "calibration_split": "1b75dfea2ca011dc43aaa8a7b863900c3bae913472b849f76934361366d9d8ce",
+      "annotations": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "weights": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"
+    },
+    "source_unchanged": true,
+    "selected_annotation_count": 3886,
+    "selected_crowd_count": 50,
+    "selected_class_counts": {
+      "64": 49,
+      "17": 23,
+      "44": 107,
+      "2": 50,
+      "4": 40,
+      "1": 1178,
+      "77": 41,
+      "82": 9,
+      "90": 6,
+      "3": 171,
+      "67": 63,
+      "10": 63,
+      "11": 10,
+      "14": 21,
+      "46": 64,
+      "48": 20,
+      "49": 29,
+      "50": 17,
+      "51": 53,
+      "70": 7,
+      "76": 16,
+      "78": 9,
+      "79": 12,
+      "81": 23,
+      "27": 35,
+      "8": 37,
+      "31": 78,
+      "47": 133,
+      "72": 36,
+      "63": 19,
+      "62": 191,
+      "19": 42,
+      "5": 25,
+      "15": 51,
+      "25": 25,
+      "41": 18,
+      "86": 19,
+      "18": 23,
+      "16": 24,
+      "21": 32,
+      "6": 18,
+      "7": 17,
+      "13": 3,
+      "28": 41,
+      "22": 23,
+      "33": 53,
+      "37": 19,
+      "52": 57,
+      "9": 51,
+      "32": 29,
+      "65": 19,
+      "23": 2,
+      "34": 11,
+      "42": 22,
+      "84": 99,
+      "88": 10,
+      "54": 22,
+      "85": 23,
+      "24": 10,
+      "35": 26,
+      "39": 11,
+      "40": 14,
+      "53": 42,
+      "56": 59,
+      "57": 9,
+      "73": 15,
+      "55": 38,
+      "58": 5,
+      "60": 33,
+      "61": 46,
+      "43": 21,
+      "74": 15,
+      "75": 20,
+      "59": 26,
+      "38": 70,
+      "89": 1,
+      "20": 15,
+      "36": 21,
+      "80": 1
+    },
+    "model_executed": false,
+    "opportunity": null,
+    "finished_at": "2026-10-08T17:15:46.195118+00:00",
+    "environment": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "numpy": "2.2.6",
+      "opencv": "4.11.0"
+    }
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\PREPARATION_SUMMARY.json",
+    "sha256": "9cbc2c81095572ed10f7a24d177c2b7f9eae6d77212952438569f1609e8d6432"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T17:15:46.237+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\PANEL.json",
+      "exists": true,
+      "sha256": "ea51b6c8b1cb19de3d390d53b68595dbec9fae296410adbfa0d602405884e9d7"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\ELIGIBLE_IMAGE_IDS.json",
+      "exists": true,
+      "sha256": "7722e4167397474143fc4e39c948f7ca5d18c85b714a7e8d1ae87bbcc9dab476"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\CALIBRATION_EXCLUSION_IDS.json",
+      "exists": true,
+      "sha256": "b9ac4755081cfd2ff421851161bab5ed3ae8705aec17ed4ea8dd939d4600151c"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\local_edit_action_feasibility_20261009\\runs\\RUN_LOCAL_EDIT_PANEL_PREPARATION_S0_01\\PREPARATION_SUMMARY.json",
+      "exists": true,
+      "sha256": "9cbc2c81095572ed10f7a24d177c2b7f9eae6d77212952438569f1609e8d6432"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01",
+  "study_id": "STUDY_SEGREFINER_OFFICIAL_CONTENT_BASELINE_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\run_segrefiner_scoring_pipeline.py",
+    "--plan",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\scoring_plan_batch8_fixed5k_20261009.json",
+    "--output",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01",
+    "--wait-max-seconds",
+    "172800"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "failed",
+  "created_at": "2026-10-08T22:26:19.350+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\scoring_plan_batch8_fixed5k_20261009.json",
+      "exists": true,
+      "sha256": "8cba606a2829c3ab9e56f3e7b0d5ec19753b9c54c8961fd8f05a1880638cc608",
+      "size": 2205
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\run_segrefiner_scoring_pipeline.py",
+      "revision": "10f342062057f1e09b3edb6d188f5a9729fd77b3623ce4cea53dce02f07ac837",
+      "snapshot": "snapshots/10f342062057f1e09b3edb6d188f5a9729fd77b3623ce4cea53dce02f07ac837"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\score_segrefiner_comparison.py",
+      "revision": "e562d45d651c34eb5fc41da86b304b92f29ba4c03d711417b7a6d25e8a70e268",
+      "snapshot": "snapshots/e562d45d651c34eb5fc41da86b304b92f29ba4c03d711417b7a6d25e8a70e268"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\segrefiner_scoring_bridge.py",
+      "revision": "42070d5bfe56d3e7578dbf0b1e02120b3d7bb0450e9e05f66b791cde2ec04712",
+      "snapshot": "snapshots/42070d5bfe56d3e7578dbf0b1e02120b3d7bb0450e9e05f66b791cde2ec04712"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\source\\launch_finite_scoring.py",
+      "revision": "ae7a4dc728ad3386c001586504a2af6fe66fb539acc6e84d79a1320e70fde26f",
+      "snapshot": "snapshots/ae7a4dc728ad3386c001586504a2af6fe66fb539acc6e84d79a1320e70fde26f"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\tools\\research_runner\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    }
+  ],
+  "scope": {
+    "type": "one_finite_dependency_continuation",
+    "wait_for_literal_actual_inference02": true,
+    "scientific_retry": false,
+    "scheduler_or_automation": false,
+    "CPU_stages_only_after_actual_GPU_source_exit": true,
+    "max_wait_seconds": 172800
+  },
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\PIPELINE_COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 93928,
+  "started_at": "2026-10-08T22:26:19.753+00:00",
+  "last_heartbeat": "2026-10-08T23:09:49.673+00:00",
+  "metrics_read_error": "[WinError 2] 系统找不到指定的文件。: 'C:\\\\Dpan\\\\codexproject\\\\paper-disc-organized\\\\experiments\\\\segrefiner_official_content_baseline_20261009\\\\runs\\\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\\\SUMMARY.json'",
+  "return_code": 4294967295,
+  "finished_at": "2026-10-08T23:09:51.966+00:00",
+  "error": "",
+  "artifact_completeness": "missing",
+  "missing_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\PIPELINE_COMPLETE.json"
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\SUMMARY.json",
+      "exists": false,
+      "sha256": ""
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01\\PIPELINE_COMPLETE.json",
+      "exists": false,
+      "sha256": ""
+    }
+  ]
+}

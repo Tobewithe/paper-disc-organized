@@ -1,0 +1,44 @@
+Traceback (most recent call last):
+  File "/root/mask_quality_energy_refinement_20261005/scripts/qcr_train.py", line 202, in <module>
+    try: main()
+         ^^^^^^
+  File "/root/mask_quality_energy_refinement_20261005/scripts/qcr_train.py", line 199, in main
+    if a.stage=='train': train(cfg,manifest,a.mode,out,a.deadline)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/mask_quality_energy_refinement_20261005/scripts/qcr_train.py", line 160, in train
+    x=load_asset(cfg,int(iid),verify=True); rs=groups[iid]; loss,info=batch_fit(x,rs,oracle,rho,model,mode,device,True)
+                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/mask_quality_energy_refinement_20261005/scripts/qcr_train.py", line 130, in batch_fit
+    delta=model.direct_delta(e); cnew=c0+delta; z=z_from(proto[None].expand(len(rs),-1,-1,-1),cnew)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/mask_quality_energy_refinement_20261005/scripts/qcr_train.py", line 46, in direct_delta
+    def direct_delta(self,e): return self.direct(e,self.rho)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/mask_quality_energy_refinement_20261005/scripts/qcr_train.py", line 31, in forward
+    raw=self.head(e); n=raw.norm(dim=-1,keepdim=True).clamp_min(1e-8)
+        ^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/container.py", line 244, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (1x168 and 128x128)

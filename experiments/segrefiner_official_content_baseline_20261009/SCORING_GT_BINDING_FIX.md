@@ -1,0 +1,9 @@
+# 实际 GT 文件绑定修正
+
+2026-10-09，B发现旧像素/Boundary包装的validation漏了对实际`args.annotations`的字节绑定，尚无证据表明GT已变化、也未启动正式评分；新增`score_segrefiner_comparison_v2.py`仅补`InputLock.add(args.annotations) == ANN_SHA`，使读出入口及结束`lock.finish()`共同约束本次实际GT，原评分源码、plan、合同工程及GPU推理源保持原字节。
+
+`RUN_SEGREFINER_MULTIVIEW_GT_CONTRACT_CPU_S0_01`真实runner completed/0/artifactcomplete：实际19987840字节val GT（SHA256 `e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f`）通过新validation及原InputLock，错误SHA入口被拒、同字节副本锁后变化被结束检查拒绝；其余来源和指标循环明确为stub，未解析/解码GT、未计算质量或执行GPU，root核对3件runner产物与37件manifest文件。
+
+旧CPU等待链`RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_01`经身份、等待阶段、无子进程/无评分阶段确认后行政终止，原runner记录failed/return_code=4294967295/artifactmissing（07:09:51.966+08:00），原记录保留，原因及观察见其`SUPERSESSION_REQUEST.json`、`SUPERSESSION_TERMINAL.json`；这不是方法或GPU推理失败。新等待链`RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_02`已真实runner登记，PID64456，仍只跟随同一GPU推理`RUN_SEGREFINER_BATCH8_FIXED5K_INFERENCE_S0_02`/PID90740，48小时上限、无自动重试，未来四评分阶段另用S0_02。
+
+新冻结来源：scorer `f81718da1c2b81ae3da1e6d4d6f581adcbe875d23f65051b0f10601706fbdf2b`；driver `af480909febcea91da44177bf0353d2771d3d95874d6d65d60c852010b33b0ed`；plan `405daa6b4c758a50389d8f56aae47858d6a3b070b130e07cc06697fcb221f6eb`。新版实际run/plan/snapshot与完成的GT合同绑定已核；正式AP、像素、Boundary与核验结果仍待5k真实完成封口。

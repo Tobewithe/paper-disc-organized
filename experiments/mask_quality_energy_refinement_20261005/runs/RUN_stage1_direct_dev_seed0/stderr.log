@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/root/autodl-tmp/qcr_run/qcr_train_fixed.py", line 210, in <module>
+    try: main()
+         ^^^^^^
+  File "/root/autodl-tmp/qcr_run/qcr_train_fixed.py", line 208, in main
+    else: evaluate(cfg,manifest,a.checkpoint,out,a.split)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/qcr_run/qcr_train_fixed.py", line 195, in evaluate
+    iA=decode_original_iou(zA,x,b,int(r['annotation_id']),coco,device); iB=decode_original_iou(zB,x,b,int(r['annotation_id']),coco,device); rows.append({'split':split,'image_id':int(iid),'annotation_id':int(r['annotation_id']),'raw_id':int(r['raw_id']),'pyramid_level':int(r['pyramid_level']),'box_iou':float(r.get('box_iou',float('nan'))),'iou_A':iA,'iou_B':iB,'mask75_A':int(iA>=.75),'mask75_B':int(iB>=.75),'delta_iou':iB-iA,'delta_norm':float(d.norm())})
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/qcr_run/qcr_train_fixed.py", line 75, in decode_original_iou
+    scaled=ops.scale_masks(binary[None].float(),x['original_shape'],ratio_pad=x['ratio_pad'])[0]>.5
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/ultralytics/utils/ops.py", line 578, in scale_masks
+    im1_h, im1_w = masks.shape[2:]
+    ^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 2, got 1)

@@ -1,0 +1,720 @@
+"""Pure NumPy aggregation for fixed-candidate QCR evaluation (no model imports).
+
+Public API: summarize(rows, out, image_ids, split, bootstrap=5000,
+                      seed=20261006, metadata=None) -> dict.
+Rows may be an iterable of mappings or a JSONL path. A/B/D1/D are original,
+Direct32, one-step Q-Refine and two-step Q-Refine. IoU is in [0,1]; reported
+percentage-point deltas multiply its difference by 100, never by 10000.
+
+Use heldout_statistics(q, hard_iou) to implement the exact diagnostic tie
+rules. Supplied pairwise_accuracy values must use those same rules. This
+module does not evaluate COCO AP or change/rerank the candidate population.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+from collections import Counter, defaultdict
+from pathlib import Path
+
+import numpy as np
+
+
+ARMS = ("A", "B", "D1", "D")
+METRICS = ("iou", "mask75", "coverage", "auc", "fpr")
+COMPARISONS = (("D", "B"), ("D", "A"), ("B", "A"), ("D1", "A"), ("D", "D1"))
+IDENTITY = ("image_id", "annotation_id", "branch", "raw_id", "pyramid_level", "target_gt_idx")
+LABELS = {"A": "original c0", "B": "Direct32", "D1": "Q-Refine one step", "D": "Q-Refine two steps"}
+
+
+def _finite(value):
+    return isinstance(value, (int, float, np.number, bool)) and math.isfinite(float(value))
+
+
+def _value(row, field):
+    value = row.get(field)
+    return float(value) if _finite(value) else None
+
+
+def _clean(value):
+    if isinstance(value, dict):
+        return {str(k): _clean(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple, np.ndarray)):
+        return [_clean(v) for v in value]
+    if isinstance(value, np.generic):
+        return _clean(value.item())
+    if isinstance(value, float):
+        return value if math.isfinite(value) else None
+    return value
+
+
+def _image_id(value):
+    # COCO JSON object keys can be strings even when row IDs are integers.
+    if isinstance(value, str) and value.isdecimal():
+        return int(value)
+    if isinstance(value, np.integer):
+        return int(value)
+    return value
+
+
+def _mean(values):
+    vals = [float(v) for v in values if v is not None and _finite(v)]
+    return float(np.mean(vals)) if vals else None
+
+
+def _ranks(values):
+    values = np.asarray(values, dtype=np.float64)
+    order = np.argsort(values, kind="stable")
+    ranks = np.empty(len(values), dtype=np.float64)
+    start = 0
+    while start < len(values):
+        end = start + 1
+        while end < len(values) and values[order[end]] == values[order[start]]:
+            end += 1
+        ranks[order[start:end]] = (start + end - 1) / 2.0 + 1.0
+        start = end
+    return ranks
+
+
+def heldout_statistics(q_values, true_hard_iou_values):
+    """Within-instance hard-IoU ranking; true ties excluded, Q ties earn .5.
+
+    The function accepts eight states (or a different length for pure-statistic
+    tests); summarize flags non-eight state diagnostics when arrays are given.
+    Spearman uses average ranks and is undefined for a constant vector.
+    """
+    q = np.asarray(q_values, dtype=np.float64).reshape(-1)
+    truth = np.asarray(true_hard_iou_values, dtype=np.float64).reshape(-1)
+    if q.shape != truth.shape:
+        raise ValueError("Q and hard-IoU state arrays must have identical lengths")
+    if not np.isfinite(q).all() or not np.isfinite(truth).all():
+        raise ValueError("Held-out state arrays must contain only finite values")
+    wins, pairs, true_ties, prediction_ties = 0.0, 0, 0, 0
+    for first in range(len(q)):
+        for second in range(first + 1, len(q)):
+            dy, dq = truth[first] - truth[second], q[first] - q[second]
+            if dy == 0:
+                true_ties += 1
+                continue
+            pairs += 1
+            if dq == 0:
+                prediction_ties += 1
+                wins += 0.5
+            elif (dy > 0) == (dq > 0):
+                wins += 1.0
+    rq, rt = _ranks(q), _ranks(truth)
+    rq, rt = rq - rq.mean(), rt - rt.mean()
+    denom = float(np.linalg.norm(rq) * np.linalg.norm(rt))
+    return {
+        "pairwise_accuracy": wins / pairs if pairs else None,
+        "pairwise_pairs": pairs,
+        "pairwise_credit": wins,
+        "pairwise_true_ties": true_ties,
+        "pairwise_prediction_ties": prediction_ties,
+        "spearman": float(np.dot(rq, rt) / denom) if denom else None,
+        "heldout_state_count": len(q),
+    }
+
+
+def _load_rows(rows):
+    if isinstance(rows, (str, Path)):
+        result = []
+        with Path(rows).open(encoding="utf-8-sig") as stream:
+            for number, line in enumerate(stream, 1):
+                if line.strip():
+                    row = json.loads(line)
+                    if not isinstance(row, dict):
+                        raise ValueError(f"JSONL line {number} must contain an object")
+                    result.append(row)
+        return result
+    return [dict(row) for row in rows]
+
+
+def _load_image_ids(image_ids, split):
+    if isinstance(image_ids, (str, Path)):
+        image_ids = json.loads(Path(image_ids).read_text(encoding="utf-8-sig"))
+    if isinstance(image_ids, dict):
+        for key in (split, f"{split}_images", "image_ids", "images"):
+            if key in image_ids:
+                image_ids = image_ids[key]
+                break
+        else:
+            raise ValueError(f"Images JSON has no list for split {split!r}")
+    if image_ids is None:
+        return None
+    if not isinstance(image_ids, (list, tuple, set, np.ndarray)):
+        raise ValueError("image_ids must be a list or a split/images JSON mapping")
+    return [_image_id(v) for v in image_ids]
+
+
+def _field(row, metric, arm):
+    # Threshold is invariant across methods, so it is derived from true IoU;
+    # separately validate each supplied mask75 flag against this value.
+    if metric == "mask75":
+        value = _value(row, f"iou_{arm}")
+        return None if value is None else float(value >= 0.75)
+    return _value(row, f"{metric}_{arm}")
+
+
+def _level(row):
+    value = str(row.get("pyramid_level", "")).upper()
+    if value in ('0', '1', '2'):
+        return f'P{int(value)+3}'
+    return f"P{value}" if value in ("3", "4", "5") else value
+
+
+def _size(row):
+    area = _value(row, "area")
+    if area is None or area < 0:
+        return "unknown"
+    return "small" if area < 32 ** 2 else "medium" if area < 96 ** 2 else "large"
+
+
+def _strict_eligible(row):
+    box_iou = _value(row, "box_iou")
+    return row.get("class_correct") is True and box_iou is not None and box_iou >= 0.75
+
+
+def _tal_maskfail(row):
+    iou = _value(row, "iou_A")
+    return _strict_eligible(row) and iou is not None and iou < 0.75
+
+
+def _per_image(rows, values):
+    grouped = defaultdict(list)
+    for row, value in zip(rows, values):
+        if value is not None and _finite(value):
+            grouped[row["image_id"]].append(float(value))
+    return {key: float(np.mean(val)) for key, val in grouped.items()}
+
+
+def _stats(rows, values):
+    per_image = _per_image(rows, values)
+    return {
+        "candidate_mean": _mean(values),
+        "image_macro": _mean(per_image.values()),
+        "valid_candidates": sum(value is not None and _finite(value) for value in values),
+        "valid_images": len(per_image),
+    }, per_image
+
+
+def _bootstrap_columns(matrix, bootstrap, seed):
+    """Resample complete images; omit undefined metric columns, never fill 0.
+
+    Each multinomial weight vector is exactly equivalent to N independent
+    draws of image IDs with replacement. Paired differences are averaged
+    within image before any draw. Missing columns are excluded via their
+    sampled denominator. Memory is bounded by 64 image-weight vectors.
+    """
+    n_images, n_columns = matrix.shape
+    empty = [{"ci95": [None, None], "valid_bootstrap_replicates": 0} for _ in range(n_columns)]
+    if n_images == 0 or bootstrap <= 0:
+        return empty
+    rng = np.random.default_rng(seed)
+    present = np.isfinite(matrix).astype(np.float64)
+    values = np.where(np.isfinite(matrix), matrix, 0.0)
+    samples = np.full((bootstrap, n_columns), np.nan, dtype=np.float64)
+    probabilities = np.full(n_images, 1.0 / n_images)
+    for start in range(0, bootstrap, 64):
+        stop = min(start + 64, bootstrap)
+        weights = rng.multinomial(n_images, probabilities, size=stop - start).astype(np.float64)
+        totals = weights @ values
+        denominators = weights @ present
+        np.divide(totals, denominators, out=samples[start:stop], where=denominators > 0)
+    result = []
+    for col in range(n_columns):
+        valid = samples[:, col][np.isfinite(samples[:, col])]
+        result.append({
+            "ci95": np.quantile(valid, [0.025, 0.975]).tolist() if len(valid) else [None, None],
+            "valid_bootstrap_replicates": len(valid),
+        })
+    return result
+
+
+def _mask75_changes(rows, arm):
+    eligible_failure, eligible_success = [], []
+    repairs, damages, net = [], [], []
+    valid_rows = []
+    for row in rows:
+        before, after = _field(row, "mask75", "A"), _field(row, "mask75", arm)
+        if before is None or after is None:
+            continue
+        valid_rows.append(row)
+        repaired, damaged = int(before == 0 and after == 1), int(before == 1 and after == 0)
+        repairs.append(repaired)
+        damages.append(damaged)
+        net.append(repaired - damaged)
+        if before == 0:
+            eligible_failure.append((row, repaired))
+        else:
+            eligible_success.append((row, damaged))
+    repair_stats, _ = _stats([v[0] for v in eligible_failure], [v[1] for v in eligible_failure])
+    damage_stats, _ = _stats([v[0] for v in eligible_success], [v[1] for v in eligible_success])
+    net_stats, _ = _stats(valid_rows, net)
+    return {
+        "valid_candidates": len(valid_rows),
+        "repair_count": sum(repairs),
+        "damage_count": sum(damages),
+        "net_count": sum(net),
+        "baseline_failures": len(eligible_failure),
+        "baseline_successes": len(eligible_success),
+        "repair_rate": repair_stats,
+        "damage_rate": damage_stats,
+        "net_rate": net_stats,
+        "net_pp_candidate": None if net_stats["candidate_mean"] is None else 100 * net_stats["candidate_mean"],
+        "net_pp_image_macro": None if net_stats["image_macro"] is None else 100 * net_stats["image_macro"],
+    }
+
+
+def _group_summary(rows, expected_images, bootstrap, seed):
+    image_order = list(dict.fromkeys(row["image_id"] for row in rows))
+    group = {
+        "candidates": len(rows), "images_with_subgroup": len(image_order),
+        "planned_images_without_subgroup": len(set(expected_images) - set(image_order)),
+        "macro_population": "images containing at least one candidate in this subgroup; no zero imputation",
+        "arms": {}, "comparisons": {}, "mask75_changes_from_A": {},
+    }
+    for arm in ARMS:
+        group["arms"][arm] = {}
+        for metric in METRICS:
+            stats, _ = _stats(rows, [_field(row, metric, arm) for row in rows])
+            group["arms"][arm][metric] = stats
+    columns, destinations = [], []
+    for after, before in COMPARISONS:
+        name = f"{after}_minus_{before}"
+        group["comparisons"][name] = {}
+        for metric in METRICS:
+            values = []
+            for row in rows:
+                left, right = _field(row, metric, after), _field(row, metric, before)
+                values.append(None if left is None or right is None else left - right)
+            stats, per_image = _stats(rows, values)
+            stats["candidate_delta_pp"] = None if stats["candidate_mean"] is None else 100 * stats["candidate_mean"]
+            stats["image_macro_delta_pp"] = None if stats["image_macro"] is None else 100 * stats["image_macro"]
+            group["comparisons"][name][metric] = stats
+            columns.append([per_image.get(image, np.nan) for image in image_order])
+            destinations.append(stats)
+    matrix = np.asarray(columns, dtype=np.float64).T
+    for stats, interval in zip(destinations, _bootstrap_columns(matrix, bootstrap, seed)):
+        stats.update(interval)
+        stats["ci95_pp"] = [None if v is None else 100 * v for v in stats["ci95"]]
+    for arm in ("B", "D1", "D"):
+        changes = _mask75_changes(rows, arm)
+        interval = group["comparisons"][f"{arm}_minus_A"]["mask75"]
+        changes["net_rate"]["ci95"] = interval["ci95"]
+        changes["net_rate"]["ci95_pp"] = interval["ci95_pp"]
+        changes["net_rate"]["valid_bootstrap_replicates"] = interval["valid_bootstrap_replicates"]
+        group["mask75_changes_from_A"][arm] = changes
+    return group
+
+
+def _diagnostics(rows):
+    pair_rows, pair_values, pairs, spearman_rows, spearmans = [], [], [], [], []
+    missing_pairwise = 0
+    for row in rows:
+        accuracy, count = _value(row, "pairwise_accuracy"), _value(row, "pairwise_pairs")
+        if "pairwise_accuracy" not in row or count is None or (count > 0 and accuracy is None):
+            missing_pairwise += 1
+        if accuracy is not None and count is not None and count > 0:
+            pair_rows.append(row)
+            pair_values.append(accuracy)
+            pairs.append(count)
+        correlation = _value(row, "spearman")
+        if correlation is not None:
+            spearman_rows.append(row)
+            spearmans.append(correlation)
+    pair_stats, _ = _stats(pair_rows, pair_values)
+    pair_stats["pairs_weighted"] = float(np.average(pair_values, weights=pairs)) if pairs else None
+    pair_stats["non_tie_pairs"] = int(sum(pairs))
+    pair_stats["missing_diagnostic_candidates"] = missing_pairwise
+    pair_stats["gate_estimand"] = "candidate_mean (equal instance weights)"
+    pair_stats["rule"] = "hard-IoU true ties excluded; Q prediction ties receive 0.5 credit"
+    spearman_stats, _ = _stats(spearman_rows, spearmans)
+    improvement_rows, improvement_values = [], []
+    table = {q: {iou: 0 for iou in ("negative", "zero", "positive")} for q in ("negative", "zero", "positive")}
+    missing_delta, concordant, nonzero, positive_q, positive_q_damage = 0, 0, 0, 0, 0
+    consistent_rows, consistent_values = [], []
+    sign = lambda value: "positive" if value > 0 else "negative" if value < 0 else "zero"
+    for row in rows:
+        a, d1 = _value(row, "iou_A"), _value(row, "iou_D1")
+        if a is not None and d1 is not None:
+            improvement_rows.append(row)
+            improvement_values.append(float(d1 > a))
+        q0, q1 = _value(row, "q_c0"), _value(row, "q_c1")
+        if any(v is None for v in (a, d1, q0, q1)):
+            missing_delta += 1
+            continue
+        sq, siou = sign(q1 - q0), sign(d1 - a)
+        table[sq][siou] += 1
+        if sq == "positive":
+            positive_q += 1
+            positive_q_damage += int(siou == "negative")
+        if sq != "zero" and siou != "zero":
+            nonzero += 1
+            agreed = int(sq == siou)
+            concordant += agreed
+            consistent_rows.append(row)
+            consistent_values.append(agreed)
+    improvement_stats, _ = _stats(improvement_rows, improvement_values)
+    consistency_stats, _ = _stats(consistent_rows, consistent_values)
+    strict_increase = sum(improvement_values)
+    strict_decrease = sum(
+        _value(row, "iou_D1") < _value(row, "iou_A") for row in improvement_rows
+    )
+    total_sign = sum(sum(counts.values()) for counts in table.values())
+    exclusions = {
+        "missing_q_or_iou": missing_delta,
+        "both_zero": table["zero"]["zero"],
+        "q_zero_iou_nonzero": table["zero"]["negative"] + table["zero"]["positive"],
+        "q_nonzero_iou_zero": table["negative"]["zero"] + table["positive"]["zero"],
+    }
+    return {
+        "pairwise_accuracy": pair_stats,
+        "spearman": spearman_stats,
+        "step1_true_iou_improvement": {
+            **improvement_stats, "strict_increase": int(strict_increase),
+            "strict_decrease": int(strict_decrease),
+            "ties": len(improvement_values) - int(strict_increase) - int(strict_decrease),
+            "denominator_includes_ties": True,
+            "gate_estimand": "candidate_mean over all matched candidates",
+        },
+        "q1_q0_vs_true_iou_delta": {
+            "sign_table": table, "sign_zero_tolerance": 0.0,
+            "valid_sign_candidates": total_sign, "nonzero_both": nonzero,
+            "nonzero_concordant": concordant, "nonzero_consistency": consistency_stats,
+            "exclusions_from_nonzero_consistency": exclusions,
+            "strict_all_sign_agreement": (table["negative"]["negative"] + table["zero"]["zero"] + table["positive"]["positive"]) / total_sign if total_sign else None,
+            "positive_q_candidates": positive_q,
+            "positive_q_but_true_iou_decrease_count": positive_q_damage,
+            "positive_q_but_true_iou_decrease_rate_among_positive_q": positive_q_damage / positive_q if positive_q else None,
+            "positive_q_but_true_iou_decrease_rate_among_valid": positive_q_damage / total_sign if total_sign else None,
+            "true_improvement_when_q_positive": table["positive"]["positive"] / positive_q if positive_q else None,
+            "true_decrease_when_q_negative": table["negative"]["negative"] / sum(table["negative"].values()) if sum(table["negative"].values()) else None,
+        },
+    }
+
+
+def _validate(rows, image_ids, metadata):
+    errors, incomplete = Counter(), Counter()
+    identities = set()
+    planned = set(image_ids or [])
+    drift = []
+    flags = metadata.get("scientific_drift", [])
+    drift.extend(flags if isinstance(flags, list) else [flags] if flags else [])
+    if not image_ids:
+        incomplete["planned_image_list_missing_or_empty"] += 1
+    if len(planned) != len(image_ids or []):
+        errors["duplicate_planned_image_id"] += 1
+    for key in ("scope", "decoder_definition", "heldout_states_definition", "scientific_drift"):
+        if key not in metadata:
+            incomplete[f"metadata_missing_{key}"] += 1
+    if metadata.get("evaluation_complete") is False:
+        incomplete["evaluation_declared_incomplete"] += 1
+    if metadata.get("partial") is True:
+        incomplete["partial_evaluation"] += 1
+    for key in ("integrity_verified", "image_membership_verified", "native_decode_verified"):
+        if metadata.get(key) is False:
+            incomplete[f"metadata_{key}_false"] += 1
+    if metadata.get("status", "").lower() in ("failed", "failure"):
+        errors["evaluation_declared_failed"] += 1
+    if not rows:
+        incomplete["no_candidate_rows"] += 1
+    for row in rows:
+        for field in IDENTITY:
+            if field not in row or row[field] is None:
+                incomplete[f"missing_identity_{field}"] += 1
+        identity = tuple(str(row.get(key)) for key in IDENTITY)
+        if identity in identities:
+            errors["duplicate_permanent_identity"] += 1
+        identities.add(identity)
+        if planned and row["image_id"] not in planned:
+            errors["row_image_outside_planned_split"] += 1
+        for field in ("predicted_class_id", "gt_class_id", "class_correct", "box_iou", "area"):
+            if field not in row or row[field] is None:
+                incomplete[f"missing_{field}"] += 1
+        if "class_correct" in row and not isinstance(row["class_correct"], (bool, np.bool_)):
+            errors["class_correct_not_boolean"] += 1
+        if row.get("predicted_class_id") is not None and row.get("gt_class_id") is not None:
+            if bool(row.get("class_correct")) != (row["predicted_class_id"] == row["gt_class_id"]):
+                errors["class_correct_disagrees_with_ids"] += 1
+        if _size(row) == "unknown":
+            incomplete["size_unknown"] += 1
+        box_iou = _value(row, "box_iou")
+        if box_iou is None:
+            incomplete["box_iou_nonfinite"] += 1
+        elif not 0 <= box_iou <= 1:
+            errors["box_iou_out_of_range"] += 1
+        # The strict whole-raw R_arg failure label cannot be reconstructed
+        # from one TAL-matched candidate. Unknown labels never fall back to TAL.
+        raw_arg = row.get("raw_arg_maskfail")
+        if raw_arg is None:
+            incomplete["raw_arg_maskfail_unknown"] += 1
+        elif not isinstance(raw_arg, (bool, np.bool_)):
+            errors["raw_arg_maskfail_not_boolean"] += 1
+        if _level(row) not in ("P3", "P4", "P5"):
+            incomplete["pyramid_level_unknown"] += 1
+        for arm in ARMS:
+            for metric in METRICS:
+                field = f"{metric}_{arm}"
+                value = _value(row, field)
+                if field not in row:
+                    incomplete[f"missing_{field}"] += 1
+                # Undefined AUC (one class) or FPR (no negative pixels) is
+                # valid and remains null; other essential metrics must exist.
+                elif value is None and metric not in ("auc", "fpr"):
+                    incomplete[f"nonfinite_{field}"] += 1
+                elif value is not None and not 0 <= value <= 1:
+                    errors[f"out_of_range_{field}"] += 1
+                if metric == "mask75" and value is not None and value != _field(row, metric, arm):
+                    errors[f"mask75_disagrees_with_iou_{arm}"] += 1
+        for field in ("q_c0", "q_c1", "q_c2"):
+            if _value(row, field) is None:
+                incomplete[f"missing_or_nonfinite_{field}"] += 1
+        accuracy, pairs = _value(row, "pairwise_accuracy"), _value(row, "pairwise_pairs")
+        if accuracy is not None and not 0 <= accuracy <= 1:
+            errors["pairwise_accuracy_out_of_range"] += 1
+        if pairs is not None and (pairs < 0 or pairs != int(pairs) or pairs > 28):
+            errors["invalid_eight_state_pair_count"] += 1
+        if pairs == 0 and accuracy is not None:
+            errors["zero_pairs_has_defined_accuracy"] += 1
+        if _value(row, "spearman") is not None and not -1 <= row["spearman"] <= 1:
+            errors["spearman_out_of_range"] += 1
+        if row.get("heldout_state_count", 8) != 8:
+            errors["heldout_state_count_not_eight"] += 1
+        flags = row.get("scientific_drift", [])
+        drift.extend(flags if isinstance(flags, list) else [flags] if flags else [])
+    return {"errors": dict(errors), "incomplete": dict(incomplete), "scientific_drift": list(dict.fromkeys(str(flag) for flag in drift if flag))}
+
+
+def _gate(groups, diagnostics, validation, bootstrap, split):
+    target = groups["strict_maskfail"]["comparisons"]
+    all_rows = groups["all"]["comparisons"]
+    criteria = []
+
+    def criterion(name, estimate, threshold, relation, unit="fraction"):
+        passed = None if estimate is None else (estimate >= threshold if relation == ">=" else estimate > threshold)
+        criteria.append({"name": name, "estimate": estimate, "threshold": threshold, "relation": relation, "unit": unit, "passed": passed})
+
+    criterion("heldout_pairwise_accuracy", diagnostics["pairwise_accuracy"]["candidate_mean"], 0.65, ">=")
+    criterion("step1_true_iou_improvement_fraction", diagnostics["step1_true_iou_improvement"]["candidate_mean"], 0.55, ">")
+    criterion("strict_maskfail_D_minus_B", target["D_minus_B"]["iou"]["image_macro_delta_pp"], 0.2, ">=", "pp")
+    criterion("strict_maskfail_D_minus_B_CI_low", target["D_minus_B"]["iou"]["ci95_pp"][0], 0.0, ">", "pp")
+    criterion("strict_maskfail_D_minus_A", target["D_minus_A"]["iou"]["image_macro_delta_pp"], 0.5, ">=", "pp")
+    criterion("all_D_minus_A_CI_low", all_rows["D_minus_A"]["iou"]["ci95_pp"][0], -0.1, ">=", "pp")
+    numeric_status = "incomplete" if any(item["passed"] is None for item in criteria) else "passed" if all(item["passed"] for item in criteria) else "failed"
+    reasons = [*validation["errors"], *validation["incomplete"]]
+    if validation["scientific_drift"]:
+        reasons.append("scientific_scope_drift")
+    if diagnostics["pairwise_accuracy"]["missing_diagnostic_candidates"]:
+        reasons.append("heldout_pairwise_diagnostic_incomplete")
+    if bootstrap < 5000:
+        reasons.append("bootstrap_below_locked_5000")
+    if split.lower() not in ("dev", "final", "val", "val2017"):
+        reasons.append("not_a_heldout_dev_or_final_split")
+    eligible = not reasons and numeric_status != "incomplete"
+    status = "failed" if validation["errors"] else "incomplete" if reasons or numeric_status == "incomplete" else numeric_status
+    return {
+        "status": status, "observed_numeric_status": numeric_status,
+        "eligibility": eligible, "allow_stage_II": eligible and status == "passed",
+        "criteria": criteria, "ineligibility_reasons": list(dict.fromkeys(reasons)),
+        "no_automatic_stage_II_registration": True,
+        "failure_action": "stop at the current stage; no hyperparameter scan, budget extension or full-model fine tuning",
+    }
+
+
+def _fmt(value, percentage=False):
+    return "NA" if value is None else f"{100 * value if percentage else value:.4f}"
+
+
+def _report(summary):
+    pixel_description = summary['metadata'].get('pixel_metric_definition',
+        'Pixel AUC/FPR use fixed predicted-box support on the 640 letterbox, continuous logits and nearest-letterboxed original COCO masks; FPR threshold is logit >0.')
+    gate, scope = summary["protocol_gate"], summary["evaluation_scope"]
+    lines = [
+        f"# QCR {summary['split'].upper()} fixed-candidate metrics", "",
+        f"Protocol status: **{gate['status']}**. Stage II permitted: **{gate['allow_stage_II']}**.", "",
+        f"{scope['candidates']} candidate rows; {scope['images_with_candidate_rows']} / {scope['planned_images']} planned images contain rows. "
+        f"{scope['planned_images_without_candidate_rows']} planned images contain no rows. Those images receive no artificial zero IoU.", "",
+        "All candidate means weight candidates equally. Image macro first averages eligible candidates within each image, then weights eligible images equally. "
+        "Subgroup-empty images and images without a defined pixel metric are excluded from that estimand. "
+        "Confidence intervals resample entire eligible images with replacement, preserving the pairing between arms. Deltas and CI in tables are percentage points (pp).", "",
+        "TAL MaskFail = class_correct and BoxIoU ≥ .75 and original MaskIoU < .75. Strict MaskFail additionally requires an audited raw_arg_maskfail=true: "
+        "the full class-argmax raw set has a Box75 candidate and no Mask75 candidate for the target GT. Unknown raw-arg labels are excluded from strict metrics and block release; TAL failure never substitutes for strict failure. "
+        "Baseline success uses the same class/box criteria and original MaskIoU ≥ .75. "
+        "Size uses original COCO annotation area: small <32², medium [32²,96²), large ≥96².", "",
+        "Coverage uses original-resolution binary-mask intersection / original COCO annToMask area. " + pixel_description + " "
+        "All pixels outside the target GT (including other instances) are negative. AUC is exact Mann–Whitney with averaged ties. "
+        "Undefined metrics remain NA. This is a fixed official one-to-one TAL matched-candidate evaluation and makes no COCO AP claim.", "",
+        "## Protocol criteria", "", "| Criterion | Estimate | Required | Pass |", "|---|---:|---:|---|",
+    ]
+    for item in gate["criteria"]:
+        scale = item["unit"] == "fraction"
+        estimate = _fmt(item["estimate"], scale)
+        threshold = _fmt(item["threshold"], scale)
+        lines.append(f"| {item['name']} | {estimate} {'%' if scale else 'pp'} | {item['relation']} {threshold} {'%' if scale else 'pp'} | {item['passed']} |")
+    if gate["ineligibility_reasons"]:
+        lines.extend(["", "Ineligibility/incompleteness: " + "; ".join(gate["ineligibility_reasons"]) + "."])
+    if summary["validation"]["scientific_drift"]:
+        lines.extend(["", "Scientific drift: " + "; ".join(summary["validation"]["scientific_drift"]) + "."])
+    diag = summary["diagnostics"]["all"]
+    pair, step, sign = diag["pairwise_accuracy"], diag["step1_true_iou_improvement"], diag["q1_q0_vs_true_iou_delta"]
+    lines.extend([
+        "", "## Quality diagnostics", "",
+        f"Held-out pairwise accuracy: instance equal {_fmt(pair['candidate_mean'], True)}%; pairs weighted {_fmt(pair['pairs_weighted'], True)}%; "
+        f"image macro {_fmt(pair['image_macro'], True)}%; {pair['non_tie_pairs']} non-tie hard-IoU pairs, {pair['valid_candidates']} eligible instances. "
+        "True hard-IoU ties are excluded; predicted Q ties get 0.5 credit. Spearman uses averaged tie ranks; constant-state instances are undefined.", "",
+        f"Spearman: instance equal {_fmt(diag['spearman']['candidate_mean'])}; image macro {_fmt(diag['spearman']['image_macro'])}; "
+        f"{diag['spearman']['valid_candidates']} defined instances.", "",
+        f"Step-one true IoU increase: {_fmt(step['candidate_mean'], True)}% over {step['valid_candidates']} candidates "
+        f"({step['strict_increase']} increase, {step['strict_decrease']} decrease, {step['ties']} ties; ties stay in the denominator).", "",
+        f"Nonzero Q/IoU delta sign consistency: {_fmt(sign['nonzero_consistency']['candidate_mean'], True)}% over {sign['nonzero_both']} instances. "
+        f"Positive Q but decreased true IoU: {sign['positive_q_but_true_iou_decrease_count']} / {sign['positive_q_candidates']} positive-Q instances "
+        f"({_fmt(sign['positive_q_but_true_iou_decrease_rate_among_positive_q'], True)}%).", "",
+        "Sign table (Q(c1)−Q(c0) rows / true IoU(D1)−IoU(A) columns; exact zeros kept separately):", "",
+        "| Q delta | IoU decrease | IoU tie | IoU increase |", "|---|---:|---:|---:|",
+    ])
+    for key, counts in sign["sign_table"].items():
+        lines.append(f"| {key} | {counts['negative']} | {counts['zero']} | {counts['positive']} |")
+    lines.extend(["", "Exclusions from nonzero consistency: " + json.dumps(sign["exclusions_from_nonzero_consistency"], ensure_ascii=False) + ".", "",
+                  "Q-Rank at these unchanged fixed candidates keeps c0 and therefore the same MaskIoU as A. No ranking/AP effect is estimated here."])
+    for name, group in summary["groups"].items():
+        lines.extend(["", f"## {name}", "", f"{group['candidates']} candidates; {group['images_with_subgroup']} eligible images; "
+                      f"{group['planned_images_without_subgroup']} planned images have no subgroup member.", "",
+                      "| Arm | IoU candidate / image % | Mask75 candidate / image % | Coverage candidate / image % | AUC candidate / image % | FPR candidate / image % |",
+                      "|---|---:|---:|---:|---:|---:|"])
+        for arm in ARMS:
+            cells = [f"{_fmt(group['arms'][arm][metric]['candidate_mean'], True)} / {_fmt(group['arms'][arm][metric]['image_macro'], True)}" for metric in METRICS]
+            lines.append(f"| {arm} | " + " | ".join(cells) + " |")
+        lines.extend(["", "| Paired comparison | Metric | Candidate Δ pp | Image Δ pp | Image bootstrap 95% CI pp | Valid candidates / images |",
+                      "|---|---|---:|---:|---|---:|"])
+        for comparison, metrics in group["comparisons"].items():
+            for metric, stats in metrics.items():
+                lines.append(f"| {comparison} | {metric} | {_fmt(stats['candidate_delta_pp'])} | {_fmt(stats['image_macro_delta_pp'])} | "
+                             f"[{_fmt(stats['ci95_pp'][0])}, {_fmt(stats['ci95_pp'][1])}] | {stats['valid_candidates']} / {stats['valid_images']} |")
+        lines.extend(["", "| Arm vs A | Repair / baseline failures | Damage / baseline successes | Repair rate candidate / image % | Damage rate candidate / image % | Net count | Net image pp [95% CI] |",
+                      "|---|---:|---:|---:|---:|---:|---|"])
+        for arm, change in group["mask75_changes_from_A"].items():
+            repair, damage = change["repair_rate"], change["damage_rate"]
+            ci = change["net_rate"]["ci95_pp"]
+            lines.append(f"| {arm} | {change['repair_count']} / {change['baseline_failures']} | {change['damage_count']} / {change['baseline_successes']} | "
+                         f"{_fmt(repair['candidate_mean'], True)} / {_fmt(repair['image_macro'], True)} | "
+                         f"{_fmt(damage['candidate_mean'], True)} / {_fmt(damage['image_macro'], True)} | {change['net_count']} | "
+                         f"{_fmt(change['net_pp_image_macro'])} [{_fmt(ci[0])}, {_fmt(ci[1])}] |")
+    lines.extend(["", "## Timing and limitations", "", json.dumps(summary["timing"], ensure_ascii=False, indent=2), "",
+                  "Timing is summarized in the supplied unit; no image-total or dataset-total latency is inferred from repeated row values. "
+                  "The unpopulated planned-image list cannot by itself distinguish zero matched candidates from an interrupted evaluation; completion must be established by the run and metadata.", "",
+                  "Metadata: `" + json.dumps(summary["metadata"], ensure_ascii=False) + "`.", ""])
+    return "\n".join(lines)
+
+
+def summarize(rows, out, image_ids, split, bootstrap=5000, seed=20261006, metadata=None):
+    """Write SUMMARY.json and METRICS.md; return their common structured data.
+
+    Required metadata: scope, decoder_definition, heldout_states_definition,
+    scientific_drift (an explicit list, including [] when audited clean).
+    An absent metadata audit or any scientific drift prevents Stage II release.
+    Undefined pixel AUC/FPR should be null, not 0. Optional arrays named
+    heldout_q / heldout_hard_iou are recomputed using heldout_statistics.
+    """
+    if not isinstance(bootstrap, int) or bootstrap < 0:
+        raise ValueError("bootstrap must be a nonnegative integer")
+    rows = _load_rows(rows)
+    metadata = dict(metadata or {})
+    planned = _load_image_ids(image_ids, split)
+    for row in rows:
+        row["image_id"] = _image_id(row.get("image_id"))
+        if isinstance(row.get("class_correct"), np.bool_):
+            row["class_correct"] = bool(row["class_correct"])
+        if isinstance(row.get("raw_arg_maskfail"), np.bool_):
+            row["raw_arg_maskfail"] = bool(row["raw_arg_maskfail"])
+        if "heldout_q" in row and "heldout_hard_iou" in row:
+            row.update(heldout_statistics(row["heldout_q"], row["heldout_hard_iou"]))
+    expected = planned if planned is not None else list(dict.fromkeys(row["image_id"] for row in rows))
+    validation = _validate(rows, planned, metadata)
+    base_groups = {
+        "all": rows,
+        "tal_maskfail": [row for row in rows if _tal_maskfail(row)],
+        "strict_maskfail": [row for row in rows if _tal_maskfail(row) and row.get("raw_arg_maskfail") is True],
+        "baseline_success": [row for row in rows if _strict_eligible(row) and _value(row, "iou_A") is not None and _value(row, "iou_A") >= 0.75],
+    }
+    selected = dict(base_groups)
+    for base_name, base_rows in base_groups.items():
+        for size in ("small", "medium", "large"):
+            selected[f"{base_name}/size/{size}"] = [row for row in base_rows if _size(row) == size]
+        for level in ("P3", "P4", "P5"):
+            selected[f"{base_name}/pyramid/{level}"] = [row for row in base_rows if _level(row) == level]
+    groups = {}
+    for name, group_rows in selected.items():
+        group_seed = (seed + int.from_bytes(hashlib.sha256(name.encode()).digest()[:4], "little")) % 2 ** 32
+        groups[name] = _group_summary(group_rows, expected, bootstrap, group_seed)
+    diagnostics = {name: _diagnostics(group_rows) for name, group_rows in base_groups.items()}
+    observed = set(row["image_id"] for row in rows)
+    no_rows = [image for image in expected if image not in observed]
+    timing = {"supplied_timing_scope": metadata.get("timing_scope", "not specified; supplied row observations only")}
+    for arm in ("direct", "quality"):
+        values = [_value(row, f"timing_{arm}_ms") for row in rows]
+        stats, _ = _stats(rows, values)
+        finite_values = [v for v in values if v is not None]
+        stats["median_ms"] = float(np.median(finite_values)) if finite_values else None
+        stats["p95_ms"] = float(np.quantile(finite_values, .95)) if finite_values else None
+        timing[f"{arm}_ms"] = stats
+    summary = {
+        "schema_version": "qcr.fixed_candidate.metrics.v1", "split": split,
+        "bootstrap": {"replicates": bootstrap, "seed": seed, "confidence": .95,
+                      "method": "whole-image paired percentile; candidates averaged within image before resampling; subgroup-empty images excluded; undefined pixel values never filled with zero"},
+        "evaluation_scope": {"planned_images": len(expected), "images_with_candidate_rows": len(observed),
+                             "planned_images_without_candidate_rows": len(no_rows), "planned_image_ids_without_rows": no_rows,
+                             "images_with_rows_outside_plan": [image for image in observed if image not in set(expected)],
+                             "candidates": len(rows), "candidate_identity_fields": list(IDENTITY),
+                             "all_scope": "all supplied official one-to-one TAL matched candidates, including class/box failures",
+                             "raw_arg_maskfail_true_candidates": sum(row.get("raw_arg_maskfail") is True for row in rows),
+                             "raw_arg_maskfail_false_candidates": sum(row.get("raw_arg_maskfail") is False for row in rows),
+                             "raw_arg_maskfail_unknown_candidates": sum(row.get("raw_arg_maskfail") is None for row in rows),
+                             "tal_maskfail_with_unknown_raw_arg_candidates": sum(_tal_maskfail(row) and row.get("raw_arg_maskfail") is None for row in rows),
+                             "zero_candidate_image_scope": "not in candidate or image-macro denominator; absence alone does not establish completion"},
+        "definitions": {"arms": LABELS,
+                        "tal_maskfail": "class_correct & box_iou>=.75 & iou_A<.75",
+                        "strict_maskfail": "raw_arg_maskfail is true & class_correct & box_iou>=.75 & iou_A<.75; full class-argmax raw set has Box75 and no Mask75 for target GT",
+                        "strict_maskfail_unknown": "missing/null raw_arg_maskfail remains unknown; never substitute TAL candidate failure",
+                        "baseline_success": "class_correct & box_iou>=.75 & iou_A>=.75", "mask75": "iou>=.75",
+                        "size": "COCO annotation area; small<1024, medium>=1024 and <9216, large>=9216",
+                        "coverage": "original COCO binary mask intersection / target GT area in original image",
+                        "auc": "exact Mann-Whitney, averaged score ties, continuous 640-letterbox logits in fixed predicted-box support vs nearest-letterboxed original COCO target mask",
+                        "fpr": "FP / target-GT-negative pixels within fixed predicted-box support; continuous logit>0; other instances are negatives",
+                        "mask75_rates": "repair / A failures; damage / A successes; net=(repair-damage)/all paired-valid subgroup candidates; image rates average only images with the relevant denominator",
+                        "delta_units": "raw fraction and percentage points (100*raw fraction)",
+                        "q_rank": "same c0 coefficients and fixed candidates imply identical mask IoU to A; ranking/AP effect not evaluated"},
+        "groups": groups, "diagnostics": diagnostics, "timing": timing, "validation": validation,
+        "metadata": metadata,
+    }
+    summary["protocol_gate"] = _gate(groups, diagnostics["all"], validation, bootstrap, split)
+    if metadata.get('pixel_metric_version') == 'qcr-original-pixels-v2':
+        summary['definitions']['auc'] = 'Exact Mann-Whitney with averaged ties; cropped continuous logits bilinearly inverse-letterboxed to original image, inside inverse-letterboxed predicted-box support, against original COCO target mask.'
+        summary['definitions']['fpr'] = 'Actual normal binary decoded positives / target-GT-negative original pixels within inverse-letterboxed fixed predicted-box support; other instances are negatives.'
+    summary = _clean(summary)
+    out = Path(out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "SUMMARY.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    (out / "METRICS.md").write_text(_report(summary), encoding="utf-8")
+    return summary
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--rows", type=Path, required=True, help="Candidate JSONL")
+    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--images", type=Path, required=True, help="JSON list or fit/dev/final[_images] mapping")
+    parser.add_argument("--split", required=True)
+    parser.add_argument("--bootstrap", type=int, default=5000)
+    parser.add_argument("--seed", type=int, default=20261006)
+    parser.add_argument("--metadata", type=Path, help="Audit metadata JSON; absent metadata prevents release")
+    args = parser.parse_args()
+    metadata = json.loads(args.metadata.read_text(encoding="utf-8-sig")) if args.metadata else None
+    result = summarize(args.rows, args.out, args.images, args.split, args.bootstrap, args.seed, metadata)
+    print(json.dumps({"out": str(args.out), "protocol_gate": result["protocol_gate"]}, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()

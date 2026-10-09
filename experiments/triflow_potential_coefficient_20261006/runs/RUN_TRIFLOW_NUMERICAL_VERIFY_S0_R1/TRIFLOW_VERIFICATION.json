@@ -1,0 +1,559 @@
+{
+  "verification_version": "triflow_numerical_frozen_verification_v2",
+  "started_at": "2026-10-06T16:08:05.658981+00:00",
+  "completed_at": "2026-10-06T16:08:11.290902+00:00",
+  "status": "passed",
+  "passed": true,
+  "actual_frozen_forward_required": true,
+  "numerical_only": false,
+  "fixture_seed": 607,
+  "environment": {
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "torch": "2.5.1",
+    "requested_device": "cuda"
+  },
+  "source_files": {
+    "verify_triflow.py": {
+      "path": "D:\\coco_wire\\experiments\\triflow_potential_coefficient_20261006\\runs\\RUN_TRIFLOW_NUMERICAL_VERIFY_S0_R1\\source\\verify_triflow.py",
+      "sha256": "dbbfaaedbd7672be173009dfa433d6d4ed63d56536428dc7098d9cae0784def1"
+    },
+    "triflow_model.py": {
+      "path": "D:\\coco_wire\\experiments\\triflow_potential_coefficient_20261006\\runs\\RUN_TRIFLOW_NUMERICAL_VERIFY_S0_R1\\source\\triflow_model.py",
+      "sha256": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+    },
+    "frozen_io.py": {
+      "path": "D:\\coco_wire\\experiments\\triflow_potential_coefficient_20261006\\runs\\RUN_TRIFLOW_NUMERICAL_VERIFY_S0_R1\\source\\frozen_io.py",
+      "sha256": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293"
+    }
+  },
+  "checks": [
+    {
+      "name": "straight_edge_expansion",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "requested_outward_pixels": 0.75,
+        "maximum_displacement_error": 0.0,
+        "initial_area": 325,
+        "refined_area": 350,
+        "root_count": 16,
+        "minimum_signed_surface_logit_change": 0.7499898076057434,
+        "solve_residual": 1.1920928955078125e-07
+      },
+      "passed": true
+    },
+    {
+      "name": "straight_edge_contraction",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "requested_outward_pixels": -0.75,
+        "maximum_displacement_error": 0.0,
+        "initial_area": 325,
+        "refined_area": 300,
+        "root_count": 16,
+        "minimum_signed_surface_logit_change": 0.7499898076057434,
+        "solve_residual": 1.1920928955078125e-07
+      },
+      "passed": true
+    },
+    {
+      "name": "circle_expansion",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "requested_outward_pixels": 0.75,
+        "maximum_displacement_error": 0.01653224229812622,
+        "minimum_outward_alignment": 0.9999977350234985,
+        "initial_area": 177,
+        "refined_area": 213,
+        "root_count": 32,
+        "solve_residual": 1.1920928955078125e-07
+      },
+      "passed": true
+    },
+    {
+      "name": "circle_contraction",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "requested_outward_pixels": -0.75,
+        "maximum_displacement_error": 0.016529858112335205,
+        "minimum_outward_alignment": 0.9999977350234985,
+        "initial_area": 177,
+        "refined_area": 137,
+        "root_count": 32,
+        "solve_residual": 1.1920928955078125e-07
+      },
+      "passed": true
+    },
+    {
+      "name": "neighbor_competition",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "root_count": 12,
+        "neighbor_transition_count": 12,
+        "mean_outward_displacement": -0.75
+      },
+      "passed": true
+    },
+    {
+      "name": "zero_of_nonself_competitors_not_self_boundary",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "arbitrary_neighbor_zero_rejected": true,
+        "root_count": 0,
+        "displacement_exact_zero": true,
+        "region_anchors_may_still_act": false
+      },
+      "passed": true
+    },
+    {
+      "name": "absent_neighbor_and_no_root",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "root_count": 0,
+        "displacement_exact_zero": true,
+        "maximum_coefficient_update": 0.0,
+        "neighbor_distance_invalid": true,
+        "background_distance_valid": true
+      },
+      "passed": true
+    },
+    {
+      "name": "empty_self_background_and_overlap",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "empty_self_rejected": true,
+        "rejection": "instance 0 has no valid self GT pixels",
+        "empty_neighbor_and_background_explicitly_invalid": true,
+        "overlap_self_precedence": true,
+        "potential_supervised_count": 0,
+        "finite_remaining_mask_task_loss": 0.39094284176826477
+      },
+      "passed": true
+    },
+    {
+      "name": "potential_difference_before_clip",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "raw_self_distance": 37.0,
+        "raw_neighbor_distance": 33.0,
+        "distance_clip": 5.0,
+        "actual_relative_potential": -4.0,
+        "separately_clipped_wrong_value": 0.0
+      },
+      "passed": true
+    },
+    {
+      "name": "crowd_ignore_invariance",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "ignored_pixels": 25,
+        "distance_targets_exact_after_ignored_label_change": true,
+        "potential_direction_order_and_task_losses_exact": true,
+        "ignored_pixels_not_bg": true
+      },
+      "passed": true
+    },
+    {
+      "name": "self_anchor_satisfied",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "region": "self",
+        "initial_violation": false,
+        "active_anchor_count": 0,
+        "mean_logit_change": 0.0,
+        "prototype_rank": 1,
+        "fixture_ridge_lambda": 0.1,
+        "fixture_gram_epsilon": 0.001,
+        "nominal_absolute_diagonal_ridge": 0.0001,
+        "system_condition": 5001.0,
+        "active_set_oscillation_count": 0,
+        "verified_scope": "initial hinge activation and update direction; not a global inequality optimum"
+      },
+      "passed": true
+    },
+    {
+      "name": "self_anchor_violated",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "region": "self",
+        "initial_violation": true,
+        "active_anchor_count": 3,
+        "mean_logit_change": 2.1866111755371094,
+        "prototype_rank": 1,
+        "fixture_ridge_lambda": 0.1,
+        "fixture_gram_epsilon": 0.001,
+        "nominal_absolute_diagonal_ridge": 0.0001,
+        "system_condition": 13752.81640625,
+        "active_set_oscillation_count": 0,
+        "verified_scope": "initial hinge activation and update direction; not a global inequality optimum"
+      },
+      "passed": true
+    },
+    {
+      "name": "neighbor_anchor_satisfied",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "region": "neighbor",
+        "initial_violation": false,
+        "active_anchor_count": 0,
+        "mean_logit_change": 0.0,
+        "prototype_rank": 1,
+        "fixture_ridge_lambda": 0.1,
+        "fixture_gram_epsilon": 0.001,
+        "nominal_absolute_diagonal_ridge": 0.0001,
+        "system_condition": 1001.0,
+        "active_set_oscillation_count": 0,
+        "verified_scope": "initial hinge activation and update direction; not a global inequality optimum"
+      },
+      "passed": true
+    },
+    {
+      "name": "neighbor_anchor_violated",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "region": "neighbor",
+        "initial_violation": true,
+        "active_anchor_count": 3,
+        "mean_logit_change": -1.7321929931640625,
+        "prototype_rank": 1,
+        "fixture_ridge_lambda": 0.1,
+        "fixture_gram_epsilon": 0.001,
+        "nominal_absolute_diagonal_ridge": 0.0001,
+        "system_condition": 55024.66796875,
+        "active_set_oscillation_count": 0,
+        "verified_scope": "initial hinge activation and update direction; not a global inequality optimum"
+      },
+      "passed": true
+    },
+    {
+      "name": "background_anchor_satisfied",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "region": "background",
+        "initial_violation": false,
+        "active_anchor_count": 0,
+        "mean_logit_change": 0.0,
+        "prototype_rank": 1,
+        "fixture_ridge_lambda": 0.1,
+        "fixture_gram_epsilon": 0.001,
+        "nominal_absolute_diagonal_ridge": 0.0001,
+        "system_condition": 5001.0,
+        "active_set_oscillation_count": 0,
+        "verified_scope": "initial hinge activation and update direction; not a global inequality optimum"
+      },
+      "passed": true
+    },
+    {
+      "name": "background_anchor_violated",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "oracle_fixture": true,
+        "region": "background",
+        "initial_violation": true,
+        "active_anchor_count": 3,
+        "mean_logit_change": -2.1866111755371094,
+        "prototype_rank": 1,
+        "fixture_ridge_lambda": 0.1,
+        "fixture_gram_epsilon": 0.001,
+        "nominal_absolute_diagonal_ridge": 0.0001,
+        "system_condition": 13752.81640625,
+        "active_set_oscillation_count": 0,
+        "verified_scope": "initial hinge activation and update direction; not a global inequality optimum"
+      },
+      "passed": true
+    },
+    {
+      "name": "rank_zero_spd_stiffness_floor_and_finite_backward",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "prototype_rank": 0,
+        "compiler_dtype": "torch.float32",
+        "zero_gradient_boundary_rejected": true,
+        "minimum_stiffness": 0.10000000149011612,
+        "stiffness_floor": 0.1,
+        "minimum_gram_diagonal": 0.0010000000474974513,
+        "solve_residual": 0.0,
+        "finite_supervised_gradient_tensors": 21,
+        "large_scale_rank_one_guard_fixture": {
+          "prototype_rank": 1,
+          "prototype_multiplier": 10000.0,
+          "native_case_failure_claim": false,
+          "ridge_lambda": 0.1,
+          "gram_epsilon": 0.001,
+          "added_gram_numeric_ridge": [
+            381.46832275390625
+          ],
+          "added_system_numeric_ridge": [
+            [
+              381.4698791503906,
+              381.4698791503906,
+              381.4698791503906
+            ]
+          ],
+          "gram_identity_ridge": [
+            381.4693298339844
+          ],
+          "effective_system_identity_ridge": [
+            [
+              419.6168212890625,
+              419.6168212890625,
+              419.6168212890625
+            ]
+          ],
+          "gram_cholesky_info": [
+            0
+          ],
+          "system_cholesky_info": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "pass_system_condition": [
+            [
+              327680.90625,
+              327680.90625,
+              327680.90625
+            ]
+          ],
+          "mean_logit_change": -99.99951171875,
+          "solve_residual": 4.0,
+          "trust_scale": 0.021991683170199394,
+          "constraint_satisfaction_required": false
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "mask_task_only_gradient_and_actual_optimizer_update",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "task_loss": 0.13493238389492035,
+        "potential_output_gradient_norm": 0.29801005125045776,
+        "interaction_attention_gradient_norm": 0.0049889604561030865,
+        "root_count": 0,
+        "active_anchor_count": 43,
+        "maximum_coefficient_update": 0.1570136547088623,
+        "potential_parameter_maximum_update": 0.0010000001639127731,
+        "interaction_parameter_maximum_update": 0.0009999722242355347,
+        "optimizer": "AdamW(lr=0.001, weight_decay=0), one task-only fixture step",
+        "supervised_warmup_steps": 0,
+        "fixture_hidden_dim": 128,
+        "production_accuracy_inference": false,
+        "frozen_input_gradients": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "zero_initialization_gradient_failure_negative_control",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "task_loss": 0.1073315292596817,
+        "potential_output_gradient_norm": 0.0,
+        "interaction_attention_gradient_norm": 0.0,
+        "root_count": 0,
+        "active_anchor_count": 23,
+        "maximum_coefficient_update": 0.2499544322490692,
+        "deliberate_negative_control": true,
+        "expected_failure_detected": true,
+        "would_reject_this_as_production_initialization": true,
+        "actual_production_initialization_changed": false,
+        "fixture_hidden_dim": 128
+      },
+      "passed": true
+    },
+    {
+      "name": "actual_official_frozen_forward_feature_hidden_and_native_index_replay",
+      "required": true,
+      "status": "passed",
+      "facts": {
+        "image_kind": "deterministic synthetic image, actual official-model forward",
+        "image_path": "D:\\coco_wire\\experiments\\triflow_potential_coefficient_20261006\\runs\\RUN_TRIFLOW_NUMERICAL_VERIFY_S0_R1\\fixtures\\frozen_forward_fixture.png",
+        "image_sha256": "662a51ebc4746fdba1d6f16870bd64aa75c1a86c14d44ef85c6695e3e92f58e0",
+        "input_sha256": "d7530f7b8af79b8b3bbf5287ee932413f2053d6ff3fe8dec7d78f1a6c9333390",
+        "three_actual_forwards": true,
+        "all_native_rows_replayed_exact": true,
+        "frozen_tensors_exact_before_and_after_head_optimizer_step": true,
+        "tensor_shapes": {
+          "P": [
+            32,
+            160,
+            160
+          ],
+          "F": [
+            256,
+            80,
+            80
+          ],
+          "h": [
+            300,
+            64
+          ],
+          "c0": [
+            300,
+            32
+          ],
+          "boxes": [
+            300,
+            4
+          ],
+          "boxes_proto": [
+            300,
+            4
+          ],
+          "scores": [
+            300
+          ],
+          "classes": [
+            300
+          ],
+          "raw_indices": [
+            300
+          ],
+          "output_rows": [
+            300
+          ]
+        },
+        "tensor_sha256": {
+          "P": "c42662b6ce3790dd1fe60ae2de3e07b0af213b4b7cf1a471e4aea97cf7b5cd02",
+          "F": "f9a0c902b27a368a8296d9cea74b4ba3a97cad9f9f18baa62dd766362268dde4",
+          "h": "642eafbe6a5a7f2a1fc1a8de2f133a4361eb51908d1cf707a974c390556d2123",
+          "c0": "7327aeacc3e3b20b6d8695174b51784a890cafc9166caf32777e3e522479544f",
+          "boxes": "e09a1118a52308ff0f1f9422ca9bc247c0124090c7b3379723ad7a5fc92fb5a7",
+          "boxes_proto": "3706781f3cb65f582e26d761306adaa66f20871adfe3af8acc48402ff541d887",
+          "scores": "a70cbf885429273104969644854fbfa7685f319dbe7386c7ec7f2d45d646e402",
+          "classes": "100ea451c63e1c11b15a28c724dc7f5a4acce3be8d9e8ca9bc91795fd3642ff4",
+          "raw_indices": "5bfec348779349c2dcaa1d511dc6b77589d5062f3d1844b21578a2d031872e14",
+          "output_rows": "729731c4fa068599a3a50ae7570c28a8aaba634d233b1b0659ce1c7f0e70ac89"
+        },
+        "hidden_query_source": "one2one_cv4 final convolution input, exact native raw index",
+        "prototype_channels": 32,
+        "selected_rows_for_new_head": [
+          0,
+          1
+        ],
+        "integration_loss": 17.014225006103516,
+        "integration_loss_is_not_mask_task_gradient_certificate": true,
+        "frozen_before": {
+          "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+          "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+          "all_state_exact": true,
+          "all_params_requires_grad_false": true,
+          "all_bn_eval": true,
+          "all_gradients_none": true,
+          "extracted_images": 2,
+          "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+          "vendor": "D:\\coco_wire\\vendor_8.4.100",
+          "extractor_version": "triflow_frozen_io_v1",
+          "passed": true
+        },
+        "frozen_after_new_head_step": {
+          "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+          "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+          "all_state_exact": true,
+          "all_params_requires_grad_false": true,
+          "all_bn_eval": true,
+          "all_gradients_none": true,
+          "extracted_images": 2,
+          "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+          "vendor": "D:\\coco_wire\\vendor_8.4.100",
+          "extractor_version": "triflow_frozen_io_v1",
+          "passed": true
+        },
+        "frozen_final": {
+          "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+          "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+          "all_state_exact": true,
+          "all_params_requires_grad_false": true,
+          "all_bn_eval": true,
+          "all_gradients_none": true,
+          "extracted_images": 3,
+          "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+          "vendor": "D:\\coco_wire\\vendor_8.4.100",
+          "extractor_version": "triflow_frozen_io_v1",
+          "passed": true
+        },
+        "vendor_source": {
+          "ultralytics/nn/modules/head.py": {
+            "path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\nn\\modules\\head.py",
+            "sha256": "759a454e03a9b4ebe4c69628292b0acc0469bb5f9dba278f7bc4b54c214bf209"
+          },
+          "ultralytics/nn/modules/block.py": {
+            "path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\nn\\modules\\block.py",
+            "sha256": "20eda06be7ad7fea69db8161c91f6681371aa6aedb1dcae18db1a004783e1cbd"
+          },
+          "ultralytics/utils/ops.py": {
+            "path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\utils\\ops.py",
+            "sha256": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5"
+          },
+          "ultralytics/data/augment.py": {
+            "path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\data\\augment.py",
+            "sha256": "eddb75a3b0a803f2cb6ef6e740e1bb117d99d841d89e0954a53aa9ec6df7cfbf"
+          }
+        }
+      },
+      "passed": true
+    }
+  ],
+  "verification_revision": {
+    "previous_run_id": "RUN_TRIFLOW_NUMERICAL_VERIFY_S0",
+    "previous_failed_checks": [
+      "self_anchor_violated",
+      "neighbor_anchor_violated",
+      "background_anchor_violated"
+    ],
+    "anchor_fixture_correction": "Use production lambda=.1 and epsilon=.001 for constant rank-1 P, rather than relaxed geometry lambda=1e-5; no pass condition weakened.",
+    "failure_evidence": "Nominal 1e-8 ridge is below unit-scale FP32 ULP (about 1.19e-7); IEEE FP32 demo loses both leading diagonal additions and yields determinant zero at constant z=-.5,.5,2. This explains the observed singular solve; it is not a reconstruction of an archived exact lhs tensor.",
+    "learned_task_gradient_fixture_correction": "Use production hidden_dim=128 instead of prior compact hidden_dim=32; still no supervised warmup.",
+    "additional_adversarial_fixture": "Rank-1 P at multiplier 1e4 with production lambda/epsilon must explicitly exercise the declared numerical ridge and successful Cholesky checks; does not assert native inputs failed.",
+    "historical_receipt_mutated": false
+  },
+  "scope_limitations": [
+    "Oracle fields verify mechanics, not learned deployable accuracy.",
+    "No AP, generalization, or novelty claim is established here.",
+    "Anchor checks cover initial hinge activity and direction; not an exact global inequality optimum."
+  ],
+  "all_executed_checks_passed": true,
+  "check_count": 20,
+  "failed_checks": []
+}

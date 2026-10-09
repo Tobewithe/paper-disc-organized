@@ -1,0 +1,251 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_FROZEN_NATIVE_PIPELINE_S0_01",
+  "study_id": "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/run_fixed_pipeline.py",
+    "--config",
+    "D:/coco_wire/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_PIPELINE_S0_01/PIPELINE_CONFIG.json",
+    "--out",
+    "D:/coco_wire/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_PIPELINE_S0_01/PIPELINE_STATUS.json"
+  ],
+  "working_directory": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison",
+  "status": "failed",
+  "created_at": "2026-10-08T16:53:12.811+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_PIPELINE_S0_01\\PIPELINE_CONFIG.json",
+      "exists": true,
+      "sha256": "720b8be4cd3a6adb4a4cad3c36ad3ad67f1720c632f73814143ddfa2bb5a15da",
+      "size": 10703
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\run_fixed_pipeline.py",
+      "revision": "8526a07af8405ddff2519fe0faca01a368068b7516e195d8208f0b9f53b8d9ba",
+      "snapshot": "snapshots/8526a07af8405ddff2519fe0faca01a368068b7516e195d8208f0b9f53b8d9ba"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\PROTOCOL.md",
+      "revision": "1c521d5d6d64a1eb38942c5e33dc5c99ac0d3159f67d7683fd0b34ddf2ba984a",
+      "snapshot": "snapshots/1c521d5d6d64a1eb38942c5e33dc5c99ac0d3159f67d7683fd0b34ddf2ba984a"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_PIPELINE_S0_01\\PIPELINE_CONFIG.json",
+      "revision": "720b8be4cd3a6adb4a4cad3c36ad3ad67f1720c632f73814143ddfa2bb5a15da",
+      "snapshot": "snapshots/720b8be4cd3a6adb4a4cad3c36ad3ad67f1720c632f73814143ddfa2bb5a15da"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_FROZEN_NATIVE_PIPELINE_S0_01/PIPELINE_STATUS.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_PIPELINE_S0_01"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 13024,
+  "started_at": "2026-10-08T16:53:13.274+00:00",
+  "last_heartbeat": "2026-10-08T16:55:49.011+00:00",
+  "metrics": {
+    "started_at": "2026-10-08T16:53:13.363958+00:00",
+    "status": "running",
+    "stages": [
+      {
+        "run_id": "RUN_FROZEN_NATIVE_ENGINEERING_S0_01",
+        "started_at": "2026-10-08T16:53:13.369453+00:00",
+        "status": "completed",
+        "command": [
+          "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/runner.py",
+          "--study",
+          "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+          "--output",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_ENGINEERING_S0_01",
+          "--run-id",
+          "RUN_FROZEN_NATIVE_ENGINEERING_S0_01",
+          "--cwd",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison",
+          "--input",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/response.json",
+          "--input",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+          "--expect",
+          "runs/RUN_FROZEN_NATIVE_ENGINEERING_S0_01/SUMMARY.json",
+          "--expect",
+          "runs/RUN_FROZEN_NATIVE_ENGINEERING_S0_01/BASELINE_PARITY.json",
+          "--metrics",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_ENGINEERING_S0_01/SUMMARY.json",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/evaluate_native_comparison.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/native_mask_adapter.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/frozen_io.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/portable_risk.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/risk_calibration.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/mask_calibration.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/local_features.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/runner.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/run_fixed_pipeline.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/PROTOCOL.md",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/response.json",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+          "--",
+          "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/evaluate_native_comparison.py",
+          "--root",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison",
+          "--weights",
+          "D:/coco_wire/models/yolo26m-seg.pt",
+          "--vendor",
+          "D:/coco_wire/vendor_8.4.100",
+          "--images-list",
+          "D:/coco_wire/experiments/triflow_20k_training_20261007/data/val_full.txt",
+          "--response-model",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/response.json",
+          "--multi-model",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+          "--baseline-cache",
+          "D:/coco_wire/experiments/acd_proto_tail_unfreeze_20261006/runs/RUN_PROTO_TAIL_PAIRED_EVAL_S0/official",
+          "--device",
+          "cuda",
+          "--run-id",
+          "RUN_FROZEN_NATIVE_ENGINEERING_S0_01",
+          "--engineering",
+          "--max-images",
+          "64"
+        ],
+        "return_code": 0,
+        "finished_at": "2026-10-08T16:54:53.085690+00:00"
+      },
+      {
+        "run_id": "RUN_FROZEN_NATIVE_5K_INFERENCE_S0_01",
+        "started_at": "2026-10-08T16:54:53.096118+00:00",
+        "status": "running",
+        "command": [
+          "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/runner.py",
+          "--study",
+          "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+          "--output",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_01",
+          "--run-id",
+          "RUN_FROZEN_NATIVE_5K_INFERENCE_S0_01",
+          "--cwd",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison",
+          "--input",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/response.json",
+          "--input",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+          "--expect",
+          "runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_01/SUMMARY.json",
+          "--expect",
+          "runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_01/BASELINE_PARITY.json",
+          "--metrics",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_01/SUMMARY.json",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/evaluate_native_comparison.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/native_mask_adapter.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/frozen_io.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/portable_risk.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/risk_calibration.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/mask_calibration.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/local_features.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/runner.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/run_fixed_pipeline.py",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/PROTOCOL.md",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/response.json",
+          "--snapshot",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+          "--",
+          "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/evaluate_native_comparison.py",
+          "--root",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison",
+          "--weights",
+          "D:/coco_wire/models/yolo26m-seg.pt",
+          "--vendor",
+          "D:/coco_wire/vendor_8.4.100",
+          "--images-list",
+          "D:/coco_wire/experiments/triflow_20k_training_20261007/data/val_full.txt",
+          "--response-model",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/response.json",
+          "--multi-model",
+          "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+          "--baseline-cache",
+          "D:/coco_wire/experiments/acd_proto_tail_unfreeze_20261006/runs/RUN_PROTO_TAIL_PAIRED_EVAL_S0/official",
+          "--device",
+          "cuda",
+          "--run-id",
+          "RUN_FROZEN_NATIVE_5K_INFERENCE_S0_01"
+        ]
+      }
+    ]
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_PIPELINE_S0_01\\PIPELINE_STATUS.json",
+    "sha256": "9407437a63fd4747737308f0dd41c13c5dd0e5a32fb39cbb9fdcf9904cc2e634"
+  },
+  "return_code": 4294967295,
+  "finished_at": "2026-10-08T16:55:50.445+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_PIPELINE_S0_01\\PIPELINE_STATUS.json",
+      "exists": true,
+      "sha256": "9407437a63fd4747737308f0dd41c13c5dd0e5a32fb39cbb9fdcf9904cc2e634"
+    }
+  ]
+}

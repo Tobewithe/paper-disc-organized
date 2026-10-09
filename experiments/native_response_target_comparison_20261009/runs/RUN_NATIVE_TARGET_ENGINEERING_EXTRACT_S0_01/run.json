@@ -1,0 +1,180 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01",
+  "study_id": "STUDY_NATIVE_RESPONSE_TARGET_COMPARISON_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\extract_targets.py",
+    "--config",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_PREFLIGHT_S0_01\\EXECUTION_CONFIG.json",
+    "--protocol-sha256",
+    "cc0d3169e32fc1d42dbd8f1027861ef29fa75f18bb145addd73e6c77d6a94057",
+    "--output",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01",
+    "--engineering"
+  ],
+  "working_directory": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009",
+  "status": "completed",
+  "created_at": "2026-10-08T21:13:42.500+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\PROTOCOL.md",
+      "exists": true,
+      "sha256": "cc0d3169e32fc1d42dbd8f1027861ef29fa75f18bb145addd73e6c77d6a94057",
+      "size": 5260
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\extract_targets.py",
+      "revision": "c83044e8918086da30dbb1008e8962cb32be65c28ded4e190fdea003fe4d6392",
+      "snapshot": "snapshots/c83044e8918086da30dbb1008e8962cb32be65c28ded4e190fdea003fe4d6392"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\target_common.py",
+      "revision": "4de7929a7278038de66c0daacba17403217db71643d8b77ccd806658bb1f011f",
+      "snapshot": "snapshots/4de7929a7278038de66c0daacba17403217db71643d8b77ccd806658bb1f011f"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\scripts\\native_response.py",
+      "revision": "386ccd5f5f6dbbfd2d472c626bff15fc2896754234cac3a9a23aa3372e78f024",
+      "snapshot": "snapshots/386ccd5f5f6dbbfd2d472c626bff15fc2896754234cac3a9a23aa3372e78f024"
+    }
+  ],
+  "scope": {
+    "environment": "local_laptop_28358lan",
+    "stage": "extract_targets.py",
+    "protocol_sha256": "cc0d3169e32fc1d42dbd8f1027861ef29fa75f18bb145addd73e6c77d6a94057",
+    "no_yolo_training": true
+  },
+  "expected_outputs": [
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\COMPLETE.json",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\ROWS_PARTS.json",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\IMAGES.jsonl",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\SOURCE_LOCK.json",
+    "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 20504,
+  "started_at": "2026-10-08T21:13:42.848+00:00",
+  "last_heartbeat": "2026-10-08T21:14:28.042+00:00",
+  "metrics": {
+    "passed": true,
+    "status": "extraction_complete",
+    "engineering": true,
+    "images": 4,
+    "totals": {
+      "native_rows": 425,
+      "selected_first64": 174,
+      "supported_rows": 174,
+      "supervised_rows": 37,
+      "unknown_no_sameclass_gt": 52,
+      "unknown_box_iou_below05": 85,
+      "invalid_gt": 0,
+      "newly_empty_fallback_rows": 0,
+      "supervised_empty_fallback_rows": 0,
+      "repeated_gt_matches": 19
+    },
+    "unique_supervised_gt": 18,
+    "frozen_integrity": {
+      "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+      "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+      "all_state_exact": true,
+      "all_params_requires_grad_false": true,
+      "all_bn_eval": true,
+      "all_gradients_none": true,
+      "extracted_images": 4,
+      "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "vendor": "D:\\coco_wire\\vendor_8.4.100",
+      "extractor_version": "triflow_frozen_io_v1",
+      "passed": true
+    },
+    "source_unchanged": true,
+    "feature_bytes_sha256": "00f8bad9f6bf7ea6d3332b2d2b61ed48e1012f85d5cf4d773e2078e859729079",
+    "supervised_binding_sha256": "69357dbdbd9e63016a819f133a09b0c76e9d529d4e6fa1e165278e824edd511b",
+    "rows_parts_sha256": "54731fc0246f34f23a9ba2ecbc468ad98ae355aacf4b4960b3cc76f72f9b68a7",
+    "source_lock_sha256": "d650e4d33cb49db74fbe8c50f0c52ddcf6be48bda46a86b7b87b63e0927d3c2e",
+    "inputs_sha256": "0627ef6e556a2932db685a8cb690ff12359a9a0e90a3efc9a294ab04796d4174",
+    "synthetic_contract": {
+      "passed": true,
+      "exact_signed_threshold_cases": 30,
+      "forced_empty_fallback": true,
+      "forced_empty_deployment_gate": true,
+      "zero_negative_and_unsupported_gate_fallback": true,
+      "unassociated_targets_remain_nan": true,
+      "gt_used": false
+    },
+    "peak_memory": {
+      "cuda_peak_allocated_bytes": 1028523008,
+      "cuda_peak_reserved_bytes": 1354760192,
+      "cpu_peak_working_set_bytes": 4279193600,
+      "cpu_current_rss_bytes": 4114857984,
+      "scope": "this process; not incremental model cost"
+    },
+    "elapsed_seconds": 28.599848200101405,
+    "completed_at": "2026-10-08T21:14:29.975636+00:00",
+    "limitation": "Normal native action-support candidates only, not complete raw; duplicates retained; unknown excluded"
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\SUMMARY.json",
+    "sha256": "a91921c08eaadc16a24c0a20c2e68bf58addb5a088e51997ae2db72f1eae0f0b"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T21:14:32.804+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\COMPLETE.json",
+      "exists": true,
+      "sha256": "fa46c5494ae6089f342046b459d7a85b69b2702daf2a2c164076c57795629771"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\ROWS_PARTS.json",
+      "exists": true,
+      "sha256": "54731fc0246f34f23a9ba2ecbc468ad98ae355aacf4b4960b3cc76f72f9b68a7"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\IMAGES.jsonl",
+      "exists": true,
+      "sha256": "13e80562a2d43c0751eb6dbd16f0c0fed18b987c2a56765a4dcbb0160bd0f068"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\SOURCE_LOCK.json",
+      "exists": true,
+      "sha256": "d650e4d33cb49db74fbe8c50f0c52ddcf6be48bda46a86b7b87b63e0927d3c2e"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_ENGINEERING_EXTRACT_S0_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "a91921c08eaadc16a24c0a20c2e68bf58addb5a088e51997ae2db72f1eae0f0b"
+    }
+  ]
+}

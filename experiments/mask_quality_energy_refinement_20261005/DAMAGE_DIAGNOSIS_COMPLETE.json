@@ -1,0 +1,114 @@
+{
+  "recorded_at": "2026-10-06T19:49:58.509509+08:00",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "diagnosis_execution": "completed",
+  "execution_environment": "user-authorized local CUDA and CPU statistics",
+  "scientific_result": "finite_step_overshoot_and_training_soft_vs_normal_hard_mismatch_supported_in_fixed_diagnostic",
+  "ranking_scale_conflict": "confirmed_in_code; independent damage contribution not isolated",
+  "quantitative_causal_attribution": "not_established; mechanism counts can overlap",
+  "training_parameter_updates": false,
+  "training_budget_changed": false,
+  "formal_dev_final_results_changed": false,
+  "checkpoint_or_step_selection": false,
+  "oracle_used": false,
+  "stage_II_started": false,
+  "completed_runs": {
+    "RUN_damage_existing_rows_20261006_retry1": {
+      "status": "completed",
+      "run_record_sha256": "23fb75e0e345840e12ad8ba541a8fcf59caf83be30fa8adcbbabcaa36c9736b4",
+      "summary_sha256": "a479854c4e15ab993a9b858d22bde534444b1a6af9f3a51b0609334bfe911aec"
+    },
+    "RUN_damage_local_smoke_20261006_retry1": {
+      "status": "completed",
+      "run_record_sha256": "8ac961c5eabcaf8015bfa089bf95288ca9b20a5c1680cfbdbd5f7beef3e6255d",
+      "summary_sha256": "455371647efa49eef83e9870891edd063221dde345b169fcf78645a6b57dd367"
+    },
+    "RUN_damage_gradient_local_20261006": {
+      "status": "completed",
+      "run_record_sha256": "80da601a3da6e0f4cdf62ae469506bee6bbbfcbc7c636ecba602d713206880a2",
+      "summary_sha256": "c28cc6b2b97b7bc5d7da595c19bb49a6bbb46ceabf00bbd50ae22d2b8fff0ac3"
+    },
+    "RUN_damage_curve_20261006_retry1": {
+      "status": "completed",
+      "run_record_sha256": "bad0062cf2b65b76fdba747aa34c21b79efbbdf4ec9640a1fd7562964db44a1e",
+      "summary_sha256": "0fa3ba8c807b9be41cf96bbf878eaffe8f253cf455165ce7ad48219dfe9404fd"
+    }
+  },
+  "failed_runs_preserved": {
+    "RUN_damage_existing_rows_20261006": {
+      "status": "failed",
+      "return_code": 1,
+      "failure_scope": null,
+      "error": "Process exited with code 1 without stderr/traceback; exact cause unknown",
+      "child_return_code": null
+    },
+    "RUN_damage_local_smoke_20261006": {
+      "status": "failed",
+      "return_code": 1,
+      "failure_scope": "launcher_postprocessing",
+      "error": "'types.SimpleNamespace' object has no attribute 'metrics'",
+      "child_return_code": 0
+    },
+    "RUN_damage_curve_20261006": {
+      "status": "failed",
+      "return_code": 1,
+      "failure_scope": null,
+      "error": "Plotting process exited with code 1 without stdout/stderr traceback; exact cause unknown",
+      "child_return_code": null
+    }
+  },
+  "sample": {
+    "source": "first 64 existing frozen DEV image IDs",
+    "images": 64,
+    "tal_candidates": 537,
+    "candidate_identity_exact": true,
+    "reference": {
+      "candidate_count": 537,
+      "max_abs_iou_error": {
+        "A": 1.6559581373781773e-05,
+        "D1": 0.00020133693970969535,
+        "D": 9.243852837870215e-05
+      },
+      "max_abs_q_error": {
+        "A": 1.5497207641601562e-06,
+        "D1": 6.884336471557617e-06,
+        "D": 3.039836883544922e-05
+      },
+      "mask75_differences": {
+        "A": 0,
+        "D1": 0,
+        "D": 0
+      }
+    }
+  },
+  "verification": {
+    "errors": [],
+    "historical_completion_files_unchanged": {
+      "REPORT.md": true,
+      "AUDIT.md": true,
+      "STATUS.md": true,
+      "PROTOCOL.md": true,
+      "EVALUATION_README.md": true,
+      "study.json": true,
+      "assets/remote_receipts/VERIFICATION.json": true,
+      "runs/RUN_stage1_final_metrics_repair_seed0/SUMMARY.json": true,
+      "runs/RUN_stage1_dev_metrics_repair_seed0/SUMMARY.json": true
+    },
+    "independent_agent_recalculation_checks": 454,
+    "independent_agent_errors": [],
+    "quality_state_dict_unchanged": true,
+    "original_model_buffers_unchanged": true
+  },
+  "files": {
+    "DAMAGE_DIAGNOSIS.md": "bb9e32d688fe36b487b65df6d5244f140ed8fa4ea75410b202fe9427f94e8b74",
+    "DAMAGE_DIAGNOSIS_PROTOCOL.md": "2b0ef9cd28771502a0448efceece65b879ead67a413c51590c309b6c74f91659",
+    "LOCAL_DAMAGE_CONFIG_20261006.json": "09fe3f138dc4db61abdbc2c574ebf8888f1f64ede3c3443e307bf06ba8240ec8",
+    "CODE_MANIFEST_DAMAGE_20261006.sha256": "905694cd5d3770b2e8d31a987e95dbd2686713db35572cabce2471e640784ebd"
+  },
+  "limitations": [
+    "Fixed small DEV diagnostic, not full FINAL reassessment",
+    "Local Torch2.9.1 vs historical Torch2.8.0; complete numeric equivalence not claimed",
+    "No repair efficacy or generalization demonstrated",
+    "Rank loss, FIT precision, seed and sampling contributions not isolated"
+  ]
+}

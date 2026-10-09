@@ -1,0 +1,31 @@
+{
+  "statistics": {
+    "matched_detection_count": 86600,
+    "baseline_success_count": 36266,
+    "baseline_failure_count": 50334,
+    "damage_count": 1368,
+    "repair_count": 1319,
+    "baseline_iou_sum": 57813.91527148577,
+    "method_iou_sum": 57247.32017592875,
+    "mask_iou_delta_sum": -566.595095557507,
+    "baseline_success_delta_sum": -51.778689482903744,
+    "baseline_mean_mask_iou": 0.6675971740356325,
+    "method_mean_mask_iou": 0.661054505495713,
+    "mean_mask_iou_delta": -0.006542668539925023,
+    "baseline_success_mean_iou_delta": -0.0014277474627172487,
+    "damage_rate_of_baseline_success": 0.03772128164120664,
+    "repair_rate_of_baseline_failure": 0.02620495092780228
+  },
+  "unique_GT_association_labels": {
+    "any_damage_label": 1225,
+    "all_candidates_damage_label": 87,
+    "any_repair_label": 1187,
+    "all_candidates_repair_label": 143,
+    "duplicate_candidate_association": 21210,
+    "unique_associated_gt_count": 33644
+  },
+  "association_source_sha256": "1a06dc886dc5d7f9db7059c7c65d2ba1299b4c29d5b641fe53f5b51194e9b58a",
+  "definition": "all baseline detections conf>.001, same-class highest-box-IoU noncrowd GT>=.5; duplicate detection-to-GT matches allowed; success/damage/repair at maskIoU=.75",
+  "confidence_intervals": null,
+  "GT_label_scope": "candidate-associated GT any/all labels, not candidate rates renamed as GT rates"
+}

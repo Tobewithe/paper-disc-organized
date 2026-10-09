@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\evaluate_target_comparison.py", line 402, in <module>
+    score(args)
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\evaluate_target_comparison.py", line 191, in score
+    grouped, source = fixed_source(args.source_paired, ids, engineering, lock)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\evaluate_target_comparison.py", line 33, in fixed_source
+    lock.add(p)
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\target_scoring_common.py", line 161, in add
+    p = Path(path).resolve(strict=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\pathlib.py", line 1240, in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen ntpath>", line 722, in realpath
+FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_EPOCH08_EVAL_S0\\paired\\INSTANCES.jsonl'

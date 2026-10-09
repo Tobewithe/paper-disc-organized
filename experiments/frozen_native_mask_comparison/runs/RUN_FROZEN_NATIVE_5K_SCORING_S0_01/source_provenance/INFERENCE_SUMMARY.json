@@ -1,0 +1,101 @@
+{
+  "status": "prediction_complete",
+  "passed": true,
+  "engineering": false,
+  "engineering_passed": null,
+  "image_count": 5000,
+  "arm_names": [
+    "baseline",
+    "RCMC_full",
+    "global_minus025_full",
+    "RCMC_first64",
+    "global_minus025_first64",
+    "multi_local_full",
+    "multi_local_first64"
+  ],
+  "native_rows": 555445,
+  "selected_first64": 229596,
+  "supported_first64": 228974,
+  "unsupported_first64": 622,
+  "baseline_parity_passed": true,
+  "all_arm_identity_passed": true,
+  "tau0_native_exact": true,
+  "empty_and_first64_invariants_passed": true,
+  "frozen_integrity_passed": true,
+  "source_sha256": {
+    "evaluate_native_comparison.py": "b17c5c70a0daabc7fe5f77196865b102f14b1fe6f14dd86bd6f06fa8ca98e5fa",
+    "native_mask_adapter.py": "0a11d7cee6f73ec680ce7895f9501a2f87be5d97a8904d3fe6b3a62a958fa0c2",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "portable_risk.py": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+    "risk_calibration.py": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+    "mask_calibration.py": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+    "local_features.py": "a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6"
+  },
+  "source_unchanged": true,
+  "model_sha256": {
+    "response": "eb2fca8b9bbb0192d62723e3da086c303729752772aa1a357ea64f61f70888b9",
+    "multi_local": "71874d3f23e6cbe2179ce0962c751b7afd04b9e29581a0c3227515ca48b76987"
+  },
+  "configuration_sha256": "b2bd1c92469d3439fb56e95886148d9f321513190b242d37a1bb558c628a2a26",
+  "prediction_receipts": {
+    "baseline": {
+      "predictions_sha256": "6c757a3a3ab302b807de7b77646cd7acc7d84afa3b2360e50b070e32d80d8f43",
+      "complete_sha256": "afa83fc346f2708f36f3f2de93efacfd58b92e66799835422960ee4939b9ad9d"
+    },
+    "RCMC_full": {
+      "predictions_sha256": "0a584b3cf1fc963f650003a17a661e3340952b32ac8405729e3b165f064b86a4",
+      "complete_sha256": "6472c69df02d44ad34ad058201b330814cdeb7b92249bd6fab07e5253db3b7a0"
+    },
+    "global_minus025_full": {
+      "predictions_sha256": "3159a570dd64d615539563c8d4d66cb48a05169f06af3f86997bd14039792e45",
+      "complete_sha256": "45446714d43d06b858a97142f96bf42e5b674e1e56d0dc6237c42be42924a8ac"
+    },
+    "RCMC_first64": {
+      "predictions_sha256": "8302ce9d9c60dc5f829db1db3c975efd453cfb8a5c8523f6fdc611fceea34048",
+      "complete_sha256": "dda636d3dc047c98ca0a439b72a228914c2e505d253739633aa729865d82e4b5"
+    },
+    "global_minus025_first64": {
+      "predictions_sha256": "3a95c2b30ad1f20e36666c8a4209ff7a376ea2cdf87837c8434dd312cdb02356",
+      "complete_sha256": "7099a6ea30901f39dbef841c837cf42078718deb11f038542ef5f3fc7909de23"
+    },
+    "multi_local_full": {
+      "predictions_sha256": "2834ae48ca5525fc628248750fc2f103a9cf088d0bd4c1a7908da6eca9d83ff2",
+      "complete_sha256": "f7d8617918177d755daeab4a11093d9fee22029a290e4096add65253e4a389e8"
+    },
+    "multi_local_first64": {
+      "predictions_sha256": "1489c050cd3194fe9d0714fab1c89927089fc96734e595b3ded16409c96378bd",
+      "complete_sha256": "e319dc6123403962889efa900ceeddd1172422c97ddcbd0cc01ee9416fb6997d"
+    }
+  },
+  "baseline_parity_sha256": "9f96b030869bf9e6496ef405dc476c6c27428358d4a3f110a0997b02deacba33",
+  "metrics": null,
+  "metrics_status": "unmeasured; separate independent CPU scoring required",
+  "gt_parsed": false,
+  "gt_used_in_inference": false,
+  "timing": {
+    "native_model_seconds": 171.16151527023328,
+    "frozen_extract_wall_seconds": 295.99197449791245,
+    "native_reference_decode_seconds": 120.39590159989893,
+    "all_action_decode_seconds": 5560.7204681955045,
+    "json_write_seconds": 273.90697560692206,
+    "prediction_assembly_seconds": 100.34549669991247,
+    "total_elapsed_seconds": 6431.450072700041,
+    "raw_image_timings_file": "IMAGE_TIMINGS.jsonl",
+    "raw_action_timings_file": "NATIVE_DECISIONS.jsonl",
+    "shared_work_not_repeated_per_arm": true
+  },
+  "peak_memory": {
+    "cuda_peak_allocated_bytes": 1742643200,
+    "cuda_peak_reserved_bytes": 5505024000,
+    "cpu_peak_working_set_bytes": 1506361344,
+    "cpu_current_rss_bytes": 1384230912,
+    "scope": "this process; unavailable CPU peak remains null"
+  },
+  "started_at": "2026-10-08T16:59:50.339176+00:00",
+  "completed_at": "2026-10-08T18:47:01.807902+00:00",
+  "limitations": [
+    "Frozen old gates evaluated in current explicit-ratio_pad native geometry; not historical4500 byte reproduction",
+    "Full-vs-first64 comparisons preserve candidate identity; they do not evaluate missing raw candidates",
+    "No AP, paired GT diagnostic, training, tuning or new-method claim in this inference stage"
+  ]
+}

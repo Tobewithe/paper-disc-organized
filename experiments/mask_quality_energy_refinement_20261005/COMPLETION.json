@@ -1,0 +1,45 @@
+{
+  "recorded_at": "2026-10-06T19:26:28.422829+08:00",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "evaluation_execution": "completed",
+  "scientific_result": "negative_current_implementation",
+  "original_protocol_confirmation": "not_established",
+  "stage_II_authorized": false,
+  "training_budget_changed": false,
+  "training_parameters_changed": false,
+  "actual_head_training_seed": 20261005,
+  "nominal_seed_label": 0,
+  "final_images": 5000,
+  "final_matched_candidates": 36213,
+  "dev_images": 2000,
+  "dev_matched_candidates": 13690,
+  "final_numeric_gate": "failed",
+  "final_data_validation": {
+    "errors": {},
+    "incomplete": {},
+    "scientific_drift": [
+      "Actual training seed 20261005 differs from recorded seed 0.",
+      "Quality ranking uses soft IoU rather than normal binary original-mask IoU.",
+      "Ranking uses relu(0.05 - true_soft_difference * predicted_difference), abs(true_difference)>0.01; locked rule specifies sign ordering margin 0.02.",
+      "Failure random-control radius is global rho, not each oracle displacement norm.",
+      "Training averages candidates within image then weights images equally; equal-instance weighting was not implemented.",
+      "Quality input has no explicit class/score, scale embedding, or coefficient displacement descriptor.",
+      "DEV uses historical compact cache; its prototype storage precision must be reported separately from the FP32 streaming FINAL.",
+      "Held-out random-state diagnostic was added after training and is not a frozen oracle-direction state test."
+    ]
+  },
+  "dev_unknown_raw_arg_labels": 13690,
+  "files": {
+    "REPORT.md": "6714d0055380ccef0609c10e9d2e7626aa63c95f58ff56836b14ecf5c75d65ed",
+    "AUDIT.md": "21ab18b8dabdf77ccb8c2f2c6d3ddd47f5a180b690554fda526187f7d437b635",
+    "STATUS.md": "1d07ac4c218ad3fbfaf413f003b9fc28a1b976a3e837ee5d61fcf8497f3631d6",
+    "PROTOCOL.md": "d8cb1deba60349c15afa0cbb6d9b37158cd5b02cd2bfebe0466df984186a27a7",
+    "EVALUATION_README.md": "0b3b4ca27634605a8507ecdda3a32b810c38f72fc0f83aa35beb4b556a3e143a",
+    "study.json": "5309458d522f408b129e0da7368b199956920d22d7157aeefc75862685dc4d1b",
+    "assets/remote_receipts/VERIFICATION.json": "568681c24a2d2475a646b06fb164c879bd03e36b6b9b562c1edaadf467f5f7fa",
+    "runs/RUN_stage1_final_metrics_repair_seed0/SUMMARY.json": "3e36aec8320e95726840576f0b6575be38955e0a43d85c3be3d1a4814d039c6c",
+    "runs/RUN_stage1_dev_metrics_repair_seed0/SUMMARY.json": "350a525da99f27bddd4da7da67c4e49d395c1e4b05b84e9d20e35764a9e0d364"
+  },
+  "selected_archive_verified": true,
+  "verification_errors": []
+}

@@ -1,0 +1,663 @@
+{
+  "version": "independent_desktop32_cost_verify_v1",
+  "status": "verification_complete",
+  "passed": true,
+  "mode": "engineering",
+  "source_run_id": "RUN_FROZEN_NATIVE_COST_DESKTOP_LOCAL_ENGINEERING_S0_01",
+  "source_summary_sha256": "5f01979c9f1c88badcc5c7463455e30f4df992eeae25753886fe2d4dfe3b539d",
+  "checker_sha256": "377272c2123c9c6cda25af7bdbf74d3762a12c95fcee4adc24a201b162e048b9",
+  "pinned_data_checker_sha256": "a2e5796fa3c9e3ac6e673957bfa73c84b3befcc49dac88147d6bcf526ec8f268",
+  "source_binding_sha256": "31ea3a93a2a913e16d44476f0cc00cbd9d0faa7ab81ff0eedadf5e666db2ecae",
+  "profile": "desktop same-machine original-path reference32; Torch2.9.1+cu128/RTX5060Ti",
+  "results": {
+    "arms": {
+      "baseline": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.04046399996150285,
+          "median": 0.0408763499581255,
+          "std_population": 0.009860863155796814,
+          "p10": 0.029937609995249657,
+          "p90": 0.05066050993045792,
+          "min": 0.028730200021527708,
+          "max": 0.05137309990823269
+        },
+        "signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.0,
+          "median": 0.0,
+          "std_population": 0.0,
+          "p10": 0.0,
+          "p90": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "negative_signed_increment_samples": 0,
+        "recorded_outside_deployment_seconds": {
+          "reference_read_seconds": {
+            "n": 4,
+            "mean": 0.001132799981860444,
+            "median": 0.0009764499845914543,
+            "std_population": 0.0008247833298103012,
+            "p10": 0.00032315001590177417,
+            "p90": 0.0020675299456343055,
+            "min": 0.00023330003023147583,
+            "max": 0.0023449999280273914
+          },
+          "rle_records_encoding_seconds": {
+            "n": 4,
+            "mean": 0.029923625028459355,
+            "median": 0.029761050012893975,
+            "std_population": 0.02590678486496101,
+            "p10": 0.0028248900314792992,
+            "p90": 0.05715242003789172,
+            "min": 0.0006000000284984708,
+            "max": 0.059572400059551
+          },
+          "identity_rle_parity_seconds": {
+            "n": 4,
+            "mean": 6.932500400580466e-05,
+            "median": 7.120001828297973e-05,
+            "std_population": 5.481761890318674e-05,
+            "p10": 1.0510010179132223e-05,
+            "p90": 0.00012663998641073703,
+            "min": 2.800021320581436e-06,
+            "max": 0.00013209995813667774
+          },
+          "input_tensor_audit_seconds": {
+            "n": 4,
+            "mean": 0.0031387999770231545,
+            "median": 0.0030934999813325703,
+            "std_population": 0.00034610424494768385,
+            "p10": 0.002792839950416237,
+            "p90": 0.003521000000182539,
+            "min": 0.002711899927817285,
+            "max": 0.0036563000176101923
+          },
+          "output_write_seconds": {
+            "n": 4,
+            "mean": 0.005303550016833469,
+            "median": 0.0055336999939754605,
+            "std_population": 0.0028347811783863528,
+            "p10": 0.0022010700195096433,
+            "p90": 0.008221910032443703,
+            "min": 0.0016701000276952982,
+            "max": 0.008476700051687658
+          }
+        },
+        "gpu_endpoint_peak": {
+          "allocated_bytes": 1036744704,
+          "reserved_bytes": 1960837120,
+          "scope": "reset immediately before this deployment endpoint; includes resident own arm model/assets"
+        },
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1730846720
+        ],
+        "cpu_peak_scope": "fresh process entire lifetime including init/warmup/audit"
+      },
+      "RCMC_first64": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.05119805000140332,
+          "median": 0.05417090002447367,
+          "std_population": 0.014411329643732996,
+          "p10": 0.03482831997098401,
+          "p90": 0.06518950001336635,
+          "min": 0.03014309995342046,
+          "max": 0.06630730000324547
+        },
+        "signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.010734050039900467,
+          "median": 0.013294550066348165,
+          "std_population": 0.005426886878861721,
+          "p10": 0.004890709975734354,
+          "p90": 0.014528990082908422,
+          "min": 0.0014128999318927526,
+          "max": 0.014934200095012784
+        },
+        "negative_signed_increment_samples": 0,
+        "recorded_outside_deployment_seconds": {
+          "reference_read_seconds": {
+            "n": 4,
+            "mean": 0.000983224977971986,
+            "median": 0.0009921499877236784,
+            "std_population": 0.0005509026561002561,
+            "p10": 0.00040290000615641477,
+            "p90": 0.0015564099419862032,
+            "min": 0.00035009998828172684,
+            "max": 0.0015984999481588602
+          },
+          "rle_records_encoding_seconds": {
+            "n": 4,
+            "mean": 0.030490025004837662,
+            "median": 0.029973700002301484,
+            "std_population": 0.02623116230627415,
+            "p10": 0.0031332099926657977,
+            "p90": 0.05825990001903847,
+            "min": 0.0009337000083178282,
+            "max": 0.06107900000642985
+          },
+          "identity_rle_parity_seconds": {
+            "n": 4,
+            "mean": 7.442501373589039e-05,
+            "median": 7.470004493370652e-05,
+            "std_population": 5.798491090703529e-05,
+            "p10": 1.2450024951249362e-05,
+            "p90": 0.00013617997756227852,
+            "min": 3.900029696524143e-06,
+            "max": 0.00014439993537962437
+          },
+          "input_tensor_audit_seconds": {
+            "n": 4,
+            "mean": 0.00323622502037324,
+            "median": 0.0031082500354386866,
+            "std_population": 0.00048725343884356293,
+            "p10": 0.0027870100107975303,
+            "p90": 0.003787820017896593,
+            "min": 0.00272019999101758,
+            "max": 0.004008200019598007
+          },
+          "output_write_seconds": {
+            "n": 4,
+            "mean": 0.005337949987733737,
+            "median": 0.005479699990246445,
+            "std_population": 0.0025946170505957177,
+            "p10": 0.0025563200004398825,
+            "p90": 0.008006179973017424,
+            "min": 0.002218100009486079,
+            "max": 0.008174299960955977
+          }
+        },
+        "gpu_endpoint_peak": {
+          "allocated_bytes": 1141603840,
+          "reserved_bytes": 2195718144,
+          "scope": "reset immediately before this deployment endpoint; includes resident own arm model/assets"
+        },
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1935945728
+        ],
+        "cpu_peak_scope": "fresh process entire lifetime including init/warmup/audit"
+      },
+      "multi_local_first64": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.19854617500095628,
+          "median": 0.2462913499912247,
+          "std_population": 0.09253555388855095,
+          "p10": 0.09796964002307505,
+          "p90": 0.2609265699866228,
+          "min": 0.039279800024814904,
+          "max": 0.2623221999965608
+        },
+        "signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.15808217503945343,
+          "median": 0.2054150000330992,
+          "std_population": 0.08523905371158556,
+          "p10": 0.0680320300278254,
+          "p90": 0.21026606005616486,
+          "min": 0.010549600003287196,
+          "max": 0.21094910008832812
+        },
+        "negative_signed_increment_samples": 0,
+        "recorded_outside_deployment_seconds": {
+          "reference_read_seconds": {
+            "n": 4,
+            "mean": 0.0009231249860022217,
+            "median": 0.0009821999701671302,
+            "std_population": 0.0005351371286662015,
+            "p10": 0.0003408299875445664,
+            "p90": 0.0014581599971279502,
+            "min": 0.0002552999649196863,
+            "max": 0.00147280003875494
+          },
+          "rle_records_encoding_seconds": {
+            "n": 4,
+            "mean": 0.030196524981874973,
+            "median": 0.030322799924761057,
+            "std_population": 0.02599234780788905,
+            "p10": 0.002922300016507507,
+            "p90": 0.05736972999293357,
+            "min": 0.0005880000535398722,
+            "max": 0.059552500024437904
+          },
+          "identity_rle_parity_seconds": {
+            "n": 4,
+            "mean": 6.125000072643161e-05,
+            "median": 6.744998972862959e-05,
+            "std_population": 4.622133576947055e-05,
+            "p10": 1.0680011473596097e-05,
+            "p90": 0.00010685999877750874,
+            "min": 2.700020559132099e-06,
+            "max": 0.00010740000288933516
+          },
+          "input_tensor_audit_seconds": {
+            "n": 4,
+            "mean": 0.003048300015507266,
+            "median": 0.0029308500234037638,
+            "std_population": 0.00036938650718522565,
+            "p10": 0.002719800011254847,
+            "p90": 0.0034707600134424865,
+            "min": 0.0026940000243484974,
+            "max": 0.0036374999908730388
+          },
+          "output_write_seconds": {
+            "n": 4,
+            "mean": 0.006353799952194095,
+            "median": 0.00569659995380789,
+            "std_population": 0.004126636656909946,
+            "p10": 0.0022289299522526562,
+            "p90": 0.011004429950844496,
+            "min": 0.0017047999426722527,
+            "max": 0.012317199958488345
+          }
+        },
+        "gpu_endpoint_peak": {
+          "allocated_bytes": 1397615616,
+          "reserved_bytes": 2415919104,
+          "scope": "reset immediately before this deployment endpoint; includes resident own arm model/assets"
+        },
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1999785984
+        ],
+        "cpu_peak_scope": "fresh process entire lifetime including init/warmup/audit"
+      },
+      "global_minus025_first64": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.04512222501216456,
+          "median": 0.04736314999172464,
+          "std_population": 0.011885281644279025,
+          "p10": 0.031823010020889345,
+          "p90": 0.05662870001979172,
+          "min": 0.028973100008442998,
+          "max": 0.056789500056765974
+        },
+        "signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.004658225050661713,
+          "median": 0.005567150132264942,
+          "std_population": 0.0026429014359510036,
+          "p10": 0.001794950035400689,
+          "p90": 0.006794360000640154,
+          "min": 0.00024289998691529036,
+          "max": 0.007255699951201677
+        },
+        "negative_signed_increment_samples": 0,
+        "recorded_outside_deployment_seconds": {
+          "reference_read_seconds": {
+            "n": 4,
+            "mean": 0.0013180499954614788,
+            "median": 0.0009665000252425671,
+            "std_population": 0.001114255321667039,
+            "p10": 0.0003272999660111964,
+            "p90": 0.002590040001086891,
+            "min": 0.00023699994198977947,
+            "max": 0.0031021999893710017
+          },
+          "rle_records_encoding_seconds": {
+            "n": 4,
+            "mean": 0.030180475005181506,
+            "median": 0.030593550007324666,
+            "std_population": 0.026211609486523704,
+            "p10": 0.002738170034717769,
+            "p90": 0.057292319973930715,
+            "min": 0.0006031000521034002,
+            "max": 0.05893169995397329
+          },
+          "identity_rle_parity_seconds": {
+            "n": 4,
+            "mean": 7.069995626807213e-05,
+            "median": 6.864994065836072e-05,
+            "std_population": 5.636202130761521e-05,
+            "p10": 1.116993371397257e-05,
+            "p90": 0.00013186999130994083,
+            "min": 3.0999071896076202e-06,
+            "max": 0.00014240003656595945
+          },
+          "input_tensor_audit_seconds": {
+            "n": 4,
+            "mean": 0.0031453499977942556,
+            "median": 0.0031010499806143343,
+            "std_population": 0.0003466079255960605,
+            "p10": 0.0027948600007221104,
+            "p90": 0.003531280008610338,
+            "min": 0.002725200029090047,
+            "max": 0.003654100000858307
+          },
+          "output_write_seconds": {
+            "n": 4,
+            "mean": 0.0055769000609871,
+            "median": 0.005964700074400753,
+            "std_population": 0.003028969990250102,
+            "p10": 0.002270420058630407,
+            "p90": 0.00857314005261287,
+            "min": 0.0017648000502958894,
+            "max": 0.008613400044851005
+          }
+        },
+        "gpu_endpoint_peak": {
+          "allocated_bytes": 1141603840,
+          "reserved_bytes": 2193620992,
+          "scope": "reset immediately before this deployment endpoint; includes resident own arm model/assets"
+        },
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1790451712
+        ],
+        "cpu_peak_scope": "fresh process entire lifetime including init/warmup/audit"
+      },
+      "TriFlow_final8": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.24499580002157018,
+          "median": 0.30439595005009323,
+          "std_population": 0.11522981414328236,
+          "p10": 0.11956165996380151,
+          "p90": 0.3229098200565204,
+          "min": 0.04676089994609356,
+          "max": 0.3244304000400007
+        },
+        "signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.20453180006006733,
+          "median": 0.26351960009196773,
+          "std_population": 0.10785547881346234,
+          "p10": 0.08962404996855186,
+          "p90": 0.27224931012606246,
+          "min": 0.01803069992456585,
+          "max": 0.273057300131768
+        },
+        "negative_signed_increment_samples": 0,
+        "recorded_outside_deployment_seconds": {
+          "reference_read_seconds": {
+            "n": 4,
+            "mean": 0.0008879499800968915,
+            "median": 0.0009655000176280737,
+            "std_population": 0.00048315628773153596,
+            "p10": 0.00035384998191148045,
+            "p90": 0.0013600099482573569,
+            "min": 0.00025679997634142637,
+            "max": 0.0013639999087899923
+          },
+          "rle_records_encoding_seconds": {
+            "n": 4,
+            "mean": 0.030714299995452166,
+            "median": 0.02949075005017221,
+            "std_population": 0.02706888200939812,
+            "p10": 0.0026904500206001106,
+            "p90": 0.059716989926528186,
+            "min": 0.0005947999889031053,
+            "max": 0.06328089989256114
+          },
+          "identity_rle_parity_seconds": {
+            "n": 4,
+            "mean": 7.715003448538482e-05,
+            "median": 7.255002856254578e-05,
+            "std_population": 6.417811834393461e-05,
+            "p10": 1.0540045332163574e-05,
+            "p90": 0.00014744002837687733,
+            "min": 3.400025889277458e-06,
+            "max": 0.00016010005492717028
+          },
+          "input_tensor_audit_seconds": {
+            "n": 4,
+            "mean": 0.0031442500185221434,
+            "median": 0.003079500049352646,
+            "std_population": 0.00022208440670984521,
+            "p10": 0.0029443400097079577,
+            "p90": 0.0033959600026719273,
+            "min": 0.002917399979196489,
+            "max": 0.003500599996186793
+          },
+          "output_write_seconds": {
+            "n": 4,
+            "mean": 0.005317524977726862,
+            "median": 0.0057943499414250255,
+            "std_population": 0.002675947585324806,
+            "p10": 0.0023283799877390266,
+            "p90": 0.007925209996756166,
+            "min": 0.0017012000316753983,
+            "max": 0.007980199996381998
+          }
+        },
+        "gpu_endpoint_peak": {
+          "allocated_bytes": 1041519104,
+          "reserved_bytes": 1887436800,
+          "scope": "reset immediately before this deployment endpoint; includes resident own arm model/assets"
+        },
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          2272866304
+        ],
+        "cpu_peak_scope": "fresh process entire lifetime including init/warmup/audit"
+      }
+    },
+    "statistics": {
+      "baseline": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.04046399996150285,
+          "median": 0.0408763499581255,
+          "std_population": 0.009860863155796814,
+          "p10": 0.029937609995249657,
+          "p90": 0.05066050993045792,
+          "min": 0.028730200021527708,
+          "max": 0.05137309990823269
+        },
+        "paired_signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.0,
+          "median": 0.0,
+          "std_population": 0.0,
+          "p10": 0.0,
+          "p90": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "repeat_mean_seconds": [
+          0.04046399996150285
+        ],
+        "gpu_peak_allocated_bytes": 1036744704,
+        "gpu_peak_reserved_bytes": 1960837120,
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1730846720
+        ]
+      },
+      "RCMC_first64": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.05119805000140332,
+          "median": 0.05417090002447367,
+          "std_population": 0.014411329643732996,
+          "p10": 0.03482831997098401,
+          "p90": 0.06518950001336635,
+          "min": 0.03014309995342046,
+          "max": 0.06630730000324547
+        },
+        "paired_signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.010734050039900467,
+          "median": 0.013294550066348165,
+          "std_population": 0.005426886878861721,
+          "p10": 0.004890709975734354,
+          "p90": 0.014528990082908422,
+          "min": 0.0014128999318927526,
+          "max": 0.014934200095012784
+        },
+        "repeat_mean_seconds": [
+          0.05119805000140332
+        ],
+        "gpu_peak_allocated_bytes": 1141603840,
+        "gpu_peak_reserved_bytes": 2195718144,
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1935945728
+        ]
+      },
+      "multi_local_first64": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.19854617500095628,
+          "median": 0.2462913499912247,
+          "std_population": 0.09253555388855095,
+          "p10": 0.09796964002307505,
+          "p90": 0.2609265699866228,
+          "min": 0.039279800024814904,
+          "max": 0.2623221999965608
+        },
+        "paired_signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.15808217503945343,
+          "median": 0.2054150000330992,
+          "std_population": 0.08523905371158556,
+          "p10": 0.0680320300278254,
+          "p90": 0.21026606005616486,
+          "min": 0.010549600003287196,
+          "max": 0.21094910008832812
+        },
+        "repeat_mean_seconds": [
+          0.19854617500095628
+        ],
+        "gpu_peak_allocated_bytes": 1397615616,
+        "gpu_peak_reserved_bytes": 2415919104,
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1999785984
+        ]
+      },
+      "global_minus025_first64": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.04512222501216456,
+          "median": 0.04736314999172464,
+          "std_population": 0.011885281644279025,
+          "p10": 0.031823010020889345,
+          "p90": 0.05662870001979172,
+          "min": 0.028973100008442998,
+          "max": 0.056789500056765974
+        },
+        "paired_signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.004658225050661713,
+          "median": 0.005567150132264942,
+          "std_population": 0.0026429014359510036,
+          "p10": 0.001794950035400689,
+          "p90": 0.006794360000640154,
+          "min": 0.00024289998691529036,
+          "max": 0.007255699951201677
+        },
+        "repeat_mean_seconds": [
+          0.04512222501216456
+        ],
+        "gpu_peak_allocated_bytes": 1141603840,
+        "gpu_peak_reserved_bytes": 2193620992,
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          1790451712
+        ]
+      },
+      "TriFlow_final8": {
+        "deployment_seconds": {
+          "n": 4,
+          "mean": 0.24499580002157018,
+          "median": 0.30439595005009323,
+          "std_population": 0.11522981414328236,
+          "p10": 0.11956165996380151,
+          "p90": 0.3229098200565204,
+          "min": 0.04676089994609356,
+          "max": 0.3244304000400007
+        },
+        "paired_signed_increment_seconds": {
+          "n": 4,
+          "mean": 0.20453180006006733,
+          "median": 0.26351960009196773,
+          "std_population": 0.10785547881346234,
+          "p10": 0.08962404996855186,
+          "p90": 0.27224931012606246,
+          "min": 0.01803069992456585,
+          "max": 0.273057300131768
+        },
+        "repeat_mean_seconds": [
+          0.24499580002157018
+        ],
+        "gpu_peak_allocated_bytes": 1041519104,
+        "gpu_peak_reserved_bytes": 1887436800,
+        "cpu_fresh_process_peak_bytes_per_repeat": [
+          2272866304
+        ]
+      }
+    },
+    "image_count_per_arm_repeat": 4,
+    "repeat_blocks": 1,
+    "fresh_child_processes": 5,
+    "sample_count": 20,
+    "retained_mask_rows_compared": 3425,
+    "all_sample_signed_increments_checked": true,
+    "all_child_phase_and_memory_scopes_checked": true,
+    "all_saved_output_RLE_and_recorded_binary_signatures_checked": true
+  },
+  "resources": {
+    "before_heavy_candidate_hits": 0,
+    "during_resource_heavy_candidate_hits": 0,
+    "child_resources": [
+      {
+        "arm": "baseline",
+        "repeat_index": 0,
+        "samples": 3,
+        "recorded_cpu_percent_min": 0.0,
+        "recorded_cpu_percent_max": 26.5,
+        "sampling_interval_seconds": 2,
+        "aligned_to_deployment_only": false
+      },
+      {
+        "arm": "RCMC_first64",
+        "repeat_index": 0,
+        "samples": 3,
+        "recorded_cpu_percent_min": 0.0,
+        "recorded_cpu_percent_max": 27.2,
+        "sampling_interval_seconds": 2,
+        "aligned_to_deployment_only": false
+      },
+      {
+        "arm": "multi_local_first64",
+        "repeat_index": 0,
+        "samples": 3,
+        "recorded_cpu_percent_min": 0.0,
+        "recorded_cpu_percent_max": 32.4,
+        "sampling_interval_seconds": 2,
+        "aligned_to_deployment_only": false
+      },
+      {
+        "arm": "global_minus025_first64",
+        "repeat_index": 0,
+        "samples": 3,
+        "recorded_cpu_percent_min": 0.0,
+        "recorded_cpu_percent_max": 26.7,
+        "sampling_interval_seconds": 2,
+        "aligned_to_deployment_only": false
+      },
+      {
+        "arm": "TriFlow_final8",
+        "repeat_index": 0,
+        "samples": 4,
+        "recorded_cpu_percent_min": 0.0,
+        "recorded_cpu_percent_max": 31.5,
+        "sampling_interval_seconds": 2,
+        "aligned_to_deployment_only": false
+      }
+    ],
+    "sampler_in_cost_child": false,
+    "sampler_overhead_exactly_measured": false,
+    "limitations": "finite process-name scan and two-second nominal system sampling do not prove absence of every workload or capture every peak; parent sampler overhead unquantified"
+  },
+  "actual_branch_coverage": {
+    "measured_outputs": 20,
+    "native_empty_outputs": 0,
+    "empty_mask_rows": 0,
+    "unsupported_first64_rows": 0
+  },
+  "cross_device_quality_equivalence_claimed": false,
+  "laptop_AP_paired_with_desktop_cost": false,
+  "fresh_forward_rerun": false,
+  "wall_clock_remeasured": false,
+  "hashes_unchanged": true,
+  "verification_CPU_wall_seconds": 4.509191200020723,
+  "completed_at": "2026-10-08T20:31:32.725735+00:00"
+}

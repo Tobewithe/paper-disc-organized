@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\run_target_scoring_pipeline.py", line 263, in <module>
+    main(p.parse_args())
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\run_target_scoring_pipeline.py", line 235, in main
+    score = execute(plan, "score", "RUN_NATIVE_TARGET_FORMAL_SCORING_CPU_S0_01", ["--run", str(inference), "--annotations", plan["annotations"],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\run_target_scoring_pipeline.py", line 189, in execute
+    check(result.returncode == 0, "CPU scientific stage failed; preserve and stop: " + name)
+  File "D:\coco_wire\experiments\native_response_target_comparison_20261009\scripts\run_target_scoring_pipeline.py", line 29, in check
+    raise ValueError(message)
+ValueError: CPU scientific stage failed; preserve and stop: RUN_NATIVE_TARGET_FORMAL_SCORING_CPU_S0_01

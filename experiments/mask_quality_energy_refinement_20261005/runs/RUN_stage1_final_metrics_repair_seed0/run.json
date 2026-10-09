@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_stage1_final_metrics_repair_seed0",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/qcr_run/qcr_metrics.py",
+    "--rows",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_complete_seed0_retry1/PER_CANDIDATE.jsonl",
+    "--out",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0",
+    "--images",
+    "/root/autodl-tmp/qcr_run/FINAL_SPLIT.json",
+    "--split",
+    "final",
+    "--bootstrap",
+    "5000",
+    "--seed",
+    "20261006",
+    "--metadata",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/SOURCE_METADATA.json"
+  ],
+  "working_directory": "/root/autodl-tmp/qcr_run",
+  "status": "completed",
+  "created_at": "2026-10-06T10:59:58.211+00:00",
+  "host": "autodl-container-3trrlc6l9f-e83c9305",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_complete_seed0_retry1/PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "runs/RUN_stage1_final_complete_seed0_retry1/PER_CANDIDATE.jsonl",
+      "exists": true,
+      "sha256": "457bb2a5062d9a8919fd1106af4d76cb0c092b78c6ce9f50ced5a5a1d6ef4192",
+      "size": 85365233
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/SOURCE_METADATA.json",
+      "path_relative_to_cwd": "runs/RUN_stage1_final_metrics_repair_seed0/SOURCE_METADATA.json",
+      "exists": true,
+      "sha256": "3508307317edea2fa1f3aa1bfce53f9dff9942c9b84e7301449b13232fcbb5a4",
+      "size": 62425
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/FINAL_SPLIT.json",
+      "path_relative_to_cwd": "FINAL_SPLIT.json",
+      "exists": true,
+      "sha256": "00f8420d2aa16bf8dad421bca425c7d19c3e508f3ebe4836cf73d4380468eff8",
+      "size": 64263
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/qcr_metrics.py",
+      "path_relative_to_cwd": "qcr_metrics.py",
+      "revision": "6b58d1c5823a2b3d216ce0b681e7b50452a91c6d770963312b0ee7824faf6b68",
+      "snapshot": "snapshots/6b58d1c5823a2b3d216ce0b681e7b50452a91c6d770963312b0ee7824faf6b68"
+    }
+  ],
+  "scope": {
+    "purpose": "pyramid-index statistical correction",
+    "model_instantiated": false,
+    "source_evaluation": "RUN_stage1_final_complete_seed0_retry1"
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/SUMMARY.json",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/METRICS.md"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-3trrlc6l9f-e83c9305",
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 117514,
+  "started_at": "2026-10-06T10:59:58.518+00:00",
+  "last_heartbeat": "2026-10-06T11:01:03.537+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-06T11:01:07.721+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/SUMMARY.json",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/SUMMARY.json",
+      "exists": true,
+      "sha256": "3e36aec8320e95726840576f0b6575be38955e0a43d85c3be3d1a4814d039c6c"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/METRICS.md",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_final_metrics_repair_seed0/METRICS.md",
+      "exists": true,
+      "sha256": "7454532ac85b7a6ab17fefcfe73c1eec7694e6d47b89f7415cc777ef4617a508"
+    }
+  ]
+}

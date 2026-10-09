@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_2867e3a6f86f40bca6751a88c3fe473f",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "/root/miniconda3/bin/python",
+    "/root/autodl-tmp/qcr_run/qcr_train_fixed.py",
+    "--config",
+    "/root/mask_quality_energy_refinement_20261005/RUN_CONFIG.json",
+    "--manifest",
+    "/root/autodl-tmp/qcr_run/assets/CANDIDATE_MANIFEST.json",
+    "--stage",
+    "train",
+    "--mode",
+    "quality",
+    "--out",
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0"
+  ],
+  "working_directory": "/root/autodl-tmp/qcr_run",
+  "status": "completed",
+  "created_at": "2026-10-06T07:54:12.860+00:00",
+  "host": "autodl-container-3trrlc6l9f-e83c9305",
+  "environment": {
+    "recorder_python": "/root/miniconda3/bin/python",
+    "recorder_python_version": "3.12.3",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "execution": {
+      "python": "/root/miniconda3/bin/python",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "numpy": "2.3.2",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/assets/CANDIDATE_MANIFEST.json",
+      "path_relative_to_cwd": "assets/CANDIDATE_MANIFEST.json",
+      "exists": true,
+      "sha256": "a3729b36604c28c00eec82a1e4cba9d64eb638e1f470939e394b817a6d0e5c0f",
+      "size": 39155220
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/assets/ORACLE_failure.pt",
+      "path_relative_to_cwd": "assets/ORACLE_failure.pt",
+      "exists": true,
+      "sha256": "91215967aec2b20cbfc9b6929505382a19938053b0506492769cd215e86f53cf",
+      "size": 3905242
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/qcr_train_fixed.py",
+      "path_relative_to_cwd": "qcr_train_fixed.py",
+      "revision": "9f39e53b0d9f718660d68a3f8a46a0faf89c1c314574dad0fad1f90d551b778b",
+      "snapshot": "snapshots/9f39e53b0d9f718660d68a3f8a46a0faf89c1c314574dad0fad1f90d551b778b"
+    },
+    {
+      "path": "/root/autodl-tmp/qcr_run/online_runtime.py",
+      "path_relative_to_cwd": "online_runtime.py",
+      "revision": "56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb",
+      "snapshot": "snapshots/56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb"
+    },
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/RUN_CONFIG.json",
+      "path_relative_to_cwd": "",
+      "revision": "7c2e561cd6f1b8847d9e7cbe6be4369d49b7d3236b965264040e9484f36b8d62",
+      "snapshot": "snapshots/7c2e561cd6f1b8847d9e7cbe6be4369d49b7d3236b965264040e9484f36b8d62"
+    },
+    {
+      "path": "/root/mask_quality_energy_refinement_20261005/PROTOCOL.md",
+      "path_relative_to_cwd": "",
+      "revision": "d8cb1deba60349c15afa0cbb6d9b37158cd5b02cd2bfebe0466df984186a27a7",
+      "snapshot": "snapshots/d8cb1deba60349c15afa0cbb6d9b37158cd5b02cd2bfebe0466df984186a27a7"
+    }
+  ],
+  "scope": {
+    "dataset": "COCO train2017 20k/2k",
+    "protocol": "QCR Stage I train",
+    "seed": 0,
+    "branch": "one-to-one",
+    "mode": "quality",
+    "epochs": 3,
+    "frozen": "original-yolo",
+    "revision": "encoder-mask-support-upsampling-random-device-fixed"
+  },
+  "expected_outputs": [
+    "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0/final.pt"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "autodl-container-3trrlc6l9f-e83c9305",
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 110945,
+  "started_at": "2026-10-06T07:54:13.190+00:00",
+  "last_heartbeat": "2026-10-06T08:33:10.022+00:00",
+  "return_code": 0,
+  "finished_at": "2026-10-06T08:33:12.184+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0/final.pt",
+      "path_relative_to_cwd": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0/final.pt",
+      "exists": true,
+      "sha256": "07796b8d5600827979073d167ea8e00236a6a287947f51962a6415730005c065"
+    }
+  ]
+}

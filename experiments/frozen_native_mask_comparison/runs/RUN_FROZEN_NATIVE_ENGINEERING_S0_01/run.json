@@ -1,0 +1,266 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_FROZEN_NATIVE_ENGINEERING_S0_01",
+  "study_id": "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Users/28358/anaconda3/envs/pytorch/python.exe",
+    "D:/coco_wire/experiments/frozen_native_mask_comparison/scripts/evaluate_native_comparison.py",
+    "--root",
+    "D:/coco_wire/experiments/frozen_native_mask_comparison",
+    "--weights",
+    "D:/coco_wire/models/yolo26m-seg.pt",
+    "--vendor",
+    "D:/coco_wire/vendor_8.4.100",
+    "--images-list",
+    "D:/coco_wire/experiments/triflow_20k_training_20261007/data/val_full.txt",
+    "--response-model",
+    "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/response.json",
+    "--multi-model",
+    "D:/coco_wire/experiments/frozen_native_mask_comparison/assets/multi_local.json",
+    "--baseline-cache",
+    "D:/coco_wire/experiments/acd_proto_tail_unfreeze_20261006/runs/RUN_PROTO_TAIL_PAIRED_EVAL_S0/official",
+    "--device",
+    "cuda",
+    "--run-id",
+    "RUN_FROZEN_NATIVE_ENGINEERING_S0_01",
+    "--engineering",
+    "--max-images",
+    "64"
+  ],
+  "working_directory": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison",
+  "status": "completed",
+  "created_at": "2026-10-08T16:53:13.482+00:00",
+  "host": "YANGLEI",
+  "environment": {
+    "recorder_python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.12.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+      "python_version": "3.12.3",
+      "packages": {
+        "torch": "2.5.1",
+        "numpy": "2.4.3",
+        "ultralytics": "8.4.27"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\assets\\response.json",
+      "exists": true,
+      "sha256": "eb2fca8b9bbb0192d62723e3da086c303729752772aa1a357ea64f61f70888b9",
+      "size": 65621
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\assets\\multi_local.json",
+      "exists": true,
+      "sha256": "71874d3f23e6cbe2179ce0962c751b7afd04b9e29581a0c3227515ca48b76987",
+      "size": 196839
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\evaluate_native_comparison.py",
+      "revision": "b17c5c70a0daabc7fe5f77196865b102f14b1fe6f14dd86bd6f06fa8ca98e5fa",
+      "snapshot": "snapshots/b17c5c70a0daabc7fe5f77196865b102f14b1fe6f14dd86bd6f06fa8ca98e5fa"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\native_mask_adapter.py",
+      "revision": "16deaf262486a69a21c0e6263b1f4f8495e3e9cb8e00d0c5740efecdd0440d83",
+      "snapshot": "snapshots/16deaf262486a69a21c0e6263b1f4f8495e3e9cb8e00d0c5740efecdd0440d83"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\frozen_io.py",
+      "revision": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "snapshot": "snapshots/cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\portable_risk.py",
+      "revision": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+      "snapshot": "snapshots/b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\risk_calibration.py",
+      "revision": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "snapshot": "snapshots/b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\mask_calibration.py",
+      "revision": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "snapshot": "snapshots/d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\local_features.py",
+      "revision": "a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6",
+      "snapshot": "snapshots/a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\scripts\\run_fixed_pipeline.py",
+      "revision": "8526a07af8405ddff2519fe0faca01a368068b7516e195d8208f0b9f53b8d9ba",
+      "snapshot": "snapshots/8526a07af8405ddff2519fe0faca01a368068b7516e195d8208f0b9f53b8d9ba"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\PROTOCOL.md",
+      "revision": "1c521d5d6d64a1eb38942c5e33dc5c99ac0d3159f67d7683fd0b34ddf2ba984a",
+      "snapshot": "snapshots/1c521d5d6d64a1eb38942c5e33dc5c99ac0d3159f67d7683fd0b34ddf2ba984a"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\assets\\response.json",
+      "revision": "eb2fca8b9bbb0192d62723e3da086c303729752772aa1a357ea64f61f70888b9",
+      "snapshot": "snapshots/eb2fca8b9bbb0192d62723e3da086c303729752772aa1a357ea64f61f70888b9"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\assets\\multi_local.json",
+      "revision": "71874d3f23e6cbe2179ce0962c751b7afd04b9e29581a0c3227515ca48b76987",
+      "snapshot": "snapshots/71874d3f23e6cbe2179ce0962c751b7afd04b9e29581a0c3227515ca48b76987"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "runs/RUN_FROZEN_NATIVE_ENGINEERING_S0_01/SUMMARY.json",
+    "runs/RUN_FROZEN_NATIVE_ENGINEERING_S0_01/BASELINE_PARITY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "YANGLEI",
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_ENGINEERING_S0_01"
+    }
+  ],
+  "git": {
+    "commit": null,
+    "dirty": null
+  },
+  "pid": 14544,
+  "started_at": "2026-10-08T16:53:13.857+00:00",
+  "last_heartbeat": "2026-10-08T16:54:49.170+00:00",
+  "metrics": {
+    "status": "prediction_complete",
+    "passed": true,
+    "engineering": true,
+    "engineering_passed": true,
+    "image_count": 64,
+    "arm_names": [
+      "baseline",
+      "RCMC_full",
+      "global_minus025_full",
+      "RCMC_first64",
+      "global_minus025_first64",
+      "multi_local_full",
+      "multi_local_first64"
+    ],
+    "native_rows": 7675,
+    "selected_first64": 3259,
+    "supported_first64": 3248,
+    "unsupported_first64": 11,
+    "baseline_parity_passed": true,
+    "all_arm_identity_passed": true,
+    "tau0_native_exact": true,
+    "empty_and_first64_invariants_passed": true,
+    "frozen_integrity_passed": true,
+    "source_sha256": {
+      "evaluate_native_comparison.py": "b17c5c70a0daabc7fe5f77196865b102f14b1fe6f14dd86bd6f06fa8ca98e5fa",
+      "native_mask_adapter.py": "16deaf262486a69a21c0e6263b1f4f8495e3e9cb8e00d0c5740efecdd0440d83",
+      "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+      "portable_risk.py": "b92dee9681af044ff5dd555a39f1b6c66d35314159be7ab26331ba6c321dccb9",
+      "risk_calibration.py": "b4d1fbae794e6e1de0a8d00bb99a721687224e5b530ac816638e113d3a09ae6f",
+      "mask_calibration.py": "d238d586df78987b2288f1927599199e2a489ae855de48854d827246da40cac8",
+      "local_features.py": "a0bdefe767f2fa38536e7c6261e32a1bc066238cc90bb7585de70490e8b0caf6"
+    },
+    "source_unchanged": true,
+    "model_sha256": {
+      "response": "eb2fca8b9bbb0192d62723e3da086c303729752772aa1a357ea64f61f70888b9",
+      "multi_local": "71874d3f23e6cbe2179ce0962c751b7afd04b9e29581a0c3227515ca48b76987"
+    },
+    "configuration_sha256": "7f6b5c56830067a4270bd786a5c291957f49b5d620ab2dc5d3b56a5441499b75",
+    "prediction_receipts": {
+      "baseline": {
+        "predictions_sha256": "cb4c1beb5c9c86c7dfca5a329747bff3f8588e6701fb0e130999e9ed5fa54208",
+        "complete_sha256": "aecf3a6cffe3aaece3b8b04d8fd85d1afcd78370e1525e042221485dcb977167"
+      },
+      "RCMC_full": {
+        "predictions_sha256": "d2acc475a1d6b091606deb8a5867364b5dae230d355c95af5dc0b53213ea18d5",
+        "complete_sha256": "eeb2ae71a5a848ef7bac26d65d333a4c31c0c69ffa25cfea485fc21f0a27d780"
+      },
+      "global_minus025_full": {
+        "predictions_sha256": "e9783ea443628590abc31f077b46900372e0d70b08607cacd2bc4fb34fc39ebb",
+        "complete_sha256": "625b861b25741f34b7ce3ea11476089150259fe099d24ff3fad2c26067d1131f"
+      },
+      "RCMC_first64": {
+        "predictions_sha256": "9e3c3b8214fb90bcf5314993824ebf7a2e881d26ee378fabfd4f0ef8ac26b23c",
+        "complete_sha256": "137302d032ee49bb9fe8729b2747c87216277a849111173823f93c4701291b86"
+      },
+      "global_minus025_first64": {
+        "predictions_sha256": "dd924a92faa9dfe4d1feca2b4ae766871dfd202a112279f477c710fbbb7b6799",
+        "complete_sha256": "c056567ceba4d26974da795b3078676e0ea35bb2951469de67a8c68321137be7"
+      },
+      "multi_local_full": {
+        "predictions_sha256": "69612c93f121abd1c39046a9f10a19c8174392a15120d489530b18f3642c67b8",
+        "complete_sha256": "f2e2ffbf2cf63ddb30636d7e9a716438da0a0e6b5f7bc6a3acdec27a79c5f01b"
+      },
+      "multi_local_first64": {
+        "predictions_sha256": "60a83584828fa1ab005525dcc824a78f3ded6e0e7750cbf429476163cedd9798",
+        "complete_sha256": "2fa3714d61973fb49c5be563c4647779a6bffa5563aeb7f78a6a7dce2885a5c3"
+      }
+    },
+    "baseline_parity_sha256": "4f8570a26a2b5572c72d0184158b8ffe51ca81eb2771c8eb433e3437f3298acf",
+    "metrics": null,
+    "metrics_status": "unmeasured; separate independent CPU scoring required",
+    "gt_parsed": false,
+    "gt_used_in_inference": false,
+    "timing": {
+      "native_model_seconds": 2.7354572448730465,
+      "frozen_extract_wall_seconds": 4.419341000029817,
+      "native_reference_decode_seconds": 1.6827752999961376,
+      "all_action_decode_seconds": 74.70707139954902,
+      "json_write_seconds": 3.8912549995584413,
+      "prediction_assembly_seconds": 1.5879079999867827,
+      "total_elapsed_seconds": 98.1857998999767,
+      "raw_image_timings_file": "IMAGE_TIMINGS.jsonl",
+      "raw_action_timings_file": "NATIVE_DECISIONS.jsonl",
+      "shared_work_not_repeated_per_arm": true
+    },
+    "peak_memory": {
+      "cuda_peak_allocated_bytes": 1712268288,
+      "cuda_peak_reserved_bytes": 3617587200,
+      "cpu_peak_working_set_bytes": 1502625792,
+      "cpu_current_rss_bytes": 1408540672,
+      "scope": "this process; unavailable CPU peak remains null"
+    },
+    "started_at": "2026-10-08T16:53:13.999021+00:00",
+    "completed_at": "2026-10-08T16:54:52.201377+00:00",
+    "limitations": [
+      "Frozen old gates evaluated in current explicit-ratio_pad native geometry; not historical4500 byte reproduction",
+      "Full-vs-first64 comparisons preserve candidate identity; they do not evaluate missing raw candidates",
+      "No AP, paired GT diagnostic, training, tuning or new-method claim in this inference stage"
+    ]
+  },
+  "metrics_source": {
+    "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_ENGINEERING_S0_01\\SUMMARY.json",
+    "sha256": "b571b5955be1878bf622bc617cbaa15dae26b1817fd4d18df2fb57d25ade0151"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T16:54:53.042+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_ENGINEERING_S0_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "b571b5955be1878bf622bc617cbaa15dae26b1817fd4d18df2fb57d25ade0151"
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_ENGINEERING_S0_01\\BASELINE_PARITY.json",
+      "exists": true,
+      "sha256": "4f8570a26a2b5572c72d0184158b8ffe51ca81eb2771c8eb433e3437f3298acf"
+    }
+  ]
+}

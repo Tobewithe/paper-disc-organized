@@ -1,0 +1,199 @@
+{
+  "passed": true,
+  "mode": "engineering",
+  "source_run": "RUN_NATIVE_TARGET_COST_ENGINEERING_S0_01",
+  "source_summary_sha256": "fd278d1db7f1b69f489bb5fe74a8af040f84bc9a4315f0ba0b59ca37e3619408",
+  "source_binding_sha256": "bfa2940beedd3b9ad6a673e2b5524bc72aebe468dd10c05895f0bc563ac53a84",
+  "image_count": 4,
+  "repeats": 1,
+  "fresh_children": 3,
+  "samples": 12,
+  "losslessly_reconstructed_mask_rows": 2055,
+  "empty_output_images": 0,
+  "empty_masks": 0,
+  "statistics": {
+    "baseline": {
+      "deployment_seconds": {
+        "n": 4,
+        "mean": 0.06076614995254204,
+        "median": 0.06047334993490949,
+        "std_population": 0.018491632324932478,
+        "p10": 0.04117536994162947,
+        "p90": 0.08059116997756065,
+        "min": 0.03875019995030016,
+        "max": 0.083367699990049
+      },
+      "paired_signed_increment_seconds": {
+        "n": 4,
+        "mean": 0.0,
+        "median": 0.0,
+        "std_population": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "negative_increment_count": 0
+    },
+    "target_I": {
+      "deployment_seconds": {
+        "n": 4,
+        "mean": 0.08001352497376502,
+        "median": 0.08472444996004924,
+        "std_population": 0.02717362345844206,
+        "p10": 0.04937303001061082,
+        "p90": 0.10688527994789183,
+        "min": 0.041617400012910366,
+        "max": 0.10898779996205121
+      },
+      "paired_signed_increment_seconds": {
+        "n": 4,
+        "mean": 0.01924737502122298,
+        "median": 0.023127750027924776,
+        "std_population": 0.009812528406756544,
+        "p10": 0.00819766006898135,
+        "p90": 0.02719278996810317,
+        "min": 0.002867200062610209,
+        "max": 0.027866799966432154
+      },
+      "negative_increment_count": 0
+    },
+    "target_H": {
+      "deployment_seconds": {
+        "n": 4,
+        "mean": 0.08772460001637228,
+        "median": 0.08943405002355576,
+        "std_population": 0.02814574772229482,
+        "p10": 0.05696648006560281,
+        "p90": 0.11711515996139497,
+        "min": 0.05144000006839633,
+        "max": 0.12059029994998127
+      },
+      "paired_signed_increment_seconds": {
+        "n": 4,
+        "mean": 0.02695845006383024,
+        "median": 0.028960700088646263,
+        "std_population": 0.009840869854888743,
+        "p10": 0.01579111012397334,
+        "p90": 0.036523989983834326,
+        "min": 0.012689800118096173,
+        "max": 0.03722259995993227
+      },
+      "negative_increment_count": 0
+    }
+  },
+  "children": [
+    {
+      "arm": "baseline",
+      "repeat": 0,
+      "process_wall_seconds": 9.669368000002578,
+      "child_seconds": 8.62157479999587,
+      "init_seconds": 3.526438699918799,
+      "rgb_read_seconds": 0.029993099975399673,
+      "warmup_seconds": 0.769507099990733,
+      "cpu_lifetime_peak_bytes": 1354162176,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_I",
+      "repeat": 0,
+      "process_wall_seconds": 9.565452400012873,
+      "child_seconds": 8.567755999974906,
+      "init_seconds": 3.4191469999495894,
+      "rgb_read_seconds": 0.019822999951429665,
+      "warmup_seconds": 0.8788295998238027,
+      "cpu_lifetime_peak_bytes": 1478037504,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_H",
+      "repeat": 0,
+      "process_wall_seconds": 9.975707900011912,
+      "child_seconds": 8.937412099912763,
+      "init_seconds": 3.6472769000101835,
+      "rgb_read_seconds": 0.01970369997434318,
+      "warmup_seconds": 0.9020670001627877,
+      "cpu_lifetime_peak_bytes": 1477578752,
+      "pure_startup_seconds": null
+    }
+  ],
+  "input_hashes_unchanged": 73,
+  "verifier_sha256": "5abfb6fadb99989e6f81c493bb08b7c6f125c54cab2528a17e37a8ab4b144161",
+  "helper_sha256": "a2e5796fa3c9e3ac6e673957bfa73c84b3befcc49dac88147d6bcf526ec8f268",
+  "elapsed_seconds": 1.149680000031367,
+  "source_wall_clocks_remeasured": false,
+  "fresh_forward": false,
+  "gt_parsed": false,
+  "gpu_used": false,
+  "limits": [
+    "Saved clocks reaggregated; no new latency measurement",
+    "RLE reconstructed to recorded binary hash; native execution receipts not rerun",
+    "Memory scope from actual fresh child OS/CUDA counters, not marginal RAM minimum",
+    "Single resource snapshot is not continuous observation",
+    "Fixed panel/device/endpoint only; no AP or timing CI inferred",
+    "GT/checkpoint/external vendor bytes not reread; their historical source hashes and retained snapshots bound, no training/forward/matching replay"
+  ],
+  "base_checker_sha256": "e9b0d8bf58a5a7f211aec05e230467319e7aaea0a18082fc79295a64a43aafac",
+  "source_provenance_and_fitted_profile_verified": true,
+  "memory_scopes_verified": true,
+  "source_manifest_files": 47,
+  "reference_manifest_files": 15038,
+  "memory_statistics": {
+    "baseline": {
+      "n": 4,
+      "maximum_cuda_peak_allocated_bytes": 1036744704,
+      "maximum_cuda_peak_reserved_bytes": 1981808640,
+      "cpu_process_cumulative_peak_bytes_max": 1354162176,
+      "cuda_scope": "reset immediately before endpoint; includes resident own model and retained allocator cache",
+      "cpu_scope": "fresh process lifetime including imports/init/warmup/audit; OS cumulative peak not reset"
+    },
+    "target_I": {
+      "n": 4,
+      "maximum_cuda_peak_allocated_bytes": 1142128128,
+      "maximum_cuda_peak_reserved_bytes": 2220883968,
+      "cpu_process_cumulative_peak_bytes_max": 1478037504,
+      "cuda_scope": "reset immediately before endpoint; includes resident own model and retained allocator cache",
+      "cpu_scope": "fresh process lifetime including imports/init/warmup/audit; OS cumulative peak not reset"
+    },
+    "target_H": {
+      "n": 4,
+      "maximum_cuda_peak_allocated_bytes": 1142128128,
+      "maximum_cuda_peak_reserved_bytes": 2220883968,
+      "cpu_process_cumulative_peak_bytes_max": 1477578752,
+      "cuda_scope": "reset immediately before endpoint; includes resident own model and retained allocator cache",
+      "cpu_scope": "fresh process lifetime including imports/init/warmup/audit; OS cumulative peak not reset"
+    }
+  },
+  "actual_fresh_child_process_receipts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_COST_ENGINEERING_S0_01\\measurements\\repeat0\\baseline",
+      "receipt_sha256": "ff2930c6c90e72126bebf8d2e345cf64524348d40d5d6f1549c8c64a8a63ea7c",
+      "process_wall_seconds": 9.669368000002578,
+      "child_seconds": 8.62157479999587,
+      "startup_supervision_shutdown_residual_seconds": 1.0477932000067085,
+      "pure_startup_seconds": null
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_COST_ENGINEERING_S0_01\\measurements\\repeat0\\target_I",
+      "receipt_sha256": "f8721ffa46f3289ef6f2590bc4317f105c1a28e59a115d7c93aecc89e2c6ccb3",
+      "process_wall_seconds": 9.565452400012873,
+      "child_seconds": 8.567755999974906,
+      "startup_supervision_shutdown_residual_seconds": 0.9976964000379667,
+      "pure_startup_seconds": null
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\native_response_target_comparison_20261009\\runs\\RUN_NATIVE_TARGET_COST_ENGINEERING_S0_01\\measurements\\repeat0\\target_H",
+      "receipt_sha256": "7da68eff367ba41b55ebab3811bfa3cd19bf49cf1b5209433fd4bee6d9dc474e",
+      "process_wall_seconds": 9.975707900011912,
+      "child_seconds": 8.937412099912763,
+      "startup_supervision_shutdown_residual_seconds": 1.0382958000991493,
+      "pure_startup_seconds": null
+    }
+  ],
+  "total_elapsed_seconds": 46.98381679994054,
+  "verification_runtime": {
+    "python": "3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]",
+    "interpreter": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "numpy": "2.2.6"
+  }
+}

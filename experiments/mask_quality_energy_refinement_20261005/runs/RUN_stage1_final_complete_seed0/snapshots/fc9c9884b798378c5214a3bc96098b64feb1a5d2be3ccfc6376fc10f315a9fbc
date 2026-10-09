@@ -1,0 +1,361 @@
+"""Evaluate existing Stage-I checkpoints on CUDA only; never train or tune.
+
+DEV consumes the preserved cache; FINAL reconstructs official one-to-one TAL
+per image and immediately releases tensors. Incremental JSONL keeps partial
+observations after execution failure. No oracle is used outside FIT.
+"""
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+import json
+import os
+from pathlib import Path
+import random
+import sys
+import time
+import traceback
+
+import numpy as np
+import torch
+import torch.nn.functional as F
+from pycocotools.coco import COCO
+from ultralytics.data.converter import coco91_to_coco80_class
+from ultralytics.utils import ops
+
+from online_runtime import dump, load_asset, load_index, load_json, resolve_runtime_config, sha256
+from qcr_train_fixed import QCR, LAMBDA, states, z_from
+from qcr_metrics import summarize, heldout_statistics
+
+DRIFT = [
+    'Actual training seed 20261005 differs from recorded seed 0.',
+    'Quality ranking uses soft IoU rather than normal binary original-mask IoU.',
+    'Ranking uses relu(0.05 - true_soft_difference * predicted_difference), abs(true_difference)>0.01; locked rule specifies sign ordering margin 0.02.',
+    'Failure random-control radius is global rho, not each oracle displacement norm.',
+    'Training averages candidates within image then weights images equally; equal-instance weighting was not implemented.',
+    'Quality input has no explicit class/score, scale embedding, or coefficient displacement descriptor.',
+    'DEV uses historical compact cache; its prototype storage precision must be reported separately from the FP32 streaming FINAL.',
+    'Held-out random-state diagnostic was added after training and is not a frozen oracle-direction state test.',
+]
+
+
+def native_masks(proto, cs, box, x):
+    """Official process_mask(upscale=True), then inverse letterbox binary mask."""
+    boxes = box[None].expand(len(cs), -1)
+    padded = ops.process_mask(proto, cs, boxes, (640, 640), upsample=True)
+    original = ops.scale_masks(padded[None].float(), tuple(x['original_shape']), ratio_pad=x['ratio_pad'])[0] > .5
+    return padded.bool(), original
+
+
+def pad_truth(gt, ratio_pad):
+    oh, ow = gt.shape
+    ratios, pads = ratio_pad
+    rh, rw = (float(ratios), float(ratios)) if isinstance(ratios, (float, int)) else map(float, ratios)
+    nh, nw = round(oh * rh), round(ow * rw)
+    left, top = round(float(pads[0]) - .1), round(float(pads[1]) - .1)
+    right, bottom = 640 - nw - left, 640 - nh - top
+    if min(nh, nw) <= 0 or min(left, top, right, bottom) < 0:
+        raise ValueError('Invalid frozen letterbox geometry')
+    return F.pad(F.interpolate(gt.float()[None, None], (nh, nw), mode='nearest'), (left, right, top, bottom))[0, 0].bool()
+
+
+def pixel_auc_fpr(logit, truth, support):
+    scores = logit[support].detach().cpu().numpy().astype(np.float64, copy=False)
+    y = truth[support].detach().cpu().numpy().astype(bool, copy=False)
+    if not np.isfinite(scores).all():
+        raise FloatingPointError('Nonfinite continuous logits')
+    npos, nneg = int(y.sum()), int((~y).sum())
+    fpr = float(((scores > 0) & ~y).sum() / nneg) if nneg else None
+    if not npos or not nneg:
+        return None, fpr
+    order = np.argsort(scores, kind='stable')
+    sorted_scores = scores[order]
+    starts = np.r_[0, np.flatnonzero(np.diff(sorted_scores)) + 1]
+    ends = np.r_[starts[1:], len(scores)]
+    ranks = np.repeat((starts + ends + 1) * .5, ends - starts)
+    auc = (ranks[y[order]].sum() - npos * (npos + 1) * .5) / (npos * nneg)
+    return float(auc), fpr
+
+
+def refine_states(model, evidence, proto, c0, rho):
+    base = c0.detach()
+    c = base.clone().requires_grad_(True)
+    output = []
+    for eta in (rho / 2., rho / 4.):
+        z = z_from(proto[None], c[None])
+        q = model.quality_value(evidence, c[None], z)[0]
+        energy = q - LAMBDA * .5 * (c - base).square().sum()
+        g = torch.autograd.grad(energy, c)[0]
+        if not torch.isfinite(g).all():
+            raise FloatingPointError('Nonfinite quality coefficient gradient')
+        new = c + eta * g / (g.norm() + 1e-8)
+        displacement = new - base
+        n = displacement.norm()
+        if float(n) > rho:
+            new = base + displacement * rho / n
+        c = new.detach().requires_grad_(True)
+        output.append(c.detach())
+    return output
+
+
+@torch.no_grad()
+def raw_maskfail_audit(x, row, gt, ann, device, exhaustive=False):
+    """Check the entire argmax-correct raw pool, never a conf/top-k subset.
+
+    A conservative inverse-letterbox rectangle encloses every possible positive
+    output pixel for each cropped mask. If it contains <75% of the original GT,
+    no mask in that crop can reach IoU75. Extra two input and original pixels
+    cover crop rounding, bilinear neighbours and inverse-resize rounding. Smoke
+    Runs compare this pruning to exhaustive decoding on the same raw pool.
+    """
+    if 'raw_coefficients' not in x:
+        return {'raw_arg_maskfail': None, 'raw_maskfail_scope': 'unknown: DEV cache has only TAL candidates'}
+    if not (row['class_correct'] and row['box_iou'] >= .75 and row['iou_A'] < .75):
+        return {'raw_arg_maskfail': False, 'raw_maskfail_scope': 'outside fixed-TAL Box75 argmax-correct baseline-fail target'}
+    cls = row['gt_class_id']
+    all_classes = x['raw_predicted_classes'].cpu().numpy()
+    ids = np.flatnonzero(all_classes == cls)
+    boxes = x['raw_boxes'][ids].to(device=device, dtype=torch.float32)
+    coeff = x['raw_coefficients'][ids].to(device=device, dtype=torch.float32)
+    proto = x['proto'].to(device=device, dtype=torch.float32)
+    oh, ow = map(int, x['original_shape'])
+    _, pads = x['ratio_pad']
+    left, top = round(float(pads[0]) - .1), round(float(pads[1]) - .1)
+    right, bottom = round(640 - float(pads[0]) + .1), round(640 - float(pads[1]) + .1)
+    cw, ch = right - left, bottom - top
+    b = boxes.cpu().numpy().astype(np.float64)
+    gx = gt.cpu().numpy().astype(np.int64)
+    integral = np.pad(gx.cumsum(0).cumsum(1), ((1, 0), (1, 0)))
+    x1 = np.floor((b[:, 0] - left - 2) * ow / cw - 2).clip(0, ow).astype(int)
+    x2 = np.ceil((b[:, 2] - left + 2) * ow / cw + 2).clip(0, ow).astype(int)
+    y1 = np.floor((b[:, 1] - top - 2) * oh / ch - 2).clip(0, oh).astype(int)
+    y2 = np.ceil((b[:, 3] - top + 2) * oh / ch + 2).clip(0, oh).astype(int)
+    inter_bound = integral[y2, x2] - integral[y1, x2] - integral[y2, x1] + integral[y1, x1]
+    possible = inter_bound / max(int(gx.sum()), 1) >= .75
+    selected = np.flatnonzero(possible)
+
+    def exists_mask75(positions):
+        decoded = 0
+        for start in range(0, len(positions), 4):
+            js = positions[start:start+4]
+            padded = ops.process_mask(proto, coeff[js], boxes[js], (640, 640), upsample=True)
+            masks = ops.scale_masks(padded[None].float(), (oh, ow), ratio_pad=x['ratio_pad'])[0] > .5
+            decoded += len(js)
+            for mask in masks:
+                inter = int((mask & gt).sum()); union = int((mask | gt).sum())
+                if inter / max(union, 1) >= .75:
+                    return True, decoded
+        return False, decoded
+
+    found, decoded = exists_mask75(selected)
+    if exhaustive:
+        expected, _ = exists_mask75(np.arange(len(ids)))
+        if expected != found:
+            raise AssertionError('Conservative raw-mask pruning disagrees with exhaustive same-image decoding')
+    # The fixed TAL candidate itself witnesses Box75 in this same raw pool.
+    if int(row['raw_id']) not in ids:
+        raise AssertionError('TAL baseline target is absent from R_arg')
+    return {'raw_arg_maskfail': not found, 'raw_maskfail_scope': 'entire R_arg has Box75 witness but no Mask75; fixed TAL target intersection',
+            'raw_arg_count': len(ids), 'raw_arg_support_possible_mask75': len(selected),
+            'raw_arg_decoded_for_mask75': decoded, 'raw_pruning_exhaustive_checked': exhaustive,
+            'raw_arg_mask75_exists': found}
+
+
+def evaluate_candidate(x, k, coco, direct, quality, rho, device):
+    source = x['rows'][k]
+    proto = x['proto'].to(device=device, dtype=torch.float32)
+    c0 = x['c0'][k].to(device=device, dtype=torch.float32)
+    box = x['boxes'][k].to(device=device, dtype=torch.float32)
+    h = x['operator']['h0'][k].to(device=device, dtype=torch.float32)
+    aid, iid = int(source['annotation_id']), int(source['image_id'])
+    ann = coco.anns[aid]
+    if int(ann['image_id']) != iid:
+        raise AssertionError('Annotation/image identity mismatch')
+    gt = torch.as_tensor(coco.annToMask(ann).astype(bool), device=device)
+    if tuple(gt.shape) != tuple(x['original_shape']):
+        raise AssertionError('Original mask geometry mismatch')
+    z0 = z_from(proto[None], c0[None])
+    torch.cuda.synchronize()
+    started = time.perf_counter()
+    with torch.no_grad():
+        e_direct = direct.encoder(direct.evidence_input(h[None], box[None], c0[None], z0))
+        cb = c0 + direct.direct_delta(e_direct)[0]
+    torch.cuda.synchronize()
+    direct_ms = (time.perf_counter() - started) * 1000
+    started = time.perf_counter()
+    with torch.no_grad():
+        e_quality = quality.encoder(quality.evidence_input(h[None], box[None], c0[None], z0))
+    c1, c2 = refine_states(quality, e_quality, proto, c0, rho)
+    torch.cuda.synchronize()
+    quality_ms = (time.perf_counter() - started) * 1000
+    coeffs = torch.stack((c0, cb, c1, c2))
+    if not torch.isfinite(coeffs).all() or float((coeffs - c0).norm(dim=1).max()) > rho + 1e-4:
+        raise AssertionError('Coefficient finite/trust-radius invariant failed')
+    with torch.no_grad():
+        padded, original = native_masks(proto, coeffs, box, x)
+        logits160 = (coeffs @ proto.flatten(1)).reshape(-1, 160, 160)
+        logits640 = F.interpolate(logits160[None], (640, 640), mode='bilinear', align_corners=False)[0]
+        manual = ops.crop_mask(logits640.clone(), box[None].expand(4, -1)).gt(0)
+        if not torch.equal(manual, padded):
+            raise AssertionError('Official process_mask and continuous-logit replay disagree')
+        support = ops.crop_mask(torch.ones((1, 640, 640), device=device), box[None])[0].bool()
+        gt_pad = pad_truth(gt, x['ratio_pad'])
+        cls = int(coco91_to_coco80_class()[int(ann['category_id']) - 1])
+        predicted = int(source['predicted_class_id'])
+        row = {name: source[name] for name in ('image_id', 'annotation_id', 'branch', 'raw_id', 'pyramid_level', 'target_gt_idx')}
+        row.update(split=x['split'], row_index=k, area=float(ann['area']), category_id=int(ann['category_id']),
+                   gt_class_id=cls, predicted_class_id=predicted, class_correct=predicted == cls,
+                   predicted_score=float(source.get('predicted_score', 0)), box_iou=float(source['box_iou']),
+                   timing_direct_ms=direct_ms, timing_quality_ms=quality_ms,
+                   delta_norm_B=float((cb-c0).norm()), delta_norm_D1=float((c1-c0).norm()), delta_norm_D=float((c2-c0).norm()),
+                   pixel_support_count=int(support.sum()), pixel_support_gt_positive=int((support & gt_pad).sum()),
+                   native_decode_pixel_differences=0)
+        for j, arm in enumerate(('A', 'B', 'D1', 'D')):
+            inter, union = int((original[j] & gt).sum()), int((original[j] | gt).sum())
+            iou = inter / max(union, 1)
+            auc, fpr = pixel_auc_fpr(logits640[j], gt_pad, support)
+            row.update({f'iou_{arm}': iou, f'mask75_{arm}': int(iou >= .75),
+                        f'coverage_{arm}': inter / max(int(gt.sum()), 1), f'auc_{arm}': auc, f'fpr_{arm}': fpr})
+        qcs = torch.stack((c0, c1, c2))
+        qzs = z_from(proto[None].expand(3, -1, -1, -1), qcs)
+        qvalues = quality.quality_value(e_quality.expand(3, -1), qcs, qzs).cpu().tolist()
+        row.update(q_c0=qvalues[0], q_c1=qvalues[1], q_c2=qvalues[2])
+        # Fixed GT-free local probes. Identity seeds match the already used
+        # success-state rule; no DEV/FINAL oracle is computed or consumed.
+        probe_seed = 20261005 + iid * 1009 + int(source['raw_id'])
+        probes = states(c0, torch.zeros_like(c0), 'success', rho, probe_seed)
+        pzs = z_from(proto[None].expand(8, -1, -1, -1), probes)
+        qp = quality.quality_value(e_quality.expand(8, -1), probes, pzs).cpu().tolist()
+        _, probe_masks = native_masks(proto, probes, box, x)
+        hard_labels = [int((m & gt).sum()) / max(int((m | gt).sum()), 1) for m in probe_masks]
+        row.update(heldout_statistics(qp, hard_labels))
+        row['heldout_q_values'] = qp
+        row['heldout_hard_iou_values'] = hard_labels
+        row.update(raw_maskfail_audit(x, row, gt, ann, device, exhaustive=bool(x.get('_exhaustive_raw_audit'))))
+    return row
+
+
+def cached_images(cfg, image_ids, split):
+    index = {int(r['image_id']): r for r in load_index(cfg)[split]}
+    if set(image_ids) != set(index):
+        raise AssertionError('DEV cache image membership differs from frozen list')
+    for iid in image_ids:
+        x = load_asset(cfg, iid, verify=True)
+        x['split'] = split
+        yield iid, x
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--config', required=True)
+    ap.add_argument('--direct-checkpoint', required=True)
+    ap.add_argument('--quality-checkpoint', required=True)
+    ap.add_argument('--out', required=True)
+    ap.add_argument('--split', choices=('dev', 'final'), required=True)
+    ap.add_argument('--limit-images', type=int, default=0, help='Separate diagnostic/smoke Run only')
+    ap.add_argument('--stream-dev', action='store_true', help='Regenerate diagnostic DEV witnesses in FP32')
+    args = ap.parse_args()
+    if os.name == 'nt' or not torch.cuda.is_available():
+        raise RuntimeError('Model evaluation only on the authorized Linux CUDA server')
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    if (out / 'PER_CANDIDATE.jsonl').exists() or (out / 'COMPLETE.json').exists():
+        raise RuntimeError('Preserve previous partial Run; use another Run ID')
+    cfg = resolve_runtime_config(load_json(args.config))
+    torch.set_num_threads(int(cfg.get('cpu_threads', 6)))
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    random.seed(20261006); np.random.seed(20261006); torch.manual_seed(20261006)
+    device = torch.device('cuda')
+    checkpoints = [torch.load(p, map_location='cpu', weights_only=False) for p in (args.direct_checkpoint, args.quality_checkpoint)]
+    if [c['mode'] for c in checkpoints] != ['direct', 'quality'] or any(int(c['epoch']) != 3 for c in checkpoints):
+        raise AssertionError('Require fixed epoch-3 Direct32 and Quality checkpoints')
+    rho = float(checkpoints[0]['rho'])
+    if rho != float(checkpoints[1]['rho']):
+        raise AssertionError('Arms must use the same FIT-derived radius')
+    models = []
+    for ck in checkpoints:
+        model = QCR(ck['mode'], rho).to(device).float().eval().requires_grad_(False)
+        model.load_state_dict(ck['state_dict'])
+        models.append(model)
+    del checkpoints
+    split_path = cfg['final_split'] if args.split == 'final' else cfg['split']
+    split_data = load_json(split_path)
+    image_ids = [int(i) for i in split_data['final_images' if args.split == 'final' else 'dev_images']]
+    planned = len(image_ids)
+    if args.limit_images:
+        image_ids = image_ids[:args.limit_images]
+    if len(set(image_ids)) != len(image_ids):
+        raise AssertionError('Frozen image list is not unique')
+    stream = None
+    if args.split == 'final' or args.stream_dev:
+        from qcr_streaming_data import StreamingFinal
+        stream = StreamingFinal(cfg, image_ids, out, split=args.split)
+        coco, source = stream.coco, stream.iter_images()
+    else:
+        coco = COCO(cfg['annotations_train'])
+        source = cached_images(cfg, image_ids, 'dev')
+    dump(out / 'EVALUATION_CONFIG.json', {
+        'split': args.split, 'planned_images': planned, 'evaluated_images_requested': len(image_ids), 'image_ids': image_ids,
+        'split_sha256': sha256(split_path), 'direct_checkpoint': args.direct_checkpoint,
+        'direct_checkpoint_sha256': sha256(args.direct_checkpoint), 'quality_checkpoint': args.quality_checkpoint,
+        'quality_checkpoint_sha256': sha256(args.quality_checkpoint), 'epoch': 3, 'rho': rho,
+        'steps': 2, 'eta': [rho/2, rho/4], 'lambda': LAMBDA,
+        'scientific_drift': DRIFT, 'parameter_updates': False, 'oracle_used': False,
+        'streaming': stream is not None, 'dtype': 'float32', 'tf32': False,
+        'heldout_states_definition': 'Fixed success-state probes: c0 and ±rho/8*u1, ±rho/4*u1, ±rho/4*u2, +rho/8*u2; GT-free and identity-seeded. Added diagnostic, not a preregistered oracle-direction test.',
+        'decoder_definition': 'Official process_mask full P@c -> bilinear640 -> predicted box crop -> >0; inverse letterbox binary mask -> >.5. Original COCO GT.',
+        'strict_maskfail_definition': 'Entire argmax-correct R_arg has a Box75 witness and no Mask75; measured here on its intersection with fixed TAL class-correct Box75 baseline-fail candidates. Unknown on historical DEV cache.',
+    })
+    rows, images, storage = [], [], Counter()
+    started = time.monotonic()
+    try:
+        with (out / 'PER_CANDIDATE.jsonl').open('x', encoding='utf-8') as f, (out / 'PER_IMAGE.jsonl').open('x', encoding='utf-8') as fi:
+            for pos, (iid, x) in enumerate(source):
+                x['_exhaustive_raw_audit'] = bool(args.limit_images and stream is not None)
+                storage[str(x.get('_asset_integrity', {}).get('proto_storage_dtype', str(x['proto'].dtype)))] += 1
+                new = [evaluate_candidate(x, k, coco, *models, rho, device) for k in range(len(x['rows']))]
+                for row in new:
+                    f.write(json.dumps(row, ensure_ascii=False, allow_nan=False) + '\n')
+                f.flush()
+                image_record = {'image_id': iid, 'candidates': len(new), 'class_correct': sum(r['class_correct'] for r in new),
+                                'ordinary_gt': sum(not a.get('iscrowd', False) for a in coco.imgToAnns[iid]),
+                                'converted_gt': x.get('converted_annotation_count'),
+                                'annotation_ids': [r['annotation_id'] for r in new], 'no_positive': not new}
+                fi.write(json.dumps(image_record, allow_nan=False) + '\n'); fi.flush()
+                rows.extend(new); images.append(iid)
+                progress = {'images': pos+1, 'requested_images': len(image_ids), 'candidates': len(rows),
+                            'elapsed_s': time.monotonic()-started, 'prototype_storage_images': dict(storage)}
+                if pos % 25 == 0:
+                    dump(out / 'PROGRESS.json', progress)
+                    print(json.dumps(progress), flush=True)
+                del x, new
+        if images != image_ids:
+            raise AssertionError('Streaming image order/membership incomplete')
+        if any(p.grad is not None for m in models for p in m.parameters()):
+            raise AssertionError('Evaluation populated model parameter gradients')
+        metadata = load_json(out / 'EVALUATION_CONFIG.json')
+        metadata.update(elapsed_s=time.monotonic()-started, prototype_storage_images=dict(storage),
+                        scope='Official one2one TAL matched candidates; no AP/postprocessing quality reranking',
+                        integrity_verified=True, image_membership_verified=True, native_decode_verified=True,
+                        partial=bool(args.limit_images), no_positive_images=sum(i['no_positive'] for i in map(json.loads, (out/'PER_IMAGE.jsonl').read_text().splitlines())))
+        summarize(rows, out, image_ids, args.split, bootstrap=int(cfg.get('bootstrap', 5000)), seed=20261006, metadata=metadata)
+        dump(out / 'COMPLETE.json', {'completed': True, 'split': args.split, 'images': len(images),
+                                   'candidates': len(rows), 'elapsed_s': time.monotonic()-started,
+                                   'strict_protocol_equivalence': False, 'stage_II_authorized': False,
+                                   'summary_sha256': sha256(out/'SUMMARY.json')})
+    finally:
+        if stream is not None:
+            stream.close()
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except BaseException as exc:
+        if '--out' in sys.argv:
+            output = Path(sys.argv[sys.argv.index('--out')+1])
+            dump(output/'FAILURE.json', {'error_type': type(exc).__name__, 'error': str(exc), 'traceback': traceback.format_exc()})
+        raise

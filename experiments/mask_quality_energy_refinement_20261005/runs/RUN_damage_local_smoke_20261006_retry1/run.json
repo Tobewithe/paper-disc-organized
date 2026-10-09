@@ -1,0 +1,1285 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_damage_local_smoke_20261006_retry1",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "-u",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_damage_gradient.py",
+    "--config",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\LOCAL_DAMAGE_CONFIG_20261006.json",
+    "--out",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1",
+    "--images",
+    "2"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-10-06T11:42:20.008+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\IMAGE_SPLIT.json",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/IMAGE_SPLIT.json",
+      "exists": true,
+      "sha256": "a1a3ee0a0e39582dfc13a403faa91ddd63ed5ca5ab16017a0ff84af028765291",
+      "size": 282069
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_stage1_quality_seed0\\final.pt",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/runs/RUN_stage1_quality_seed0/final.pt",
+      "exists": true,
+      "sha256": "07796b8d5600827979073d167ea8e00236a6a287947f51962a6415730005c065",
+      "size": 342885
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_stage1_dev_original_metrics_seed0\\PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/runs/RUN_stage1_dev_original_metrics_seed0/PER_CANDIDATE.jsonl",
+      "exists": true,
+      "sha256": "a16932c640820156add318839593754b9e3043e90b9952da094bae88cf54279c",
+      "size": 31531274
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\models\\coco_clean_20260911\\yolo26m-seg.pt",
+      "path_relative_to_cwd": "assets/models/coco_clean_20260911/yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_train2017.json",
+      "path_relative_to_cwd": "assets/datasets/coco/annotations/instances_train2017.json",
+      "exists": true,
+      "sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "size": 469785474
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+      "path_relative_to_cwd": "assets/datasets/coco/annotations/instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_launch_damage_local.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_launch_damage_local.py",
+      "revision": "95d11073385499cfc037e87e4d81c5857b07fcf49c881b0289131a5671c609bc",
+      "snapshot": "snapshots/95d11073385499cfc037e87e4d81c5857b07fcf49c881b0289131a5671c609bc"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_damage_gradient.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_damage_gradient.py",
+      "revision": "2b8326276f9915b62ff2f5edb1f23eb9da359f033629e93e804059cc9e54ac31",
+      "snapshot": "snapshots/2b8326276f9915b62ff2f5edb1f23eb9da359f033629e93e804059cc9e54ac31"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_local_streaming_data.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_local_streaming_data.py",
+      "revision": "17715edffe9cb258e5e89f96759bcfec97219886e105102643ef2832b831be2c",
+      "snapshot": "snapshots/17715edffe9cb258e5e89f96759bcfec97219886e105102643ef2832b831be2c"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_streaming_data.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_streaming_data.py",
+      "revision": "d0ae7f35a6ee3ee87341c8512defd9bd530bba32489549b377569dba299569ee",
+      "snapshot": "snapshots/d0ae7f35a6ee3ee87341c8512defd9bd530bba32489549b377569dba299569ee"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_evaluate_complete.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_evaluate_complete.py",
+      "revision": "a4f1930dd77cae9219d890b2a73e4c195e820fdd760c60dd10707b8194153566",
+      "snapshot": "snapshots/a4f1930dd77cae9219d890b2a73e4c195e820fdd760c60dd10707b8194153566"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_train_fixed.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_train_fixed.py",
+      "revision": "52836de5af4b5923ef6c6c527e1d3740319261a6efcbd7b6a94a323f6594ebb2",
+      "snapshot": "snapshots/52836de5af4b5923ef6c6c527e1d3740319261a6efcbd7b6a94a323f6594ebb2"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\online_runtime.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/online_runtime.py",
+      "revision": "56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb",
+      "snapshot": "snapshots/56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\prepare_qcr_cache.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/prepare_qcr_cache.py",
+      "revision": "c0f32b020f506f897a45fa98fae053258b293042a0a6026ff41a30eb57888ac4",
+      "snapshot": "snapshots/c0f32b020f506f897a45fa98fae053258b293042a0a6026ff41a30eb57888ac4"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\legacy_prepare_cache.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/legacy_prepare_cache.py",
+      "revision": "e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df",
+      "snapshot": "snapshots/e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_metrics.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_metrics.py",
+      "revision": "6b58d1c5823a2b3d216ce0b681e7b50452a91c6d770963312b0ee7824faf6b68",
+      "snapshot": "snapshots/6b58d1c5823a2b3d216ce0b681e7b50452a91c6d770963312b0ee7824faf6b68"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\runner.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/runner.py",
+      "revision": "a79be21c01abddb361965450ae178fcdfabd71f2de411b88a84e366ecb7a8008",
+      "snapshot": "snapshots/a79be21c01abddb361965450ae178fcdfabd71f2de411b88a84e366ecb7a8008"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\LOCAL_DAMAGE_CONFIG_20261006.json",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/LOCAL_DAMAGE_CONFIG_20261006.json",
+      "revision": "09fe3f138dc4db61abdbc2c574ebf8888f1f64ede3c3443e307bf06ba8240ec8",
+      "snapshot": "snapshots/09fe3f138dc4db61abdbc2c574ebf8888f1f64ede3c3443e307bf06ba8240ec8"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\DAMAGE_DIAGNOSIS_PROTOCOL.md",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/DAMAGE_DIAGNOSIS_PROTOCOL.md",
+      "revision": "2b0ef9cd28771502a0448efceece65b879ead67a413c51590c309b6c74f91659",
+      "snapshot": "snapshots/2b0ef9cd28771502a0448efceece65b879ead67a413c51590c309b6c74f91659"
+    }
+  ],
+  "scope": {
+    "purpose": "fixed DEV mechanism diagnosis",
+    "execution_environment": "user-authorized local CUDA",
+    "parameter_updates": false,
+    "tuning": false
+  },
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\COMPLETE.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\PER_CANDIDATE.jsonl"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1"
+    }
+  ],
+  "git": {
+    "commit": "5641eccd53b8525a9a7920442b226feb1b4347d7",
+    "dirty": true
+  },
+  "pid": 40452,
+  "started_at": "2026-10-06T11:42:20.693+00:00",
+  "last_heartbeat": "2026-10-06T11:42:40.727+00:00",
+  "metrics": {
+    "metadata": {
+      "purpose": "mechanism diagnostic, no tuning or new method performance claim",
+      "execution_environment": "authorized local Windows CUDA",
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "torch": "2.9.1+cu128",
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 5060 Ti",
+      "tf32": false,
+      "dtype": "float32",
+      "historical_torch": "2.8.0+cu128",
+      "cross_environment_exact_equivalence_claimed": false,
+      "config": {
+        "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+        "authorized_local_diagnostic": true,
+        "seed": 20261006,
+        "source_root": "C:/Dpan/codexproject/paper-disc-organized/shared/vendor/ultralytics_8_4_100",
+        "source_python": "C:/Dpan/codexproject/paper-disc-organized/shared/vendor/ultralytics_8_4_100",
+        "weights": "C:/Dpan/codexproject/paper-disc-organized/assets/models/coco_clean_20260911/yolo26m-seg.pt",
+        "coco_root": "C:/Dpan/document/model_datasets/datasets/coco/downloads",
+        "annotations_train": "C:/Dpan/codexproject/paper-disc-organized/assets/datasets/coco/annotations/instances_train2017.json",
+        "annotations_val": "C:/Dpan/codexproject/paper-disc-organized/assets/datasets/coco/annotations/instances_val2017.json",
+        "split": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/IMAGE_SPLIT.json",
+        "quality_checkpoint": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_stage1_quality_seed0/final.pt",
+        "quality_checkpoint_sha256": "07796b8d5600827979073d167ea8e00236a6a287947f51962a6415730005c065",
+        "reference_dev_rows": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_stage1_dev_original_metrics_seed0/PER_CANDIDATE.jsonl",
+        "diagnostic_protocol": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/DAMAGE_DIAGNOSIS_PROTOCOL.md",
+        "cpu_threads": 6,
+        "minimum_root_free_gib": 5,
+        "max_cache_gib": 70,
+        "reuse_extracted_images": false,
+        "parameter_updates": false,
+        "oracle_used": false,
+        "stage_ii_authorized": false,
+        "server_root": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1",
+        "images": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\source_images",
+        "cache": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\unused_cache",
+        "assets": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\unused_cache"
+      },
+      "image_ids": [
+        85114,
+        485462
+      ],
+      "requested_images": 2,
+      "sample_rule": "first fixed DEV image IDs; all official TAL candidates",
+      "quality_checkpoint_sha256": "07796b8d5600827979073d167ea8e00236a6a287947f51962a6415730005c065",
+      "reference_dev_rows_sha256": "a16932c640820156add318839593754b9e3043e90b9952da094bae88cf54279c",
+      "split_sha256": "a1a3ee0a0e39582dfc13a403faa91ddd63ed5ca5ab16017a0ff84af028765291",
+      "protocol_sha256": "2b0ef9cd28771502a0448efceece65b879ead67a413c51590c309b6c74f91659",
+      "script_sha256": "2b8326276f9915b62ff2f5edb1f23eb9da359f033629e93e804059cc9e54ac31",
+      "rho": 12.0853271484375,
+      "lambda": 0.003,
+      "eta": [
+        6.04266357421875,
+        3.021331787109375
+      ],
+      "probe_displacements": {
+        "tiny": 0.002950519323348999,
+        "small": 0.09441661834716797,
+        "train_inner": 1.5106658935546875,
+        "train_outer": 3.021331787109375,
+        "first_nominal": 6.04266357421875
+      },
+      "parameter_updates": false,
+      "oracle_used": false,
+      "GT_enters_model": false,
+      "soft_target": "actual training cropped official overlap mask at 640",
+      "hard_target": "normal original-resolution binary decoder and original COCO GT",
+      "counterfactuals": "same eta1, quality-only and penalty-only second step; no step selection"
+    },
+    "elapsed_s": 20.20299999997951,
+    "quality_model_unchanged": true,
+    "original_model_buffers_unchanged": true,
+    "candidate_identity_exact": true,
+    "reference": {
+      "candidate_count": 19,
+      "max_abs_iou_error": {
+        "A": 0.0,
+        "D1": 0.0,
+        "D": 0.0
+      },
+      "max_abs_q_error": {
+        "A": 8.940696716308594e-07,
+        "D1": 9.5367431640625e-07,
+        "D": 6.556510925292969e-07
+      },
+      "mask75_differences": {
+        "A": 0,
+        "D1": 0,
+        "D": 0
+      }
+    },
+    "groups": {
+      "all": {
+        "candidates": 19,
+        "images": 2,
+        "counts": {
+          "q_first_decrease": 11,
+          "q_tiny_increase": 19,
+          "q_small_increase": 19,
+          "q_tiny_increase_actual_first_decrease": 11,
+          "q_small_increase_actual_first_decrease": 11,
+          "gq_soft_cos_negative": 1,
+          "soft_small_increase": 17,
+          "hard_small_increase": 2,
+          "hard_small_decrease": 9,
+          "soft_small_increase_hard_small_decrease": 7,
+          "q_small_increase_soft_small_decrease": 2,
+          "q_small_increase_hard_small_decrease": 9,
+          "hard_small_nondecrease_actual_first_decrease": 5,
+          "first_damage": 3,
+          "final_damage": 2,
+          "first_damage_recovered": 1,
+          "qonly_second_recovers_first_damage": 1,
+          "regonly_second_recovers_first_damage": 0,
+          "penalty_norm_exceeds_quality_norm": 0,
+          "energy_second_moves_toward_c0": 19,
+          "quality_second_moves_toward_c0": 18,
+          "final_exceeds_success_training_radius": 19
+        },
+        "distributions": {
+          "cos_gq0_gsoft0": {
+            "n": 19,
+            "mean": 0.5339640191707172,
+            "quantiles_0_25_50_75_100": [
+              -0.12968440353870392,
+              0.3479662984609604,
+              0.6408630609512329,
+              0.7761650383472443,
+              0.8902009129524231
+            ]
+          },
+          "gq0_norm": {
+            "n": 19,
+            "mean": 0.09198196781309027,
+            "quantiles_0_25_50_75_100": [
+              0.03366732969880104,
+              0.06253321841359138,
+              0.09516233950853348,
+              0.1205809935927391,
+              0.1506718546152115
+            ]
+          },
+          "gsoft0_norm": {
+            "n": 19,
+            "mean": 0.03796495943281211,
+            "quantiles_0_25_50_75_100": [
+              0.007005644030869007,
+              0.019913247786462307,
+              0.028343047946691513,
+              0.04476135969161987,
+              0.12467437237501144
+            ]
+          },
+          "gq1_over_reg_norm": {
+            "n": 19,
+            "mean": 3.3714747177927116,
+            "quantiles_0_25_50_75_100": [
+              1.9242411851882935,
+              2.6175804138183594,
+              3.3448214530944824,
+              4.187848091125488,
+              5.748364448547363
+            ]
+          },
+          "cos_ge1_toward_c0": {
+            "n": 19,
+            "mean": 0.5179251338306227,
+            "quantiles_0_25_50_75_100": [
+              0.2952488660812378,
+              0.41972726583480835,
+              0.48109397292137146,
+              0.6018772423267365,
+              0.9175148010253906
+            ]
+          },
+          "cos_gq1_toward_c0": {
+            "n": 19,
+            "mean": 0.26062150505420406,
+            "quantiles_0_25_50_75_100": [
+              -0.047435563057661057,
+              0.09915783256292343,
+              0.24360156059265137,
+              0.37654222548007965,
+              0.877707302570343
+            ]
+          },
+          "delta_D1": {
+            "n": 19,
+            "mean": 6.042662896608052,
+            "quantiles_0_25_50_75_100": [
+              6.042662143707275,
+              6.042662620544434,
+              6.042663097381592,
+              6.042663097381592,
+              6.04266357421875
+            ]
+          },
+          "delta_D": {
+            "n": 19,
+            "mean": 5.1392519975963395,
+            "quantiles_0_25_50_75_100": [
+              3.4842917919158936,
+              4.864238977432251,
+              5.298646926879883,
+              5.506024599075317,
+              5.9043684005737305
+            ]
+          },
+          "iou_A": {
+            "n": 19,
+            "mean": 0.803739306023265,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.7386437908496732,
+              0.8318826995179432,
+              0.8719384000840955,
+              0.9458286531195752
+            ]
+          },
+          "iou_D1": {
+            "n": 19,
+            "mean": 0.7337082868869241,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.6467085086449125,
+              0.7785765636232926,
+              0.8559219436235135,
+              0.9369519201693378
+            ]
+          },
+          "iou_D": {
+            "n": 19,
+            "mean": 0.7844874573208385,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.7071787482450307,
+              0.8490566037735849,
+              0.8901281401105661,
+              0.9380280265088279
+            ]
+          },
+          "iou_D_qonly": {
+            "n": 19,
+            "mean": 0.7793124973362169,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.6999130812690135,
+              0.8490566037735849,
+              0.8883331825765342,
+              0.9372915613946438
+            ]
+          },
+          "iou_D_regonly": {
+            "n": 19,
+            "mean": 0.7638528756753548,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.6849442300261972,
+              0.7964601769911505,
+              0.8763284990077406,
+              0.9400151860288535
+            ]
+          }
+        },
+        "mean_delta_hard_iou": {
+          "tiny": -2.598010226327242e-05,
+          "small": -0.0014192446258369036,
+          "train_inner": -0.022128641561488683,
+          "train_outer": -0.039886430347910264,
+          "first_nominal": -0.07003101913634102,
+          "D1": -0.07003101913634102,
+          "D": -0.019251848702426494,
+          "D_qonly": -0.024426808687048163,
+          "D_regonly": -0.039886430347910264
+        },
+        "mean_delta_soft_iou": {
+          "tiny": 5.978032162314967e-05,
+          "small": 0.0017932355403900146,
+          "train_inner": 0.010148751108269943,
+          "train_outer": 0.004248637902109246,
+          "first_nominal": -0.014116091163534867,
+          "D1": -0.014116091163534867,
+          "D": 0.012502511865214297,
+          "D_qonly": 0.01095743085208692,
+          "D_regonly": 0.004248641039195813
+        }
+      },
+      "baseline_success": {
+        "candidates": 13,
+        "images": 2,
+        "counts": {
+          "q_first_decrease": 10,
+          "q_tiny_increase": 13,
+          "q_small_increase": 13,
+          "q_tiny_increase_actual_first_decrease": 10,
+          "q_small_increase_actual_first_decrease": 10,
+          "gq_soft_cos_negative": 1,
+          "soft_small_increase": 11,
+          "hard_small_increase": 1,
+          "hard_small_decrease": 8,
+          "soft_small_increase_hard_small_decrease": 6,
+          "q_small_increase_soft_small_decrease": 2,
+          "q_small_increase_hard_small_decrease": 8,
+          "hard_small_nondecrease_actual_first_decrease": 1,
+          "first_damage": 3,
+          "final_damage": 2,
+          "first_damage_recovered": 1,
+          "qonly_second_recovers_first_damage": 1,
+          "regonly_second_recovers_first_damage": 0,
+          "penalty_norm_exceeds_quality_norm": 0,
+          "energy_second_moves_toward_c0": 13,
+          "quality_second_moves_toward_c0": 13,
+          "final_exceeds_success_training_radius": 13
+        },
+        "distributions": {
+          "cos_gq0_gsoft0": {
+            "n": 13,
+            "mean": 0.49342079589573234,
+            "quantiles_0_25_50_75_100": [
+              -0.12968440353870392,
+              0.29202646017074585,
+              0.5096286535263062,
+              0.8257027268409729,
+              0.8902009129524231
+            ]
+          },
+          "gq0_norm": {
+            "n": 13,
+            "mean": 0.08734111717114082,
+            "quantiles_0_25_50_75_100": [
+              0.03366732969880104,
+              0.054048389196395874,
+              0.09516233950853348,
+              0.10165917128324509,
+              0.14511895179748535
+            ]
+          },
+          "gsoft0_norm": {
+            "n": 13,
+            "mean": 0.03723311760964302,
+            "quantiles_0_25_50_75_100": [
+              0.012561566196382046,
+              0.021043311804533005,
+              0.03120413050055504,
+              0.043879006057977676,
+              0.12467437237501144
+            ]
+          },
+          "gq1_over_reg_norm": {
+            "n": 13,
+            "mean": 3.540398881985591,
+            "quantiles_0_25_50_75_100": [
+              1.9242411851882935,
+              2.6176564693450928,
+              3.3448214530944824,
+              4.389389991760254,
+              5.748364448547363
+            ]
+          },
+          "cos_ge1_toward_c0": {
+            "n": 13,
+            "mean": 0.568035710316438,
+            "quantiles_0_25_50_75_100": [
+              0.40324458479881287,
+              0.44983288645744324,
+              0.5139091610908508,
+              0.6262387037277222,
+              0.9175148010253906
+            ]
+          },
+          "cos_gq1_toward_c0": {
+            "n": 13,
+            "mean": 0.33837741369811386,
+            "quantiles_0_25_50_75_100": [
+              0.028861014172434807,
+              0.19502748548984528,
+              0.2679630219936371,
+              0.4624179005622864,
+              0.877707302570343
+            ]
+          },
+          "delta_D1": {
+            "n": 13,
+            "mean": 6.042662877302903,
+            "quantiles_0_25_50_75_100": [
+              6.042662143707275,
+              6.042662620544434,
+              6.042663097381592,
+              6.042663097381592,
+              6.04266357421875
+            ]
+          },
+          "delta_D": {
+            "n": 13,
+            "mean": 4.956602261616633,
+            "quantiles_0_25_50_75_100": [
+              3.4842917919158936,
+              4.7724080085754395,
+              5.184346675872803,
+              5.405285835266113,
+              5.560416221618652
+            ]
+          },
+          "iou_A": {
+            "n": 13,
+            "mean": 0.861626998945253,
+            "quantiles_0_25_50_75_100": [
+              0.7721518987341772,
+              0.8318826995179432,
+              0.858433734939759,
+              0.9205472875660106,
+              0.9458286531195752
+            ]
+          },
+          "iou_D1": {
+            "n": 13,
+            "mean": 0.7957082907666825,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.7785765636232926,
+              0.7966666666666666,
+              0.8742331288343558,
+              0.9369519201693378
+            ]
+          },
+          "iou_D": {
+            "n": 13,
+            "mean": 0.8366663726071134,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.8490566037735849,
+              0.8571428571428571,
+              0.9047619047619048,
+              0.9380280265088279
+            ]
+          },
+          "iou_D_qonly": {
+            "n": 13,
+            "mean": 0.8336513821753491,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.8490566037735849,
+              0.8578431372549019,
+              0.9047619047619048,
+              0.9372915613946438
+            ]
+          },
+          "iou_D_regonly": {
+            "n": 13,
+            "mean": 0.8220897230753839,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.7964601769911505,
+              0.8497271073377805,
+              0.896,
+              0.9400151860288535
+            ]
+          }
+        },
+        "mean_delta_hard_iou": {
+          "tiny": -3.797091869247508e-05,
+          "small": -0.0018993432720531512,
+          "train_inner": -0.026011312087423244,
+          "train_outer": -0.03953727586986923,
+          "first_nominal": -0.06591870817857072,
+          "D1": -0.06591870817857072,
+          "D": -0.02496062633813972,
+          "D_qonly": -0.027975616769903764,
+          "D_regonly": -0.03953727586986923
+        },
+        "mean_delta_soft_iou": {
+          "tiny": 5.0265055436354414e-05,
+          "small": 0.0014899052106417143,
+          "train_inner": 0.006844020806826078,
+          "train_outer": 0.0016112786072951097,
+          "first_nominal": -0.015857884517082803,
+          "D1": -0.015857884517082803,
+          "D": 0.0027601031156686637,
+          "D_qonly": 0.0016225255452669584,
+          "D_regonly": 0.0016112877772404598
+        }
+      },
+      "final_damage": {
+        "candidates": 2,
+        "images": 2,
+        "counts": {
+          "q_first_decrease": 1,
+          "q_tiny_increase": 2,
+          "q_small_increase": 2,
+          "q_tiny_increase_actual_first_decrease": 1,
+          "q_small_increase_actual_first_decrease": 1,
+          "gq_soft_cos_negative": 1,
+          "soft_small_increase": 1,
+          "hard_small_increase": 0,
+          "hard_small_decrease": 2,
+          "soft_small_increase_hard_small_decrease": 1,
+          "q_small_increase_soft_small_decrease": 1,
+          "q_small_increase_hard_small_decrease": 2,
+          "hard_small_nondecrease_actual_first_decrease": 0,
+          "first_damage": 2,
+          "final_damage": 2,
+          "first_damage_recovered": 0,
+          "qonly_second_recovers_first_damage": 0,
+          "regonly_second_recovers_first_damage": 0,
+          "penalty_norm_exceeds_quality_norm": 0,
+          "energy_second_moves_toward_c0": 2,
+          "quality_second_moves_toward_c0": 2,
+          "final_exceeds_success_training_radius": 2
+        },
+        "distributions": {
+          "cos_gq0_gsoft0": {
+            "n": 2,
+            "mean": 0.14837946742773056,
+            "quantiles_0_25_50_75_100": [
+              -0.12968440353870392,
+              0.009347531944513321,
+              0.14837946742773056,
+              0.2874114029109478,
+              0.42644333839416504
+            ]
+          },
+          "gq0_norm": {
+            "n": 2,
+            "mean": 0.11949639394879341,
+            "quantiles_0_25_50_75_100": [
+              0.10165917128324509,
+              0.11057778261601925,
+              0.11949639394879341,
+              0.12841500528156757,
+              0.13733361661434174
+            ]
+          },
+          "gsoft0_norm": {
+            "n": 2,
+            "mean": 0.08184477500617504,
+            "quantiles_0_25_50_75_100": [
+              0.03901517763733864,
+              0.06042997632175684,
+              0.08184477500617504,
+              0.10325957369059324,
+              0.12467437237501144
+            ]
+          },
+          "gq1_over_reg_norm": {
+            "n": 2,
+            "mean": 1.9918071627616882,
+            "quantiles_0_25_50_75_100": [
+              1.9242411851882935,
+              1.9580241739749908,
+              1.9918071627616882,
+              2.0255901515483856,
+              2.059373140335083
+            ]
+          },
+          "cos_ge1_toward_c0": {
+            "n": 2,
+            "mean": 0.6021952480077744,
+            "quantiles_0_25_50_75_100": [
+              0.48109397292137146,
+              0.5416446104645729,
+              0.6021952480077744,
+              0.6627458855509758,
+              0.7232965230941772
+            ]
+          },
+          "cos_gq1_toward_c0": {
+            "n": 2,
+            "mean": 0.23936803545802832,
+            "quantiles_0_25_50_75_100": [
+              0.028861014172434807,
+              0.13411452481523156,
+              0.23936803545802832,
+              0.34462154610082507,
+              0.4498750567436218
+            ]
+          },
+          "delta_D1": {
+            "n": 2,
+            "mean": 6.042662858963013,
+            "quantiles_0_25_50_75_100": [
+              6.042662620544434,
+              6.042662739753723,
+              6.042662858963013,
+              6.042662978172302,
+              6.042663097381592
+            ]
+          },
+          "delta_D": {
+            "n": 2,
+            "mean": 4.842034578323364,
+            "quantiles_0_25_50_75_100": [
+              4.385422229766846,
+              4.613728404045105,
+              4.842034578323364,
+              5.0703407526016235,
+              5.298646926879883
+            ]
+          },
+          "iou_A": {
+            "n": 2,
+            "mean": 0.8020172991260602,
+            "quantiles_0_25_50_75_100": [
+              0.7721518987341772,
+              0.7870845989301187,
+              0.8020172991260602,
+              0.8169499993220017,
+              0.8318826995179432
+            ]
+          },
+          "iou_D1": {
+            "n": 2,
+            "mean": 0.5943360184119678,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.5744407364787112,
+              0.5943360184119678,
+              0.6142313003452244,
+              0.6341265822784811
+            ]
+          },
+          "iou_D": {
+            "n": 2,
+            "mean": 0.6161309224845137,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.5853381885149841,
+              0.6161309224845137,
+              0.6469236564540433,
+              0.6777163904235728
+            ]
+          },
+          "iou_D_qonly": {
+            "n": 2,
+            "mean": 0.5990190120467285,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.5767822332960915,
+              0.5990190120467285,
+              0.6212557907973654,
+              0.6434925695480023
+            ]
+          },
+          "iou_D_regonly": {
+            "n": 2,
+            "mean": 0.6224733675553348,
+            "quantiles_0_25_50_75_100": [
+              0.5545454545454546,
+              0.5885094110503947,
+              0.6224733675553348,
+              0.6564373240602749,
+              0.690401280565215
+            ]
+          }
+        },
+        "mean_delta_hard_iou": {
+          "tiny": -0.0002226666754598372,
+          "small": -0.010402124268330204,
+          "train_inner": -0.1413652037380267,
+          "train_outer": -0.17954393157072546,
+          "first_nominal": -0.20768128071409242,
+          "D1": -0.20768128071409242,
+          "D": -0.18588637664154656,
+          "D_qonly": -0.20299828707933182,
+          "D_regonly": -0.17954393157072546
+        },
+        "mean_delta_soft_iou": {
+          "tiny": 7.06017017364502e-05,
+          "small": 0.0019304454326629639,
+          "train_inner": -0.015210241079330444,
+          "train_outer": -0.04574057459831238,
+          "first_nominal": -0.08335068821907043,
+          "D1": -0.08335068821907043,
+          "D": -0.06470423936843872,
+          "D_qonly": -0.07963255047798157,
+          "D_regonly": -0.0457405149936676
+        }
+      },
+      "preserved_success": {
+        "candidates": 11,
+        "images": 2,
+        "counts": {
+          "q_first_decrease": 9,
+          "q_tiny_increase": 11,
+          "q_small_increase": 11,
+          "q_tiny_increase_actual_first_decrease": 9,
+          "q_small_increase_actual_first_decrease": 9,
+          "gq_soft_cos_negative": 0,
+          "soft_small_increase": 10,
+          "hard_small_increase": 1,
+          "hard_small_decrease": 6,
+          "soft_small_increase_hard_small_decrease": 5,
+          "q_small_increase_soft_small_decrease": 1,
+          "q_small_increase_hard_small_decrease": 6,
+          "hard_small_nondecrease_actual_first_decrease": 1,
+          "first_damage": 1,
+          "final_damage": 0,
+          "first_damage_recovered": 1,
+          "qonly_second_recovers_first_damage": 1,
+          "regonly_second_recovers_first_damage": 0,
+          "penalty_norm_exceeds_quality_norm": 0,
+          "energy_second_moves_toward_c0": 11,
+          "quality_second_moves_toward_c0": 11,
+          "final_exceeds_success_training_radius": 11
+        },
+        "distributions": {
+          "cos_gq0_gsoft0": {
+            "n": 11,
+            "mean": 0.5561555828899145,
+            "quantiles_0_25_50_75_100": [
+              0.022326664999127388,
+              0.3479662984609604,
+              0.5356760025024414,
+              0.8307050168514252,
+              0.8902009129524231
+            ]
+          },
+          "gq0_norm": {
+            "n": 11,
+            "mean": 0.08149470321156761,
+            "quantiles_0_25_50_75_100": [
+              0.03366732969880104,
+              0.05388152785599232,
+              0.08247710019350052,
+              0.0970727801322937,
+              0.14511895179748535
+            ]
+          },
+          "gsoft0_norm": {
+            "n": 11,
+            "mean": 0.029121907173909924,
+            "quantiles_0_25_50_75_100": [
+              0.012561566196382046,
+              0.019913247786462307,
+              0.023696158081293106,
+              0.03836080618202686,
+              0.05326234921813011
+            ]
+          },
+          "gq1_over_reg_norm": {
+            "n": 11,
+            "mean": 3.8219610127535733,
+            "quantiles_0_25_50_75_100": [
+              2.617504358291626,
+              2.9577178955078125,
+              3.630260944366455,
+              4.4979681968688965,
+              5.748364448547363
+            ]
+          },
+          "cos_ge1_toward_c0": {
+            "n": 11,
+            "mean": 0.5618248852816495,
+            "quantiles_0_25_50_75_100": [
+              0.40324458479881287,
+              0.44588710367679596,
+              0.5139091610908508,
+              0.6230834424495697,
+              0.9175148010253906
+            ]
+          },
+          "cos_gq1_toward_c0": {
+            "n": 11,
+            "mean": 0.35637911883267487,
+            "quantiles_0_25_50_75_100": [
+              0.09054221957921982,
+              0.2208598181605339,
+              0.2679630219936371,
+              0.4738372415304184,
+              0.877707302570343
+            ]
+          },
+          "delta_D1": {
+            "n": 11,
+            "mean": 6.042662880637429,
+            "quantiles_0_25_50_75_100": [
+              6.042662143707275,
+              6.042662620544434,
+              6.042663097381592,
+              6.042663097381592,
+              6.04266357421875
+            ]
+          },
+          "delta_D": {
+            "n": 11,
+            "mean": 4.977432749488137,
+            "quantiles_0_25_50_75_100": [
+              3.4842917919158936,
+              4.784448146820068,
+              5.184346675872803,
+              5.418580532073975,
+              5.560416221618652
+            ]
+          },
+          "iou_A": {
+            "n": 11,
+            "mean": 0.8724651261851062,
+            "quantiles_0_25_50_75_100": [
+              0.7727099236641222,
+              0.8496555067238103,
+              0.8708609271523179,
+              0.9252494891936334,
+              0.9458286531195752
+            ]
+          },
+          "iou_D1": {
+            "n": 11,
+            "mean": 0.8323214311948124,
+            "quantiles_0_25_50_75_100": [
+              0.6592904350113439,
+              0.795965937552179,
+              0.8508166969147005,
+              0.8876660149666284,
+              0.9369519201693378
+            ]
+          },
+          "iou_D": {
+            "n": 11,
+            "mean": 0.8767637271748586,
+            "quantiles_0_25_50_75_100": [
+              0.772445340362847,
+              0.8508240250481207,
+              0.8788819875776398,
+              0.9096928712313328,
+              0.9380280265088279
+            ]
+          },
+          "iou_D_qonly": {
+            "n": 11,
+            "mean": 0.8763118131078258,
+            "quantiles_0_25_50_75_100": [
+              0.772302562710813,
+              0.8496703555450906,
+              0.8757763975155279,
+              0.9106789450300901,
+              0.9372915613946438
+            ]
+          },
+          "iou_D_regonly": {
+            "n": 11,
+            "mean": 0.858383605897211,
+            "quantiles_0_25_50_75_100": [
+              0.7295757267811127,
+              0.83015137574483,
+              0.858433734939759,
+              0.8988196721311476,
+              0.9400151860288535
+            ]
+          }
+        },
+        "mean_delta_hard_iou": {
+          "tiny": -4.389872007500144e-06,
+          "small": -0.000353383090911869,
+          "train_inner": -0.005037877241858981,
+          "train_outer": -0.014081520287895373,
+          "first_nominal": -0.04014369499029405,
+          "D1": -0.04014369499029405,
+          "D": 0.004298600989752432,
+          "D_qonly": 0.0038466869227195204,
+          "D_regonly": -0.014081520287895373
+        },
+        "mean_delta_soft_iou": {
+          "tiny": 4.656748338179155e-05,
+          "small": 0.0014098069884560325,
+          "train_inner": 0.010853886604309082,
+          "train_outer": 0.010220706462860107,
+          "first_nominal": -0.0035864656621759586,
+          "D1": -0.0035864656621759586,
+          "D": 0.015026347203688189,
+          "D_qonly": 0.016396175731312145,
+          "D_regonly": 0.010220706462860107
+        }
+      },
+      "baseline_failure": {
+        "candidates": 6,
+        "images": 1,
+        "counts": {
+          "q_first_decrease": 1,
+          "q_tiny_increase": 6,
+          "q_small_increase": 6,
+          "q_tiny_increase_actual_first_decrease": 1,
+          "q_small_increase_actual_first_decrease": 1,
+          "gq_soft_cos_negative": 0,
+          "soft_small_increase": 6,
+          "hard_small_increase": 1,
+          "hard_small_decrease": 1,
+          "soft_small_increase_hard_small_decrease": 1,
+          "q_small_increase_soft_small_decrease": 0,
+          "q_small_increase_hard_small_decrease": 1,
+          "hard_small_nondecrease_actual_first_decrease": 4,
+          "first_damage": 0,
+          "final_damage": 0,
+          "first_damage_recovered": 0,
+          "qonly_second_recovers_first_damage": 0,
+          "regonly_second_recovers_first_damage": 0,
+          "penalty_norm_exceeds_quality_norm": 0,
+          "energy_second_moves_toward_c0": 6,
+          "quality_second_moves_toward_c0": 5,
+          "final_exceeds_success_training_radius": 6
+        },
+        "distributions": {
+          "cos_gq0_gsoft0": {
+            "n": 6,
+            "mean": 0.621807669599851,
+            "quantiles_0_25_50_75_100": [
+              0.08189687132835388,
+              0.6566002070903778,
+              0.7278780043125153,
+              0.7675548642873764,
+              0.7795717120170593
+            ]
+          },
+          "gq0_norm": {
+            "n": 6,
+            "mean": 0.10203714420398076,
+            "quantiles_0_25_50_75_100": [
+              0.06186588108539581,
+              0.0735846497118473,
+              0.09895569831132889,
+              0.12722349911928177,
+              0.1506718546152115
+            ]
+          },
+          "gsoft0_norm": {
+            "n": 6,
+            "mean": 0.039550616716345154,
+            "quantiles_0_25_50_75_100": [
+              0.007005644030869007,
+              0.016988959396257997,
+              0.025079501792788506,
+              0.054640316404402256,
+              0.10135301947593689
+            ]
+          },
+          "gq1_over_reg_norm": {
+            "n": 6,
+            "mean": 3.0054723620414734,
+            "quantiles_0_25_50_75_100": [
+              1.9489690065383911,
+              2.348714828491211,
+              3.1524603366851807,
+              3.429897427558899,
+              4.1757683753967285
+            ]
+          },
+          "cos_ge1_toward_c0": {
+            "n": 6,
+            "mean": 0.4093522181113561,
+            "quantiles_0_25_50_75_100": [
+              0.2952488660812378,
+              0.35980068147182465,
+              0.4110472500324249,
+              0.4668668285012245,
+              0.5105780959129333
+            ]
+          },
+          "cos_gq1_toward_c0": {
+            "n": 6,
+            "mean": 0.0921503696590662,
+            "quantiles_0_25_50_75_100": [
+              -0.047435563057661057,
+              0.03993387520313263,
+              0.09628096595406532,
+              0.13133732415735722,
+              0.24360156059265137
+            ]
+          },
+          "delta_D1": {
+            "n": 6,
+            "mean": 6.042662938435872,
+            "quantiles_0_25_50_75_100": [
+              6.042662620544434,
+              6.042662739753723,
+              6.042663097381592,
+              6.042663097381592,
+              6.042663097381592
+            ]
+          },
+          "delta_D": {
+            "n": 6,
+            "mean": 5.534993092219035,
+            "quantiles_0_25_50_75_100": [
+              5.196064472198486,
+              5.346741795539856,
+              5.534609079360962,
+              5.700793385505676,
+              5.9043684005737305
+            ]
+          },
+          "iou_A": {
+            "n": 6,
+            "mean": 0.6783159713589578,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.7063609467455622,
+              0.732905982905983,
+              0.7358440170940171,
+              0.7411764705882353
+            ]
+          },
+          "iou_D1": {
+            "n": 6,
+            "mean": 0.5993749451474478,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.5111062526367599,
+              0.6462339743589745,
+              0.6806826056826057,
+              0.7169811320754716
+            ]
+          },
+          "iou_D": {
+            "n": 6,
+            "mean": 0.6714331408672433,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.6596677132391418,
+              0.7071787482450307,
+              0.7462175792507204,
+              0.782608695652174
+            ]
+          },
+          "iou_D_qonly": {
+            "n": 6,
+            "mean": 0.6615782468514301,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.6298956612202435,
+              0.6999130812690135,
+              0.7389082751744765,
+              0.782608695652174
+            ]
+          },
+          "iou_D_regonly": {
+            "n": 6,
+            "mean": 0.6376730396419585,
+            "quantiles_0_25_50_75_100": [
+              0.42857142857142855,
+              0.6309374670528333,
+              0.6752527281247909,
+              0.7007706712762892,
+              0.7215189873417721
+            ]
+          }
+        },
+        "mean_delta_hard_iou": {
+          "tiny": 0.0,
+          "small": -0.0003790308923683668,
+          "train_inner": -0.01371618875529714,
+          "train_outer": -0.040642931716999176,
+          "first_nominal": -0.07894102621150997,
+          "D1": -0.07894102621150997,
+          "D": -0.006882830491714509,
+          "D_qonly": -0.016737724507527696,
+          "D_regonly": -0.040642931716999176
+        },
+        "mean_delta_soft_iou": {
+          "tiny": 8.039673169453938e-05,
+          "small": 0.0024504512548446655,
+          "train_inner": 0.017309000094731648,
+          "train_outer": 0.009962916374206543,
+          "first_nominal": -0.01034220556418101,
+          "D1": -0.01034220556418101,
+          "D": 0.03361106415589651,
+          "D_qonly": 0.031183059016863506,
+          "D_regonly": 0.009962906440099081
+        }
+      }
+    }
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\SUMMARY.json",
+    "sha256": "455371647efa49eef83e9870891edd063221dde345b169fcf78645a6b57dd367"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-06T11:42:44.259+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\COMPLETE.json",
+      "path_relative_to_cwd": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_damage_local_smoke_20261006_retry1/COMPLETE.json",
+      "exists": true,
+      "sha256": "fe0bb22064f7e70e6ea3cba9eeed0be40c48d5fbf5b263ee16ecf1f1c5db0160"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\SUMMARY.json",
+      "path_relative_to_cwd": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_damage_local_smoke_20261006_retry1/SUMMARY.json",
+      "exists": true,
+      "sha256": "455371647efa49eef83e9870891edd063221dde345b169fcf78645a6b57dd367"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006_retry1\\PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_damage_local_smoke_20261006_retry1/PER_CANDIDATE.jsonl",
+      "exists": true,
+      "sha256": "55115e1852e00b5df7c771d73191f1a7dc144678b40bd8a0bc0eff5399a7270e"
+    }
+  ]
+}

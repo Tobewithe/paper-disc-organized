@@ -1,0 +1,45 @@
+{
+  "stream_version": "triflow_online_original_coco_v1",
+  "started_at": "2026-10-07T07:13:49.686936+00:00",
+  "annotations": "D:\\coco_wire\\bgcr_native_20261002\\data\\annotations\\instances_train2017.json",
+  "annotation_sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+  "images_list": "D:\\coco_wire\\experiments\\triflow_fullscale_training_20261007\\data\\engineering32.txt",
+  "images_list_sha256": "13eabff31b0b46b4c6927d26e92daffc740f7695b1c1f718d82b7a54684dc84e",
+  "image_identity_sha256": "5f873e69de5f4017fca0abb564e8ec5ca4edf65be4815871f55ae61b8a3b6dbc",
+  "base_weights": "D:\\coco_wire\\models\\yolo26m-seg.pt",
+  "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+  "vendor": "D:\\coco_wire\\vendor_8.4.100",
+  "device": "cuda",
+  "listed_images": 32,
+  "original_split_images": 118287,
+  "original_annotations": 860001,
+  "original_ordinary_gt": 849949,
+  "complete_original_train_split": false,
+  "coverage_fraction": 0.0002705284604394397,
+  "engineering_subset": true,
+  "selection": {
+    "native_confidence": 0.001,
+    "first_native_post_conf_rows": 64,
+    "max_instances_per_image": 12,
+    "class_free_best_gt_box_iou": 0.5,
+    "tie": "annotation_id ascending",
+    "deduplicate_raw": true,
+    "order": "round-robin matched GT groups ordered by first native output row"
+  },
+  "ownership": {
+    "self_priority": true,
+    "gt_neighbor": "union all other noncrowd GT minus Self",
+    "ignore": "union crowd minus Self",
+    "background": "outside all ordinary GT and crowd",
+    "predicted_neighbor": "top2 positive box IoU, tie native output row; same raw excluded; no GT",
+    "neighbor_supervision_missing": "phi_N masked if GT Neighbor empty OR no predicted neighbor"
+  },
+  "sources": {
+    "stream_data.py": "cbb8c8d4a8d9097d5d5f4361f8f060c47eac1173ffbac2d73d69f9cc7edc1dbe",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+  },
+  "selection_origin_sha256": "62579c9a38a9fefc44d469b4c8f283e64d9f72bde9891c8ecfc546f6d5ef8c5b",
+  "storage": "one image in memory; no dense feature cache is created",
+  "frozen_initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5"
+}

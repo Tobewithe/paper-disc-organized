@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "actual_heads_rejected": [
+    {
+      "path": "D:\\coco_wire\\experiments\\triflow_fullscale_training_20261007\\runs\\RUN_TRIFLOW_FULL_ENGINEERING32_S0_R1\\head_final.pt",
+      "sha256": "31e0c3ba1b1434dab3d97e0fbaae10f0866adc4a0db7f4468b6cbe719c1f8356",
+      "actual_error": "Only fixed formal epoch8, smoke_only=false may enter final evaluation",
+      "expected_guard": "Only fixed formal epoch8, smoke_only=false",
+      "rejected": true
+    },
+    {
+      "path": "D:\\coco_wire\\experiments\\triflow_potential_coefficient_20261006\\runs\\RUN_TRIFLOW_TRAIN_S0_R1\\head_final.pt",
+      "sha256": "be256454dc4782b596eeff20bc5fa223b309691257460e05a75affd633c0606f",
+      "actual_error": "Expected triflow_fullscale_module_final checkpoint, not a pilot/cache checkpoint",
+      "expected_guard": "Expected triflow_fullscale_module_final checkpoint",
+      "rejected": true
+    }
+  ],
+  "unchanged_shared_native_helpers": [
+    "assemble_predictions",
+    "config_digest",
+    "decode",
+    "detection_records",
+    "now",
+    "refine_coefficients",
+    "validate_baseline_cache"
+  ],
+  "evaluator_sha256": "9f68fdc9fa0d15f810a174e6e550c50ccf99142b78b0fa328c768f6bb8964c07",
+  "formal_positive_case_tested": false,
+  "formal_positive_case_reason": "A complete trained 118287-image eight-epoch head does not exist yet",
+  "scope": "Engineering guard and unchanged decoder source; no new method AP result"
+}

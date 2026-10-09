@@ -1,0 +1,213 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_damage_local_smoke_20261006",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "-u",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_damage_gradient.py",
+    "--config",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\LOCAL_DAMAGE_CONFIG_20261006.json",
+    "--out",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006",
+    "--images",
+    "2"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "failed",
+  "created_at": "2026-10-06T11:41:09.859+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\IMAGE_SPLIT.json",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/IMAGE_SPLIT.json",
+      "exists": true,
+      "sha256": "a1a3ee0a0e39582dfc13a403faa91ddd63ed5ca5ab16017a0ff84af028765291",
+      "size": 282069
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_stage1_quality_seed0\\final.pt",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/runs/RUN_stage1_quality_seed0/final.pt",
+      "exists": true,
+      "sha256": "07796b8d5600827979073d167ea8e00236a6a287947f51962a6415730005c065",
+      "size": 342885
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_stage1_dev_original_metrics_seed0\\PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/runs/RUN_stage1_dev_original_metrics_seed0/PER_CANDIDATE.jsonl",
+      "exists": true,
+      "sha256": "a16932c640820156add318839593754b9e3043e90b9952da094bae88cf54279c",
+      "size": 31531274
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\models\\coco_clean_20260911\\yolo26m-seg.pt",
+      "path_relative_to_cwd": "assets/models/coco_clean_20260911/yolo26m-seg.pt",
+      "exists": true,
+      "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+      "size": 54750385
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_train2017.json",
+      "path_relative_to_cwd": "assets/datasets/coco/annotations/instances_train2017.json",
+      "exists": true,
+      "sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "size": 469785474
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\assets\\datasets\\coco\\annotations\\instances_val2017.json",
+      "path_relative_to_cwd": "assets/datasets/coco/annotations/instances_val2017.json",
+      "exists": true,
+      "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "size": 19987840
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_launch_damage_local.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_launch_damage_local.py",
+      "revision": "3b566a051ea153bd28ebfd261cbd0523ef47c6721160d795429aaca4ad6638f8",
+      "snapshot": "snapshots/3b566a051ea153bd28ebfd261cbd0523ef47c6721160d795429aaca4ad6638f8"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_damage_gradient.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_damage_gradient.py",
+      "revision": "2b8326276f9915b62ff2f5edb1f23eb9da359f033629e93e804059cc9e54ac31",
+      "snapshot": "snapshots/2b8326276f9915b62ff2f5edb1f23eb9da359f033629e93e804059cc9e54ac31"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_local_streaming_data.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_local_streaming_data.py",
+      "revision": "17715edffe9cb258e5e89f96759bcfec97219886e105102643ef2832b831be2c",
+      "snapshot": "snapshots/17715edffe9cb258e5e89f96759bcfec97219886e105102643ef2832b831be2c"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_streaming_data.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_streaming_data.py",
+      "revision": "d0ae7f35a6ee3ee87341c8512defd9bd530bba32489549b377569dba299569ee",
+      "snapshot": "snapshots/d0ae7f35a6ee3ee87341c8512defd9bd530bba32489549b377569dba299569ee"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_evaluate_complete.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_evaluate_complete.py",
+      "revision": "a4f1930dd77cae9219d890b2a73e4c195e820fdd760c60dd10707b8194153566",
+      "snapshot": "snapshots/a4f1930dd77cae9219d890b2a73e4c195e820fdd760c60dd10707b8194153566"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_train_fixed.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_train_fixed.py",
+      "revision": "52836de5af4b5923ef6c6c527e1d3740319261a6efcbd7b6a94a323f6594ebb2",
+      "snapshot": "snapshots/52836de5af4b5923ef6c6c527e1d3740319261a6efcbd7b6a94a323f6594ebb2"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\online_runtime.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/online_runtime.py",
+      "revision": "56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb",
+      "snapshot": "snapshots/56e0909c3dd3374c78593d982018739126cd52ecb243db7600ded93ae4ec2dbb"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\prepare_qcr_cache.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/prepare_qcr_cache.py",
+      "revision": "c0f32b020f506f897a45fa98fae053258b293042a0a6026ff41a30eb57888ac4",
+      "snapshot": "snapshots/c0f32b020f506f897a45fa98fae053258b293042a0a6026ff41a30eb57888ac4"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\legacy_prepare_cache.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/legacy_prepare_cache.py",
+      "revision": "e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df",
+      "snapshot": "snapshots/e71a17a91b68f1cefe23d2405248f7b6d7e6771394fcdd7e7c379af291a861df"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_metrics.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/qcr_metrics.py",
+      "revision": "6b58d1c5823a2b3d216ce0b681e7b50452a91c6d770963312b0ee7824faf6b68",
+      "snapshot": "snapshots/6b58d1c5823a2b3d216ce0b681e7b50452a91c6d770963312b0ee7824faf6b68"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\runner.py",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/scripts/runner.py",
+      "revision": "a79be21c01abddb361965450ae178fcdfabd71f2de411b88a84e366ecb7a8008",
+      "snapshot": "snapshots/a79be21c01abddb361965450ae178fcdfabd71f2de411b88a84e366ecb7a8008"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\LOCAL_DAMAGE_CONFIG_20261006.json",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/LOCAL_DAMAGE_CONFIG_20261006.json",
+      "revision": "09fe3f138dc4db61abdbc2c574ebf8888f1f64ede3c3443e307bf06ba8240ec8",
+      "snapshot": "snapshots/09fe3f138dc4db61abdbc2c574ebf8888f1f64ede3c3443e307bf06ba8240ec8"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\DAMAGE_DIAGNOSIS_PROTOCOL.md",
+      "path_relative_to_cwd": "experiments/mask_quality_energy_refinement_20261005/DAMAGE_DIAGNOSIS_PROTOCOL.md",
+      "revision": "2b0ef9cd28771502a0448efceece65b879ead67a413c51590c309b6c74f91659",
+      "snapshot": "snapshots/2b0ef9cd28771502a0448efceece65b879ead67a413c51590c309b6c74f91659"
+    }
+  ],
+  "scope": {
+    "purpose": "fixed DEV mechanism diagnosis",
+    "execution_environment": "user-authorized local CUDA",
+    "parameter_updates": false,
+    "tuning": false
+  },
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006\\COMPLETE.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006\\PER_CANDIDATE.jsonl"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006"
+    }
+  ],
+  "git": {
+    "commit": "5641eccd53b8525a9a7920442b226feb1b4347d7",
+    "dirty": true
+  },
+  "pid": 4828,
+  "started_at": "2026-10-06T11:41:10.494+00:00",
+  "last_heartbeat": "2026-10-06T11:41:35.547+00:00",
+  "return_code": 1,
+  "finished_at": "2026-10-06T11:41:37.592+00:00",
+  "error": "'types.SimpleNamespace' object has no attribute 'metrics'",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006\\COMPLETE.json",
+      "path_relative_to_cwd": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_damage_local_smoke_20261006/COMPLETE.json",
+      "exists": true,
+      "sha256": "8873b4f1ed828dc94a07e63d36ab303b30cae405e466eff09af3389e4be6ab3d"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006\\SUMMARY.json",
+      "path_relative_to_cwd": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_damage_local_smoke_20261006/SUMMARY.json",
+      "exists": true,
+      "sha256": "6e30434a379cef3d51ab6b5754f0338b3cde2e3d4e4dd69416444318effdde39"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_local_smoke_20261006\\PER_CANDIDATE.jsonl",
+      "path_relative_to_cwd": "C:/Dpan/codexproject/paper-disc-organized/experiments/mask_quality_energy_refinement_20261005/runs/RUN_damage_local_smoke_20261006/PER_CANDIDATE.jsonl",
+      "exists": true,
+      "sha256": "f1a9e179b2a3641710ba37525f0d5e2012c2b17b9ae71d586555f2d0341eed63"
+    }
+  ],
+  "child_return_code": 0,
+  "failure_scope": "launcher_postprocessing",
+  "artifact_execution_status": "child_diagnostic_completed",
+  "record_correction": "Observed launcher AttributeError after child success; preserved all original inputs, snapshots and child artifacts."
+}

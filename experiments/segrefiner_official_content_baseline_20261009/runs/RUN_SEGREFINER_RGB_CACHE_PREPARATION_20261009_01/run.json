@@ -1,0 +1,173 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01",
+  "study_id": "STUDY_SEGREFINER_OFFICIAL_CONTENT_BASELINE_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:/Dpan/envsfiles/CondaData/envs/pytorch/python.exe",
+    "experiments/segrefiner_official_content_baseline_20261009/scripts/prepare_rgb_cache.py",
+    "verify",
+    "--output",
+    "experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01",
+    "--images-root",
+    "shared/coco_clean_20260911/local_readout_runtime_20260912/data/images/val2017",
+    "--source-run",
+    "experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02",
+    "--native-run",
+    "experiments/frozen_native_mask_comparison/runs/RUN_FROZEN_NATIVE_5K_INFERENCE_S0_02"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "completed",
+  "created_at": "2026-10-08T20:40:46.410+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\SOURCE_IMAGE_LIST.txt",
+      "exists": true,
+      "sha256": "b20742148d06ff75864eb0ffe47cb3a3e010e8913dafdcd46ceeb1ca498d09db",
+      "size": 255000
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\SOURCE_IMAGE_MANIFEST.json",
+      "exists": true,
+      "sha256": "3aeda9c162267c8d401a6ddc0dc1004524c986403f0014a831a06c5adf688aea",
+      "size": 1477687
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\run.json",
+      "exists": true,
+      "sha256": "439454abb31551f5b9f636efe33f1f6c29893c1ff575d7278547c558db17790c",
+      "size": 5119
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\transfer.json",
+      "exists": true,
+      "sha256": "3eaa5fdef88eec791ce6c7bd3f08c01415c24a03e2dd593256605d11aee7b8fb",
+      "size": 2366
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_SOURCE_MANIFEST_20261009_02\\manifest.sha256",
+      "exists": true,
+      "sha256": "89bdc9941c7a7444be0fb1edf992be0a740da9711a3048049e32a41f0669ccf7",
+      "size": 854
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_INFERENCE_S0_02\\BASELINE_PARITY_IMAGES.jsonl",
+      "exists": true,
+      "sha256": "5a04d39d84bfff20f620deb651e9d0d844ed7c5559094f71da4e1f7d02cff460",
+      "size": 3125580
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\frozen_native_mask_comparison\\runs\\RUN_FROZEN_NATIVE_5K_INFERENCE_S0_02\\baseline\\COMPLETE.json",
+      "exists": true,
+      "sha256": "afa83fc346f2708f36f3f2de93efacfd58b92e66799835422960ee4939b9ad9d",
+      "size": 152655
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\prepare_rgb_cache.py",
+      "revision": "2b305197eb787278a11df9c83cf9a99a039a7d742fa2b19a2970e9916e2ae03d",
+      "snapshot": "snapshots/2b305197eb787278a11df9c83cf9a99a039a7d742fa2b19a2970e9916e2ae03d"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\tools\\research_runner\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    }
+  ],
+  "scope": {},
+  "expected_outputs": [
+    "experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/IMAGE_LIST.txt",
+    "experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/IMAGE_META.json",
+    "experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/CACHE_MANIFEST.sha256",
+    "experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/SOURCE_BINDING.json",
+    "experiments/segrefiner_official_content_baseline_20261009/runs/RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01/SUMMARY.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 6984,
+  "started_at": "2026-10-08T20:40:46.807+00:00",
+  "last_heartbeat": "2026-10-08T20:41:01.831+00:00",
+  "metrics": {
+    "status": "complete",
+    "passed": true,
+    "image_count": 5000,
+    "total_bytes": 814705164,
+    "local_images_root": "C:/Dpan/codexproject/paper-disc-organized/shared/coco_clean_20260911/local_readout_runtime_20260912/data/images/val2017",
+    "images_reused": 5000,
+    "images_copied": 0,
+    "source_local_native_sha_exact_count": 5000,
+    "rgb_decode_dimensions_match_count": 5000,
+    "gt_read": false,
+    "cache_modified": false,
+    "baseline_modified": false,
+    "original_list_sha256": "b20742148d06ff75864eb0ffe47cb3a3e010e8913dafdcd46ceeb1ca498d09db",
+    "local_list_sha256": "639a487ef88776a4c2a191fe70f8d57f5829e87c014153c38caf61d1aabd0c50",
+    "image_meta_sha256": "66c78111ab7eb87991e4c90a03e9cc4ebb19472bedef4aeb602a64a74a2175e4",
+    "cache_manifest_sha256": "d43c91fd6d9c729a5f0f6ec6febb35ba23f999721ec344debdc15932bc4f2598",
+    "source_script_sha256": "2b305197eb787278a11df9c83cf9a99a039a7d742fa2b19a2970e9916e2ae03d",
+    "host": "PC-taishisushe",
+    "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "decode_library": "Pillow 11.3.0"
+  },
+  "metrics_source": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\SUMMARY.json",
+    "sha256": "5078253edfc4e55914af7c5c7fa14ca2c1c8c6ed1bdc7287736d703b5ce693f7"
+  },
+  "return_code": 0,
+  "finished_at": "2026-10-08T20:41:06.680+00:00",
+  "error": "",
+  "artifact_completeness": "complete",
+  "missing_outputs": [],
+  "artifacts": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\IMAGE_LIST.txt",
+      "exists": true,
+      "sha256": "639a487ef88776a4c2a191fe70f8d57f5829e87c014153c38caf61d1aabd0c50"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\IMAGE_META.json",
+      "exists": true,
+      "sha256": "66c78111ab7eb87991e4c90a03e9cc4ebb19472bedef4aeb602a64a74a2175e4"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\CACHE_MANIFEST.sha256",
+      "exists": true,
+      "sha256": "d43c91fd6d9c729a5f0f6ec6febb35ba23f999721ec344debdc15932bc4f2598"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\SOURCE_BINDING.json",
+      "exists": true,
+      "sha256": "019c6140e122bbd6d34e29a10db50d891a58018af0e2cad4ffc031e6e413b1e8"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_RGB_CACHE_PREPARATION_20261009_01\\SUMMARY.json",
+      "exists": true,
+      "sha256": "5078253edfc4e55914af7c5c7fa14ca2c1c8c6ed1bdc7287736d703b5ce693f7"
+    }
+  ]
+}

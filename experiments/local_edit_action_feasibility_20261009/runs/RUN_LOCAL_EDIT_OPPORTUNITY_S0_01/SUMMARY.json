@@ -1,0 +1,169 @@
+{
+  "status": "opportunity_complete",
+  "passed": true,
+  "mode": "opportunity",
+  "image_count": 512,
+  "native_candidates": 57147,
+  "actions": 1122315,
+  "matched_candidates": 9449,
+  "labelable_matched_candidates": 9449,
+  "unmatched_candidates": 47698,
+  "matched_but_unlabelable_candidates": 0,
+  "unique_matched_GT_instances": 3610,
+  "empty_actions_preserved_count": 670,
+  "engineering_checks": {
+    "native_input_parity_candidates": 57147,
+    "native_original_parity_candidates": 57147,
+    "identity_bound_candidates": 57147,
+    "zero_exact_actions": 57147,
+    "support_protected_actions": 1122315,
+    "single_region_actions": 722286,
+    "dtype_checked_actions": 1122315,
+    "empty_actions_retained": 670,
+    "cross_identity_rejection_candidates": 0,
+    "changed_baseline_rejection_candidates": 0,
+    "forced_empty_export_probe_candidates": 0
+  },
+  "zero_native_input_original_parity_passed": true,
+  "frozen_integrity": {
+    "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "all_state_exact": true,
+    "all_params_requires_grad_false": true,
+    "all_bn_eval": true,
+    "all_gradients_none": true,
+    "extracted_images": 512,
+    "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "vendor": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\vendor\\ultralytics_8_4_100",
+    "extractor_version": "triflow_frozen_io_v1",
+    "passed": true
+  },
+  "source_unchanged": true,
+  "source_lock_sha256": "368546beaf552c547826ef8507e8cbdb1e235789420a8b251ffb6ebfdd420f6e",
+  "configuration_sha256": "5598d5d4e7c7b6f1ab552df6cb2bb1c5ba7f0f5e247d748882ed4ec3f79d06d9",
+  "GT_parsed": true,
+  "GT_used_for_action_generation": false,
+  "statistics": {
+    "bootstrap_samples": 5000,
+    "bootstrap_seed": 20261009,
+    "bootstrap_unit": "paired supplied image clusters; ratio of candidate sums; no-match images retained",
+    "images": 512,
+    "images_with_labelable_candidates": 505,
+    "labelable_matched_candidates": 9449,
+    "baseline_success_count": 4038,
+    "baseline_failure_count": 5411,
+    "local_marginal_mask_iou": {
+      "value": 0.0010857884819855746,
+      "ci95": [
+        0.000985576878612924,
+        0.001193404021437225
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "equal_direction_vs_old_mask_iou": {
+      "value": 0.009753663174216134,
+      "ci95": [
+        0.008419878834352591,
+        0.011427719465538274
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "old_oracle_mean_mask_iou": {
+      "value": 0.6901192733851143,
+      "ci95": [
+        0.6783613350338057,
+        0.7011631339142445
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "equal_oracle_mean_mask_iou": {
+      "value": 0.6998729365593309,
+      "ci95": [
+        0.6886274972498526,
+        0.7105186096158845
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "local_oracle_mean_mask_iou": {
+      "value": 0.7009587250413166,
+      "ci95": [
+        0.6897697925944116,
+        0.7115555575668652
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "old_oracle_repair_rate": {
+      "value": 0.08242469044538903,
+      "ci95": [
+        0.07126867326439339,
+        0.09422273444984687
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "equal_oracle_repair_rate": {
+      "value": 0.10201441508039179,
+      "ci95": [
+        0.08993205674495947,
+        0.11451954070992229
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "local_oracle_repair_rate": {
+      "value": 0.10589539826279801,
+      "ci95": [
+        0.0937550470018221,
+        0.11851868919610856
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "local_additional_repair_rate": {
+      "value": 0.0038809831824062097,
+      "ci95": [
+        0.0024113938530699276,
+        0.005533735498975366
+      ],
+      "valid_bootstrap_draws": 5000
+    }
+  },
+  "investment_gate": {
+    "decision": "stop_current_configuration",
+    "threshold": 0.002,
+    "metric": "best(G_eq+L)-best(G_eq), matched candidate mean",
+    "rule": "lower95CI>=.002 invest; upper95CI<.002 stop; otherwise insufficient",
+    "meaning": "artificial finite-action route investment gate; not AP prediction, deployment evidence, or method upper bound"
+  },
+  "timing": {
+    "native_model_seconds": 16.91134714889526,
+    "frozen_extract_wall_seconds": 24.08574539865367,
+    "native_reference_decode_seconds": 6.8651223020860925,
+    "adapter_stages": {
+      "proto_logits_seconds": 0.17498120199888945,
+      "native_upsample_support_seconds": 2.7677671015262604,
+      "baseline_export_seconds": 1.4612864980008453,
+      "action_generation_seconds": 963.9228701218963,
+      "action_export_seconds": 240.49159774987493,
+      "action_input_validation_seconds": 102.41311425238382,
+      "engineering_empty_probe_export_seconds": 0.0
+    },
+    "GT_association_scoring_seconds": 68.07330466550775,
+    "RLE_encoding_seconds": 312.4047567647649,
+    "artifact_write_seconds": 93.60489906917792,
+    "total_elapsed_seconds": 2235.6809134000214,
+    "note": "synchronized device stage wall times; CPU generation/export/GT scoring measured separately; shared native work charged once"
+  },
+  "peak_memory": {
+    "cuda_peak_allocated_bytes": 1362692608,
+    "cuda_peak_reserved_bytes": 3460300800,
+    "cpu_current_rss_bytes": 4746788864,
+    "cpu_peak_working_set_bytes": 4768006144
+  },
+  "started_at": "2026-10-08T17:30:26.457100+00:00",
+  "completed_at": "2026-10-08T18:07:42.158723+00:00",
+  "limitations": [
+    "normal native filtered output candidates, not complete raw candidate geometry or AP",
+    "many detections may share a GT; candidate mean and image-cluster interval use this fixed scope",
+    "GT-selected finite action opportunity is artificial; no learned RGB method or deployable selector evaluated",
+    "4-input-pixel bands can cover small objects; single connected component need not be a small perturbation",
+    "this fixed finite configuration does not bound other local-edit method families"
+  ]
+}

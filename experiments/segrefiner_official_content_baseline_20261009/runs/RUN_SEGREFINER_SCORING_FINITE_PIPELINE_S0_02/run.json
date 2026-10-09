@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_02",
+  "study_id": "STUDY_SEGREFINER_OFFICIAL_CONTENT_BASELINE_20261009",
+  "source_kind": "runner_observed",
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\run_segrefiner_scoring_pipeline_v2.py",
+    "--plan",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\scoring_plan_batch8_fixed5k_20261009_v2.json",
+    "--output",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_02",
+    "--wait-max-seconds",
+    "172800"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "status": "running",
+  "created_at": "2026-10-08T23:13:04.636+00:00",
+  "host": "PC-taishisushe",
+  "environment": {
+    "recorder_python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "recorder_python_version": "3.10.19",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "execution": {
+      "python": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+      "python_version": "3.10.19",
+      "packages": {
+        "torch": "2.9.1+cu128",
+        "numpy": "2.2.6",
+        "ultralytics": "8.4.100"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\assets\\scoring_plan_batch8_fixed5k_20261009_v2.json",
+      "exists": true,
+      "sha256": "405daa6b4c758a50389d8f56aae47858d6a3b070b130e07cc06697fcb221f6eb",
+      "size": 2732
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\run_segrefiner_scoring_pipeline_v2.py",
+      "revision": "af480909febcea91da44177bf0353d2771d3d95874d6d65d60c852010b33b0ed",
+      "snapshot": "snapshots/af480909febcea91da44177bf0353d2771d3d95874d6d65d60c852010b33b0ed"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\score_segrefiner_comparison_v2.py",
+      "revision": "f81718da1c2b81ae3da1e6d4d6f581adcbe875d23f65051b0f10601706fbdf2b",
+      "snapshot": "snapshots/f81718da1c2b81ae3da1e6d4d6f581adcbe875d23f65051b0f10601706fbdf2b"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\segrefiner_scoring_bridge.py",
+      "revision": "42070d5bfe56d3e7578dbf0b1e02120b3d7bb0450e9e05f66b791cde2ec04712",
+      "snapshot": "snapshots/42070d5bfe56d3e7578dbf0b1e02120b3d7bb0450e9e05f66b791cde2ec04712"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\scripts\\launch_segrefiner_scoring_pipeline_v2.py",
+      "revision": "05f120401a2cc1c29f3be7384929bccf19dfcd79320499a1daee911ff5380354",
+      "snapshot": "snapshots/05f120401a2cc1c29f3be7384929bccf19dfcd79320499a1daee911ff5380354"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\tools\\research_runner\\runner.py",
+      "revision": "92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980",
+      "snapshot": "snapshots/92307a20bc95b325516cfd994d9fb1552eb405fd575c9b86eaf9637b3a5bb980"
+    }
+  ],
+  "scope": {
+    "type": "one_finite_dependency_continuation_v2_GT_binding",
+    "wait_for_literal_actual_inference02": true,
+    "scientific_retry": false,
+    "scheduler_or_automation": false,
+    "CPU_stages_only_after_actual_GPU_source_exit": true,
+    "max_wait_seconds": 172800
+  },
+  "expected_outputs": [
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_02\\SUMMARY.json",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_02\\PIPELINE_COMPLETE.json"
+  ],
+  "dependency_coverage": "explicit_paths_only",
+  "locations": [
+    {
+      "host": "PC-taishisushe",
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\segrefiner_official_content_baseline_20261009\\runs\\RUN_SEGREFINER_SCORING_FINITE_PIPELINE_S0_02"
+    }
+  ],
+  "git": {
+    "commit": "f197a516007ef9d6f0e76e3553d50740007d8367",
+    "dirty": true
+  },
+  "pid": 64456,
+  "started_at": "2026-10-08T23:13:05.003+00:00",
+  "last_heartbeat": "2026-10-09T06:26:27.686+00:00"
+}

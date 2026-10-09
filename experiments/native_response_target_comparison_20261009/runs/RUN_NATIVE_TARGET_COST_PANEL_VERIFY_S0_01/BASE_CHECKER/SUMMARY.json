@@ -1,0 +1,201 @@
+{
+  "passed": true,
+  "mode": "formal",
+  "source_run": "RUN_NATIVE_TARGET_COST_PANEL_S0_01",
+  "source_summary_sha256": "7369d02d4e11aa47b65c638f7a5eeb250cd7668bbfb5e63ad561e1594cfceeb6",
+  "source_binding_sha256": "bfa2940beedd3b9ad6a673e2b5524bc72aebe468dd10c05895f0bc563ac53a84",
+  "image_count": 32,
+  "repeats": 3,
+  "fresh_children": 9,
+  "samples": 288,
+  "losslessly_reconstructed_mask_rows": 34317,
+  "empty_output_images": 0,
+  "empty_masks": 0,
+  "statistics": {
+    "baseline": {
+      "deployment_seconds": {
+        "n": 96,
+        "mean": 0.06340517083905677,
+        "median": 0.06188155000563711,
+        "std_population": 0.017776462197949795,
+        "p10": 0.04250655003124848,
+        "p90": 0.09121330000925809,
+        "min": 0.03754130005836487,
+        "max": 0.12125700002070516
+      },
+      "paired_signed_increment_seconds": {
+        "n": 96,
+        "mean": 0.0,
+        "median": 0.0,
+        "std_population": 0.0,
+        "p10": 0.0,
+        "p90": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "negative_increment_count": 0
+    },
+    "target_I": {
+      "deployment_seconds": {
+        "n": 96,
+        "mean": 0.08133645103346983,
+        "median": 0.08068085002014413,
+        "std_population": 0.020653697588638022,
+        "p10": 0.056031449988950044,
+        "p90": 0.10612744995160028,
+        "min": 0.04307479993440211,
+        "max": 0.12966199999209493
+      },
+      "paired_signed_increment_seconds": {
+        "n": 96,
+        "mean": 0.017931280194413073,
+        "median": 0.01965159992687404,
+        "std_population": 0.012171266956618352,
+        "p10": 0.0006022000452503562,
+        "p90": 0.03153044998180121,
+        "min": -0.015567700029350817,
+        "max": 0.043875399976968765
+      },
+      "negative_increment_count": 8
+    },
+    "target_H": {
+      "deployment_seconds": {
+        "n": 96,
+        "mean": 0.08093439479246929,
+        "median": 0.08109345001867041,
+        "std_population": 0.021978768538481464,
+        "p10": 0.05591830000048503,
+        "p90": 0.10922159999608994,
+        "min": 0.04382569994777441,
+        "max": 0.1325187999755144
+      },
+      "paired_signed_increment_seconds": {
+        "n": 96,
+        "mean": 0.017529223953412536,
+        "median": 0.01897545001702383,
+        "std_population": 0.01243832564517147,
+        "p10": 0.0005858999793417752,
+        "p90": 0.0317497500218451,
+        "min": -0.00845890014898032,
+        "max": 0.04783159994985908
+      },
+      "negative_increment_count": 9
+    }
+  },
+  "children": [
+    {
+      "arm": "baseline",
+      "repeat": 0,
+      "process_wall_seconds": 14.29307879996486,
+      "child_seconds": 13.304565500002354,
+      "init_seconds": 3.4713480999926105,
+      "rgb_read_seconds": 0.10180730000138283,
+      "warmup_seconds": 0.7320858000312,
+      "cpu_lifetime_peak_bytes": 1377615872,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_I",
+      "repeat": 0,
+      "process_wall_seconds": 14.97719549993053,
+      "child_seconds": 13.964298099977896,
+      "init_seconds": 3.4715696000494063,
+      "rgb_read_seconds": 0.10210859996732324,
+      "warmup_seconds": 0.8438665999565274,
+      "cpu_lifetime_peak_bytes": 1500200960,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_H",
+      "repeat": 0,
+      "process_wall_seconds": 15.18484979995992,
+      "child_seconds": 14.112552299979143,
+      "init_seconds": 3.4656392000615597,
+      "rgb_read_seconds": 0.10364089999347925,
+      "warmup_seconds": 0.8798194999108091,
+      "cpu_lifetime_peak_bytes": 1500155904,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_I",
+      "repeat": 1,
+      "process_wall_seconds": 15.222186799976043,
+      "child_seconds": 14.032810500008054,
+      "init_seconds": 3.487631700001657,
+      "rgb_read_seconds": 0.10328809998463839,
+      "warmup_seconds": 0.847567799850367,
+      "cpu_lifetime_peak_bytes": 1501011968,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_H",
+      "repeat": 1,
+      "process_wall_seconds": 15.087498399894685,
+      "child_seconds": 14.086959699983709,
+      "init_seconds": 3.470946199959144,
+      "rgb_read_seconds": 0.10099539998918772,
+      "warmup_seconds": 0.8833461001049727,
+      "cpu_lifetime_peak_bytes": 1499582464,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "baseline",
+      "repeat": 1,
+      "process_wall_seconds": 14.138728799996898,
+      "child_seconds": 13.147678199922666,
+      "init_seconds": 3.425464699976146,
+      "rgb_read_seconds": 0.10189200006425381,
+      "warmup_seconds": 0.6902036999817938,
+      "cpu_lifetime_peak_bytes": 1376636928,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_H",
+      "repeat": 2,
+      "process_wall_seconds": 14.736087500001304,
+      "child_seconds": 13.730677500017919,
+      "init_seconds": 3.4517345000058413,
+      "rgb_read_seconds": 0.10175589995924383,
+      "warmup_seconds": 0.8237562999129295,
+      "cpu_lifetime_peak_bytes": 1500217344,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "baseline",
+      "repeat": 2,
+      "process_wall_seconds": 14.145172699936666,
+      "child_seconds": 13.166594900074415,
+      "init_seconds": 3.4390078999567777,
+      "rgb_read_seconds": 0.10064880002755672,
+      "warmup_seconds": 0.6925845999503508,
+      "cpu_lifetime_peak_bytes": 1378091008,
+      "pure_startup_seconds": null
+    },
+    {
+      "arm": "target_I",
+      "repeat": 2,
+      "process_wall_seconds": 14.885928599978797,
+      "child_seconds": 13.877648500027135,
+      "init_seconds": 3.417658600024879,
+      "rgb_read_seconds": 0.1017606999957934,
+      "warmup_seconds": 0.8408593999920413,
+      "cpu_lifetime_peak_bytes": 1500061696,
+      "pure_startup_seconds": null
+    }
+  ],
+  "input_hashes_unchanged": 475,
+  "verifier_sha256": "e9b0d8bf58a5a7f211aec05e230467319e7aaea0a18082fc79295a64a43aafac",
+  "helper_sha256": "a2e5796fa3c9e3ac6e673957bfa73c84b3befcc49dac88147d6bcf526ec8f268",
+  "elapsed_seconds": 18.373072499991395,
+  "source_wall_clocks_remeasured": false,
+  "fresh_forward": false,
+  "gt_parsed": false,
+  "gpu_used": false,
+  "limits": [
+    "Saved clocks reaggregated; no new latency measurement",
+    "RLE reconstructed to recorded binary hash; native execution receipts not rerun",
+    "Memory scope from actual fresh child OS/CUDA counters, not marginal RAM minimum",
+    "Single resource snapshot is not continuous observation",
+    "Fixed panel/device/endpoint only; no AP or timing CI inferred"
+  ]
+}

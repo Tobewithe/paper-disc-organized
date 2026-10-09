@@ -1,0 +1,14 @@
+{"compacted": 8172, "alive": true}
+{"compacted": 16876, "alive": true}
+{"compacted": 28376, "alive": true}
+Traceback (most recent call last):
+  File "/root/mask_quality_energy_refinement_20261005/scripts/compact_cache.py", line 39, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/root/mask_quality_energy_refinement_20261005/scripts/compact_cache.py", line 35, in main
+    if p.stat().st_mtime < now-a.age and compact(p): done+=1
+       ^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/pathlib.py", line 840, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/qcr_run/cache/images/000000156626.pt.gz'

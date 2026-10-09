@@ -1,0 +1,48 @@
+{
+  "status": "prediction_complete",
+  "passed": true,
+  "engineering": true,
+  "engineering_passed": true,
+  "image_count": 32,
+  "arm": "SegRefiner_LR_first64",
+  "native_rows": 3813,
+  "selected_supported_first64": 1603,
+  "model_valid_area512": 1016,
+  "tiny_or_empty_fallback": 587,
+  "actual_denoiser_forward_calls": 270,
+  "all_identity_fallback_guards_passed": true,
+  "runtime_source_sha256": "5a296b083991adb6918db09a9f69204a0a2e4f65b582d5c9a2f2335d4183c107",
+  "source_sha256": {
+    "run_segrefiner_inference.py": "7f550762d2285453098e2d99b9b3211cdc0e2f9c6cb7e233307d85445d855445",
+    "segrefiner_runtime.py": "5a296b083991adb6918db09a9f69204a0a2e4f65b582d5c9a2f2335d4183c107"
+  },
+  "input_configuration_sha256": "c9a43b8917002d4e5f28fce81e4ffcc4d089028f07388829cc17289515a9b692",
+  "model_integrity": {
+    "passed": true,
+    "initial_state_sha256": "483d6de3cfc4672fcc8f67033a4d08220b4b2da9d799b290e441150660298a43",
+    "final_state_sha256": "483d6de3cfc4672fcc8f67033a4d08220b4b2da9d799b290e441150660298a43",
+    "all_parameter_values_exact": true,
+    "all_requires_grad_false": true,
+    "all_gradients_none": true
+  },
+  "predictions_sha256": "8281ca5171f192b5baafd2182e1b4e3936cd44148c03249c36624b6ff22dfe7a",
+  "image_diagnostics_sha256": "23123dcc0084610178583a6894e4148fad2d09b34373b3da9d6f10f7dad92aa2",
+  "initialization_seconds": 1.3764014999615029,
+  "total_deployment_seconds": 1005.1759548999835,
+  "mean_deployment_seconds": 31.411748590624484,
+  "prediction_assembly_seconds": 0.04166819993406534,
+  "elapsed_seconds": 1012.5082760000369,
+  "full5000_deployment_seconds_extrapolation": 157058.74295312242,
+  "gt_parsed": false,
+  "new_yolo_forward": false,
+  "ap_measured": false,
+  "training_manifest_verified": false,
+  "declared_lvis_train_vs_val_overlap": 0,
+  "single_preregistered_stochastic_inference": true,
+  "limitations": [
+    "official pretrained budget differs from project20k; actual training manifest unknown",
+    "engineering32 does not establish method ability or generalization",
+    "endpoint uses preloaded RGB+frozen normal masks, excludes YOLO forward; oldcost end-to-end times cannot be mixed directly",
+    "deployment wrapper includes required RNG isolation and small diagnostic state capture; full audit/RLE/saving separately measured"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "observer_version": "triflow_20k_epoch_observer_v1",
+  "started_at": "2026-10-07T10:16:03.586671+00:00",
+  "training_run_id": "RUN_TRIFLOW_20K_TRAIN_S0_R2",
+  "observer_source_sha256": "e64cbced9565e23aeb9fd66859b4e8875346051aa70bb188102957c2414784b6",
+  "observer_source_file": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_TRAIN_S0_R2\\source\\train_epoch_observer.py",
+  "original_training_source_sha256": {
+    "train_20k.py": "944dcb27d75f1d1d9ce8cc950c206c607b73ba6023a7a5f19517134bbd2a86bb",
+    "stream_data.py": "6460a9277b47a8ca790e03213afbaa5d628592b9319608e0be70dd4799091fb6",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+  },
+  "protocol_sha256": "f6e85fa62dd97ef6f9c95ed34f5e85cd80019102b1f0e8daa60b9acf9f5cc2b8",
+  "addendum_source": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\EPOCH_EVALUATION_ADDENDUM.md",
+  "addendum_sha256": "4646dd64a09108d4bdac1735ee8b0e589b666a32d3bff9ef017f87a199076472",
+  "addendum_archive": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_TRAIN_S0_R2\\source\\EPOCH_ADDENDUM.md",
+  "callback_scripts": {
+    "epoch_evaluator": {
+      "path": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_PIPELINE_S0_R2\\source\\evaluate_epoch.py",
+      "sha256": "fae9d91b8b3e436b799b5d9b5db29d7ba32c46d6fa6379c8b3657826126350d3"
+    },
+    "epoch_verifier": {
+      "path": "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_PIPELINE_S0_R2\\source\\verify_epoch_readout.py",
+      "sha256": "c8fb387fead6faf671c3cbdcc2e35345cbd0a491b0511489bce88d7ac90297ca"
+    }
+  },
+  "engineering_only": false,
+  "complete5000_evaluation_required": true,
+  "epoch_run_prefix": "RUN_TRIFLOW_20K_EPOCH",
+  "epoch_run_suffix": "S0",
+  "original_trainer_args": [
+    "--root",
+    "D:\\coco_wire\\experiments\\triflow_20k_training_20261007",
+    "--run-id",
+    "RUN_TRIFLOW_20K_TRAIN_S0_R2",
+    "--weights",
+    "D:/coco_wire/models/yolo26m-seg.pt",
+    "--vendor",
+    "D:/coco_wire/vendor_8.4.100",
+    "--images-list",
+    "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\data\\train20k.txt",
+    "--annotations",
+    "D:/coco_wire/bgcr_native_20261002/data/annotations/instances_train2017.json",
+    "--epochs",
+    "8",
+    "--seed",
+    "0",
+    "--instance-chunk",
+    "4",
+    "--device",
+    "cuda",
+    "--resume-from",
+    "D:\\coco_wire\\experiments\\triflow_20k_training_20261007\\runs\\RUN_TRIFLOW_20K_OBSERVER_REVISION_S0\\resume_snapshot.pt",
+    "--checkpoint-seconds",
+    "300",
+    "--trace-every",
+    "250"
+  ],
+  "routine_epochs_1_to_7": "complete5000 AP-only",
+  "epoch8": "complete5000 AP and paired readout",
+  "execution_change": "synchronous callbacks after original durable epoch-boundary save; original science contract unchanged"
+}

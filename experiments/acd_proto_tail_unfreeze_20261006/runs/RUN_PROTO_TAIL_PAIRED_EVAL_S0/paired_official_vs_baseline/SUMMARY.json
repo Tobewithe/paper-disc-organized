@@ -1,0 +1,85 @@
+{
+  "input_identity": {
+    "baseline_predictions": "6b149c410e20b33fbe6015d1a3bbc0e4ab47a0520c7abe8d9f92db62088771c7",
+    "method_predictions": "6c757a3a3ab302b807de7b77646cd7acc7d84afa3b2360e50b070e32d80d8f43",
+    "evaluator_version": "acd_proto_tail_eval_v1",
+    "bootstrap": 5000,
+    "bootstrap_seed": 0
+  },
+  "parity": {
+    "frozen_state_exact_equal": true,
+    "image_count": 5000,
+    "detection_count_mismatch_images": 0,
+    "class_mismatch_detections": 0,
+    "box_max_abs_error": 0.0,
+    "confidence_max_abs_error": 0.0,
+    "detection_index_equal": true,
+    "all_images_box_class_exact_equal": true,
+    "pairing": "same native postprocess detection index; no mask-dependent filtering",
+    "readout_view": "output detections; raw candidate geometry/five-state diagnosis not computed here"
+  },
+  "paired_readout_valid": true,
+  "definition": "all baseline detections conf>.001, same-class highest-box-IoU noncrowd GT>=.5; duplicate detection-to-GT matches allowed; success/damage/repair at maskIoU=.75",
+  "unique_matched_gt_instances": 33644,
+  "statistics": {
+    "matched_detection_count": 86600,
+    "baseline_success_count": 35652,
+    "damage_count": 553,
+    "baseline_failure_count": 50948,
+    "repair_count": 1167,
+    "images": 5000,
+    "images_with_matched_detections": 4946,
+    "bootstrap_samples": 5000,
+    "bootstrap_seed": 0,
+    "bootstrap_unit": "supplied images, paired across arms; ratio of clustered sums",
+    "mean_mask_iou_delta": {
+      "value": 0.005348061776041521,
+      "ci95": [
+        0.004984733003856859,
+        0.005702331931913479
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "damage_rate_of_baseline_success": {
+      "value": 0.015511051273420846,
+      "ci95": [
+        0.014133749367484093,
+        0.01682719148610681
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "repair_rate_of_baseline_failure": {
+      "value": 0.022905707780482062,
+      "ci95": [
+        0.021526630262987713,
+        0.024432005847951514
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "baseline_mean_mask_iou": {
+      "value": 0.6622491122595966,
+      "ci95": [
+        0.6588902772208963,
+        0.665579441477452
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "method_mean_mask_iou": {
+      "value": 0.6675971740356369,
+      "ci95": [
+        0.66415747815493,
+        0.6709703245545786
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "baseline_success_mean_iou_delta": {
+      "value": 0.0014089885750815708,
+      "ci95": [
+        0.001226736916662203,
+        0.0015882070641622993
+      ],
+      "valid_bootstrap_draws": 5000
+    },
+    "image_macro_mask_iou_delta": 0.004614910016405093
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "split": "final",
+  "planned_images": 5000,
+  "evaluated_images_requested": 2,
+  "image_ids": [
+    139,
+    285
+  ],
+  "split_sha256": "00f8420d2aa16bf8dad421bca425c7d19c3e508f3ebe4836cf73d4380468eff8",
+  "direct_checkpoint": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_direct_seed0_retry5/final.pt",
+  "direct_checkpoint_sha256": "25e0ac04be5398f989c3ad47f710b677e429e55a36799f794adc944d50200cc8",
+  "quality_checkpoint": "/root/autodl-tmp/qcr_run/runs/RUN_stage1_quality_seed0/final.pt",
+  "quality_checkpoint_sha256": "07796b8d5600827979073d167ea8e00236a6a287947f51962a6415730005c065",
+  "epoch": 3,
+  "rho": 12.0853271484375,
+  "steps": 2,
+  "eta": [
+    6.04266357421875,
+    3.021331787109375
+  ],
+  "lambda": 0.003,
+  "scientific_drift": [
+    "Actual training seed 20261005 differs from recorded seed 0.",
+    "Quality ranking uses soft IoU rather than normal binary original-mask IoU.",
+    "Ranking uses relu(0.05 - true_soft_difference * predicted_difference), abs(true_difference)>0.01; locked rule specifies sign ordering margin 0.02.",
+    "Failure random-control radius is global rho, not each oracle displacement norm.",
+    "Training averages candidates within image then weights images equally; equal-instance weighting was not implemented.",
+    "Quality input has no explicit class/score, scale embedding, or coefficient displacement descriptor.",
+    "DEV uses historical compact cache; its prototype storage precision must be reported separately from the FP32 streaming FINAL.",
+    "Held-out random-state diagnostic was added after training and is not a frozen oracle-direction state test."
+  ],
+  "parameter_updates": false,
+  "oracle_used": false,
+  "streaming": true,
+  "dtype": "float32",
+  "tf32": false,
+  "heldout_states_definition": "Fixed success-state probes: c0 and ±rho/8*u1, ±rho/4*u1, ±rho/4*u2, +rho/8*u2; GT-free and identity-seeded. Added diagnostic, not a preregistered oracle-direction test.",
+  "decoder_definition": "Official process_mask full P@c -> bilinear640 -> predicted box crop -> >0; inverse letterbox binary mask -> >.5. Original COCO GT.",
+  "pixel_metric_version": "qcr-original-pixels-v2",
+  "pixel_metric_definition": "Primary AUC: continuous cropped logits bilinearly inverse-letterboxed, exact average-tie pixel ranking against original COCO GT inside inverse-letterboxed predicted-box support (>0.5). Primary FPR: actual normal binary decoded mask positives among original non-GT pixels in that same support. Letterbox640 AUC/logit>0 FPR also retained as auxiliary fields. FPR negatives include other instances, not just background.",
+  "strict_maskfail_definition": "Entire argmax-correct R_arg has a Box75 witness and no Mask75; measured here on its intersection with fixed TAL class-correct Box75 baseline-fail candidates. Unknown on historical DEV cache."
+}

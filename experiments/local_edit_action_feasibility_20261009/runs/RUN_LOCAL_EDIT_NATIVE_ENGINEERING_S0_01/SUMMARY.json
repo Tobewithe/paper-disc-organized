@@ -1,0 +1,82 @@
+{
+  "status": "engineering_complete",
+  "passed": true,
+  "mode": "engineering",
+  "image_count": 4,
+  "native_candidates": 268,
+  "actions": 5204,
+  "matched_candidates": null,
+  "labelable_matched_candidates": null,
+  "unmatched_candidates": null,
+  "matched_but_unlabelable_candidates": null,
+  "unique_matched_GT_instances": null,
+  "empty_actions_preserved_count": 1,
+  "engineering_checks": {
+    "native_input_parity_candidates": 268,
+    "native_original_parity_candidates": 268,
+    "identity_bound_candidates": 268,
+    "zero_exact_actions": 268,
+    "support_protected_actions": 5204,
+    "single_region_actions": 3328,
+    "dtype_checked_actions": 5204,
+    "empty_actions_retained": 1,
+    "cross_identity_rejection_candidates": 268,
+    "changed_baseline_rejection_candidates": 268,
+    "forced_empty_export_probe_candidates": 268
+  },
+  "zero_native_input_original_parity_passed": true,
+  "frozen_integrity": {
+    "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "all_state_exact": true,
+    "all_params_requires_grad_false": true,
+    "all_bn_eval": true,
+    "all_gradients_none": true,
+    "extracted_images": 4,
+    "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "vendor": "C:\\Dpan\\codexproject\\paper-disc-organized\\shared\\vendor\\ultralytics_8_4_100",
+    "extractor_version": "triflow_frozen_io_v1",
+    "passed": true
+  },
+  "source_unchanged": true,
+  "source_lock_sha256": "dd5462ace6e8dcb12c16ecb93d5e0c7124e642206e19e160a704e53e35b023a5",
+  "configuration_sha256": "c87f141967c433ba0b91d0755c33a8c5b24632dabaec19b105f804c4151a945e",
+  "GT_parsed": false,
+  "GT_used_for_action_generation": false,
+  "statistics": null,
+  "investment_gate": null,
+  "timing": {
+    "native_model_seconds": 0.7037960929870606,
+    "frozen_extract_wall_seconds": 0.8706605999032035,
+    "native_reference_decode_seconds": 0.09475130005739629,
+    "adapter_stages": {
+      "proto_logits_seconds": 0.0014770000707358122,
+      "native_upsample_support_seconds": 0.02893610007595271,
+      "baseline_export_seconds": 0.00755960016977042,
+      "action_generation_seconds": 4.635971402283758,
+      "action_export_seconds": 1.295051189372316,
+      "action_input_validation_seconds": 6.1458190977573395,
+      "engineering_empty_probe_export_seconds": 0.05826379987411201
+    },
+    "GT_association_scoring_seconds": null,
+    "RLE_encoding_seconds": 1.6414903993718326,
+    "artifact_write_seconds": 0.4682925023371354,
+    "total_elapsed_seconds": 22.439044300001115,
+    "note": "synchronized device stage wall times; CPU generation/export/GT scoring measured separately; shared native work charged once"
+  },
+  "peak_memory": {
+    "cuda_peak_allocated_bytes": 848378880,
+    "cuda_peak_reserved_bytes": 1136656384,
+    "cpu_current_rss_bytes": 1778929664,
+    "cpu_peak_working_set_bytes": 1791180800
+  },
+  "started_at": "2026-10-08T17:22:59.778194+00:00",
+  "completed_at": "2026-10-08T17:23:22.226430+00:00",
+  "limitations": [
+    "normal native filtered output candidates, not complete raw candidate geometry or AP",
+    "many detections may share a GT; candidate mean and image-cluster interval use this fixed scope",
+    "GT-selected finite action opportunity is artificial; no learned RGB method or deployable selector evaluated",
+    "4-input-pixel bands can cover small objects; single connected component need not be a small perturbation",
+    "this fixed finite configuration does not bound other local-edit method families"
+  ]
+}

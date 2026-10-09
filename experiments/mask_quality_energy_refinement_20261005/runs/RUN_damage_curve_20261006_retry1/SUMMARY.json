@@ -1,0 +1,97 @@
+{
+  "source_kind": "derived_diagnostic",
+  "created_at": "2026-10-06T19:47:48.323800+08:00",
+  "parameter_updates": false,
+  "model_execution": false,
+  "step_selection": false,
+  "source_sha256": {
+    "PER_CANDIDATE.jsonl": "56261fe9c784ad66c9e81579d57de59b1bb8ff9dca623b2e0ca0a8c57a76318a",
+    "SUMMARY.json": "c28cc6b2b97b7bc5d7da595c19bb49a6bbb46ceabf00bbd50ae22d2b8fff0ac3",
+    "run.json": "80da601a3da6e0f4cdf62ae469506bee6bbbfcbc7c636ecba602d713206880a2"
+  },
+  "code_sha256": "8ab52404a9a4cd606fa72c5ee8cc541cefd2eed152f1f85ae11b0ead2f363464",
+  "requested_dev_images": 64,
+  "source_candidates": 537,
+  "baseline_success_candidates": 323,
+  "baseline_success_images": 63,
+  "cohort": "same 323 baseline normal-original-image MaskIoU >= .75 candidates for every point; all classes/box qualities included",
+  "aggregation": "candidate micro mean of paired changes relative to c0; not image macro; no CI",
+  "rho": 12.0853271484375,
+  "success_training_max_radius": 3.021331787109375,
+  "actual_first_step": 6.04266357421875,
+  "x_axis_scale": "symlog fraction-of-rho axis, linear threshold rho/4096; exact labeled fixed probe fractions",
+  "points": [
+    {
+      "probe": "A",
+      "fraction_of_rho": 0.0,
+      "displacement_norm": 0.0,
+      "candidate_pairs": 323,
+      "mean_delta_q": 0.0,
+      "mean_delta_soft": 0.0,
+      "mean_delta_iou": 0.0,
+      "mean_delta_training_soft_iou_pp": 0.0,
+      "mean_delta_original_hard_iou_pp": 0.0
+    },
+    {
+      "probe": "tiny",
+      "fraction_of_rho": 0.000244140625,
+      "displacement_norm": 0.002950519323348999,
+      "candidate_pairs": 323,
+      "mean_delta_q": 0.00032644393643358545,
+      "mean_delta_soft": 8.208912454153363e-05,
+      "mean_delta_iou": -1.934712817727612e-05,
+      "mean_delta_training_soft_iou_pp": 0.008208912454153363,
+      "mean_delta_original_hard_iou_pp": -0.001934712817727612
+    },
+    {
+      "probe": "small",
+      "fraction_of_rho": 0.0078125,
+      "displacement_norm": 0.09441661834716797,
+      "candidate_pairs": 323,
+      "mean_delta_q": 0.009780781187878304,
+      "mean_delta_soft": 0.002416476053719181,
+      "mean_delta_iou": -0.0006244920597252588,
+      "mean_delta_training_soft_iou_pp": 0.2416476053719181,
+      "mean_delta_original_hard_iou_pp": -0.06244920597252589
+    },
+    {
+      "probe": "train_inner",
+      "fraction_of_rho": 0.125,
+      "displacement_norm": 1.5106658935546875,
+      "candidate_pairs": 323,
+      "mean_delta_q": 0.03570053147457702,
+      "mean_delta_soft": 0.006890788063084009,
+      "mean_delta_iou": -0.020592205034800234,
+      "mean_delta_training_soft_iou_pp": 0.6890788063084009,
+      "mean_delta_original_hard_iou_pp": -2.0592205034800233
+    },
+    {
+      "probe": "train_outer",
+      "fraction_of_rho": 0.25,
+      "displacement_norm": 3.021331787109375,
+      "candidate_pairs": 323,
+      "mean_delta_q": -0.03705812561622714,
+      "mean_delta_soft": -0.015173626977131463,
+      "mean_delta_iou": -0.05641545551625682,
+      "mean_delta_training_soft_iou_pp": -1.5173626977131462,
+      "mean_delta_original_hard_iou_pp": -5.641545551625682
+    },
+    {
+      "probe": "first_nominal",
+      "fraction_of_rho": 0.5,
+      "displacement_norm": 6.04266357421875,
+      "candidate_pairs": 323,
+      "mean_delta_q": -0.14608502572534993,
+      "mean_delta_soft": -0.05783213173318943,
+      "mean_delta_iou": -0.11086538207836222,
+      "mean_delta_training_soft_iou_pp": -5.783213173318943,
+      "mean_delta_original_hard_iou_pp": -11.086538207836222
+    }
+  ],
+  "interpretation_limits": "Fixed-direction mechanism diagnostic; no step/radius selection or claim of method benefit. Success-training radius does not bound all Failure training states. Training SoftIoU uses actual cropped overlap target; HardIoU uses normal original-image decode, hence their label scope differs. Connected probe points guide the eye and do not establish unobserved extrema.",
+  "checks": {
+    "identity_unique": true,
+    "same_cohort_each_point": true,
+    "source_soft_hard_aggregate_match_at_1e_minus12": true
+  }
+}

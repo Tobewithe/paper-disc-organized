@@ -1,0 +1,112 @@
+{
+  "stream_version": "triflow_online_original_coco_v1",
+  "started_at": "2026-10-07T07:12:41.220095+00:00",
+  "annotations": "D:\\coco_wire\\bgcr_native_20261002\\data\\annotations\\instances_train2017.json",
+  "annotation_sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+  "images_list": "D:\\coco_wire\\experiments\\triflow_fullscale_training_20261007\\data\\engineering32.txt",
+  "images_list_sha256": "13eabff31b0b46b4c6927d26e92daffc740f7695b1c1f718d82b7a54684dc84e",
+  "image_identity_sha256": "5f873e69de5f4017fca0abb564e8ec5ca4edf65be4815871f55ae61b8a3b6dbc",
+  "base_weights": "D:\\coco_wire\\models\\yolo26m-seg.pt",
+  "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+  "vendor": "D:\\coco_wire\\vendor_8.4.100",
+  "device": "cuda",
+  "listed_images": 32,
+  "original_split_images": 118287,
+  "original_annotations": 860001,
+  "original_ordinary_gt": 849949,
+  "complete_original_train_split": false,
+  "coverage_fraction": 0.0002705284604394397,
+  "engineering_subset": true,
+  "selection": {
+    "native_confidence": 0.001,
+    "first_native_post_conf_rows": 64,
+    "max_instances_per_image": 12,
+    "class_free_best_gt_box_iou": 0.5,
+    "tie": "annotation_id ascending",
+    "deduplicate_raw": true,
+    "order": "round-robin matched GT groups ordered by first native output row"
+  },
+  "ownership": {
+    "self_priority": true,
+    "gt_neighbor": "union all other noncrowd GT minus Self",
+    "ignore": "union crowd minus Self",
+    "background": "outside all ordinary GT and crowd",
+    "predicted_neighbor": "top2 positive box IoU, tie native output row; same raw excluded; no GT",
+    "neighbor_supervision_missing": "phi_N masked if GT Neighbor empty OR no predicted neighbor"
+  },
+  "sources": {
+    "stream_data.py": "cbb8c8d4a8d9097d5d5f4361f8f060c47eac1173ffbac2d73d69f9cc7edc1dbe",
+    "frozen_io.py": "cff75eec547d9ec12eda5409bd273231ab99c16cdc6119d75f6d413098363293",
+    "triflow_model.py": "1b96e0767ab1985875cdfec33cdd6e98a666ecd3ee5caefc7dbca9e80c35691e"
+  },
+  "selection_origin_sha256": "62579c9a38a9fefc44d469b4c8f283e64d9f72bde9891c8ecfc546f6d5ef8c5b",
+  "storage": "one image in memory; no dense feature cache is created",
+  "frozen_initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+  "observed_at": "2026-10-07T07:13:16.167273+00:00",
+  "observed_unique_images": 32,
+  "all_listed_images_observed": true,
+  "dimensions": {
+    "prototype_channels": 32,
+    "prototype_grid": [
+      160,
+      160
+    ],
+    "feature_channels": 256,
+    "feature_grid": [
+      80,
+      80
+    ],
+    "instance_hidden_channels": 64
+  },
+  "visits": {
+    "images": 33,
+    "instances": 259,
+    "images_without_usable_instances": 0,
+    "native_domain_rows": 1385,
+    "unique_raw_domain_rows": 1171,
+    "duplicate_raw_excluded_rows": 214,
+    "below_match_threshold_rows": 711,
+    "matched_but_over_budget_rows": 201,
+    "ordinary_gt_without_domain_box_match": 32,
+    "ordinary_gt": 294,
+    "images_without_ordinary_gt": 0,
+    "unsupported_roi_exclusions": 0,
+    "empty_self_grid_exclusions": 0,
+    "phi_neighbor_supervised_instances": 250,
+    "predicted_neighbor_available_instances": 254,
+    "crowd_ignored_instance_pixels": 48810
+  },
+  "unique_images": {
+    "images": 32,
+    "instances": 247,
+    "images_without_usable_instances": 0,
+    "native_domain_rows": 1321,
+    "unique_raw_domain_rows": 1121,
+    "duplicate_raw_excluded_rows": 200,
+    "below_match_threshold_rows": 692,
+    "matched_but_over_budget_rows": 182,
+    "ordinary_gt_without_domain_box_match": 32,
+    "ordinary_gt": 276,
+    "images_without_ordinary_gt": 0,
+    "unsupported_roi_exclusions": 0,
+    "empty_self_grid_exclusions": 0,
+    "phi_neighbor_supervised_instances": 238,
+    "predicted_neighbor_available_instances": 242,
+    "crowd_ignored_instance_pixels": 48810
+  },
+  "all_native_replay_exact": true,
+  "frozen_integrity": {
+    "initial_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "final_state_sha256": "aa52514c89a60d349cc8f0e53217c3a4626f2058b639390003601b9bfdf1b3d5",
+    "all_state_exact": true,
+    "all_params_requires_grad_false": true,
+    "all_bn_eval": true,
+    "all_gradients_none": true,
+    "extracted_images": 33,
+    "base_weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "vendor": "D:\\coco_wire\\vendor_8.4.100",
+    "extractor_version": "triflow_frozen_io_v1",
+    "passed": true
+  },
+  "observed_inputs_identity_sha256": "c6a399f35f4409fa66b523156bab82241a7354f368f9ae8a654134b1d98076f1"
+}

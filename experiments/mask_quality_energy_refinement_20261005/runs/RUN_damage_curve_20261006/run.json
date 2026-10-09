@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_damage_curve_20261006",
+  "study_id": "STUDY_6f0c44af49e846f0a14f44a4b43d38e4",
+  "source_kind": "derived_diagnostic",
+  "status": "failed",
+  "started_at": "2026-10-06T19:47:05.747183+08:00",
+  "timezone": "Asia/Shanghai",
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_gradient_local_20261006\\PER_CANDIDATE.jsonl",
+      "sha256": "56261fe9c784ad66c9e81579d57de59b1bb8ff9dca623b2e0ca0a8c57a76318a"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_gradient_local_20261006\\SUMMARY.json",
+      "sha256": "c28cc6b2b97b7bc5d7da595c19bb49a6bbb46ceabf00bbd50ae22d2b8fff0ac3"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_gradient_local_20261006\\run.json",
+      "sha256": "80da601a3da6e0f4cdf62ae469506bee6bbbfcbc7c636ecba602d713206880a2"
+    }
+  ],
+  "code": {
+    "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_damage_curve.py",
+    "sha256": "8ab52404a9a4cd606fa72c5ee8cc541cefd2eed152f1f85ae11b0ead2f363464"
+  },
+  "command": [
+    "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\scripts\\qcr_damage_curve.py",
+    "--study",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005",
+    "--out",
+    "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_quality_energy_refinement_20261005\\runs\\RUN_damage_curve_20261006"
+  ],
+  "working_directory": "C:\\Dpan\\codexproject\\paper-disc-organized",
+  "execution_environment": "local CPU statistics and plotting",
+  "model_execution": false,
+  "parameter_updates": false,
+  "step_selection": false,
+  "environment": {
+    "python": "3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0"
+  },
+  "scope": "Candidate-micro paired mean diagnostic curves for baseline-success candidates from fixed first 64 DEV images; no formal method benefit claim.",
+  "finished_at": "2026-10-06T19:47:47.849049+08:00",
+  "return_code": 1,
+  "error": "Plotting process exited with code 1 without stdout/stderr traceback; exact cause unknown",
+  "artifact_completeness": "partial"
+}
