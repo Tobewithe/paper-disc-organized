@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\experiments\representation_reachability_20261010\runs\RUN_REPR_REACH_PREFLIGHT_S0_R5\source\preflight.py", line 292, in <module>
+    main()
+  File "D:\coco_wire\experiments\representation_reachability_20261010\runs\RUN_REPR_REACH_PREFLIGHT_S0_R5\source\preflight.py", line 250, in main
+    if not torch.allclose(f_module.mlp[-1](f_module.pool(feature)), torch.zeros_like(f_module.mlp[-1](f_module.pool(feature)))):
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (24x4 and 256x32)

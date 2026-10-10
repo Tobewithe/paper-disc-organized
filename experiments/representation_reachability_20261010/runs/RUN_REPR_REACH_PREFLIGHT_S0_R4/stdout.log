@@ -1,0 +1,52 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\experiments\representation_reachability_20261010\runs\RUN_REPR_REACH_PREFLIGHT_S0_R4\source\preflight.py", line 262, in <module>
+    main()
+  File "D:\coco_wire\experiments\representation_reachability_20261010\runs\RUN_REPR_REACH_PREFLIGHT_S0_R4\source\preflight.py", line 170, in main
+    raw = model(fit)
+          ^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\vendor_8.4.100\ultralytics\nn\tasks.py", line 154, in forward
+    return self.predict(x, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\vendor_8.4.100\ultralytics\nn\tasks.py", line 171, in predict
+    return self._predict_once(x, profile, visualize, embed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\vendor_8.4.100\ultralytics\nn\tasks.py", line 193, in _predict_once
+    x = m(x)  # run
+        ^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\vendor_8.4.100\ultralytics\nn\modules\block.py", line 310, in forward
+    y = list(self.cv1(x).chunk(2, 1))
+             ^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\vendor_8.4.100\ultralytics\nn\modules\conv.py", line 78, in forward
+    return self.act(self.bn(self.conv(x)))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\activation.py", line 432, in forward
+    return F.silu(input, inplace=self.inplace)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\functional.py", line 2379, in silu
+    return torch._C._nn.silu_(input)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 100.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. Of the allocated memory 14.25 GiB is allocated by PyTorch, and 73.02 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

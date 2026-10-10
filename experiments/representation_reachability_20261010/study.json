@@ -1,0 +1,83 @@
+{
+  "study_id": "representation_reachability_20261010",
+  "title": "表示层可达性：局部 prototype residual 是否扩大实例 mask 的可达表示空间",
+  "kind": "method",
+  "status": "preparing",
+  "protocol_status": "frozen",
+  "current_stage": "four_arm_smoke_passed_pending_formal_training",
+  "research_line": "neighbor_sensitive_p3",
+  "created_at": "2026-10-10",
+  "protocol": "PROTOCOL.md",
+  "question": "在固定 YOLO26m-seg 检测框、类别和候选身份后，局部特征驱动的系数残差与局部 prototype residual 是否能稳定改善实例 mask，且改善是否来自 prototype 表示层而非仅来自系数容量？",
+  "hypothesis": "R_local_proto_residual 将同时学习局部系数残差和低秩 prototype 残差；若 R 相对 F 仍有可重复的正增益，则支持表示层可达性假设。",
+  "model": {
+    "family": "YOLO26m-seg",
+    "weights": "yolo26m-seg.pt",
+    "weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "ultralytics": "8.4.100",
+    "image_size": 640,
+    "precision": "FP32",
+    "mask_ratio": 1,
+    "overlap_mask": true,
+    "branches": ["one2many", "one2one"]
+  },
+  "arms": [
+    {
+      "id": "A",
+      "name": "native",
+      "role": "official frozen reference",
+      "trainable": [],
+      "intervention": "none"
+    },
+    {
+      "id": "C",
+      "name": "native_coefficient_capacity",
+      "role": "native coefficient capacity control",
+      "trainable": ["model.23.cv4", "model.23.one2one_cv4"],
+      "intervention": "fine-tune native coefficient heads only; prototype, detector, box and class paths remain frozen"
+    },
+    {
+      "id": "F",
+      "name": "local_feature_coefficient_residual",
+      "role": "local feature versus coefficient-only control",
+      "trainable": ["local ROI coefficient residual heads"],
+      "intervention": "add Delta-c from a predicted-box ROI of the feature entering each native coefficient head; native prototype and native coefficient heads remain frozen"
+    },
+    {
+      "id": "R",
+      "name": "local_proto_residual",
+      "role": "proposed representation intervention",
+      "trainable": ["local ROI coefficient residual heads", "K_r=4 prototype residual projection"],
+      "intervention": "use P(c+Delta-c)+Q Delta-d, with frozen native P and trainable low-rank Q and local Delta-d"
+    }
+  ],
+  "data": {
+    "primary": "COCO train2017/val2017",
+    "formal_train_size": 20000,
+    "formal_train_selection": "sort train2017 image IDs by SHA256('representation_reachability_train20k_seed0:' + str(image_id)); take first 20000; persist the resulting list in each Run",
+    "validation": "full COCO val2017 (5000 images)",
+    "external": ["PigLife", "Faro"],
+    "dataset_versions_and_paths": "must be resolved and hashed in the Run before execution"
+  },
+  "execution": {
+    "environment": "laptop_28358lan (ssh 28358lan)",
+    "engineering_screening": "four_arm_smoke_passed",
+    "formal_training": "not_started",
+    "planned_seeds": [0, 1],
+    "primary_checkpoint": "final epoch only; no best-checkpoint selection",
+    "run_ids": ["RUN_REPR_REACH_PREFLIGHT_S0", "RUN_REPR_REACH_PREFLIGHT_S0_R1", "RUN_REPR_REACH_PREFLIGHT_S0_R2", "RUN_REPR_REACH_PREFLIGHT_S0_R3", "RUN_REPR_REACH_PREFLIGHT_S0_R4", "RUN_REPR_REACH_PREFLIGHT_S0_R5", "RUN_REPR_REACH_PREFLIGHT_S0_R6", "RUN_REPR_REACH_PREFLIGHT_S0_R7", "RUN_REPR_REACH_SMOKE_A_S0", "RUN_REPR_REACH_SMOKE_C_S0", "RUN_REPR_REACH_SMOKE_F_S0", "RUN_REPR_REACH_SMOKE_R_S0"]
+  },
+  "decision": {
+    "engineering_gate": "G0 in PROTOCOL.md",
+    "scientific_gates": ["G1", "G2", "G3", "G4 in PROTOCOL.md"],
+    "outcome": "unknown",
+    "automatic_next_stage": false,
+    "blocking_observation": "G0 preflight and all four arm Smoke Runs passed; formal 20k training is not started and no AP result exists."
+  },
+  "limits": [
+    "A is an inference reference, not a trained arm.",
+    "F and R are not claims about a globally optimal prototype basis.",
+    "A pilot or engineering screen cannot establish the 20k conclusion.",
+    "RUN_REPR_REACH_PREFLIGHT_S0 through R5 contain preserved engineering failures; R7 is the verified G0 pass. No scientific AP result or formal 20k training result exists."
+  ]
+}

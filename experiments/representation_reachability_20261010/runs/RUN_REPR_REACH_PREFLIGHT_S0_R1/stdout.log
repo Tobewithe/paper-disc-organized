@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\experiments\representation_reachability_20261010\runs\RUN_REPR_REACH_PREFLIGHT_S0_R1\source\preflight.py", line 248, in <module>
+    main()
+  File "D:\coco_wire\experiments\representation_reachability_20261010\runs\RUN_REPR_REACH_PREFLIGHT_S0_R1\source\preflight.py", line 157, in main
+    fit, fit_paths = load_images(args.fit_list.read_text(encoding="utf-8").splitlines(), 640, args.fit_limit, cv2, LetterBox, device)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\experiments\representation_reachability_20261010\runs\RUN_REPR_REACH_PREFLIGHT_S0_R1\source\preflight.py", line 110, in load_images
+    image = letterbox(image, new_shape=(image_size, image_size), auto=False, scaleup=False).image
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: LetterBox.__init__() got multiple values for argument 'new_shape'
