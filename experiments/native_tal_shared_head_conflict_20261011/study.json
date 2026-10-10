@@ -1,0 +1,20 @@
+{
+  "study_id": "STUDY_NATIVE_TAL_SHARED_HEAD_CONFLICT_20261011",
+  "title": "Official TAL one-to-one native shared coefficient-head instance-gradient conflict audit",
+  "kind": "diagnostic",
+  "research_line": "neighbor_sensitive_p3",
+  "status": "complete_negative_close_method_line",
+  "protocol": "PROTOCOL.md",
+  "script_plan": "scripts/README.md",
+  "scope": "Frozen candidate, feature, prototype, native coefficient, and existing oracle records; no training, no shared-parameter re-solve, no candidate or label changes",
+  "primary_split": "val_small",
+  "replication_split": "dev_small",
+  "planned_images_per_split": 40,
+  "actual_images_per_split": 60,
+  "expansion_reason": "The frozen 40-image val panel had only 49 recoverable candidates across 18 images; the protocol requires 50 candidates and 20 images per group, so the same deterministic selection was expanded to 60 images without new data or training.",
+  "final_run": "runs/RUN_CONFLICT_AUDIT_S4_60",
+  "verification_run": "runs/RUN_CONFLICT_VERIFY_S4",
+  "decision": "negative_close_method_line",
+  "bootstrap_replicates": 2000,
+  "seed": 20261011
+}
