@@ -1,0 +1,18 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_TRUST_REGION_AUDIT_VERIFY_S0",
+  "study_id": "STUDY_COEFFICIENT_TRUST_REGION_AUDIT_20261009",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "command": "verify_audit.py --export <RUN_COEFF_ALIGN_EXPORT_S0_R1> --analysis <RUN_TRUST_REGION_AUDIT_S0_R1> --previous <RUN_TRUST_REGION_AUDIT_S0> --out <this run>",
+  "environment": {"python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe", "torch": "2.5.1",
+                  "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU"},
+  "status": "completed",
+  "verified": true,
+  "scope": "Independent recomputation from raw export tensors: trust-region / unprotected / random-support solutions via an augmented-least-squares route instead of the 32x32 normal equations (every 11th candidate); decoded IoU and retention arithmetic; primary-config regression against the earlier run; gate labels and decision re-derived from stored numbers; sensitivity configurations distinctness.",
+  "checks": ["subset_size", "trust_region_solution_independent_route", "decoded_iou_independent_route",
+             "retention_arithmetic", "primary_regression_vs_previous_run", "gate_labels_consistent",
+             "sensitivity_configs_distinct"],
+  "artifacts": {"collected_files": 1, "bundle_sha256": "1cdb4b6ec516b63db4f349fdd830f59b3a5d7e82b21671f9eb768c9efd126bde", "retained_remote": "none"},
+  "notes": "All seven checks passed. Verification did not re-run any model forward; it recomputed stored-tensor quantities from the stage-1 export."
+}

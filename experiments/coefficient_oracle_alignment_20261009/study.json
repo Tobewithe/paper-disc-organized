@@ -1,0 +1,37 @@
+{
+  "study_id": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+  "title": "Native coefficient branch oracle-alignment decomposition under the fixed prototype space",
+  "kind": "diagnostic",
+  "status": "completed",
+  "research_line": "neighbor_sensitive_p3",
+  "protocol": "PROTOCOL.md",
+  "report": "REPORT.md",
+  "environment": "laptop_28358lan; python C:/Users/28358/anaconda3/envs/pytorch/python.exe; vendor D:/coco_wire/vendor_8.4.100 (ultralytics 8.4.100); torch 2.5.1; RTX 4060 Laptop",
+  "execution_root": "D:/coco_wire/experiments/coefficient_oracle_alignment_20261009",
+  "question": "Under the fixed official prototype space, does oracle-target supervision transfer to held-out candidates through the native coefficient branch?",
+  "panel": "197-image historical dev panel; 1,375 GT-associated one-to-one candidates; 663 native-failure",
+  "arms": {
+    "A": "native official coefficients",
+    "B": "ACD coefficient-only BCE 3-epoch overlay (reused RUN_BASELINE_FEASIBILITY_S0_RETRY1)",
+    "C": "ACD action-guided auxiliary 3-epoch overlay (reused RUN_ACD_FEASIBILITY_S0)"
+  },
+  "outcome": "not_learnable_at_this_budget",
+  "outcome_scope": "Oracle/action-derived target supervision does not transfer to held-out candidates through the native coefficient branch at this seed/budget/parameterization; the small Mask75 repair gain (+1.66pp of 62pp oracle-achievable) is generic to coefficient-only fine-tuning and comes with ~7% success damage and -2pp image-macro IoU; single-seed short-budget mechanism readout, no AP claim",
+  "primary_run_ids": {
+    "export": "RUN_COEFF_ALIGN_EXPORT_S0_R1",
+    "analysis": "RUN_COEFF_ALIGN_ANALYSIS_S0",
+    "verification": "RUN_COEFF_ALIGN_VERIFY_S0",
+    "smoke": "RUN_COEFF_ALIGN_EXPORT_SMOKE_S0"
+  },
+  "verified": true,
+  "verification_scope": "9/9 independent checks passed (re-solve from different init, alignment recompute, arm-A tensor parity, oracle realization, strata counts, bootstrap determinism, gate labels)",
+  "stage_II_authorized": false,
+  "stage_II_note": "Branch-family attainability phase remains unauthorized because the pre-registered transfer gate did not pass; see PROTOCOL.md section 8",
+  "completed_at": "2026-10-09",
+  "limits": [
+    "single seed, 3 epochs, 796-image fit cohort; budget-specific, not a class-wide refutation",
+    "oracle is GT-box BCE lambda=0.003, not the IoU-max oracle",
+    "dev panel is reused research imagery, not a blind test; diagnostic association is not COCO matching",
+    "no AP claim; readouts are fixed-candidate mechanism diagnostics"
+  ]
+}

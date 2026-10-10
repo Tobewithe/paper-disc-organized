@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_COEFF_ALIGN_ANALYSIS_S0",
+  "study_id": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\scripts\\analyze_alignment.py",
+    "--export", "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\runs\\RUN_COEFF_ALIGN_EXPORT_S0_R1",
+    "--out", "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\runs\\RUN_COEFF_ALIGN_ANALYSIS_S0"
+  ],
+  "environment": {
+    "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "torch": "2.5.1",
+    "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU"
+  },
+  "status": "completed",
+  "scope": "Finite-oracle solve (lambda 0.003 primary; 0.0003/0.03/0.3 sensitivity), alignment / realization / utility readouts, 5000 image-cluster bootstrap resamples (seed 20261009), pre-registered gate evaluation.",
+  "result": {
+    "candidates": 1375,
+    "native_failure": 663,
+    "native_success": 712,
+    "decision": "not_learnable_at_this_budget",
+    "gates": {
+      "G_transfer": false,
+      "G_not_learnable": true,
+      "G_damage_triggered": true
+    }
+  },
+  "artifacts": {
+    "collected_files": 4,
+    "bundle_sha256": "473de1a3f837ec855b32fa3f5690c04444ee0be2bf7fd35188c71d2bed634565",
+    "retained_remote": "none"
+  },
+  "notes": "Gate rules and thresholds were frozen in PROTOCOL.md before execution and were not changed after results."
+}

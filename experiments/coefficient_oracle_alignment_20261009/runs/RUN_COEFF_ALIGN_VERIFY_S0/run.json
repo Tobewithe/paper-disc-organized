@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_COEFF_ALIGN_VERIFY_S0",
+  "study_id": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\scripts\\verify_alignment.py",
+    "--export", "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\runs\\RUN_COEFF_ALIGN_EXPORT_S0_R1",
+    "--analysis", "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\runs\\RUN_COEFF_ALIGN_ANALYSIS_S0",
+    "--out", "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\runs\\RUN_COEFF_ALIGN_VERIFY_S0"
+  ],
+  "environment": {
+    "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "torch": "2.5.1",
+    "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU"
+  },
+  "status": "completed",
+  "verified": true,
+  "scope": "Independent recomputation from raw export tensors: re-solved lambda=0.003 oracle for every 7th candidate from a different fixed-seed initialization; recomputed alignment, arm-A parity IoU, oracle realization, strata counts, one bootstrap statistic with the same seed, and re-derived every gate label from the analysis numbers.",
+  "checks": [
+    "subset_size", "oracle_realization_subset", "independent_alignment_recompute",
+    "arm_A_parity_from_tensors", "native_failure_count", "level_counts", "size_counts",
+    "bootstrap_determinism", "gate_labels_consistent"
+  ],
+  "artifacts": {
+    "collected_files": 1,
+    "bundle_sha256": "acb5fad54c9e01ec3edc7c016fa83e3918b950e15b37020f8d2ff62f868798e6",
+    "retained_remote": "none"
+  },
+  "notes": "All nine checks passed. Verification did not re-run the model forward, GT decoding or GT matching; it recomputed stored-tensor quantities and counts."
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_REDERIVE_S0",
+  "study_id": "STUDY_COEFFICIENT_RECOVERABILITY_REDERIVE_20261010",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "command": "rederive_recoverability.py --cache <cache> --annotations <instances_val2017.json> --out <this run>",
+  "environment": {"python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe", "torch": "2.5.1",
+                  "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU",
+                  "ultralytics": "not used (pure tensor re-derivation from the retained cache)"},
+  "status": "interrupted",
+  "interruption": {
+    "cause": "The controlling harness (opencode server) restarted and terminated the local ssh client; the laptop-side python process did not survive the session loss (verified: no python process on the laptop afterwards).",
+    "observed_at_utc": "2026-10-10",
+    "progress_at_interruption": {"images": 800, "images_total": 2462, "candidates": 9385,
+                                  "candidates_total_expected": 28446, "elapsed_seconds": 1686.1}
+  },
+  "outputs_written": ["DATA_RECEIPT.json", "ENVIRONMENT.json", "PROGRESS.json"],
+  "outputs_missing": ["PER_CANDIDATE.jsonl", "PER_GT.jsonl", "SUMMARY.json", "COMPLETE.json"],
+  "notes": "The script writes its final artifacts only at completion, so no partial scientific outputs exist. Retained as the interrupted-run record; the re-derivation continues as RUN_REDERIVE_S0_R1 launched as a detached Windows scheduled task (survives ssh/harness disconnects)."
+}

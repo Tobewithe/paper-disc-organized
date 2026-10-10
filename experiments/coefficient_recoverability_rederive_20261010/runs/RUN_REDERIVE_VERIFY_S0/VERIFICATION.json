@@ -1,0 +1,41 @@
+{
+  "study": "STUDY_COEFFICIENT_RECOVERABILITY_REDERIVE_20261010",
+  "verified": true,
+  "checks": [
+    {
+      "check": "subset_size",
+      "pass": true,
+      "detail": "4064 of 28443"
+    },
+    {
+      "check": "independent_resolve",
+      "pass": true,
+      "detail": "checked 4064; max diffs norm 1.502e-05 obj 4.583e-11; decode-IoU mismatches (threshold pixels can flip near z=0): 3"
+    },
+    {
+      "check": "aggregation_recompute",
+      "pass": true,
+      "detail": "gt 6456 vs 6456; recoverable 4843 vs 4843"
+    },
+    {
+      "check": "strata_recompute",
+      "pass": true,
+      "detail": "{\"small\": {\"gt\": 3885, \"recoverable\": 2817}, \"medium\": {\"gt\": 1742, \"recoverable\": 1266}, \"large\": {\"gt\": 829, \"recoverable\": 760}}"
+    },
+    {
+      "check": "identity_manifest_with_degenerate_gap",
+      "pass": true,
+      "detail": "jsonl gt 6456 manifest gt 6459; missing 3 each confirmed as an empty GT-box ROI on the decode grid: [{\"gt\": [51938, 1848161], \"raw_id\": 2289, \"gt_area\": 4.072450000000006, \"gt_box_grid\": [99.695, 55.167, 101.3, 55.717], \"roi_pixels\": 0, \"empty_roi\": true}, {\"gt\": [244411, 1820796], \"raw_id\": 1348, \"gt_area\": 6.250899999999937, \"gt_box_grid\": [136.25, 33.145, 137.468, 33.9], \"roi_pixels\": 0, \"empty_roi\": true}, {\"gt\": [562818, 1247039], \"raw_id\": 2384, \"gt_area\": 14.82815, \"gt_box_grid\": [130.085, 57.325, 130.9, 58.938], \"roi_pixels\": 0, \"empty_roi\": true}]"
+    },
+    {
+      "check": "event_count",
+      "pass": true,
+      "detail": "events 28443 + missing-candidates 3 vs manifest 28446"
+    },
+    {
+      "check": "headline_share",
+      "pass": true,
+      "detail": "re-derived share 0.7502 (recoverable 4843 of 6456); recorded 4263/6459 (0.6600); difference 580; the protocol forbids parameter tuning to force agreement; both values are reported"
+    }
+  ]
+}

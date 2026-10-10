@@ -1,0 +1,25 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_REDERIVE_S0_R1",
+  "study_id": "STUDY_COEFFICIENT_RECOVERABILITY_REDERIVE_20261010",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "launch_mode": "Windows scheduled task Codex_Rederive_20261010 (detached; survives ssh/harness disconnect)",
+  "command": "rederive_recoverability.py --cache <cache> --annotations <instances_val2017.json> --out <this run>",
+  "environment": {"python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe", "torch": "2.5.1",
+                  "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU", "tf32": false,
+                  "ultralytics": "not used (pure tensor re-derivation from the retained cache)"},
+  "status": "completed",
+  "result": {
+    "images": 2462, "candidates": 28443, "gt": 6456,
+    "recoverable": 4843, "recoverable_share": 0.7501548946716233,
+    "recorded": {"gt": 6459, "recoverable": 4263, "share": 0.66},
+    "difference": {"gt": -3, "recoverable": 580},
+    "skipped_degenerate_gt": 3,
+    "definition": {"lambda": 0.003, "iterations": 120, "roi": "GT box", "solver": "LBFGS double from zero"}
+  },
+  "verification": {"run": "RUN_REDERIVE_VERIFY_S0", "verified": true, "checks": 7},
+  "artifacts": ["SUMMARY.json", "PER_CANDIDATE.jsonl", "PER_GT.jsonl", "COMPLETE.json",
+                "SCHEDULER_LAUNCH.json", "TASK_EXIT.txt", "stdout.log", "DATA_RECEIPT.json", "ENVIRONMENT.json"],
+  "notes": "Per protocol no parameter tuning was applied to force agreement with the recorded 66.00%; both values are reported. Predecessor RUN_REDERIVE_S0 was interrupted at 800/2462 images when the controlling harness restarted; it produced no scientific outputs and is retained as the interrupted-run record."
+}

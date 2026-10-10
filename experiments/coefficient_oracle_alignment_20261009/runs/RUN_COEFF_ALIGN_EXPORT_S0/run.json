@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_COEFF_ALIGN_EXPORT_S0",
+  "study_id": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "working_directory": "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009",
+  "command": "export_arms.py with the same arguments as RUN_COEFF_ALIGN_EXPORT_SMOKE_S0 but without --limit (197 dev images, arms native/baseline/acd)",
+  "environment": {
+    "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "torch": "2.5.1",
+    "ultralytics": "8.4.100",
+    "ultralytics_path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\__init__.py",
+    "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "tf32": false
+  },
+  "status": "completed",
+  "scope": "Formal three-arm export over the full 197-image dev panel; 1,375 GT-associated one-to-one candidates per arm.",
+  "limitation": "Per-image bank rows did not yet store the 160-grid GT map (truth160) required by the stage-2 oracle realization readout. Retained unchanged; superseded for analysis by RUN_COEFF_ALIGN_EXPORT_S0_R1 with an otherwise identical configuration.",
+  "artifacts": {
+    "collected_files": 601,
+    "bundle_sha256": "3f6ab780ee682f59d6a68e4cb6f8d9c105fde2a66291a7379e6e66b0ec545abb",
+    "retained_remote": "197 per-image bank caches (images/)"
+  },
+  "notes": "not the analysis input; kept for provenance. Wall-clock start/end were not captured in this record; per-arm elapsed time is in arms/*/PROGRESS.json."
+}

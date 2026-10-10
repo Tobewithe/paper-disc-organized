@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_COEFF_ALIGN_EXPORT_SMOKE_S0",
+  "study_id": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+  "source_kind": "agent_observed",
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\scripts\\export_arms.py",
+    "--vendor", "D:\\coco_wire\\vendor_8.4.100",
+    "--weights", "D:\\coco_wire\\models\\yolo26m-seg.pt",
+    "--data", "D:\\coco_wire\\data",
+    "--dev_list", "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache\\official_data\\dev.txt",
+    "--overlay_baseline", "D:\\coco_wire\\experiments\\acd_native_coefficient_20261006\\runs\\RUN_BASELINE_FEASIBILITY_S0_RETRY1\\coeff_final_ema.pt",
+    "--overlay_acd", "D:\\coco_wire\\experiments\\acd_native_coefficient_20261006\\runs\\RUN_ACD_FEASIBILITY_S0\\coeff_final_ema.pt",
+    "--out", "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009\\runs\\RUN_COEFF_ALIGN_EXPORT_SMOKE_S0",
+    "--limit", "8"
+  ],
+  "host": "28358lan",
+  "working_directory": "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009",
+  "environment": {
+    "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "python_version": "3.12.x",
+    "torch": "2.5.1",
+    "ultralytics": "8.4.100",
+    "ultralytics_path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\__init__.py",
+    "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "tf32": false
+  },
+  "status": "completed",
+  "scope": "Eight-image engineering smoke of the three-arm export: vendor assert, overlay differing-key audit (exactly the 24 trainable coefficient parameters), forward/GT-association parity, per-arm decode metrics. 29 GT-associated candidates per arm.",
+  "artifacts": {
+    "collected_files": 34,
+    "bundle_sha256": "3f0a2061e47f8e58c681fe339411091326787731ffe486e9434a69bcad0d1798",
+    "retained_remote": "per-image bank caches (images/)"
+  },
+  "notes": "Smoke precedes the formal export; results here are engineering checks only, not study readouts."
+}

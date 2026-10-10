@@ -1,0 +1,24 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_TRUST_REGION_AUDIT_S0_R1",
+  "study_id": "STUDY_COEFFICIENT_TRUST_REGION_AUDIT_20261009",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "command": "audit_trust_region.py --vendor D:/coco_wire/vendor_8.4.100 --export <RUN_COEFF_ALIGN_EXPORT_S0_R1> --out <this run> (full 1,375-candidate panel; fixed sensitivity aggregation)",
+  "environment": {"python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe", "torch": "2.5.1",
+                  "ultralytics": "8.4.100 (vendor D:/coco_wire/vendor_8.4.100)",
+                  "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU"},
+  "status": "completed",
+  "inputs": [{"role": "stage1_export", "run": "RUN_COEFF_ALIGN_EXPORT_S0_R1",
+              "study": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009"}],
+  "result": {
+    "candidates": 1375, "eligible_oracle_gain": 1239, "native_failure": 663, "native_success": 712,
+    "decision": "STOP_ROUTE",
+    "gates": {"G1_retention": false, "G2_protection": true, "G3_control": false, "G4_success_guard": true},
+    "primary": {"lambda_c": 1.0, "lambda_R": 10.0, "m_E": 1.0, "m_R": 1.0,
+                "retention_T": 0.3019, "retention_U": 0.5552, "retention_S": 0.5880,
+                "prot_T": 0.0620, "prot_U": 0.7929}
+  },
+  "artifacts": {"collected_files": 4, "bundle_sha256": "3ec90605c74865d243a9e731731645ef9f1c0ca11882fdb34511b684d9085bcb", "retained_remote": "none"},
+  "notes": "Analysis input. Primary blocks, estimates and gates are numerically identical to RUN_TRUST_REGION_AUDIT_S0 (determinism regression), with the sensitivity aggregation fixed."
+}

@@ -339,6 +339,32 @@
       "study_id": "paper-disc:method:ablation_study"
     },
     {
+      "study_id": "STUDY_ACD_NATIVE_COEFFICIENT_20261006",
+      "name": "Action-guided native coefficient distillation for mask boundary suppression",
+      "path": "experiments/acd_native_coefficient_20261006",
+      "kind": "method",
+      "status": "completed",
+      "scope": "Completed fixed one-epoch paired smoke, three-epoch paired coefficient-only training, and full 5000-image original COCO validation; single-seed feasibility result",
+      "original_path": "experiments/acd_native_coefficient_20261006",
+      "provenance": "ai_declared",
+      "record_paths": [
+        "REPORT.md"
+      ]
+    },
+    {
+      "study_id": "STUDY_ACD_PROTO_TAIL_UNFREEZE_20261006",
+      "name": "ACD with native coefficient heads and prototype-tail fine-tuning",
+      "path": "experiments/acd_proto_tail_unfreeze_20261006",
+      "kind": "method",
+      "status": "completed",
+      "scope": "project",
+      "original_path": "experiments/acd_proto_tail_unfreeze_20261006",
+      "provenance": "ai_declared",
+      "record_paths": [
+        "REPORT.md"
+      ]
+    },
+    {
       "classification_status": "按原目录与文件名初分；允许修订",
       "code_paths": [],
       "file_count": 3,
@@ -642,22 +668,6 @@
       "shared_code_path": "shared/coco_clean_20260911",
       "status": "imported",
       "study_id": "paper-disc:method:antisymmetric_ownership_train_20260913_v3"
-    },
-    {
-      "study_id": "STUDY_4b1c87f0a4fd4a2f9c04f3c431a6f9df",
-      "name": "严格 argmax-MaskFail 的 raw 位置系数可恢复性",
-      "path": "experiments/argmax_maskfail_position_oracle_20261005",
-      "kind": "diagnostic",
-      "status": "completed",
-      "scope": "project",
-      "original_path": "experiments/argmax_maskfail_position_oracle_20261005",
-      "provenance": "ai_declared",
-      "record_paths": [
-        "PROTOCOL.md",
-        "PRECHECK.md",
-        "REUSE_AUDIT.md",
-        "REPORT.md"
-      ]
     },
     {
       "classification_status": "按原目录与文件名初分；允许修订",
@@ -1658,6 +1668,19 @@
       "record_paths": []
     },
     {
+      "study_id": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+      "name": "Native coefficient branch oracle-alignment decomposition under the fixed prototype space",
+      "path": "experiments/coefficient_oracle_alignment_20261009",
+      "kind": "diagnostic",
+      "status": "completed",
+      "scope": "project",
+      "original_path": "experiments/coefficient_oracle_alignment_20261009",
+      "provenance": "ai_declared",
+      "record_paths": [
+        "REPORT.md"
+      ]
+    },
+    {
       "study_id": "STUDY_e10b8f24ca424897852579c07904bef6",
       "name": "系数oracle修复像素的空间归因",
       "path": "experiments/coefficient_oracle_spatial_20260924",
@@ -2488,6 +2511,17 @@
       ]
     },
     {
+      "study_id": "STUDY_FROZEN_NATIVE_MASK_COMPARISON",
+      "name": "Unified frozen native mask readout comparisons",
+      "path": "experiments/frozen_native_mask_comparison",
+      "kind": "reproduction",
+      "status": "completed",
+      "scope": "Frozen seven-arm comparison; shared official forward; no training or threshold search; no full 5k TriFlow quality rerun; TriFlow executed separately in 32-image cost panels",
+      "original_path": "experiments/frozen_native_mask_comparison",
+      "provenance": "ai_declared",
+      "record_paths": []
+    },
+    {
       "classification_status": "按原目录与文件名初分；允许修订",
       "code_paths": [
         "diagnostics/frozen_readouts_fullval_20260912/source/eval_frozen_readouts_val.py",
@@ -2944,6 +2978,17 @@
       "study_id": "paper-disc:method:local_dice_train_20260911"
     },
     {
+      "study_id": "STUDY_LOCAL_EDIT_ACTION_FEASIBILITY_20261009",
+      "name": "Native mask single-region edit: engineering and finite-action feasibility",
+      "path": "experiments/local_edit_action_feasibility_20261009",
+      "kind": "diagnostic",
+      "status": "completed",
+      "scope": "Completed engineering and fixed train-side finite-action opportunity diagnostic; current finite configuration closed after independent verification; no trained method, AP, or method-family upper-bound claim",
+      "original_path": "experiments/local_edit_action_feasibility_20261009",
+      "provenance": "ai_declared",
+      "record_paths": []
+    },
+    {
       "study_id": "STUDY_e17969f721b4495fb6c8307f8d95b008",
       "name": "无GT局部视图空间证据回投原图原型：零训练短测",
       "path": "experiments/local_view_coefficient_replay_20261003",
@@ -3164,12 +3209,15 @@
       "name": "Quality-guided coefficient refinement in frozen prototype space",
       "path": "experiments/mask_quality_energy_refinement_20261005",
       "kind": "method",
-      "status": "exploring",
+      "status": "completed",
       "scope": "project",
       "original_path": "experiments/mask_quality_energy_refinement_20261005",
       "provenance": "ai_declared",
       "record_paths": [
         "PROTOCOL.md",
+        "AUDIT.md",
+        "EVALUATION_README.md",
+        "STATUS.md",
         "REPORT.md"
       ]
     },
@@ -3336,6 +3384,19 @@
       "original_path": "experiments/native_proto_coadaptation_screen_20261003",
       "provenance": "ai_declared",
       "record_paths": []
+    },
+    {
+      "study_id": "STUDY_NATIVE_RESPONSE_TARGET_COMPARISON_20261009",
+      "name": "Same-capacity native response target comparison",
+      "path": "experiments/native_response_target_comparison_20261009",
+      "kind": "ablation",
+      "status": "completed",
+      "scope": "Single shared 20k extraction; identical five-feature HGBs differ only in continuous IoU versus net threshold-crossing target; fixed 5k evaluation, no parameter search",
+      "original_path": "experiments/native_response_target_comparison_20261009",
+      "provenance": "ai_declared",
+      "record_paths": [
+        "REPORT.md"
+      ]
     },
     {
       "study_id": "STUDY_c8c6abdbbf5149a39ed4360b6e1c2ea9",
@@ -4823,6 +4884,17 @@
       "study_id": "paper-disc:diagnostic:rich_pixel_readout_20260912"
     },
     {
+      "study_id": "STUDY_SEGREFINER_OFFICIAL_CONTENT_BASELINE_20261009",
+      "name": "Official SegRefiner LR RGB content refinement baseline",
+      "path": "experiments/segrefiner_official_content_baseline_20261009",
+      "kind": "reproduction",
+      "status": "running",
+      "scope": "Official pretrained strong comparison; training-image provenance and overlap audit required; no project training or hyperparameter search",
+      "original_path": "experiments/segrefiner_official_content_baseline_20261009",
+      "provenance": "ai_declared",
+      "record_paths": []
+    },
+    {
       "classification_status": "由 study.json 明确登记",
       "code_paths": [
         "diagnostics/semantic_residual_missing_instance_20260914/semantic_residual_probe.py"
@@ -5364,6 +5436,54 @@
       "shared_code_path": "shared/coco_clean_20260911",
       "status": "imported",
       "study_id": "paper-disc:diagnostic:threshold_coverage_curve_20260911"
+    },
+    {
+      "study_id": "STUDY_TRIFLOW_20K_TRAINING_20261007",
+      "name": "TriFlow 20000-image training conclusion experiment",
+      "path": "experiments/triflow_20k_training_20261007",
+      "kind": "method",
+      "status": "completed",
+      "scope": "User-selected 20000-image conclusion stage; full original-split confirmation follows only after this conclusion is confirmed.",
+      "original_path": "experiments/triflow_20k_training_20261007",
+      "provenance": "ai_declared",
+      "record_paths": [
+        "REPORT.md"
+      ]
+    },
+    {
+      "study_id": "STUDY_TRIFLOW_FINAL_READOUT_DIAGNOSTICS",
+      "name": "TriFlow fixed-final readout identity and mechanism diagnostics",
+      "path": "experiments/triflow_final_readout_diagnostics",
+      "kind": "diagnostic",
+      "status": "completed",
+      "scope": "Descriptive analysis of already returned fixed epoch8 files; no inference, training, GT rematching, threshold optimization, model selection or historical changes",
+      "original_path": "experiments/triflow_final_readout_diagnostics",
+      "provenance": "ai_declared",
+      "record_paths": []
+    },
+    {
+      "study_id": "STUDY_TRIFLOW_FULLSCALE_TRAINING_20261007",
+      "name": "TriFlow full COCO training validation",
+      "path": "experiments/triflow_fullscale_training_20261007",
+      "kind": "method",
+      "status": "cancelled",
+      "scope": "Full-split preparation was stopped at the user's request before formal training; engineering evidence and partial downloads remain preserved. Continue with the separate 20000-image study.",
+      "original_path": "experiments/triflow_fullscale_training_20261007",
+      "provenance": "ai_declared",
+      "record_paths": []
+    },
+    {
+      "study_id": "STUDY_TRIFLOW_POTENTIAL_COEFFICIENT_20261006",
+      "name": "TriFlow: tri-ownership potential fields compiled to native prototype coefficients",
+      "path": "experiments/triflow_potential_coefficient_20261006",
+      "kind": "method",
+      "status": "completed",
+      "scope": "project",
+      "original_path": "experiments/triflow_potential_coefficient_20261006",
+      "provenance": "ai_declared",
+      "record_paths": [
+        "REPORT.md"
+      ]
     },
     {
       "classification_status": "按原目录与文件名初分；允许修订",
@@ -6109,6 +6229,17 @@
       "scope": "project",
       "status": "complete-research-draft-awaiting-confirmatory-results",
       "study_id": "STUDY_184872788c0c4e749250861b0f636041"
+    },
+    {
+      "study_id": "STUDY_4b1c87f0a4fd4a2f9c04f3c431a6f9df",
+      "name": "严格 argmax-MaskFail 的 raw 位置系数可恢复性",
+      "path": "experiments/argmax_maskfail_position_oracle_20261005",
+      "kind": "diagnostic",
+      "status": "completed",
+      "scope": "project",
+      "original_path": "experiments/argmax_maskfail_position_oracle_20261005",
+      "provenance": "legacy_catalog",
+      "record_paths": []
     }
   ],
   "verification_path": "_maintenance/layout_20260914/verification.json",

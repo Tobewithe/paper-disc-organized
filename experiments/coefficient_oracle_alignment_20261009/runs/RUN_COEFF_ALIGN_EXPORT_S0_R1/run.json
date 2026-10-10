@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_COEFF_ALIGN_EXPORT_S0_R1",
+  "study_id": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "working_directory": "D:\\coco_wire\\experiments\\coefficient_oracle_alignment_20261009",
+  "command": "export_arms.py with the same arguments as RUN_COEFF_ALIGN_EXPORT_SMOKE_S0 but without --limit (197 dev images, arms native/baseline/acd)",
+  "environment": {
+    "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "torch": "2.5.1",
+    "ultralytics": "8.4.100",
+    "ultralytics_path": "D:\\coco_wire\\vendor_8.4.100\\ultralytics\\__init__.py",
+    "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "tf32": false
+  },
+  "inputs": [
+    {"role": "weights", "path": "D:\\coco_wire\\models\\yolo26m-seg.pt", "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5"},
+    {"role": "dev_list", "path": "D:\\coco_wire\\data\\official_tal_affine_20260930\\runs\\official_cache\\official_data\\dev.txt", "sha256": "a35fcf65802b1fc2ef88133a0803caf8160efad091d6d08fdedb1c333ec76837", "count": 197},
+    {"role": "annotations_train2017", "path": "D:\\coco_wire\\data\\annotations\\instances_train2017.json", "sha256": "8e061f98dac2f75f30afe67c2c96216ef49abde8a19b7953cf405b3daa967189"},
+    {"role": "overlay_baseline", "path": "D:\\coco_wire\\experiments\\acd_native_coefficient_20261006\\runs\\RUN_BASELINE_FEASIBILITY_S0_RETRY1\\coeff_final_ema.pt", "sha256": "a05ffe6fcbf4777799d97e2d658afe67ba0ce789eeceb49320f888c6ec8acde1"},
+    {"role": "overlay_acd", "path": "D:\\coco_wire\\experiments\\acd_native_coefficient_20261006\\runs\\RUN_ACD_FEASIBILITY_S0\\coeff_final_ema.pt", "sha256": "b8ec35794a991132f1600cbe8843225f7779f8c5db81f34b42281e686cab970f"}
+  ],
+  "status": "completed",
+  "scope": "Stage-1 export for the analysis: three arms over the 197-image dev panel, 1,375 GT-associated candidates per arm, rows extended with the 160-grid GT map for oracle realization.",
+  "audits": {
+    "overlay_differing_keys": "exactly the 24 trainable coefficient parameters per arm (model.23.cv4.* / model.23.one2one_cv4.* conv/bias)",
+    "gt_association": "native_bank rule: Hungarian, same-class predicted-box/GT-box IoU >= 0.5 on the 640 letterbox grid, repeated GT allowed (diagnostic association, not COCO matching)",
+    "identity": "image_id, branch=one2one, pyramid_level 0/1/2, raw_id 0..8399, grid_y/grid_x, stride 8/16/32, input_shape 640x640"
+  },
+  "artifacts": {
+    "collected_files": 601,
+    "bundle_sha256": "2966d641eef04bff31380417ca4e35c1c8192257932fcdc17cd2800e3ee80be4",
+    "retained_remote": "197 per-image bank caches (images/), explicitly retained on the laptop"
+  },
+  "notes": "Analysis input. Wall-clock start/end were not captured in this record; per-arm elapsed time (about 49 s across the three arms) is in arms/*/PROGRESS.json."
+}

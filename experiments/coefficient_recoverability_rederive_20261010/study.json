@@ -1,0 +1,26 @@
+{
+  "study_id": "STUDY_COEFFICIENT_RECOVERABILITY_REDERIVE_20261010",
+  "title": "Definition-complete re-derivation of fixed-prototype recoverability on the argmax-conditioned strict Mask-failure panel",
+  "kind": "diagnostic",
+  "status": "completed",
+  "research_line": "neighbor_sensitive_p3",
+  "protocol": "PROTOCOL.md",
+  "report": "REPORT.md",
+  "environment": "laptop_28358lan; python C:/Users/28358/anaconda3/envs/pytorch/python.exe; torch 2.5.1; RTX 4060 Laptop; detached scheduled task",
+  "execution_root": "D:/coco_wire/experiments/coefficient_recoverability_rederive_20261010",
+  "question": "Under a fully documented oracle definition, what share of the 6,459 argmax-conditioned strict Mask-fail GT is recoverable by a coefficient correction inside the frozen prototype space, and does the re-derivation reproduce the 4,263 (66.00%) recorded in argmax_maskfail_position_oracle_20261005?",
+  "outcome": "rederived_75p02_vs_recorded_66p00_both_reported",
+  "outcome_scope": "Re-derived recoverable share 4,843/6,456 = 75.02% under the documented 7D finite-oracle definition (lambda 0.003, GT-box ROI, LBFGS 120, double); the original panel's recorded share is 4,263/6,459 = 66.00% under partially recorded decode conventions; difference +580 concentrated near the 0.75 threshold in small instances; no parameter tuning per protocol; 3 degenerate GTs skipped; independent verification 7/7",
+  "primary_run_ids": {
+    "audit": "RUN_REDERIVE_S0_R1",
+    "verification": "RUN_REDERIVE_VERIFY_S0",
+    "interrupted_superseded": "RUN_REDERIVE_S0"
+  },
+  "verified": true,
+  "completed_at": "2026-10-10",
+  "limits": [
+    "the re-derived value is the recoverability under the recorded 7D oracle definition, not the original panel's exact objective (its solver script was not retained)",
+    "oracle is a GT-assisted diagnostic; panel is historical val2017 (not a blind test); no AP claim",
+    "decode/ROI conventions of the original panel are only partially recorded; both values are reported"
+  ]
+}

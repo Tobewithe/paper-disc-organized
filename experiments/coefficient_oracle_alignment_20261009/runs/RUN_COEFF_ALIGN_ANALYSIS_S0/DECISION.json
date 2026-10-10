@@ -1,0 +1,122 @@
+{
+  "study": "STUDY_COEFFICIENT_ORACLE_ALIGNMENT_20261009",
+  "gates": {
+    "G_transfer": {
+      "pass_": false,
+      "alignment_delta_point": 0.0024474269441006153,
+      "alignment_delta_ci95": [
+        0.0013075755650993773,
+        0.0035461471888810717
+      ],
+      "realization_delta_point": 0.016591251885369532,
+      "realization_delta_ci95": [
+        0.0077279752704791345,
+        0.0273972602739726
+      ],
+      "rule": "align(C-B) >= +0.02 cosine AND realization(C-A) >= +0.005 with bootstrap lower bound > 0"
+    },
+    "G_not_learnable": {
+      "pass_": true,
+      "align_acd": -0.032388821229616456,
+      "align_baseline": -0.03483624817371707,
+      "rule": "align(C) within +0.01 of max(native=0, B)"
+    },
+    "G_damage": {
+      "triggered": true,
+      "damage_rate_acd_point": 0.07303370786516854,
+      "damage_rate_baseline_point": 0.06741573033707865,
+      "image_macro_iou_delta": {
+        "point": -0.020294770660535574,
+        "ci95": [
+          -0.0257674244843038,
+          -0.0138003213659077
+        ],
+        "bootstrap_samples": 5000
+      },
+      "rule": "damage rate of any arm > 1% or image-macro IoU CI lower < -0.1pp"
+    }
+  },
+  "estimates": {
+    "align_acd_minus_baseline": {
+      "point": 0.0024474269441006153,
+      "ci95": [
+        0.0013075755650993773,
+        0.0035461471888810717
+      ],
+      "bootstrap_samples": 5000
+    },
+    "align_acd": {
+      "point": -0.032388821229616456,
+      "ci95": [
+        -0.04689707643464974,
+        -0.019029386656940157
+      ],
+      "bootstrap_samples": 5000
+    },
+    "realize_acd_minus_native": {
+      "point": 0.016591251885369532,
+      "ci95": [
+        0.0077279752704791345,
+        0.0273972602739726
+      ],
+      "bootstrap_samples": 5000
+    },
+    "realize_acd_minus_baseline": {
+      "point": 0.0,
+      "ci95": [
+        -0.006024096385542169,
+        0.005943536404160475
+      ],
+      "bootstrap_samples": 5000
+    },
+    "realize_baseline_minus_native": {
+      "point": 0.016591251885369532,
+      "ci95": [
+        0.007680491551459293,
+        0.027210884353741496
+      ],
+      "bootstrap_samples": 5000
+    },
+    "image_macro_iou_acd_minus_native": {
+      "point": -0.020294770660535574,
+      "ci95": [
+        -0.0257674244843038,
+        -0.0138003213659077
+      ],
+      "bootstrap_samples": 5000
+    },
+    "image_macro_iou_baseline_minus_native": {
+      "point": -0.019179701996715082,
+      "ci95": [
+        -0.024555448004796292,
+        -0.01265814012489008
+      ],
+      "bootstrap_samples": 5000
+    },
+    "damage_rate_acd": {
+      "point": 0.07303370786516854,
+      "ci95": [
+        0.05337078651685393,
+        0.09420289855072464
+      ],
+      "bootstrap_samples": 5000
+    },
+    "damage_rate_baseline": {
+      "point": 0.06741573033707865,
+      "ci95": [
+        0.04940119760479042,
+        0.08695652173913043
+      ],
+      "bootstrap_samples": 5000
+    },
+    "damage_rate_acd_minus_native": {
+      "point": 0.07303370786516854,
+      "ci95": [
+        0.05337078651685393,
+        0.09420289855072464
+      ],
+      "bootstrap_samples": 5000
+    }
+  },
+  "decision": "not_learnable_at_this_budget"
+}

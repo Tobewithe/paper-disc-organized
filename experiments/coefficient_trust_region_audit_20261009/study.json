@@ -1,0 +1,31 @@
+{
+  "study_id": "STUDY_COEFFICIENT_TRUST_REGION_AUDIT_20261009",
+  "title": "Functional-space trust-region readout: no-training oracle projection audit",
+  "kind": "diagnostic",
+  "status": "completed",
+  "research_line": "neighbor_sensitive_p3",
+  "protocol": "PROTOCOL.md",
+  "report": "REPORT.md",
+  "environment": "laptop_28358lan; python C:/Users/28358/anaconda3/envs/pytorch/python.exe; vendor D:/coco_wire/vendor_8.4.100 (ultralytics 8.4.100); torch 2.5.1; RTX 4060 Laptop",
+  "execution_root": "D:/coco_wire/experiments/coefficient_trust_region_audit_20261009",
+  "question": "Under no additional network information, does the functional-space constraint (evidence-region fit plus protected-region penalty) retain most of the oracle gain while substantially reducing perturbation of already-reliable regions?",
+  "panel": "197-image historical dev panel reusing RUN_COEFF_ALIGN_EXPORT_S0_R1; 1,375 GT-associated one-to-one candidates (663 native-failure / 712 native-success; 1,239 with positive oracle gain)",
+  "outcome": "STOP_ROUTE",
+  "outcome_scope": "The trust-region projection retains only 30.2% of oracle IoU gain (gate 80%), retains less than a random same-cardinality support control (58.8%), while the protection term is highly effective (protected-zone logit change 6.2% of the oracle's own, gate passed); no lambda configuration in the pre-registered sensitivity set reaches the retention gate; the route is stopped per the pre-registered rule without parameter chasing",
+  "gates": {"G1_retention": false, "G2_protection": true, "G3_control": false, "G4_success_guard": true},
+  "primary_run_ids": {
+    "audit": "RUN_TRUST_REGION_AUDIT_S0_R1",
+    "verification": "RUN_TRUST_REGION_AUDIT_VERIFY_S0",
+    "smoke": "RUN_TRUST_REGION_AUDIT_SMOKE_S0",
+    "superseded": "RUN_TRUST_REGION_AUDIT_S0"
+  },
+  "verified": true,
+  "verification_scope": "7/7 independent checks passed (augmented-least-squares re-solve, IoU/retention recomputation, primary regression, gate labels, sensitivity distinctness)",
+  "stage_next_authorized": false,
+  "completed_at": "2026-10-09",
+  "limits": [
+    "historical dev panel, not a blind test; diagnostic association, not COCO matching; no AP claim",
+    "m_E=m_R=1.0 first-version fixed engineering choice; conclusions limited to this construction family",
+    "stop per pre-registered gate does not prove all functional-space methods ineffective"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_REDERIVE_VERIFY_S0",
+  "study_id": "STUDY_COEFFICIENT_RECOVERABILITY_REDERIVE_20261010",
+  "source_kind": "agent_observed",
+  "host": "28358lan",
+  "command": "verify_rederive.py --cache <cache> --annotations <instances_val2017.json> --run RUN_REDERIVE_S0_R1 --original <original PER_CANDIDATE.jsonl> --out <this run>",
+  "environment": {"python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe", "torch": "2.5.1",
+                  "cuda": "NVIDIA GeForce RTX 4060 Laptop GPU"},
+  "status": "completed",
+  "verified": true,
+  "checks": ["subset_size", "independent_resolve", "aggregation_recompute", "strata_recompute",
+             "identity_manifest_with_degenerate_gap", "event_count", "headline_share"],
+  "notes": "First execution had two failing checks (candidate lookup by annotation only instead of (annotation, raw_id); degenerate-GT check reading a nonexistent field). Both were verifier bugs, fixed before the passing run; the failing output was retained. Verification did not re-run the model forward; it recomputed stored-tensor quantities from the stage cache."
+}

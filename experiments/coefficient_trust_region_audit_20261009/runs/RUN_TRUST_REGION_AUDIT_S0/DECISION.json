@@ -1,0 +1,133 @@
+{
+  "study": "STUDY_COEFFICIENT_TRUST_REGION_AUDIT_20261009",
+  "decision": "STOP_ROUTE",
+  "gates": [
+    {
+      "gate": "G1_retention",
+      "pass_": false,
+      "rule": "mean retention_T >= 0.80 with bootstrap lower >= 0.75",
+      "estimate": {
+        "point": 0.30185900967995505,
+        "ci95": [
+          0.26865394057279857,
+          0.335262787590854
+        ],
+        "bootstrap_samples": 5000
+      }
+    },
+    {
+      "gate": "G2_protection",
+      "pass_": true,
+      "rule": "prot_change_T <= 0.80 * prot_change_U with bootstrap upper < 0",
+      "estimate": {
+        "point": -0.5723568186315575,
+        "ci95": [
+          -0.5935122641293472,
+          -0.5525764626087541
+        ],
+        "bootstrap_samples": 5000
+      },
+      "prot_U": {
+        "point": 0.7928944609692802,
+        "ci95": [
+          0.765726340409209,
+          0.820894977220123
+        ],
+        "bootstrap_samples": 5000
+      },
+      "prot_T": {
+        "point": 0.06195875014386659,
+        "ci95": [
+          0.057136721688246336,
+          0.06720053418980668
+        ],
+        "bootstrap_samples": 5000
+      }
+    },
+    {
+      "gate": "G3_control",
+      "pass_": false,
+      "rule": "retention_T > retention_S with bootstrap lower > 0",
+      "estimate": {
+        "point": -0.2861693896846713,
+        "ci95": [
+          -0.3531357908011237,
+          -0.20520078290002253
+        ],
+        "bootstrap_samples": 5000
+      }
+    },
+    {
+      "gate": "G4_success_guard",
+      "pass_": true,
+      "rule": "mean(iou_T - iou_native) >= -0.005 on native-success, bootstrap lower >= -0.01",
+      "estimate": {
+        "point": 0.011120299060278388,
+        "ci95": [
+          0.008551090462233306,
+          0.013819044160282706
+        ],
+        "bootstrap_samples": 5000
+      }
+    }
+  ],
+  "estimates": {
+    "retention_T": {
+      "point": 0.30185900967995505,
+      "ci95": [
+        0.26865394057279857,
+        0.335262787590854
+      ],
+      "bootstrap_samples": 5000
+    },
+    "retention_S": {
+      "point": 0.5880283993646264,
+      "ci95": [
+        0.5076602097539197,
+        0.6526610360470276
+      ],
+      "bootstrap_samples": 5000
+    },
+    "prot_U": {
+      "point": 0.7928944609692802,
+      "ci95": [
+        0.765726340409209,
+        0.820894977220123
+      ],
+      "bootstrap_samples": 5000
+    },
+    "prot_T": {
+      "point": 0.06195875014386659,
+      "ci95": [
+        0.057136721688246336,
+        0.06720053418980668
+      ],
+      "bootstrap_samples": 5000
+    },
+    "prot_diff_T_minus_0.8U": {
+      "point": -0.5723568186315575,
+      "ci95": [
+        -0.5935122641293472,
+        -0.5525764626087541
+      ],
+      "bootstrap_samples": 5000
+    },
+    "retention_T_minus_S": {
+      "point": -0.2861693896846713,
+      "ci95": [
+        -0.3531357908011237,
+        -0.20520078290002253
+      ],
+      "bootstrap_samples": 5000
+    },
+    "success_iou_T_minus_native": {
+      "point": 0.011120299060278388,
+      "ci95": [
+        0.008551090462233306,
+        0.013819044160282706
+      ],
+      "bootstrap_samples": 5000
+    }
+  },
+  "note": "Gates and parameters were frozen in PROTOCOL.md before execution"
+}
