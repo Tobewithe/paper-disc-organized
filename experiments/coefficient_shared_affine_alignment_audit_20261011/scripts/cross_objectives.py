@@ -39,25 +39,31 @@ def _xyxy_from_xywh(box: torch.Tensor) -> torch.Tensor:
     return torch.cat((box[:2], box[:2] + box[2:]))
 
 
-def _letterbox_geometry(image: Mapping[str, Any], ann: Mapping[str, Any]) -> tuple[float, int, int, int, int, torch.Tensor]:
+def _letterbox_geometry(image: Mapping[str, Any], ann: Mapping[str, Any]) -> tuple[tuple[float, float], int, int, int, int, torch.Tensor]:
     """Return old letterbox gain/shape/padding and the 640-space GT box."""
     gain_value = image.get("gain", image.get("letterbox_gain"))
+    gain_y = gain_x = None
     pad_value = None
     if gain_value is None and image.get("ratio_pad") is not None:
-        # Ultralytics stores ratio_pad as ((gain_x, gain_y), (pad_x, pad_y));
+        # Ultralytics stores ratio_pad as ((gain_y, gain_x), (pad_x, pad_y));
         # old caches store scalar gain/left/top.  Both forms are accepted.
         ratio_pad = image["ratio_pad"]
         try:
             gain_raw = ratio_pad[0]
             if hasattr(gain_raw, "__len__") and not isinstance(gain_raw, (str, bytes)):
-                gain_raw = gain_raw[0]
-            gain_value = float(gain_raw)
+                gain_y, gain_x = float(gain_raw[0]), float(gain_raw[1])
+            else:
+                gain_y = gain_x = float(gain_raw)
             pad_value = ratio_pad[1]
         except (IndexError, TypeError, ValueError):
-            gain_value = None
-    if gain_value is None:
+            gain_y = gain_x = None
+    if gain_value is not None:
+        if hasattr(gain_value, "__len__") and not isinstance(gain_value, (str, bytes)):
+            gain_y, gain_x = float(gain_value[0]), float(gain_value[1])
+        else:
+            gain_y = gain_x = float(gain_value)
+    if gain_y is None or gain_x is None:
         raise KeyError("old160 requires saved gain/letterbox_gain or ratio_pad")
-    gain = float(gain_value)
     original_shape = image.get("original_shape")
     if original_shape is None:
         raise KeyError("old160 requires image['original_shape']")
@@ -65,16 +71,16 @@ def _letterbox_geometry(image: Mapping[str, Any], ann: Mapping[str, Any]) -> tup
     # native_bank stores the rounded shape and integer left/top padding.  Use
     # the saved geometry when available so the adapter cannot silently change
     # a historical cache's rounding convention.
-    nh = int(image.get("resized_height", round(oh * gain)))
-    nw = int(image.get("resized_width", round(ow * gain)))
+    nh = int(image.get("resized_height", round(oh * gain_y)))
+    nw = int(image.get("resized_width", round(ow * gain_x)))
     left_default = round((640 - nw) / 2 - 0.1)
     top_default = round((640 - nh) / 2 - 0.1)
     left = int(image.get("left", pad_value[0] if pad_value is not None else left_default))
     top = int(image.get("top", pad_value[1] if pad_value is not None else top_default))
     xywh = torch.as_tensor(ann["bbox"], dtype=torch.float32)
-    box640 = _xyxy_from_xywh(xywh) * torch.tensor([gain, gain, gain, gain])
+    box640 = _xyxy_from_xywh(xywh) * torch.tensor([gain_x, gain_y, gain_x, gain_y])
     box640 = box640 + torch.tensor([left, top, left, top], dtype=torch.float32)
-    return gain, nh, nw, left, top, box640
+    return (gain_y, gain_x), nh, nw, left, top, box640
 
 
 def _old_gt_and_support(image: Mapping[str, Any], ann: Mapping[str, Any]) -> tuple[torch.Tensor, torch.Tensor, float, dict[str, Any]]:
