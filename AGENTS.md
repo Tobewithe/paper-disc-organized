@@ -90,4 +90,4 @@
 
 ## COCO GT 真实失败分类重基线（已冻结计划，尚未执行）
 
-此研究只按 `experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md` 的 G0–G5 执行：先验证 v8.4.100 原生 O2O (`end2end=True`, `agnostic_nms=False`) 与官网 Box 52.5 / Mask 44.1 的 AP 一位小数一致，再从**同一份原生 predictions.json** 的 bbox/segm COCOeval 分别得到 GT 匹配，锁定具体 output_detection_id 计算同预测的 Box/Mask IoU，并与旧 GT 账本比对。若基线、COCO 识别或匹配身份 Gate 失败，就记录 blocked 而非自行调参。仅允许一次正式全量原生 val；禁止训练和重算已有的 30828840 raw。计划写入不意味着任何 Run 已经完成。
+此研究只按 `experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md` 的 G0–G5 执行：验证 v8.4.100 原生 O2O (`end2end=True`, `agnostic_nms=False`) 的 COCO 数据/类别身份与官网 Box 52.5 / Mask 44.1 的 AP 一位小数差异；**`published_baseline_parity` 与 `native_gt_ledger_validity` 是两道独立验收**。只要原生 COCO 与输出身份合法，即使刊载 AP parity 未过也可从**同一份原生 predictions.json** 离线获得标记为 `native_config_scoped` 的 GT 失败账本，禁止冒充官网基线复现。独立 bbox/segm COCOeval 必须原样加载完整预测 JSON（不删除 bbox 改变检测面积口径），保留每条 output_detection_id、同检测 Box/Mask IoU，并对照旧两份 22767/22773 的 GT 成败。COCO 识别、后端 AP 或匹配身份失败才阻断账本结论，不得自行调参追分。仅允许一次正式全量原生 val；禁止训练和重算已有的 30828840 raw。计划写入不意味着任何 Run 已经完成。
