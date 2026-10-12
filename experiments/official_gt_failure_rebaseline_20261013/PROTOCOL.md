@@ -1,5 +1,7 @@
 # YOLO26m-seg 官方 COCO GT 失败重基线：冻结执行计划（2026-10-13）
 
+> **当前依赖图与唯一执行队列：** [project/ACTIVE_PLAN.md](../../project/ACTIVE_PLAN.md)。本协议是 S0 的评价/身份实验，不负责推动 TAL、重预训练或启动后训练 Adapter；后续方法只在 S0 有真实输出账本后按独立 Gate 进入。
+
 **状态：`planned_not_executed`。本文件是本地 Codex 的可执行协议，不代表已经运行、已重标注或官方基线已复现。**
 研究类型：诊断 / benchmark parity / per-GT 任务失败账本。唯一任务：**准确找出官方正常推理下 Mask75 未成功匹配的 COCO GT，再对其关联的同一最终预测检查 Box/Mask 质量**。不训练、不修改权重、不设计新模块、不重新遍历全部 30828840 raw 计算 Mask。
 
