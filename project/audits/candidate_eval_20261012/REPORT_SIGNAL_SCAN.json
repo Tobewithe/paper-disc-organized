@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 72,
+  "read_count": 78,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -1478,32 +1478,140 @@
     {
       "path": "experiments/small_raw_geometry_origin_20260914/REPORT.md",
       "blob_sha": "211e58fdb23fb198aafac6a92379a6f9261e112f",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 474,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/small_recall_attribution_20260915/REPORT.md",
       "blob_sha": "659cac04513c070f7805669791c67d397e14e4c9",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 5196,
+      "signal_mentions": {
+        "geometry": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 77,
+              "text": "本次结果要求保留两个独立维度：**候选的几何/掩码质量**与**正确类别的分数和保留状态**。只找同类最佳框得到 IoU=0，会混合“本来没有好几何候选”和“好候选被赋予别的类别/未以正确类别导出”。这是评价归因的区别，并未证明新的训练根因。"
+            }
+          ]
+        },
+        "COCOeval": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 11,
+              "text": "本次评价包含全部 5,000 张 COCO val2017、15,264 个 small 普通 GT、80 类。原始 annotation ID 保持身份；多多边形合并成一个实例。直接调用官方 pycocotools COCOeval，保留 crowd/ignore、面积分层、按"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/supervision_output_domain_audit_20261003/REPORT.md",
       "blob_sha": "5013453a53a05f16533bf34346f0b1024f449476",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3046,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "2026-10-04（北京时间）完成，无训练。固定256张开发图、253张有效、1816个官方one-to-one TAL候选；原始A、既有epoch3 N/P/PC均未更新。N仅训练过原生系数分支；P仅训练过原生原型；PC两者联合。正式冻结重放128.25秒，smoke及正式R"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/triflow_20k_training_20261007/REPORT.md",
       "blob_sha": "9187a7bfbf5f802d93842e1c2a82e36356c444fb",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 5032,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "| epoch | Mask AP | Δ AP点 | AP75 | APsmall | Box AP |"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/triflow_final_readout_diagnostics/REPORT.md",
       "blob_sha": "dda7b90572ebac06b5054be68ef877f09c7ae4cf",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2775,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "唯一来源是 [20k 第 8 轮评价](../triflow_20k_training_20261007/runs/RUN_TRIFLOW_20K_EPOCH08_EVAL_S0/SUMMARY.json)。其标准 val2017 5,000 图 Mask AP 为 43.685"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 25,
+              "text": "两有效槽共 220,268 个，其中 raw 重复占 **23.55%**。这是原代码的真实行为，但两组基础质量不同，不能据此认定重复导致收益不足。`trust_scale<.25` 组贡献总体配对 IoU 净增量之和的 **83.84%**；它不是 AP 收益贡献，亦不支持自动"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/triflow_potential_coefficient_20261006/REPORT.md",
       "blob_sha": "62438b7fea75bced6f57cc4cab294aa3af81e61c",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 11198,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 37,
+              "text": "完整5000 val2017、640 square LetterBox/scaleup=false、native one2one FP32、conf=.001/max_det300；原生process_mask_native后scale_preds.byte()。COCOeval"
+            },
+            {
+              "line": 86,
+              "text": "| Mask AP增加至少0.3 AP点 | 未通过 |"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 33,
+              "text": "数值诊断：20项，诊断状态passed；包含oracle扩缩/邻居/ignore/空区域、实际task-only梯度和优化器更新、FP32高尺度rank1、真实官方冻结native重放。诊断效应不是正式训练或AP效应。"
+            },
+            {
+              "line": 132,
+              "text": "| 4图official c0 native identity/RLE与真实smoke拒绝；不是formal正例/AP/5000证明 | 通过 |"
+            }
+          ]
+        }
+      }
     }
-  ]
+  ],
+  "summary": {
+    "read": 78,
+    "total": 78,
+    "errors": 0,
+    "mention_counts": {
+      "geometry": 15,
+      "official_TAL": 20,
+      "COCOeval": 26,
+      "scope_caveat": 30
+    }
+  }
 }
