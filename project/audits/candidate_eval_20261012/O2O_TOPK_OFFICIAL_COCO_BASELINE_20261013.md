@@ -20,7 +20,7 @@
 5. `nms.non_max_suppression(..., end2end=True)` 直接执行 `pred[:,4] > conf_thres`（严格大于）并截断最多 `max_det`，**筛选对象是已经展开的 (raw,类别) 检测行，不是原始 raw**；此路径不经过普通 NMS，也不经过普通 NMS 的 `multi_label` 展开。
 6. 分割验证器随后用这批保留行的系数、框和共享 Prototype 解码 Mask，并分别提交 bbox/segm 给官方 COCOeval。
 
-**Head 中另一分支：** 如果明确将 **`head.agnostic_nms=True`**，源码在两轮展开之前改为每 raw 取最高类别，只做一次 `topk(K)`。这个属性和验证器传给后处理 NMS 的 `agnostic` 参数不应自动视为同一操作；需要确认实际 head 的属性、分支及调用。普通 NMS 的 `multi_label=False` 也不能取消已经在 Head 产生的重复 raw–类别输出。
+**Head 中另一分支：** 如果明确将 **`head.agnostic_nms=True`**，源码在两轮展开之前改为每 raw 取最高类别，只做一次 `topk(K)`。v8.4.100 的原生 `BaseValidator` 在 E2E 时**会把 `args.agnostic_nms` 传播给 Head**，因此验证器设置可以改变 Head 的 Top-K 分支；但这不是通常 NMS 后处理中多标签展开的实现。必须检查实际 Head 属性、分支及调用。普通 NMS 的 `multi_label=False` 也不能取消已经在 Head 产生的重复 raw–类别输出。
 
 **规范要求：** 评价或 GT 分类的日志至少记录 `(image_id, branch, raw_id_global, category_id, class_score, output_detection_id)`，其中 `output_detection_id` 对应最终筛选后的检测行。`raw_id` 是原始几何候选身份，不能当作唯一最终检测 ID；若 COCO JSON 不含 raw_id，必须保留推理阶段的索引映射，不能从输出编号反推。Box/Mask 都由同一输出行对应 raw 的框与 Mask 构成；bbox COCOeval 与 segm COCOeval 仍独立匹配 GT。
 
@@ -48,16 +48,16 @@
 
 - 官方 `SegmentationValidator.init_metrics` 若 `save_json=True` 则选 `ops.process_mask_native`；本地 `scripts/evaluate_raw.py` 自行整图计算全部 raw 的 FP32 Mask logits，按预测框裁切/阈值化并 `scale_masks` 到原图。两条可能因 GEMM/解码边缘及缩放实现产生差别，但还没有成对预测核验。
 - 官方 `DetectionValidator.coco_evaluate` 在此版本使用 `faster_coco_eval.COCOeval_faster`；本地聚合历史记录走 `pycocotools`。无证据宣称这个实现差异就解释全部差距。
-- 官方公开基线的验证命令含端到端参数 `nms=False`；本地虽然宣称并使用 O2O Head，但没有正式原生 val 作交叉证书，故不能声称与官方基线严格对齐。
+- **修订固定版本开关：** v8.4.100 `cfg/default.yaml` 的 `nms` 参数属于导出模型时的 NMS 融合设置，验证器使用的是 `args.end2end` / `head.end2end`，不是用 `nms=False` 切换 O2O。官方 v8.4.100 `docs/en/tasks/segment.md` 的基线复现命令为 `yolo val segment data=coco.yaml device=0`（未包含 `nms=False`）；本地虽然确实使用 O2O Head，但还没有原生 val 的 AP parity 凭据。
 - 自定义实验有 `conf=0.001`、`head_topk=300`、`maxDets=[1,10,100]`，还有省略空 Mask 输出行为；以上均必须同官方实际运行参数核对，而不能凭名称默认相同。
 - 自定义采用每图独立 `auto LetterBox`（实际张量高度宽度不必 640×640），官方 val 的 dataloader/rect batch/原图回缩路径需以实际命令和数据加载日志为准。
 
 ## C. 唯一最小补证动作：同权重原生 COCO val，不重训
 
-在拥有 COCO val2017 全部 5000 张图及同一权重的本地环境执行一次 **Ultralytics 8.4.100 原生验证**，原权重和旧 Run 不覆盖。官方当前公开说明可复现：
-`yolo segment val model=<PINNED_OFFICIAL_PT> data=<LOCAL_COCO_YAML> imgsz=640 device=0 nms=False save_json=True`
+在拥有 COCO val2017 全部 5000 张图及同一权重的本地环境执行一次 **Ultralytics 8.4.100 原生验证**，原权重和旧 Run 不覆盖。以下是在 v8.4.100 版本中显式冻结 E2E 分支的命令草案（不是逐字复制官方文档的命令）：
+`yolo val segment model=<PINNED_OFFICIAL_PT> data=<LOCAL_COCO_YAML> imgsz=640 device=0 end2end=True agnostic_nms=False conf=0.001 max_det=300 save_json=True`
 
-这里 `model` 指向 SHA 与官方 Asset 元数据完全一致的模型；`data` 明确指向本地全部 5000 图和官方原始 COCO 类别/标注数据，不误用 coco8/coco128。日志保存实际 `batch`、`rect`、`conf`、`max_det`、`imgsz`、`nms`、`agnostic_nms`、`save_json`、`half`、`fuse`、input H×W 分布、Ultralytics/torch/pycocotools/faster-coco-eval 版本、GT 标注 SHA、结果 JSON SHA。
+这里 `model` 指向 SHA 与官方 Asset 元数据完全一致的模型；`data` 明确指向本地全部 5000 图和官方原始 COCO 类别/标注数据，不误用 coco8/coco128。日志保存实际 `batch`、`rect`、`conf`、`max_det`、`imgsz`、`end2end`、`agnostic_nms`、`save_json`、`quantize`、`fuse`、input H×W 分布、Ultralytics/torch/pycocotools/faster-coco-eval 版本、GT 标注 SHA、结果 JSON SHA。尤其检查 COCO `val2017.txt` 识别为 `is_coco=True` 且 class_map 为 COCO 80→91，否则不能把验证数值当官方 COCO JSON 成绩。完整停止标准及逐 GT 字段见 [官方 GT 失败重基线计划](../../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md)。
 
 两种预先裁决：
 1. **原生 val 与官方刊载的 52.5/44.1（发表精度）对齐：** 说明权重与官方基线可重现，自定义导出/评分路径存在需定位的协议差异。首个检查量是同图**预测 bbox+类别+分数集合**是否与自定义导出一致（Box AP 已低 0.52）；只有 Box 对齐后再专门检查 Mask decoder。
