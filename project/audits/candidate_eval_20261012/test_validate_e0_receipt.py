@@ -63,6 +63,8 @@ class E0ReceiptTests(unittest.TestCase):
         (self.eval / "SUMMARY.json").write_text(json.dumps({"tables": blocks}))
         (self.eval / "PER_CANDIDATE.jsonl").write_text(
             "\n".join(json.dumps(x) for x in self.rows) + "\n")
+        if omit_ref and self.ref.exists():
+            self.ref.unlink()
         if not omit_ref:
             reference = [{**r, "iou_B": 0.0, "iou_C": 1.0} for r in self.rows]
             if mutate_ref:
