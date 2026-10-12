@@ -10,3 +10,5 @@
 ## 2026-10-12 候选身份与评价审计
 
 已新增 [审计报告与证据清单](project/audits/candidate_eval_20261012/REPORT.md)、[本地最小重放交接](project/audits/candidate_eval_20261012/LOCAL_REPLAY_HANDOFF.md)、[跨研究线候选/评价强制规范](project/科研项目通用规范/候选身份与评估口径.md)。历史 Run 保留不覆盖，缺失的原始逐候选/权重/数据在本地校验，不得凭 GitHub 汇总值推断完整审计通过。
+
+2026-10-12 补充：[指标最小化与 TAL-GT 分类规范](project/科研项目通用规范/指标最小化与TAL分类.md) 已取代“每个实验必报所有指标”的做法，并核实官方训练 TAL 与默认推理分支不是同一个评价过程。
