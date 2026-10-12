@@ -1,6 +1,6 @@
 {
   "study_id": "STUDY_MASK_READOUT_MECHANISM_V2_20261012",
-  "title": "固定候选下掩码读出与局部空间残差的机制识别及前瞻验证",
+  "title": "固定预训练权重的 Prototype→Coefficient 后训练实例修复",
   "kind": "method",
   "research_line": "neighbor_sensitive_p3",
   "status": "draft_rescoped_not_executed",
@@ -9,7 +9,7 @@
   "scientific_status": "not_evaluated",
   "source_commit": "e88e3f9c50e42a05020973357c995354d0c144cb",
   "protocol": "POSTTRAIN_RESCOPE_20261013.md",
-  "gates": "GATES_SPEC.json",
+  "gates": "POSTTRAIN_RESCOPE_20261013.md",
   "entrypoint": "LOCAL_AGENT_START_HERE.md",
   "parent_study": "representation_reachability_20261010",
   "preceding_gate": "official_gt_failure_rebaseline_20261013 valid output ledger",
@@ -18,36 +18,30 @@
   "execution_environment": null,
   "formal_training_started": false,
   "planned_training_arms": [
-    "C",
-    "F_mean",
-    "F",
-    "R_parallel",
-    "R"
+    "A_frozen_native",
+    "B_output_conditioned_delta_c"
   ],
   "initial_seeds": [
-    0,
-    1
+    0
   ],
-  "formal_train_images": 20000,
-  "evaluation_primary": "COCO_val2017_5000",
+  "formal_train_images": 2000,
+  "evaluation_primary": "native_COCO_mask_AP_with_identical_final_detection_set",
   "scientific_gates": [
-    "G_task",
-    "G_increment",
-    "G_safety_damage",
-    "G_safety_AP75_APsmall",
-    "M_layout",
-    "M_space",
-    "M_remove",
-    "M_specific"
+    "G0_native_GT_ledger_and_output_identity",
+    "G1_same_output_coefficient_finite_oracle",
+    "G2_no_GT_adapter_short_pilot",
+    "G3_full_COCO_AP_and_success_damage"
   ],
   "limits": [
-    "This is a draft study. Existing frozen protocols and prior runs remain unchanged.",
-    "E0 must be resolved under its original pre-registered decision rules before any new 20k runs.",
-    "The previous arm_smoke.py is a module check, not a true end-to-end G0.",
-    "No data, weights, checkpoints, or large prediction archives are stored in GitHub.",
-    "No scientific results are claimed by this registration."
+    "Existing old PROTOCOL.md / GATES_SPEC.json and previous Run data are preserved as historical draft and evidence, not active routing",
+    "No TAL E0 prerequisite; model pretrained weights, detection boxes, class scores, P and native c0 are all frozen",
+    "G0/G1 only before training; G2 initial fit2000 is conditional on successful G1; 20k is conditional on pilot",
+    "Previous smoke was a module check, not a true end-to-end G0",
+    "No training, model modification, evaluation Run, or scientific success has been performed by this rescope"
   ],
   "legacy_draft_protocol": "PROTOCOL.md",
   "legacy_draft_gates": "GATES_SPEC.json",
-  "current_blocker": "Need native final-output GT ledger and same-detection coefficient finite oracle; no TAL E0 prerequisite"
+  "current_blocker": "Need native final-output GT ledger and same-detection coefficient finite oracle; no TAL E0 prerequisite",
+  "gate_spec_status": "narrative_gates_planned_not_machine_implemented",
+  "conditional_scaleup_train_images": 20000
 }
