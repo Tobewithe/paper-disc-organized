@@ -179,6 +179,10 @@ def main(argv=None) -> int:
                 "ci_recomputed": False}
 
     check("G3_summary_points", summary_parity, checks, errors)
+    for filename in ("run.json", "SUMMARY.json", "PER_CANDIDATE.jsonl"):
+        f = eval_dir / filename
+        if f.is_file():
+            data["sources"][filename + "_sha256"] = digest(f)
     data.update({"passed": not errors, "status": "valid_for_E0_adjudication" if not errors
                  else "insufficient_inputs", "errors": errors})
     out.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
