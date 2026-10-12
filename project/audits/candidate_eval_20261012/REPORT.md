@@ -78,3 +78,7 @@ P0 有效前，E0 科研终态为 **insufficient_inputs**；并不意味着已�
 此前“每个方法必须固定报告五层”已被精简的科学问题驱动规则取代，详见 `project/科研项目通用规范/指标最小化与TAL分类.md`。对每个 GT，官方 TAL 的冻结回放归属形成训练监督视角的独立分类；不能把它覆盖到真正推理的 COCOeval GT 任务状态上。当前 Ultralytics YOLO26 官方文档默认 one-to-many + NMS，`nms=False` 选 one-to-one；旧研究中有意固定 one-to-one 的结果不受当前默认说法否定，但跨 Run 必须核对实际分支。
 
 已新增只读缓存重分类 `summarize_gt_tal_cached.py` 与合成测试 `test_summarize_gt_tal_cached.py`。脚本只使用官方 TAL val 缓存已有的 `all_annotation_ids`、`rows`、`box_iou` 和 `initial_iou` 来生成 GT 级监督位置表；不会重新前向、训练或计算新的 COCO AP。此轮未在本地大缓存运行脚本，**没有新的 GT–TAL 分类数值结果**。缺少官方 GT 全集或原始 Mask IoU 时停止，不能从 TAL 正样本数假定全部 GT 已经覆盖。
+
+## 2026-10-12 TAL 真实训练轨迹与静态重放区分
+
+[动态 TAL 记录协议](TAL_TRAINING_TRACE_PROTOCOL.md)已追加：过去缓存的官方 TAL 正样本是冻结 checkpoint 在当前无增强输入上的重放，绝非权重预训练各步的历史分配。若论文命题涉及“训练过程为何未学习到某些 GT”，必须使用实际训练 criterion 中的正样本事件流或承认历史不可识别；不要要求每一步存储所有 GT×raw 的稠密关系。未来按用户指定新训练预算和 G0/G1 Gate 另行执行，不得把新增设计写成已运行 Run。
