@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 56,
+  "read_count": 64,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -1240,42 +1240,128 @@
     {
       "path": "experiments/p3_guidance_bridge_screen_20260916/REPORT.md",
       "blob_sha": "651c39b40babe9eb033059ad2709dae5b65d95fd",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3720,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 5,
+          "examples": [
+            {
+              "line": 10,
+              "text": "- 原图教师相对基线：小实例 Mask R50 增加 2.431 点，CI [0.445, 5.020]，23 个恢复、2 个失去；Mask AP 增加 0.242 点。它还不能证明显著优于普通 GT 监督。"
+            },
+            {
+              "line": 11,
+              "text": "- 编辑教师相对原图教师：Mask AP 下降 0.506 点；小实例 Mask R50 下降 0.579 点（CI 跨零），小实例 Mask R75 下降 0.231 点（CI 跨零）。原始失败面板的 Mask R50/R75 没有额外恢复；Box R50 少恢复 1 个。随机"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/position_dynamic_prototype_gate_20261004/REPORT.md",
       "blob_sha": "75f330adb813d156e89e4bc0eb99a8611ed442ad",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1846,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 31,
+              "text": "这是 1024 fit / 256 dev、seed 0、3 epochs 的机制筛选，不是 COCO AP 或独立确认。候选是固定官方 one-to-one cache，完整原型和正常原图解码；没有使用 GT 作为推理输入。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/position_dynamic_prototype_gate_spatial_teacher_20261005/REPORT.md",
       "blob_sha": "7417d420de3520e6a47f99af04c73ee3de7958db",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3879,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/position_dynamic_prototype_gate_warmstart_20261004/REPORT.md",
       "blob_sha": "e0a5942f4ef47bf9cc0be36b4d8f1701e622e4bc",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1567,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/position_objective_complement_20261004/REPORT.md",
       "blob_sha": "a6d34b93a56282c1146911fd339cee562bf8ec9c",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1843,
+      "signal_mentions": {
+        "geometry": {
+          "count": 4,
+          "examples": [
+            {
+              "line": 5,
+              "text": "- 研究对象：固定 YOLO26m-seg 的原型、特征与候选，分别交换“官方 TAL 位置／几何匹配位置”和“官方 ROI 目标／原生目标”，判断此前相反结果来自位置、目标还是两者交互。"
+            },
+            {
+              "line": 9,
+              "text": "这组 2×2 补格支持“位置因素”是主要差异来源，但尚未证明存在可部署的 GT-free 修复方法。官方 TAL 位置上的共享修正不能迁移到正常原图输出；几何匹配位置上的共享修正可以获得较大收益，说明几何位置包含原生 TAL 位置没有兑现的可修正空间。把几何位置训练得到的修正直接"
+            }
+          ]
+        },
+        "official_TAL": {
+          "count": 4,
+          "examples": [
+            {
+              "line": 5,
+              "text": "- 研究对象：固定 YOLO26m-seg 的原型、特征与候选，分别交换“官方 TAL 位置／几何匹配位置”和“官方 ROI 目标／原生目标”，判断此前相反结果来自位置、目标还是两者交互。"
+            },
+            {
+              "line": 9,
+              "text": "这组 2×2 补格支持“位置因素”是主要差异来源，但尚未证明存在可部署的 GT-free 修复方法。官方 TAL 位置上的共享修正不能迁移到正常原图输出；几何匹配位置上的共享修正可以获得较大收益，说明几何位置包含原生 TAL 位置没有兑现的可修正空间。把几何位置训练得到的修正直接"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/proto_multiscale_failure_probe_20260914/REPORT.md",
       "blob_sha": "9d9b6dc7ad6c385551d95e3c7b26928fdb366bb7",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 251,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/prototype_conditioned_dynamic_coeff_20261002/REPORT.md",
       "blob_sha": "cd0b7ba3debd9d44caa8552a076dd5becb611fb6",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1920,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "评价对象为196张未参与本轮训练及选模的图片、1,346个固定官方one-to-one TAL候选；这些图片已被此前研究使用，因此不是新盲测。本轮也不是完整COCO AP实验。"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "评价对象为196张未参与本轮训练及选模的图片、1,346个固定官方one-to-one TAL候选；这些图片已被此前研究使用，因此不是新盲测。本轮也不是完整COCO AP实验。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/prototype_multiplicity_audit_20261004/REPORT.md",
       "blob_sha": "a1a1cc04db673685852a55ac96fcf4832ab4fa23",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4125,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/prototype_readout_fast_screen_20261003/REPORT.md",
