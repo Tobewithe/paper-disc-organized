@@ -1,29 +1,11 @@
-# 固定候选掩码读出与空间残差：新研究 Study（草案）
+# YOLO26-Seg Prototype→Coefficient 后训练修复（2026-10-13 已重定向）
 
-本目录保存 2026-10-12 制定的**论文级机制证据检验计划**。研究线：`neighbor_sensitive_p3`。这是独立的新 Study，**不覆盖**已有 `representation_reachability_20261010` 的冻结协议、Smoke 和失败 Run。
+**当前主线**：在官方预训练模型权重、框/分类及基础 Proto/系数均冻结的前提下，只训练轻量的实例条件 `delta_c` 模块，使正常最终输出中的分割失败得到可迁移修复，并约束原成功实例的误伤。**不研究历史 TAL 训练分配**；前期全量 raw 和 GT 失败账本校正只是评价基础设施。
 
-## 从这里开始
+**当前唯一入口**：[POSTTRAIN_RESCOPE_20261013.md](POSTTRAIN_RESCOPE_20261013.md) → [LOCAL_AGENT_START_HERE.md](LOCAL_AGENT_START_HERE.md)。
 
-**本地 Agent 优先阅读 [LOCAL_AGENT_START_HERE.md](LOCAL_AGENT_START_HERE.md)**，再完整阅读本目录的 [PROTOCOL.md](PROTOCOL.md) 与 [GATES_SPEC.json](GATES_SPEC.json)。开展科研操作前仍须遵守仓库根目录 `AGENTS.md`、`project/科研项目通用规范/` 和研究线 `RESEARCH_RULES.md`。
+执行顺序：取得并校验 [原生 GT 任务失败账本](../official_gt_failure_rebaseline_20261013/PROTOCOL.md) → 在同一个最终预测身份下做有限 `c`-only oracle → 通过机会门槛后才允许在 train2017 对最终输出检测进行后训练 → 安全性与完整 COCO AP 验证。候选集合为 `inference_output`，训练 GT 的**框级标签关联**不是 TAL；推理无 GT，成功/失败分组不输入 adapter。
 
-- `PROTOCOL.md`：完整研究命题、旧证据复用、E0–E5 的实验设计、资源限制、判据与停止条件。
-- `GATES_SPEC.json`：随原计划封存的机器可读**规格**，不是已实现的训练器或 Gate 判定器。
-- `study.json`：本研究在仓库工作台的登记记录；当前为草案，`training_started=false`。
-- `LOCAL_AGENT_START_HERE.md`：提供给本地 Codex 的执行交接指令和阶段顺序。
+**历史草案保留（不再是主动执行顺序）**：旧 [PROTOCOL.md](PROTOCOL.md) 与 [GATES_SPEC.json](GATES_SPEC.json) 记录 2026-10-12 尚未冻结的 E0 TAL/共享仿射前置和五臂双种子 20k 方案；现已按用户明确要求被更窄的 post-training 路线取代。它们的 `protocol_sha256` 仍属于历史草案，**不要拿来校验新的重定向文件**，也不默默篡改旧配置。任何旧 Run 和先前已登记阴性证据不覆盖。
 
-## 状态和路线
-
-1. **E0 前置任务**：核查已有 `coefficient_shared_affine_alignment_audit_20261011` 的真实远端/本地产物，使用其原有 `DECISION_ADDENDUM_20261011.md` 做判断。不因 GitHub 没有结果就重复启动后台队列。
-2. E0 没有有效结果：收集／完成既有任务；**禁止启动新 20k**。
-3. E0 有效且阳性：依旧有原共享头路线继续；本新表示 Study 暂停。
-4. E0 有效但未过阳性：可按本研究计划启动**真实 E1/G0**，通过后再按冻结方案进入 20k 两 seed／五臂训练。
-
-## 重要语义
-
-本目录的 PROTOCOL/GATES 源文件在进入 GitHub 之前生成，因此其中 `remote_writes_performed=false` 等字段表示**生成时的历史快照**，**不表示现在仓库不存在该文件**，也不证明本地未运行旧实验。实际状态由最新且已核验的 Run/收集记录决定。文件随提交进入 GitHub 并**不等于协议已冻结或实验已授权运行**。
-
-原样保留两个生成文件，避免破坏其中已登记的 `protocol_sha256`。正式实验启动前，本地 Agent 必须确认现有主分支版本、核查执行可行性，按协议把实验版冻结在独立 commit 中，保存 protocol SHA、源码哈希、数据清单与环境锁。冻结以后禁止静默更改指标/对照/门槛；变更另立清楚的版本记录。
-
-## 数据边界
-
-GitHub 仅保存可审计轻量文件（协议、脚本、Run 元信息、汇总与核验）。训练图、标注、权重、checkpoint、大型逐候选缓存保留在本地/计算环境；用哈希、文件大小、原始位置及 `transfer.json` / `manifest.sha256` 追踪。敏感账号和连接凭据不得提交。
+现 `study.json` 状态仍为规划期；本对话没有启动训练、GPU 原生 COCO 验证或同最终检测 oracle Run。新 Run 的实际来源、参数、数据清单、哈希、Gate 和结果由本地 Codex 按真实执行记录，不向 GitHub 上传权重/COCO/大型缓存。
