@@ -75,3 +75,7 @@
 ## 候选身份和评价强制预检
 
 凡开展 YOLO/COCO raw 失败、TAL 正样本、几何匹配或正常输出对照，先完整阅读 `project/科研项目通用规范/候选身份与评估口径.md`，确认本 Run 的 candidate_policy、branch、input_hw 和 GT 关联来源，再通过 G0–G5。禁止将 legacy_geometry_hungarian 候选冒充官方 TAL 或实际推理失败；跨 Run 基线与候选不一致，科学结论标为 unadjudicated，先完成最小重放，不自动重训。历史 Run 与论文原始表格不得覆盖，审计附注写入 `project/audits/candidate_eval_20261012/`。
+
+## 指标必要性与官方默认分支核对
+
+每个新 Study 在选指标前阅读 `project/科研项目通用规范/指标最小化与TAL分类.md`。严格区分训练 TAL 正样本、实际推理 COCOeval GT 匹配和 GT 辅助 raw oracle；按唯一科学命题只选直接主指标及必要损伤护栏，不要求所有 Run 生产五层指标。明确从实际模型版本和 `nms`/`end2end` 调用确认输出分支：当前 Ultralytics 官方文档默认 one-to-many+NMS，`nms=False` 为 one-to-one，不得默认用 one-to-one 冒充全项目官方默认。原历史指标和 Run 不重写。
