@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-12",
+  "scope": "manual targeted claim-to-source audit; not exhaustive all-Run verification; statements may need local artifacts",
+  "status_definitions": {
+    "verified": "directly supported by source code and documented outputs for the stated narrow fact",
+    "scoped": "numeric or methodological observation retained only within documented cohort/branch/policy; not complete independent rerun",
+    "misattributed": "historical generalized interpretation exceeds the inspected candidate/evaluation population; underlying measurements preserved",
+    "needs_replay": "specific missing gate or discrepancy demands targeted replay/inspection",
+    "invalid": "documented implementation error in the specifically identified run; do not reuse affected result"
+  },
+  "summary": {
+    "claims": 18,
+    "verified": 1,
+    "scoped": 12,
+    "misattributed": 1,
+    "needs_replay": 3,
+    "invalid": 1
+  },
+  "entries": [
+    {
+      "key": "candidate_assignment_20260924",
+      "status": "verified",
+      "risk": "critical",
+      "evidence": [
+        "coefficient_predictability_20260924/REPORT.md",
+        "coefficient_predictability_20260924/runs/RUN_cf71d524e69b442ab3dbdc9b9ca5b7e4/SUMMARY.json"
+      ],
+      "population": "1301 geometry-associated one2one raw on historical val",
+      "finding": "311 same GT TAL positive; 985 not TAL positive; 5 TAL positive for different GT",
+      "implication": "legacy geometric raw assignments are not interchangeable with official TAL assignments",
+      "action": "retain exact candidate mapping and no cross-population causal generalization",
+      "evidence_paths": [
+        "experiments/coefficient_predictability_20260924/REPORT.md",
+        "experiments/coefficient_predictability_20260924/runs/RUN_cf71d524e69b442ab3dbdc9b9ca5b7e4/SUMMARY.json"
+      ]
+    },
+    {
+      "key": "shared_affine_geometry_gain_20260930",
+      "status": "scoped",
+      "risk": "critical",
+      "evidence": [
+        "coefficient_shared_affine_attainability_20260930/REPORT.md",
+        "coefficient_shared_affine_alignment_audit_20261011/REPORT.md"
+      ],
+      "population": "old geometric BoxIoU>=0.5 max-cardinality candidate set, val=1301 candidates/196 images",
+      "finding": "image-macro IoU 0.753711 -> 0.808549; +5.4838 percentage points",
+      "implication": "positive finding is valid in geometry-assigned diagnostic domain, not official TAL training domain",
+      "action": "remove any wording identifying this as official one2one TAL transferable performance",
+      "evidence_paths": [
+        "experiments/coefficient_shared_affine_attainability_20260930/REPORT.md",
+        "experiments/coefficient_shared_affine_alignment_audit_20261011/REPORT.md"
+      ]
+    },
+    {
+      "key": "geometry_map_official_replay_20260930",
+      "status": "scoped",
+      "risk": "critical",
+      "evidence": [
+        "coefficient_shared_affine_alignment_audit_20261011/REPORT.md",
+        "coefficient_shared_affine_attainability_20260930/runs/RUN_phaseB_20260930/OFFICIAL_TAL_FULL/SUMMARY.json"
+      ],
+      "population": "official TAL val candidate set, old geometry fitted affine map frozen",
+      "finding": "IoU 0.798922 -> 0.797101; -0.1821 percentage points (CI crosses zero)",
+      "implication": "position/candidate-domain replacement removes historical positive effect",
+      "action": "retain as evidence of domain dependence, not isolate individual features as cause",
+      "evidence_paths": [
+        "experiments/coefficient_shared_affine_alignment_audit_20261011/REPORT.md",
+        "experiments/coefficient_shared_affine_attainability_20260930/runs/RUN_phaseB_20260930/OFFICIAL_TAL_FULL/SUMMARY.json"
+      ]
+    },
+    {
+      "key": "official_affine_negative_20260930",
+      "status": "needs_replay",
+      "risk": "critical",
+      "evidence": [
+        "coefficient_official_tal_affine_20260930/REPORT.md",
+        "coefficient_shared_affine_alignment_audit_20261011/PROTOCOL.md"
+      ],
+      "population": "official TAL fit/dev/val 796/197/196 images, val 1346 candidates",
+      "finding": "preliminary official map val image-macro IoU 0.79904 -> 0.78919; fit gradient_inf=0.00676 after 100 iterations",
+      "implication": "negative observation is real under reported solver state, but optimum/comparative objective cause is unresolved",
+      "action": "complete E0 same-cache B/C convergence and paired eval before closing shared affine mechanism",
+      "evidence_paths": [
+        "experiments/coefficient_official_tal_affine_20260930/REPORT.md",
+        "experiments/coefficient_shared_affine_alignment_audit_20261011/PROTOCOL.md"
+      ]
+    },
+    {
+      "key": "data_scaling_20260924",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "coefficient_data_scaling_20260924/PROTOCOL.md"
+      ],
+      "population": "protocol declares official one2one assignment and mask supervision; runtime independently unreviewed",
+      "finding": "study protocol does not use legacy geometric assignment as its prescribed cohort",
+      "implication": "cannot attribute any negative learning curve to geometry selection without contrary Run evidence",
+      "action": "verify run cache/assignment lineage only if this claim is reused in manuscript",
+      "evidence_paths": [
+        "experiments/coefficient_data_scaling_20260924/PROTOCOL.md"
+      ]
+    },
+    {
+      "key": "direction_scaling_20260925",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "coefficient_direction_scaling_20260925/PROTOCOL.md",
+        "coefficient_direction_predictability_20260925/PROTOCOL.md"
+      ],
+      "population": "protocol declares official one2one 10000-image training bank and fixed 7E targets",
+      "finding": "official supervised candidate policy is explicit in protocol",
+      "implication": "legacy geometric mapping is not an established cause of poor directions",
+      "action": "check official cache SHA and run metadata before making general learnability statement",
+      "evidence_paths": [
+        "experiments/coefficient_direction_scaling_20260925/PROTOCOL.md",
+        "experiments/coefficient_direction_predictability_20260925/PROTOCOL.md"
+      ]
+    },
+    {
+      "key": "oracle_alignment_20261009",
+      "status": "misattributed",
+      "risk": "critical",
+      "evidence": [
+        "coefficient_oracle_alignment_20261009/REPORT.md",
+        "coefficient_oracle_alignment_20261009/study.json"
+      ],
+      "population": "1375 geometry-associated one2one raw, 197 dev images, candidate matching from native_bank",
+      "finding": "action-guided vs BCE overlay not superior on that diagnostic panel; -1.92/-2.03pp image-macro IoU",
+      "implication": "cannot extrapolate direction nonlearnability to official TAL positive locations without same-position comparison",
+      "action": "retain budget-specific geometry-panel finding; priority replay on official TAL cohort only if claimed by main paper",
+      "evidence_paths": [
+        "experiments/coefficient_oracle_alignment_20261009/REPORT.md",
+        "experiments/coefficient_oracle_alignment_20261009/study.json"
+      ]
+    },
+    {
+      "key": "trust_region_20261009",
+      "status": "scoped",
+      "risk": "high",
+      "evidence": [
+        "coefficient_trust_region_audit_20261009/REPORT.md"
+      ],
+      "population": "1375 candidate diagnostic panel, 663 failure and 712 success, selection lineage to be confirmed",
+      "finding": "registered gate failed on existing panel; report states diagnostic association is not COCO matching",
+      "implication": "do not extend failure beyond panel; candidate lineage is priority to verify",
+      "action": "trace candidate manifest and confirm whether geometry-associated before general claim",
+      "evidence_paths": [
+        "experiments/coefficient_trust_region_audit_20261009/REPORT.md"
+      ]
+    },
+    {
+      "key": "argmax_failure_20261005",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "coco_raw_argmax_conditioned_20261005/REPORT.md",
+        "project/research_notes/EVALUATION_SYSTEMS_20261005.md"
+      ],
+      "population": "5000 COCO val2017 images, 36335 GT, argmax-correct raw pool",
+      "finding": "6459 GT classified mask-fail under argmax condition",
+      "implication": "raw capability is not official TAL positive or normal output failure",
+      "action": "preserve label raw_argmax_capacity; link to COCOeval output ledger",
+      "evidence_paths": [
+        "experiments/coco_raw_argmax_conditioned_20261005/REPORT.md",
+        "project/research_notes/EVALUATION_SYSTEMS_20261005.md"
+      ]
+    },
+    {
+      "key": "full_raw_capacity_20260916",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "coco_raw_capability_5000_20260916/REPORT.md"
+      ],
+      "population": "all raw positions on 5000 COCO val2017 images",
+      "finding": "raw joint Box75+Mask75 is a GT-assisted existence diagnostic",
+      "implication": "not a prediction-retention or deployable AP claim",
+      "action": "retain raw capacity and separate final-output evaluation",
+      "evidence_paths": [
+        "experiments/coco_raw_capability_5000_20260916/REPORT.md"
+      ]
+    },
+    {
+      "key": "historical_five_state_20260913",
+      "status": "scoped",
+      "risk": "high",
+      "evidence": [
+        "failure_dimension_analysis_20260913/REPORT.md"
+      ],
+      "population": "one-to-many+NMS final predictions on 5000 images",
+      "finding": "five-state same-slot output classification under historical branch",
+      "implication": "cannot transfer counts into current one-to-one branch",
+      "action": "retain historical branch and matching policy in evidence map",
+      "evidence_paths": [
+        "experiments/failure_dimension_analysis_20260913/REPORT.md"
+      ]
+    },
+    {
+      "key": "official_task_20260916",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "official_coco_task_alignment_20260916/REPORT.md"
+      ],
+      "population": "one-to-one normal output, 5000 images, COCOeval; separate GT-selected diagnostics",
+      "finding": "report explicitly separates official task and fixed GT-box diagnostic",
+      "implication": "COCO AP may be used as official output evidence only with decoder settings pinned",
+      "action": "retain task metrics and cohort hashes, distinguish candidate-specific analyses",
+      "evidence_paths": [
+        "experiments/official_coco_task_alignment_20260916/REPORT.md"
+      ]
+    },
+    {
+      "key": "acd_full_eval_20261006",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "acd_native_coefficient_20261006/REPORT.md"
+      ],
+      "population": "5000-image official COCO output, paired baseline vs ACD, fixed 3-epoch budget",
+      "finding": "Mask AP ACD-baseline +0.037 percentage points; registered +0.3pp gate failed",
+      "implication": "this negative method-selection result is not explained away by legacy geometric mapping alone",
+      "action": "retain paired AP judgment at stated budget, do not call universal method impossibility",
+      "evidence_paths": [
+        "experiments/acd_native_coefficient_20261006/REPORT.md"
+      ]
+    },
+    {
+      "key": "boundary_calibration_20260914",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "mask_boundary_route_20260914/REPORT.md"
+      ],
+      "population": "official output 4500-image evaluation",
+      "finding": "reported +0.5607 Mask AP points on stated cohort",
+      "implication": "report separately addresses output performance and matched-slot diagnostics; not a legacy geometry-only claim",
+      "action": "retain within documented validation reuse and checkpoint scope",
+      "evidence_paths": [
+        "experiments/mask_boundary_route_20260914/REPORT.md"
+      ]
+    },
+    {
+      "key": "recoverability_rederive_20261010",
+      "status": "needs_replay",
+      "risk": "high",
+      "evidence": [
+        "coefficient_recoverability_rederive_20261010/REPORT.md"
+      ],
+      "population": "6459 strict argmax mask-fail GT, 28446 raw events",
+      "finding": "re-derived 4843/6456 (75.02%) vs prior recorded 4263/6459 (66.00%); 3 degenerate GT",
+      "implication": "old 66% and reconstructed 75.02% differ in objective/decode definition; do not substitute a single unqualified number",
+      "action": "pin oracle objective/ROI/decode version; retain both and recheck impacted manuscript statements",
+      "evidence_paths": [
+        "experiments/coefficient_recoverability_rederive_20261010/REPORT.md"
+      ]
+    },
+    {
+      "key": "candidate_consensus_20261004",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence": [
+        "candidate_response_consensus_20261004/REPORT.md"
+      ],
+      "population": "253-image fixed official TAL target candidates, 1816 rows",
+      "finding": "GT-free donor consensus did not achieve positive image-macro delta",
+      "implication": "specific official-candidate diagnostic negative cannot be blamed on legacy Hungarian mapping",
+      "action": "retain only under exact donor and target policy",
+      "evidence_paths": [
+        "experiments/candidate_response_consensus_20261004/REPORT.md"
+      ]
+    },
+    {
+      "key": "E0_cross_20261011",
+      "status": "needs_replay",
+      "risk": "critical",
+      "evidence": [
+        "coefficient_shared_affine_alignment_audit_20261011/PROTOCOL.md",
+        "coefficient_shared_affine_alignment_audit_20261011/DECISION_ADDENDUM_20261011.md",
+        "coefficient_shared_affine_alignment_audit_20261011/runs/RUN_ALIGNMENT_AUDIT_20261011/run.json"
+      ],
+      "population": "one official TAL fixed candidate bank; old160/official640 maps both solved and evaluated on it",
+      "finding": "read-only alignment audit completed; cross-objective solve+eval final outputs not verified on GitHub",
+      "implication": "cannot claim E0 cross-objective scientific decision has been reached",
+      "action": "reconcile local run directories and require both maps gradient_inf<1e-6 plus baseline parity before decision",
+      "evidence_paths": [
+        "experiments/coefficient_shared_affine_alignment_audit_20261011/PROTOCOL.md",
+        "experiments/coefficient_shared_affine_alignment_audit_20261011/DECISION_ADDENDUM_20261011.md",
+        "experiments/coefficient_shared_affine_alignment_audit_20261011/runs/RUN_ALIGNMENT_AUDIT_20261011/run.json"
+      ]
+    },
+    {
+      "key": "varpro_area_20261001",
+      "status": "invalid",
+      "risk": "high",
+      "evidence": [
+        "coefficient_varpro_native_20261001/REPORT.md"
+      ],
+      "population": "specific initial C+readout retry4 run only",
+      "finding": "initial denominator used wrong row['area']; corrected retry5 recomputed TAL target_boxes and matched official baseline",
+      "implication": "invalid pertains to specific failed run, not whole research line",
+      "action": "exclude retry4 result from evidence; retain retry5 separately",
+      "evidence_paths": [
+        "experiments/coefficient_varpro_native_20261001/REPORT.md"
+      ]
+    }
+  ]
+}
