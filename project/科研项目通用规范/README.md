@@ -7,3 +7,5 @@
 针对指标意义、去冗余、GT 失败分类向官方 TAL 位置的迁移，必须采用 [指标最小化与 TAL-GT 分类](指标最小化与TAL分类.md)：**按具体研究命题选择最少主指标，不强制在每个 Run 计算全部 raw、TAL、oracle、图片级与边界指标**；历史 Study 的预注册门槛不能事后改动。
 
 涉及 **TAL 在真实训练期间的动态分配** 时，还必须阅读 [TAL 训练轨迹记录协议](../audits/candidate_eval_20261012/TAL_TRAINING_TRACE_PROTOCOL.md)：最终权重重放只证明静态快照，不是历史训练过程；无需逐步保存全 GT×raw 稠密矩阵。
+
+**YOLO26-Seg O2O 输出与基线强制提醒（2026-10-13）：** [候选身份与评估口径](候选身份与评估口径.md) 已补充默认 O2O 两轮 raw–类别 Top-K、最终 conf 按检测组合行过滤、Head `agnostic_nms` 例外，以及官网 AP 与本地自定义评估约 0.5～0.6 点的未对齐。具体来源见 [审计对账](../audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md)。
