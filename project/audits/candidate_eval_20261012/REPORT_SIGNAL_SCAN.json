@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 16,
+  "read_count": 24,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -412,42 +412,249 @@
     {
       "path": "experiments/coefficient_official_tal_affine_20260930/REPORT.md",
       "blob_sha": "0b7ce34e0cf43049dbde5bde8c43515c645c0dad",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4526,
+      "signal_mentions": {
+        "geometry": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 19,
+              "text": "每个候选均保存 `split/image_id/annotation_id/branch/raw_id/pyramid_level/target_gt_idx`。`branch` 全部为 `one2one`。身份审计通过，未使用 `BoxIoU` 最大基数几何匹配，未按最终置信度"
+            },
+            {
+              "line": 120,
+              "text": "按照预先协议，本轮在完成报告后停止。保留当前结果作为官方同域定位性诊断：**独立 oracle 的可恢复空间存在，但固定的共享原生末层求解没有跨图泛化，且正常 val 掩码变差。** 原几何候选阶段的结果继续作为独立历史实验保存，不能与本报告的官方 TAL 结论合并。"
+            }
+          ]
+        },
+        "official_TAL": {
+          "count": 5,
+          "examples": [
+            {
+              "line": 1,
+              "text": "# 官方 TAL 同域原生末层共享可达性与掩码效用审计"
+            },
+            {
+              "line": 5,
+              "text": "本轮使用冻结 YOLO26m-seg COCO 权重、Ultralytics 8.4.100，并严格复用官方 one-to-one TAL 正样本。Gate A 通过，候选身份与既有官方清单一致；Gate B 通过，标准化共享增量合并回原生 one-to-one 系数末层后，与缓"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 120,
+              "text": "按照预先协议，本轮在完成报告后停止。保留当前结果作为官方同域定位性诊断：**独立 oracle 的可恢复空间存在，但固定的共享原生末层求解没有跨图泛化，且正常 val 掩码变差。** 原几何候选阶段的结果继续作为独立历史实验保存，不能与本报告的官方 TAL 结论合并。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_oracle_alignment_20261009/REPORT.md",
       "blob_sha": "3683262f3321ca6f564ba03bc29d58790efa022c",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3489,
+      "signal_mentions": {
+        "geometry": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 25,
+              "text": "| 候选 | 1,375 个 GT 关联 one-to-one 候选（native_bank 规则：同类框 IoU≥0.5 Hungarian；诊断关联，非 COCO 匹配） |"
+            }
+          ]
+        },
+        "COCOeval": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 17,
+              "text": "这与 ACD 在全 5k 上的门槛失败（相对 official −0.071 Mask AP、配对 mean IoU 略负）在机制上一致："
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 24,
+              "text": "| 面板 | 197 图 dev 清单（train2017，与 796 fit 图集不相交；历史复用研究图，非盲测） |"
+            },
+            {
+              "line": 74,
+              "text": "面板为历史复用图（非盲测）；诊断关联非同 COCO 匹配；不证明整类监督或全部预算无效；"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_predictability_20260924/REPORT.md",
       "blob_sha": "ef18e718c2446e783be728a6a2384385212f0b4d",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3364,
+      "signal_mentions": {
+        "geometry": {
+          "count": 6,
+          "examples": [
+            {
+              "line": 9,
+              "text": "继续采用用户提出的“独立系数 oracle → 固定特征预测能力 → 原型条件作用”的研究问题，但首轮几何匹配训练不能用来定位官方系数头的训练机制。用户指出应复用官方 assigner，这是必要的对照修正。"
+            },
+            {
+              "line": 19,
+              "text": "对首轮几何绑定的 1,301 个位置，逐项对照 one2one："
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 9,
+              "text": "继续采用用户提出的“独立系数 oracle → 固定特征预测能力 → 原型条件作用”的研究问题，但首轮几何匹配训练不能用来定位官方系数头的训练机制。用户指出应复用官方 assigner，这是必要的对照修正。"
+            },
+            {
+              "line": 35,
+              "text": "训练使用 train2017 的 800 张 fit / 200 张 dev，验证使用独立 200 张 val2017；seed=0。以下均为几何绑定位置上的掩码评价，不是 COCO AP，也不是正式输出的 GT 匹配结果。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_prototype_attribution_20260913/REPORT.md",
       "blob_sha": "ea981c0660025d1cd71c42f355e813e6d593c9d3",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1225,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/coefficient_recoverability_rederive_20261010/REPORT.md",
       "blob_sha": "2af6aa9846e49ad15e25376b6ca7ec399799feea",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2042,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 47,
+              "text": "- oracle 为 GT 辅助诊断，非方法结果；面板为历史 val2017（非盲测）；无 AP 声明。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_shared_affine_alignment_audit_20261011/REPORT.md",
       "blob_sha": "01a7ba66edf400eb504976758724c7a4701cf047",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2007,
+      "signal_mentions": {
+        "geometry": {
+          "count": 6,
+          "examples": [
+            {
+              "line": 1,
+              "text": "# 旧几何候选与官方 TAL 共享仿射结果对齐审计"
+            },
+            {
+              "line": 9,
+              "text": "两轮使用完全相同的图片分片：fit/dev/val 分别为 796/197/196 张。旧缓存由 `native_bank.py` 用 BoxIoU≥0.5 的最大基数几何匹配产生，候选数为 5,872/1,375/1,301；官方缓存由 YOLODataset、overlap-"
+            }
+          ]
+        },
+        "official_TAL": {
+          "count": 8,
+          "examples": [
+            {
+              "line": 1,
+              "text": "# 旧几何候选与官方 TAL 共享仿射结果对齐审计"
+            },
+            {
+              "line": 5,
+              "text": "当前不否定共享修正规律。旧实验的正结果和官方 TAL 的负结果不是同一候选集合、同一监督目标或同一求解状态；其中候选身份替换已经足以消掉旧的正增益，官方损失和未收敛求解又叠加了额外差异。"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 33,
+              "text": "旧共享解经过双精度 L-BFGS 后又做了解析梯度 SciPy 精修，梯度无穷范数低于 `8.3e-7`，但 SciPy 仍因迭代上限退出，不能称全局证书。官方共享解只跑到 100 次迭代上限，fit 梯度范数为 `0.00676`，也不是收敛证书。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_shared_affine_attainability_20260930/REPORT.md",
       "blob_sha": "27ee31f19fe305d0afc49204a8e2d297fb0f8fbf",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3083,
+      "signal_mentions": {
+        "geometry": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 24,
+              "text": "使用远端缓存 `coefficient_predictability_20260924/runs/RUN_62e3a1994b804eceb03fb8e616a4f946`：fit 5,872 个候选、796 张图；dev 1,375 个候选、197 张图；val 1,301 个"
+            },
+            {
+              "line": 81,
+              "text": "这证明当前固定几何候选上的共享末层数值改善可以传递到正常原图实例掩码，但仍不是完整 COCO AP 或端到端置信度/NMS 结论。完整协议、候选审计、合并误差和分层结果见 [`PHASE_B_REPORT.md`](PHASE_B_REPORT.md)。"
+            }
+          ]
+        },
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "固定 YOLO26m-seg 8.4.100 one-to-one 正样本缓存中的末层输入 `h`、prototype 响应 `p`、原系数 `c`、GT 框内标签 `y` 和面积归一化，比较："
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 20,
+              "text": "因此三者满足理论顺序 `J_ind ≤ J_shared ≤ J_0`；本报告的数值是诊断目标，不是 COCO AP。"
+            },
+            {
+              "line": 81,
+              "text": "这证明当前固定几何候选上的共享末层数值改善可以传递到正常原图实例掩码，但仍不是完整 COCO AP 或端到端置信度/NMS 结论。完整协议、候选审计、合并误差和分层结果见 [`PHASE_B_REPORT.md`](PHASE_B_REPORT.md)。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_shared_affine_training_pilot_20261011/REPORT.md",
       "blob_sha": "283bb68be6d7822d9f67bc7d85ca110f3ad05f27",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1820,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 3,
+          "examples": [
+            {
+              "line": 1,
+              "text": "# 官方 TAL 冻结特征共享系数末层训练 pilot"
+            },
+            {
+              "line": 5,
+              "text": "在本 pilot 的固定官方 TAL 缓存和同一 mask 目标下，Adam/SGD 都没有找到共享仿射参考解；同时，权威的官方 TAL 共享仿射实验已经证明，即使直接求得该共享数值解，dev/val 也会负迁移。因此当前证据不支持把问题归结为单纯的训练路径；更准确的判断是：**"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_trust_region_audit_20261009/REPORT.md",
