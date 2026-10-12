@@ -3,47 +3,203 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 0,
+  "read_count": 8,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
       "blob_sha": "1107fd7497b88f4ffb341e67098ebbe5d31c547a",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 7900,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 4,
+          "examples": [
+            {
+              "line": 31,
+              "text": "| Mask AP：ACD − baseline >= +0.003 | 未通过 |"
+            },
+            {
+              "line": 32,
+              "text": "| Mask AP75/APsmall 不同时下降 | 通过 |"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 44,
+              "text": "两臂先各 1 epoch smoke，再各固定 3 epoch 正式训练；smoke 不是主 AP 结果。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/acd_proto_tail_unfreeze_20261006/REPORT.md",
       "blob_sha": "ebe943ffc5423aa0a4e620b4d3fe803e616d0142",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 11880,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 6,
+          "examples": [
+            {
+              "line": 39,
+              "text": "| Mask AP：ACD − baseline >= +0.003 | 未通过 |"
+            },
+            {
+              "line": 40,
+              "text": "| Mask AP75/APsmall 不同时下降 | 通过 |"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/box_guided_residual_readout_20261002/REPORT.md",
       "blob_sha": "6c5f3fe5252bce02c4bccf6f379ecfb4312889a0",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3153,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 9,
+              "text": "使用既有官方TAL固定缓存，fit/dev/val分别796/197/196张有效图、6058/1402/1346候选。训练全部fit候选，以原始框好掩码差为主要评价分层；GT不进入读出框或推理gate。正常原图IoU、Mask75修复/损伤、coverage、AUC及FPR一起"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/candidate_response_consensus_20261004/REPORT.md",
       "blob_sha": "25ee93fb9aa3ad9240c59c2c5242b7619bb57e32",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2933,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 3,
+              "text": "**本轮没有取得实用掩码收益，按预定规则停止当前配置。** 在253张有效开发图、1816个固定官方one-to-one TAL候选上，共识组合相对原模型的图片macro原图IoU为−0.0144个百分点，95%配对区间[−0.0946,+0.0637]；Mask75修复16、损"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 9,
+              "text": "历史S071已经做过3×3无条件系数平均，不能再当新想法；官方跨头小样本曾做单donor替换，但不是本轮预测对应共识。FCIS已有mask voting先例，不宣称投票或加权系数是原创机制。依据和具体规则见[预先协议](PROTOCOL.md)。"
+            },
+            {
+              "line": 45,
+              "text": "- 这些是已查看过的开发图及GT条件监督target，既不是新盲测，也不是全部正常输出候选或COCO AP。候选上的阴性不等于完整部署收益的严格上界，但当前没有值得投入部署确认的实用信号。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coco_coefficient_teacher_training_20260923/REPORT.md",
       "blob_sha": "3cbf798790cdcc8332a36c4eb29d32d9e06f1ca6",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2392,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 12,
+              "text": "- 候选：官方 one-to-one TAL，796 张 fit 图、6,058 个候选；身份包含 image、annotation、branch、raw、pyramid level 和 GT index。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coco_high_impact_failure_screen_20260923/REPORT.md",
       "blob_sha": "c53c240c3a6ac9cec29b80e3456d5640c85cb92b",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 6624,
+      "signal_mentions": {
+        "geometry": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 49,
+              "text": "证据：全量 `runs/RUN_938db8aafa4c45028697fb6c14e45fd3/SUMMARY.json`；360 步拆分 `runs/RUN_91123228e5554d4ba59b665d405bbe4c/SUMMARY.json`；几何匹配 `runs/R"
+            },
+            {
+              "line": 108,
+              "text": "训练时的实例对应必须沿用已有 BoxIoU≥0.5、同类、去歧义规则；不能使用 val GT。验证时固定正常推理候选和分数，比较正常 COCO AP、Mask75 小低填充队列、覆盖率/纯度和误伤。先核对本地可用 train2017 图像与旧 800/200 划分的交集，再划出不"
+            }
+          ]
+        },
+        "COCOeval": {
+          "count": 3,
+          "examples": [
+            {
+              "line": 7,
+              "text": "当前最值得深入的对象不是总体 Mask AP 的小数点差异，而是一个规模明确的失败类：**模型已有 Box75 预测，但同一图像的完整原始候选池没有 Mask75 候选**。在 5,000 张图中有 6,688 个 GT 属于该状态；其中 4,101 个是小目标，1,900 个同"
+            },
+            {
+              "line": 93,
+              "text": "已有 5,000 图正式结果中，普通系数 MLP 相对冻结基线总体 Mask AP 为 +0.738 点，实例空间头为 +0.754 点；两者总体只差 0.0155 AP。按本报告四组 GT 交叉，普通系数 MLP/实例空间头在 1,900 个小低填充失败上分别匹配 100/92"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 7,
+              "text": "当前最值得深入的对象不是总体 Mask AP 的小数点差异，而是一个规模明确的失败类：**模型已有 Box75 预测，但同一图像的完整原始候选池没有 Mask75 候选**。在 5,000 张图中有 6,688 个 GT 属于该状态；其中 4,101 个是小目标，1,900 个同"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coco_image_exact_box_20261005/REPORT.md",
       "blob_sha": "68a69eb078cb707e127f17fffc44b2f573341e47",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1689,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 47,
+              "text": "- 匹配使用既有 COCO Box75 审计；这是严格诊断，不是 COCO AP 的替代品。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coco_mask_spatial_probe_20260916/REPORT.md",
       "blob_sha": "0e1fa7ba98a8ebe56e52106e6d3006c2ac5580fb",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 6334,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 4,
+          "examples": [
+            {
+              "line": 9,
+              "text": "此前旧解码结果：普通局部修正三种子平均Mask AP为44.284±0.032，相对冻结基线+0.766点；组合平均44.316±0.023。误伤保护、运行代价以及随后发现的解码坐标问题，统一见 [局部修正后续报告](PRESERVATION_FINDINGS.md)。组件拆分原"
+            },
+            {
+              "line": 49,
+              "text": "- 自动推理完整5,000张val2017，框、类别、分数在本次各组之间固定，只改变mask；官方COCOeval比较AP/AP50/AP75、大小目标AP/AR，以及Mask75修复、误伤和大小分组召回。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coco_native_spatial_readout_20260922/REPORT.md",
