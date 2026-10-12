@@ -72,3 +72,9 @@ P0 有效前，E0 科研终态为 **insufficient_inputs**；并不意味着已�
 **仓库镜像问题：** `shared/coco_clean_20260911/EXPERIMENT_SPEC_STANDARD.md` 是指向 `../../project/guidelines/EXPERIMENT_SPEC_STANDARD.md` 的 Git symlink，目标文件不在当前 GitHub tree。未尝试冒充找回历史标准或覆盖用户本地可能存在的目标文件；新有效规范已独立写入并从 AGENTS 链接，后续本地合并时需检查 legacy symlink 来源。
 
 **科学结论边界：** 本轮完成仓库文件/报告级审计、重点 claim 归因与防误判入口；没有存储已验证的全部 1,015 个 Run，不能宣布 333 Study 全部科学终审通过。数据不足要记录未知而非填零或改写成功/失败状态。
+
+## 2026-10-12 指标最小化与 GT–TAL 迁移补充
+
+此前“每个方法必须固定报告五层”已被精简的科学问题驱动规则取代，详见 `project/科研项目通用规范/指标最小化与TAL分类.md`。对每个 GT，官方 TAL 的冻结回放归属形成训练监督视角的独立分类；不能把它覆盖到真正推理的 COCOeval GT 任务状态上。当前 Ultralytics YOLO26 官方文档默认 one-to-many + NMS，`nms=False` 选 one-to-one；旧研究中有意固定 one-to-one 的结果不受当前默认说法否定，但跨 Run 必须核对实际分支。
+
+已新增只读缓存重分类 `summarize_gt_tal_cached.py` 与合成测试 `test_summarize_gt_tal_cached.py`。脚本只使用官方 TAL val 缓存已有的 `all_annotation_ids`、`rows`、`box_iou` 和 `initial_iou` 来生成 GT 级监督位置表；不会重新前向、训练或计算新的 COCO AP。此轮未在本地大缓存运行脚本，**没有新的 GT–TAL 分类数值结果**。缺少官方 GT 全集或原始 Mask IoU 时停止，不能从 TAL 正样本数假定全部 GT 已经覆盖。
