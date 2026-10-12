@@ -1,5 +1,7 @@
 # 当前论文研究线：固定原型系数可恢复性与原生预测
 
+> **当前执行入口（2026-10-13）：** [统一科研总控](../../../project/ACTIVE_PLAN.md) → [GT 真实输出基线](../../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) → [固定权重 Prototype→Coefficient 后训练计划](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。本页下文的“2026-09-30 当前冻结主线”属于历史状态，不再授权 TAL 或五臂 20k。
+
 当前冻结主线（2026-09-30）：**在 YOLO26m-Seg 与 COCO 的既定实验范围内，建立固定原型下的系数可恢复空间与原生无 GT 系数预测之间的差距，并通过受控对照区分其可能形成环节；只有在机制获得证据后，才用针对性干预验证能否改善正常推理输出。**
 
 当前阶段目标是收敛已有证据，区分“可恢复性事实”和“某种预测器的阴性结果”，定位原生系数预测链中尚未直接检验的环节。停止的是 `big-global` 外挂修正器支线；保留的问题是“有好系数，为什么原模型没有预测出来”。详见[主线冻结记录](../../../project/research_notes/MAINLINE_STATUS_20260930.md)。
