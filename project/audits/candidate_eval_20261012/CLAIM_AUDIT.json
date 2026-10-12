@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "date": "2026-10-12",
-  "scope": "manual targeted claim-to-source audit; not exhaustive all-Run verification; statements may need local artifacts",
+  "scope": "Targeted manual source audit (now includes 2026-10-04 crossed-objective results and P3/AR source mismatches); not a verification of every Run",
   "status_definitions": {
     "verified": "directly supported by source code and documented outputs for the stated narrow fact",
     "scoped": "numeric or methodological observation retained only within documented cohort/branch/policy; not complete independent rerun",
@@ -10,11 +10,11 @@
     "invalid": "documented implementation error in the specifically identified run; do not reuse affected result"
   },
   "summary": {
-    "claims": 18,
+    "claims": 23,
     "verified": 1,
-    "scoped": 12,
+    "scoped": 16,
     "misattributed": 1,
-    "needs_replay": 3,
+    "needs_replay": 4,
     "invalid": 1
   },
   "entries": [
@@ -305,6 +305,66 @@
       "evidence_paths": [
         "experiments/coefficient_varpro_native_20261001/REPORT.md"
       ]
+    },
+    {
+      "key": "position_objective_2by2_20261004",
+      "status": "scoped",
+      "risk": "critical",
+      "evidence_paths": [
+        "experiments/position_objective_complement_20261004/REPORT.md"
+      ],
+      "population": "official TAL positions vs geometry-Hungarian positions and crossed old/official objectives",
+      "finding": "official TAL + old objective -0.692pp; geometric positions + official objective +5.269pp (not converged to strict optimum); geometry bias +5.483pp; transfer geometry bias to official +0.086pp CI spans zero",
+      "implication": "independent 2x2 cross supports position-population as dominant factor; additional E0 targets stationary solver and strict same-cache verification, not discovery from scratch",
+      "action": "reuse this completed study in all E0 claims; do not re-run its diagnostic arms solely because of naming"
+    },
+    {
+      "key": "p3_branch_gate_20260915",
+      "status": "scoped",
+      "risk": "high",
+      "evidence_paths": [
+        "experiments/p3_branch_gate_diagnostic_20260915/REPORT.md"
+      ],
+      "population": "one-to-many vs one-to-one full COCO val; separate 384-image training gate replay",
+      "finding": "Baseline gate 32/89 targeted positions owned by the intended GT, 44/89 background and 13/89 other GT; one-to-one Mask AP gain +0.008pp vs one-to-many +0.111pp",
+      "implication": "failure-position gate is another independent misalignment beyond native_bank matching",
+      "action": "audit position identity and target owner for any future gate-based paper claim"
+    },
+    {
+      "key": "small_recall_class_mix_20260915",
+      "status": "scoped",
+      "risk": "high",
+      "evidence_paths": [
+        "experiments/small_recall_attribution_20260915/REPORT.md"
+      ],
+      "population": "5000 COCO val, official class-averaged AR with 15264 small GT; 3 arms x 2 branches",
+      "finding": "+1.396pp small Mask AR attributed about 94 percent to just two sparsely represented categories' GT events; image-cluster 95% CI vs baseline crosses zero",
+      "implication": "rare-class aggregation and classification retention can dominate headline small-object improvement independent of raw geometry",
+      "action": "retain class contribution diagnostics and COCO class average; avoid universal small-object mechanism conclusion"
+    },
+    {
+      "key": "flip_projection_20261004",
+      "status": "scoped",
+      "risk": "medium",
+      "evidence_paths": [
+        "experiments/flip_response_projection_20261004/REPORT.md"
+      ],
+      "population": "253 developer images, 1816 fixed official one-to-one TAL candidates",
+      "finding": "MIX signal +0.5483pp in selected failure subgroup; PROJ-MIX -0.0506pp all, no added projection gain",
+      "implication": "separate subgroup positive screening from full-output or all-candidate method claim; not a geometry-Hungarian result",
+      "action": "do not reclassify as broad method failure or success"
+    },
+    {
+      "key": "paper_fullcoco_link_gap_20260915",
+      "status": "needs_replay",
+      "risk": "high",
+      "evidence_paths": [
+        "paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_MAP.md"
+      ],
+      "population": "manuscript full-data evidence links and scoring correction",
+      "finding": "EVIDENCE_MAP documents invalid original COCO score from category id/evaluated-image-range mismatch and independent rescoring; linked RESULTS_20260915.md absent from GitHub experiment directory",
+      "implication": "the corrected full-data claim has incomplete repository provenance and must not be accepted solely from paper narrative",
+      "action": "recover corrected scoring Run/RESULTS source from local tree, hash and attach without rewriting original"
     }
   ]
 }
