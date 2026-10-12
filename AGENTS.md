@@ -83,3 +83,7 @@
 ## TAL 时间维度解释限制
 
 冻结 checkpoint 的官方 TAL 重放不能代表训练历史。任何声称“训练动态分配/长期未被监督”的实验，必须先读 `project/audits/candidate_eval_20261012/TAL_TRAINING_TRACE_PROTOCOL.md`，区分 `actual_train_assignment_event` 与 `checkpoint_assignment_replay`；不能仅由一个最终官方 TAL manifest 推断历史。训练时只读记录选中正样本的稀疏关系，必要时固定视图的选定 checkpoint 补充 top-k 候选证据，不要求全 raw×GT 稠密日志。
+
+## YOLO26-Seg O2O Head Top-K 和 COCO 官方基线注意事项
+
+若研究 O2O 正常输出、raw 分类与 GT 失败，严格执行 `project/科研项目通用规范/候选身份与评估口径.md` 的 2026-10-13 补充：8.4.100 默认 Head 两轮 Top-K 先选 raw 后选 **raw×类别组合**，O2O 的 `conf` 在最多 300 条组合输出后按行过滤，非原始 raw 单标签过滤；同一 raw 可因类别不同重复输出。Head 的 `agnostic_nms` 与后处理 NMS 参数分开记录。官方 COCO 52.5 Box/44.1 Mask 与历史自定义 51.980/43.518 **未数值对齐**，但模型 SHA256 与官方权重发布物一致。若实验需要“官方基线复现”结论，先按 `project/audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md` 执行原生 8.4.100 val parity；不得因旧结果数值接近就当作已通过。
