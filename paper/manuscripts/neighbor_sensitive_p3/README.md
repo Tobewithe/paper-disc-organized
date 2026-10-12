@@ -34,3 +34,7 @@
 - [最新双分支与 gate 归属诊断](../../../experiments/p3_branch_gate_diagnostic_20260915/REPORT.md)
 - [Full COCO 一轮配对结果](../../../experiments/counterfactual_p3_fullcoco_20260914/RESULTS_20260915.md)
 - [Pilot 方法实验](../../../experiments/counterfactual_p3_distillation_20260914/REPORT.md)
+
+## 2026-10-13：后训练修复主线（当前执行入口）
+
+延续原研究命题：固定已训练的 YOLO26m-seg 官方权重，聚焦 Prototype→Coefficient 的后训练实例纠错。此前 raw/TAL/GT/COCO 的历史审计只是修正评价与证据身份，不代表方法主线转向 TAL；**历史 TAL 训练轨迹不是当前后训练研究的前置 Gate**。新执行从 [固定权重后训练重定向计划](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) 进入，先取得 [真实输出 GT 失败账本](../../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md)，再对同一条最终 Box75 预测做固定原型 32D/实际 K 维系数有限 oracle，只有通过机会 Gate 后才准训练轻量 residual adapter。旧 10/12 五臂×20k TAL-E0 路由保留为未冻结历史草案，不再启动。
