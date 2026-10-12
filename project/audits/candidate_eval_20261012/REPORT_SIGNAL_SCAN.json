@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 64,
+  "read_count": 72,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -1366,42 +1366,114 @@
     {
       "path": "experiments/prototype_readout_fast_screen_20261003/REPORT.md",
       "blob_sha": "e20d91d68327bc4aec62137fccad9861db8e1b13",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1508,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "范围：1024张计划fit图，1012张有效、7172个官方one-to-one TAL候选；256张计划dev图，253张有效、1816个固定候选。原框好掩码差组为141张图、353个候选。全部来自既有train2017开发范围，不是独立测试、完整推理AP或最终机制证据。"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "范围：1024张计划fit图，1012张有效、7172个官方one-to-one TAL候选；256张计划dev图，253张有效、1816个固定候选。原框好掩码差组为141张图、353个候选。全部来自既有train2017开发范围，不是独立测试、完整推理AP或最终机制证据。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/representation_ownership_probe_20260913_area_stratified/REPORT.md",
       "blob_sha": "d94d84474e32ba0c06ba4d87becffdc83c807584",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 13765,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/representation_ownership_probe_20260913_stratified/REPORT.md",
       "blob_sha": "585b8e4c298a370c56713c0e3f5dfe52c283e13b",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 9619,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/representation_ownership_probe_20260913/REPORT.md",
       "blob_sha": "32214a4310cb47471e3b79d4963dd0b6ba45501e",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1677,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/representation_reachability_20261010/REPORT.md",
       "blob_sha": "e5a428f4c0a46af3b0200a325560c58ca3247314",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1388,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 3,
+              "text": "**结论**：G0 工程预检和 A/C/F/R 四臂 Smoke 均通过；允许进入 20k 正式训练准备，禁止把 Smoke 结果解释为 Mask AP 或科学结论。"
+            },
+            {
+              "line": 29,
+              "text": "本阶段只验证官方模型加载、固定 smoke 图像前向、native coefficient 冻结边界、F/R 残差张量与梯度路径。尚未执行 COCO evaluator、Mask AP、外部数据或 20k 正式训练。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/response_projected_coeff_20260923/REPORT.md",
       "blob_sha": "48a82d17264dc44077ac80822915df9c1c2d5da9",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2010,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 3,
+          "examples": [
+            {
+              "line": 7,
+              "text": "200张val图，从包含“小、低填充率、raw有Box75但无Mask75”的1,080张图片中固定抽样；其中367个预选失败GT。整体AP仅是此富集子集的COCOeval，不是全量COCO AP。GT不进入修正推理。"
+            },
+            {
+              "line": 15,
+              "text": "| 方法/幅度 | 子集Mask AP | 全图GT修复75 | 误伤75 | 367失败组救回 |"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 7,
+              "text": "200张val图，从包含“小、低填充率、raw有Box75但无Mask75”的1,080张图片中固定抽样；其中367个预选失败GT。整体AP仅是此富集子集的COCOeval，不是全量COCO AP。GT不进入修正推理。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/semantic_residual_missing_instance_20260914/REPORT.md",
       "blob_sha": "828bb62886ae4063fe463216972797e22298e3e2",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 224,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/small_object_causal_interventions_20260914/REPORT.md",
       "blob_sha": "6c6344b7251bfee97252c08baac340d2c13120ae",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 594,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/small_raw_geometry_origin_20260914/REPORT.md",
