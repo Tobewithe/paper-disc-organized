@@ -16,3 +16,5 @@
 本次审计补充：[指标最小化与 TAL-GT 失败分类](project/科研项目通用规范/指标最小化与TAL分类.md)、[只读 TAL→GT 归类脚本](project/audits/candidate_eval_20261012/summarize_gt_tal_cached.py)。这两份产物不把 TAL 回放当作 COCO 官方推理匹配，也不改写历史结果。
 
 2026-10-13 [固定版本 O2O Top-K 和官方 COCO 基线核验](project/audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md)：官方权重 SHA 完全一致，论文刊载 AP 与项目自定义评估存在约 0.5～0.6 点的协议差距，已列入通用规范的强制前置核验。
+
+2026-10-13 [YOLO26m-seg 官方 COCO GT 失败重基线执行计划](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md)：Study 已注册、状态 `planned_not_executed`；先原生基线 parity，后同一输出身份的逐 GT 失败分类，复用既有 raw 而不重训。
