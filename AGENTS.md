@@ -87,3 +87,7 @@
 ## YOLO26-Seg O2O Head Top-K 和 COCO 官方基线注意事项
 
 若研究 O2O 正常输出、raw 分类与 GT 失败，严格执行 `project/科研项目通用规范/候选身份与评估口径.md` 的 2026-10-13 补充：8.4.100 默认 Head 两轮 Top-K 先选 raw 后选 **raw×类别组合**，O2O 的 `conf` 在最多 300 条组合输出后按行过滤，非原始 raw 单标签过滤；同一 raw 可因类别不同重复输出。Head 的 `agnostic_nms` 与后处理 NMS 参数分开记录。官方 COCO 52.5 Box/44.1 Mask 与历史自定义 51.980/43.518 **未数值对齐**，但模型 SHA256 与官方权重发布物一致。若实验需要“官方基线复现”结论，先按 `project/audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md` 执行原生 8.4.100 val parity；不得因旧结果数值接近就当作已通过。
+
+## COCO GT 真实失败分类重基线（已冻结计划，尚未执行）
+
+此研究只按 `experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md` 的 G0–G5 执行：先验证 v8.4.100 原生 O2O (`end2end=True`, `agnostic_nms=False`) 与官网 Box 52.5 / Mask 44.1 的 AP 一位小数一致，再从**同一份原生 predictions.json** 的 bbox/segm COCOeval 分别得到 GT 匹配，锁定具体 output_detection_id 计算同预测的 Box/Mask IoU，并与旧 GT 账本比对。若基线、COCO 识别或匹配身份 Gate 失败，就记录 blocked 而非自行调参。仅允许一次正式全量原生 val；禁止训练和重算已有的 30828840 raw。计划写入不意味着任何 Run 已经完成。
