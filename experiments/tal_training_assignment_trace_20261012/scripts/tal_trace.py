@@ -182,8 +182,8 @@ class SparseTALRecorder:
         cls_tensor = labels.detach().cpu().reshape(b, -1).long()
         bbox_tensor = gboxes.detach().cpu().float()
         valid_tensor = valid.detach().cpu().reshape(b, -1).bool()
-        gathered = target_scores.detach().cpu().float()
-        raw_class_score = scores.detach().cpu().float()
+        # Transfer ONLY selected edges' scalar scores, not B x R x classes
+        # dense logits/targets (which would destroy the sparse recorder budget).
         results = []
         for image in range(b):
             local_rows = gt_by_image[image]
@@ -220,8 +220,17 @@ class SparseTALRecorder:
                 gt_records.append(gt_record)
 
             positive_raw = pos[image].nonzero(as_tuple=True)[0].tolist()
+            positive_gpu = torch.tensor(positive_raw, dtype=torch.long, device=scores.device)
+            source_class = torch.tensor(
+                [gt_records[int(targets[image, ri])]["class_id"] for ri in positive_raw],
+                dtype=torch.long, device=scores.device,
+            )
+            raw_scores = scores[image, positive_gpu, source_class].detach().float().cpu().tolist()
+            assigned_scores = target_scores[
+                image, positive_gpu, source_class
+            ].detach().float().cpu().tolist()
             edge_rows = []
-            for ri in positive_raw:
+            for pi, ri in enumerate(positive_raw):
                 gi = int(targets[image, ri])
                 require(gi in present_indices,
                         f"{branch}: positive raw={ri} maps to invalid augmented GT {gi}")
@@ -235,8 +244,8 @@ class SparseTALRecorder:
                     "aug_gt_idx": gi, "raw_id_global": ri,
                     "pyramid_level": scale, "grid_y": local_r // grid_w,
                     "grid_x": local_r % grid_w,
-                    "source_gt_class_score": float(raw_class_score[image, ri, class_id]),
-                    "assigned_target_class_score": float(gathered[image, ri, class_id]),
+                    "source_gt_class_score": float(raw_scores[pi]),
+                    "assigned_target_class_score": float(assigned_scores[pi]),
                 })
                 gt_records[gi]["n_positive"] += 1
             require(sum(r["n_positive"] for r in gt_records) == len(positive_raw),
@@ -267,7 +276,7 @@ class SparseTALRecorder:
         item = {k: v for k, v in pending.items() if not k.startswith("_")}
         item.pop("started_monotonic", None)
         item["branches"] = self._observations
-        item["record_overhead_including_hook_seconds"] = time.monotonic() - pending["started_monotonic"]
+        item["microbatch_elapsed_wall_s"] = time.monotonic() - pending["started_monotonic"]
         self._stream.write(json.dumps(item, ensure_ascii=False, allow_nan=False) + "\n")
         self._stream.flush()
         self.completed_batches += 1
