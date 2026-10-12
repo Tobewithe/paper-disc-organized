@@ -52,27 +52,28 @@
 - 合成测试 A：一个 raw 两个类别输出共享几何，两个 `output_detection_id` 不同，不按 raw_id 去重。
 - 合成测试 B：`d1` 通过 Box75、`d2` 通过 Mask75、同 GT 但不同预测，`bbox_match_id != segm_match_id`；禁止用 `bbox success & segm success` 断言某单条预测 Box/Mask 都正确。
 - 合成测试 C：GT crowd/ignore、类别错误、高分候选竞争、同分排序、`IoU=.75` 边界、无预测图，核对 `COCOeval.evalImgs` 逐阈值匹配与输出行 ID 的稳定性。
+- 合成测试 D：同一个包含 bbox+segmentation 的 JSON，使用原样加载（检测 area 来自 bbox）与仅 mask 字段加载（检测 area 来自 mask）分别复核；必须标注这是不同的 area policy，原生 parity 只能使用前者。
 - 任何身份 join、解码 RLE、有效 GT 计数或匹配不通过：**只修复当前实现，G1 重新通过前不得启动 G2**。不扩大样本、不改变统计目标。
 
 ### G2｜只做一次全量原生评估 + 官方发表基线 Parity
 
 - G1 通过后，在全 5000 张 COCO val2017 使用冻结配置跑**一次**原生验证；保存 `predictions.json`、终端原始日志、实际参数、模型/GT/图像清单 SHA、分支证明、原生 Box/Mask 12 项 COCO 指标和 Run 元数据。历史 Run 不覆盖。
 - 对照官方**发表到 1 位小数**的 Box 52.5、Mask 44.1：只有两者以 `round(AP_points,1)` 比对均一致，才标记 `published_baseline_parity=passed`；原始浮点值仍保留，不假装知道官方未发表的更多精度。
-- 任一不一致则 `published_baseline_parity=failed`：**停止将该 Run 的 GT 分类宣称为“已复现官方公布基线”**；保存该 Run，转向只读对比预测导出/数据加载/分支/输入形状/类别映射，不自动尝试若干 batch、阈值、NMS 参数来追分。可作为 `native_unaligned_diagnostic` 暂存，但不能作为正式最终任务失败主账本发表。
+- 任一不一致则 `published_baseline_parity=failed`：**不得宣称已复现官方公布的 52.5/44.1，也不得将该 GT 账本冒称为与官网基线严格同配置**。但只要 G0/G1 的原生 COCO 合法性通过，仍允许使用**同一份已冻结、无 GT 的原生 predictions.json** 继续 G3，得到标有 `native_config_scoped / published_parity_failed` 的真实推理 GT 任务账本。其任务成败在该原生配置下有效；不得作为官网刊载基线的 GT 失败数。保存差异并只读排查版本/输入/配置/类别/输出链路，不为了追 AP 事后反复调参。
 - 注意旧评估连 Box AP 都低 0.520 点，因此先审计“同图预测框+类别+分数记录集是否一致”，再审计 Mask 解码。不能只将差距归结为 Mask 预测。
 
 ### G3｜从**同一份**原生预测 JSON 建立逐 GT 官方失败账本
 
-仅当 G2 parity 通过后执行（无需重新前向）。
+G2 完成一次有效原生 COCO 评估后即可离线执行（无需重新前向），**并行保留两项独立结论**：`published_baseline_parity`（与官网数字相同与否）与 `native_gt_ledger_validity`（这次原生输出能否被独立 COCOeval 可靠地逐 GT 复核）。若 G2 未与官网对齐，G3 输出仅标 `native_config_scoped`，禁止写成“官网基线的逐 GT 失败”。
 
-1. 冻结原生 `predictions.json` SHA，顺序固定；给每条最终检测写唯一 `output_detection_id` 和 `source_pred_json_index`。对同一列表制作 `bbox` 评价投影（bbox/score/cat/image）和 `segm` 评价投影（segmentation/score/cat/image），**顺序不变**；segm 投影不要携带 bbox，以避免 pycocotools `loadRes` 使用 bbox area 代替 mask area 导致尺度统计偏差。
-2. 每种投影独立调用 `pycocotools.COCOeval`，冻结 `iouThrs`、`area=all`、`maxDets=[1,10,100]`、`useCats=1`。通过 `evalImgs` 取 `gtIds`、`gtMatches[5]`（.75）、`gtIgnore`、`dtIds`、`dtScores`，必要时 .50 同步取第 0 行。**不得用 Ultralytics validator 内部 `match_predictions` 冒充 COCOeval GT 配对。**
+1. 冻结**原生同一份完整 `predictions.json`** 的 SHA 和原始行序；给每条最终检测分配唯一 `output_detection_id`、`source_pred_json_index`，并验证 COCO 加载后的 `dt_id` 与源行是一一对应。**官方同口径双评估器交叉验证必须分别在原生不删字段的完整 JSON 上调用 `COCO.loadRes`**，仅切换 `iouType='bbox'/'segm'`：原生 Faster-COCO-Eval 对同时含 bbox+segmentation 的记录会先用 bbox 设置检测 area；若 segm 复核时删掉 bbox 则 area 改为 mask area，会改变部分尺度 AP/ignore 口径，不能叫严格同协议。若需要额外测 Mask 面积分层，可另做 `mask_area_diagnostic`，单独命名且不参与原生 parity。
+2. 对完整原生 JSON 分别调用 `pycocotools.COCOeval(..., iouType='bbox')` 和 `pycocotools.COCOeval(..., iouType='segm')`，冻结 `iouThrs`、`area=all`、`maxDets=[1,10,100]`、`useCats=1`。通过 `evalImgs` 取 `gtIds`、`gtMatches[5]`（.75）、`gtIgnore`、`dtIds`、`dtScores`，必要时 .50 同步取第 0 行。**不得用 Ultralytics validator 内部 `match_predictions` 冒充 COCOeval GT 配对。**
 3. 对每个 `(image_id, annotation_id)` 普通 GT 记录：
    - 主：`task_mask75`、`task_mask50`、`task_box75`；
    - 官方独立任务匹配身份：`bbox75_match_output_id`、`segm75_match_output_id`，必须保留二者可能不同；
    - 固定具体 bbox 匹配检测 `d_b` 后：`box_iou_of_bbox_match`、`mask_iou_of_bbox_match`、`bbox_match_score`、`bbox_match_category_id`；若无匹配写 null，不能从其他 d 的 Mask 填值；
    - 诊断辅助（可由同一最终集合求）：`exists_same_output_joint75_for_gt`，含义是有**同一条正确类别最终检测**同时 BoxIoU≥.75、MaskIoU≥.75；这是每 GT 的存在性诊断，**不是唯一匹配后的官方 TP/召回**。如需唯一性，另在图内求限制一对一匹配并显式命名，不能把存在性之和冒称真正检测召回；
-   - `correct_class_mask75_present_in_final_candidates`（是否任何正确类别最终输出 MaskIoU≥.75），可用于识别“候选存在却官方未匹配”的竞争问题；存在性不自动等于 GT 成功；
+   - `correct_class_mask75_present_pre_coco_budget`（Head/置信度最终输出中存在正确类别 Mask75 检测）与 `correct_class_mask75_present_within_coco_maxdet100`（该类别同图按 score 排序的 COCO 前 100 检测中存在 Mask75）；两者分别回答**模型已输出但被 COCO 计数预算排除**以及**预算内有合格检测却未匹配**，不要把两种情况统称 Mask 质量失败。保留 `correct_class_mask75_present_in_final_candidates` 作为兼容别名时必须指明它是 **pre-budget**；
    - `is_ignored`、`gt_area`、`gt_category_id`、`source_prediction_sha`、`branch`、`eval_contract_sha`。
 4. 最小互斥读表（仅作为**任务状态及表型**，不宣称网络因果）：正常 GT 按 `mask75=success`；否则分为 `mask75=fail & box75=fail`、`mask75=fail & box75=success & mask_iou_of_bbox_match < .75`、`mask75=fail & box75=success & mask_iou_of_bbox_match >= .75`。最后一类必须检查 GT 竞争/阈值/ID 映射，不能静默定为 Mask 本体坏。所有使用 ≥、< 的地方按实际浮点比较规则和 COCO threshold 固定。
 5. 同预测记录的 Box/Mask 质量描述与独立 COCO 任务匹配**始终两套字段**。任何 GT 辅助 raw 几何 Hungarian 最优位置不允许替代 `bbox75_match_output_id`。
@@ -87,13 +88,13 @@
   - 旧失败→新成功
   - 旧失败→新失败
   同时列旧/新 `Mask75` 正确数、失败数、基线 Mask AP 和受影响 GT ID。
-- 旧 `mask75 成功=22767` 仅用于准确描述原历史协议，**不预期**新结果一定也是 22767；任何差别需解释为输入、分支、输出、解码或 COCO 评分的可验证差异，不能直接定为某种网络错误。
+- **两份旧历史账本都要对账，不得只比较一份：** `experiments/coco_raw_capability_5000_20260916/REPORT.md` 对应 Mask75 成功 **22767** / 失败 13568；`experiments/official_coco_task_alignment_20260916/REPORT.md` 对应 **22773** / 失败 13562（两份自定义输出/解码历史协议有别，差 **6 GT**）。两份各自按来源独立列 GT ID 差异，不能把第二份静默覆盖成第一份；要核对输入、解码、保留、预测 row、匹配及面积策略。任何差别仅作可追踪版本差异，不能直接定为某种网络错误。
 - 复用 `raw_all` / `raw_argmax_correct` 历史结果**只在**模型 SHA、GT ID、`branch`、`input_hw`、letterbox、Mask decoder 质量关系经核验可比时执行逐 raw 身份关联。若原生输入大小/letterbox/native 解码与旧 raw 不同，写 `raw_link_status=not_comparable` 并保留原研究分支的统计；**绝不跨不同前向/不同图像几何使用相同 raw 数字索引硬连接**。
 - 如旧 `gt_joined.jsonl` 缺失，仍交付**新官方 GT 主账本**，旧新逐 GT 对照写 `blocked_missing_legacy_rows`，不得因此重算全部 30828840 raw。除非有不可替代的论文关键判断且经过新预注册，不允许打开全 raw 大重跑。
 
 ### G5｜完成、失败与唯一科研裁决
 
-- 成功：G0、G1、G2 官方发表精度 parity、G3 双评估器一致性和逐 GT 总数/输出身份不变量全部通过；G4 若旧大表确实缺失，独立记录并不阻断新官方 GT 账本交付。完成 `REPORT.md`，只基于任务失败 GT 与固定检测的真实表现选择下一个**机制研究问题**，不是直接宣称训练 TAL 或 Prototype 导致。
+- **两级完成状态：** G0/G1 原生数据与身份合法、G3 独立 COCO 双评估器一致、逐 GT 数量与 output 身份不变量通过，即可交付 `native_gt_ledger_validity=passed` 的真实原生配置 GT 账本。若 G2 官方 AP parity 也通过，再额外标记 `published_baseline_parity=passed`，才可宣称已复现官网刊载性能。G2 未对齐时标 `native_config_scoped`，不能宣称官网逐 GT 数值已确认；G4 老数据缺失单独记账不阻断新 GT 输出。完成 `REPORT.md`，将机制研究问题限定于有效 task-fail GT，绝不直接宣称 TAL/Prototype 根因。
 - 未通过：指出**唯一失败 Gate** 和复核所需的最小证据，`status=blocked_at_G#`，禁止提高预算、换类别、换评价阈值、读 val 后重订规则、掩盖旧新差异，禁止宣称官方失败分解已更新。
 - 本次不做模型改进、不扩充 raw 层指标、不以 GT 选最佳 raw 当“实际预测成功”，不将相同 raw 不同类别行误合并。
 
