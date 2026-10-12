@@ -1,20 +1,35 @@
 # paper-disc-organized
 
-这是 `paper-disc` 科研项目的工作台镜像，目录结构以本地
-`C:\Dpan\codexproject\paper-disc-organized` 为准。研究线不在本文件中固定，按 `project/research_lines.json`、论文文件夹和当前线程上下文发现。
+这是用户的 `paper-disc` 科研工作台 GitHub 镜像，保存实验脚本、协议、报告、论文草稿和可追溯的轻量元数据；大型权重、COCO 图像、预测张量、原始逐 GT 大表主要留在本地/计算环境，**仓库没有文件不代表机器上没有对应 Run**。
 
-仓库保存研究协议、实验登记、报告、脚本、论文材料和轻量运行元数据，便于在网页端查看研究进展。模型权重、COCO 数据集、图片、张量缓存、原始预测大表和传输压缩包保留在本地或计算服务器，不上传到 GitHub；相关实验中的路径、哈希和适用范围以协议及报告记录为准。
+## 唯一的当前执行入口
 
-实验按 `experiments/<study>/` 组织，研究说明和跨实验判断位于 `project/`，论文材料位于 `paper/`，共享代码和轻量资产位于 `shared/` 与 `assets/`。
+**[project/ACTIVE_PLAN.md — 当前研究总控、Gate 队列和历史计划去重](project/ACTIVE_PLAN.md)**
 
-## 2026-10-12 候选身份与评价审计
+当前用户指定的研究线是 `neighbor_sensitive_p3`：**固定训练完成的 YOLO26m-seg，研究 Prototype→Coefficient 链路的后训练实例修复**。已有 TAL/原始 raw/COCO 口径审计用于证据校正，不是后训练主线的前置训练任务。**仅 S0（原生输出 GT 账本）处于待执行入口**；后续同最终预测系数 oracle/小适配器/全量 AP 均需各自 Gate，不能自动启动。
 
-已新增 [审计报告与证据清单](project/audits/candidate_eval_20261012/REPORT.md)、[本地最小重放交接](project/audits/candidate_eval_20261012/LOCAL_REPLAY_HANDOFF.md)、[跨研究线候选/评价强制规范](project/科研项目通用规范/候选身份与评估口径.md)。历史 Run 保留不覆盖，缺失的原始逐候选/权重/数据在本地校验，不得凭 GitHub 汇总值推断完整审计通过。
+- [S0：官方原生 COCO GT 失败账本](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) — `planned_not_executed`；模型和源码已核实，官网 AP parity 未执行；正式 GT 账本待本地 Run。
+- [S1–S4：冻结权重 Prototype→Coefficient 后训练计划](experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 当前工作入口](experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) — 新 Adapter 训练未启动；先同最终输出 finite oracle。
+- [AGENTS.md：仓库工作规则](AGENTS.md) · [跨项目科研通用规范](project/科研项目通用规范/README.md) · [研究线专属规则](paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md)。
 
-2026-10-12 补充：[指标最小化与 TAL-GT 分类规范](project/科研项目通用规范/指标最小化与TAL分类.md) 已取代“每个实验必报所有指标”的做法，并核实官方训练 TAL 与默认推理分支不是同一个评价过程。
+研究线元信息由 [project/research_lines.json](project/research_lines.json) 记录；此处的当前任务**不改变其它论文线**。例如独立的 [mask_boundary_calibration](paper/manuscripts/mask_boundary_calibration/README.md) 仍有自己的原冻结结果、稿件与历史研究计划。
 
-本次审计补充：[指标最小化与 TAL-GT 失败分类](project/科研项目通用规范/指标最小化与TAL分类.md)、[只读 TAL→GT 归类脚本](project/audits/candidate_eval_20261012/summarize_gt_tal_cached.py)。这两份产物不把 TAL 回放当作 COCO 官方推理匹配，也不改写历史结果。
+## 目录职责（不让历史笔记争夺执行权）
 
-2026-10-13 [固定版本 O2O Top-K 和官方 COCO 基线核验](project/audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md)：官方权重 SHA 完全一致，论文刊载 AP 与项目自定义评估存在约 0.5～0.6 点的协议差距，已列入通用规范的强制前置核验。
+| 目录 | 权威边界 |
+|---|---|
+| `project/ACTIVE_PLAN.md` | **仅此处回答现在做什么、哪个 Gate 已获得真正凭据、下一步是什么** |
+| `project/科研项目通用规范/` | 工作协议、评价身份、指标选择、训练资源门槛；不决定具体 Study 的实验结果 |
+| `paper/manuscripts/<line>/` | 论文线事实、研究问题与历史稿件；`RESEARCH_RULES.md` 只约束所属研究线 |
+| `experiments/<study>/PROTOCOL.md` / 当前指向的 protocol | 运行前明确冻结该 Study 的方法、输入、数据划分、评价、门槛、停止与交付；不同 Study 不用名字相似就混在一起 |
+| `experiments/<study>/runs/<RUN_ID>/` | **唯一运行事实**：原始命令、环境、原始产物、Run 身份、校验、结果；失败/不完整也保留 |
+| `project/research_notes/`、`project/hypotheses/`、`project/audits/` | 历史推导、旧目标与审计来源；出现“当前”“下一步”时先按当前总控校验时间和适用域 |
 
-2026-10-13 [YOLO26m-seg 官方 COCO GT 失败重基线执行计划](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md)：Study 已注册、状态 `planned_not_executed`；先原生基线 parity，后同一输出身份的逐 GT 失败分类，复用既有 raw 而不重训。
+## 历史计划及基线不重写
+
+- [旧 2026-10-12 五臂机制方案](experiments/mask_readout_mechanism_v2_20261012/PROTOCOL.md) 和 [机器门槛草案](experiments/mask_readout_mechanism_v2_20261012/GATES_SPEC.json) **保留为未冻结历史草案**，不再授权 TAL-E0→20k 五臂训练。
+- [2026-10-12 候选/评价历史审计](project/audits/candidate_eval_20261012/REPORT.md) 和 [固定 8.4.100 代码/官方 COCO 基线核验](project/audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md) 仍是来源事实；旧自定义 Box/Mask AP `51.980/43.518` **不是**官网 `52.5/44.1` 的原生复现。
+- 历史 `raw_all` / `raw_argmax_correct` 的 5000 图统计、几何面板及旧 TAL 回放保留原数值与分母；仅当身份、分支、输入、解码全部可比，才做跨 Run 关联；不能从旧 GT 辅助 oracle 结果声称正常推理已救回。
+
+**仓库整理本身只修改索引、当前规范和未执行计划路由，不改历史权重、源码快照、原 Run、工作台数据库或用户本地数据；更新 README 不意味着已经完成训练或评估。**
+
