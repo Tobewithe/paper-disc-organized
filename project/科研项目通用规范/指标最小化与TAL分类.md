@@ -14,7 +14,7 @@
 
 - **官方训练：** 对指定 one-to-many / one-to-one 分支通过官方数据处理、标签和 TAL 得到正样本并计算相关 Loss。重放当前冻结 checkpoint 的 TAL 只是“当前无增强输入下的分配”，不能假定等同历史增强训练每一步的分配。
 - **官方验证/输出：** 正常无 GT 推理结果经选定分支、置信筛选、预算与 COCO 匹配输出 Mask AP/AR。**TAL 不参与推理后的 COCOeval GT 匹配**。
-- Ultralytics 当前 YOLO26 官方文档明确：**默认推理/验证使用 one-to-many + NMS；显式 nms=False 使用 one-to-one 无 NMS**。过去项目将“官方推理通常是 one-to-one”写作默认规则不准确。研究对象若是固定 one-to-one 的合法独立实验，需明确记录 `nms=False / one_to_one` 及该版本实际的模型/代码调用；不能用当前在线文档反推旧 Run 的真实开关。验证必须显式指定 COCO 数据集，避免未找到数据时回退到小样本数据集。
+- **2026-10-13 固定版本纠错：** Ultralytics **v8.4.100** 的推理/验证分支由 `head.end2end` 控制：`end2end=True` 走 one-to-one 无 NMS，`end2end=False` 走 one-to-many + NMS。该版本 `cfg/default.yaml` 的 `nms` 参数仅描述**导出时是否融合 NMS**，不能把 `nms=False` 当作切换 O2O 的指令。`DetectionValidator` 会按照 `args.end2end` 覆写分支，并在 E2E 时把 `args.agnostic_nms` 传入 Head，影响是多类别组合 Top-K 还是单类别 argmax Top-K。必须以固定 tag 的源码及本次实际 Head 状态为准；不同版本的在线文档不能反推旧 Run。COCO 验证还必须校验 `is_coco=True` 与官方类别映射，详见 [官方 GT 失败重基线冻结计划](../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md)。
 - 官方训练 overlap owner mask（用于监督 Loss）和最终原图 COCO annToMask（用于实例 Mask IoU/COCOeval）不同；它们各有目的，不能把损失换成官方 overlap 就称完成了官方验证。
 
 官方文档：
