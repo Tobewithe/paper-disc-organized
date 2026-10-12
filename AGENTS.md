@@ -79,3 +79,7 @@
 ## 指标必要性与官方默认分支核对
 
 每个新 Study 在选指标前阅读 `project/科研项目通用规范/指标最小化与TAL分类.md`。严格区分训练 TAL 正样本、实际推理 COCOeval GT 匹配和 GT 辅助 raw oracle；按唯一科学命题只选直接主指标及必要损伤护栏，不要求所有 Run 生产五层指标。明确从实际模型版本和 `nms`/`end2end` 调用确认输出分支：当前 Ultralytics 官方文档默认 one-to-many+NMS，`nms=False` 为 one-to-one，不得默认用 one-to-one 冒充全项目官方默认。原历史指标和 Run 不重写。
+
+## TAL 时间维度解释限制
+
+冻结 checkpoint 的官方 TAL 重放不能代表训练历史。任何声称“训练动态分配/长期未被监督”的实验，必须先读 `project/audits/candidate_eval_20261012/TAL_TRAINING_TRACE_PROTOCOL.md`，区分 `actual_train_assignment_event` 与 `checkpoint_assignment_replay`；不能仅由一个最终官方 TAL manifest 推断历史。训练时只读记录选中正样本的稀疏关系，必要时固定视图的选定 checkpoint 补充 top-k 候选证据，不要求全 raw×GT 稠密日志。
