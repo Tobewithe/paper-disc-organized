@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "status": "DRAFT_TO_FREEZE_NOT_EXECUTED",
+  "date": "2026-10-12",
+  "timezone": "Asia/Taipei",
+  "repository": "Tobewithe/paper-disc-organized",
+  "source_commit": "e88e3f9c50e42a05020973357c995354d0c144cb",
+  "proposed_study": "experiments/mask_readout_mechanism_v2_20261012",
+  "remote_writes_performed": false,
+  "training_started": false,
+  "current_blocker": "Existing cross-objective audit final outputs and original decision route must be verified.",
+  "e0_result": null,
+  "execution_environment": null,
+  "holdout_manifest_sha256": null,
+  "hypothesis": "GT-free ROI spatial layout and image-conditioned residuals provide transferable mask utility; part of utility depends on directions outside the frozen prototype plus constant-logit-bias readout span.",
+  "model_lock": {
+    "name": "yolo26m-seg",
+    "ultralytics_vendor": "8.4.100",
+    "weights_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "image_size": 640,
+    "precision": "FP32",
+    "mask_ratio": 1,
+    "overlap_mask": true
+  },
+  "arms": {
+    "A": "frozen native",
+    "C": "native coefficient-only adaptation",
+    "F_mean": "same F network with channel-wise ROI mean tiled to 4x4",
+    "F": "real 4x4 predicted-box ROI coefficient residual",
+    "R_parallel": "same R parameters, Q projected into span([P,ones])",
+    "R": "P(c0+delta_c)+Q*d"
+  },
+  "training_proposal_not_official_defaults": {
+    "images": 20000,
+    "epochs": 8,
+    "initial_seeds": [
+      0,
+      1
+    ],
+    "conditional_confirmation_seed": 2,
+    "optimizer": "AdamW",
+    "lr_start": 0.0001,
+    "lr_end": 1e-05,
+    "schedule": "cosine",
+    "warmup_steps": 0,
+    "weight_decay": 0.0001,
+    "gradient_clip_l2": 10,
+    "microbatch_images": 1,
+    "accumulation_images": 16,
+    "optimizer_steps_per_run": 10000,
+    "amp": false,
+    "ema": false,
+    "augmentation": false,
+    "batchnorm": "eval",
+    "checkpoint_rule": "fixed_final_epoch8",
+    "extra_losses": []
+  },
+  "legacy_threshold_note": "Old experiments stay unchanged. The new study defines its own canonical unique-match safety denominator; historical duplicate-detection diagnostics are secondary only.",
+  "task_gates": [
+    {
+      "id": "G_task",
+      "comparison": "R-A",
+      "metric": "COCO_mask_AP",
+      "unit": "AP_points_0_to_100",
+      "min_point_delta": 0.3,
+      "ci": "paired_image_95_percent",
+      "lower_bound_strictly_greater_than": 0
+    },
+    {
+      "id": "G_increment",
+      "comparison": "R-F",
+      "metric": "COCO_mask_AP",
+      "unit": "AP_points_0_to_100",
+      "min_point_delta": 0.1,
+      "ci": "paired_image_95_percent",
+      "lower_bound_strictly_greater_than": 0
+    },
+    {
+      "id": "G_safety_damage",
+      "metric": "baseline_success_to_failure_rate_on_canonical_unique_matches",
+      "unit": "fraction",
+      "one_sided_95_percent_upper_max": 0.01
+    },
+    {
+      "id": "G_safety_AP75_APsmall",
+      "comparison": "R-A",
+      "unit": "AP_points_0_to_100",
+      "each_min_point_delta": -0.1,
+      "each_one_sided_95_percent_lower_min": -0.1
+    }
+  ],
+  "mechanism_tests": [
+    {
+      "id": "M_layout",
+      "comparison": "F-F_mean",
+      "metric": "COCO_mask_AP_full_dataset",
+      "unit": "AP_points",
+      "min_point_delta": 0.1
+    },
+    {
+      "id": "M_space",
+      "comparison": "R-R_parallel",
+      "metric": "COCO_mask_AP_full_dataset",
+      "unit": "AP_points",
+      "min_point_delta": 0.1
+    },
+    {
+      "id": "M_remove",
+      "comparison": "R_full-R_drop_perp",
+      "metric": "image_macro_IoU_fixed_mechanism_panel",
+      "unit": "IoU_fraction",
+      "min_point_delta": 0.001
+    },
+    {
+      "id": "M_specific",
+      "comparison": "R_amp-R_drop_perp",
+      "metric": "image_macro_IoU_fixed_mechanism_panel",
+      "unit": "IoU_fraction",
+      "min_point_delta": 0.0005
+    }
+  ],
+  "statistics": {
+    "bootstrap_draws": 5000,
+    "bootstrap_seed": 20261012,
+    "paired_clusters": true,
+    "main_cluster": "image",
+    "external_video_cluster": "scene_or_sequence",
+    "seed_results_reported_separately": true,
+    "mechanism_family_size": 4,
+    "mechanism_family_alpha": 0.05,
+    "mechanism_individual_one_sided_confidence": 0.9875,
+    "mechanism_lower_bound_strictly_greater_than": 0,
+    "full_method_and_mechanism_promotion_requires_each_initial_seed_pass": true,
+    "AP_not_mean_of_per_image_AP": true,
+    "no_optional_sampling_based_on_method_results": true
+  },
+  "mechanism_panel": {
+    "initial_images": 512,
+    "baseline_only_expansion_images": [
+      2048,
+      5000
+    ],
+    "minimum_baseline_success_candidates": 200,
+    "minimum_baseline_failure_candidates": 200,
+    "minimum_images_per_group": 50,
+    "confirmation_panel_max_images": 2048
+  },
+  "projection": {
+    "prototype_grid_training_null_span": "[P,ones]",
+    "effective_decoder_space_null_span": "[T_i P, T_i ones] before the first binary threshold",
+    "residual": "T_i(Q*d_i)",
+    "precision": "FP64",
+    "svd_rcond_main": 1e-06,
+    "svd_rcond_sensitivity_only": [
+      1e-08,
+      0.0001
+    ],
+    "zero_residual_ratio": null,
+    "basis_energy_is_not_utility_proof": true
+  },
+  "binary_pattern_audit": {
+    "maximum_cases": 256,
+    "systems_per_case": 2,
+    "seconds_per_system_limit": 120,
+    "systems": [
+      "P_only",
+      "P_plus_global_bias"
+    ],
+    "positive_constraints": "B_fg*c >= 1",
+    "negative_constraints": "B_bg*c <= 0",
+    "infeasibility_requires_independently_validated_certificate": true,
+    "timeout_state": "UNKNOWN",
+    "cannot_prove_all_Mask75_masks_unreachable": true
+  },
+  "budget": {
+    "initial_m_training_runs": 10,
+    "conditional_extra_m_runs": 5,
+    "conditional_s_model_runs": 6,
+    "maximum_training_runs": 21,
+    "maximum_total_image_presentations": 3360000,
+    "hyperparameter_search_trials": 0,
+    "scientific_ad_hoc_rescue_extensions": 0
+  },
+  "states": {
+    "execution": [
+      "PLANNED",
+      "PREFLIGHT",
+      "RUNNING",
+      "COMPLETED",
+      "VERIFIED",
+      "FAILED",
+      "BLOCKED"
+    ],
+    "scientific": [
+      "NOT_EVALUATED",
+      "SUPPORTED_AT_SCOPE",
+      "NOT_PROMOTED",
+      "INCONCLUSIVE",
+      "INVALID"
+    ]
+  },
+  "gate_routing": {
+    "e0_unknown_or_invalid": "collect_or_complete_existing_cross_audit_only; no new formal representation training",
+    "e0_positive": "follow_existing_aligned_shared_head_protocol; keep_new_representation_training_blocked",
+    "e0_valid_nonpromoted": "allow_true_G0_of_new_study",
+    "g0_failure": "repair_same_implementation_issue_with_new_run_id; never scientific_negative",
+    "initial_task_gate_failure": "finish_predeclared_frozen_checkpoint_mechanism_readout; no additional_training",
+    "all_initial_task_and_mechanism_pass": "allow_third_seed_and_locked_confirmatory_evaluation",
+    "confirmatory_failure": "close_current_hypothesis_at_confirmed_scope; do_not_switch_holdout",
+    "confirmatory_success": "allow_preregistered_external_and_second_scale_replication_subject_to_environment_and_data_locks"
+  },
+  "protocol_sha256": "6b8d7f0c580aac0d3af217614f3510604c30706de387e41657c9fded7a0eb4e3",
+  "disclaimer": "This JSON is a specification, not an implemented training or statistical decision engine. Unknown fields must not be treated as pass."
+}

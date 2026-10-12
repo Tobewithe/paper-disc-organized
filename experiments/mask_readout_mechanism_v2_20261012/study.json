@@ -1,0 +1,50 @@
+{
+  "study_id": "STUDY_MASK_READOUT_MECHANISM_V2_20261012",
+  "title": "固定候选下掩码读出与局部空间残差的机制识别及前瞻验证",
+  "kind": "method",
+  "research_line": "neighbor_sensitive_p3",
+  "status": "draft",
+  "protocol_status": "draft_to_freeze",
+  "execution_status": "not_started",
+  "scientific_status": "not_evaluated",
+  "source_commit": "e88e3f9c50e42a05020973357c995354d0c144cb",
+  "protocol": "PROTOCOL.md",
+  "gates": "GATES_SPEC.json",
+  "entrypoint": "LOCAL_AGENT_START_HERE.md",
+  "parent_study": "representation_reachability_20261010",
+  "preceding_gate": "coefficient_shared_affine_alignment_audit_20261011/DECISION_ADDENDUM_20261011.md",
+  "current_stage": "E0_EXISTING_CROSS_AUDIT_STATUS_CHECK",
+  "e0_result": null,
+  "execution_environment": null,
+  "formal_training_started": false,
+  "planned_training_arms": [
+    "C",
+    "F_mean",
+    "F",
+    "R_parallel",
+    "R"
+  ],
+  "initial_seeds": [
+    0,
+    1
+  ],
+  "formal_train_images": 20000,
+  "evaluation_primary": "COCO_val2017_5000",
+  "scientific_gates": [
+    "G_task",
+    "G_increment",
+    "G_safety_damage",
+    "G_safety_AP75_APsmall",
+    "M_layout",
+    "M_space",
+    "M_remove",
+    "M_specific"
+  ],
+  "limits": [
+    "This is a draft study. Existing frozen protocols and prior runs remain unchanged.",
+    "E0 must be resolved under its original pre-registered decision rules before any new 20k runs.",
+    "The previous arm_smoke.py is a module check, not a true end-to-end G0.",
+    "No data, weights, checkpoints, or large prediction archives are stored in GitHub.",
+    "No scientific results are claimed by this registration."
+  ]
+}
