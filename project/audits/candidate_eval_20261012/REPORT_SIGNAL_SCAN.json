@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 40,
+  "read_count": 48,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -891,42 +891,162 @@
     {
       "path": "experiments/local_edit_action_feasibility_20261009/REPORT.md",
       "blob_sha": "3873fd6bc3cce8869f0a76f56fa185a15985249d",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 7006,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/local_view_coefficient_replay_20261003/REPORT.md",
       "blob_sha": "80850c10866f2a328e0e8b832ada3b11fc251b68",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2216,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 7,
+              "text": "3080 Ti服务器，原官方YOLO26m-seg/Ultralytics 8.4.100，零训练。固定256张既有dev图，其中253张有效、1816个官方one-to-one TAL候选。原P、目标c0、预测框、候选身份和正常解码保持不变；新增来源只读取预测信息与原图，不输入"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/mask_boundary_route_20260914/REPORT.md",
       "blob_sha": "eb8310c9a0271fa1b9bb7d6aab4bd441bbb1ae46",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 26979,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 7,
+          "examples": [
+            {
+              "line": 3,
+              "text": "更新时间：2026-09-15。当前：train2017 拟合的响应条件化门控已完成冻结评价，4500图 Mask AP=43.9395，比原基线 +0.5607 点、比旧连续规则 +0.1113 点；误伤由576降至445，同时少修复106个。最佳网格全局阈值对照和真实推理接口"
+            },
+            {
+              "line": 35,
+              "text": "| **Mask AP** | **43.379** | **43.828** | **+0.449** |"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 5,
+          "examples": [
+            {
+              "line": 110,
+              "text": "在相同 500 图上，历史顺序的基线为 46.853 AP、分段规则为 47.556 AP，内部增益 +0.703；官方顺序的对应增益为 +0.368。历史增益应按其真实解码流程解释，不能直接称为未改动官方 model.val 的提升。新基线已在 3 张真实图的 602 个掩码上"
+            },
+            {
+              "line": 264,
+              "text": "本轮不重新拟合校准器。跨权重对照预先选择官方 COCO 预训练 YOLO26s-seg，直接应用 YOLO26m-seg 上拟合的三个门控与既有全局0.25/连续规则；评价仍是此前4500张 COCO val2017。它检验同架构系列内的权重迁移，不是新数据集盲测。协议见 PRO"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/mask_quality_boundary_branch_20261004/REPORT.md",
       "blob_sha": "b6c9e9d06380b87b2b42dd85b894c36d988d6cb8",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1785,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 6,
+          "examples": [
+            {
+              "line": 11,
+              "text": "| 评估范围 | 方法 | Box AP50-95 | Box AP50 | Mask AP50-95 | Mask AP50 |"
+            },
+            {
+              "line": 24,
+              "text": "- Mask AP50-95：0.38955 → 0.39298，**+0.00343（+0.343 个百分点）**"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/mask_quality_energy_refinement_20261005/REPORT.md",
       "blob_sha": "65c3d8ca9514278026a166545d6a12681a5592d1",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 7006,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 7,
+              "text": "FINAL 流式处理完 val2017 的 5,000 张图，未写全量 tensor cache，原模型 buffers 核验未变；36,335 个原图 noncrowd GT 中，36,213 个具有官方 one-to-one TAL 配对，122 个未配对。IoU 总体为这 "
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/mask_supervision_support_20261004/REPORT.md",
       "blob_sha": "8eb75d5c37ac442ecf60a562c9064339cb73ff38",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4116,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 34,
+              "text": "所有差值单位为百分点（pp），IoU主指标为图片macro。按图片配对bootstrap 1,000次；候选均值同样整图重采样。以下为探索性描述区间，不是多轮选模后的新盲测确认。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/native_proto_coadaptation_screen_20261003/REPORT.md",
       "blob_sha": "2c953df98b416a926209a7de2e1ba98ff17fff08",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1830,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 13,
+              "text": "均为百分点，macro按图片等权，1000次整图配对bootstrap。dev已参与此前研究，是探索筛选，不是独立确认或COCO AP。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/native_response_target_comparison_20261009/REPORT.md",
       "blob_sha": "48eb937e7fcf6b2f1ff183814504293f5a36fe72",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 5213,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 3,
+              "text": "当前配置未证明净阈值收益目标 H 比连续 IoU 增益目标 I 带来额外 Mask AP，且 H 增加原成功候选的损伤。两种校准器相对未经修边的冻结 baseline 均有约 0.438 个 AP 点的描述性提升；这个收益不能归因于 H 目标优于 I。"
+            },
+            {
+              "line": 21,
+              "text": "| 输出 | Mask AP | AP50 | AP75 | APsmall | APmedium | APlarge | Boundary AP (.02) |"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 29,
+              "text": "预声明继续条件为 AP差区间下界>0 且 H 损伤点率不增加，本轮未满足。保存的机器decision=AP_damage_tradeoff只反映AP点值微高及损伤更高；不能表述为证实AP改善的权衡。当前动作/五特征/容量/训练配置下不支持以H替代I，不能外推全部方法能力上限。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/native_semantic_projection_20261004_retry4/REPORT.md",
