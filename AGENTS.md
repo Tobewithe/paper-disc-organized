@@ -78,7 +78,7 @@
 
 ## 指标必要性与官方默认分支核对
 
-每个新 Study 在选指标前阅读 `project/科研项目通用规范/指标最小化与TAL分类.md`。严格区分训练 TAL 正样本、实际推理 COCOeval GT 匹配和 GT 辅助 raw oracle；按唯一科学命题只选直接主指标及必要损伤护栏，不要求所有 Run 生产五层指标。明确从实际模型版本和 `nms`/`end2end` 调用确认输出分支：当前 Ultralytics 官方文档默认 one-to-many+NMS，`nms=False` 为 one-to-one，不得默认用 one-to-one 冒充全项目官方默认。原历史指标和 Run 不重写。
+每个新 Study 在选指标前阅读 `project/科研项目通用规范/指标最小化与TAL分类.md`。严格区分训练 TAL 正样本、实际推理 COCOeval GT 匹配和 GT 辅助 raw oracle；按唯一科学命题只选直接主指标及必要损伤护栏，不要求所有 Run 生产五层指标。明确从实际模型版本与 `end2end`/`agnostic_nms` 状态确认输出分支：**固定 v8.4.100 中 `end2end=True` 为 one-to-one、`end2end=False` 为 one-to-many+NMS，`nms=False` 在该版本配置中仅涉及导出融合 NMS，不能用于选择验证分支**。原历史指标和 Run 不重写。
 
 ## TAL 时间维度解释限制
 
