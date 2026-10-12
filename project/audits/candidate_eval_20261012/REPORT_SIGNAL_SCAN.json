@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 24,
+  "read_count": 32,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -659,42 +659,111 @@
     {
       "path": "experiments/coefficient_trust_region_audit_20261009/REPORT.md",
       "blob_sha": "03f45e415220fdcb6264918e6a1931fd8149cd2b",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2075,
+      "signal_mentions": {
+        "geometry": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 18,
+              "text": "## 读数（1,375 候选；1,239 个 oracle 增益为正；663 原生失败 / 712 原生成功）"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 40,
+              "text": "- 面板为历史复用 dev 图（非盲测）；诊断关联非同 COCO 匹配；无任何 AP 声明。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/coefficient_varpro_native_20261001/REPORT.md",
       "blob_sha": "af5618a4a1a6d10f3ce38162ed85caf00a701b14",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 3068,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 5,
+              "text": "本 Study 先完成了 VarPro 前置的 `C+readout` 对照：从 Phase I C 组 checkpoint 的原生 one-to-one 系数分支特征出发，只重新求解三个尺度共享的 64→32 原生末层，其他特征、原型、框、类别和官方 TAL 候选身份保持不变"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/counterfactual_p3_distillation_20260914/REPORT.md",
       "blob_sha": "ad330baceb2a6c52ad29ce2242a98dd0feeeb20d",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 11379,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 3,
+          "examples": [
+            {
+              "line": 13,
+              "text": "| Arm | Gate | Aux weight | Box AP | Mask AP | Δ Box AP | Δ Mask AP |"
+            },
+            {
+              "line": 41,
+              "text": "A second paired run on the RTX 4090 used the same 1,000/1,576 split, batch 2, Ultralytics 8.4.100 and Torch 2.8.0. The per-epoch Mask AP dif"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/crop_scale_selector_probe_20260913/REPORT.md",
       "blob_sha": "22289fb2459c8b633a90c166e6ab2e559f57a18d",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 959,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/crop_support_failure_cross_20260913/REPORT.md",
       "blob_sha": "dbbd26937ac2e2241667514c81bc632a935404b9",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1688,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/crop_support_probe_20260913/REPORT.md",
       "blob_sha": "dbf9b1dd32d6711acbc7225dbdeaa1f98e580050",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 781,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/cross_head_class_rescue_20260914/REPORT.md",
       "blob_sha": "d45a1cde0ee97ecaf6f49a3f9e4e1e100bf88495",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 191,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/cross_task_coefficient_bridge_20261004/REPORT.md",
       "blob_sha": "3a23cefab833c90fef7d38212e42078ba942f348",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4835,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 32,
+              "text": "以下是图片macro原图Mask IoU差值，单位**百分点**，区间为1000次整图配对bootstrap。此为历史复用开发集上的固定GT条件官方候选，不是新盲测、完整推理输出或COCO AP。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/decode_grid_threshold_probe_20260913/REPORT.md",
