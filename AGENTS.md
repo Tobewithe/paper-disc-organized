@@ -71,3 +71,7 @@
 研究线按当前线程、`project/research_lines.json` 和 `paper/manuscripts/` 下的实际目录发现，不设置永久主线。进入某条研究线后，先读该目录的 `RESEARCH_RULES.md`（若存在）；版本、官方权重和默认配置只在研究线目录维护。单个实验的 `PROTOCOL.md` 只约束该实验，不升级为全项目规范。
 
 研究记录只在形成决定、运行前后或解释结果时补最小信息，并引用原文、Run、版本、评价范围和限制。不要复制结论。
+
+## 候选身份和评价强制预检
+
+凡开展 YOLO/COCO raw 失败、TAL 正样本、几何匹配或正常输出对照，先完整阅读 `project/科研项目通用规范/候选身份与评估口径.md`，确认本 Run 的 candidate_policy、branch、input_hw 和 GT 关联来源，再通过 G0–G5。禁止将 legacy_geometry_hungarian 候选冒充官方 TAL 或实际推理失败；跨 Run 基线与候选不一致，科学结论标为 unadjudicated，先完成最小重放，不自动重训。历史 Run 与论文原始表格不得覆盖，审计附注写入 `project/audits/candidate_eval_20261012/`。
