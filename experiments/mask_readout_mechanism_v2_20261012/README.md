@@ -1,5 +1,7 @@
 # YOLO26-Seg Prototype→Coefficient 后训练修复（2026-10-13 已重定向）
 
+> **阶段路由只看 [project/ACTIVE_PLAN.md](../../project/ACTIVE_PLAN.md)**；本 Study 当前方法文件为 [POSTTRAIN_RESCOPE_20261013.md](POSTTRAIN_RESCOPE_20261013.md)，旧 PROTOCOL/GATES 为保留的草案，不是新 Run 的执行权来源。
+
 **当前主线**：在官方预训练模型权重、框/分类及基础 Proto/系数均冻结的前提下，只训练轻量的实例条件 `delta_c` 模块，使正常最终输出中的分割失败得到可迁移修复，并约束原成功实例的误伤。**不研究历史 TAL 训练分配**；前期全量 raw 和 GT 失败账本校正只是评价基础设施。
 
 **当前唯一入口**：[POSTTRAIN_RESCOPE_20261013.md](POSTTRAIN_RESCOPE_20261013.md) → [LOCAL_AGENT_START_HERE.md](LOCAL_AGENT_START_HERE.md)。
