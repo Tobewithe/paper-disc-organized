@@ -2,11 +2,16 @@
   "study_id": "STUDY_TAL_TRAINING_ASSIGNMENT_TRACE_20261012",
   "title": "YOLO26-seg actual training TAL sparse assignment trace and checkpoint comparison",
   "kind": "diagnostic",
-  "status": "implementation_in_progress",
+  "status": "instrumentation_draft_not_executed",
   "protocol": "PROTOCOL.md",
   "research_line": "independent_diagnostic",
   "question": "Do supervised raw locations and per-GT TAL coverage evolve during actual training, and can this be distinguished from frozen-checkpoint replay?",
-  "scope": "instrumentation only until Gate A smoke/parity passes; no new model training authorized",
+  "scope": "Code draft only. No training, no parity smoke or performance benchmark has been executed. Full COCO pretraining is explicitly out of scope. Sparse TAL tracing is OPTIONAL, only for a separately justified fine-tuning trajectory study.",
   "upstream": "Ultralytics 8.4.100 official SegmentationTrainer, E2ELoss",
-  "source": "project/audits/candidate_eval_20261012/TAL_TRAINING_TRACE_PROTOCOL.md"
+  "source": "project/audits/candidate_eval_20261012/TAL_TRAINING_TRACE_PROTOCOL.md",
+  "compute_constraint_decision": "Do not train from scratch to reproduce official COCO weight. Start from pinned official pretrained checkpoint; first use frozen official TAL and raw/GT replay. If testing new supervision, use identical checkpoint and budget paired fine-tune, not a from-scratch recipe.",
+  "blockers": [
+    "Preflight G0 requires hook integration with real criterion, enhanced GT lineage, and loss/gradient parity smoke.",
+    "In mask-coefficient-only training with frozen class/box predictions and upstream features, TAL is invariant for the same input; stepwise tracing has no information gain for assignment dynamics."
+  ]
 }
