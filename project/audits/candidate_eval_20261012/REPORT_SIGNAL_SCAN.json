@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 48,
+  "read_count": 56,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -1051,42 +1051,191 @@
     {
       "path": "experiments/native_semantic_projection_20261004_retry4/REPORT.md",
       "blob_sha": "0b852625a23c42740ceead39cc5ff75c65ea74cc",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1366,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/native_tal_shared_head_conflict_20261011/REPORT.md",
       "blob_sha": "ce074d03e81ebed74b193303e6690a5a725a04ac",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 1499,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 1,
+              "text": "# 官方 TAL one-to-one 原生共享系数头冲突审计结果"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/no_final_slot_lineage_20260914/REPORT.md",
       "blob_sha": "0f35bc49f2f89ceabe27426b99e1d16fbda0a8e4",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 367,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/official_coco_task_alignment_20260916/REPORT.md",
       "blob_sha": "f7d7b31acbc98800293f0c895c34f76141ecde96",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 11198,
+      "signal_mentions": {
+        "geometry": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 166,
+              "text": "3. one-to-many 使用 topk=10；one-to-one 使用 topk=7、topk2=1，并解决同一位置与多个 GT 的竞争。最终数量需读取结果，不假定每个 GT 都必有固定数量。竞争处理按框重叠，TAL 不是全局 Hungarian 指派。"
+            }
+          ]
+        },
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 169,
+              "text": "源码：[本地 TAL](../../shared/vendor/ultralytics_8_4_100/ultralytics/utils/tal.py)、[官方 v8.4.100 TAL](https://github.com/ultralytics/ultralytics/b"
+            }
+          ]
+        },
+        "COCOeval": {
+          "count": 16,
+          "examples": [
+            {
+              "line": 13,
+              "text": "| 原模型预测及全量 Mask AP | 一套权重正常生成预测，再由 COCOeval 对照 GT 评分 | 原模型在固定评测设置下表现如何 |"
+            },
+            {
+              "line": 17,
+              "text": "**COCOeval 只是评测程序，不生成预测、不加载第二套权重，也不训练模型。** 下文 Mask75 指按掩码 IoU≥0.75 的 COCOeval 规则判断 GT 是否被正确预测；“按框选定的诊断候选失败”与“该 GT 在全部最终预测中未通过 Mask75”是不同对象，必"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 31,
+              "text": "复用同一官方权重、版本和 one-to-one 分支的 500 图与 4,500 图原始 zero-threshold 掩码预测，将预测合并后重新执行官方 COCOeval，而不是平均两个 AP。"
+            },
+            {
+              "line": 158,
+              "text": "**结论：只有几何分类与最终评分，足以描述结果，但不足以解释训练失败。需要沿同一 raw ID 加入实际训练责任、监督像素及梯度路径；不能用依赖分数的 TAL 取代分数无关几何评价。**"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/ownership_solver_replay_20261002/REPORT.md",
       "blob_sha": "c653f7dedeca56e0a623c2d804a6fc1bc2d5743a",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 5306,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 5,
+              "text": "在笔记本 `28358lan` 的RTX4060上完成196张历史val图、1,346个冻结官方one-to-one TAL候选的13组重放，执行约121秒，训练更新数为0。所有输入、原型、预测框、候选和既有7O头保持不变。完整数字和5,000次整图配对区间见[运行报告](run"
+            },
+            {
+              "line": 56,
+              "text": "- 评价对象是历史研究已查看的官方TAL候选；未验证完整推理输出、独立盲测或AP收益。直接8×8→原图的渲染规则为本轮预先固定，不等于旧7O报告的8×8指标。"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 22,
+              "text": "下表均为全部196张图的图片macro原图IoU；这不是COCO AP。"
+            },
+            {
+              "line": 89,
+              "text": "所有纠正格的选择或取值使用GT；H8选格读取全部64格GT误差，8/64只是实际替换数量，不能表述为只需要8格标注或12.5%的GT信息。82.10%不是无需GT的方法性能，更不是AP。本轮有支持性的诊断事实，但没有达到完整预设机制验收，不能借它放行新训练。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/p3_aux_class_ablation_20260915/REPORT.md",
       "blob_sha": "504ea756896ad5aa1a5d01a90c3c1d8c97a3587c",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 9446,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 17,
+          "examples": [
+            {
+              "line": 14,
+              "text": "以下 AP/AR 按 0–100 显示；均为原始 COCO 标注的官方 COCOeval，不混入训练时转换标签的原生验证数值。"
+            },
+            {
+              "line": 19,
+              "text": "| one2many | Mask AP | 42.214 | 41.641 | 42.037 | +0.396 | -0.177 |"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/p3_aux_schedule_ablation_20260915/REPORT.md",
       "blob_sha": "749d07cadf410e32ae35f22c4dc80e360784cd08",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 6806,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 5,
+          "examples": [
+            {
+              "line": 17,
+              "text": "| one-to-many | Mask AP | 42.214 | 42.037 | 42.213 | +0.176 | −0.001 |"
+            },
+            {
+              "line": 18,
+              "text": "| one-to-many | 小目标 Mask AP | 22.162 | 22.085 | 22.496 | +0.411 | +0.333 |"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/p3_branch_gate_diagnostic_20260915/REPORT.md",
       "blob_sha": "710b8a367f46b4b068da9d53ae0108693fd731cd",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 6559,
+      "signal_mentions": {
+        "geometry": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 66,
+              "text": "以 Baseline 为例，只有 **35.96%（32/89）** 的新增监督位置属于该 GT 自身；**49.44%（44/89）** 是官方背景，**14.61%（13/89）** 属于其他 GT。同时 **64.04%（57/89）** 的目标已有合格的原始几何候选。当前"
+            }
+          ]
+        },
+        "COCOeval": {
+          "count": 7,
+          "examples": [
+            {
+              "line": 15,
+              "text": "两组模型分别是已完成的全量 seed 0 一轮 Baseline 与 IG-P3。模型和运行库均为 YOLO26m-seg / Ultralytics 8.4.100。使用 COCO 原始标注、全部 5,000 张图、官方 pycocotools COCOeval，类别 ID 显"
+            },
+            {
+              "line": 20,
+              "text": "| Mask AP | 42.300 | 42.410 | +0.111 | 41.931 | 41.939 | +0.008 |"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/p3_guidance_bridge_screen_20260916/REPORT.md",
