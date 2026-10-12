@@ -1,5 +1,7 @@
 # 本研究线运行规范
 
+> **2026-10-13 当前研究线入口：** [科研总控](../../../project/ACTIVE_PLAN.md) → [后训练主协议](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。冻结预训练权重，只训练新增实例条件系数残差；早期 TAL/E0 与 P3 重训计划保留为历史证据，不是当前依赖。下文的 `mask_ratio/overlap_mask` 等训练设置仅代表历史已核实事实，不自动生成新的训练任务。
+
 本文件只适用于 `neighbor_sensitive_p3` 研究线，不是项目全局规范。用户当前线程指定其他研究目录时，以其他目录的规则为准。
 
 - 研究对象：YOLO26m-seg 与 COCO 实例分割；官方 COCO 预训练权重 `yolo26m-seg.pt`。
