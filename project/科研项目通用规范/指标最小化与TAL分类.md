@@ -8,6 +8,8 @@
 
 指标、筛选规则和对象身份必须分开。BoxIoU≥0.5 最大基数几何 Hungarian 配对是一个**GT 辅助的候选关联算子**，不是官方评价指标，也不是官方 TAL。它不应成为通用失败选样前置条件；只在明确研究“几何位置的潜在读出能力”时作为独立实验臂保留。
 
+**训练时间维度补充：** GT→TAL 的固定缓存重分类只说明当前冻结 checkpoint 对指定无增强图像的分配，不能代表训练每步的增强样本身份、TAL 正样本变动或梯度贡献。若研究真实训练动态，按 [TAL 训练轨迹记录协议](../audits/candidate_eval_20261012/TAL_TRAINING_TRACE_PROTOCOL.md) 记录训练时实际 criterion 的稀疏正样本事件。任何结论必须标明 `checkpoint_assignment_replay` 还是 `actual_train_assignment_event`。
+
 ## 1. 官方训练与评价是两个不同过程
 
 - **官方训练：** 对指定 one-to-many / one-to-one 分支通过官方数据处理、标签和 TAL 得到正样本并计算相关 Loss。重放当前冻结 checkpoint 的 TAL 只是“当前无增强输入下的分配”，不能假定等同历史增强训练每一步的分配。
