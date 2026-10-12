@@ -39,3 +39,5 @@
 回传轻量文本 JSON/MD：`E0_GATE.json`、`DECISION.json`、具体核对的源路径与 SHA256、`E0_AUDIT_RUN.md`、若修订了论文证据图则提供最小 diff。保留不一致和失败日志，不传 COCO 原图、checkpoint、大 NPZ/PT 或秘钥。
 
 **停止条件**：E0 同位 Gate 达标并作出一次预注册裁决，或明确报告唯一阻塞与需补证数据；同时完成两项高风险历史结论的适用域确认。不得滚动追加独立实验。
+
+补充：若未来研究在真实训练期间的 TAL 分配如何随 step/数据增强变化，见 [TAL_TRAINING_TRACE_PROTOCOL.md](TAL_TRAINING_TRACE_PROTOCOL.md)。当前 handoff 只核验历史静态快照，不可声称恢复了预训练每步的 TAL owner。
