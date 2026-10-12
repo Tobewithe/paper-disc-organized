@@ -3,7 +3,7 @@
   "source": "main 2026-10-12",
   "method": "content regex triage (not independent scientific verification)",
   "report_count": 78,
-  "read_count": 32,
+  "read_count": 40,
   "reports": [
     {
       "path": "experiments/acd_native_coefficient_20261006/REPORT.md",
@@ -768,42 +768,125 @@
     {
       "path": "experiments/decode_grid_threshold_probe_20260913/REPORT.md",
       "blob_sha": "f12e6a1561e38b63e6ef208e978b75562aa6e35a",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 746,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/evidence_path_usage_20261004/REPORT.md",
       "blob_sha": "4afe23bf455411e098ea02c74e3c996147f6c806",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 2852,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 9,
+              "text": "fit计划128图，有效127图/756候选；dev计划256图，有效253图/1816候选。均为既有train2017研究范围，不是新盲测或正常输出完整COCO AP。下列区间为1000次整图配对bootstrap，探索描述，单位为百分点。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/external_spatial_projection_20261004/REPORT.md",
       "blob_sha": "6742cf0b8c98a003f7b75d04b180308f13d7df84",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4503,
+      "signal_mentions": {
+        "official_TAL": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 10,
+              "text": "- 计划256张既有COCO train2017开发图，253张有效、1816个固定官方one-to-one TAL候选。无正样本图234138、284128、552870保留在清单。未按修正结果删除候选。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/failure_dimension_analysis_20260913/REPORT.md",
       "blob_sha": "2a8cc04e021bf37eebca47da91a59d3eeecbf732",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4251,
+      "signal_mentions": {
+        "COCOeval": {
+          "count": 3,
+          "examples": [
+            {
+              "line": 38,
+              "text": "## 3. 每类独立理想修复后的真实 COCOeval AP"
+            },
+            {
+              "line": 42,
+              "text": "| 处理 | 修改GT数 | Mask AP | ΔAP | 高E4 R75 | 低−高R75差 |"
+            }
+          ]
+        },
+        "scope_caveat": {
+          "count": 2,
+          "examples": [
+            {
+              "line": 40,
+              "text": "仅将对应失败槽位掩码替换为它的完整 COCO GT，保持分数、类别、顺序和候选数；每个实验独立从原预测开始，全部GT参与官方匹配后再分组。完整GT可能超出预测框，因此这是理想输出修复，不是‘只修改框’或可部署方法，也不是每类AP损失的加性分解。"
+            },
+            {
+              "line": 82,
+              "text": "这个三分法只针对原有6,584个固定失败槽位，不能替代官方漏检率或AP分解。矩形内残余误报仍可能是背景、同类或异类目标；自身缺失也可能受裁切、原型或读出共同影响。下一次有模型前向的实验应按这两个残余状态预选样本，分别测精确裁切支持和固定原型读出能力，避免把性质不同的失败混在一起平"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/failure_object_roi_probe_20260914/REPORT.md",
       "blob_sha": "6c13fa0a7b42648896dca74787a54a59534146e4",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 346,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/flip_fusion_confirmation_20261004/REPORT.md",
       "blob_sha": "21ffcbdad9ae09ed489f610f6f9d60911c214502",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4672,
+      "signal_mentions": {}
     },
     {
       "path": "experiments/flip_response_projection_20261004/REPORT.md",
       "blob_sha": "5b3c74f5a8405da433868538943fcc61e6eb1a47",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 4148,
+      "signal_mentions": {
+        "geometry": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 59,
+              "text": "MATCH的掩码比MIRROR平均更差，尽管它按预测框IoU选位；原图同规则重选则完全复现A。**更接近原框不意味着该位置具有更好的实例掩码。** 这只是本轮预测位置对应的观测，不等于发现了官方训练错误或所有几何匹配均无效。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/frozen_native_mask_comparison/REPORT.md",
       "blob_sha": "9095642a753a3452c02ea3501a947e739e84555d",
-      "text_scan_status": "pending"
+      "text_scan_status": "read",
+      "bytes": 12715,
+      "signal_mentions": {
+        "scope_caveat": {
+          "count": 1,
+          "examples": [
+            {
+              "line": 3,
+              "text": "2026-10-09。本固定比较已完成：完整5k主要评分、像素/Boundary读出，笔记本及桌面独立单方法成本与各项独立核验全部通过。原失败Run保留；结论是已知方法的质量、损伤、覆盖与成本权衡，不是新增方法或独立盲测确认。"
+            }
+          ]
+        }
+      }
     },
     {
       "path": "experiments/local_edit_action_feasibility_20261009/REPORT.md",
