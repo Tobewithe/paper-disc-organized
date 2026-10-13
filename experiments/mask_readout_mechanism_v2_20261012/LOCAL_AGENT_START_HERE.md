@@ -15,6 +15,10 @@
 
 先读 [执行合同](EXECUTION_CONTRACT.md) 检查 P/c0/输出身份桥接和每阶段冻结项；按 [本地协同规范](../../project/科研项目通用规范/运行登记与本地协同.md) 接续真实 Run，不把旧 GATES_SPEC 当新 runner 配置。
 
+## 工具入口与新配置
+
+先按 [S0/S1 工具说明](../../shared/evaluation/POSTTRAIN_TOOLS.md) 运行合成检查；本地正式使用必须加 `--require-integration`，不能把缺依赖的 skip 当通过。[机制假说与预设配置](MECHANISM_AND_DEFAULTS.md) 固定 B/C 输入消融及数值/训练候选预算。当前尚未完成真实模型 P/c0/F 导出和 native decoder 桥接，不能宣称 S1 已跑通。
+
 ## 冻结与交付
 
 所有新科学运行必须在实际执行前保存明确版本、数据/预测清单 hash、候选身份、研究对象、允许修改参数、门槛及来源 Run；按工作台要求为新 Run 分配真实 ID 和 `run.json`。工作完成时交付：`G0_OUTPUT_IDENTITY`、`G1_FIXED_OUTPUT_ORACLE`、`G1_SUMMARY`、`DECISION`，必要时才有 G2/G3 checkpoint 和 COCO 结果。缺少数据/权重/结果就返回唯一阻塞，不伪造。用户历史已关闭路线、官方 COCOeval 匹配、GT 辅助 oracle 和此后训练方法的成绩不能相互替代。

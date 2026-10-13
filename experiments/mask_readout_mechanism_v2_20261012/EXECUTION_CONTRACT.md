@@ -2,6 +2,8 @@
 
 2026-10-13；适用于尚未冻结的 POSTTRAIN_RESCOPE 规划。本文是其操作性补充，与主协议共同冻结；不修改既有 Run。当前阶段只由 [ACTIVE_PLAN](../../project/ACTIVE_PLAN.md) 决定。本文没有执行结果，不代表训练授权。
 
+**实现与候选默认：** [工具说明](../../shared/evaluation/POSTTRAIN_TOOLS.md) 与 [机制假说/默认配置](MECHANISM_AND_DEFAULTS.md)。前者明确已实现组件和未联调部分；后者提供 oracle/adapter 候选参数，仍须在实际 Run 前与本地输入和资源一起冻结。
+
 ## 1. 阶段编号只作映射，不混用 Gate
 
 | 总控阶段 | 方法协议 | 进入条件 | 动作 / 离开条件 |

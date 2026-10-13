@@ -14,6 +14,8 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = (
+    "shared/evaluation/POSTTRAIN_TOOLS.md",
+    "experiments/mask_readout_mechanism_v2_20261012/MECHANISM_AND_DEFAULTS.md",
     "experiments/mask_readout_mechanism_v2_20261012/EXECUTION_CONTRACT.md",
     "project/科研项目通用规范/运行登记与本地协同.md",
     "README.md",
