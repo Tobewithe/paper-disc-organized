@@ -46,13 +46,13 @@
 - **所有官方预训练权重冻结**（Backbone、Neck、Box/Class Head、原生 Mask Head、Proto26、BN 参数及 running state）；新模块按最终输出检测 `d_i` 的真实可用特征做实例条件 `delta_c`，**不更新 c0 原生头**。方法初始化 `delta_c=0`，推理只改变 mask，类别/分数/框/行数/顺序保持不变。`F_i` 必须是本次真实网络中间特征和由预测框映射出的 ROI，不能以 RGB 平均池化或伪造候选通过 smoke。
 - **训练标签来自正常输出域而非 TAL：** 对 train2017 真实推理输出按正确类别、Score 顺序、BoxIoU≥.50 确定性一对一关联普通 GT，匹配**只用预测框、类别、GT Box**，不以所要改进的预测 MaskIoU 选训练候选。crowd/ignore 有专门排除规则；重复类别输出各自保留最终行身份。关联用于提供标签与 Mask Loss，**不进入 adapter 的 forward 或推理 gate**。匹配失败的检测不凭空标成“空掩码 GT”，先按 identity-preserve/ignore 策略处理，防止利用评分信号作弊。所有匹配门槛、监督权重和样本清单冻结。
 - 训练需覆盖 baseline 成功与失败的目标，并使用适当的 Identity/成功保护约束，防止只救失败组却大面积误伤；绝不在推理时按 GT 失败标签开启模块。损失先只用标准 masked BCE+冻结基线保持项，匹配总监督预算的对照；不再添加新的 oracle direction teacher、TAL 辅助 loss 或多个动态 gate。
-- **最小初筛**：来自 train2017 的固定 2000 张 fit；提前冻结 512 张 val2017 开发观察图，仅在基线标签计算后允许按固定 hash 规则扩到足够任务失败/成功样本（不查看方法输出）；单 seed、固定短预算、零 delta 控制和一个同参数量输入消融。与旧 ACD/box-guided residual/ROI readout 研究对照时必须对齐**训练对象为正常最终输出**、网络输入、计算预算和 decoder，否则旧阴性只作历史参考，不能冒充公平 A/B。
-- **G2 放行标准（正式运行前连同随机种子、优化配置冻结）：** 原 Box75、Mask75 失败目标组的 image-macro MaskIoU 提升≥+0.5 个百分点且图像簇 bootstrap 95% 下界>0；原成功组 Mask75→失败比例的单侧95%上界≤1%；基线 bbox75 固定配对的全部普通 GT 的 image-macro IoU 不低于原模型−0.1 个百分点；对象、分母与 CI 按 EXECUTION_CONTRACT 冻结。未达门槛直接停当前形式，不追加层数、epoch、门控扫描。
+- **最小初筛**：来自 train2017 的固定 2000 张 fit；提前冻结 512 张 val2017 效果开发图，仅在基线标签计算后允许按固定 hash 规则补足目标失败样本（不查看方法输出）；损伤另按 [DAMAGE_ACCEPTANCE](../../shared/evaluation/DAMAGE_ACCEPTANCE.md) 从全体基线成功 GT 无放回抽样 n=min(1024,|S|)，训练前固定预算、B 最后 checkpoint 冻结后且方法评价前抽签；单 seed、固定短预算、零 delta 控制和同参数量的 P/z0 联合空间置换对照。与旧 ACD/box-guided residual/ROI readout 研究对照时必须对齐**训练对象为正常最终输出**、网络输入、计算预算和 decoder，否则旧阴性只作历史参考，不能冒充公平 A/B。
+- **G2 放行标准（正式运行前连同随机种子、优化配置冻结）：** 原 Box75、Mask75 失败目标组的 image-macro MaskIoU 提升≥+0.5 个百分点且图像簇 bootstrap 95% 下界>0；原成功组 Mask75→失败比例的单侧95%上界≤1%；基线 bbox75 固定配对的全部普通 GT 的 image-macro IoU 不低于原模型−0.1 个百分点；对象、分母与 CI 按 EXECUTION_CONTRACT 冻结；GT 监督项与基线保持项在每图分别按各自合法实例数归一化，再按图平均，公式/实现见 MECHANISM_AND_DEFAULTS。未达门槛直接停当前形式，不追加层数、epoch、门控扫描。
 
 ## G3：唯一必要的正式验收（G2 通过才增加规模）
 
 - 先在固定 5000 图或合规数据域对 **A=冻结原生输出** 和 **B=本后训练 Adapter** 用相同前向输出身份、原图 Mask decoder、COCOeval 计算全量 `Mask AP@[.5:.95]`、AP75、小目标 AP 与原成功损伤；`Box AP` 应逐值不变，可作为输出身份和类别/框冻结护栏。
-- 正式 Gate：在前置冻结的全量评价协议中，相对同协议 A 的 Mask AP 至少 **+0.3 AP 点**，且 paired-image 重采样的双侧95% ΔAP 区间下界>0、任务损伤率单侧95%上界≤1%（统计细则见 EXECUTION_CONTRACT），才能作为有实用意义的“后训练救援”方法。若只在开发子集有修复但全量不增益，记录为局部有效，当前方法不晋级。
+- 正式 Gate：在前置冻结的全量评价协议中，相对同协议 A 的 Mask AP 至少 **+0.3 AP 点**，且 paired-image 重采样的双侧95% ΔAP 区间下界>0、任务损伤率单侧95%上界≤1%（有限总体全量验收时退化为精确损伤比例；统计细则见 EXECUTION_CONTRACT / DAMAGE_ACCEPTANCE），才能作为有实用意义的“后训练救援”方法。若只在开发子集有修复但全量不增益，记录为局部有效，当前方法不晋级。
 - 只有 G2 初筛和 G3 对同一 pilot checkpoint 的全量效用验收均成立后，才依据 `project/科研项目通用规范/训练规模与结论边界.md` 增加到 20000 张 train2017 及有预算的多 seed 确认；不一开始就启动旧 E0 路由的 5 臂×2 seed×8 epoch。独立新图像/场景确认不可由反复探索过的 COCO val2017 冒充。
 - 若 G1 显示大部分固定最终检测没有找到有质量的 c-only 修复，下一条仍属于“后训练”的科研方向可以是**冻结 P，额外学习轻量实例局部空间残差 Q**；须以已有 v2 的 `R vs R_parallel` 同参数容量/`span([P,1])` 控制为基础，另立预注册机制命题，不能把它当 c-only 路线的秘密额外自由度，也不能重开旧 TAL E0。
 

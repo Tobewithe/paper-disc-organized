@@ -82,12 +82,12 @@
 - S1/S2 目标 T 同时要求 baseline 任务失败、Box75 配对、该条输出自身 MaskIoU<.75；原成功损伤按所有基线任务成功 GT 统计，不能缩成局部成功检测子集。
 - S0 JSON 到 S1 P/c0 的桥接必须验证；未缓存时只预登记必要图片的特征重放，不能用 COCO dt_id 猜 raw_id。
 - [运行登记与本地协同](科研项目通用规范/运行登记与本地协同.md) 固定真 Run、冻结快照、回传清单和并发交接；[计划目录](PLAN_CATALOG.json) 仅管文件角色，不复制实时阶段状态。
-- 正式开 Run 前仍需补齐 oracle 数值预算、adapter 结构/训练配置、损伤 CI 方法等本地执行项。它们明确列为 freeze blocker，不以“计划写完”冒称可无条件启动训练。
+- oracle 数值预算、adapter 候选结构/配置和损伤 CI 设计已有明确实现/默认；正式开 Run 前仍需冻结真实输入、模型层/通道、资源和其余重采样参数，并完成原生 smoke。剩余执行冻结项不以“计划写完”冒称可无条件启动训练。
 
 本次覆盖项目/论文目录树的计划索引与当前两份 Study 的协议一致性；336 个实验目录仅枚举，**未逐一复算历史实验或审查其全部子文件**。旧 Run、源码快照、其它论文线及工作台自动索引未修改。
 
 ## 8. S0/S1 执行准备进度（2026-10-13）
 
-[工具说明](../shared/evaluation/POSTTRAIN_TOOLS.md) 已提供离线 COCO 账本、目标冻结/机会统计/输出不变量检查、有限系数求解组件和合成测试。[方法假说与预设配置](../experiments/mask_readout_mechanism_v2_20261012/MECHANISM_AND_DEFAULTS.md) 将主假说收敛到预测框内 P/z0 的显式空间条件读出，保留同结构输入消融。
+[工具说明](../shared/evaluation/POSTTRAIN_TOOLS.md) 已提供离线 COCO 账本、目标冻结/机会统计/输出不变量检查、有限系数求解、固定版本 P/c0/F 原生导出和 decoder 重放组件及合成测试。[方法假说与预设配置](../experiments/mask_readout_mechanism_v2_20261012/MECHANISM_AND_DEFAULTS.md) 将主假说收敛到预测框内 P/z0 的显式空间条件读出，对照改为 P/z0 联合空间置换，保留数值、通道与同结构预算；GT/基线保持 loss 分别归一化。[损伤验收](../shared/evaluation/DAMAGE_ACCEPTANCE.md) 固定有限成功 GT 总体、checkpoint 冻结后无放回抽样及精确单侧95%上界，S3 全量报告精确比例。
 
 **当前科研阶段仍为 S0**：本次只执行标准库工程测试，未运行真实 COCO、torch solver、原生模型特征导出或训练。旧 solver 的 cv2 GT 栅格化/框内交并集不用于新 S1；真实 native decoder 桥接是进入 S1 的工程依赖。原生 GT 账本有效性与科学 Gate 不能由测试退出码或文件存在自动赋值。

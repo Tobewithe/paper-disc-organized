@@ -1,6 +1,6 @@
-# S0 / S1 工具使用与验收边界
+# 后训练工具使用与验收边界
 
-执行阶段只看 [ACTIVE_PLAN](../../project/ACTIVE_PLAN.md)。以下工具不会加载 YOLO、连接服务器或启动训练；有限系数求解组件例外地依赖本地 torch，但不训练基础模型。
+执行阶段只看 [ACTIVE_PLAN](../../project/ACTIVE_PLAN.md)。native_output_bridge 的 trace 子命令会在用户指定的本地环境加载冻结 YOLO 并做原生验证；其余工具负责离线重放、审计、优化组件或统计。没有工具在本次交付中启动训练或连接服务器。
 
 ## 当前实现和仍需本地完成的部分
 
@@ -9,16 +9,19 @@
 | [build_native_ledger.py](../../experiments/official_gt_failure_rebaseline_20261013/scripts/build_native_ledger.py) | 原样预测 JSON、bbox/segm 独立 COCOeval、输出 ID、GT 账本、预算内外存在性、原生后端摘要核对 | numpy/pycocotools 联调、原生运行回执/日志、完整5000图和规定 smoke |
 | [posttrain_audit.py](posttrain_audit.py) | 固定目标 T、确定性抽样、原生输出不变量、oracle 身份/分母/机会统计、失败阻断 | 真实账本和原生 decoder 已验证的逐实例 oracle 结果 |
 | [finite_coefficient_solver.py](../../experiments/mask_readout_mechanism_v2_20261012/scripts/finite_coefficient_solver.py) | 固定 P 的有限系数优化、已知非零最优点控制 | torch 正控制、缓存与真实输出桥接、完整原图评分 |
+| [native_output_bridge.py](native_output_bridge.py) | 真实 Top-K 索引观察、P/c0/F 缓存、真实层/几何/hash、原生两阶段 decoder、zero-delta/替换系数全输出 RLE 重放 | 固定版本与真实权重/数据的最多16图 smoke、全量 trace 及独立重放；当前未执行 |
+| [adapter_primitives.py](../../experiments/mask_readout_mechanism_v2_20261012/scripts/adapter_primitives.py) | 无 GT 的预测框采样、P/z0 联合空间置换、监督与保持项独立归一化 | torch 梯度/数值测试、训练 runner 接入 |
+| [damage_acceptance.py](damage_acceptance.py) | 无放回 GT 抽样、精确超几何单侧上界、预测/样本身份和分母核验 | 真 checkpoint 冻结及抽样证据、完整方法 COCO 账本 |
 | [合成测试](tests/test_posttrain_audit.py) | 身份、分母、缺行、非有限数、budget failure、COCO 合成集与 solver 控制 | 无依赖测试和可选依赖测试分开报告；skip 不是通过 |
 
-**尚未实现的完整链路：** 原生模型前向的 P/c0/F 缓存导出与逐行 native decoder 桥接、adapter 训练 runner。不能把上述组件称作已跑通的 S0→S1→S2 一键系统；本地 agent 必须首先完成真实桥接 smoke。
+原生导出与重放代码已经提供；[新增测试](tests/test_posttrain_completion.py) 验证精确统计和空间/损失/decoder 组件。**完整 adapter 训练 runner 尚未实现，真实模型桥接尚未执行验收。** 因此当前不是已跑通的 S0→S1→S2 一键系统。先按下述步骤完成依赖检查和真实 bridge smoke。
 
 ## 命令（从仓库根目录；输出路径必须不存在）
 
 先运行：
 
 ```text
-python -m unittest discover -s shared/evaluation/tests -p "test_posttrain_audit.py" -v
+python -m unittest discover -s shared/evaluation/tests -p "test_posttrain*.py" -v
 python project/check_active_plan.py
 ```
 
@@ -26,7 +29,58 @@ numpy + pycocotools 在本地评价环境安装并锁实际版本；torch 使用
 
 ```text
 python shared/evaluation/tests/test_posttrain_audit.py --require-integration -v
+python shared/evaluation/tests/test_posttrain_completion.py --require-integration -v
 ```
+
+## 原生 trace 与重放
+
+固定 ultralytics==8.4.100，需已安装并冻结 torch、numpy、pycocotools、faster-coco-eval（原生要求≥1.6.7）等运行依赖。[native_source_pins.json](native_source_pins.json) 校验该 tag 的8份关键源码，按 UTF-8/LF 归一化计算 SHA；源码变更不会仅凭版本字符串放行。实际 Torch/CUDA/TF32 设置也记录并在重放时核验。
+
+NATIVE_ARGS.json 必须明确包含 data、imgsz、batch、conf、iou、max_det、rect、device、quantize、workers、end2end、agnostic_nms、single_cls、augment、compile、classes。例如固定原生 O2O、无增强的本地候选设置如下；真实取值仍需在 Run 中冻结，不代表官网 AP 已复现：
+
+~~~json
+{
+  "data": "<local-coco-data.yaml>",
+  "imgsz": 640,
+  "batch": 4,
+  "conf": 0.001,
+  "iou": 0.7,
+  "max_det": 300,
+  "rect": true,
+  "device": "0",
+  "quantize": null,
+  "workers": 0,
+  "end2end": true,
+  "agnostic_nms": false,
+  "single_cls": false,
+  "augment": false,
+  "compile": false,
+  "classes": null
+}
+~~~
+
+smoke 的数据 YAML/val 图片清单必须事前限定至最多16图，且保持原生 COCO 识别路径规则及原始 annotations。image_ids 只是核验清单，工具不会偷偷截断5000图 dataloader。scope=full 要求完整5000图。模型与原始 COCO 标注 SHA 均强制核验。
+
+~~~text
+python shared/evaluation/native_output_bridge.py trace --weights <LOCAL_YOLO26M_SEG.pt> --annotations <instances_val2017.json> --args <NATIVE_ARGS.json> --image-ids <SMOKE_IDS.json> --scope smoke --max-cache-bytes <FROZEN_BYTE_BUDGET> --out <NEW_TRACE_DIR>
+python shared/evaluation/native_output_bridge.py replay --manifest <TRACE_DIR/TRACE_MANIFEST.json> --predictions <TRACE_DIR/native/predictions.json> --out <NEW_ZERO_DELTA.json> --report <NEW_REPLAY_REPORT.json>
+~~~
+
+trace 不重算 Top-K tie：临时观察原生 get_topk_index 的实际返回，校验原生输出行再缓存对应 raw_id 的 c0/F。保留同 raw 多类别行；F 来自真实 one2one.feats，记录 head 模块和输入层编号、各层通道/空间尺寸以及串接 offset。8.4.100 AutoBackend 的底层模型不在普通子模块遍历里，工具使用其真实 backend.model 做 head 定位和状态指纹。观测函数在退出（包括异常）时恢复。
+
+每图缓存全部正常输出，保留原 dtype、input_hw、ori_shape、ratio_pad、batch 位置、原图/输入 tensor SHA。预测框不依赖 GT。原生 forward/decoder 的两阶段顺序不改变：process_mask_native 生成输入尺寸的二值 mask，随后 scale_masks 还原原图并转 byte；不能在原图重新阈值化浮点 logits 来近似。
+
+输出包括 TRACE_MANIFEST、OUTPUT_FEATURE_MAP、逐图 .pt、base_before/after 与原生 predictions.json。output_detection_id 仍是实际预测文件 SHA:原始行号；绝不用 COCO detection ID 猜 raw_id。每张图（含无检测图）均登记；缓存超预算、dtype/源码/行/几何/RLE不一致直接报错。
+
+如需要替换系数，准备本地 torch 字典（str(image_id)→完整[N,K] c' tensor，同 dtype），记录其 SHA，再调用：
+
+~~~text
+python shared/evaluation/native_output_bridge.py replay --manifest <TRACE_MANIFEST.json> --predictions <NATIVE.json> --coefficients <C_PRIME.pt> --coefficients-sha256 <SHA256> --out <NEW_METHOD.json> --report <NEW_METHOD_REPLAY_REPORT.json>
+~~~
+
+工具先核原始 c0 的 exact RLE，然后才解码 c'；所有框/类别/score/行序完全保留，未修改行应显式提供原 c0。替换系数重放不等于 finite oracle 已完成，仍需要 GT 标准栅格、优化和完整原图评分。
+
+本 CLI 面向预登记的 S0 smoke/full 原生验证，使第一次合法输出同时保存桥接缓存。若本地已有 S0 且缺缓存，不能因为这里存在 full 命令便重新全量验证：按执行合同只重放必需图片，沿用原 batch/rect/输出来源并额外核对旧基线身份；当前 CLI 不自动导入任意旧几何清单或替旧 Run 重标 ID。
 
 S0 在完成原生推理后离线运行（full 为全5000图，smoke 最多16图）：
 
@@ -62,6 +116,12 @@ python shared/evaluation/posttrain_audit.py check-run-identity --before <base_be
 ```
 
 清单比较不能代替实际模型导出；runner 必须从真实对象生成，不能手填一致的 SHA。
+
+## 空间对照、损失与损伤
+
+adapter_primitives 提供预测框采样、C 的联合空间置换与逐图分组 loss；调用规则和空组处理以 [机制/默认配置](../../experiments/mask_readout_mechanism_v2_20261012/MECHANISM_AND_DEFAULTS.md) 为准。不要在完整 runner 接入前把组件测试称为训练完成。
+
+损伤抽样和验收命令见 [DAMAGE_ACCEPTANCE](DAMAGE_ACCEPTANCE.md)。它与 ΔIoU 的图像簇 bootstrap 是不同设计：512张效果开发图不能冒充随机 GT 损伤样本。有限总体全量时报告精确比例，未见场景推断另做 S4。
 
 ## 交付
 

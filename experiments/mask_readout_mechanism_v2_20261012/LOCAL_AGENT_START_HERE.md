@@ -17,7 +17,9 @@
 
 ## 工具入口与新配置
 
-先按 [S0/S1 工具说明](../../shared/evaluation/POSTTRAIN_TOOLS.md) 运行合成检查；本地正式使用必须加 `--require-integration`，不能把缺依赖的 skip 当通过。[机制假说与预设配置](MECHANISM_AND_DEFAULTS.md) 固定 B/C 输入消融及数值/训练候选预算。当前尚未完成真实模型 P/c0/F 导出和 native decoder 桥接，不能宣称 S1 已跑通。
+先按 [S0/S1 工具说明](../../shared/evaluation/POSTTRAIN_TOOLS.md) 运行合成检查；本地正式使用必须加 `--require-integration`，不能把缺依赖的 skip 当通过。[机制假说与预设配置](MECHANISM_AND_DEFAULTS.md) 固定 B/C 输入消融及数值/训练候选预算。已提供原生 P/c0/F trace、实际 Top-K raw 映射及 native decoder 重放代码，固定版本源码哈希并逐行验证 RLE；真实模型 smoke 尚未执行，不能宣称 S1 已跑通。先运行工具说明中的两个 --require-integration 检查，再以最多16图的独立 smoke Run 核真实 trace/replay。
+
+C 已改为联合空间置换，不再用输入置零解释空间机制；GT/保持 loss 分别归一化。[损伤验收](../../shared/evaluation/DAMAGE_ACCEPTANCE.md) 固定为成功 GT 总体的简单随机无放回抽样精确上界，训练前登记预算、固定 checkpoint 后抽签，不能看损伤结果后补样。完整 adapter 训练 runner 仍需在获得相应阶段授权后接入这些组件。
 
 ## 冻结与交付
 

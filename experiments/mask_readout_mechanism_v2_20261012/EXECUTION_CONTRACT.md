@@ -38,9 +38,11 @@ S2 固定配对的 image-macro ΔIoU：先在每张含 T 的图中对 T 的 ΔIo
 predictions.json 及 RLE 足够重建 S0 账本，但**不足以单独恢复 P、c0 和网络特征**。S1 启动前检查本地缓存是否含：
 
 - 基线 Run、代码/权重/图像/预处理/实际 input_hw 哈希，批次与图像次序；
-- output_detection_id → 原生输出行 → raw_id（若可追踪）的确定性映射；
+- output_detection_id → 原生输出行 → 实际 head Top-K 返回的 raw_id 的确定性映射；
 - 对应 P、c0、预测框坐标变换与 decoder；S2 另需真实可用 F；
 - zero-delta 重放的 RLE/二值 Mask 与该基线行完全一致。
+
+[native_output_bridge.py](../../shared/evaluation/native_output_bridge.py) 已实现固定版本原生 validator 的观察式导出与两阶段原生 decoder 重放：记录实际 Top-K 返回索引、P/c0、逐输出 F、真实层/shape/offset、batch/ratio_pad 和哈希；按图保留全部输出，在写缓存和离线重放时均核 RLE。源码哈希固定于 v8.4.100，接口漂移直接阻断。代码已提供，真实模型 smoke 仍待执行。
 
 COCO 检测 ID 不能当 raw_id。框相同或四舍五入后的 score 相同不能作为唯一 join 键。同 raw 多类别输出仍保留独立检测行；若新模块依赖类别，其 delta_c 可以逐输出行不同，须明确记录。
 
@@ -54,7 +56,7 @@ COCO 检测 ID 不能当 raw_id。框相同或四舍五入后的 score 相同不
 |---|---|
 | S1 | T 的选取清单与顺序；oracle 代码版本、损失、ROI、正则、初始化、优化器、学习率、最大步数/重启数、数值检查；dtype、解码阈值、资源上限 |
 | S2 | fit/dev 图清单及历史使用审计；真实 F 层/shape、网络结构与 trainable 白名单；GT join 同分/同 IoU tie-break；BCE 区域及保持项权重；optimizer、lr、batch、epoch/step、seed、checkpoint 选择规则与预算 |
-| S2 对照 | A=原生/zero-delta；B=完整条件 adapter；C=同结构同参数量、预先指定条件输入置零的消融，保留相同训练预算；不能看结果后决定屏蔽哪项输入 |
+| S2 对照 | A=原生/zero-delta；B=完整条件 adapter；C=同结构同参数量、P/z0 联合空间置换的消融，保留相同训练预算、数值与通道；置换规则/seed/训练及推理 phase 按 MECHANISM_AND_DEFAULTS 事先冻结 |
 | S3 | S2 checkpoint SHA；5000 图完整清单；相同输出顺序/字段/area policy；AP 不确定性方法、重采样次数与随机种子、成本测量方式 |
 | S4 | 扩量必要性、20k/seed 总预算、确认集来源和隔离规则；确认失败的关闭动作 |
 
@@ -64,10 +66,11 @@ G1 的 20%、G2 的 +0.5pp/损伤 1%、G3 的 +0.3 AP 点为当前 proposal 门�
 
 - IoU 内部用 0–1；+0.5pp = +0.005，总体 −0.1pp = −0.001。AP 点用 0–100；+0.3 AP 点 = +0.003（若 evaluator 返回 0–1）。所有 JSON 明写 unit。
 - G2 image-macro ΔIoU 用配对图像簇 bootstrap 双侧95%区间，下界须>0；方法与基线使用相同抽样图索引。提前冻结次数/seed/分位数算法。
-- G2/G3 任务损伤须报告计数、分母和**单侧95%上界**，上界≤1%才过护栏。须预先选择能处理图内相关和零事件的估计方法，写明假设与可用性条件；简单 GT 独立二项区间不能不声明独立假设，零事件的朴素 bootstrap 全零上界也不能用于放行。
-- S0 基线标签可用于检查成功样本/独立图像是否足以估计损伤；按事前固定 hash 顺序补样并设最大样本预算，**不得观察方法输出后扩样追显著性**。不能估计可靠上界时记 blocked_insufficient_precision，不记通过或科学阴性。
+- G2/G3 任务损伤按 [DAMAGE_ACCEPTANCE](../../shared/evaluation/DAMAGE_ACCEPTANCE.md) 实施：总体为冻结 S0 的全部 S，训练前固定 n=min(1024,|S|)；固定 B 最后 checkpoint 和推理合同后、方法评价前，对 GT 简单随机无放回抽样。完整评价抽中 GT 所在图片，只统计抽中 GT 的损伤；图内相关不需要额外独立假设，随机性来自有限总体抽样设计。
+- 单侧95%上界由超几何 CDF 精确反演，U≤1%才通过。n=N 的 S3 全量验收报告精确有限总体损伤率，不能由此推断未来图片风险。零事件不使用全零 bootstrap 放行；U>1%但点估计≤1%为 blocked_insufficient_precision，点估计>1%为 failed。不得观察方法输出后换 seed/样本量、补样、选 checkpoint；离线工具必须有真实运行证据支撑。
+- 损伤抽样与512张效果开发图的设计分开记录，不能把按图挑出的 GT 假装成简单随机 GT 样本。若基线标签显示效果组不足，只能在方法输出前按主协议规则冻结补充效果图，不改变损伤抽样设计。
 - G3 ΔAP 的配对图像 bootstrap 每次重算 COCOeval。重复抽中的图片须复制并赋予新的 image/annotation/detection ID，不能被 COCO 的 ID 去重。冻结双侧95% ΔAP 区间并要求下界>0，同时点估计≥+0.3 AP 点。
-- 开发集上反复选模的 CI 只作研发门槛，不能称盲测显著性。未知统计方法/预算写入 freeze blocker，由本地准备阶段补齐后再开科学 Run。
+- 开发集上反复选模的 CI 只作研发门槛，不能称盲测显著性。其余尚未冻结的重采样参数/资源预算写入 freeze blocker，由本地准备阶段补齐后再开科学 Run。
 
 ## 6. 最小验收顺序
 

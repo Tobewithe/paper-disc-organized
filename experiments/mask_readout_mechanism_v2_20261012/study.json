@@ -20,7 +20,7 @@
   "planned_training_arms": [
     "A_frozen_native",
     "B_output_conditioned_delta_c",
-    "C_equal_capacity_condition_input_ablation"
+    "C_equal_capacity_joint_spatial_shuffle"
   ],
   "initial_seeds": [
     0
@@ -47,13 +47,20 @@
   "conditional_scaleup_train_images": 20000,
   "protocol_companions": [
     "EXECUTION_CONTRACT.md",
-    "MECHANISM_AND_DEFAULTS.md"
+    "MECHANISM_AND_DEFAULTS.md",
+    "../../shared/evaluation/DAMAGE_ACCEPTANCE.md"
   ],
   "scaleup_requires": [
     "G2_pilot_passed",
     "G3_same_pilot_checkpoint_full_eval_passed"
   ],
-  "tooling_status": "components_added_stdlib_checks_passed_native_coco_torch_integration_pending",
+  "tooling_status": "native_trace_replay_and_training_primitives_added_stdlib_verified_real_integration_pending",
   "tooling_entrypoint": "../../shared/evaluation/POSTTRAIN_TOOLS.md",
-  "mechanism_hypothesis": "explicit_predicted_box_prototype_spatial_conditioning_for_fixed_output_delta_c"
+  "mechanism_hypothesis": "explicit_predicted_box_prototype_spatial_conditioning_for_fixed_output_delta_c",
+  "damage_acceptance_design": "finite_S_population_SRSWOR_GT_hypergeometric_one_sided_95_upper",
+  "tooling_limitations": [
+    "No real native trace/replay or COCO/torch integration executed in this governance session",
+    "Complete adapter training runner remains to be integrated after the preceding Gate and runtime contract",
+    "Trace CLI supports new S0 smoke/full runs; arbitrary legacy geometry/ID import is not automatic"
+  ]
 }
