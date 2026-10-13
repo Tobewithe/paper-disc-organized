@@ -34,6 +34,12 @@
 **仓库整理本身只修改索引、当前规范和未执行计划路由，不改历史权重、源码快照、原 Run、工作台数据库或用户本地数据；更新 README 不意味着已经完成训练或评估。**
 
 
+## 计划查找与本地交接
+
+- [计划文件目录](project/PLAN_CATALOG.json)：项目/论文目录计划文件与当前两份 Study 的角色清单；历史命令不自动生效。
+- [后训练执行合同](experiments/mask_readout_mechanism_v2_20261012/EXECUTION_CONTRACT.md)：S0–S4 映射、唯一目标分母、P/c0 重放、统计与正式运行前冻结项。
+- [运行登记与本地协同](project/科研项目通用规范/运行登记与本地协同.md)：Run 真状态、轻量回传、文件散列与并发交接。
+
 ## 最小自检（不启动实验）
 
 本地拉取后执行 `python project/check_active_plan.py`：只读核对当前入口、两份 Study 登记、历史计划警示与核心文件的相对链接。它**不**检查 GPU/Run 完成、不修改工作台，不把旧文件未同步到 GitHub 视为运行失败。当前科研结论仍以对应 Run 和 [总控](project/ACTIVE_PLAN.md) 为准。

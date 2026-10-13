@@ -14,6 +14,8 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = (
+    "experiments/mask_readout_mechanism_v2_20261012/EXECUTION_CONTRACT.md",
+    "project/科研项目通用规范/运行登记与本地协同.md",
     "README.md",
     "AGENTS.md",
     "project/ACTIVE_PLAN.md",
@@ -87,6 +89,19 @@ def check() -> tuple[list[str], int]:
         path = ROOT / rel
         if path.is_file() and "project/ACTIVE_PLAN.md" not in path.read_text(encoding="utf-8"):
             problems.append(f"no canonical plan in {rel}")
+    catalog_path = ROOT / "project/PLAN_CATALOG.json"
+    if not catalog_path.is_file():
+        problems.append("missing plan catalog")
+    else:
+        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        if catalog.get("canonical_route") != "project/ACTIVE_PLAN.md":
+            problems.append("catalog does not point at the canonical route")
+        for entry in catalog.get("entries", []):
+            target = (ROOT / entry["path"]).resolve()
+            if not target.is_relative_to(ROOT) or not target.is_file():
+                problems.append(f"invalid catalog path: {entry['path']}")
+    if method_path.is_file() and "EXECUTION_CONTRACT.md" not in method.get("protocol_companions", []):
+        problems.append("method Study must reference its execution contract")
     return problems, links_checked
 
 

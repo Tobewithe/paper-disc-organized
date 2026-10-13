@@ -19,7 +19,8 @@
   "formal_training_started": false,
   "planned_training_arms": [
     "A_frozen_native",
-    "B_output_conditioned_delta_c"
+    "B_output_conditioned_delta_c",
+    "C_equal_capacity_condition_input_ablation"
   ],
   "initial_seeds": [
     0
@@ -35,13 +36,20 @@
   "limits": [
     "Existing old PROTOCOL.md / GATES_SPEC.json and previous Run data are preserved as historical draft and evidence, not active routing",
     "No TAL E0 prerequisite; model pretrained weights, detection boxes, class scores, P and native c0 are all frozen",
-    "G0/G1 only before training; G2 initial fit2000 is conditional on successful G1; 20k is conditional on pilot",
+    "G0/G1 only before training; G2 initial fit2000 is conditional on successful G1; 20k is conditional on both pilot G2 and same-checkpoint full evaluation G3",
     "Previous smoke was a module check, not a true end-to-end G0",
     "No training, model modification, evaluation Run, or scientific success has been performed by this rescope"
   ],
   "legacy_draft_protocol": "PROTOCOL.md",
   "legacy_draft_gates": "GATES_SPEC.json",
   "current_blocker": "Need native final-output GT ledger and same-detection coefficient finite oracle; no TAL E0 prerequisite",
-  "gate_spec_status": "narrative_gates_planned_not_machine_implemented",
-  "conditional_scaleup_train_images": 20000
+  "gate_spec_status": "narrative_protocol_and_execution_contract_draft_to_freeze",
+  "conditional_scaleup_train_images": 20000,
+  "protocol_companions": [
+    "EXECUTION_CONTRACT.md"
+  ],
+  "scaleup_requires": [
+    "G2_pilot_passed",
+    "G3_same_pilot_checkpoint_full_eval_passed"
+  ]
 }
