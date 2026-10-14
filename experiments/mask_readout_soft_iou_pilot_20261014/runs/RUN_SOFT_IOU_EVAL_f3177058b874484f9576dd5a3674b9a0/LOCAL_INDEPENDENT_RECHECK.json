@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "run_id": "RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0",
+  "frozen_sources_protocol_contract_verified": true,
+  "recomputed_target": {
+    "mean": 0.006798975667984141,
+    "ci95": [
+      -0.0012665611902902272,
+      0.016392694404626863
+    ],
+    "images": 257,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "recomputed_all_bbox75": {
+    "mean": -0.0026183614941798364,
+    "ci95": [
+      -0.0040324649234679336,
+      -0.001138054371400989
+    ],
+    "images": 508,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "recomputed_damage": {
+    "population_successes": 22957,
+    "sample_size": 1024,
+    "damaged": 53,
+    "point_rate": 0.0517578125,
+    "upper_damaged_count": 1477,
+    "upper_rate": 0.0643376747832905,
+    "confidence": 0.95,
+    "unit": "fraction",
+    "method": "hypergeometric_CDF_inversion_inclusive",
+    "scope": "frozen_finite_baseline_success_GT_population",
+    "census": false,
+    "gate": "damage_guardrail_failed",
+    "evaluated_images": 886,
+    "evaluated_GT": 10598,
+    "counted_GT": 1024,
+    "note": "Count only sampled S; other GT in the same image are not additional sampled units."
+  },
+  "recomputed_gates": {
+    "target_effect": false,
+    "all_bbox75_guardrail": false,
+    "success_damage": false
+  },
+  "scientific_status": "failed",
+  "exact_GT_and_bbox_identity": true
+}

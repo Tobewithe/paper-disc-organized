@@ -8,6 +8,7 @@
 - 主要运行环境：conda `pytorch`；当前已核对的 Ultralytics 版本为 `8.4.100`。
 - 默认输入与评价：原始 COCO 标注、原协议数据范围、640 输入和 FP32；具体图片清单、checkpoint、seed、分支和指标以单个实验 `PROTOCOL.md` 为准。
 - `mask_ratio=1`、`overlap_mask=true` 是当前已记录的官方配置事实；若实验改变它们，必须在实验协议中单独说明。
+- 上述数值来自权重的**训练元数据**。本次官方基线按固定版本原生 `val()` 解析配置，`mask_ratio=4`、`overlap_mask=true`；它们影响内部标签栅格化，不能代替原始 COCO JSON 的官方评价。完整差异及本次冻结配置见 [BASELINE_CONFIGURATION.md](BASELINE_CONFIGURATION.md) 和 [baseline_profile.json](baseline_profile.json)。
 - one-to-many、one-to-one、NMS 和诊断分支不在本文件混为一个默认结论；比较时按 Run/协议分别记录。
 - 论文目录保存研究线文件；实验仍独立放在 `experiments/`，不因论文复制。
 

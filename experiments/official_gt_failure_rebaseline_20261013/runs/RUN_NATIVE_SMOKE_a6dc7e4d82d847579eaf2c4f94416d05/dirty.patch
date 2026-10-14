@@ -1,0 +1,317 @@
+diff --git a/experiments/official_gt_failure_rebaseline_20261013/study.json b/experiments/official_gt_failure_rebaseline_20261013/study.json
+index bc5cf791..b3656e84 100644
+--- a/experiments/official_gt_failure_rebaseline_20261013/study.json
++++ b/experiments/official_gt_failure_rebaseline_20261013/study.json
+@@ -2,8 +2,9 @@
+   "study_id": "STUDY_a249bbef3de14ff7bf79284460f72d38",
+   "title": "YOLO26m-seg 官方 COCO 原生基线与逐 GT 失败账本重建",
+   "kind": "diagnostic",
+-  "status": "planned_not_executed",
++  "status": "preparing_laptop",
+   "record_paths": [
+-    "PROTOCOL.md"
++    "PROTOCOL.md",
++    "EXECUTION_STATUS.md"
+   ]
+ }
+diff --git a/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md b/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md
+index 9976fd75..d5488a50 100644
+--- a/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md
++++ b/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md
+@@ -8,6 +8,7 @@
+ - 主要运行环境：conda `pytorch`；当前已核对的 Ultralytics 版本为 `8.4.100`。
+ - 默认输入与评价：原始 COCO 标注、原协议数据范围、640 输入和 FP32；具体图片清单、checkpoint、seed、分支和指标以单个实验 `PROTOCOL.md` 为准。
+ - `mask_ratio=1`、`overlap_mask=true` 是当前已记录的官方配置事实；若实验改变它们，必须在实验协议中单独说明。
++- 上述数值来自权重的**训练元数据**。本次官方基线按固定版本原生 `val()` 解析配置，`mask_ratio=4`、`overlap_mask=true`；它们影响内部标签栅格化，不能代替原始 COCO JSON 的官方评价。完整差异及本次冻结配置见 [BASELINE_CONFIGURATION.md](BASELINE_CONFIGURATION.md) 和 [baseline_profile.json](baseline_profile.json)。
+ - one-to-many、one-to-one、NMS 和诊断分支不在本文件混为一个默认结论；比较时按 Run/协议分别记录。
+ - 论文目录保存研究线文件；实验仍独立放在 `experiments/`，不因论文复制。
+ 
+diff --git "a/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md" "b/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md"
+index 7520219d..30d93ed9 100644
+--- "a/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md"
++++ "b/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md"
+@@ -2,7 +2,7 @@
+ 
+ ## 一、开题采用的唯一主线
+ 
+-**题目采用：面向实例分割的掩码失效可恢复性诊断、选择性读出校准与表示适配研究。**
++**题目采用：密集目标视频实例分割中的候选竞争、质量校准与时空一致性研究。**
+ 
+ 总科学问题：
+ 
+diff --git a/project/ACTIVE_PLAN.md b/project/ACTIVE_PLAN.md
+index b071adcf..32eb0c4a 100644
+--- a/project/ACTIVE_PLAN.md
++++ b/project/ACTIVE_PLAN.md
+@@ -1,6 +1,6 @@
+ # 当前科研总控：固定权重 Prototype→Coefficient 后训练救援
+ 
+-**更新：2026-10-13｜状态：仓库规划已统一，真实执行证据仍待本地确认。**
++**更新：2026-10-13｜状态：S0 正在准备用户指定的笔记本执行；本机 24 项工程测试通过，真实图片推理尚未启动。**
+ 
+ 本页是 **`neighbor_sensitive_p3` 这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+ 
+@@ -16,13 +16,13 @@
+ 
+ | 阶段 | 研究对象与唯一动作 | 必需输入/通过判据 | 产物/进度 |
+ |---|---|---|---|
+-| **S0 当前激活**：原生 COCO 输出任务账本 | 按固定 `v8.4.100` 读取实际 O2O 输出，确认 `end2end=True`、`agnostic_nms=False`、类别/图片/面积/decoder、官方 bbox 与 segm 分别匹配，同输出 ID 不混用 | 模型 SHA 和标注、5000 图；`native_gt_ledger_validity=passed`。官网公布 AP parity 是**另一个独立 Gate**，未过不能自称刊载基线复现，但只要原生任务账本有效，可继续在明示 `native_config_scoped` 下做科研诊断 | [冻结 GT 基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md)。GitHub Study：`planned_not_executed`；缺少本地执行结果，不冒称 Run 完成 |
++| **S0 当前激活**：原生 COCO 输出任务账本 | 按固定 `v8.4.100` 读取实际 O2O 输出，确认 `end2end=True`、`agnostic_nms=False`、类别/图片/面积/decoder、官方 bbox 与 segm 分别匹配，同输出 ID 不混用 | 模型 SHA 和标注、5000 图；`native_gt_ledger_validity=passed`。官网公布 AP parity 是**另一个独立 Gate**，未过不能自称刊载基线复现，但只要原生任务账本有效，可继续在明示 `native_config_scoped` 下做科研诊断 | [冻结 GT 基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) · [真实执行状态](../experiments/official_gt_failure_rebaseline_20261013/EXECUTION_STATUS.md)。`preparing_laptop`；工程测试通过，等待笔记本旧任务释放内存后进入真实 smoke |
+ | **S1 条件下一步**：同最终检测系数可恢复性 | 在**官方 Mask75 失败 GT** 中，以 Box75 正确匹配且自身 MaskIoU<.75 的**具体输出检测 d** 为对象（集合 T）；原 Box、class、score、P、decoder、c0 固定，只对 `Δc` 做有限 GT-assisted oracle。保留输出 ID、Mask 修复及数值收敛证据 | 按[后训练重定向](../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)的预设机会 Gate：有效 baseline 失败且 Box75 配对的不同 GT ≥200，其中有限 oracle 达 Mask75 ≥20%；仅是**已找到的可恢复性下界**，非 P 完整表达能力证书 | 当前未执行；未过则结束 c-only 输出救援配置，不直接否定所有表示方法 |
+ | **S2 条件训练**：只新增 delta-c adapter | GT 在 train2017 的**冻结最终输出**经正确类别/BoxIoU确定性关联产生标签；基础权重（包括 cv4/Proto/BN）全部冻结；零残差原样重放；不得在推理阶段用 GT 或将其配对称为 TAL | 单 seed、先 2000 张 fit 的独立短预算，成功保护与统一输出身份；预注册门槛：目标组 image-macro ΔMaskIoU ≥+0.5pp 且 CI 下界 >0，原成功损伤率单侧95%上界 ≤1%，总体不能明显负迁移（详见方法协议） | 未授权启动，先过 S1；不得直接使用旧五臂草案 |
+ | **S3 条件全量验证**：方法是否有真实效用 | 先用 S2 同一 pilot checkpoint（不扩训练）与原生基线**同一批输出记录**，以全量 COCO Mask AP、AP75/APsmall、Box AP 不变和原成功损伤做配对验证 | 方法协议门槛：Mask AP 相对同协议 baseline ≥+0.3 点并有预登记的配对不确定性/损伤护栏；不足则保留诊断、关闭本配置 | 未启动 |
+ | **S4 条件确认**：独立/外部可迁移性 | 在与方法选择不重叠的图片、场景或视频组独立重验；扩 20k/multi-seed 只在前置效用 Gate 通过后授权 | 未见数据与泄漏审计必须成立，既有 COCO val2017 研发集不能改称盲测 | 未授权 |
+ 
+-**当前唯一下一项实动作：S0 的本地数据/模型/预测路径预检与最小原生验证。** 任何 Gate 已执行与否必须依据`runs/<RUN_ID>/run.json`、实际产物和本地任务状态，**不能仅凭 GitHub 缺文件判定本机任务没跑**。S0 结束后按真 Run 更新本页当前阶段，避免两个代理同时开启 S1。
++**当前唯一下一项实动作：在用户指定的笔记本释放资源后，执行冻结配置的 S0 工程检查与最小原生验证。** 任何 Gate 已执行与否必须依据`runs/<RUN_ID>/run.json`、实际产物和本地任务状态，**不能仅凭 GitHub 缺文件判定本机任务没跑**。S0 结束后按真 Run 更新本页当前阶段，避免两个代理同时开启 S1。
+ 
+ ## 2. 文件角色和权威来源（找不到时不要自行创造新「总计划」）
+ 
+@@ -90,4 +90,4 @@
+ 
+ [工具说明](../shared/evaluation/POSTTRAIN_TOOLS.md) 已提供离线 COCO 账本、目标冻结/机会统计/输出不变量检查、有限系数求解、固定版本 P/c0/F 原生导出和 decoder 重放组件及合成测试。[方法假说与预设配置](../experiments/mask_readout_mechanism_v2_20261012/MECHANISM_AND_DEFAULTS.md) 将主假说收敛到预测框内 P/z0 的显式空间条件读出，对照改为 P/z0 联合空间置换，保留数值、通道与同结构预算；GT/基线保持 loss 分别归一化。[损伤验收](../shared/evaluation/DAMAGE_ACCEPTANCE.md) 固定有限成功 GT 总体、checkpoint 冻结后无放回抽样及精确单侧95%上界，S3 全量报告精确比例。
+ 
+-**当前科研阶段仍为 S0**：本次只执行标准库工程测试，未运行真实 COCO、torch solver、原生模型特征导出或训练。旧 solver 的 cv2 GT 栅格化/框内交并集不用于新 S1；真实 native decoder 桥接是进入 S1 的工程依赖。原生 GT 账本有效性与科学 Gate 不能由测试退出码或文件存在自动赋值。
++**当前科研阶段仍为 S0**：本机 `RUN_ENGINEERING_73519cae97794bd89d4a29212e95ec8f` 已通过 24 项严格工程测试（含 Torch、合成 COCO 匹配及原生 decoder）；笔记本真实图片推理仍待资源释放及执行端检查，详见[执行状态](../experiments/official_gt_failure_rebaseline_20261013/EXECUTION_STATUS.md)。旧 solver 的 cv2 GT 栅格化/框内交并集不用于新 S1；真实 native decoder 桥接是进入 S1 的工程依赖。原生 GT 账本有效性与科学 Gate 不能由测试退出码或文件存在自动赋值。
+diff --git "a/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md" "b/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md"
+index f9d11ffe..844db2fa 100644
+--- "a/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md"
++++ "b/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md"
+@@ -6,6 +6,7 @@
+ 
+ | 通用文件 | 适用范围 | 不允许推导 |
+ |---|---|---|
++| [基线复现与配置一致性](基线复现与配置一致性.md) | 官方基线、方法增量、训练及消融的配置冻结和同口径比较 | 不把默认参数、权重训练记录或相同 AP 当作完整配置一致的证明 |
+ | [候选身份与评估口径](候选身份与评估口径.md) | **涉及 raw、最终预测、GT、COCOeval、冻结输出、跨 Run 对照时必须读**；固定 8.4.100 O2O Head Top-K / 类别展开 / area 与 matcher 口径 | 不把 TAL/GT-oracle/raw 最大值混同真实推理 |
+ | [指标最小化与 TAL 分类](指标最小化与TAL分类.md) | 一切科学评估选指标需读前半部分；**只有真正研究训练监督/历史 TAL 时**才使用后半部分的 TAL 标签与训练轨迹链接 | 不把 TAL 分配当作新后训练主线的前置必修实验 |
+ | [运行登记与本地协同](运行登记与本地协同.md) | 本地执行、Run 登记、轻量回传、阶段接续和 Git 冲突 | 不把回传完成等同实验完成，不以镜像缺文件推断未运行 |
+diff --git a/shared/evaluation/native_output_bridge.py b/shared/evaluation/native_output_bridge.py
+index 4080b262..65168dbc 100644
+--- a/shared/evaluation/native_output_bridge.py
++++ b/shared/evaluation/native_output_bridge.py
+@@ -9,7 +9,9 @@ import argparse
+ import copy
+ import hashlib
+ import importlib
++import importlib.metadata
+ import json
++import os
+ from pathlib import Path
+ import sys
+ 
+@@ -24,6 +26,38 @@ SOURCE_MODULES = (
+     "ultralytics.utils.nms", "ultralytics.engine.validator",
+     "ultralytics.nn.autobackend", "ultralytics.nn.backends.pytorch",
+ )
++COCO_METRICS = ("AP", "AP50", "AP75", "APS", "APM", "APL", "AR1", "AR10", "AR100", "ARS", "ARM", "ARL")
++RUNTIME_KEYS = ("matmul_precision", "cuda_matmul_allow_tf32", "cudnn_allow_tf32",
++                "cudnn_benchmark", "cudnn_deterministic", "deterministic_algorithms",
++                "deterministic_warn_only", "cublas_workspace_config")
++
++
++def apply_runtime_policy(policy):
++    """Apply a declared numerical policy before the first CUDA operation, including replay."""
++    require(set(policy) == set(RUNTIME_KEYS), "incomplete/unknown numerical policy")
++    os.environ["CUBLAS_WORKSPACE_CONFIG"] = policy["cublas_workspace_config"]
++    import torch
++    torch.set_float32_matmul_precision(policy["matmul_precision"])
++    torch.backends.cuda.matmul.allow_tf32 = policy["cuda_matmul_allow_tf32"]
++    torch.backends.cudnn.allow_tf32 = policy["cudnn_allow_tf32"]
++    torch.backends.cudnn.benchmark = policy["cudnn_benchmark"]
++    torch.backends.cudnn.deterministic = policy["cudnn_deterministic"]
++    torch.use_deterministic_algorithms(policy["deterministic_algorithms"],
++                                       warn_only=policy["deterministic_warn_only"])
++
++
++def coco_metric_receipt(evaluator):
++    """Read the actual native evaluator, before its local object is discarded."""
++    p = evaluator.params
++    require(len(evaluator.stats) >= 12, "incomplete native COCO summary")
++    require(list(p.maxDets) == [1, 10, 100] and p.useCats == 1, "COCO counting policy changed")
++    return {"metrics": dict(zip(COCO_METRICS, [100 * float(v) if v >= 0 else None
++                                             for v in evaluator.stats[:12]])),
++            "params": {"iouType": p.iouType, "maxDets": list(p.maxDets), "useCats": int(p.useCats),
++                       "iouThrs": [float(x) for x in p.iouThrs],
++                       "areaRng": [[float(x) for x in a] for a in p.areaRng],
++                       "areaRngLbl": list(p.areaRngLbl), "catIds": [int(x) for x in p.catIds],
++                       "imgIds": [int(x) for x in p.imgIds]}}
+ 
+ 
+ def native_environment():
+@@ -41,7 +75,18 @@ def native_environment():
+             "source_sha256": hashes, "python_version": sys.version,
+             "cuda_version": torch.version.cuda,
+             "matmul_precision": torch.get_float32_matmul_precision(),
+-            "cuda_matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32}
++            "cuda_matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
++            "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
++            "cudnn_benchmark": torch.backends.cudnn.benchmark,
++            "cudnn_deterministic": torch.backends.cudnn.deterministic,
++            "deterministic_algorithms": torch.are_deterministic_algorithms_enabled(),
++            "deterministic_warn_only": torch.is_deterministic_algorithms_warn_only_enabled(),
++            "cublas_workspace_config": os.environ.get("CUBLAS_WORKSPACE_CONFIG"),
++            "execution_env": {k: os.environ.get(k) for k in
++                              ("YOLO_OFFLINE", "YOLO_CONFIG_DIR", "PYTHONPATH", "CUDA_VISIBLE_DEVICES",
++                               "OMP_NUM_THREADS", "MKL_NUM_THREADS")},
++            "packages": {p: importlib.metadata.version(p) for p in
++                         ("torchvision", "numpy", "pycocotools", "opencv-python", "Pillow", "PyYAML")}}
+ 
+ 
+ def decode_native(cache, coefficients=None, device=None):
+@@ -87,7 +132,8 @@ def raw_location(raw_id, shapes):
+     raise ValueError("raw ID outside actual head features")
+ 
+ 
+-def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha):
++def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha,
++                         requested_args=None, image_ids_sha=None, runtime_policy=None):
+     """Factory keeps tracing state outside global monkey patches."""
+     import torch
+     from ultralytics.models.yolo.segment.val import SegmentationValidator
+@@ -135,6 +181,17 @@ def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha)
+                     "base_state_unchanged": True,
+                     "scientific_status": "not_adjudicated",
+                 })
++                require(set(self.native_coco_receipts) == {"bbox", "segm"}, "native COCO backend did not complete")
++                write_new(out / "native_eval_summary.json", {
++                    "backend": "COCOeval_faster", "unit": "AP_points",
++                    "backend_version": importlib.metadata.version("faster-coco-eval"),
++                    "annotations_sha256": annotations_sha, "predictions_sha256": source_sha,
++                    "image_ids_sha256": image_ids_sha,
++                    **{task: receipt["metrics"] for task, receipt in self.native_coco_receipts.items()},
++                    "evaluator_receipts": self.native_coco_receipts,
++                    "capture": "observed native evaluator summarize; no separate native reevaluation",
++                })
++                write_new(out / "internal_metrics.json", self.metrics.results_dict)
+                 return result
+             finally:
+                 if self.trace_head is not None:
+@@ -143,9 +200,42 @@ def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha)
+                     else:
+                         del self.trace_head.get_topk_index
+ 
++        def coco_evaluate(self, *args, **kwargs):
++            # The pinned implementation catches backend errors and overwrites some B keys with M.
++            # Observe each real evaluator directly; never promote the fallback internal stats to COCO AP.
++            import faster_coco_eval
++            original = faster_coco_eval.COCOeval_faster
++            receipts = {}
++
++            class ObservedEvaluator(original):
++                def summarize(self, *a, **kw):
++                    result = super().summarize(*a, **kw)
++                    require(self.params.iouType not in receipts, "duplicate native evaluator")
++                    receipts[self.params.iouType] = coco_metric_receipt(self)
++                    return result
++
++            try:
++                faster_coco_eval.COCOeval_faster = ObservedEvaluator
++                result = super().coco_evaluate(*args, **kwargs)
++            finally:
++                faster_coco_eval.COCOeval_faster = original
++            require(set(receipts) == {"bbox", "segm"}, "native COCO failed; internal fallback forbidden")
++            self.native_coco_receipts = receipts
++            return result
++
+         def init_metrics(self, model):
+             super().init_metrics(model)
+             require(self.is_coco and self.nc == 80, "native COCO category mapping required")
++            from ultralytics.data.converter import coco80_to_coco91_class
++            require(self.class_map == coco80_to_coco91_class(), "wrong COCO category mapping")
++            for key, value in (requested_args or {}).items():
++                if key != "data":
++                    require(getattr(self.args, key) == value, f"effective argument drift: {key}")
++            effective = native_environment()
++            for key, value in (runtime_policy or {}).items():
++                require(effective[key] == value, f"effective numerical policy drift: {key}")
++            write_new(out / "NATIVE_ARGS.json", vars(self.args))
++            write_new(out / "ENVIRONMENT.json", effective)
+             require(self.end2end and self.args.save_json and self.process is ops.process_mask_native,
+                     "native O2O save_json decoder required")
+             require(not self.args.single_cls and not self.args.agnostic_nms and self.args.classes is None,
+@@ -164,6 +254,16 @@ def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha)
+             require(len(heads) == 1, "exactly one Segment26 head required")
+             head = heads[0]
+             require(head.end2end and not head.export and not head.agnostic_nms, "head policy mismatch")
++            require(not model.fp16 and next(base.parameters()).dtype == torch.float32, "FP32 required")
++            require(base.is_fused() and head.max_det == self.args.max_det, "fusion/head budget changed")
++            require(head.nc == 80 and head.nm == 32 and head.reg_max == 1, "unexpected head architecture")
++            write_new(out / "MODEL_RECEIPT.json", {
++                "end2end": head.end2end, "agnostic_nms": head.agnostic_nms, "max_det": head.max_det,
++                "nc": head.nc, "nm": head.nm, "npr": head.npr, "reg_max": head.reg_max,
++                "fused": base.is_fused(), "parameter_dtype": str(next(base.parameters()).dtype),
++                "format": model.format, "device": str(model.device), "class_map": self.class_map,
++                "is_coco": self.is_coco, "decoder": "process_mask_native_then_scale_masks_byte",
++                "device_name": torch.cuda.get_device_name(model.device) if model.device.type == "cuda" else "CPU"})
+             self.trace_model = base
+             self.feature_sources = {
+                 "head_module": next(name for name, m in base.named_modules() if m is head),
+@@ -297,6 +397,11 @@ def trace(a):
+     # Explicit local files only. No automatic weight or dataset download.
+     require(Path(a.weights).is_file() and sha256(a.weights) == MODEL_SHA, "wrong/missing local model")
+     require(Path(a.annotations).is_file() and sha256(a.annotations) == GT_SHA, "wrong/missing COCO annotations")
++    profile = read_json(a.profile) if getattr(a, "profile", None) else None
++    if profile:
++        apply_runtime_policy(profile["runtime_policy"])
++        for package, version in profile["packages"].items():
++            require(importlib.metadata.version(package) == version, f"dependency drift: {package}")
+     native_environment()
+     import torch
+     from ultralytics import YOLO
+@@ -304,6 +409,9 @@ def trace(a):
+     import faster_coco_eval  # verify before native requirement checker
+     from pycocotools import mask  # verify before inference
+     args = read_json(a.args)
++    if profile:
++        for key, value in profile["native_args"].items():
++            require(args.get(key) == value, f"request differs from frozen profile: {key}")
+     required = {"data", "imgsz", "batch", "conf", "iou", "max_det", "rect",
+                 "device", "quantize", "workers", "end2end", "agnostic_nms",
+                 "single_cls", "augment", "compile", "classes"}
+@@ -326,21 +434,36 @@ def trace(a):
+     out = Path(a.out)
+     out.mkdir(parents=True, exist_ok=False)
+     (out / "cache").mkdir()
+-    validator = make_trace_validator(out, ids, a.scope, a.max_cache_bytes, GT_SHA)
++    validator = make_trace_validator(out, ids, a.scope, a.max_cache_bytes, GT_SHA,
++                                     dict(args), sha256(a.image_ids), profile["runtime_policy"] if profile else None)
+     args.update(split="val", save_json=True, project=str(out.resolve()), name="native", exist_ok=False)
++    model = YOLO(str(Path(a.weights).resolve()))
++    from ultralytics.utils import DEFAULT_CFG_DICT
++    write_new(out / "CONFIG_SOURCES.json", {
++        "framework_default": DEFAULT_CFG_DICT,
++        "checkpoint_train_args": model.ckpt.get("train_args"),
++        "checkpoint_version": model.ckpt.get("version"),
++        "checkpoint_date": model.ckpt.get("date"),
++        "model_overrides": model.overrides, "requested_native_args": args,
++        "profile_sha256": sha256(a.profile) if profile else None})
+     with torch.inference_mode():
+-        YOLO(str(Path(a.weights).resolve())).val(validator=validator, **args)
++        model.val(validator=validator, **args)
+ 
+ 
+ def replay(a):
+     import torch
+     manifest_path = Path(a.manifest)
+     manifest = read_json(manifest_path)
++    if all(k in manifest["environment"] for k in RUNTIME_KEYS):
++        apply_runtime_policy({k: manifest["environment"][k] for k in RUNTIME_KEYS})
+     environment = native_environment()
+     # Same Torch, source and numerical settings; other devices are new checks, not silent substitutions.
+     for k in ("ultralytics_version", "torch_version", "source_sha256", "cuda_version",
+               "matmul_precision", "cuda_matmul_allow_tf32"):
+         require(environment[k] == manifest["environment"][k], f"replay runtime changed: {k}")
++    for k in RUNTIME_KEYS:
++        if k in manifest["environment"]:
++            require(environment[k] == manifest["environment"][k], f"replay runtime changed: {k}")
+     require(sha256(a.predictions) == manifest["predictions_sha256"], "baseline predictions changed")
+     require(sha256(__file__) == manifest["bridge_code_sha256"], "bridge code changed")
+     require(sha256(Path(__file__).with_name("native_source_pins.json")) == manifest["source_pins_sha256"],
+@@ -397,6 +520,7 @@ def main():
+         p.add_argument("--" + name, required=True)
+     p.add_argument("--scope", choices=("smoke", "full"), required=True)
+     p.add_argument("--max-cache-bytes", type=int, required=True)
++    p.add_argument("--profile", help="frozen research-line package/argument/numerical policy")
+     p = sub.add_parser("replay")
+     for name in ("manifest", "predictions", "out", "report"):
+         p.add_argument("--" + name, required=True)

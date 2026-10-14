@@ -1,0 +1,12 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S1_SMOKE_9e7ca8a3f8f94fad8997f40f0359e39a
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\scripts\run_s1_finite_oracle.py", line 123, in execute
+    require(sha256(ROOT / rel) == digest, "execution source changed: " + rel)
+            ^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\shared\evaluation\posttrain_audit.py", line 22, in sha256
+    with Path(path).open("rb") as f:
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_readout_mechanism_v2_20261012\\POSTTRAIN_RESCOPE_20261013.md'

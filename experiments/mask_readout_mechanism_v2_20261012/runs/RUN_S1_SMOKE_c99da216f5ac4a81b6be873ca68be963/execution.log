@@ -1,0 +1,15 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S1_SMOKE_c99da216f5ac4a81b6be873ca68be963
+loading annotations into memory...
+Done (t=0.52s)
+creating index...
+index created!
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\scripts\run_s1_finite_oracle.py", line 234, in execute
+    results, image_checks = optimize_panel(run, meta, panel, manifest_path, image_records,
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\scripts\run_s1_finite_oracle.py", line 334, in optimize_panel
+    "cache_sha256": record["cache_sha256"], "rank": rank, "geometry": geometry(cache)}
+                                                                      ^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\scripts\s1_geometry.py", line 78, in geometry
+    raise ValueError("cache gains and native unpadding disagree")
+ValueError: cache gains and native unpadding disagree

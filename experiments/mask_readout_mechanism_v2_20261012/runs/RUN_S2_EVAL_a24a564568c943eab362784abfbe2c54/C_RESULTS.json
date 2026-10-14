@@ -1,0 +1,81 @@
+{
+  "target": {
+    "mean": -0.01929821423812812,
+    "ci95": [
+      -0.030334652950991366,
+      -0.008898761783986377
+    ],
+    "images": 257,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "all_bbox75": {
+    "mean": -0.010342488705907756,
+    "ci95": [
+      -0.013070799224921239,
+      -0.007729927578941176
+    ],
+    "images": 508,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "damage": {
+    "population_successes": 22957,
+    "sample_size": 1024,
+    "damaged": 73,
+    "point_rate": 0.0712890625,
+    "upper_damaged_count": 1965,
+    "upper_rate": 0.08559480768393082,
+    "confidence": 0.95,
+    "unit": "fraction",
+    "method": "hypergeometric_CDF_inversion_inclusive",
+    "scope": "frozen_finite_baseline_success_GT_population",
+    "census": false,
+    "gate": "damage_guardrail_failed",
+    "evaluated_images": 878,
+    "evaluated_GT": 11014,
+    "counted_GT": 1024,
+    "note": "Count only sampled S; other GT in the same image are not additional sampled units."
+  },
+  "export": {
+    "images": 1299,
+    "outputs": 186409,
+    "mean_delta_l2": 4.118591006773472,
+    "export_seconds": 214.71900000001187
+  },
+  "secondary_AP_on_union_dev_and_damage_images": {
+    "bbox": {
+      "AP": 52.132739908793646,
+      "AP50": 69.53163411530664,
+      "AP75": 57.1383458984373,
+      "APS": 36.70214200094898,
+      "APM": 58.37065057688088,
+      "APL": 71.93083251874492,
+      "AR1": 35.32838694042517,
+      "AR10": 64.13878397525316,
+      "AR100": 71.00554135473112,
+      "ARS": 55.160470460664556,
+      "ARM": 77.66578169352154,
+      "ARL": 87.45130988947805
+    },
+    "segm": {
+      "AP": 42.66085527230706,
+      "AP50": 65.4358339536769,
+      "AP75": 45.96097360364351,
+      "APS": 26.008651703734,
+      "APM": 48.59583325077506,
+      "APL": 64.32016116882954,
+      "AR1": 30.784801097035785,
+      "AR10": 53.282439618257385,
+      "AR100": 58.422260502523685,
+      "ARS": 41.01165919868989,
+      "ARM": 65.66205164846446,
+      "ARL": 78.09757151046239
+    }
+  },
+  "prediction_sha256": "1c85786a94f8b195da231c644bea9e9e8baaae32d2e4a4a6380c9fcce8ceb46c"
+}

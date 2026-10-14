@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "original_field_equality": {
+    "stage": true,
+    "scope": true,
+    "arm": true,
+    "seed": true,
+    "epochs": true,
+    "fit_images": true,
+    "image_microbatch": true,
+    "gradient_accumulation": true,
+    "effective_image_batch": true,
+    "expected_optimizer_steps": true,
+    "optimizer": true,
+    "amp": true,
+    "dtype": true,
+    "scheduler": true,
+    "early_stopping": true,
+    "checkpoint_selection": true,
+    "augmentation": true,
+    "model_state_initial_sha256": true,
+    "parameters": true,
+    "trainable_whitelist": true,
+    "feature_channels": true,
+    "prototype_channels": true,
+    "spatial_size": true,
+    "preservation_weight": true,
+    "fit_dev_split_sha256": true,
+    "image_orders_sha256": true,
+    "order_algorithm": true,
+    "source_cache_run": true,
+    "source_trace_sha256": true,
+    "base_model_frozen_mode": true,
+    "profile_sha256": true,
+    "damage_sample_budget": true,
+    "environment": true
+  },
+  "smoke_budget_only_exceptions": [],
+  "only_scientific_change": {
+    "name": "same_ROI_soft_IoU",
+    "epsilon": 1e-06,
+    "formula": "1-(sum_ROI(sigmoid(z)*g)+eps)/(sum_ROI(sigmoid(z)+g-sigmoid(z)*g)+eps)",
+    "empty_GT": "same_formula_in_original_supervised_instance_denominator",
+    "empty_ROI": "exclude_and_count_as_original",
+    "dtype": "float32",
+    "reduction": "instance_mean_within_image_then_original_effective_batch4_mean",
+    "preservation": "original_BCE_all_nonempty_ROI_instances",
+    "preservation_weight": 0.1
+  },
+  "native_argument_differences": {
+    "project": {
+      "fit": "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_readout_mechanism_v2_20261012\\runs\\RUN_S2_CACHE_FULL_61ce0f1ca0e6479ca6704fb2fcceabec\\trace",
+      "S0": "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170\\trace"
+    },
+    "data": {
+      "fit": "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_readout_mechanism_v2_20261012\\runs\\RUN_S2_CACHE_FULL_61ce0f1ca0e6479ca6704fb2fcceabec\\dataset\\coco.yaml",
+      "S0": "D:\\coco_wire\\baseline_native_20261013\\assets\\datasets\\coco_native_s0_20261013\\full\\coco.yaml"
+    }
+  }
+}

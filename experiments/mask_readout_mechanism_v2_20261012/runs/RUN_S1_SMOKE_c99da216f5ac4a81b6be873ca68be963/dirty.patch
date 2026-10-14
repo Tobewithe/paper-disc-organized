@@ -1,0 +1,232 @@
+diff --git a/shared/evaluation/native_output_bridge.py b/shared/evaluation/native_output_bridge.py
+index 4080b262..9a1f4f3d 100644
+--- a/shared/evaluation/native_output_bridge.py
++++ b/shared/evaluation/native_output_bridge.py
+@@ -9,7 +9,9 @@ import argparse
+ import copy
+ import hashlib
+ import importlib
++import importlib.metadata
+ import json
++import os
+ from pathlib import Path
+ import sys
+ 
+@@ -24,6 +26,38 @@ SOURCE_MODULES = (
+     "ultralytics.utils.nms", "ultralytics.engine.validator",
+     "ultralytics.nn.autobackend", "ultralytics.nn.backends.pytorch",
+ )
++COCO_METRICS = ("AP", "AP50", "AP75", "APS", "APM", "APL", "AR1", "AR10", "AR100", "ARS", "ARM", "ARL")
++RUNTIME_KEYS = ("matmul_precision", "cuda_matmul_allow_tf32", "cudnn_allow_tf32",
++                "cudnn_benchmark", "cudnn_deterministic", "deterministic_algorithms",
++                "deterministic_warn_only", "cublas_workspace_config")
++
++
++def apply_runtime_policy(policy):
++    """Apply a declared numerical policy before the first CUDA operation, including replay."""
++    require(set(policy) == set(RUNTIME_KEYS), "incomplete/unknown numerical policy")
++    os.environ["CUBLAS_WORKSPACE_CONFIG"] = policy["cublas_workspace_config"]
++    import torch
++    torch.set_float32_matmul_precision(policy["matmul_precision"])
++    torch.backends.cuda.matmul.allow_tf32 = policy["cuda_matmul_allow_tf32"]
++    torch.backends.cudnn.allow_tf32 = policy["cudnn_allow_tf32"]
++    torch.backends.cudnn.benchmark = policy["cudnn_benchmark"]
++    torch.backends.cudnn.deterministic = policy["cudnn_deterministic"]
++    torch.use_deterministic_algorithms(policy["deterministic_algorithms"],
++                                       warn_only=policy["deterministic_warn_only"])
++
++
++def coco_metric_receipt(evaluator):
++    """Read the actual native evaluator, before its local object is discarded."""
++    p = evaluator.params
++    require(len(evaluator.stats) >= 12, "incomplete native COCO summary")
++    require(list(p.maxDets) == [1, 10, 100] and p.useCats == 1, "COCO counting policy changed")
++    return {"metrics": dict(zip(COCO_METRICS, [100 * float(v) if v >= 0 else None
++                                             for v in evaluator.stats[:12]])),
++            "params": {"iouType": p.iouType, "maxDets": list(p.maxDets), "useCats": int(p.useCats),
++                       "iouThrs": [float(x) for x in p.iouThrs],
++                       "areaRng": [[float(x) for x in a] for a in p.areaRng],
++                       "areaRngLbl": list(p.areaRngLbl), "catIds": [int(x) for x in p.catIds],
++                       "imgIds": [int(x) for x in p.imgIds]}}
+ 
+ 
+ def native_environment():
+@@ -41,7 +75,18 @@ def native_environment():
+             "source_sha256": hashes, "python_version": sys.version,
+             "cuda_version": torch.version.cuda,
+             "matmul_precision": torch.get_float32_matmul_precision(),
+-            "cuda_matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32}
++            "cuda_matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
++            "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
++            "cudnn_benchmark": torch.backends.cudnn.benchmark,
++            "cudnn_deterministic": torch.backends.cudnn.deterministic,
++            "deterministic_algorithms": torch.are_deterministic_algorithms_enabled(),
++            "deterministic_warn_only": torch.is_deterministic_algorithms_warn_only_enabled(),
++            "cublas_workspace_config": os.environ.get("CUBLAS_WORKSPACE_CONFIG"),
++            "execution_env": {k: os.environ.get(k) for k in
++                              ("YOLO_OFFLINE", "YOLO_CONFIG_DIR", "PYTHONPATH", "CUDA_VISIBLE_DEVICES",
++                               "OMP_NUM_THREADS", "MKL_NUM_THREADS")},
++            "packages": {p: importlib.metadata.version(p) for p in
++                         ("torchvision", "numpy", "pycocotools", "opencv-python", "Pillow", "PyYAML")}}
+ 
+ 
+ def decode_native(cache, coefficients=None, device=None):
+@@ -87,7 +132,8 @@ def raw_location(raw_id, shapes):
+     raise ValueError("raw ID outside actual head features")
+ 
+ 
+-def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha):
++def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha,
++                         requested_args=None, image_ids_sha=None, runtime_policy=None):
+     """Factory keeps tracing state outside global monkey patches."""
+     import torch
+     from ultralytics.models.yolo.segment.val import SegmentationValidator
+@@ -135,6 +181,17 @@ def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha)
+                     "base_state_unchanged": True,
+                     "scientific_status": "not_adjudicated",
+                 })
++                require(set(self.native_coco_receipts) == {"bbox", "segm"}, "native COCO backend did not complete")
++                write_new(out / "native_eval_summary.json", {
++                    "backend": "COCOeval_faster", "unit": "AP_points",
++                    "backend_version": importlib.metadata.version("faster-coco-eval"),
++                    "annotations_sha256": annotations_sha, "predictions_sha256": source_sha,
++                    "image_ids_sha256": image_ids_sha,
++                    **{task: receipt["metrics"] for task, receipt in self.native_coco_receipts.items()},
++                    "evaluator_receipts": self.native_coco_receipts,
++                    "capture": "observed native evaluator summarize; no separate native reevaluation",
++                })
++                write_new(out / "internal_metrics.json", self.metrics.results_dict)
+                 return result
+             finally:
+                 if self.trace_head is not None:
+@@ -143,9 +200,44 @@ def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha)
+                     else:
+                         del self.trace_head.get_topk_index
+ 
++        def eval_json(self, *args, **kwargs):
++            # The pinned implementation catches backend errors and overwrites some B keys with M.
++            # Observe each real evaluator directly; never promote the fallback internal stats to COCO AP.
++            import faster_coco_eval
++            original = faster_coco_eval.COCOeval_faster
++            receipts = {}
++
++            class ObservedEvaluator(original):
++                def summarize(self, *a, **kw):
++                    result = super().summarize(*a, **kw)
++                    require(self.params.iouType not in receipts, "duplicate native evaluator")
++                    receipts[self.params.iouType] = coco_metric_receipt(self)
++                    return result
++
++            try:
++                faster_coco_eval.COCOeval_faster = ObservedEvaluator
++                # Segment.eval_json calls super().coco_evaluate directly, bypassing a
++                # subclass coco_evaluate override. Wrap the actual eval_json entry.
++                result = super().eval_json(*args, **kwargs)
++            finally:
++                faster_coco_eval.COCOeval_faster = original
++            require(set(receipts) == {"bbox", "segm"}, "native COCO failed; internal fallback forbidden")
++            self.native_coco_receipts = receipts
++            return result
++
+         def init_metrics(self, model):
+             super().init_metrics(model)
+             require(self.is_coco and self.nc == 80, "native COCO category mapping required")
++            from ultralytics.data.converter import coco80_to_coco91_class
++            require(self.class_map == coco80_to_coco91_class(), "wrong COCO category mapping")
++            for key, value in (requested_args or {}).items():
++                if key != "data":
++                    require(getattr(self.args, key) == value, f"effective argument drift: {key}")
++            effective = native_environment()
++            for key, value in (runtime_policy or {}).items():
++                require(effective[key] == value, f"effective numerical policy drift: {key}")
++            write_new(out / "NATIVE_ARGS.json", vars(self.args))
++            write_new(out / "ENVIRONMENT.json", effective)
+             require(self.end2end and self.args.save_json and self.process is ops.process_mask_native,
+                     "native O2O save_json decoder required")
+             require(not self.args.single_cls and not self.args.agnostic_nms and self.args.classes is None,
+@@ -164,6 +256,16 @@ def make_trace_validator(out, expected_ids, scope, cache_limit, annotations_sha)
+             require(len(heads) == 1, "exactly one Segment26 head required")
+             head = heads[0]
+             require(head.end2end and not head.export and not head.agnostic_nms, "head policy mismatch")
++            require(not model.fp16 and next(base.parameters()).dtype == torch.float32, "FP32 required")
++            require(base.is_fused() and head.max_det == self.args.max_det, "fusion/head budget changed")
++            require(head.nc == 80 and head.nm == 32 and head.reg_max == 1, "unexpected head architecture")
++            write_new(out / "MODEL_RECEIPT.json", {
++                "end2end": head.end2end, "agnostic_nms": head.agnostic_nms, "max_det": head.max_det,
++                "nc": head.nc, "nm": head.nm, "npr": head.npr, "reg_max": head.reg_max,
++                "fused": base.is_fused(), "parameter_dtype": str(next(base.parameters()).dtype),
++                "format": model.format, "device": str(model.device), "class_map": self.class_map,
++                "is_coco": self.is_coco, "decoder": "process_mask_native_then_scale_masks_byte",
++                "device_name": torch.cuda.get_device_name(model.device) if model.device.type == "cuda" else "CPU"})
+             self.trace_model = base
+             self.feature_sources = {
+                 "head_module": next(name for name, m in base.named_modules() if m is head),
+@@ -297,6 +399,11 @@ def trace(a):
+     # Explicit local files only. No automatic weight or dataset download.
+     require(Path(a.weights).is_file() and sha256(a.weights) == MODEL_SHA, "wrong/missing local model")
+     require(Path(a.annotations).is_file() and sha256(a.annotations) == GT_SHA, "wrong/missing COCO annotations")
++    profile = read_json(a.profile) if getattr(a, "profile", None) else None
++    if profile:
++        apply_runtime_policy(profile["runtime_policy"])
++        for package, version in profile["packages"].items():
++            require(importlib.metadata.version(package) == version, f"dependency drift: {package}")
+     native_environment()
+     import torch
+     from ultralytics import YOLO
+@@ -304,6 +411,9 @@ def trace(a):
+     import faster_coco_eval  # verify before native requirement checker
+     from pycocotools import mask  # verify before inference
+     args = read_json(a.args)
++    if profile:
++        for key, value in profile["native_args"].items():
++            require(args.get(key) == value, f"request differs from frozen profile: {key}")
+     required = {"data", "imgsz", "batch", "conf", "iou", "max_det", "rect",
+                 "device", "quantize", "workers", "end2end", "agnostic_nms",
+                 "single_cls", "augment", "compile", "classes"}
+@@ -326,21 +436,36 @@ def trace(a):
+     out = Path(a.out)
+     out.mkdir(parents=True, exist_ok=False)
+     (out / "cache").mkdir()
+-    validator = make_trace_validator(out, ids, a.scope, a.max_cache_bytes, GT_SHA)
++    validator = make_trace_validator(out, ids, a.scope, a.max_cache_bytes, GT_SHA,
++                                     dict(args), sha256(a.image_ids), profile["runtime_policy"] if profile else None)
+     args.update(split="val", save_json=True, project=str(out.resolve()), name="native", exist_ok=False)
++    model = YOLO(str(Path(a.weights).resolve()))
++    from ultralytics.utils import DEFAULT_CFG_DICT
++    write_new(out / "CONFIG_SOURCES.json", {
++        "framework_default": DEFAULT_CFG_DICT,
++        "checkpoint_train_args": model.ckpt.get("train_args"),
++        "checkpoint_version": model.ckpt.get("version"),
++        "checkpoint_date": model.ckpt.get("date"),
++        "model_overrides": model.overrides, "requested_native_args": args,
++        "profile_sha256": sha256(a.profile) if profile else None})
+     with torch.inference_mode():
+-        YOLO(str(Path(a.weights).resolve())).val(validator=validator, **args)
++        model.val(validator=validator, **args)
+ 
+ 
+ def replay(a):
+     import torch
+     manifest_path = Path(a.manifest)
+     manifest = read_json(manifest_path)
++    if all(k in manifest["environment"] for k in RUNTIME_KEYS):
++        apply_runtime_policy({k: manifest["environment"][k] for k in RUNTIME_KEYS})
+     environment = native_environment()
+     # Same Torch, source and numerical settings; other devices are new checks, not silent substitutions.
+     for k in ("ultralytics_version", "torch_version", "source_sha256", "cuda_version",
+               "matmul_precision", "cuda_matmul_allow_tf32"):
+         require(environment[k] == manifest["environment"][k], f"replay runtime changed: {k}")
++    for k in RUNTIME_KEYS:
++        if k in manifest["environment"]:
++            require(environment[k] == manifest["environment"][k], f"replay runtime changed: {k}")
+     require(sha256(a.predictions) == manifest["predictions_sha256"], "baseline predictions changed")
+     require(sha256(__file__) == manifest["bridge_code_sha256"], "bridge code changed")
+     require(sha256(Path(__file__).with_name("native_source_pins.json")) == manifest["source_pins_sha256"],
+@@ -397,6 +522,7 @@ def main():
+         p.add_argument("--" + name, required=True)
+     p.add_argument("--scope", choices=("smoke", "full"), required=True)
+     p.add_argument("--max-cache-bytes", type=int, required=True)
++    p.add_argument("--profile", help="frozen research-line package/argument/numerical policy")
+     p = sub.add_parser("replay")
+     for name in ("manifest", "predictions", "out", "report"):
+         p.add_argument("--" + name, required=True)

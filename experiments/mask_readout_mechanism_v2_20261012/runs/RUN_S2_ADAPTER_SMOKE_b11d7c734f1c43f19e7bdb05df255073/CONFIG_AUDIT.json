@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "scope": "completed adapter training",
+  "checks": {
+    "frozen_source_and_package_versions": true,
+    "effective_optimizer_unchanged": true,
+    "effective_batch4_and_exact_steps": true,
+    "seed_and_initial_state": true,
+    "frozen_native_cache_bytes_unchanged": true,
+    "base_weight_bytes_unchanged": true,
+    "only_new_parameters_in_optimizer": true,
+    "finite_loss_gradients_parameters": true,
+    "runtime_policy_unchanged": true,
+    "same_B_C_training_contract": "B reference; C checked on its run"
+  },
+  "actual_optimizer": {
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "amsgrad": false,
+    "foreach": false,
+    "maximize": false,
+    "capturable": false,
+    "differentiable": false,
+    "fused": false
+  },
+  "actual_steps": 2,
+  "actual_images_seen": 8,
+  "training_contract_sha256": "de477f9867f30e60d36eba15e3c53a3f7338799097b2d6bdbce4b89426f26647",
+  "checkpoint_sha256": "6c619fb292f19eb1509d0142c2266b0236ce4dba4c41489cbc74d90eb86e81b9",
+  "intended_changes_from_native_baseline": [
+    "new residual module and declared training-only optimizer; frozen native inputs unchanged"
+  ]
+}

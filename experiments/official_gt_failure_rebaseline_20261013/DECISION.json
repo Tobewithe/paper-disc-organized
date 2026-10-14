@@ -1,0 +1,19 @@
+{
+  "stage_id": "S0",
+  "status": "completed_native_scoped_published_parity_failed",
+  "published_baseline_parity": "failed",
+  "native_gt_ledger_validity": "passed",
+  "historical_reconciliation": "passed",
+  "baseline_run_id": "RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170",
+  "historical_run_id": "RUN_HISTORY_RECONCILIATION_ea22c6c2ae3c49eda6899b1ea98f40f4",
+  "claim_scope": "native_config_scoped",
+  "decision": "Adopt the frozen local baseline and ledger within its recorded configuration; reject a claim that the published AP has been reproduced.",
+  "evidence_refs": {
+    "REPORT.md": "850b37c3d7ff553a45eaf5be58c749c3b4d21599f1f0bce4ccdfe2d3c0d93678",
+    "runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/SUMMARY.json": "9a4b9d8b9c4a22ba99d5eeb184fc92750f26665955c287ad36ada147cd1a56ca",
+    "runs/RUN_HISTORY_RECONCILIATION_ea22c6c2ae3c49eda6899b1ea98f40f4/SUMMARY.json": "4813459db863f50ec8b08e16b73b03d4502ca613bc84f000e2359b995b6174d4"
+  },
+  "next_action": "Read-only verification of the actual configuration and predictions behind the published 52.5/44.1 reference run. No additional model forward or training is authorized by this closure.",
+  "reversal_condition": "New verifiable reference evidence resolves the discrepancy and both published one-decimal AP gates pass under a newly frozen authorized protocol.",
+  "fallback": "Retain native_config_scoped claims and compare paired methods only with this same-protocol local baseline."
+}

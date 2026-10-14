@@ -1,0 +1,42 @@
+{
+  "run_id": "RUN_PROTO_AUDIT_SMOKE_2f7ace2444ae4f5281be890fbb8e3e69",
+  "scope": "smoke",
+  "supervised_pairs": 29,
+  "known_discrepant_pairs": 6,
+  "discrepant_proto_directions": {
+    "down": 2,
+    "tie": 0,
+    "up": 4
+  },
+  "early_reversal_fraction": 0.3333333333333333,
+  "all_stage_direction_counts": {
+    "loss_down_iou_down_proto_up": 4,
+    "loss_down_iou_up_proto_down": 3,
+    "loss_down_iou_up_proto_up": 13,
+    "loss_up_iou_down_proto_down": 4,
+    "loss_down_iou_up_proto_tie": 1,
+    "loss_down_iou_down_proto_down": 2,
+    "loss_up_iou_up_proto_down": 2
+  },
+  "empty_union_counts": {
+    "zero_proto": 0,
+    "B_proto": 0
+  },
+  "empty_GT_in_ROI_pairs": 0,
+  "unit": "fixed supervised detection-GT pairs; IoU fraction_0_to_1",
+  "mean_delta_proto_iou": 0.00646172334006612,
+  "measurement": {
+    "images": 8,
+    "outputs": 664,
+    "max_pair_BCE_abs_error": 0.0,
+    "max_image_loss_abs_error": 0.0,
+    "seconds": 0.75,
+    "empty_roi_instances": 0,
+    "images_without_GT_supervision": 0
+  },
+  "diagnostic_decision": {
+    "engineering_only": true,
+    "next_action": "Execute authorized frozen full fit2000 proto consistency audit"
+  },
+  "claim_scope": "fixed fit population stage localization; current S2 remains rejected"
+}

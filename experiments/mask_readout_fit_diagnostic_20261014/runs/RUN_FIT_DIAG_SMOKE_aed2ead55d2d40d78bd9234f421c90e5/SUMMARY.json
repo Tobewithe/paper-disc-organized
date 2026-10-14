@@ -1,0 +1,168 @@
+{
+  "run_id": "RUN_FIT_DIAG_SMOKE_aed2ead55d2d40d78bd9234f421c90e5",
+  "scope": "smoke",
+  "fit_images": 8,
+  "baseline_populations": {
+    "S": 25,
+    "F_without_box75": 1,
+    "T": 3
+  },
+  "target": null,
+  "all_bbox75": null,
+  "damage_census": {
+    "population_N": 25,
+    "observed_n": 25,
+    "damaged_k": 0,
+    "fraction": 0.0,
+    "finite_population_upper": 0.0,
+    "unit": "fraction_0_to_1",
+    "method": "complete_finite_population_census",
+    "damaged_GT_keys": []
+  },
+  "fixed_checkpoint_loss": {
+    "zero": {
+      "total_loss": 0.32315753400325775,
+      "gt_loss": 0.2968935454264283,
+      "preservation_loss": 0.26263992581516504
+    },
+    "B": {
+      "total_loss": 0.2749433359131217,
+      "gt_loss": 0.24596807546913624,
+      "preservation_loss": 0.28975262865424156
+    },
+    "delta": {
+      "total_loss": -0.04821419809013605,
+      "gt_loss": -0.05092546995729208,
+      "preservation_loss": 0.02711270283907652
+    },
+    "images": 8,
+    "matched_supervised_instances": 29,
+    "images_without_GT_supervision": 0,
+    "empty_roi_instances": 0,
+    "per_instance_BCE_IoU_direction_counts": {
+      "loss_down_iou_down": 6,
+      "loss_down_iou_up": 17,
+      "loss_up_iou_down": 4,
+      "loss_up_iou_up": 2
+    },
+    "reduction": "separate ROI instance means then equal image mean; no-match images retained"
+  },
+  "export": {
+    "images": 8,
+    "outputs": 664,
+    "seconds": 1.7339999999967404,
+    "zero_delta_exact_outputs": 664
+  },
+  "diagnostic_decision": {
+    "engineering_only": true,
+    "next_action": "Execute authorized frozen full fit2000 diagnostic"
+  },
+  "retained_dev": {
+    "target": {
+      "mean": -0.009956305888378028,
+      "ci95": [
+        -0.020109430154570312,
+        0.00011447609288443661
+      ],
+      "images": 257,
+      "resamples": 2000,
+      "seed": 1729,
+      "unit": "IoU_fraction_0_to_1",
+      "method": "paired_image_macro_percentile_linear"
+    },
+    "all_bbox75": {
+      "mean": -0.007561112519337792,
+      "ci95": [
+        -0.01005339051468029,
+        -0.005214524410128502
+      ],
+      "images": 508,
+      "resamples": 2000,
+      "seed": 1729,
+      "unit": "IoU_fraction_0_to_1",
+      "method": "paired_image_macro_percentile_linear"
+    },
+    "damage": {
+      "population_successes": 22957,
+      "sample_size": 1024,
+      "damaged": 63,
+      "point_rate": 0.0615234375,
+      "upper_damaged_count": 1722,
+      "upper_rate": 0.07500980093217754,
+      "confidence": 0.95,
+      "unit": "fraction",
+      "method": "hypergeometric_CDF_inversion_inclusive",
+      "scope": "frozen_finite_baseline_success_GT_population",
+      "census": false,
+      "gate": "damage_guardrail_failed",
+      "evaluated_images": 878,
+      "evaluated_GT": 11014,
+      "counted_GT": 1024,
+      "note": "Count only sampled S; other GT in the same image are not additional sampled units."
+    }
+  },
+  "fit_minus_dev_mean": null,
+  "secondary_train_AP_only": {
+    "zero": {
+      "bbox": {
+        "AP": 76.69244856431608,
+        "AP50": 89.27832783278328,
+        "AP75": 83.27628477133426,
+        "APS": 49.384263426342635,
+        "APM": 73.90696573582005,
+        "APL": 85.64288333595263,
+        "AR1": 58.44444444444444,
+        "AR10": 84.11111111111111,
+        "AR100": 88.16666666666667,
+        "ARS": 68.75,
+        "ARM": 85.71428571428571,
+        "ARL": 92.22222222222223
+      },
+      "segm": {
+        "AP": 69.72738412837423,
+        "AP50": 90.7108494633247,
+        "AP75": 78.27392739273927,
+        "APS": 43.15631563156316,
+        "APM": 67.20488987674278,
+        "APL": 76.67111949290167,
+        "AR1": 54.666666666666664,
+        "AR10": 75.05555555555557,
+        "AR100": 76.61111111111111,
+        "ARS": 52.5,
+        "ARM": 72.14285714285714,
+        "ARL": 79.81481481481482
+      }
+    },
+    "B": {
+      "bbox": {
+        "AP": 76.69244856431608,
+        "AP50": 89.27832783278328,
+        "AP75": 83.27628477133426,
+        "APS": 49.384263426342635,
+        "APM": 73.90696573582005,
+        "APL": 85.64288333595263,
+        "AR1": 58.44444444444444,
+        "AR10": 84.11111111111111,
+        "AR100": 88.16666666666667,
+        "ARS": 68.75,
+        "ARM": 85.71428571428571,
+        "ARL": 92.22222222222223
+      },
+      "segm": {
+        "AP": 69.94950183564043,
+        "AP50": 90.27080545892426,
+        "AP75": 79.39603960396039,
+        "APS": 41.37601260126013,
+        "APM": 65.89149323095575,
+        "APL": 77.82073445439781,
+        "AR1": 54.72222222222223,
+        "AR10": 75.16666666666667,
+        "AR100": 75.94444444444444,
+        "ARS": 43.75,
+        "ARM": 71.42857142857143,
+        "ARL": 80.55555555555556
+      }
+    }
+  },
+  "claim_scope": "conditional description of original training images; does not reopen failed S2 or prove root cause"
+}

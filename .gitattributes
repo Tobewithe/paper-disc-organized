@@ -1,0 +1,11 @@
+# These studies freeze SHA-256 over actual source, protocol, and evidence bytes.
+# Preserve their original LF/CRLF bytes on add and checkout; do not renormalize
+# completed Run artifacts. This deliberately does not change other studies.
+experiments/mask_readout_mechanism_v2_20261012/** -text
+experiments/official_gt_failure_rebaseline_20261013/** -text
+experiments/mask_readout_fit_diagnostic_20261014/** -text
+experiments/mask_readout_proto_consistency_20261014/** -text
+experiments/mask_readout_bce_decomposition_20261014/** -text
+experiments/mask_readout_soft_iou_pilot_20261014/** -text
+shared/evaluation/** -text
+paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json -text

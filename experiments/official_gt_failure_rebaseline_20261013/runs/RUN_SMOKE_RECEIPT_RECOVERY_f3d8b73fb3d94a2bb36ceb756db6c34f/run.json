@@ -1,0 +1,74 @@
+{
+  "run_id": "RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f",
+  "study_id": "STUDY_a249bbef3de14ff7bf79284460f72d38",
+  "stage_id": "S0_G1",
+  "scope": "smoke",
+  "execution_kind": "saved_output_receipt_recovery_no_model_forward",
+  "execution_status": "completed",
+  "started_at": "2026-10-13T11:47:58.879589+00:00",
+  "parent_run_id": "RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05",
+  "executor": {
+    "host": "YANGLEI",
+    "interpreter": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "environment": "laptop_windows"
+  },
+  "protocol_path": "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\PROTOCOL.md",
+  "protocol_sha256": "6cfcc9ce8faacab275c45162c0afdd39169557449688e0fac658e826ef5779cd",
+  "code_commit": "b18802d208ccc235c4f994b68c3a40a98a440f1c",
+  "commands": [
+    {
+      "phase": "recorded_bridge_zero_delta",
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f\\recorded_bridge\\native_output_bridge.py",
+        "replay",
+        "--manifest",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\trace\\TRACE_MANIFEST.json",
+        "--predictions",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\trace\\native\\predictions.json",
+        "--out",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f\\predictions_zero_delta.json",
+        "--report",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f\\ZERO_DELTA.json"
+      ],
+      "log": "zero_delta.log",
+      "started_at": "2026-10-13T11:48:03.328458+00:00",
+      "exit_code": 0,
+      "ended_at": "2026-10-13T11:48:10.899501+00:00"
+    },
+    {
+      "phase": "independent_coco_ledger",
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\scripts\\build_native_ledger.py",
+        "--annotations",
+        "D:\\coco_wire\\baseline_native_20261013\\assets\\datasets\\coco_native_s0_20261013\\annotations\\instances_val2017.json",
+        "--predictions",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\trace\\native\\predictions.json",
+        "--image-ids",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f\\image_ids.json",
+        "--contract",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f\\EVAL_CONTRACT.json",
+        "--scope",
+        "smoke",
+        "--native-summary",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f\\native_eval_summary.json",
+        "--out",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_SMOKE_RECEIPT_RECOVERY_f3d8b73fb3d94a2bb36ceb756db6c34f\\ledger"
+      ],
+      "log": "ledger.log",
+      "started_at": "2026-10-13T11:48:10.930353+00:00",
+      "exit_code": 0,
+      "ended_at": "2026-10-13T11:48:14.081326+00:00"
+    }
+  ],
+  "source_script_sha256": "a1b163479c47bdca7973d90196cc77d922718d9d04a7deb03fdb73c8f79b9b80",
+  "scientific_status": "engineering_passed",
+  "transfer_status": "local_only",
+  "phase": "independent_coco_ledger",
+  "exit_code": 0,
+  "artifact_status": "complete",
+  "ended_at": "2026-10-13T11:48:14.092969+00:00"
+}

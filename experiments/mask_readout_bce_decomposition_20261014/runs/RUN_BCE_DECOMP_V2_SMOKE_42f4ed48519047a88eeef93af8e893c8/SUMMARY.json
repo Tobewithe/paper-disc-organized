@@ -1,0 +1,131 @@
+{
+  "run_id": "RUN_BCE_DECOMP_V2_SMOKE_42f4ed48519047a88eeef93af8e893c8",
+  "scope": "smoke",
+  "target_pairs": 2,
+  "target_images": 2,
+  "stable_credit_majority_pairs": 1,
+  "stable_credit_majority_fraction": 0.5,
+  "equal_pair_mean_stable_credit_share": 0.6655422097162474,
+  "ratio_of_summed_pair_normalized_stable_credit": 0.5898062357546091,
+  "equal_pair_mean_contributions": {
+    "totals": {
+      "zero_loss": 0.4282517074825889,
+      "B_loss": 0.2981325725682731,
+      "delta_loss": -0.13011913491431581,
+      "decrease_credit": 0.22426407087835648,
+      "increase_debit": 0.09414493596404067
+    },
+    "foreground": {
+      "zero_loss": 0.12493311213161078,
+      "B_loss": 0.17276582782007682,
+      "delta_loss": 0.047832715688466046,
+      "decrease_credit": 0.026574531098702444,
+      "increase_debit": 0.07440724678716848
+    },
+    "background": {
+      "zero_loss": 0.3033185953509781,
+      "B_loss": 0.12536674474819626,
+      "delta_loss": -0.17795185060278185,
+      "decrease_credit": 0.19768953977965403,
+      "increase_debit": 0.019737689176872172
+    }
+  },
+  "groups": {
+    "TN_to_TN": {
+      "pixels": 219,
+      "zero_loss": 0.02890473215575288,
+      "B_loss": 0.04140697428270583,
+      "delta_loss": 0.012502242126952959,
+      "decrease_credit": 0.007235447049919212,
+      "increase_debit": 0.019737689176872172
+    },
+    "TN_to_FP": {
+      "pixels": 0,
+      "zero_loss": 0.0,
+      "B_loss": 0.0,
+      "delta_loss": 0.0,
+      "decrease_credit": 0.0,
+      "increase_debit": 0.0
+    },
+    "FP_to_TN": {
+      "pixels": 15,
+      "zero_loss": 0.11466166765033743,
+      "B_loss": 0.02266994423174923,
+      "delta_loss": -0.0919917234185882,
+      "decrease_credit": 0.0919917234185882,
+      "increase_debit": 0.0
+    },
+    "FP_to_FP": {
+      "pixels": 64,
+      "zero_loss": 0.15975219554488782,
+      "B_loss": 0.061289826233741185,
+      "delta_loss": -0.09846236931114662,
+      "decrease_credit": 0.09846236931114662,
+      "increase_debit": 0.0
+    },
+    "FN_to_FN": {
+      "pixels": 37,
+      "zero_loss": 0.0733718099412615,
+      "B_loss": 0.058764316578838266,
+      "delta_loss": -0.014607493362423235,
+      "decrease_credit": 0.025300722320874533,
+      "increase_debit": 0.010693228958451298
+    },
+    "FN_to_TP": {
+      "pixels": 0,
+      "zero_loss": 0.0,
+      "B_loss": 0.0,
+      "delta_loss": 0.0,
+      "decrease_credit": 0.0,
+      "increase_debit": 0.0
+    },
+    "TP_to_FN": {
+      "pixels": 32,
+      "zero_loss": 0.016249046219000238,
+      "B_loss": 0.04256722244041017,
+      "delta_loss": 0.026318176221409934,
+      "decrease_credit": 0.0,
+      "increase_debit": 0.026318176221409934
+    },
+    "TP_to_TP": {
+      "pixels": 625,
+      "zero_loss": 0.035312255971349044,
+      "B_loss": 0.07143428880082839,
+      "delta_loss": 0.036122032829479345,
+      "decrease_credit": 0.00127380877782791,
+      "increase_debit": 0.03739584160730725
+    }
+  },
+  "IoU_negative_term_dominance": {
+    "foreground": 2
+  },
+  "IoU_terms_mean": {
+    "foreground_TP_term": -0.12239779951635318,
+    "background_FP_term": 0.08204584249745593,
+    "delta_iou": -0.040351957018897266
+  },
+  "empty_union_boundary_pairs": 0,
+  "max_BCE_delta_closure_abs_error": 0.0,
+  "unit": "fixed-pair diagnostic; all loss contributions normalized by original ROI pixels then pair mean",
+  "accounting_revision": 2,
+  "max_raw_FP32_FP64_delta_gap": 5.8971717120659406e-08,
+  "max_FP64_partition_abs_error": 0.0,
+  "mean_delta_FP32_reduction_roundoff": 1.980010377877761e-08,
+  "mean_original_FP32_delta_BCE": -0.13011911511421204,
+  "closure_definition": "FP64 pixel contributions plus separately measured original FP32 reduction roundoff",
+  "measurement": {
+    "all_supervised_pairs_verified": 29,
+    "images": 8,
+    "outputs": 664,
+    "max_pair_BCE_abs_error": 0.0,
+    "max_image_loss_abs_error": 0.0,
+    "seconds": 0.7970000000204891,
+    "empty_roi_instances": 0,
+    "images_without_GT_supervision": 0
+  },
+  "diagnostic_decision": {
+    "engineering_only": true,
+    "next_action": "Execute authorized frozen full fixed-pair BCE decomposition"
+  },
+  "claim_scope": "fixed selected fit pairs loss/pixel accounting; current S2 remains rejected"
+}

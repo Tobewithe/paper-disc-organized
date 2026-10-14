@@ -1,6 +1,6 @@
 # 当前科研总控：固定权重 Prototype→Coefficient 后训练救援
 
-**更新：2026-10-13｜状态：仓库规划已统一，真实执行证据仍待本地确认。**
+**更新：2026-10-14 20:44核验｜状态：S1机会Gate通过；旧BCE版与本次soft-IoU版S2配置均关闭。soft-IoU评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0` 已完成，原S2三项Gate均失败；训练/评价配置、回传SHA与本机独立复算全部通过。笔记本无在运行Python任务和Study锁。唯一下一步为同checkpoint、现有缓存的同ROI→原图配对诊断，尚未启动；不追加训练，不进入S3/S4。S0本地基线有效，官方发表AP复现未通过。**
 
 本页是 **`neighbor_sensitive_p3` 这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
 
@@ -16,13 +16,15 @@
 
 | 阶段 | 研究对象与唯一动作 | 必需输入/通过判据 | 产物/进度 |
 |---|---|---|---|
-| **S0 当前激活**：原生 COCO 输出任务账本 | 按固定 `v8.4.100` 读取实际 O2O 输出，确认 `end2end=True`、`agnostic_nms=False`、类别/图片/面积/decoder、官方 bbox 与 segm 分别匹配，同输出 ID 不混用 | 模型 SHA 和标注、5000 图；`native_gt_ledger_validity=passed`。官网公布 AP parity 是**另一个独立 Gate**，未过不能自称刊载基线复现，但只要原生任务账本有效，可继续在明示 `native_config_scoped` 下做科研诊断 | [冻结 GT 基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md)。GitHub Study：`planned_not_executed`；缺少本地执行结果，不冒称 Run 完成 |
-| **S1 条件下一步**：同最终检测系数可恢复性 | 在**官方 Mask75 失败 GT** 中，以 Box75 正确匹配且自身 MaskIoU<.75 的**具体输出检测 d** 为对象（集合 T）；原 Box、class、score、P、decoder、c0 固定，只对 `Δc` 做有限 GT-assisted oracle。保留输出 ID、Mask 修复及数值收敛证据 | 按[后训练重定向](../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)的预设机会 Gate：有效 baseline 失败且 Box75 配对的不同 GT ≥200，其中有限 oracle 达 Mask75 ≥20%；仅是**已找到的可恢复性下界**，非 P 完整表达能力证书 | 当前未执行；未过则结束 c-only 输出救援配置，不直接否定所有表示方法 |
-| **S2 条件训练**：只新增 delta-c adapter | GT 在 train2017 的**冻结最终输出**经正确类别/BoxIoU确定性关联产生标签；基础权重（包括 cv4/Proto/BN）全部冻结；零残差原样重放；不得在推理阶段用 GT 或将其配对称为 TAL | 单 seed、先 2000 张 fit 的独立短预算，成功保护与统一输出身份；预注册门槛：目标组 image-macro ΔMaskIoU ≥+0.5pp 且 CI 下界 >0，原成功损伤率单侧95%上界 ≤1%，总体不能明显负迁移（详见方法协议） | 未授权启动，先过 S1；不得直接使用旧五臂草案 |
-| **S3 条件全量验证**：方法是否有真实效用 | 先用 S2 同一 pilot checkpoint（不扩训练）与原生基线**同一批输出记录**，以全量 COCO Mask AP、AP75/APsmall、Box AP 不变和原成功损伤做配对验证 | 方法协议门槛：Mask AP 相对同协议 baseline ≥+0.3 点并有预登记的配对不确定性/损伤护栏；不足则保留诊断、关闭本配置 | 未启动 |
-| **S4 条件确认**：独立/外部可迁移性 | 在与方法选择不重叠的图片、场景或视频组独立重验；扩 20k/multi-seed 只在前置效用 Gate 通过后授权 | 未见数据与泄漏审计必须成立，既有 COCO val2017 研发集不能改称盲测 | 未授权 |
+| **S0 已结案**：采用本地配置范围的原生基线 | 按固定 `v8.4.100` 读取实际 O2O 输出，确认 `end2end=True`、`agnostic_nms=False`、类别/图片/面积/decoder、官方 bbox 与 segm 分别匹配，同输出 ID 不混用 | 模型 SHA 和标注、5000 图；`native_gt_ledger_validity=passed`。官网公布 AP parity 是**另一个独立 Gate**，未过不能自称刊载基线复现，但只要原生任务账本有效，可继续在明示 `native_config_scoped` 下做科研诊断 | [冻结 GT 基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) · [真实执行状态](../experiments/official_gt_failure_rebaseline_20261013/EXECUTION_STATUS.md)。原生账本通过，发表 AP 复现未过；主 Run `RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170`，详见[结果报告](../experiments/official_gt_failure_rebaseline_20261013/REPORT.md) |
+| **S1 已通过**：同最终检测系数可恢复性 | 在基线 Mask75 失败且同一最终 Box75 检测自身 MaskIoU<.75 的集合 T，只优化系数；P、框、类别、score、decoder和输出身份冻结 | 预注册 ≥200个GT、找到 Mask75 ≥20%；有限机会下界，不是可部署成绩 | [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)：`RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949`，122/256，全部收敛，控制/配置/回传审计通过 |
+| **S2 已结案：BCE及soft-IoU当前配置均拒绝** | soft-IoU从原B initial.pt、原2000图/逐轮顺序/3epoch/1500步，只替换GT loss；执行完整结束 | 原门槛：目标ΔIoU≥.005且95%下界>0、总体≥−.001、成功损伤上界≤1% | [soft-IoU结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)：评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0`，目标+.006799但CI下界−.001267、总体−.002618、损伤53/1024且上界6.4338%，三项失败；配置/回传/独立复算通过。旧[BCE结案](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)保留 |
+| **S3 本配置不启动**：全量效用验收 | 原计划是同一pilot checkpoint全5000图COCO AP和损伤评价 | 需先通过S2 | S2失败，未启动，不产生全量方法AP结论 |
+| **S4 本配置不启动**：扩量/独立确认 | 原计划是效用Gate通过后的20k/multi-seed及独立数据确认 | 需S2/S3通过并有新授权 | 前置门槛未过，未启动 |
 
-**当前唯一下一项实动作：S0 的本地数据/模型/预测路径预检与最小原生验证。** 任何 Gate 已执行与否必须依据`runs/<RUN_ID>/run.json`、实际产物和本地任务状态，**不能仅凭 GitHub 缺文件判定本机任务没跑**。S0 结束后按真 Run 更新本页当前阶段，避免两个代理同时开启 S1。
+**当前唯一步骤（尚未启动）：同一soft-IoU checkpoint、现有缓存上的同ROI→原图固定检测配对诊断，重点定位原成功实例损伤出现于proto网格、原图解码还是COCO匹配阶段；零训练。** [本次结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)与[复核收据](../experiments/mask_readout_soft_iou_pilot_20261014/RESULT_VERIFICATION.json)记录三项Gate失败、相对旧BCE的目标效果改善及其开发集范围。按[启动前协议](../experiments/mask_readout_soft_iou_pilot_20261014/PROTOCOL.md)关闭本配置；不因目标均值转正而追加训练或放行S3。后台执行与轻量结果回传已完成，禁止重复启动同一训练/评价。新诊断需先冻结具体配对、指标和判定对象，再按用户安排执行。
+
+2026-10-14 路由复核先依据 [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)及 [S2 结案报告](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)纠正残留的“S1 正在运行”旧句，随后按用户授权完成上述独立零训练诊断。S0 REPORT/DECISION 中“继续取得官方发布回执”的下一步保留为当时结案记录，当前队列以本页为准。任何 Gate 已执行与否必须依据 `runs/<RUN_ID>/run.json`、实际产物和任务状态，不能仅凭 GitHub 缺文件判定本机没跑。
 
 ## 2. 文件角色和权威来源（找不到时不要自行创造新「总计划」）
 
@@ -34,7 +36,7 @@
 | **当前依赖实验** | [GT 失败重基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) | S0 的 G0–G5，含官方发表 AP parity 与原生输出 GT 账本合法性双状态 |
 | 研究线边界 | [neighbor_sensitive_p3 RESEARCH_RULES](../paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md) | 版本/权重/作用对象、已有阴性证据与预算；不能把旧论文任务误激活 |
 | 独立旧研究线 | [mask_boundary_calibration README](../paper/manuscripts/mask_boundary_calibration/README.md) | RCMC 及原稿/旧4500图自有协议，**不列入本次方法训练队列** |
-| 官方源码/基线事实 | [8.4.100 O2O/COCO 基线核验](audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md) | 权重 SHA相同、官方 Box/Mask AP 52.5/44.1、本地旧自定义 51.980/43.518、有待原生 parity；这不是研究方法 |
+| 官方源码/基线事实 | [8.4.100 O2O/COCO 基线核验](audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md) | 权重 SHA相同、官方 Box/Mask AP 52.5/44.1、本地旧自定义 51.980/43.518、本次原生 52.351/44.014 仍未过发表 parity；这不是研究方法 |
 
 研究线身份元数据仍由 [research_lines.json](research_lines.json) 描述；此页记录**本轮用户明确的当前研究任务**，不强行设置该 JSON 的全项目默认研究线，也不改写其他论文的完成状态。
 
@@ -66,7 +68,7 @@
 4. **同名冲突先查版本和对象**：核实是否同 `checkpoint/image_ids/branch/input_hw/decoder/prediction_identity`；否就保留两份结果，不平均、不拼接。
 5. **仅文档整理，不碰大文件和远端任务**：不改 `project/structure.json`、工作台索引数据库、旧 Run、COCO、预训练权重、原先冻结的 `PROTOCOL`；不会因更新本页自动连接机器或触发训练。
 
-**GitHub 可核验的状态：** 当前已有两份规划文档和 Study 登记；尚无新基线 Run/输出 GT 账本/G1 oracle/后训练 checkpoint 在本次仓库规划任务中被执行、核验。实际本机/服务器是否已有新的 Run，需由本地 Codex 读取其真实状态，不能从镜像缺失断定没有。
+**交接时的 GitHub 规划状态是历史快照。** 本次已核实笔记本 smoke、工程、恢复、全量基线与历史核对 Run；原生 GT 账本有效，发表 AP 未复现，轻量证据已按原 Run ID 回传，具体见执行状态。GitHub 缺少大文件不代表执行端没有产物。
 
 
 ## 6. 本次治理审计与后续轻量自检
@@ -90,4 +92,4 @@
 
 [工具说明](../shared/evaluation/POSTTRAIN_TOOLS.md) 已提供离线 COCO 账本、目标冻结/机会统计/输出不变量检查、有限系数求解、固定版本 P/c0/F 原生导出和 decoder 重放组件及合成测试。[方法假说与预设配置](../experiments/mask_readout_mechanism_v2_20261012/MECHANISM_AND_DEFAULTS.md) 将主假说收敛到预测框内 P/z0 的显式空间条件读出，对照改为 P/z0 联合空间置换，保留数值、通道与同结构预算；GT/基线保持 loss 分别归一化。[损伤验收](../shared/evaluation/DAMAGE_ACCEPTANCE.md) 固定有限成功 GT 总体、checkpoint 冻结后无放回抽样及精确单侧95%上界，S3 全量报告精确比例。
 
-**当前科研阶段仍为 S0**：本次只执行标准库工程测试，未运行真实 COCO、torch solver、原生模型特征导出或训练。旧 solver 的 cv2 GT 栅格化/框内交并集不用于新 S1；真实 native decoder 桥接是进入 S1 的工程依赖。原生 GT 账本有效性与科学 Gate 不能由测试退出码或文件存在自动赋值。
+工程证据链：原24项基础工程测试、S1真实smoke/正式Run、S2原生缓存smoke/全2000图、真实adapter smoke、正式B/C训练和1299图配对评价均已完成。S2新增4项训练行为测试与2项评价测试通过；逐Run配置核验、独立checkpoint/日志审计及回传后bootstrap复算通过。此前工程失败Run保留。工程有效与科研失败分别记录，结论见上表和S2报告；不追加epoch或自动扩量挽救本配置。

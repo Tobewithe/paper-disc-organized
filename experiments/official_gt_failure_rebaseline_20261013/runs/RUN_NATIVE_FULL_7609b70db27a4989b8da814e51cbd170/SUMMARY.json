@@ -1,0 +1,66 @@
+{
+  "environment": {
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "numpy": "2.4.3",
+    "pycocotools": "2.0.11",
+    "script_sha256": "3d40b81714472bd8aa10ec49f3be109007f475da33e9fda3b51ea7ad4d5c462f"
+  },
+  "scope": "full",
+  "inputs_sha256": {
+    "annotations": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+    "predictions": "a8c3e7d0af9db4684653c9b7b412f734d6105dc1e1c98a20c0782cf8d2fd3151",
+    "image_ids": "cf6d5a1e5a3a926f54f486e915a824ff08f466b89df2be284263f690fbfd642c",
+    "contract": "8dd10307f8c9a60120d555a6a8e416d1ce6a0c072226cdf4e5dc1d7b9e00e65c"
+  },
+  "metrics_unit": "AP_points",
+  "metrics": {
+    "bbox": {
+      "AP": 52.35143015406392,
+      "AP50": 69.55404478135635,
+      "AP75": 57.456291779628344,
+      "APS": 34.376724509760535,
+      "APM": 57.37776372089763,
+      "APL": 67.93200547622992,
+      "AR1": 39.02674051145274,
+      "AR10": 65.75435446599464,
+      "AR100": 71.93240307904011,
+      "ARS": 55.00551329472469,
+      "ARM": 76.91158267310746,
+      "ARL": 85.8933108918012
+    },
+    "segm": {
+      "AP": 44.01417484774351,
+      "AP50": 66.78767954156443,
+      "AP75": 47.638491028026685,
+      "APS": 25.577321541110283,
+      "APM": 48.87360081179613,
+      "APL": 60.16085015079924,
+      "AR1": 34.233682074586675,
+      "AR10": 55.724757218222024,
+      "AR100": 60.15110151202892,
+      "ARS": 41.27376002072476,
+      "ARM": 65.79043285741287,
+      "ARL": 76.37693675387155
+    }
+  },
+  "images": 5000,
+  "ordinary_gt": 36335,
+  "mask75_success": 22957,
+  "offline_identity_and_ledger_checks": "passed",
+  "coco_backend_parity": "passed",
+  "published_baseline_parity": "failed",
+  "native_gt_ledger_validity": "passed",
+  "limits": [
+    "This utility checks files, not whether YOLO really executed with the declared contract.",
+    "Native run logs, source/geometry receipts and required smoke tests remain separate evidence."
+  ],
+  "native_smoke_validity": "inherited_passed",
+  "run_id": "RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170",
+  "native_trace_and_zero_delta_verified": true,
+  "source_evidence": {
+    "trace": "trace/TRACE_MANIFEST.json",
+    "replay": "ZERO_DELTA.json",
+    "native_metrics": "trace/native_eval_summary.json",
+    "offline": "ledger/SUMMARY.json"
+  }
+}

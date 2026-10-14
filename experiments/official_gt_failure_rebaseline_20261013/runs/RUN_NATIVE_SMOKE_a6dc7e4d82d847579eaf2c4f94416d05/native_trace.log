@@ -1,0 +1,65 @@
+Ultralytics 8.4.100  Python-3.12.3 torch-2.5.1 CUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU, 8188MiB)
+YOLO26m-seg summary (fused): 149 layers, 23,569,148 parameters, 0 gradients, 121.5 GFLOPs
+[34m[1mval: [0mFast image access  (ping: 0.10.0 ms, read: 768.9231.9 MB/s, size: 208.3 KB)
+[K[34m[1mval: [0mScanning D:\coco_wire\baseline_native_20261013\assets\datasets\coco_native_s0_20261013\labels\val2017... 15 images, 1 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 16/16 640.3it/s 0.0s
+[34m[1mval: [0mNew cache created: D:\coco_wire\baseline_native_20261013\assets\datasets\coco_native_s0_20261013\labels\val2017.cache
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95)     Mask(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 1/1 4.2s/it 4.2s
+                   all         16        166      0.592      0.628      0.662       0.54      0.601      0.639      0.665      0.435
+Speed: 0.6ms preprocess, 25.1ms inference, 0.0ms loss, 33.0ms postprocess per image
+Saving D:\coco_wire\baseline_native_20261013\experiments\official_gt_failure_rebaseline_20261013\runs\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\trace\native\predictions.json...
+
+Evaluating faster-coco-eval mAP using D:\coco_wire\baseline_native_20261013\experiments\official_gt_failure_rebaseline_20261013\runs\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\trace\native\predictions.json and D:\coco_wire\baseline_native_20261013\assets\datasets\coco_native_s0_20261013\annotations\instances_val2017.json...
+Evaluate annotation type *bbox*
+COCOeval_opt.evaluate() finished...
+DONE (t=0.02s).
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.555
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.686
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.598
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.444
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.664
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.783
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.383
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.597
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.660
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.594
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.703
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.807
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.830
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.706
+Evaluate annotation type *segm*
+COCOeval_opt.evaluate() finished...
+DONE (t=0.06s).
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.463
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.676
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.502
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.362
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.531
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.752
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.348
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.504
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.553
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.490
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.588
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.785
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.833
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.611
+Results saved to [1mD:\coco_wire\baseline_native_20261013\experiments\official_gt_failure_rebaseline_20261013\runs\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\trace\native[0m
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\shared\evaluation\native_output_bridge.py", line 537, in <module>
+    main()
+  File "D:\coco_wire\baseline_native_20261013\shared\evaluation\native_output_bridge.py", line 531, in main
+    trace(a)
+  File "D:\coco_wire\baseline_native_20261013\shared\evaluation\native_output_bridge.py", line 450, in trace
+    model.val(validator=validator, **args)
+  File "D:\coco_wire\baseline_native_20261013\_site\ultralytics\engine\model.py", line 620, in val
+    validator(model=self.model)
+  File "D:\coco_wire\baseline_native_20261013\shared\evaluation\native_output_bridge.py", line 184, in __call__
+    require(set(self.native_coco_receipts) == {"bbox", "segm"}, "native COCO backend did not complete")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TraceValidator' object has no attribute 'native_coco_receipts'

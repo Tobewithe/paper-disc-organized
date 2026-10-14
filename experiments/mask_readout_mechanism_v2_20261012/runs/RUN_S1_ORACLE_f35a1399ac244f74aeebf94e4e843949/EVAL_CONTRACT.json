@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949",
+  "stage_id": "S1",
+  "baseline_run_id": "RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170",
+  "candidate_policy": "fixed_output_detection",
+  "scope": "native_config_scoped",
+  "panel_sha256": "170676d3017e4be7cd213ff1094ca28065727807c915b7602ecdaec48238cf31",
+  "input_manifest_sha256": "5e029b412da15a25b6696a3384167c73dd9a0e22d06694a4d48aaffc22c341d6",
+  "oracle_config_sha256": "0feaa9e2b2f706ec8146d519f25504a53f68e904d540142db6276a4dbfa137ce",
+  "selected_T": 256,
+  "wall_budget_seconds": 3600,
+  "max_output_bytes": 1073741824,
+  "main_metric": "same_detection_mask_iou_ge_0.75_fraction",
+  "unit": "fraction_0_to_1",
+  "min_formal_samples": 200,
+  "opportunity_threshold": 0.2,
+  "stop": "numerical_error_blocks; insufficient_found_with_unconverged_blocks; valid_below_threshold_stops_c_only"
+}

@@ -9,12 +9,12 @@
 | [build_native_ledger.py](../../experiments/official_gt_failure_rebaseline_20261013/scripts/build_native_ledger.py) | 原样预测 JSON、bbox/segm 独立 COCOeval、输出 ID、GT 账本、预算内外存在性、原生后端摘要核对 | numpy/pycocotools 联调、原生运行回执/日志、完整5000图和规定 smoke |
 | [posttrain_audit.py](posttrain_audit.py) | 固定目标 T、确定性抽样、原生输出不变量、oracle 身份/分母/机会统计、失败阻断 | 真实账本和原生 decoder 已验证的逐实例 oracle 结果 |
 | [finite_coefficient_solver.py](../../experiments/mask_readout_mechanism_v2_20261012/scripts/finite_coefficient_solver.py) | 固定 P 的有限系数优化、已知非零最优点控制 | torch 正控制、缓存与真实输出桥接、完整原图评分 |
-| [native_output_bridge.py](native_output_bridge.py) | 真实 Top-K 索引观察、P/c0/F 缓存、真实层/几何/hash、原生两阶段 decoder、zero-delta/替换系数全输出 RLE 重放 | 固定版本与真实权重/数据的最多16图 smoke、全量 trace 及独立重放；当前未执行 |
+| [native_output_bridge.py](native_output_bridge.py) | 真实 Top-K 索引观察、P/c0/F 缓存、真实层/几何/hash、原生两阶段 decoder、zero-delta/替换系数全输出 RLE 重放 | 固定版本真实权重的16图 smoke、5000图 trace 与精确独立重放均已通过；见 S0 REPORT |
 | [adapter_primitives.py](../../experiments/mask_readout_mechanism_v2_20261012/scripts/adapter_primitives.py) | 无 GT 的预测框采样、P/z0 联合空间置换、监督与保持项独立归一化 | torch 梯度/数值测试、训练 runner 接入 |
 | [damage_acceptance.py](damage_acceptance.py) | 无放回 GT 抽样、精确超几何单侧上界、预测/样本身份和分母核验 | 真 checkpoint 冻结及抽样证据、完整方法 COCO 账本 |
 | [合成测试](tests/test_posttrain_audit.py) | 身份、分母、缺行、非有限数、budget failure、COCO 合成集与 solver 控制 | 无依赖测试和可选依赖测试分开报告；skip 不是通过 |
 
-原生导出与重放代码已经提供；[新增测试](tests/test_posttrain_completion.py) 验证精确统计和空间/损失/decoder 组件。**完整 adapter 训练 runner 尚未实现，真实模型桥接尚未执行验收。** 因此当前不是已跑通的 S0→S1→S2 一键系统。先按下述步骤完成依赖检查和真实 bridge smoke。
+原生导出与重放代码已经提供；[新增测试](tests/test_posttrain_completion.py) 验证精确统计和空间/损失/decoder 组件。**完整 adapter 训练与评价 runner 已实现，真实模型桥接已通过笔记本 S0 验收。** [S0 报告](../../experiments/official_gt_failure_rebaseline_20261013/REPORT.md)分别记录原生账本通过和发表 AP 复现失败；[S1 报告](../../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)记录机会 Gate 通过，[S2 报告](../../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)及 [soft-IoU 复验报告](../../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)记录两版配置均未通过原 S2 科学门槛。工程完成与方法效果分别判定；当前路由仍以总控为准，下述通用 CLI 不授权重复全量前向或追加训练。
 
 ## 命令（从仓库根目录；输出路径必须不存在）
 

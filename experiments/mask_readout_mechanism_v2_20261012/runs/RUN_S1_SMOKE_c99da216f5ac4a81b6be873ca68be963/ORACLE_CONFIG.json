@@ -1,0 +1,33 @@
+{
+  "solver": {
+    "penalty": 0.003,
+    "max_iter": 120,
+    "max_eval": 150,
+    "history_size": 20,
+    "lr": 1.0,
+    "tolerance_grad": 1e-09,
+    "tolerance_change": 1e-12,
+    "gradient_acceptance": 1e-06,
+    "line_search_fn": "strong_wolfe",
+    "dtype": "float64",
+    "initialization": "zero_delta",
+    "loss_normalization": "mean_over_frozen_roi_pixels"
+  },
+  "solver_device": "cpu",
+  "solver_threads": 1,
+  "gt_source": "original_COCO_annToRLE",
+  "gt_projection": "recorded_per_axis_resize_nearest_then_integer_zero_pad_then_proto_nearest",
+  "loss_roi": "predicted_box_half_open_integer_support_on_proto_grid",
+  "decode": "S0_full_image_coefficient_matrix_float32_CUDA_native",
+  "score": "original_full_GT_RLE_IoU",
+  "runtime_policy": {
+    "matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8"
+  }
+}

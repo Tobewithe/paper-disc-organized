@@ -1,0 +1,64 @@
+{
+  "run_id": "RUN_ENGINEERING_73519cae97794bd89d4a29212e95ec8f",
+  "study_id": "STUDY_a249bbef3de14ff7bf79284460f72d38",
+  "stage_id": "S0_engineering",
+  "execution_status": "completed",
+  "started_at": "2026-10-13T11:04:55.695378+00:00",
+  "executor": {
+    "environment": "local_windows",
+    "interpreter": "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe"
+  },
+  "commands": [
+    {
+      "command": [
+        "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+        "-B",
+        "shared/evaluation/tests/test_posttrain_audit.py",
+        "--require-integration",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "check_0.log"
+    },
+    {
+      "command": [
+        "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+        "-B",
+        "shared/evaluation/tests/test_posttrain_completion.py",
+        "--require-integration",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "check_1.log"
+    },
+    {
+      "command": [
+        "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+        "-B",
+        "shared/evaluation/tests/test_native_baseline_receipt.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "check_2.log"
+    },
+    {
+      "command": [
+        "C:\\Dpan\\envsfiles\\CondaData\\envs\\pytorch\\python.exe",
+        "-B",
+        "project/check_active_plan.py"
+      ],
+      "exit_code": 0,
+      "log": "check_3.log"
+    }
+  ],
+  "exit_code": 0,
+  "ended_at": "2026-10-13T11:05:02.907783+00:00",
+  "scientific_status": "not_applicable_engineering_only",
+  "code_commit": "b18802d208ccc235c4f994b68c3a40a98a440f1c",
+  "protocol_path": "experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md",
+  "protocol_sha256": "6cfcc9ce8faacab275c45162c0afdd39169557449688e0fac658e826ef5779cd",
+  "tests_passed": 24,
+  "skips": 0,
+  "artifact_status": "complete",
+  "transfer_status": "local_only"
+}

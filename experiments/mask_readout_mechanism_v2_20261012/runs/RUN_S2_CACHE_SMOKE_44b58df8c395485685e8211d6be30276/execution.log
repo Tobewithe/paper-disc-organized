@@ -1,0 +1,53 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S2_CACHE_SMOKE_44b58df8c395485685e8211d6be30276
+Ultralytics 8.4.100  Python-3.12.3 torch-2.5.1 CUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU, 8188MiB)
+YOLO26m-seg summary (fused): 149 layers, 23,569,148 parameters, 0 gradients, 121.5 GFLOPs
+[34m[1mval: [0mFast image access  (ping: 0.10.0 ms, read: 620.9174.7 MB/s, size: 173.8 KB)
+[K[34m[1mval: [0mScanning D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S2_CACHE_SMOKE_44b58df8c395485685e8211d6be30276\dataset\labels\train2017... 8 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 8/8 1.1Kit/s 0.0s
+[34m[1mval: [0mNew cache created: D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S2_CACHE_SMOKE_44b58df8c395485685e8211d6be30276\dataset\labels\train2017.cache
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95)     Mask(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 1/1 1.8s/it 1.8s
+                   all          8         29      0.765      0.772      0.896      0.776      0.765      0.772      0.882       0.69
+Speed: 0.5ms preprocess, 26.5ms inference, 0.0ms loss, 25.8ms postprocess per image
+Saving D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S2_CACHE_SMOKE_44b58df8c395485685e8211d6be30276\trace\native\predictions.json...
+
+Evaluating faster-coco-eval mAP using D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S2_CACHE_SMOKE_44b58df8c395485685e8211d6be30276\trace\native\predictions.json and D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S2_CACHE_SMOKE_44b58df8c395485685e8211d6be30276\dataset\annotations\instances_val2017.json...
+Evaluate annotation type *bbox*
+COCOeval_opt.evaluate() finished...
+DONE (t=0.01s).
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.783
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.901
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.825
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.646
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.755
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.869
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.593
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.855
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.911
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.850
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.857
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.933
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 1.000
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 1.000
+Evaluate annotation type *segm*
+COCOeval_opt.evaluate() finished...
+DONE (t=0.02s).
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.699
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.800
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.488
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.646
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.771
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.547
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.742
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.788
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.675
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.736
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.798
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 1.000
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.894
+Results saved to [1mD:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\runs\RUN_S2_CACHE_SMOKE_44b58df8c395485685e8211d6be30276\trace\native[0m

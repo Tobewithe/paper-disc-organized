@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "independent_recomputation": true,
+  "images": 2000,
+  "all_zero_delta_outputs": 218209,
+  "ordinary_GT": 15118,
+  "target_GT": 2669,
+  "fixed_bbox75_pairs": 12097,
+  "target_and_overall": {
+    "target": {
+      "mean": -0.0063153598299445475,
+      "ci95": [
+        -0.01167928375816582,
+        -0.0010569279164109188
+      ],
+      "images": 1040
+    },
+    "all_bbox75": {
+      "mean": -0.004622207742043587,
+      "ci95": [
+        -0.005842733183241417,
+        -0.0033988852450312313
+      ],
+      "images": 1978
+    }
+  },
+  "damage": {
+    "k": 591,
+    "N": 9748,
+    "fraction": 0.06062782109150595
+  },
+  "fixed_checkpoint_losses": {
+    "zero": {
+      "total_loss": 0.35087193712498993,
+      "gt_loss": 0.32068555014114825,
+      "preservation_loss": 0.3018638695720583
+    },
+    "B": {
+      "total_loss": 0.29425775082176553,
+      "gt_loss": 0.26094682716578244,
+      "preservation_loss": 0.33310923133045434
+    }
+  },
+  "training_pairs": 14268,
+  "BCE_IoU_directions": {
+    "loss_down_iou_up": 5940,
+    "loss_down_iou_down": 3950,
+    "loss_up_iou_down": 3234,
+    "loss_up_iou_up": 1004,
+    "loss_down_iou_tie": 68,
+    "loss_up_iou_tie": 72
+  },
+  "new_training_steps": 0,
+  "configuration_audit_sha256": "3688477bc9369df97ececbf61af89197163328916567ad3b50699545661520b7",
+  "summary_sha256": "0cdd4db4482bd427ff50d70f2c71ac9df051b1367115f238845acbb3647009ee",
+  "audit_script_sha256": "66dd00258bc5506747a3382c4b00095610382c406a066cfb2b03d6cdff702d3d",
+  "claim_limit": "Recomputes saved tables and verifies identities; no independent re-inference or new experimental result."
+}

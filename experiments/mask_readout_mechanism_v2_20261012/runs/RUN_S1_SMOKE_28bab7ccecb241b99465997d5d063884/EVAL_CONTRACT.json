@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "RUN_S1_SMOKE_28bab7ccecb241b99465997d5d063884",
+  "stage_id": "S1_ENGINEERING",
+  "baseline_run_id": "RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170",
+  "candidate_policy": "fixed_output_detection",
+  "scope": "native_config_scoped",
+  "panel_sha256": "c2302dde709d1c09563614f8486112bf0d43c63e6bdd26a0dab5a2387f553dd0",
+  "input_manifest_sha256": "d367c478c691b4b23e6bac96b7a0808d7462a4f1a7e565760a2dc163e6e1300c",
+  "oracle_config_sha256": "0feaa9e2b2f706ec8146d519f25504a53f68e904d540142db6276a4dbfa137ce",
+  "selected_T": 4,
+  "wall_budget_seconds": 600,
+  "max_output_bytes": 1073741824,
+  "main_metric": "same_detection_mask_iou_ge_0.75_fraction",
+  "unit": "fraction_0_to_1",
+  "min_formal_samples": 200,
+  "opportunity_threshold": 0.2,
+  "stop": "numerical_error_blocks; insufficient_found_with_unconverged_blocks; valid_below_threshold_stops_c_only"
+}

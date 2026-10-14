@@ -1,0 +1,18 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_readout_bce_decomposition_20261014\runs\RUN_BCE_DECOMP_FULL_1ce5436c83234cfaafa8f68f7c7465fa
+loading annotations into memory...
+Done (t=0.32s)
+creating index...
+index created!
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_bce_decomposition_20261014\scripts\run_bce_decomposition.py", line 243, in main
+    records, measurement = measure(run, source, COCO(str(prior.GT)), read_jsonl(PROTO_RUN/'PAIR_PROTO_AUDIT.jsonl'),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_bce_decomposition_20261014\scripts\run_bce_decomposition.py", line 155, in measure
+    error = close(decomposition['totals']['delta_loss'], b-a, 'BCE decomposition not closed: '+str(key))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_bce_decomposition_20261014\scripts\run_bce_decomposition.py", line 76, in close
+    require(error <= 1e-7, message)
+  File "D:\coco_wire\baseline_native_20261013\shared\evaluation\posttrain_audit.py", line 37, in require
+    raise ValueError(message)
+ValueError: BCE decomposition not closed: (354533, 252163, 'b0ebb84d5cd5b1e4418948b7ad03d35b33f065668cc0f19b7acaa21c619bd2f6:1209')
+

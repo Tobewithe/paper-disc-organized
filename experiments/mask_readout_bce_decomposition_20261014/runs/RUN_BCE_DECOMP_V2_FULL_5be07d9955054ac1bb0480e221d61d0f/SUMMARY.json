@@ -1,0 +1,138 @@
+{
+  "run_id": "RUN_BCE_DECOMP_V2_FULL_5be07d9955054ac1bb0480e221d61d0f",
+  "scope": "full",
+  "target_pairs": 2159,
+  "target_images": 1044,
+  "stable_credit_majority_pairs": 2051,
+  "stable_credit_majority_fraction": 0.9499768411301528,
+  "equal_pair_mean_stable_credit_share": 0.8586757078168421,
+  "ratio_of_summed_pair_normalized_stable_credit": 0.8207722733994469,
+  "equal_pair_mean_contributions": {
+    "totals": {
+      "zero_loss": 0.48742460711381075,
+      "B_loss": 0.394908729643697,
+      "delta_loss": -0.09251587747011376,
+      "decrease_credit": 0.16462625873399112,
+      "increase_debit": 0.07211038126387737
+    },
+    "foreground": {
+      "zero_loss": 0.1692722696459058,
+      "B_loss": 0.202583680758619,
+      "delta_loss": 0.033311411112713206,
+      "decrease_credit": 0.028094806978109472,
+      "increase_debit": 0.06140621809082269
+    },
+    "background": {
+      "zero_loss": 0.31815233746790494,
+      "B_loss": 0.192325048885078,
+      "delta_loss": -0.12582728858282696,
+      "decrease_credit": 0.13653145175588166,
+      "increase_debit": 0.010704163173054688
+    }
+  },
+  "groups": {
+    "TN_to_TN": {
+      "pixels": 850769,
+      "zero_loss": 0.03304179038049524,
+      "B_loss": 0.03257982513297852,
+      "delta_loss": -0.00046196524751672267,
+      "decrease_credit": 0.007909362990546284,
+      "increase_debit": 0.007447397743029562
+    },
+    "TN_to_FP": {
+      "pixels": 10462,
+      "zero_loss": 0.0016624318856623362,
+      "B_loss": 0.003727599000285082,
+      "delta_loss": 0.0020651671146227455,
+      "decrease_credit": 0.0,
+      "increase_debit": 0.0020651671146227455
+    },
+    "FP_to_TN": {
+      "pixels": 19319,
+      "zero_loss": 0.04412940760600417,
+      "B_loss": 0.015970081334608685,
+      "delta_loss": -0.028159326271395484,
+      "decrease_credit": 0.028159326271395484,
+      "increase_debit": 0.0
+    },
+    "FP_to_FP": {
+      "pixels": 123022,
+      "zero_loss": 0.23931870759574322,
+      "B_loss": 0.1400475434172057,
+      "delta_loss": -0.0992711641785375,
+      "decrease_credit": 0.10046276249393989,
+      "increase_debit": 0.0011915983154023799
+    },
+    "FN_to_FN": {
+      "pixels": 145555,
+      "zero_loss": 0.12213582791074298,
+      "B_loss": 0.10655589403846433,
+      "delta_loss": -0.015579933872278668,
+      "decrease_credit": 0.025082177087253438,
+      "increase_debit": 0.009502243214974768
+    },
+    "FN_to_TP": {
+      "pixels": 6295,
+      "zero_loss": 0.0024552891510868495,
+      "B_loss": 0.0011090253308346392,
+      "delta_loss": -0.0013462638202522102,
+      "decrease_credit": 0.0013462638202522102,
+      "increase_debit": 0.0
+    },
+    "TP_to_FN": {
+      "pixels": 26950,
+      "zero_loss": 0.017083979560768126,
+      "B_loss": 0.037896183290821187,
+      "delta_loss": 0.02081220373005306,
+      "decrease_credit": 0.0,
+      "increase_debit": 0.02081220373005306
+    },
+    "TP_to_TP": {
+      "pixels": 1090038,
+      "zero_loss": 0.027597173023307837,
+      "B_loss": 0.057022578098498866,
+      "delta_loss": 0.02942540507519103,
+      "decrease_credit": 0.0016663660706038284,
+      "increase_debit": 0.031091771145794856
+    }
+  },
+  "IoU_negative_term_dominance": {
+    "background": 161,
+    "foreground": 1998
+  },
+  "IoU_terms_mean": {
+    "foreground_TP_term": -0.06946932868945586,
+    "background_FP_term": 0.026432446186255096,
+    "delta_iou": -0.04303688250320077
+  },
+  "empty_union_boundary_pairs": 0,
+  "max_BCE_delta_closure_abs_error": 4.440892098500626e-16,
+  "unit": "fixed-pair diagnostic; all loss contributions normalized by original ROI pixels then pair mean",
+  "accounting_revision": 2,
+  "max_raw_FP32_FP64_delta_gap": 2.805143594630799e-07,
+  "max_FP64_partition_abs_error": 4.440892098500626e-16,
+  "mean_delta_FP32_reduction_roundoff": -1.169777187519996e-09,
+  "mean_original_FP32_delta_BCE": -0.09251587863989096,
+  "closure_definition": "FP64 pixel contributions plus separately measured original FP32 reduction roundoff",
+  "measurement": {
+    "all_supervised_pairs_verified": 14268,
+    "images": 2000,
+    "outputs": 218209,
+    "max_pair_BCE_abs_error": 0.0,
+    "max_image_loss_abs_error": 0.0,
+    "seconds": 134.76600000000326,
+    "empty_roi_instances": 456,
+    "images_without_GT_supervision": 14
+  },
+  "diagnostic_decision": {
+    "gate_id": "BCE_STABLE_CONFIDENCE_MAJORITY",
+    "strict_pair_credit_threshold": 0.5,
+    "strict_population_threshold": 0.5,
+    "hypothesis_supported": true,
+    "localization": "stable_binary_label_confidence_gains_dominate_BCE_decrease",
+    "next_action": "Preregister a new single-variable S2 pilot replacing only GT BCE with same-ROI soft-IoU supervision; keep preservation, initialization, 2k/3epoch budget and original efficacy/damage gates; do not train in this diagnostic",
+    "prior_S2_negative_decision_retained": true,
+    "scope": "closed arithmetic accounting on selected fixed fit pairs, not causal intervention"
+  },
+  "claim_scope": "fixed selected fit pairs loss/pixel accounting; current S2 remains rejected"
+}

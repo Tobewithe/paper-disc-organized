@@ -1,0 +1,60 @@
+{
+  "run_id": "RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05",
+  "study_id": "STUDY_a249bbef3de14ff7bf79284460f72d38",
+  "stage_id": "S0",
+  "host": "YANGLEI",
+  "pid": 12460,
+  "started_at": "2026-10-13T11:37:10.225675+00:00",
+  "scope": "smoke",
+  "executor": {
+    "environment": "laptop_windows",
+    "interpreter": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "host": "YANGLEI"
+  },
+  "execution_status": "failed",
+  "plan_status": "frozen",
+  "scientific_status": "unadjudicated",
+  "artifact_status": "partial",
+  "transfer_status": "local_only",
+  "commands": [
+    {
+      "phase": "native_trace",
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\shared\\evaluation\\native_output_bridge.py",
+        "trace",
+        "--weights",
+        "D:\\coco_wire\\baseline_native_20261013\\assets\\models\\coco_clean_20260911\\yolo26m-seg.pt",
+        "--annotations",
+        "D:\\coco_wire\\baseline_native_20261013\\assets\\datasets\\coco_native_s0_20261013\\annotations\\instances_val2017.json",
+        "--args",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\REQUESTED_ARGS.json",
+        "--image-ids",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\image_ids.json",
+        "--scope",
+        "smoke",
+        "--max-cache-bytes",
+        "53687091200",
+        "--profile",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\baseline_profile.json",
+        "--out",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\trace"
+      ],
+      "log": "native_trace.log",
+      "started_at": "2026-10-13T11:37:31.328482+00:00",
+      "exit_code": 1,
+      "ended_at": "2026-10-13T11:37:45.993552+00:00"
+    }
+  ],
+  "phase": "native_trace",
+  "exit_code": 1,
+  "parent_run_id": "RUN_ENGINEERING_LAPTOP_097d7564480b4788b0353d939896b100",
+  "code_commit": "b18802d208ccc235c4f994b68c3a40a98a440f1c",
+  "protocol_path": "D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\PROTOCOL.md",
+  "protocol_sha256": "6cfcc9ce8faacab275c45162c0afdd39169557449688e0fac658e826ef5779cd",
+  "dirty_patch_sha256": "1811e06a38524311c48de5dfd511844cc12ee3c7139b2978e38e6b78fd1eff8e",
+  "input_manifest_sha256": "055fae67fa4a9bdfa6eaab843add601ac401dabc65ad5bac358b431e33bacf83",
+  "error": "native_trace failed; inspect D:\\coco_wire\\baseline_native_20261013\\experiments\\official_gt_failure_rebaseline_20261013\\runs\\RUN_NATIVE_SMOKE_a6dc7e4d82d847579eaf2c4f94416d05\\native_trace.log",
+  "ended_at": "2026-10-13T11:37:46.001008+00:00"
+}

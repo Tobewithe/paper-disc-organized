@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "scope": "S2 B/C paired evaluation",
+  "checks": {
+    "checkpoint_and_architecture_identity": true,
+    "same_native_cached_geometry_P_c0_F": true,
+    "boxes_classes_scores_order_unchanged": true,
+    "bbox_COCO_matching_unchanged": true,
+    "GT_and_ignore_policy_unchanged": true,
+    "complete_dev_and_damage_image_coverage": true,
+    "bootstrap_and_damage_sampling_contract_unchanged": true,
+    "native_runtime_policy_unchanged": true,
+    "frozen_cache_checkpoint_GT_weight_hashes_unchanged": true
+  },
+  "contract_sha256": "5dd41662ee9489fad9c307cb40b040542401f399af9546b819d94dc89fbda33f",
+  "damage_panel_sha256": "d4e76a994c719acd2806fd5315b10ef19c431e185817196de7793ea631416c1c",
+  "intentional_changes": [
+    "B or C coefficient residual; segmentation RLE only"
+  ]
+}

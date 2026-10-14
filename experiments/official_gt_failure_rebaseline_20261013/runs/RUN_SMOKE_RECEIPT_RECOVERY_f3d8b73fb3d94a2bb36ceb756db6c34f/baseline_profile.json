@@ -1,0 +1,25 @@
+{
+  "profile_id": "yolo26m_seg_v84100_native_coco_fp32_v1",
+  "ultralytics_version": "8.4.100",
+  "model_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+  "annotations_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+  "packages": {"torch": "2.5.1", "torchvision": "0.20.1", "numpy": "2.4.3", "faster-coco-eval": "1.8.0", "pycocotools": "2.0.11", "opencv-python": "4.13.0.92", "Pillow": "11.1.0", "PyYAML": "6.0.2"},
+  "executor": {"host": "YANGLEI", "environment": "laptop_windows", "python": "3.12.3", "cuda_build": "12.4", "gpu": "RTX 4060 Laptop 8GB", "ultralytics_isolation": "private wheel overlay; existing 8.4.27 environment unchanged"},
+  "native_args": {
+    "imgsz": 640, "batch": 16, "rect": true, "device": "0", "quantize": null,
+    "workers": 0, "split": "val", "save_json": true, "end2end": true,
+    "conf": 0.001, "iou": 0.7, "max_det": 300, "agnostic_nms": false,
+    "single_cls": false, "classes": null, "augment": false, "compile": false,
+    "dnn": false, "mask_ratio": 4, "overlap_mask": true, "retina_masks": false,
+    "plots": false, "verbose": false, "save_txt": false,
+    "seed": 0, "deterministic": true
+  },
+  "runtime_policy": {
+    "matmul_precision": "highest", "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true, "cudnn_benchmark": false, "cudnn_deterministic": false,
+    "deterministic_algorithms": false, "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8"
+  },
+  "acceptance": {"published_bbox_ap": 52.5, "published_segm_ap": 44.1, "published_decimal_places": 1, "backend_max_abs_ap_points": 0.02, "zero_delta": "exact_RLE"},
+  "budget": {"smoke_images": 16, "full_images": 5000, "full_forward_runs": 1, "cache_bytes": 53687091200}
+}

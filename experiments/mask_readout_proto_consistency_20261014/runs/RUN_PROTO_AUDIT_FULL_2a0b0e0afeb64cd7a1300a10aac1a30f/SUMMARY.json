@@ -1,0 +1,57 @@
+{
+  "run_id": "RUN_PROTO_AUDIT_FULL_2a0b0e0afeb64cd7a1300a10aac1a30f",
+  "scope": "full",
+  "supervised_pairs": 14268,
+  "known_discrepant_pairs": 3950,
+  "discrepant_proto_directions": {
+    "down": 2159,
+    "tie": 284,
+    "up": 1507
+  },
+  "early_reversal_fraction": 0.5465822784810127,
+  "all_stage_direction_counts": {
+    "loss_down_iou_up_proto_down": 1127,
+    "loss_down_iou_up_proto_up": 4371,
+    "loss_down_iou_down_proto_up": 1507,
+    "loss_down_iou_down_proto_down": 2159,
+    "loss_up_iou_down_proto_down": 2509,
+    "loss_up_iou_up_proto_down": 409,
+    "loss_up_iou_down_proto_tie": 207,
+    "loss_up_iou_down_proto_up": 518,
+    "loss_up_iou_up_proto_tie": 187,
+    "loss_down_iou_down_proto_tie": 284,
+    "loss_down_iou_up_proto_tie": 442,
+    "loss_up_iou_up_proto_up": 408,
+    "loss_down_iou_tie_proto_tie": 46,
+    "loss_up_iou_tie_proto_tie": 61,
+    "loss_down_iou_tie_proto_up": 13,
+    "loss_down_iou_tie_proto_down": 9,
+    "loss_up_iou_tie_proto_down": 6,
+    "loss_up_iou_tie_proto_up": 5
+  },
+  "empty_union_counts": {
+    "zero_proto": 16,
+    "B_proto": 24
+  },
+  "empty_GT_in_ROI_pairs": 47,
+  "unit": "fixed supervised detection-GT pairs; IoU fraction_0_to_1",
+  "mean_delta_proto_iou": 0.0005691546555938403,
+  "measurement": {
+    "images": 2000,
+    "outputs": 218209,
+    "max_pair_BCE_abs_error": 0.0,
+    "max_image_loss_abs_error": 0.0,
+    "seconds": 126.42199999999139,
+    "empty_roi_instances": 456,
+    "images_without_GT_supervision": 14
+  },
+  "diagnostic_decision": {
+    "majority_threshold_strict": 0.5,
+    "majority_early_reversal": true,
+    "localization": "majority_already_reverses_on_same_proto_ROI",
+    "next_action": "Zero-training foreground/background BCE and TP/FP/FN decomposition on the fixed early-reversal pairs",
+    "prior_S2_negative_decision_retained": true,
+    "scope": "observed stage boundary on fixed fit population; not causal attribution to a decoder defect"
+  },
+  "claim_scope": "fixed fit population stage localization; current S2 remains rejected"
+}

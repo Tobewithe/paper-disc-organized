@@ -1,0 +1,57 @@
+{
+  "environment": {
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "numpy": "2.4.3",
+    "pycocotools": "2.0.11",
+    "script_sha256": "3d40b81714472bd8aa10ec49f3be109007f475da33e9fda3b51ea7ad4d5c462f"
+  },
+  "scope": "smoke",
+  "inputs_sha256": {
+    "annotations": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+    "predictions": "89f30f48db39c0a6c655a1cbe5c7a27cb911cd0afe7284578d4cd2a2fa2dabf4",
+    "image_ids": "a9d885d41cd402cac6361fdbc9c3318d2d2ec96e56069c100e4ab92a14fcf2e8",
+    "contract": "11df66447e8ede771edcc10822598f1c98f040fe6585fbb2ed714906280a764f"
+  },
+  "metrics_unit": "AP_points",
+  "metrics": {
+    "bbox": {
+      "AP": 55.47099242459662,
+      "AP50": 68.5707972253928,
+      "AP75": 59.75634178100634,
+      "APS": 44.366594083698224,
+      "APM": 66.41457981133057,
+      "APL": 78.25721364889341,
+      "AR1": 38.28405625702923,
+      "AR10": 59.717277122682525,
+      "AR100": 65.9756397323965,
+      "ARS": 59.37554112554112,
+      "ARM": 70.2719298245614,
+      "ARL": 80.74358974358975
+    },
+    "segm": {
+      "AP": 46.28774647875075,
+      "AP50": 67.64324320841325,
+      "AP75": 50.15062458354418,
+      "APS": 36.24691570147038,
+      "APM": 53.060311606427305,
+      "APL": 75.2309438523038,
+      "AR1": 34.84182058506383,
+      "AR10": 50.41409556274421,
+      "AR100": 55.31406889514998,
+      "ARS": 49.00974025974026,
+      "ARM": 58.75,
+      "ARL": 78.48717948717947
+    }
+  },
+  "images": 16,
+  "ordinary_gt": 166,
+  "mask75_success": 97,
+  "offline_identity_and_ledger_checks": "passed",
+  "coco_backend_parity": "passed",
+  "published_baseline_parity": "not_applicable_smoke",
+  "native_gt_ledger_validity": "unadjudicated_pending_native_run_and_smoke_review",
+  "limits": [
+    "This utility checks files, not whether YOLO really executed with the declared contract.",
+    "Native run logs, source/geometry receipts and required smoke tests remain separate evidence."
+  ]
+}

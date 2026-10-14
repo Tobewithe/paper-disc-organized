@@ -1,0 +1,99 @@
+{
+    "execution_status":  "completed",
+    "evaluation_run_id":  "RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0",
+    "scientific_decision":  {
+                                "status":  "failed",
+                                "scientific_status":  "S2_failed",
+                                "summary_sha256":  "b482453f9b7a7dbf45ecfc64eec407f12f0696334e58445901d20b5aee225891",
+                                "next_action":  "STOP this training configuration; next same-checkpoint same-ROI-to-original paired diagnostic; no new training"
+                            },
+    "gates":  {
+                  "target_effect":  false,
+                  "all_bbox75_guardrail":  false,
+                  "success_damage":  false
+              },
+    "B":  {
+              "target":  {
+                             "mean":  0.006798975667984141,
+                             "ci95":  [
+                                          -0.0012665611902902272,
+                                          0.016392694404626863
+                                      ],
+                             "images":  257,
+                             "resamples":  2000,
+                             "seed":  1729,
+                             "unit":  "IoU_fraction_0_to_1",
+                             "method":  "paired_image_macro_percentile_linear"
+                         },
+              "all_bbox75":  {
+                                 "mean":  -0.0026183614941798364,
+                                 "ci95":  [
+                                              -0.0040324649234679336,
+                                              -0.001138054371400989
+                                          ],
+                                 "images":  508,
+                                 "resamples":  2000,
+                                 "seed":  1729,
+                                 "unit":  "IoU_fraction_0_to_1",
+                                 "method":  "paired_image_macro_percentile_linear"
+                             },
+              "damage":  {
+                             "population_successes":  22957,
+                             "sample_size":  1024,
+                             "damaged":  53,
+                             "point_rate":  0.0517578125,
+                             "upper_damaged_count":  1477,
+                             "upper_rate":  0.0643376747832905,
+                             "confidence":  0.95,
+                             "unit":  "fraction",
+                             "method":  "hypergeometric_CDF_inversion_inclusive",
+                             "scope":  "frozen_finite_baseline_success_GT_population",
+                             "census":  false,
+                             "gate":  "damage_guardrail_failed",
+                             "evaluated_images":  886,
+                             "evaluated_GT":  10598,
+                             "counted_GT":  1024,
+                             "note":  "Count only sampled S; other GT in the same image are not additional sampled units."
+                         },
+              "export":  {
+                             "images":  1314,
+                             "outputs":  185621,
+                             "mean_delta_l2":  4.74035258020363,
+                             "export_seconds":  227.42199999999139
+                         },
+              "secondary_AP_on_union_dev_and_damage_images":  {
+                                                                  "bbox":  {
+                                                                               "AP":  51.1873455312041,
+                                                                               "AP50":  68.51316585030096,
+                                                                               "AP75":  56.58280064727494,
+                                                                               "APS":  37.66320576466228,
+                                                                               "APM":  56.83529053358078,
+                                                                               "APL":  72.74429375420237,
+                                                                               "AR1":  35.437653300836125,
+                                                                               "AR10":  63.814335126756625,
+                                                                               "AR100":  70.88331582173862,
+                                                                               "ARS":  56.43278539899445,
+                                                                               "ARM":  75.8253803272916,
+                                                                               "ARL":  88.25220900926163
+                                                                           },
+                                                                  "segm":  {
+                                                                               "AP":  41.96337242338677,
+                                                                               "AP50":  65.4416587454738,
+                                                                               "AP75":  45.675689890289455,
+                                                                               "APS":  26.715402307335278,
+                                                                               "APM":  48.23951647340514,
+                                                                               "APL":  63.7264604261304,
+                                                                               "AR1":  30.779322691942323,
+                                                                               "AR10":  53.309669287363846,
+                                                                               "AR100":  58.59456823898041,
+                                                                               "ARS":  42.217685782576034,
+                                                                               "ARM":  64.80008208353071,
+                                                                               "ARL":  78.15540673521312
+                                                                           }
+                                                              },
+              "prediction_sha256":  "3157da232b5bc7384b8f7f99927b74d40b6f870c6ebadd21ef853f4f1c237de8"
+          },
+    "next_stage_automatically_started":  false,
+    "evidence_retained_on_laptop":  true,
+    "finished_at":  "2026-10-14T02:29:11.8735047+08:00"
+}

@@ -3,20 +3,20 @@
   "title": "固定预训练权重的 Prototype→Coefficient 后训练实例修复",
   "kind": "method",
   "research_line": "neighbor_sensitive_p3",
-  "status": "draft_rescoped_not_executed",
-  "protocol_status": "draft_to_freeze",
-  "execution_status": "not_started",
-  "scientific_status": "not_evaluated",
+  "status": "completed_negative_current_configuration",
+  "protocol_status": "S1_S2_completed_frozen_Run_snapshots_retained",
+  "execution_status": "completed",
+  "scientific_status": "S1_opportunity_supported_S2_current_configuration_rejected",
   "source_commit": "e88e3f9c50e42a05020973357c995354d0c144cb",
   "protocol": "POSTTRAIN_RESCOPE_20261013.md",
   "gates": "POSTTRAIN_RESCOPE_20261013.md",
   "entrypoint": "LOCAL_AGENT_START_HERE.md",
   "parent_study": "representation_reachability_20261010",
   "preceding_gate": "official_gt_failure_rebaseline_20261013 valid output ledger",
-  "current_stage": "G0_NATIVE_OUTPUT_LEDGER_THEN_G1_FIXED_DETECTION_COEFFICIENT_ORACLE",
+  "current_stage": "S2_CLOSED_NO_AUTOMATIC_S3_OR_SCALEUP",
   "e0_result": null,
-  "execution_environment": null,
-  "formal_training_started": false,
+  "execution_environment": "laptop_windows_YANGLEI",
+  "formal_training_started": true,
   "planned_training_arms": [
     "A_frozen_native",
     "B_output_conditioned_delta_c",
@@ -38,12 +38,12 @@
     "No TAL E0 prerequisite; model pretrained weights, detection boxes, class scores, P and native c0 are all frozen",
     "G0/G1 only before training; G2 initial fit2000 is conditional on successful G1; 20k is conditional on both pilot G2 and same-checkpoint full evaluation G3",
     "Previous smoke was a module check, not a true end-to-end G0",
-    "No training, model modification, evaluation Run, or scientific success has been performed by this rescope"
+    "S1 passed; B/C each completed 1500 steps with configuration audits; primary B failed all S2 scientific gates"
   ],
   "legacy_draft_protocol": "PROTOCOL.md",
   "legacy_draft_gates": "GATES_SPEC.json",
-  "current_blocker": "Need native final-output GT ledger and same-detection coefficient finite oracle; no TAL E0 prerequisite",
-  "gate_spec_status": "narrative_protocol_and_execution_contract_draft_to_freeze",
+  "current_blocker": null,
+  "gate_spec_status": "S1_and_S2_execution_contracts_frozen_in_Run_snapshots",
   "conditional_scaleup_train_images": 20000,
   "protocol_companions": [
     "EXECUTION_CONTRACT.md",
@@ -54,13 +54,28 @@
     "G2_pilot_passed",
     "G3_same_pilot_checkpoint_full_eval_passed"
   ],
-  "tooling_status": "native_trace_replay_and_training_primitives_added_stdlib_verified_real_integration_pending",
+  "tooling_status": "S2_training_evaluation_and_configuration_audits_completed_valid_negative_result",
   "tooling_entrypoint": "../../shared/evaluation/POSTTRAIN_TOOLS.md",
   "mechanism_hypothesis": "explicit_predicted_box_prototype_spatial_conditioning_for_fixed_output_delta_c",
   "damage_acceptance_design": "finite_S_population_SRSWOR_GT_hypergeometric_one_sided_95_upper",
   "tooling_limitations": [
-    "No real native trace/replay or COCO/torch integration executed in this governance session",
-    "Complete adapter training runner remains to be integrated after the preceding Gate and runtime contract",
-    "Trace CLI supports new S0 smoke/full runs; arbitrary legacy geometry/ID import is not automatic"
-  ]
+    "Current fit2000 seed0 3-epoch adapter configuration rejected; no full 5000-image method AP run or scale-up",
+    "S1 finite opportunity does not establish deployable recovery or AP gain"
+  ],
+  "current_run_id": "RUN_S2_EVAL_a24a564568c943eab362784abfbe2c54",
+  "authorized_execution": {
+    "environment": "ssh 28358lan",
+    "scope": [
+      "S1_finite_oracle",
+      "S2_fit2000_B_C_if_S1_passes",
+      "S3_same_checkpoint_validation_if_S2_passes"
+    ],
+    "source": "User requested training in ACTIVE_PLAN on the laptop; no 20k scale-up yet"
+  },
+  "s1_execution_protocol": "S1_EXECUTION_20261013.md",
+  "s2_execution_protocol": "S2_EXECUTION_20261013.md",
+  "s1_result_report": "S1_REPORT_20261013.md",
+  "s2_result_report": "S2_REPORT_20261013.md",
+  "configuration_audits": "passed_for_S1_and_each_S2_execution; independent training checkpoint/log and returned-effect checks passed",
+  "next_action": "Close current configuration and retain evidence; no automatic S3 or scale-up"
 }
