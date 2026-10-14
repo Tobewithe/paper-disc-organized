@@ -1,8 +1,10 @@
-# 当前科研总控：固定权重 Prototype→Coefficient 后训练救援
+# 当前科研总控：原型—系数链路
 
-**更新：2026-10-14 20:44核验｜状态：S1机会Gate通过；旧BCE版与本次soft-IoU版S2配置均关闭。soft-IoU评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0` 已完成，原S2三项Gate均失败；训练/评价配置、回传SHA与本机独立复算全部通过。笔记本无在运行Python任务和Study锁。唯一下一步为同checkpoint、现有缓存的同ROI→原图配对诊断，尚未启动；不追加训练，不进入S3/S4。S0本地基线有效，官方发表AP复现未通过。**
+**更新：2026-10-15 面积门控结案｜状态：固定原生掩码面积≥96²的零训练混合输出在笔记本完成，原S2三项数值门槛均通过（开发筛查）。目标Δ+0.010024且区间下界+0.002822，总体Δ+0.000891，损伤2/1024、原公式名义上界0.6011%；配置与回传独立复算通过。唯一下一步为同checkpoint/阈值/配置的S3全5000图AP与全成功总体损伤验收，尚未启动。旧无门控BCE/soft-IoU失败保留；面板复用不具新独立95%覆盖保证。**
 
-本页是 **`neighbor_sensitive_p3` 这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+
+**研究线命名（2026-10-14，用户指定）：** 展示名称统一为“原型—系数链路”（Prototype→Coefficient）。`neighbor_sensitive_p3` 保留为历史技术标识和目录名，维持既有证据引用；邻域机制、P3 干预等具体方法是否采用，由证据与所属实验协议决定，名称不预设机制结论。本次更名不改变下列阶段、冻结配置或 Gate。
 
 ## 0. 唯一研究命题与路线裁决
 
@@ -19,10 +21,17 @@
 | **S0 已结案**：采用本地配置范围的原生基线 | 按固定 `v8.4.100` 读取实际 O2O 输出，确认 `end2end=True`、`agnostic_nms=False`、类别/图片/面积/decoder、官方 bbox 与 segm 分别匹配，同输出 ID 不混用 | 模型 SHA 和标注、5000 图；`native_gt_ledger_validity=passed`。官网公布 AP parity 是**另一个独立 Gate**，未过不能自称刊载基线复现，但只要原生任务账本有效，可继续在明示 `native_config_scoped` 下做科研诊断 | [冻结 GT 基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) · [真实执行状态](../experiments/official_gt_failure_rebaseline_20261013/EXECUTION_STATUS.md)。原生账本通过，发表 AP 复现未过；主 Run `RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170`，详见[结果报告](../experiments/official_gt_failure_rebaseline_20261013/REPORT.md) |
 | **S1 已通过**：同最终检测系数可恢复性 | 在基线 Mask75 失败且同一最终 Box75 检测自身 MaskIoU<.75 的集合 T，只优化系数；P、框、类别、score、decoder和输出身份冻结 | 预注册 ≥200个GT、找到 Mask75 ≥20%；有限机会下界，不是可部署成绩 | [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)：`RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949`，122/256，全部收敛，控制/配置/回传审计通过 |
 | **S2 已结案：BCE及soft-IoU当前配置均拒绝** | soft-IoU从原B initial.pt、原2000图/逐轮顺序/3epoch/1500步，只替换GT loss；执行完整结束 | 原门槛：目标ΔIoU≥.005且95%下界>0、总体≥−.001、成功损伤上界≤1% | [soft-IoU结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)：评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0`，目标+.006799但CI下界−.001267、总体−.002618、损伤53/1024且上界6.4338%，三项失败；配置/回传/独立复算通过。旧[BCE结案](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)保留 |
-| **S3 本配置不启动**：全量效用验收 | 原计划是同一pilot checkpoint全5000图COCO AP和损伤评价 | 需先通过S2 | S2失败，未启动，不产生全量方法AP结论 |
-| **S4 本配置不启动**：扩量/独立确认 | 原计划是效用Gate通过后的20k/multi-seed及独立数据确认 | 需S2/S3通过并有新授权 | 前置门槛未过，未启动 |
+| **S2 新固定面积策略：开发数值通过** | 原生原图掩码面积≥9216时才应用现有Δc，完整1314图/185621检测重新评价，新增训练0 | 原T655/dev2925/成功1024及三项数值门槛不变；已看过开发数据，不能作为独立确认 | [面积门控结案](../experiments/mask_readout_large_mask_gate_20261015/REPORT.md)，`RUN_LARGE_MASK_FULL_6a2709ae1cd24429b29a3c6d6f1600b8`；三项通过，配置/独立复算/回传通过 |
+| **S3 下一步待冻结执行**：全量效用验收 | 同checkpoint、同9216面积门控、同原生配置；全部5000图配对AP和22957原成功GT精确损伤 | 新策略S2开发筛查通过；按主协议G3冻结AP不确定性和资源合同，Mask AP≥+0.3点且区间下界>0、损伤≤1%、Box不变 | 尚未启动；本轮只授权S2零训练评价，不自动启动S3 |
+| **S4 尚不启动**：扩量/独立确认 | S3通过后才规划扩量或开发外确认 | 需S3通过并有新授权/冻结预算 | S3未执行；不追加训练，不把重复开发COCO当独立确认 |
 
-**当前唯一步骤（尚未启动）：同一soft-IoU checkpoint、现有缓存上的同ROI→原图固定检测配对诊断，重点定位原成功实例损伤出现于proto网格、原图解码还是COCO匹配阶段；零训练。** [本次结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)与[复核收据](../experiments/mask_readout_soft_iou_pilot_20261014/RESULT_VERIFICATION.json)记录三项Gate失败、相对旧BCE的目标效果改善及其开发集范围。按[启动前协议](../experiments/mask_readout_soft_iou_pilot_20261014/PROTOCOL.md)关闭本配置；不因目标均值转正而追加训练或放行S3。后台执行与轻量结果回传已完成，禁止重复启动同一训练/评价。新诊断需先冻结具体配对、指标和判定对象，再按用户安排执行。
+**当前唯一下一步（待用户安排）：同checkpoint、同9216阈值及冻结配置的S3全5000图AP与全成功总体损伤验收。** [固定面积协议](../experiments/mask_readout_large_mask_gate_20261015/PROTOCOL.md)、[结案报告](../experiments/mask_readout_large_mask_gate_20261015/REPORT.md)、[核验收据](../experiments/mask_readout_large_mask_gate_20261015/RESULT_VERIFICATION.json)确认原S2三项数值均通过：目标Δ+0.010024[+0.002822,+0.018451]，全部固定配对Δ+0.000891，损伤2/1024且名义上界0.6011%。15184/185621输出应用修正，其余保留原生；完整匹配修复T任务20/655，同固定检测达Mask75为18/655。不得把本次开发筛查写成全量AP已提升。
+
+上一[分层结案](../experiments/mask_readout_stratified_audit_20261015/REPORT.md)支持面积风险方向，并由此选定本策略；本次真实完整混合评价进一步支持推进。原成功面板已参与选择，故原样本和精确上界公式保留，但没有新的独立95%覆盖保证。旧soft-IoU无门控配置仍失败。S3需以同全5000原生输出配对，Mask AP≥+0.3点且配对区间下界>0、全成功总体损伤≤1%、Box不变；具体执行合同和预算尚未冻结，未启动S3/S4。
+
+路由变更理由：旧诊断53例损伤中15/19/19的阶段签名和三个固定方向AUC失败均保留；两个19并列时的事前选择顺序没有证明Lovász-hinge最优，也没有检验完整邻域网络。原报告中的具体换loss建议（未冻结/未运行）`superseded_by=experiments/mask_readout_stratified_audit_20261015/PROTOCOL.md`。本次以新探索协议补齐缺项，获得面积风险关系的正面依据；这不撤销旧简单信号判据的失败。soft-IoU旧配置三项Gate仍失败，[原结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)和[复核收据](../experiments/mask_readout_soft_iou_pilot_20261014/RESULT_VERIFICATION.json)保留。
+
+本次诊断正式Run为 `RUN_BENEFIT_AUDIT_FULL_44b006cece39486aa502ca64398166d4`，1314图、185621条输出，配置与独立复算通过，新增训练步0。V1中断Run `RUN_BENEFIT_AUDIT_FULL_1ab7051a0f39457090f9ba6fdde8a336` 因显存资源瓶颈保留为工程失败；[V2恢复协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL_V2.md)只改变逐图显存释放，全部2995条重叠配对完全一致，科学判据沿用[原诊断协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL.md)。禁止重复运行已完成诊断或原训练/评价。
 
 2026-10-14 路由复核先依据 [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)及 [S2 结案报告](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)纠正残留的“S1 正在运行”旧句，随后按用户授权完成上述独立零训练诊断。S0 REPORT/DECISION 中“继续取得官方发布回执”的下一步保留为当时结案记录，当前队列以本页为准。任何 Gate 已执行与否必须依据 `runs/<RUN_ID>/run.json`、实际产物和任务状态，不能仅凭 GitHub 缺文件判定本机没跑。
 
@@ -34,7 +43,7 @@
 | 全项目通用约束 | [规范索引](科研项目通用规范/README.md) | 文件身份、评价语义、最少指标、冻结/停止与算力；跨研究线生效 |
 | **当前方法主线** | [后训练主协议](../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 工作入口](../experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) | 定义 S1–S4 ；新方法科研参数/阈值必须在开 Run 前冻结，以该具体协议而非本页摘要为准 |
 | **当前依赖实验** | [GT 失败重基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) | S0 的 G0–G5，含官方发表 AP parity 与原生输出 GT 账本合法性双状态 |
-| 研究线边界 | [neighbor_sensitive_p3 RESEARCH_RULES](../paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md) | 版本/权重/作用对象、已有阴性证据与预算；不能把旧论文任务误激活 |
+| 研究线边界 | [原型—系数链路研究规则](../paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md) | 版本/权重/作用对象、已有阴性证据与预算；不能把旧论文任务误激活 |
 | 独立旧研究线 | [mask_boundary_calibration README](../paper/manuscripts/mask_boundary_calibration/README.md) | RCMC 及原稿/旧4500图自有协议，**不列入本次方法训练队列** |
 | 官方源码/基线事实 | [8.4.100 O2O/COCO 基线核验](audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md) | 权重 SHA相同、官方 Box/Mask AP 52.5/44.1、本地旧自定义 51.980/43.518、本次原生 52.351/44.014 仍未过发表 parity；这不是研究方法 |
 

@@ -17,7 +17,7 @@
 ## 唯一当前计划、优先级和历史关系
 
 1. **用户当次明确任务**；若要求改变科学命题，需要显式标注旧草案被新版本取代，已冻结的旧 Run 不改写。
-2. [当前执行总控](../ACTIVE_PLAN.md) 只管 `neighbor_sensitive_p3` 这次用户指定的执行**顺序与依赖状态**，其他研究线按其 `RESEARCH_RULES.md` 和用户当前任务运行。
+2. [当前执行总控](../ACTIVE_PLAN.md) 只管“原型—系数链路”（历史技术标识：`neighbor_sensitive_p3`）这次用户指定的执行**顺序与依赖状态**，其他研究线按其 `RESEARCH_RULES.md` 和用户当前任务运行。
 3. **所属 Study 冻结 protocol 的数值参数/Gate/停止条件在该 Run 内优先**；通用规范仍约束真实身份、防泄漏、审计可追溯，不允许通过新总控偷偷修改旧 Run。新命题用新版本协议，不回填先验门槛。
 4. `project/research_notes/`、`project/hypotheses/`、旧 `DEVELOPMENT_PLAN` 和已过时的 `PROTOCOL`、`GATES_SPEC` 都是历史科研资料。不能因标题有“最新/当前”而自动抢占第 2、3 条。
 

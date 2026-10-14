@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "checkpoint_sha256": "15e6a0b3d6c9e74c05548bea42f654bde8d30364fe9aca030d59fab6da7751ce",
+  "contract_sha256": "5394f3cca8221f41a924523ca8077e833a5f12bff0035c68d20c157b028bbbcd",
+  "damage_panel_sha256": "d530b4cf21aa74a303a301ba60387486a959e293397cc67f741441369529c277",
+  "peak_rss_bytes": 927297536,
+  "checks": {
+    "all_input_and_source_hashes_before_after": true,
+    "pinned_evaluator_versions_paths_and_hashes": true,
+    "gate_uses_native_original_mask_only": true,
+    "all_nonmask_fields_and_order_preserved": true,
+    "full_same_image_prediction_and_GT_coverage": true,
+    "same_bbox_match_identity": true,
+    "independent_segm_COCO_rematching": true,
+    "selected_source_fixed_pair_IoU_equal": true,
+    "original_denominators_and_gate_numbers": true,
+    "existing_panel_bytes_unchanged": true,
+    "panel_reuse_limitation_explicit": true,
+    "no_model_forward_decoder_or_training": true
+  },
+  "intentional_changes": [
+    "apply existing residual only when original native mask area >=9216"
+  ]
+}

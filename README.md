@@ -6,10 +6,10 @@
 
 **[project/ACTIVE_PLAN.md — 当前研究总控、Gate 队列和历史计划去重](project/ACTIVE_PLAN.md)**
 
-当前用户指定的研究线是 `neighbor_sensitive_p3`：**固定训练完成的 YOLO26m-seg，研究 Prototype→Coefficient 链路的后训练实例修复**。已有 TAL/原始 raw/COCO 口径审计用于证据校正，不是后训练主线的前置训练任务。**仅 S0（原生输出 GT 账本）处于待执行入口**；后续同最终预测系数 oracle/小适配器/全量 AP 均需各自 Gate，不能自动启动。
+当前用户指定的研究线是 **“原型—系数链路”**（历史技术标识与目录名：`neighbor_sensitive_p3`）：**固定训练完成的 YOLO26m-seg，研究 Prototype→Coefficient 链路的后训练实例修复**。已有 TAL/原始 raw/COCO 口径审计用于证据校正，不是后训练主线的前置训练任务。各阶段的实际状态、Gate 裁决与唯一下一步以总控及其引用的真实 Run 为准。
 
-- [S0：官方原生 COCO GT 失败账本](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) — `planned_not_executed`；模型和源码已核实，官网 AP parity 未执行；正式 GT 账本待本地 Run。
-- [S1–S4：冻结权重 Prototype→Coefficient 后训练计划](experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 当前工作入口](experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) — 新 Adapter 训练未启动；先同最终输出 finite oracle。
+- [S0：官方原生 COCO GT 失败账本协议](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) — 官方发表 AP 复现与原生 GT 账本有效性分别判定。
+- [S1–S4：冻结权重 Prototype→Coefficient 后训练计划](experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 工作入口](experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) — 具体执行顺序与已结案配置以总控为准，协议不自动授权续跑。
 - [AGENTS.md：仓库工作规则](AGENTS.md) · [跨项目科研通用规范](project/科研项目通用规范/README.md) · [研究线专属规则](paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md)。
 
 研究线元信息由 [project/research_lines.json](project/research_lines.json) 记录；此处的当前任务**不改变其它论文线**。例如独立的 [mask_boundary_calibration](paper/manuscripts/mask_boundary_calibration/README.md) 仍有自己的原冻结结果、稿件与历史研究计划。

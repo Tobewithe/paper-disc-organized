@@ -1,0 +1,102 @@
+diff --git a/.gitattributes b/.gitattributes
+index becc41c0..6c8f03ab 100644
+--- a/.gitattributes
++++ b/.gitattributes
+@@ -7,5 +7,8 @@ experiments/mask_readout_fit_diagnostic_20261014/** -text
+ experiments/mask_readout_proto_consistency_20261014/** -text
+ experiments/mask_readout_bce_decomposition_20261014/** -text
+ experiments/mask_readout_soft_iou_pilot_20261014/** -text
++experiments/mask_readout_benefit_audit_20261014/** -text
++experiments/mask_readout_stratified_audit_20261015/** -text
++experiments/mask_readout_large_mask_gate_20261015/** -text
+ shared/evaluation/** -text
+ paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json -text
+diff --git a/project/ACTIVE_PLAN.md b/project/ACTIVE_PLAN.md
+index 327e52b1..738c7c00 100644
+--- a/project/ACTIVE_PLAN.md
++++ b/project/ACTIVE_PLAN.md
+@@ -1,8 +1,10 @@
+-# 当前科研总控：固定权重 Prototype→Coefficient 后训练救援
++# 当前科研总控：原型—系数链路
+ 
+-**更新：2026-10-14 20:44核验｜状态：S1机会Gate通过；旧BCE版与本次soft-IoU版S2配置均关闭。soft-IoU评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0` 已完成，原S2三项Gate均失败；训练/评价配置、回传SHA与本机独立复算全部通过。笔记本无在运行Python任务和Study锁。唯一下一步为同checkpoint、现有缓存的同ROI→原图配对诊断，尚未启动；不追加训练，不进入S3/S4。S0本地基线有效，官方发表AP复现未通过。**
++**更新：2026-10-15 面积门控协议冻结｜状态：用户授权在笔记本执行原生掩码面积≥96²才应用现有Δc的零训练混合输出评价。唯一激活为新Study的smoke→完整原S2数值筛查；原分母、配置、checkpoint固定，不扫阈值、不训练。原成功面板已暴露，本次上界只作名义开发指标。S0账本有效/发表AP未复现，S1通过，旧BCE与soft-IoU配置失败保留；S3/S4尚不执行。**
+ 
+-本页是 **`neighbor_sensitive_p3` 这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
++本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
++
++**研究线命名（2026-10-14，用户指定）：** 展示名称统一为“原型—系数链路”（Prototype→Coefficient）。`neighbor_sensitive_p3` 保留为历史技术标识和目录名，维持既有证据引用；邻域机制、P3 干预等具体方法是否采用，由证据与所属实验协议决定，名称不预设机制结论。本次更名不改变下列阶段、冻结配置或 Gate。
+ 
+ ## 0. 唯一研究命题与路线裁决
+ 
+@@ -22,7 +24,13 @@
+ | **S3 本配置不启动**：全量效用验收 | 原计划是同一pilot checkpoint全5000图COCO AP和损伤评价 | 需先通过S2 | S2失败，未启动，不产生全量方法AP结论 |
+ | **S4 本配置不启动**：扩量/独立确认 | 原计划是效用Gate通过后的20k/multi-seed及独立数据确认 | 需S2/S3通过并有新授权 | 前置门槛未过，未启动 |
+ 
+-**当前唯一步骤（尚未启动）：同一soft-IoU checkpoint、现有缓存上的同ROI→原图固定检测配对诊断，重点定位原成功实例损伤出现于proto网格、原图解码还是COCO匹配阶段；零训练。** [本次结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)与[复核收据](../experiments/mask_readout_soft_iou_pilot_20261014/RESULT_VERIFICATION.json)记录三项Gate失败、相对旧BCE的目标效果改善及其开发集范围。按[启动前协议](../experiments/mask_readout_soft_iou_pilot_20261014/PROTOCOL.md)关闭本配置；不因目标均值转正而追加训练或放行S3。后台执行与轻量结果回传已完成，禁止重复启动同一训练/评价。新诊断需先冻结具体配对、指标和判定对象，再按用户安排执行。
++**当前唯一动作：执行已授权的大原生掩码选择性应用零训练评价。** [新协议](../experiments/mask_readout_large_mask_gate_20261015/PROTOCOL.md)与[Study状态](../experiments/mask_readout_large_mask_gate_20261015/study.json)固定原图原生RLE面积≥9216才取现有soft-IoU修正掩码，其余取原生掩码。完整1314图/185621输出重新COCO匹配，T655/dev2925/成功1024及原S2数值门槛不变。先8图smoke，再一次正式评价，不扫阈值、不追加训练。
++
++本动作依据[分层结案](../experiments/mask_readout_stratified_audit_20261015/REPORT.md)：面积风险关系稳定，大原生掩码T增益为正；拥挤度未通过原路线判据。面积策略由探索结果选定，原成功面板已参与选择，故保留原样本与精确上界公式但不声称新的独立95%覆盖率。2/330旧分层计数不替代新完整混合结果。新配置结论尚待实际运行，不改变旧soft-IoU失败；通过后的唯一候选为同checkpoint/同阈值S3，未通过按新协议关闭本策略，均不自动扩展执行。
++
++路由变更理由：旧诊断53例损伤中15/19/19的阶段签名和三个固定方向AUC失败均保留；两个19并列时的事前选择顺序没有证明Lovász-hinge最优，也没有检验完整邻域网络。原报告中的具体换loss建议（未冻结/未运行）`superseded_by=experiments/mask_readout_stratified_audit_20261015/PROTOCOL.md`。本次以新探索协议补齐缺项，获得面积风险关系的正面依据；这不撤销旧简单信号判据的失败。soft-IoU旧配置三项Gate仍失败，[原结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)和[复核收据](../experiments/mask_readout_soft_iou_pilot_20261014/RESULT_VERIFICATION.json)保留。
++
++本次诊断正式Run为 `RUN_BENEFIT_AUDIT_FULL_44b006cece39486aa502ca64398166d4`，1314图、185621条输出，配置与独立复算通过，新增训练步0。V1中断Run `RUN_BENEFIT_AUDIT_FULL_1ab7051a0f39457090f9ba6fdde8a336` 因显存资源瓶颈保留为工程失败；[V2恢复协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL_V2.md)只改变逐图显存释放，全部2995条重叠配对完全一致，科学判据沿用[原诊断协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL.md)。禁止重复运行已完成诊断或原训练/评价。
+ 
+ 2026-10-14 路由复核先依据 [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)及 [S2 结案报告](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)纠正残留的“S1 正在运行”旧句，随后按用户授权完成上述独立零训练诊断。S0 REPORT/DECISION 中“继续取得官方发布回执”的下一步保留为当时结案记录，当前队列以本页为准。任何 Gate 已执行与否必须依据 `runs/<RUN_ID>/run.json`、实际产物和任务状态，不能仅凭 GitHub 缺文件判定本机没跑。
+ 
+@@ -34,7 +42,7 @@
+ | 全项目通用约束 | [规范索引](科研项目通用规范/README.md) | 文件身份、评价语义、最少指标、冻结/停止与算力；跨研究线生效 |
+ | **当前方法主线** | [后训练主协议](../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 工作入口](../experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) | 定义 S1–S4 ；新方法科研参数/阈值必须在开 Run 前冻结，以该具体协议而非本页摘要为准 |
+ | **当前依赖实验** | [GT 失败重基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) | S0 的 G0–G5，含官方发表 AP parity 与原生输出 GT 账本合法性双状态 |
+-| 研究线边界 | [neighbor_sensitive_p3 RESEARCH_RULES](../paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md) | 版本/权重/作用对象、已有阴性证据与预算；不能把旧论文任务误激活 |
++| 研究线边界 | [原型—系数链路研究规则](../paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md) | 版本/权重/作用对象、已有阴性证据与预算；不能把旧论文任务误激活 |
+ | 独立旧研究线 | [mask_boundary_calibration README](../paper/manuscripts/mask_boundary_calibration/README.md) | RCMC 及原稿/旧4500图自有协议，**不列入本次方法训练队列** |
+ | 官方源码/基线事实 | [8.4.100 O2O/COCO 基线核验](audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md) | 权重 SHA相同、官方 Box/Mask AP 52.5/44.1、本地旧自定义 51.980/43.518、本次原生 52.351/44.014 仍未过发表 parity；这不是研究方法 |
+ 
+diff --git a/project/PLAN_CATALOG.json b/project/PLAN_CATALOG.json
+index 4a9f14ef..a34568b6 100644
+--- a/project/PLAN_CATALOG.json
++++ b/project/PLAN_CATALOG.json
+@@ -1,6 +1,6 @@
+ {
+   "schema_version": 1,
+-  "reviewed_at": "2026-10-14",
++  "reviewed_at": "2026-10-15",
+   "source_commit": "14172b57156178955a8391167932ddb53a9f9bcc",
+   "canonical_route": "project/ACTIVE_PLAN.md",
+   "scope": "Filename inventory of project/paper plan-like files plus current two studies; not a scientific audit of 336 experiment directories. Roles do not replace frozen Run protocols or independent research lines.",
+@@ -189,6 +189,34 @@
+     {
+       "path": "experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md",
+       "role": "result_evidence_not_execution_authority"
++    },
++    {
++      "path": "experiments/mask_readout_benefit_audit_20261014/PROTOCOL.md",
++      "role": "diagnostic_execution_protocol_Run_snapshots_authoritative"
++    },
++    {
++      "path": "experiments/mask_readout_benefit_audit_20261014/PROTOCOL_V2.md",
++      "role": "engineering_recovery_protocol_scientific_design_unchanged"
++    },
++    {
++      "path": "experiments/mask_readout_benefit_audit_20261014/REPORT.md",
++      "role": "result_evidence_not_execution_authority"
++    },
++    {
++      "path": "experiments/mask_readout_stratified_audit_20261015/PROTOCOL.md",
++      "role": "completed_exploratory_protocol_not_training_authority"
++    },
++    {
++      "path": "experiments/mask_readout_stratified_audit_20261015/REPORT.md",
++      "role": "completed_exploratory_evidence_not_method_acceptance"
++    },
++    {
++      "path": "experiments/mask_readout_stratified_audit_20261015/STRATA_TABLES.md",
++      "role": "completed_exploratory_evidence_not_method_acceptance"
++    },
++    {
++      "path": "experiments/mask_readout_large_mask_gate_20261015/PROTOCOL.md",
++      "role": "frozen_zero_training_development_evaluation_protocol"
+     }
+   ]
+ }

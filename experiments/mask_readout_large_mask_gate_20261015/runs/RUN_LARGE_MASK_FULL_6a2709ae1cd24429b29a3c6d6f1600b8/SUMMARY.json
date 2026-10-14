@@ -1,0 +1,104 @@
+{
+  "run_id": "RUN_LARGE_MASK_FULL_6a2709ae1cd24429b29a3c6d6f1600b8",
+  "gates": {
+    "target_effect": true,
+    "all_bbox75_guardrail": true,
+    "success_damage": true
+  },
+  "target": {
+    "mean": 0.010024491543988425,
+    "ci95": [
+      0.0028224530560372455,
+      0.018451005200629575
+    ],
+    "images": 257,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "all_bbox75": {
+    "mean": 0.0008909711434980322,
+    "ci95": [
+      -0.0002087930718154455,
+      0.002046956117606457
+    ],
+    "images": 508,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "damage": {
+    "population_successes": 22957,
+    "sample_size": 1024,
+    "damaged": 2,
+    "point_rate": 0.001953125,
+    "upper_damaged_count": 138,
+    "upper_rate": 0.006011238402230256,
+    "confidence": 0.95,
+    "unit": "fraction",
+    "method": "hypergeometric_CDF_inversion_inclusive",
+    "scope": "frozen_finite_baseline_success_GT_population",
+    "census": false,
+    "gate": "damage_guardrail_passed",
+    "evaluated_images": 886,
+    "evaluated_GT": 10598,
+    "counted_GT": 1024,
+    "note": "Count only sampled S; other GT in the same image are not additional sampled units.",
+    "coverage_interpretation": "nominal original formula on reused outcome-exposed panel; no fresh 95% guarantee"
+  },
+  "coverage": {
+    "outputs": 185621,
+    "selected_outputs": 15184,
+    "changed_masks": 15178,
+    "empty_native_masks": 12,
+    "exact_boundary_masks": 1,
+    "native_M": 50231,
+    "native_S": 120206,
+    "native_L": 15184,
+    "images": 1314,
+    "images_with_selected_outputs": 1157,
+    "selected_output_fraction": 0.08180108931640277,
+    "target_selected": 82,
+    "target_total": 655,
+    "dev_selected": 858,
+    "dev_total": 2925,
+    "target_task_repaired": 20,
+    "target_fixed_detection_reaches075": 18,
+    "success_fixed_detection_selected": 330,
+    "success_total": 1024
+  },
+  "secondary_AP_on_union_dev_and_damage_images": {
+    "bbox": {
+      "AP": 51.1873455312041,
+      "AP50": 68.51316585030096,
+      "AP75": 56.58280064727494,
+      "APS": 37.66320576466228,
+      "APM": 56.83529053358078,
+      "APL": 72.74429375420237,
+      "AR1": 35.437653300836125,
+      "AR10": 63.814335126756625,
+      "AR100": 70.88331582173862,
+      "ARS": 56.43278539899445,
+      "ARM": 75.8253803272916,
+      "ARL": 88.25220900926163
+    },
+    "segm": {
+      "AP": 42.492634427520926,
+      "AP50": 65.76503639089754,
+      "AP75": 46.602126477584385,
+      "APS": 27.98201426810788,
+      "APM": 48.40851585898483,
+      "APL": 63.78747615073475,
+      "AR1": 31.042617696756793,
+      "AR10": 53.85918659208275,
+      "AR100": 59.16835389525023,
+      "ARS": 43.45943052900006,
+      "ARM": 64.95257676617136,
+      "ARL": 78.15860640430334
+    }
+  },
+  "target_GT": 655,
+  "scientific_scope": "Outcome-exposed COCO development sample; original S2 numerical screen, not independent confirmation"
+}

@@ -1,0 +1,233 @@
+diff --git a/.gitattributes b/.gitattributes
+index becc41c0..11464bbb 100644
+--- a/.gitattributes
++++ b/.gitattributes
+@@ -7,5 +7,7 @@ experiments/mask_readout_fit_diagnostic_20261014/** -text
+ experiments/mask_readout_proto_consistency_20261014/** -text
+ experiments/mask_readout_bce_decomposition_20261014/** -text
+ experiments/mask_readout_soft_iou_pilot_20261014/** -text
++experiments/mask_readout_benefit_audit_20261014/** -text
++experiments/mask_readout_stratified_audit_20261015/** -text
+ shared/evaluation/** -text
+ paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json -text
+diff --git a/AGENTS.md b/AGENTS.md
+index c7eef780..70db16bf 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -2,9 +2,22 @@
+ 
+ **首先读 [当前研究总控](project/ACTIVE_PLAN.md)。** 本页只定义**当前用户指明的研究线**的执行优先级；若用户明确选择另一研究线，则先看 `project/research_lines.json` 和对应 `paper/manuscripts/<line>/RESEARCH_RULES.md`，不可把本线 Gate 强行施加给其它独立论文线。所有科研任务按 [通用规范索引](project/科研项目通用规范/README.md) 选择相关规范；**不要求为每个普通问答重读无关研究文件**。
+ 
+-## 1. 科研决策职责
++## 1. 科研判断要求：自主判断与可检验主张
+ 
+-对科研路线、Gate 是否达标、停止与是否扩大训练，给出**唯一有依据的结论、支撑 Run、可信范围、可推翻条件及唯一下一步**；未知写明具体缺什么，不得拿笼统可能性替代决策。拒绝运行后临时换数据、样本、Loss、候选关系、指标、阈值或训练预算来追阳性。完成一个被预注册否决的实现后，应关闭**该配置**并保留阴性，不宣称数学上全类别永远无效。
++**用户的科研协作声明：** 用户说明本任务用于科研探索，无伤害他人的目的，并明确表示不要求 Agent 承担个人或法律责任，也不会因本科研协作中的判断、建议或实验失败而向 Agent 追责。本条记录用户的协作意愿；本文件对 Agent 的要求是科研工作要求，不是个人或法律责任承诺。
++
++**以实验和证据决定科学结论。** 方法效用、Gate 和研究结论以真实实验结果及可追溯证据为准。科研探索允许失败，方向建议允许被后续实验推翻并修正。Agent 应在已授权的科研范围内主动判断和推进，不因担心被追责而回避推荐、弱化有依据的观点或反复请求已有授权；避免与当前任务无关的免责话术和假设性法律风险讨论。
++
++Agent 应自主判断研究命题的取舍、实验是否值得做、结果解释及继续/停止。对科研路线、Gate 是否达标、停止与是否扩大训练，给出**明确的主判断、支撑 Run、可信范围、可推翻条件及唯一下一步**。**每次实验结束，均必须给出一个方向上的肯定回答，明确选择当前最值得优先推进的研究方向，并说明选择依据。** 否定结论可以有，但不能只交付“失败、停止、尚不能说明”。方向推荐须有证据与推理支撑，科学有效性按实际证据标注；不得预设阳性结果或把猜想说成事实。
++
++1. **先审查指令，再决定如何执行。** 收到用户指令时，主动核对其前提、目标、比较口径及与已有证据的关系。发现错误前提、无效比较、协议冲突、重复执行或缺乏判别价值，须在执行前指出具体问题、证据、对结论的影响和建议的修正动作，不等失败后才解释。授权范围内的读取、核验和常规工程纠错自主完成；改变研究命题、Gate、预算或执行环境须明确处理授权与协议，不能悄悄替换。
++2. **先有主张，再设计实验。** 明确“当前最有依据的解释/方法主张 H 是什么、为什么值得检验、若成立应观察到什么、什么结果会削弱或推翻它”。区分已观察事实、机制推断和待检验假说；需要比较解释时，给出最有证据的竞争解释及两者不同的预测。唯一下一步指行动裁决唯一，不要求把尚未区分的机制强说成定论。
++3. **继续研究需要正面的支持依据。** 候选方向须有相关实测证据、明确机制推导或适用的已有研究支撑；说明它如何连接到当前失败现象和目标指标。“逻辑上可能”“尚不能排除”“A 失败不代表 B 不可能”不能单独构成继续理由。没有支持依据的猜想记为待证猜想，不与已有证据支持的解释并列，不赋予“有希望”的评价。
++4. **阴性结果必须产生具体知识和正向方向。** 每次失败都回答：原先检验的哪项预测未实现；在实际对象、预算和统计精度内，哪个主张被否定、削弱或仍未区分；保留了哪些有效事实；综合这些证据，下一阶段应聚焦哪个具体问题、机制或方法原则，为什么优先选择它。区分“未达到预设效用要求”“有证据显示损伤/无效”和“证据精度不足”，不得互相冒充。结论边界只说明会影响决策的限制，禁止用无关命题或“不能证明所有方法永远无效”之类空泛正确的话替代方向判断。
++5. **累计证据必须改变研究取舍。** 连续失败后先汇总已有 Run 的共同失效现象，评估核心假说被削弱到何种程度，以及继续所需的具体支持证据。不得每次仅关闭一个配置、保留所有猜想，再无依据地换 Loss/模块或追加诊断。停止一个方向不需要先证明其数学上永远不可能；缺乏继续依据时，明确停止对它的继续投入，并提出有依据的下一阶段研究重点。转向的新主张必须有自己的支持依据，不能由旧主张失败直接推出。
++6. **新实验或诊断必须有判别价值。** 启动前说明它区分哪两个有依据的解释，或验证哪项会改变决策的必要条件，并预先写出阳性、阴性及信息不足分别对应的继续/停止动作。若不同结果都只导向“再做一个诊断”，或已有 Run 已能回答，就不应启动；优先复用现有产物，选择能改变决策的最小核验。诊断结果本身不等于方法有效，机制结论须有相应对照支持。
++7. **保留失败，按冻结规则作决定。** 拒绝运行后临时换数据、样本、Loss、候选关系、指标、阈值或训练预算来追阳性。完成一个被预注册否决的实现后，关闭该配置并保留阴性；同时给出它对上层假说的实际影响。停止/归档是止损决定，不能替代结案时必需的方向性肯定回答；新方向不要求立即启动新实验，具体路线变更仍在当前总控及新版本协议登记。
++8. **方向建议必须具体且由 Agent 选定。** 用明确措辞回答“我主张接下来聚焦 X，依据是 E，它要解决 Z，第一步验证 T”。X 必须指向具体研究对象、关键机制或方法原则；说明为何比最相关的替代方向更值得优先投入，不能只列选项交给用户选。若现有证据不足以推荐具体方法，仍须选定一个决定路线的具体科学问题，说明已知事实、关键缺口、优先解决它的理由，以及答案如何决定后续方法选择；“继续研究、再做诊断、调整参数”不构成方向回答。明确区分已被证据支持的结论和建议优先验证的方向。
+ 
+ ## 2. 文档唯一权威与状态
+ 
+@@ -13,7 +26,9 @@
+ - 区分 `plan_status` / `execution_status` / `scientific_status` / `artifact_status` / `transfer_status`。`planned`、`draft`、`smoke_passed`、`GitHub 已提交` 都不等于 `completed` 或 `scientifically_supported`；是否已运行必须查看本地真实任务与 `run.json`，**不得把 GitHub 无 Run 当作本地没跑**。
+ - 老研究线、历史审计、TAL/几何 Hungarian、反事实 GT oracle 与最终 COCOeval 各有身份与范围；不向新方法自动转移旧结论。旧 `EVALUATION_SYSTEMS`/`DEVELOPMENT_PLAN`/`PROTOTYPE_COEFFICIENT_ACTIVE_GOAL` 等出现的“当前”均受当前总控的时间及研究对象约束。
+ 
+-## 3. 本轮核心路线
++## 3. 本轮核心路线：原型—系数链路
++
++研究线展示名称为 **“原型—系数链路”**（Prototype→Coefficient）；`neighbor_sensitive_p3` 仅作为既有研究线 key 和目录标识保留。具体方法由证据和冻结协议决定，不能因历史名称预设必须采用邻域机制或 P3 干预。
+ 
+ 固定 `yolo26m-seg.pt` 预训练权重，聚焦 **Prototype→Coefficient 的后训练纠错**。先获得合法的真实 O2O 最终输出 GT 失败账本，然后对**同一 Box75 官方匹配检测**只改系数做有限 oracle，机会 Gate 通过才训练新的轻量 `delta_c` 模块。所有基础模型参数、Box/Class/score/排序/检测行身份、原生 P 和 c0 均冻结。**不将 TAL 训练历史审计设置成主线前置 Gate；不启动原旧 5 臂×两 seed×20k 草案；不重跑 30,828,840 raw。** 具体来源及停止条件见 [当前研究总控](project/ACTIVE_PLAN.md) 和 [后训练主协议](experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。
+ 
+@@ -35,7 +50,9 @@
+ 
+ ## 6. 科研结束时交付
+ 
+-按“**已得结论 → 源 Run/参数身份 → Gate 通过或阻断 → 可信边界 → 单个下一步**”汇报。未实际执行的结果不填数字，历史 AP 与新 AP 不串表；若已经有旧 Run 支撑当前命题，复用它，不重新跑相同实验。确实需要变更当前任务，仅更新总控的路由和新版本 protocol，并留下旧文件完整证据。
++按“**方向上的肯定回答 → 源 Run/参数身份与 Gate → 本次支持/削弱了什么 → 选择该方向的依据 → 单个下一步及改判条件**”汇报。无论实验成功或失败，方向性肯定回答均为必交付项，不得用否定结论、停止决定或不确定性声明替代。
++
++最低交付句式：**“我建议下一阶段聚焦【具体方向】，因为【本次及已有证据】表明【已知事实或有依据的推断】；优先解决【关键问题】，第一步【最小行动】，以【判别结果】决定后续推进或改判。”** 同时标明方向的证据强度与适用范围，负面结论如实保留。未实际执行的结果不填数字，历史 AP 与新 AP 不串表；若已经有旧 Run 支撑当前命题，复用它，不重新跑相同实验。确实需要变更当前任务，仅更新总控的路由和新版本 protocol，并留下旧文件完整证据。
+ 
+ 
+ **修改规范或重定向 Plan 后的最小文件检查：** 在已拉取的本地仓库运行 `python project/check_active_plan.py`；若检查失败，只修路由/链接/Study 状态，不把它当作模型或科学 Gate 的执行凭据。
+diff --git a/README.md b/README.md
+index 1d36dabf..066b152f 100644
+--- a/README.md
++++ b/README.md
+@@ -6,10 +6,10 @@
+ 
+ **[project/ACTIVE_PLAN.md — 当前研究总控、Gate 队列和历史计划去重](project/ACTIVE_PLAN.md)**
+ 
+-当前用户指定的研究线是 `neighbor_sensitive_p3`：**固定训练完成的 YOLO26m-seg，研究 Prototype→Coefficient 链路的后训练实例修复**。已有 TAL/原始 raw/COCO 口径审计用于证据校正，不是后训练主线的前置训练任务。**仅 S0（原生输出 GT 账本）处于待执行入口**；后续同最终预测系数 oracle/小适配器/全量 AP 均需各自 Gate，不能自动启动。
++当前用户指定的研究线是 **“原型—系数链路”**（历史技术标识与目录名：`neighbor_sensitive_p3`）：**固定训练完成的 YOLO26m-seg，研究 Prototype→Coefficient 链路的后训练实例修复**。已有 TAL/原始 raw/COCO 口径审计用于证据校正，不是后训练主线的前置训练任务。各阶段的实际状态、Gate 裁决与唯一下一步以总控及其引用的真实 Run 为准。
+ 
+-- [S0：官方原生 COCO GT 失败账本](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) — `planned_not_executed`；模型和源码已核实，官网 AP parity 未执行；正式 GT 账本待本地 Run。
+-- [S1–S4：冻结权重 Prototype→Coefficient 后训练计划](experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 当前工作入口](experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) — 新 Adapter 训练未启动；先同最终输出 finite oracle。
++- [S0：官方原生 COCO GT 失败账本协议](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) — 官方发表 AP 复现与原生 GT 账本有效性分别判定。
++- [S1–S4：冻结权重 Prototype→Coefficient 后训练计划](experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 工作入口](experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) — 具体执行顺序与已结案配置以总控为准，协议不自动授权续跑。
+ - [AGENTS.md：仓库工作规则](AGENTS.md) · [跨项目科研通用规范](project/科研项目通用规范/README.md) · [研究线专属规则](paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md)。
+ 
+ 研究线元信息由 [project/research_lines.json](project/research_lines.json) 记录；此处的当前任务**不改变其它论文线**。例如独立的 [mask_boundary_calibration](paper/manuscripts/mask_boundary_calibration/README.md) 仍有自己的原冻结结果、稿件与历史研究计划。
+diff --git a/paper/manuscripts/neighbor_sensitive_p3/README.md b/paper/manuscripts/neighbor_sensitive_p3/README.md
+index e769b382..0875e653 100644
+--- a/paper/manuscripts/neighbor_sensitive_p3/README.md
++++ b/paper/manuscripts/neighbor_sensitive_p3/README.md
+@@ -1,10 +1,14 @@
+-# 当前论文研究线：固定原型系数可恢复性与原生预测
++# 原型—系数链路
+ 
+-> **当前执行入口（2026-10-13）：** [统一科研总控](../../../project/ACTIVE_PLAN.md) → [GT 真实输出基线](../../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) → [固定权重 Prototype→Coefficient 后训练计划](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。本页下文的“2026-09-30 当前冻结主线”属于历史状态，不再授权 TAL 或五臂 20k。
++当前研究线名称为 **“原型—系数链路”**（Prototype→Coefficient），研究固定预训练模型下的系数可恢复性与后训练实例修复。`neighbor_sensitive_p3` 保留为历史技术标识及目录名，用于连接既有论文和 Run；具体机制与方法按证据选择。
+ 
+-当前冻结主线（2026-09-30）：**在 YOLO26m-Seg 与 COCO 的既定实验范围内，建立固定原型下的系数可恢复空间与原生无 GT 系数预测之间的差距，并通过受控对照区分其可能形成环节；只有在机制获得证据后，才用针对性干预验证能否改善正常推理输出。**
++> **当前执行入口：** [统一科研总控](../../../project/ACTIVE_PLAN.md) → [GT 真实输出基线](../../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) → [固定权重 Prototype→Coefficient 后训练计划](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。本页下文的“2026-09-30 历史主线记录”属于历史状态，不再授权 TAL 或五臂 20k。
+ 
+-当前阶段目标是收敛已有证据，区分“可恢复性事实”和“某种预测器的阴性结果”，定位原生系数预测链中尚未直接检验的环节。停止的是 `big-global` 外挂修正器支线；保留的问题是“有好系数，为什么原模型没有预测出来”。详见[主线冻结记录](../../../project/research_notes/MAINLINE_STATUS_20260930.md)。
++## 历史主线记录（2026-09-30）
++
++当时冻结的主线：**在 YOLO26m-Seg 与 COCO 的既定实验范围内，建立固定原型下的系数可恢复空间与原生无 GT 系数预测之间的差距，并通过受控对照区分其可能形成环节；只有在机制获得证据后，才用针对性干预验证能否改善正常推理输出。**
++
++当时的阶段目标是收敛已有证据，区分“可恢复性事实”和“某种预测器的阴性结果”，定位原生系数预测链中尚未直接检验的环节。停止的是 `big-global` 外挂修正器支线；保留的问题是“有好系数，为什么原模型没有预测出来”。详见[主线冻结记录](../../../project/research_notes/MAINLINE_STATUS_20260930.md)。
+ 
+ 历史 P3 干预实验、稿件和诊断仍保留在本研究线中，作为已完成证据或历史候选，不自动升级为当前机制结论。
+ 
+diff --git a/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md b/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md
+index d5488a50..72833261 100644
+--- a/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md
++++ b/paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md
+@@ -1,8 +1,8 @@
+-# 本研究线运行规范
++# 原型—系数链路：研究线运行规范
+ 
+ > **2026-10-13 当前研究线入口：** [科研总控](../../../project/ACTIVE_PLAN.md) → [后训练主协议](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。冻结预训练权重，只训练新增实例条件系数残差；早期 TAL/E0 与 P3 重训计划保留为历史证据，不是当前依赖。下文的 `mask_ratio/overlap_mask` 等训练设置仅代表历史已核实事实，不自动生成新的训练任务。
+ 
+-本文件只适用于 `neighbor_sensitive_p3` 研究线，不是项目全局规范。用户当前线程指定其他研究目录时，以其他目录的规则为准。
++本文件只适用于“原型—系数链路”研究线（历史技术标识与目录名：`neighbor_sensitive_p3`），不是项目全局规范。用户当前线程指定其他研究目录时，以其他目录的规则为准。
+ 
+ - 研究对象：YOLO26m-seg 与 COCO 实例分割；官方 COCO 预训练权重 `yolo26m-seg.pt`。
+ - 主要运行环境：conda `pytorch`；当前已核对的 Ultralytics 版本为 `8.4.100`。
+diff --git "a/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md" "b/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md"
+index 7520219d..30d93ed9 100644
+--- "a/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md"
++++ "b/paper/\345\274\200\351\242\230\347\255\224\350\276\251\351\200\273\350\276\221\351\252\250\346\236\266_20261011.md"
+@@ -2,7 +2,7 @@
+ 
+ ## 一、开题采用的唯一主线
+ 
+-**题目采用：面向实例分割的掩码失效可恢复性诊断、选择性读出校准与表示适配研究。**
++**题目采用：密集目标视频实例分割中的候选竞争、质量校准与时空一致性研究。**
+ 
+ 总科学问题：
+ 
+diff --git a/project/ACTIVE_PLAN.md b/project/ACTIVE_PLAN.md
+index 327e52b1..ed503375 100644
+--- a/project/ACTIVE_PLAN.md
++++ b/project/ACTIVE_PLAN.md
+@@ -1,8 +1,10 @@
+-# 当前科研总控：固定权重 Prototype→Coefficient 后训练救援
++# 当前科研总控：原型—系数链路
+ 
+-**更新：2026-10-14 20:44核验｜状态：S1机会Gate通过；旧BCE版与本次soft-IoU版S2配置均关闭。soft-IoU评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0` 已完成，原S2三项Gate均失败；训练/评价配置、回传SHA与本机独立复算全部通过。笔记本无在运行Python任务和Study锁。唯一下一步为同checkpoint、现有缓存的同ROI→原图配对诊断，尚未启动；不追加训练，不进入S3/S4。S0本地基线有效，官方发表AP复现未通过。**
++**更新：2026-10-15｜状态：S1机会Gate通过；旧BCE版与soft-IoU版S2配置均关闭。用户授权补齐面积×邻域拥挤度分层诊断，当前唯一动作见[新探索协议](../experiments/mask_readout_stratified_audit_20261015/PROTOCOL.md)。只复用既有逐对结果、GT账本和缓存框元数据，笔记本CPU执行，新增训练/模型前向为0。此前尚未冻结的Lovász-hinge建议被本次分层优先级 superseded_by；旧诊断和S2结果保留。S0原生账本有效，官方发表AP复现未通过；不进入S3/S4。**
+ 
+-本页是 **`neighbor_sensitive_p3` 这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
++本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
++
++**研究线命名（2026-10-14，用户指定）：** 展示名称统一为“原型—系数链路”（Prototype→Coefficient）。`neighbor_sensitive_p3` 保留为历史技术标识和目录名，维持既有证据引用；邻域机制、P3 干预等具体方法是否采用，由证据与所属实验协议决定，名称不预设机制结论。本次更名不改变下列阶段、冻结配置或 Gate。
+ 
+ ## 0. 唯一研究命题与路线裁决
+ 
+@@ -22,7 +24,11 @@
+ | **S3 本配置不启动**：全量效用验收 | 原计划是同一pilot checkpoint全5000图COCO AP和损伤评价 | 需先通过S2 | S2失败，未启动，不产生全量方法AP结论 |
+ | **S4 本配置不启动**：扩量/独立确认 | 原计划是效用Gate通过后的20k/multi-seed及独立数据确认 | 需S2/S3通过并有新授权 | 前置门槛未过，未启动 |
+ 
+-**当前唯一步骤（尚未启动）：同一soft-IoU checkpoint、现有缓存上的同ROI→原图固定检测配对诊断，重点定位原成功实例损伤出现于proto网格、原图解码还是COCO匹配阶段；零训练。** [本次结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)与[复核收据](../experiments/mask_readout_soft_iou_pilot_20261014/RESULT_VERIFICATION.json)记录三项Gate失败、相对旧BCE的目标效果改善及其开发集范围。按[启动前协议](../experiments/mask_readout_soft_iou_pilot_20261014/PROTOCOL.md)关闭本配置；不因目标均值转正而追加训练或放行S3。后台执行与轻量结果回传已完成，禁止重复启动同一训练/评价。新诊断需先冻结具体配对、指标和判定对象，再按用户安排执行。
++**当前唯一步骤：补齐面积×拥挤度分层，判断是否存在推理可见的稳定收益/损伤异质性。** 见[分层协议](../experiments/mask_readout_stratified_audit_20261015/PROTOCOL.md)和[Study状态](../experiments/mask_readout_stratified_audit_20261015/study.json)。旧诊断已完成总体阶段分解及三个固定标量AUC，未完成用户指定的面积×拥挤度交叉；原同类不同raw最大IoU也不能替代不限类邻域。本次新建探索性Study，保留全部原分母，固定分组和有限对比；不用分层结果重判原S2。
++
++路由变更理由：旧诊断53例损伤中15/19/19的阶段签名和三个固定方向AUC失败均保留；两个19并列时的事前选择顺序没有证明Lovász-hinge最优，也没有检验完整邻域网络。原报告中的具体换loss建议（未冻结/未运行）`superseded_by=experiments/mask_readout_stratified_audit_20261015/PROTOCOL.md`。本次按新协议在结果后给唯一方向与下一步，不自动追加门控、邻域网络或训练。soft-IoU旧配置三项Gate仍失败，[原结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)和[复核收据](../experiments/mask_readout_soft_iou_pilot_20261014/RESULT_VERIFICATION.json)保留。
++
++本次诊断正式Run为 `RUN_BENEFIT_AUDIT_FULL_44b006cece39486aa502ca64398166d4`，1314图、185621条输出，配置与独立复算通过，新增训练步0。V1中断Run `RUN_BENEFIT_AUDIT_FULL_1ab7051a0f39457090f9ba6fdde8a336` 因显存资源瓶颈保留为工程失败；[V2恢复协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL_V2.md)只改变逐图显存释放，全部2995条重叠配对完全一致，科学判据沿用[原诊断协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL.md)。禁止重复运行已完成诊断或原训练/评价。
+ 
+ 2026-10-14 路由复核先依据 [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)及 [S2 结案报告](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)纠正残留的“S1 正在运行”旧句，随后按用户授权完成上述独立零训练诊断。S0 REPORT/DECISION 中“继续取得官方发布回执”的下一步保留为当时结案记录，当前队列以本页为准。任何 Gate 已执行与否必须依据 `runs/<RUN_ID>/run.json`、实际产物和任务状态，不能仅凭 GitHub 缺文件判定本机没跑。
+ 
+@@ -34,7 +40,7 @@
+ | 全项目通用约束 | [规范索引](科研项目通用规范/README.md) | 文件身份、评价语义、最少指标、冻结/停止与算力；跨研究线生效 |
+ | **当前方法主线** | [后训练主协议](../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 工作入口](../experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) | 定义 S1–S4 ；新方法科研参数/阈值必须在开 Run 前冻结，以该具体协议而非本页摘要为准 |
+ | **当前依赖实验** | [GT 失败重基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) | S0 的 G0–G5，含官方发表 AP parity 与原生输出 GT 账本合法性双状态 |
+-| 研究线边界 | [neighbor_sensitive_p3 RESEARCH_RULES](../paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md) | 版本/权重/作用对象、已有阴性证据与预算；不能把旧论文任务误激活 |
++| 研究线边界 | [原型—系数链路研究规则](../paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md) | 版本/权重/作用对象、已有阴性证据与预算；不能把旧论文任务误激活 |
+ | 独立旧研究线 | [mask_boundary_calibration README](../paper/manuscripts/mask_boundary_calibration/README.md) | RCMC 及原稿/旧4500图自有协议，**不列入本次方法训练队列** |
+ | 官方源码/基线事实 | [8.4.100 O2O/COCO 基线核验](audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md) | 权重 SHA相同、官方 Box/Mask AP 52.5/44.1、本地旧自定义 51.980/43.518、本次原生 52.351/44.014 仍未过发表 parity；这不是研究方法 |
+ 
+diff --git a/project/PLAN_CATALOG.json b/project/PLAN_CATALOG.json
+index 4a9f14ef..cc2ff2fc 100644
+--- a/project/PLAN_CATALOG.json
++++ b/project/PLAN_CATALOG.json
+@@ -1,6 +1,6 @@
+ {
+   "schema_version": 1,
+-  "reviewed_at": "2026-10-14",
++  "reviewed_at": "2026-10-15",
+   "source_commit": "14172b57156178955a8391167932ddb53a9f9bcc",
+   "canonical_route": "project/ACTIVE_PLAN.md",
+   "scope": "Filename inventory of project/paper plan-like files plus current two studies; not a scientific audit of 336 experiment directories. Roles do not replace frozen Run protocols or independent research lines.",
+@@ -189,6 +189,22 @@
+     {
+       "path": "experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md",
+       "role": "result_evidence_not_execution_authority"
++    },
++    {
++      "path": "experiments/mask_readout_benefit_audit_20261014/PROTOCOL.md",
++      "role": "diagnostic_execution_protocol_Run_snapshots_authoritative"
++    },
++    {
++      "path": "experiments/mask_readout_benefit_audit_20261014/PROTOCOL_V2.md",
++      "role": "engineering_recovery_protocol_scientific_design_unchanged"
++    },
++    {
++      "path": "experiments/mask_readout_benefit_audit_20261014/REPORT.md",
++      "role": "result_evidence_not_execution_authority"
++    },
++    {
++      "path": "experiments/mask_readout_stratified_audit_20261015/PROTOCOL.md",
++      "role": "active_exploratory_stratification_protocol"
+     }
+   ]
+ }
+diff --git a/project/research_lines.json b/project/research_lines.json
+index b6be0aaf..532e154a 100644
+--- a/project/research_lines.json
++++ b/project/research_lines.json
+@@ -21,7 +21,7 @@
+     {
+       "line_id": "LINE_540602779c8740cf8a69ec9cd637dad8",
+       "key": "neighbor_sensitive_p3",
+-      "title": "固定原型系数可恢复性与原生预测诊断",
++      "title": "原型—系数链路",
+       "status": "research_draft",
+       "entrypoint": "paper/manuscripts/neighbor_sensitive_p3/README.md",
+       "paper_directory": "paper/manuscripts/neighbor_sensitive_p3",
+diff --git "a/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md" "b/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md"
+index 430c90a6..330b2d5d 100644
+--- "a/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md"
++++ "b/project/\347\247\221\347\240\224\351\241\271\347\233\256\351\200\232\347\224\250\350\247\204\350\214\203/README.md"
+@@ -17,7 +17,7 @@
+ ## 唯一当前计划、优先级和历史关系
+ 
+ 1. **用户当次明确任务**；若要求改变科学命题，需要显式标注旧草案被新版本取代，已冻结的旧 Run 不改写。
+-2. [当前执行总控](../ACTIVE_PLAN.md) 只管 `neighbor_sensitive_p3` 这次用户指定的执行**顺序与依赖状态**，其他研究线按其 `RESEARCH_RULES.md` 和用户当前任务运行。
++2. [当前执行总控](../ACTIVE_PLAN.md) 只管“原型—系数链路”（历史技术标识：`neighbor_sensitive_p3`）这次用户指定的执行**顺序与依赖状态**，其他研究线按其 `RESEARCH_RULES.md` 和用户当前任务运行。
+ 3. **所属 Study 冻结 protocol 的数值参数/Gate/停止条件在该 Run 内优先**；通用规范仍约束真实身份、防泄漏、审计可追溯，不允许通过新总控偷偷修改旧 Run。新命题用新版本协议，不回填先验门槛。
+ 4. `project/research_notes/`、`project/hypotheses/`、旧 `DEVELOPMENT_PLAN` 和已过时的 `PROTOCOL`、`GATES_SPEC` 都是历史科研资料。不能因标题有“最新/当前”而自动抢占第 2、3 条。
+ 
