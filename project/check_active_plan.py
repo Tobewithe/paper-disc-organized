@@ -26,6 +26,7 @@ CORE = (
     "project/科研项目通用规范/候选身份与评估口径.md",
     "project/科研项目通用规范/指标最小化与TAL分类.md",
     "project/科研项目通用规范/训练规模与结论边界.md",
+    "project/科研项目通用规范/机制方法科学准入与归因.md",
     "paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md",
     "experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md",
     "experiments/mask_readout_mechanism_v2_20261012/README.md",
