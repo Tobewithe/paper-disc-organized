@@ -37,6 +37,7 @@
 ## 计划查找与本地交接
 
 - [计划文件目录](project/PLAN_CATALOG.json)：项目/论文目录计划文件与当前两份 Study 的角色清单；历史命令不自动生效。
+- [科研对话摘要与待检验猜想](project/research_notes/CHAT_RESEARCH_CONTEXT.md)：供其它 Agent 读取历史讨论与机制疑问，不代替当前总控和真实 Run。
 - [后训练执行合同](experiments/mask_readout_mechanism_v2_20261012/EXECUTION_CONTRACT.md)：S0–S4 映射、唯一目标分母、P/c0 重放、统计与正式运行前冻结项。
 - [运行登记与本地协同](project/科研项目通用规范/运行登记与本地协同.md)：Run 真状态、轻量回传、文件散列与并发交接。
 

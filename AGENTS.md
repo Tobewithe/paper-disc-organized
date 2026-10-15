@@ -22,6 +22,7 @@ Agent 应自主判断研究命题的取舍、实验是否值得做、结果解�
 ## 2. 文档唯一权威与状态
 
 - **当前路由只看 `project/ACTIVE_PLAN.md`。** 新动作、旧计划是否生效、当前唯一 Gate 只能在这里登记一次；不要在旧长日志反复追加“最新下一步”。
+- **对话研究摘要只作背景：** 接手原型—系数研究或提出新假说时可读 [聊天讨论摘要](project/research_notes/CHAT_RESEARCH_CONTEXT.md)，用于理解用户与助手的共识、猜想和科学边界；**它不是冻结 Protocol、现行 Gate 或启动授权**。
 - **数值规则以启动前冻结的所属 Study protocol 为准。** 通用规范规定对象和真实性约束，研究线 `RESEARCH_RULES` 补充；当前总控的摘要不是修改旧 Run 冻结 Gate 的许可。用户若改变研究命题，明确 `superseded_by` 并保留旧计划、创建新版本，不静默覆盖已冻结协议。
 - 区分 `plan_status` / `execution_status` / `scientific_status` / `artifact_status` / `transfer_status`。`planned`、`draft`、`smoke_passed`、`GitHub 已提交` 都不等于 `completed` 或 `scientifically_supported`；是否已运行必须查看本地真实任务与 `run.json`，**不得把 GitHub 无 Run 当作本地没跑**。
 - 老研究线、历史审计、TAL/几何 Hungarian、反事实 GT oracle 与最终 COCOeval 各有身份与范围；不向新方法自动转移旧结论。旧 `EVALUATION_SYSTEMS`/`DEVELOPMENT_PLAN`/`PROTOTYPE_COEFFICIENT_ACTIVE_GOAL` 等出现的“当前”均受当前总控的时间及研究对象约束。
