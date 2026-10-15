@@ -1,0 +1,113 @@
+{
+  "status": "pending_interpretation",
+  "differences": {
+    "actual_optimizer_from_checkpoint": {
+      "laptop": {
+        "lr": 0.001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "weight_decay": 0.0001,
+        "amsgrad": false,
+        "foreach": false,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false,
+        "fused": false
+      },
+      "local": {
+        "lr": 0.001,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-08,
+        "weight_decay": 0.0001,
+        "amsgrad": false,
+        "foreach": false,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false,
+        "fused": false
+      }
+    },
+    "per_epoch_mean_training_loss": {
+      "laptop": {
+        "0": 0.27215865873392747,
+        "1": 0.2642672007229386,
+        "2": 0.2601667633993871
+      },
+      "local": {
+        "0": 0.27215865873392725,
+        "1": 0.2642672007229386,
+        "2": 0.26016676339938694
+      }
+    }
+  },
+  "math_fsum_means": {
+    "0": 0.27215865873392747,
+    "1": 0.2642672007229386,
+    "2": 0.2601667633993871
+  },
+  "local_python": "3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]",
+  "local_actual_report": {
+    "status": "passed",
+    "scope": "independent post-run checkpoint and complete training-log inspection",
+    "arm": "B",
+    "experiment_arm": "R",
+    "exact_image_order_and_epoch_coverage": true,
+    "actual_image_visits": 6000,
+    "image_microbatch": 1,
+    "gradient_accumulation": 4,
+    "effective_image_batch": 4,
+    "optimizer_steps_from_checkpoint": {
+      "spatial.0.weight": 1500,
+      "spatial.0.bias": 1500,
+      "spatial.2.weight": 1500,
+      "spatial.2.bias": 1500,
+      "feature.0.weight": 1500,
+      "feature.0.bias": 1500,
+      "feature.1.weight": 1500,
+      "feature.1.bias": 1500,
+      "feature.2.weight": 1500,
+      "feature.2.bias": 1500,
+      "coefficient.weight": 1500,
+      "coefficient.bias": 1500,
+      "category.weight": 1500,
+      "readout.0.weight": 1500,
+      "readout.0.bias": 1500,
+      "readout.2.weight": 1500,
+      "readout.2.bias": 1500
+    },
+    "actual_optimizer_from_checkpoint": {
+      "lr": 0.001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "weight_decay": 0.0001,
+      "amsgrad": false,
+      "foreach": false,
+      "maximize": false,
+      "capturable": false,
+      "differentiable": false,
+      "fused": false
+    },
+    "new_parameters": 167872,
+    "all_checkpoint_tensors_finite": true,
+    "last_epoch_checkpoint": true,
+    "zero_initial_readout_verified": true,
+    "per_epoch_mean_training_loss": {
+      "0": 0.27215865873392725,
+      "1": 0.2642672007229386,
+      "2": 0.26016676339938694
+    },
+    "checkpoint_sha256": "f0d5cb75285624941f8a9dc421164b4592995b09474e4c5518454b045f85ac33",
+    "training_log_sha256": "e33df7b8adbc31df5658d2ae6af6e4df7d37f3f1dc7a1e434a94342c6ec3151d",
+    "image_orders_sha256": "d57f6ae80a40c08066517184106bbe1a23011cc6ae1f7cc3b7f6e383046c0435",
+    "contract_sha256": "ca81c5de943cb908147ab7326e4cef2f1a02a6fe34ee6c567daf18a031e7c51f"
+  }
+}

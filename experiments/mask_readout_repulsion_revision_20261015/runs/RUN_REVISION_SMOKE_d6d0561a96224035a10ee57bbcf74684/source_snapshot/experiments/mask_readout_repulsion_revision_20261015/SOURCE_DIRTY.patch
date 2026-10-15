@@ -1,0 +1,60 @@
+diff --git a/.gitattributes b/.gitattributes
+index 2bdaafd3..4e18f588 100644
+--- a/.gitattributes
++++ b/.gitattributes
+@@ -13,3 +13,4 @@ experiments/mask_readout_large_mask_gate_20261015/** -text
+ shared/evaluation/** -text
+ paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json -text
+ experiments/mask_readout_subspace_repulsion_20261015/** -text
++experiments/mask_readout_repulsion_revision_20261015/** -text
+diff --git a/project/ACTIVE_PLAN.md b/project/ACTIVE_PLAN.md
+index 845156b4..bd99618d 100644
+--- a/project/ACTIVE_PLAN.md
++++ b/project/ACTIVE_PLAN.md
+@@ -1,6 +1,6 @@
+ # 当前科研总控：原型—系数链路
+ 
+-**更新：2026-10-15 实验一已结案｜E1-R1-v1完整零训练评价三项门槛均失败，配置、原生重放、独立复算和回传通过。当前唯一下一步：冻结实验二“选择性学习的系数方向更新”协议，尚未启动训练。已通过的固定面积策略保留，S3待续；实验三、四按用户顺序待独立冻结。**
++**更新：2026-10-15 用户要求先完善实验一｜E1-R1-v1阴性保留；当前唯一动作：冻结并在笔记本完成 E1-R2 前景冲突/空间约束排斥的零训练对照评价，原S2配置和分母不变。实验二、三、四及S3暂缓。**
+ 
+ 本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+ 
+@@ -22,18 +22,19 @@
+ | **S1 已通过**：同最终检测系数可恢复性 | 在基线 Mask75 失败且同一最终 Box75 检测自身 MaskIoU<.75 的集合 T，只优化系数；P、框、类别、score、decoder和输出身份冻结 | 预注册 ≥200个GT、找到 Mask75 ≥20%；有限机会下界，不是可部署成绩 | [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)：`RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949`，122/256，全部收敛，控制/配置/回传审计通过 |
+ | **S2 已结案：BCE及soft-IoU当前配置均拒绝** | soft-IoU从原B initial.pt、原2000图/逐轮顺序/3epoch/1500步，只替换GT loss；执行完整结束 | 原门槛：目标ΔIoU≥.005且95%下界>0、总体≥−.001、成功损伤上界≤1% | [soft-IoU结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)：评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0`，目标+.006799但CI下界−.001267、总体−.002618、损伤53/1024且上界6.4338%，三项失败；配置/回传/独立复算通过。旧[BCE结案](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)保留 |
+ | **S2 新固定面积策略：开发数值通过** | 原生原图掩码面积≥9216时才应用现有Δc，完整1314图/185621检测重新评价，新增训练0 | 原T655/dev2925/成功1024及三项数值门槛不变；已看过开发数据，不能作为独立确认 | [面积门控结案](../experiments/mask_readout_large_mask_gate_20261015/REPORT.md)，`RUN_LARGE_MASK_FULL_6a2709ae1cd24429b29a3c6d6f1600b8`；三项通过，配置/独立复算/回传通过 |
+-| **S2 用户实验一：已关闭** | 原生c0的固定强度局部Gram秩一排斥，完整1314图/185621输出，新增训练0 | 原T655/dev2925/成功1024及三项门槛不变 | [实验一结案](../experiments/mask_readout_subspace_repulsion_20261015/REPORT.md)，`RUN_REPULSION_FULL_8b2e19a348d1476fbf05b64aabb10c7f`；目标−.086124、总体−.045933、损伤84/1024且上界9.7182%，三项失败；配置/独立复算/回传通过 |
++| **S2 用户实验一：旧版本关闭** | 原生c0的固定强度局部Gram秩一排斥，完整1314图/185621输出，新增训练0 | 原T655/dev2925/成功1024及三项门槛不变 | [实验一结案](../experiments/mask_readout_subspace_repulsion_20261015/REPORT.md)，`RUN_REPULSION_FULL_8b2e19a348d1476fbf05b64aabb10c7f`；目标−.086124、总体−.045933、损伤84/1024且上界9.7182%，三项失败；配置/独立复算/回传通过 |
++| **S2 实验一修订：当前** | A前景冲突区域对照；B整框正则局部响应拟合，零训练 | 原T655/dev2925/成功1024，完整1314图；先smoke再正式 | [E1-R2协议](../experiments/mask_readout_repulsion_revision_20261015/PROTOCOL.md)；尚未真实运行 |
+ | **S3 待续，当前不执行**：全量效用验收 | 同checkpoint、同9216面积门控、同原生配置；全部5000图配对AP和22957原成功GT精确损伤 | 新策略S2开发筛查通过；按主协议G3冻结AP不确定性和资源合同，Mask AP≥+0.3点且区间下界>0、损伤≤1%、Box不变 | 尚未启动；本轮只授权S2零训练评价，不自动启动S3 |
+ | **S4 尚不启动**：扩量/独立确认 | S3通过后才规划扩量或开发外确认 | 需S3通过并有新授权/冻结预算 | S3未执行；不追加训练，不把重复开发COCO当独立确认 |
+ 
+-**当前唯一动作：按用户四方案顺序，冻结实验二“选择性学习的系数方向更新”协议。** 实验一已按[冻结协议](../experiments/mask_readout_subspace_repulsion_20261015/PROTOCOL.md)完成真实smoke和完整原S2评价，见[结案报告](../experiments/mask_readout_subspace_repulsion_20261015/REPORT.md)。局部去相关达成，但被更新T配对19例上升、184例下降，三项门槛均失败；停止该固定解析相减配置，不扫描强度。优先研究如何根据可观测输入选择修改对象并学习有益方向，正面依据是已有面积门控S2数值通过；不由实验一失败直接推出实验二有效。实验二须明确门控、方向参数化和邻域输入的作用与对照，逐项冻结初始化/预算/配置后再运行；保范数不保证边界或CI。[用户提案](../experiments/mask_readout_subspace_repulsion_20261015/USER_PROPOSAL.md)保留为来源，非已冻结协议。
++**当前唯一动作：按用户“实验一先搞好再说”，完成[实验一修订协议](../experiments/mask_readout_repulsion_revision_20261015/PROTOCOL.md)的冻结、真实smoke和完整原S2评价。** 旧 E1-R1-v1 三项失败及配置有效结论保留，见[旧结案报告](../experiments/mask_readout_subspace_repulsion_20261015/REPORT.md)。新版本用 A 前景区域排斥和 B 整框正则局部响应拟合区分冲突定义与空间扰动；不训练、不扫阈值。此前“转向实验二”的路由 `superseded_by=experiments/mask_readout_repulsion_revision_20261015/PROTOCOL.md`。逆Gram不提供背景正交或零损伤保证，按完整预测和原门槛裁决。
+ 
+ 用户指定的四实验队列如下；同一时刻只激活当前一项，不把后续描述当已冻结执行协议：
+ 
+ | 顺序 | 候选 | 当前状态 |
+ |---|---|---|
+-| 1 | 局部Gram秩一邻居排斥 | E1-R1-v1完成并关闭，三项Gate失败，配置与独立核验通过 |
+-| 2 | 球面方向更新与冲突门控 | **当前：独立协议待冻结**；研究选择性学习修复，范数固定不保证零点/CI，尚未启动训练 |
++| 1 | 局部Gram邻居排斥 | **当前：E1-R2修订零训练评价**；旧E1-R1-v1失败保留 |
++| 2 | 球面方向更新与冲突门控 | 暂缓，等待实验一修订结案；协议未冻结、训练未启动 |
+ | 3 | 2×2子区域系数残差 | 待独立oracle协议；改变全局32维系数参数化，不能混用S1身份 |
+ | 4 | 解码对齐BCE与跨实例排斥loss | 待独立冻结，须区分监督尺度和排斥项的作用与对照 |
+ 
+diff --git a/project/PLAN_CATALOG.json b/project/PLAN_CATALOG.json
+index 8e275cae..a6f8bf5a 100644
+--- a/project/PLAN_CATALOG.json
++++ b/project/PLAN_CATALOG.json
+@@ -233,6 +233,10 @@
+     {
+       "path": "experiments/mask_readout_subspace_repulsion_20261015/REPORT.md",
+       "role": "completed_E1_development_result_and_configuration_evidence"
++    },
++    {
++      "path": "experiments/mask_readout_repulsion_revision_20261015/PROTOCOL.md",
++      "role": "E1_revision_execution_protocol_Run_snapshots_authoritative"
+     }
+   ]
+ }

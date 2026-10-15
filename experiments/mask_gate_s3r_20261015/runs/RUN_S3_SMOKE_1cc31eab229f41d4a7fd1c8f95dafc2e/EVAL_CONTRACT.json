@@ -1,0 +1,85 @@
+{
+  "stage": "S3",
+  "scope": "smoke",
+  "checkpoint_sha256": "15e6a0b3d6c9e74c05548bea42f654bde8d30364fe9aca030d59fab6da7751ce",
+  "source_baseline_run": "RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170",
+  "native_profile_sha256": "ae8133e371d121c642e0a32070b3743f6f7657ded587d6ab0491456329198e45",
+  "environment": {
+    "ultralytics_version": "8.4.100",
+    "torch_version": "2.5.1",
+    "source_sha256": {
+      "ultralytics.nn.modules.head": "759a454e03a9b4ebe4c69628292b0acc0469bb5f9dba278f7bc4b54c214bf209",
+      "ultralytics.models.yolo.segment.val": "701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6",
+      "ultralytics.models.yolo.detect.val": "55068be1bd32ddc3491cfe3b0bf5149ceb46fd301abf0026e6699264f696456a",
+      "ultralytics.utils.ops": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5",
+      "ultralytics.utils.nms": "588f81e4cdebd58d3ba16cd0106623b776b961a56d198424db1a5d58f40a7b7e",
+      "ultralytics.engine.validator": "b8ce30b2cd9e070c8cb8beec24128db94943362b24d3b099cac51a59e7876e0a",
+      "ultralytics.nn.autobackend": "5c3f36f108f6669ae733f6a71dbfd04eaf41b0a4b7e27f7811f0603c6f8db6f9",
+      "ultralytics.nn.backends.pytorch": "eab69efaaadcb274d2aa4d16f395ada43fae12e6990463a4e063dd75fbc252e5"
+    },
+    "python_version": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "cuda_version": "12.4",
+    "matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "execution_env": {
+      "YOLO_OFFLINE": "true",
+      "YOLO_CONFIG_DIR": "D:\\coco_wire\\baseline_native_20261013\\_ultralytics_config",
+      "PYTHONPATH": "D:\\coco_wire\\baseline_native_20261013\\_site",
+      "CUDA_VISIBLE_DEVICES": null,
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": null
+    },
+    "packages": {
+      "torchvision": "0.20.1",
+      "numpy": "2.4.3",
+      "pycocotools": "2.0.11",
+      "opencv-python": "4.13.0.92",
+      "Pillow": "11.1.0",
+      "PyYAML": "6.0.2"
+    }
+  },
+  "input_expectations_sha256": "4ad3208805bc237b0daf6ccec4e6e8f02d7c54c38f1670b87e110f24da974521",
+  "image_ids": [
+    298251,
+    205333,
+    143068,
+    161044,
+    68409,
+    190676,
+    438226,
+    267946
+  ],
+  "native_binary_original_image_area_min": 9216,
+  "zero_training": true,
+  "immutable_output_fields": "all except selected segmentation RLE",
+  "bootstrap": {
+    "resamples": 2000,
+    "seed": 1729,
+    "quantile": "linear",
+    "paired": true,
+    "new_ids_per_occurrence": true,
+    "recompute": "official COCOeval.accumulate from cloned independent image matches"
+  },
+  "gates": {
+    "delta_mask_AP_points_min": 0.3,
+    "delta_AP_CI_lower_strict_min": 0,
+    "exact_success_damage_max": 0.01,
+    "success_population": 22957
+  },
+  "budgets": {
+    "smoke_wall_seconds": 3600,
+    "full_wall_seconds": 21600,
+    "max_process_RSS_GiB": 7,
+    "min_available_RAM_MiB": 768,
+    "min_disk_free_GiB": 6,
+    "training_steps": 0,
+    "base_model_forward_calls": 0
+  },
+  "full_baseline_reuse_from_smoke": null
+}

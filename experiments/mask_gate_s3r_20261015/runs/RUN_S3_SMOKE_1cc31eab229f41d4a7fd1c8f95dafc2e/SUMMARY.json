@@ -1,0 +1,65 @@
+{
+  "run_id": "RUN_S3_SMOKE_1cc31eab229f41d4a7fd1c8f95dafc2e",
+  "export": {
+    "zero_delta_exact_rows": 922,
+    "adapter_forward_images": 7,
+    "adapter_forward_rows": 922,
+    "exact_old_candidate_rows": 922,
+    "selected_rows": 30,
+    "changed_masks": 30,
+    "outputs": 922,
+    "empty_native_masks": 0,
+    "exact_9216_boundary": 0,
+    "images": 8,
+    "empty_output_images": 1,
+    "adapter_cuda_synchronized_seconds": 0.36000000000422006,
+    "corrected_decoder_cuda_synchronized_seconds": 0.06400000000212458,
+    "export_wall_seconds": 1.2959999999984575,
+    "predictions_sha256": "b2706903e7ad524a8122c8899c0ada37c324a95af40ace17bd26523367add192",
+    "delta_sha256": "f2619869d6bd5ee55d87b6debc94436175df4eda4bc1497b7e014cbb3555ca75",
+    "base_model_forward_calls": 0,
+    "new_training_steps": 0,
+    "cost_scope": "Cached P/c0/F adapter and native decoder; not end-to-end YOLO deployment speed"
+  },
+  "duplicate_image_parity": "passed",
+  "full_baseline_metrics": {
+    "bbox": {
+      "AP": 52.35143015406392,
+      "AP50": 69.55404478135635,
+      "AP75": 57.456291779628344,
+      "APS": 34.376724509760535,
+      "APM": 57.37776372089763,
+      "APL": 67.93200547622992,
+      "AR1": 39.02674051145274,
+      "AR10": 65.75435446599464,
+      "AR100": 71.93240307904011,
+      "ARS": 55.00551329472469,
+      "ARM": 76.91158267310746,
+      "ARL": 85.8933108918012
+    },
+    "segm": {
+      "AP": 44.01417484774351,
+      "AP50": 66.78767954156443,
+      "AP75": 47.638491028026685,
+      "APS": 25.577321541110283,
+      "APM": 48.87360081179613,
+      "APL": 60.16085015079924,
+      "AR1": 34.233682074586675,
+      "AR10": 55.724757218222024,
+      "AR100": 60.15110151202892,
+      "ARS": 41.27376002072476,
+      "ARM": 65.79043285741287,
+      "ARL": 76.37693675387155
+    }
+  },
+  "cost": {
+    "single_arm_replicate_seconds": [
+      2.4840000000003783,
+      2.2340000000003783,
+      2.577999999997701
+    ],
+    "conservative_2000_pair_seconds": 10311.999999990803,
+    "formal_wall_budget_seconds": 21600,
+    "benchmarking_source": "baseline only"
+  }
+}

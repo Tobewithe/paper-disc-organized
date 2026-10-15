@@ -1,0 +1,79 @@
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.073s
+
+OK
+{"status": "passed", "inputs": 65, "environment": {"ultralytics_version": "8.4.100", "torch_version": "2.5.1", "source_sha256": {"ultralytics.nn.modules.head": "759a454e03a9b4ebe4c69628292b0acc0469bb5f9dba278f7bc4b54c214bf209", "ultralytics.models.yolo.segment.val": "701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6", "ultralytics.models.yolo.detect.val": "55068be1bd32ddc3491cfe3b0bf5149ceb46fd301abf0026e6699264f696456a", "ultralytics.utils.ops": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5", "ultralytics.utils.nms": "588f81e4cdebd58d3ba16cd0106623b776b961a56d198424db1a5d58f40a7b7e", "ultralytics.engine.validator": "b8ce30b2cd9e070c8cb8beec24128db94943362b24d3b099cac51a59e7876e0a", "ultralytics.nn.autobackend": "5c3f36f108f6669ae733f6a71dbfd04eaf41b0a4b7e27f7811f0603c6f8db6f9", "ultralytics.nn.backends.pytorch": "eab69efaaadcb274d2aa4d16f395ada43fae12e6990463a4e063dd75fbc252e5"}, "python_version": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]", "cuda_version": "12.4", "matmul_precision": "highest", "cuda_matmul_allow_tf32": false, "cudnn_allow_tf32": true, "cudnn_benchmark": false, "cudnn_deterministic": false, "deterministic_algorithms": false, "deterministic_warn_only": false, "cublas_workspace_config": ":4096:8", "execution_env": {"YOLO_OFFLINE": "true", "YOLO_CONFIG_DIR": "D:\\coco_wire\\baseline_native_20261013\\_ultralytics_config", "PYTHONPATH": "D:\\coco_wire\\baseline_native_20261013\\_site", "CUDA_VISIBLE_DEVICES": null, "OMP_NUM_THREADS": "1", "MKL_NUM_THREADS": null}, "packages": {"torchvision": "0.20.1", "numpy": "2.4.3", "pycocotools": "2.0.11", "opencv-python": "4.13.0.92", "Pillow": "11.1.0", "PyYAML": "6.0.2"}}}
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\runs\RUN_SPHERICAL_SMOKE_be9e1894729a4391b09a03e8cc28b109
+loading annotations into memory...
+Done (t=0.36s)
+creating index...
+index created!
+TRAIN B epoch 1 steps 2 images 8 loss 0.323158 seconds 0.9
+TRAIN_COMPLETE RUN_SPHERICAL_SMOKE_be9e1894729a4391b09a03e8cc28b109 2
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\runs\RUN_SPHERICAL_TRAIN_efde25d2082348c69c765ce70d5d5550
+loading annotations into memory...
+Done (t=0.35s)
+creating index...
+index created!
+TRAIN B epoch 1 steps 25 images 100 loss 0.365933 seconds 11.2
+TRAIN B epoch 1 steps 50 images 200 loss 0.347754 seconds 20.8
+TRAIN B epoch 1 steps 75 images 300 loss 0.350093 seconds 31.0
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\run_training.py", line 56, in main
+    trained=original_training.train(run,model,source,coco,orders,optimizer,whitelist)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\scripts\run_s2_training.py", line 76, in train
+    delta = model(cache,'train:'+str(epoch))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\spherical_model.py", line 52, in forward
+    raw=super().forward(cache,phase);features,hard,records=neighbor_inputs(cache,raw.device)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\spherical_model.py", line 25, in neighbor_inputs
+    n=len(c);neighbors,ious=choose_neighbors(cache['boxes_input'].tolist(),cache['scores'].tolist(),cache['classes'].tolist(),cache['raw_ids'])
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_subspace_repulsion_20261015\scripts\repulsion.py", line 11, in choose_neighbors
+    area=np.maximum(b[:,2]-b[:,0],0)*np.maximum(b[:,3]-b[:,1],0)
+                    ~^^^^^
+IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\run_training.py", line 78, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\run_training.py", line 56, in main
+    trained=original_training.train(run,model,source,coco,orders,optimizer,whitelist)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\scripts\run_s2_training.py", line 76, in train
+    delta = model(cache,'train:'+str(epoch))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\spherical_model.py", line 52, in forward
+    raw=super().forward(cache,phase);features,hard,records=neighbor_inputs(cache,raw.device)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\spherical_model.py", line 25, in neighbor_inputs
+    n=len(c);neighbors,ious=choose_neighbors(cache['boxes_input'].tolist(),cache['scores'].tolist(),cache['classes'].tolist(),cache['raw_ids'])
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_subspace_repulsion_20261015\scripts\repulsion.py", line 11, in choose_neighbors
+    area=np.maximum(b[:,2]-b[:,0],0)*np.maximum(b[:,3]-b[:,1],0)
+                    ~^^^^^
+IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+Exception: D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\continue_independently.ps1:16
+Line |
+  16 |  … DE -ne 0) { throw ('Stage failed with exit '+$LASTEXITCODE+': '+($Arg …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Stage failed with exit 1: -B
+     | D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\run_training.py --scope full --smoke-run RUN_SPHERICAL_SMOKE_be9e1894729a4391b09a03e8cc28b109
+
+

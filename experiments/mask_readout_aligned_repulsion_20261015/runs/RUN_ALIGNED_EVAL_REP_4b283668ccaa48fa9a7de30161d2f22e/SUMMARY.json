@@ -1,0 +1,98 @@
+{
+  "run_id": "RUN_ALIGNED_EVAL_REP_4b283668ccaa48fa9a7de30161d2f22e",
+  "gates": {
+    "target_effect": true,
+    "all_bbox75_guardrail": true,
+    "success_damage": false
+  },
+  "target": {
+    "mean": 0.009617281829761765,
+    "ci95": [
+      0.002631506595702148,
+      0.01638369748476057
+    ],
+    "images": 257,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "all_bbox75": {
+    "mean": -0.0001660113516182505,
+    "ci95": [
+      -0.0018830857027344516,
+      0.0014362100350761707
+    ],
+    "images": 508,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "damage": {
+    "population_successes": 22957,
+    "sample_size": 1024,
+    "damaged": 52,
+    "point_rate": 0.05078125,
+    "upper_damaged_count": 1452,
+    "upper_rate": 0.06324868231911836,
+    "confidence": 0.95,
+    "unit": "fraction",
+    "method": "hypergeometric_CDF_inversion_inclusive",
+    "scope": "frozen_finite_baseline_success_GT_population",
+    "census": false,
+    "gate": "damage_guardrail_failed",
+    "evaluated_images": 886,
+    "evaluated_GT": 10598,
+    "counted_GT": 1024,
+    "note": "Count only sampled S; other GT in the same image are not additional sampled units.",
+    "coverage_interpretation": "nominal original formula, exposed development panel"
+  },
+  "coverage": {
+    "outputs": 185621,
+    "selected_coefficients": 185621,
+    "changed_masks": 182273,
+    "no_eligible_neighbor": 185621,
+    "empty_region_with_neighbor": 0,
+    "images": 1314,
+    "images_with_updates": 1314,
+    "export_seconds": 739.1100000000006,
+    "cuda_peak_allocated_bytes": 1157277696,
+    "cuda_peak_reserved_bytes": 1499463680,
+    "dev_selected": 2925,
+    "target_selected": 655,
+    "target_task_repaired": 117,
+    "target_fixed_detection_reaches075": 106
+  },
+  "secondary_subset_AP": {
+    "bbox": {
+      "AP": 51.1873455312041,
+      "AP50": 68.51316585030096,
+      "AP75": 56.58280064727494,
+      "APS": 37.66320576466228,
+      "APM": 56.83529053358078,
+      "APL": 72.74429375420237,
+      "AR1": 35.437653300836125,
+      "AR10": 63.814335126756625,
+      "AR100": 70.88331582173862,
+      "ARS": 56.43278539899445,
+      "ARM": 75.8253803272916,
+      "ARL": 88.25220900926163
+    },
+    "segm": {
+      "AP": 42.177626783306586,
+      "AP50": 65.55352120909798,
+      "AP75": 45.93992089198708,
+      "APS": 27.98942525884306,
+      "APM": 47.73291572694615,
+      "APL": 63.69941985650799,
+      "AR1": 30.83642855628705,
+      "AR10": 53.58626969420346,
+      "AR100": 58.794495633659714,
+      "ARS": 43.27952209248015,
+      "ARM": 64.20737620188703,
+      "ARL": 78.02041252577146
+    }
+  },
+  "scientific_scope": "E4 fixed loss arm on exposed development data"
+}

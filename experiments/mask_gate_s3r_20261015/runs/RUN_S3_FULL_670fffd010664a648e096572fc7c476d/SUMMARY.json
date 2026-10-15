@@ -1,0 +1,124 @@
+{
+  "run_id": "RUN_S3_FULL_670fffd010664a648e096572fc7c476d",
+  "baseline": {
+    "bbox": {
+      "AP": 52.35143015406392,
+      "AP50": 69.55404478135635,
+      "AP75": 57.456291779628344,
+      "APS": 34.376724509760535,
+      "APM": 57.37776372089763,
+      "APL": 67.93200547622992,
+      "AR1": 39.02674051145274,
+      "AR10": 65.75435446599464,
+      "AR100": 71.93240307904011,
+      "ARS": 55.00551329472469,
+      "ARM": 76.91158267310746,
+      "ARL": 85.8933108918012
+    },
+    "segm": {
+      "AP": 44.01417484774351,
+      "AP50": 66.78767954156443,
+      "AP75": 47.638491028026685,
+      "APS": 25.577321541110283,
+      "APM": 48.87360081179613,
+      "APL": 60.16085015079924,
+      "AR1": 34.233682074586675,
+      "AR10": 55.724757218222024,
+      "AR100": 60.15110151202892,
+      "ARS": 41.27376002072476,
+      "ARM": 65.79043285741287,
+      "ARL": 76.37693675387155
+    }
+  },
+  "method": {
+    "bbox": {
+      "AP": 52.35143015406392,
+      "AP50": 69.55404478135635,
+      "AP75": 57.456291779628344,
+      "APS": 34.376724509760535,
+      "APM": 57.37776372089763,
+      "APL": 67.93200547622992,
+      "AR1": 39.02674051145274,
+      "AR10": 65.75435446599464,
+      "AR100": 71.93240307904011,
+      "ARS": 55.00551329472469,
+      "ARM": 76.91158267310746,
+      "ARL": 85.8933108918012
+    },
+    "segm": {
+      "AP": 44.15574774279398,
+      "AP50": 66.7919527878726,
+      "AP75": 47.81524534350897,
+      "APS": 25.577321541110283,
+      "APM": 48.85949371018368,
+      "APL": 60.39089433630792,
+      "AR1": 34.37491267521286,
+      "AR10": 55.89361039725777,
+      "AR100": 60.326265348773504,
+      "ARS": 41.27376002072476,
+      "ARM": 65.78773253489035,
+      "ARL": 76.59997960195403
+    }
+  },
+  "delta_mask_AP_points": 0.14157289505046577,
+  "uncertainty": {
+    "resamples": 2000,
+    "seed": 1729,
+    "rng": "numpy.default_rng PCG64",
+    "quantile": "linear",
+    "ci95": [
+      0.08473225065376226,
+      0.20492236593096727
+    ],
+    "unit": "AP_points_0_to_100",
+    "point_delta": 0.14157289505046577,
+    "image_draws_sha256": "24c53b3fc5e5dd21b28af041f52d0293c93756c4966f60d8f0608452f3246f10",
+    "elapsed_seconds": 10213.688000000002,
+    "estimator": "paired independent image copies; pinned COCOeval.accumulate for every replicate",
+    "repeated_images_receive_unique_image_annotation_detection_ids": true,
+    "scope": "development-data bootstrap, not independent confirmation"
+  },
+  "damage": {
+    "damaged": 90,
+    "population": 22957,
+    "observed": 22957,
+    "exact_rate": 0.003920372871019732,
+    "upper95": 0.003920372871019732,
+    "statistical_scope": "exact finite COCO val2017 census, not future-scene guarantee",
+    "recovered_from_baseline_failures": 189
+  },
+  "gates": {
+    "mask_AP_point": false,
+    "paired_AP_ci_lower": true,
+    "success_damage": true,
+    "frozen_Box_outputs": true
+  },
+  "export": {
+    "zero_delta_exact_rows": 539128,
+    "reused_S2_images": 1314,
+    "reused_S2_rows": 185621,
+    "exact_old_candidate_rows": 185621,
+    "selected_rows": 55552,
+    "changed_masks": 55544,
+    "outputs": 539128,
+    "empty_native_masks": 25,
+    "exact_9216_boundary": 1,
+    "images": 5000,
+    "adapter_forward_images": 3683,
+    "adapter_forward_rows": 353507,
+    "empty_output_images": 3,
+    "adapter_cuda_synchronized_seconds": 24.49399999999514,
+    "corrected_decoder_cuda_synchronized_seconds": 37.130999999906635,
+    "export_wall_seconds": 686.4529999999977,
+    "predictions_sha256": "15d8cc2884777854a7120099e4ee218b8750ee59f63d2b3fcc4571fa2a191590",
+    "delta_sha256": "addc737e391f2d6c14a191b4765ce0241d043257483949bc14239bcbad438b09",
+    "base_model_forward_calls": 0,
+    "new_training_steps": 0,
+    "cost_scope": "Cached P/c0/F adapter and native decoder; not end-to-end YOLO deployment speed"
+  },
+  "baseline_evaluation_run": "RUN_S3_SMOKE_1cc31eab229f41d4a7fd1c8f95dafc2e",
+  "baseline_point_sha256": "42ce619f8db0bc76c6e7b8ca132c0653254f70eeb7ae55464f0e29cf440bef53",
+  "published_baseline_parity": "failed_separate_historical_status",
+  "native_gt_ledger_validity": "passed",
+  "independent_confirmation": false
+}

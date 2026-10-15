@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_gate_s3_20261015\scripts\run_s3.py", line 337, in main
+    smoke(run, expected['smoke_ids'], expected, environment)
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_gate_s3_20261015\scripts\run_s3.py", line 202, in smoke
+    checks.append(dict(arm=label, **verify_replication(cache, gt, predictions, draws)))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_gate_s3_20261015\scripts\coco_bootstrap.py", line 128, in verify_replication
+    reused = resampled_evaluator(cache, draws)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_gate_s3_20261015\scripts\coco_bootstrap.py", line 88, in resampled_evaluator
+    ev.evalImgs = [clone_item(category[index], occurrence)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_gate_s3_20261015\scripts\coco_bootstrap.py", line 71, in clone_item
+    raise ValueError('ID stride is insufficient')
+ValueError: ID stride is insufficient

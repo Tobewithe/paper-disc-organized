@@ -1,0 +1,32 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\runs\RUN_SPHERICAL_TRAIN_efde25d2082348c69c765ce70d5d5550
+loading annotations into memory...
+Done (t=0.35s)
+creating index...
+index created!
+TRAIN B epoch 1 steps 25 images 100 loss 0.365933 seconds 11.2
+TRAIN B epoch 1 steps 50 images 200 loss 0.347754 seconds 20.8
+TRAIN B epoch 1 steps 75 images 300 loss 0.350093 seconds 31.0
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\run_training.py", line 56, in main
+    trained=original_training.train(run,model,source,coco,orders,optimizer,whitelist)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_mechanism_v2_20261012\scripts\run_s2_training.py", line 76, in train
+    delta = model(cache,'train:'+str(epoch))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\spherical_model.py", line 52, in forward
+    raw=super().forward(cache,phase);features,hard,records=neighbor_inputs(cache,raw.device)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_20261015\scripts\spherical_model.py", line 25, in neighbor_inputs
+    n=len(c);neighbors,ious=choose_neighbors(cache['boxes_input'].tolist(),cache['scores'].tolist(),cache['classes'].tolist(),cache['raw_ids'])
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_subspace_repulsion_20261015\scripts\repulsion.py", line 11, in choose_neighbors
+    area=np.maximum(b[:,2]-b[:,0],0)*np.maximum(b[:,3]-b[:,1],0)
+                    ~^^^^^
+IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+

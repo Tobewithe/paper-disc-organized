@@ -1,0 +1,97 @@
+{
+  "status": "passed_substantive_checks_with_descriptive_sum_exception",
+  "run_id": "RUN_ALIGNED_TRAIN_R_cd99d7e6a9e74048852a6a797d3fcfa5",
+  "frozen_audit_exception_retained": "prior audit differs",
+  "frozen_auditor_sha256": "d228ab6a02880c08b8dc53cab16a05c800505c3a9e0b7b60d407528cdec13643",
+  "laptop_receipt_sha256": "b7efe289f7222267329c63df14dee8d5e6a804514a8bfa544063c671dc1cf32c",
+  "local_python": "3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]",
+  "all_frozen_substantive_assertions_passed": true,
+  "all_other_JSON_report_fields_identical": true,
+  "scientific_metrics_or_gates_changed": false,
+  "checkpoint_or_training_artifacts_changed": false,
+  "per_epoch_descriptive_sum_comparison": {
+    "0": {
+      "local_sum_mean": 0.27215865873392725,
+      "math_fsum_mean": 0.27215865873392747,
+      "laptop_report_mean": 0.27215865873392747,
+      "absolute_difference": 2.220446049250313e-16,
+      "forward_error_bound": 6.043136185551477e-14,
+      "exact_fsum_equality": true
+    },
+    "1": {
+      "local_sum_mean": 0.2642672007229386,
+      "math_fsum_mean": 0.2642672007229386,
+      "laptop_report_mean": 0.2642672007229386,
+      "absolute_difference": 0.0,
+      "forward_error_bound": 5.867910617918187e-14,
+      "exact_fsum_equality": true
+    },
+    "2": {
+      "local_sum_mean": 0.26016676339938694,
+      "math_fsum_mean": 0.2601667633993871,
+      "laptop_report_mean": 0.2601667633993871,
+      "absolute_difference": 1.6653345369377348e-16,
+      "forward_error_bound": 5.776862619365383e-14,
+      "exact_fsum_equality": true
+    }
+  },
+  "local_actual_report": {
+    "actual_image_visits": 6000,
+    "actual_optimizer_from_checkpoint": {
+      "amsgrad": false,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "capturable": false,
+      "differentiable": false,
+      "eps": 1e-08,
+      "foreach": false,
+      "fused": false,
+      "lr": 0.001,
+      "maximize": false,
+      "weight_decay": 0.0001
+    },
+    "all_checkpoint_tensors_finite": true,
+    "arm": "B",
+    "checkpoint_sha256": "f0d5cb75285624941f8a9dc421164b4592995b09474e4c5518454b045f85ac33",
+    "contract_sha256": "ca81c5de943cb908147ab7326e4cef2f1a02a6fe34ee6c567daf18a031e7c51f",
+    "effective_image_batch": 4,
+    "exact_image_order_and_epoch_coverage": true,
+    "experiment_arm": "R",
+    "gradient_accumulation": 4,
+    "image_microbatch": 1,
+    "image_orders_sha256": "d57f6ae80a40c08066517184106bbe1a23011cc6ae1f7cc3b7f6e383046c0435",
+    "last_epoch_checkpoint": true,
+    "new_parameters": 167872,
+    "optimizer_steps_from_checkpoint": {
+      "category.weight": 1500,
+      "coefficient.bias": 1500,
+      "coefficient.weight": 1500,
+      "feature.0.bias": 1500,
+      "feature.0.weight": 1500,
+      "feature.1.bias": 1500,
+      "feature.1.weight": 1500,
+      "feature.2.bias": 1500,
+      "feature.2.weight": 1500,
+      "readout.0.bias": 1500,
+      "readout.0.weight": 1500,
+      "readout.2.bias": 1500,
+      "readout.2.weight": 1500,
+      "spatial.0.bias": 1500,
+      "spatial.0.weight": 1500,
+      "spatial.2.bias": 1500,
+      "spatial.2.weight": 1500
+    },
+    "per_epoch_mean_training_loss": {
+      "0": 0.27215865873392725,
+      "1": 0.2642672007229386,
+      "2": 0.26016676339938694
+    },
+    "scope": "independent post-run checkpoint and complete training-log inspection",
+    "status": "passed",
+    "training_log_sha256": "e33df7b8adbc31df5658d2ae6af6e4df7d37f3f1dc7a1e434a94342c6ec3151d",
+    "zero_initial_readout_verified": true
+  },
+  "scope": "Independent checkpoint/log audit. Supplement only explains the final stored-report equality failure; the original auditor and laptop receipt are unchanged."
+}

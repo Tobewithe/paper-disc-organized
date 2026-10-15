@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_recovery_20261015\scripts\run_training.py", line 41, in main
+    run.freeze(contract)
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_readout_spherical_adapter_recovery_20261015\scripts\common.py", line 89, in freeze
+    target=self.path/'source_snapshot'/rel;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/rel,target)
+                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28358\anaconda3\envs\pytorch\Lib\shutil.py", line 262, in copyfile
+    with open(dst, 'wb') as fdst:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_readout_spherical_adapter_recovery_20261015\\runs\\RUN_SPHERICAL_SMOKE_b9c4681ea9dc45c1b9b22740c4848c54\\source_snapshot\\experiments\\mask_readout_spherical_adapter_recovery_20261015\\scripts\\recovery_training.py'

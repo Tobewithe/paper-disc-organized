@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "scope": "independent post-run checkpoint and complete training-log inspection",
+  "arm": "B",
+  "engineering_reconstruction": {
+    "status": "passed_exact_logged_prefix",
+    "source_run": "RUN_SPHERICAL_TRAIN_efde25d2082348c69c765ce70d5d5550",
+    "source_training_log_sha256": "12ce0962c13c354f7e656ad7214424f34c2c953a8115e5e65d59c7935fd173db",
+    "repeated_image_visits": 315,
+    "repeated_optimizer_steps": 78,
+    "partial_gradient_images": 3,
+    "original_intermediate_checkpoint_available": false,
+    "scope": "same declared algorithm and exact scalar loss/accounting prefix; lost state cannot be bitwise compared"
+  },
+  "total_executed_formal_optimizer_steps_including_failure": 1578,
+  "exact_image_order_and_epoch_coverage": true,
+  "actual_image_visits": 6000,
+  "image_microbatch": 1,
+  "gradient_accumulation": 4,
+  "effective_image_batch": 4,
+  "optimizer_steps_from_checkpoint": {
+    "spatial.0.weight": 1500,
+    "spatial.0.bias": 1500,
+    "spatial.2.weight": 1500,
+    "spatial.2.bias": 1500,
+    "feature.0.weight": 1500,
+    "feature.0.bias": 1500,
+    "feature.1.weight": 1500,
+    "feature.1.bias": 1500,
+    "feature.2.weight": 1500,
+    "feature.2.bias": 1500,
+    "coefficient.weight": 1500,
+    "coefficient.bias": 1500,
+    "category.weight": 1500,
+    "readout.0.weight": 1500,
+    "readout.0.bias": 1500,
+    "readout.2.weight": 1500,
+    "readout.2.bias": 1500,
+    "neighbor.0.weight": 1500,
+    "neighbor.0.bias": 1500,
+    "neighbor.2.weight": 1500,
+    "neighbor.2.bias": 1500
+  },
+  "actual_optimizer_from_checkpoint": {
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "amsgrad": false,
+    "foreach": false,
+    "maximize": false,
+    "capturable": false,
+    "differentiable": false,
+    "fused": false
+  },
+  "new_parameters": 172705,
+  "all_checkpoint_tensors_finite": true,
+  "last_epoch_checkpoint": true,
+  "zero_initial_readout_verified": true,
+  "per_epoch_mean_training_loss": {
+    "0": 0.34961816600244494,
+    "1": 0.34843329545110463,
+    "2": 0.34743846754636615
+  },
+  "checkpoint_sha256": "27fa6e22f6d5771a3f50015f79138b91840e1dd44ee7beaba0e5a8361e52c167",
+  "training_log_sha256": "975a4553305cfe268ba338b30b0a54936aa90ed887d0913be009758149531459",
+  "image_orders_sha256": "d57f6ae80a40c08066517184106bbe1a23011cc6ae1f7cc3b7f6e383046c0435",
+  "contract_sha256": "db472b3f8a7d0a5b3c8c9ffd5988c10453dbfd7628094d8e6d6be55b18cf428e"
+}

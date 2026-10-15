@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "scope": "independent post-run checkpoint and complete training-log inspection",
+  "arm": "B",
+  "experiment_arm": "REP",
+  "exact_image_order_and_epoch_coverage": true,
+  "actual_image_visits": 6000,
+  "image_microbatch": 1,
+  "gradient_accumulation": 4,
+  "effective_image_batch": 4,
+  "optimizer_steps_from_checkpoint": {
+    "spatial.0.weight": 1500,
+    "spatial.0.bias": 1500,
+    "spatial.2.weight": 1500,
+    "spatial.2.bias": 1500,
+    "feature.0.weight": 1500,
+    "feature.0.bias": 1500,
+    "feature.1.weight": 1500,
+    "feature.1.bias": 1500,
+    "feature.2.weight": 1500,
+    "feature.2.bias": 1500,
+    "coefficient.weight": 1500,
+    "coefficient.bias": 1500,
+    "category.weight": 1500,
+    "readout.0.weight": 1500,
+    "readout.0.bias": 1500,
+    "readout.2.weight": 1500,
+    "readout.2.bias": 1500
+  },
+  "actual_optimizer_from_checkpoint": {
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "amsgrad": false,
+    "foreach": false,
+    "maximize": false,
+    "capturable": false,
+    "differentiable": false,
+    "fused": false
+  },
+  "new_parameters": 167872,
+  "all_checkpoint_tensors_finite": true,
+  "last_epoch_checkpoint": true,
+  "zero_initial_readout_verified": true,
+  "per_epoch_mean_training_loss": {
+    "0": 0.2728640475440751,
+    "1": 0.2649523390826327,
+    "2": 0.26087820408132206
+  },
+  "checkpoint_sha256": "0e3b0aaf501a3d48348a88323eb1b4526850dc95ac9053040ebe42e02309042c",
+  "training_log_sha256": "454a7a6df0de3b80a2434ae505834da4ee233cd66d1518357d16c3d541752a01",
+  "image_orders_sha256": "d57f6ae80a40c08066517184106bbe1a23011cc6ae1f7cc3b7f6e383046c0435",
+  "contract_sha256": "ea25f7278bd4d6b756432e01e712df24b06c979865b776688259e50505c9c92d"
+}
