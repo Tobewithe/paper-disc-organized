@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "panel": {"pairs": 256, "images": 243, "sha256": "170676d3017e4be7cd213ff1094ca28065727807c915b7602ecdaec48238cf31"},
+  "arms": ["C", "E", "EK", "E_equal"],
+  "solver": {
+    "penalty": 0.003, "error_margin": 1.0, "protection_weight": 1.0,
+    "max_iter": 120, "max_eval": 150, "history_size": 20, "lr": 1.0,
+    "tolerance_grad": 1e-9, "tolerance_change": 1e-12,
+    "gradient_acceptance": 1e-6, "line_search_fn": "strong_wolfe",
+    "dtype": "float64", "device": "cpu", "initialization": "zero_delta"
+  },
+  "numerics": {"proxy_atol": 0.0005, "proxy_rtol": 0.00005, "equal_rms_atol": 0.0001, "equal_rms_rtol": 0.0001},
+  "statistics": {"bootstrap_replicates": 2000, "seed": 1729, "quantile_method": "linear", "image_order": "ascending"},
+  "gates": {"min_increment_over_C": 0.005, "min_relative_tp_loss_reduction": 0.25, "max_iou_loss_to_equal": 0.001, "min_C_witness_retention": 0.95},
+  "budget": {"smoke_pairs": 4, "smoke_seconds": 600, "full_seconds": 7200, "full_solves": 768, "cpu_threads": 1, "rss_bytes": 6442450944, "output_bytes": 2147483648, "min_free_ram_bytes": 805306368, "min_free_disk_bytes": 2147483648},
+  "executor": {"host": "YANGLEI", "root": "D:\\coco_wire\\baseline_native_20261013", "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe", "network_training_steps": 0, "base_model_forward_calls": 0},
+  "preselected_existing_references": {"working_method": "RUN_S3_FULL_670fffd010664a648e096572fc7c476d: soft-IoU plus native area >=9216", "finite_oracle": "RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949: historical proto-BCE witness", "matched_control": "C: newly computed same-grid BCE with matched budget", "historical_comparison_scope": "same 256 detections; descriptive only, GT-assisted oracle versus deployed outputs is not fair deployment superiority"}
+}

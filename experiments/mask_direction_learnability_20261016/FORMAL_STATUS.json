@@ -1,0 +1,79 @@
+{
+  "updated_at": "2026-10-16T14:41:04.9205101Z",
+  "controller_pid": 5936,
+  "started_at": "2026-10-16T14:31:33.3809007Z",
+  "formal_evaluation_started": false,
+  "run_ids": {
+    "REAL": "RUN_CLD_FULL_REAL_bc58d9f5253847e588eb01ce2a309d7b",
+    "PERM": "RUN_CLD_FULL_PERM_a131a5d6626845878b5b93b9b51a7bfa"
+  },
+  "current_phase": "closed_no_evaluation",
+  "phases": [
+    {
+      "exit_code": 0,
+      "arguments": [
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\scripts\\train_cld.py",
+        "--scope",
+        "full",
+        "--arm",
+        "REAL",
+        "--preflight",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_PREFLIGHT_a436d52ceed643638c6f32be616f9cfe",
+        "--smoke-real",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_SMOKE_REAL_396e8c25780f4357b21bc76c7431db2a",
+        "--smoke-perm",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_SMOKE_PERM_0761445d8fd2437795f783d6b6acdba8"
+      ],
+      "ended_at": "2026-10-16T14:35:45.4149125Z",
+      "label": "FORMAL_TRAIN_REAL",
+      "pid": 8024
+    },
+    {
+      "exit_code": 0,
+      "arguments": [
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\scripts\\verify_cld.py",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_FULL_REAL_bc58d9f5253847e588eb01ce2a309d7b"
+      ],
+      "ended_at": "2026-10-16T14:35:53.1775530Z",
+      "label": "FORMAL_VERIFY_REAL",
+      "pid": 19704
+    },
+    {
+      "exit_code": 0,
+      "arguments": [
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\scripts\\train_cld.py",
+        "--scope",
+        "full",
+        "--arm",
+        "PERM",
+        "--preflight",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_PREFLIGHT_a436d52ceed643638c6f32be616f9cfe",
+        "--smoke-real",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_SMOKE_REAL_396e8c25780f4357b21bc76c7431db2a",
+        "--smoke-perm",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_SMOKE_PERM_0761445d8fd2437795f783d6b6acdba8"
+      ],
+      "ended_at": "2026-10-16T14:40:57.1838583Z",
+      "label": "FORMAL_TRAIN_PERM",
+      "pid": 19128
+    },
+    {
+      "exit_code": 0,
+      "arguments": [
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\scripts\\verify_cld.py",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_direction_learnability_20261016\\runs\\RUN_CLD_FULL_PERM_a131a5d6626845878b5b93b9b51a7bfa"
+      ],
+      "ended_at": "2026-10-16T14:41:04.9064601Z",
+      "label": "FORMAL_VERIFY_PERM",
+      "pid": 19372
+    }
+  ],
+  "ended_at": "2026-10-16T14:41:04.9191124Z",
+  "status": "completed_training_and_verification",
+  "child_pid": null,
+  "host": "YANGLEI"
+}

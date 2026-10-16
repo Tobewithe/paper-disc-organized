@@ -1,0 +1,71 @@
+{
+  "stage": "CLD_evaluation",
+  "environment": {
+    "ultralytics_version": "8.4.100",
+    "torch_version": "2.5.1",
+    "source_sha256": {
+      "ultralytics.nn.modules.head": "759a454e03a9b4ebe4c69628292b0acc0469bb5f9dba278f7bc4b54c214bf209",
+      "ultralytics.models.yolo.segment.val": "701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6",
+      "ultralytics.models.yolo.detect.val": "55068be1bd32ddc3491cfe3b0bf5149ceb46fd301abf0026e6699264f696456a",
+      "ultralytics.utils.ops": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5",
+      "ultralytics.utils.nms": "588f81e4cdebd58d3ba16cd0106623b776b961a56d198424db1a5d58f40a7b7e",
+      "ultralytics.engine.validator": "b8ce30b2cd9e070c8cb8beec24128db94943362b24d3b099cac51a59e7876e0a",
+      "ultralytics.nn.autobackend": "5c3f36f108f6669ae733f6a71dbfd04eaf41b0a4b7e27f7811f0603c6f8db6f9",
+      "ultralytics.nn.backends.pytorch": "eab69efaaadcb274d2aa4d16f395ada43fae12e6990463a4e063dd75fbc252e5"
+    },
+    "python_version": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "cuda_version": "12.4",
+    "matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "execution_env": {
+      "YOLO_OFFLINE": "true",
+      "YOLO_CONFIG_DIR": "D:\\coco_wire\\baseline_native_20261013\\_ultralytics_config",
+      "PYTHONPATH": "D:\\coco_wire\\baseline_native_20261013\\_site",
+      "CUDA_VISIBLE_DEVICES": null,
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": null
+    },
+    "packages": {
+      "torchvision": "0.20.1",
+      "numpy": "2.4.3",
+      "pycocotools": "2.0.11",
+      "opencv-python": "4.13.0.92",
+      "Pillow": "11.1.0",
+      "PyYAML": "6.0.2"
+    }
+  },
+  "checkpoints": {
+    "REAL": "869d44ca30876cec7a243f774d3b82994d1a7bdcad85347cb646f88015003ff8",
+    "PERM": "8aa44343099384990324c7a1e9acae5beb982a3d2fe948c685216df68f467d20"
+  },
+  "checkpoint_runs": {
+    "REAL": "RUN_CLD_FULL_REAL_bc58d9f5253847e588eb01ce2a309d7b",
+    "PERM": "RUN_CLD_FULL_PERM_a131a5d6626845878b5b93b9b51a7bfa"
+  },
+  "operation_authorization": {
+    "study_id": "STUDY_MASK_DIRECTION_LEARNABILITY_20261016",
+    "recorded_at": "2026-10-16T15:14:19.171844+00:00",
+    "source": "User explicitly requested original 400 heldout image evaluation on laptop using frozen REAL/PERM last checkpoints, original protocol/configuration, no training, followed by audits and reporting",
+    "allow_tensor_preflight": false,
+    "allow_smoke": false,
+    "allow_formal_training": false,
+    "allow_full_evaluation": true,
+    "allow_evaluation_verification": true,
+    "maximum_new_optimizer_steps": 0,
+    "automatic_next_stage": false,
+    "prior_authorization_sha256": "e21a827549beda75323193f7d46364e2c1a7b91f87b06966d43511c2fd3b0aa2",
+    "prior_authorization_file": "authorization/OPERATION_FORMAL_TRAINING_20261016.json",
+    "checkpoint_registry_sha256": "22f7b87d8322621a43c260763f4c1eb96ce1b8f756e07d04ffaad8846420675a"
+  },
+  "direction_scope": "GT_ASSISTED_EQUAL_AMPLITUDE",
+  "utility_scope": "complete_400_image_mixed_outputs",
+  "amplitude": 2.1651711144258443,
+  "new_optimizer_steps": 0,
+  "operation_authorization_sha256": "53b30f233d8261404f2c5736f4fc37789160ad15993b77ebc579c5c9a9e039f8"
+}

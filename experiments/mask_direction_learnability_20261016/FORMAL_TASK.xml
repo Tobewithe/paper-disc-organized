@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>CLD-v1 authorized one-shot REAL/PERM formal training and independent training audits; no evaluation or retraining.</Description>
+    <URI>\Codex-CLD-Formal-20261016</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-21-1792983451-3939276206-3466788544-1001</UserId>
+      <LogonType>InteractiveToken</LogonType>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <ExecutionTimeLimit>PT7H</ExecutionTimeLimit>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+  </Settings>
+  <Triggers />
+  <Actions Context="Author">
+    <Exec>
+      <Command>C:\Program Files\PowerShell\7\pwsh.exe</Command>
+      <Arguments>-NoProfile -NonInteractive -File "D:\coco_wire\baseline_native_20261013\experiments\mask_direction_learnability_20261016\scripts\launch_formal.ps1"</Arguments>
+      <WorkingDirectory>D:\coco_wire\baseline_native_20261013</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>

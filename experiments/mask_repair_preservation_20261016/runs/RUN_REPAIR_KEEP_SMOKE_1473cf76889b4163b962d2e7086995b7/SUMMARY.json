@@ -1,0 +1,183 @@
+{
+  "run_id": "RUN_REPAIR_KEEP_SMOKE_1473cf76889b4163b962d2e7086995b7",
+  "pairs": 4,
+  "images": 4,
+  "unit": "IoU_0_to_1_not_AP",
+  "reduction": "instance_mean_within_image_then_equal_image_mean",
+  "metrics": {
+    "N": {
+      "original_iou": {
+        "mean": 0.6665336354267395,
+        "ci95": [
+          0.5935585911274079,
+          0.739508679726071
+        ]
+      },
+      "delta_vs_native": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "repaired_instances": 0
+    },
+    "C": {
+      "original_iou": {
+        "mean": 0.711050341377762,
+        "ci95": [
+          0.6515645726101258,
+          0.7675267770204479
+        ]
+      },
+      "delta_vs_native": {
+        "mean": 0.044516705951022556,
+        "ci95": [
+          -0.023826533492191215,
+          0.12870266816802292
+        ]
+      },
+      "repaired_instances": 2
+    },
+    "E": {
+      "original_iou": {
+        "mean": 0.1607787235295203,
+        "ci95": [
+          0.052269285237442245,
+          0.2692881618215983
+        ]
+      },
+      "delta_vs_native": {
+        "mean": -0.5057549118972192,
+        "ci95": [
+          -0.5412893058899657,
+          -0.4702205179044727
+        ]
+      },
+      "repaired_instances": 0
+    },
+    "EK": {
+      "original_iou": {
+        "mean": 0.6840743775202894,
+        "ci95": [
+          0.5969298245614035,
+          0.7712189304791753
+        ]
+      },
+      "delta_vs_native": {
+        "mean": 0.017540742093549916,
+        "ci95": [
+          -0.10131213392082958,
+          0.12358994476947854
+        ]
+      },
+      "repaired_instances": 1
+    },
+    "E_equal": {
+      "original_iou": {
+        "mean": 0.6686002009364607,
+        "ci95": [
+          0.6216790237874575,
+          0.7066816541998006
+        ]
+      },
+      "delta_vs_native": {
+        "mean": 0.0020665655097211466,
+        "ci95": [
+          -0.09856027070537282,
+          0.10269340172481511
+        ]
+      },
+      "repaired_instances": 0
+    }
+  },
+  "comparisons": {
+    "EK_minus_C": {
+      "mean": -0.02697596385747264,
+      "ci95": [
+        -0.0813826085562836,
+        0.006578300984391328
+      ]
+    },
+    "EK_minus_E_equal": {
+      "mean": 0.01547417658382877,
+      "ci95": [
+        -0.041971329794238954,
+        0.08283776130161669
+      ]
+    },
+    "EK_minus_E": {
+      "mean": 0.5232956539907692,
+      "ci95": [
+        0.3640996496086497,
+        0.6695111593499289
+      ]
+    }
+  },
+  "tp_loss": {
+    "C": {
+      "mean": 0.057660944820282334,
+      "ci95": [
+        0.0359921167163934,
+        0.07932977292417126
+      ]
+    },
+    "E": {
+      "mean": 0.7479355401017836,
+      "ci95": [
+        0.5631524922672653,
+        0.9242788461538461
+      ]
+    },
+    "EK": {
+      "mean": 0.15398420636606358,
+      "ci95": [
+        0.12074425861549831,
+        0.18062516774182338
+      ]
+    },
+    "E_equal": {
+      "mean": 0.10520629562065399,
+      "ci95": [
+        0.04577984288177812,
+        0.17130004331767817
+      ]
+    }
+  },
+  "protection_decrease": {
+    "mean": -0.04877791074540961,
+    "ci95": [
+      -0.12999764437381855,
+      0.03244182288299935
+    ]
+  },
+  "relative_tp_loss_reduction": -0.46364060684438335,
+  "control_successes": 2,
+  "retained_C_successes": 1,
+  "added_vs_C": [],
+  "lost_vs_C": [
+    "a8c3e7d0af9db4684653c9b7b412f734d6105dc1e1c98a20c0782cf8d2fd3151:72053"
+  ],
+  "native_tp_zero_instances": 0,
+  "point_gates": {
+    "utility": false,
+    "protection": false,
+    "equal_iou": true,
+    "retention": false
+  },
+  "interval_gates": {
+    "utility": false,
+    "protection": false
+  },
+  "numerical_valid": true,
+  "denominator_complete": false,
+  "decision": "ENGINEERING_ONLY",
+  "deployment_claim": false,
+  "reused_development_panel": true,
+  "new_training_steps": 0,
+  "base_model_forward_calls": 0,
+  "zero_delta_exact_rows": 706,
+  "oracle_optimization_calls": 12,
+  "solve_and_decode_seconds": 18.32799999996496,
+  "projected_full_seconds_from_smoke": 1527.5903999973089
+}

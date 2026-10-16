@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "at": "2026-10-16T14:46:59.508240+00:00",
+  "verifier_sha256": "f167e6747d6e4cc6ae82a96a21297c6f95b9deb77fa62451bcf5028561d30c20",
+  "scope": "local hashes, contracts and full logs; checkpoint/optimizer tensor audit executed independently on laptop",
+  "transferred_files": 134,
+  "transferred_bytes": 12025592,
+  "configurations_differ_only_in_arm": true,
+  "arms": {
+    "REAL": {
+      "run_id": "RUN_CLD_FULL_REAL_bc58d9f5253847e588eb01ce2a309d7b",
+      "steps": 1200,
+      "image_visits": 4800,
+      "teacher_visits": 7530,
+      "output_visits": 528126,
+      "checkpoint_sha256": "869d44ca30876cec7a243f774d3b82994d1a7bdcad85347cb646f88015003ff8",
+      "initial_state_sha256": "ff3107ba29c0a330d1849c8373f3c7210c6c89d0382da5e1fcec367e376fd6a2",
+      "final_state_sha256": "973e4fed990d2e3d8e999eb9c2562c808e319c791607a6bf40868a47696c4844",
+      "adapter_forward_calls": 4800,
+      "per_epoch_training_only_description": [
+        {
+          "epoch": 1,
+          "images": 1600,
+          "teacher_visits": 2510,
+          "total_loss": 0.5350340097997105,
+          "direction_loss": 0.5028582662390545,
+          "preservation_loss": 0.32175742712803185
+        },
+        {
+          "epoch": 2,
+          "images": 1600,
+          "teacher_visits": 2510,
+          "total_loss": 0.4981947906105779,
+          "direction_loss": 0.4653684008074924,
+          "preservation_loss": 0.3282639016932808
+        },
+        {
+          "epoch": 3,
+          "images": 1600,
+          "teacher_visits": 2510,
+          "total_loss": 0.4689665949926712,
+          "direction_loss": 0.4359647158836015,
+          "preservation_loss": 0.3300187888625078
+        }
+      ],
+      "elapsed_seconds": 247.04699999999139
+    },
+    "PERM": {
+      "run_id": "RUN_CLD_FULL_PERM_a131a5d6626845878b5b93b9b51a7bfa",
+      "steps": 1200,
+      "image_visits": 4800,
+      "teacher_visits": 7530,
+      "output_visits": 528126,
+      "checkpoint_sha256": "8aa44343099384990324c7a1e9acae5beb982a3d2fe948c685216df68f467d20",
+      "initial_state_sha256": "ff3107ba29c0a330d1849c8373f3c7210c6c89d0382da5e1fcec367e376fd6a2",
+      "final_state_sha256": "abf7d7dbd6c3ffa11955e09ad1262886acdd1e6db6214d0af06fc7a5a109077a",
+      "adapter_forward_calls": 4800,
+      "per_epoch_training_only_description": [
+        {
+          "epoch": 1,
+          "images": 1600,
+          "teacher_visits": 2510,
+          "total_loss": 0.5511034074178315,
+          "direction_loss": 0.5193014829140157,
+          "preservation_loss": 0.3180192519328557
+        },
+        {
+          "epoch": 2,
+          "images": 1600,
+          "teacher_visits": 2510,
+          "total_loss": 0.5331501360647962,
+          "direction_loss": 0.5007901471946389,
+          "preservation_loss": 0.3235998815624043
+        },
+        {
+          "epoch": 3,
+          "images": 1600,
+          "teacher_visits": 2510,
+          "total_loss": 0.5109245649006334,
+          "direction_loss": 0.4782230244297534,
+          "preservation_loss": 0.32701540846144783
+        }
+      ],
+      "elapsed_seconds": 299.0469999999914
+    }
+  },
+  "total_formal_steps": 2400,
+  "total_formal_adapter_forward_calls": 9600,
+  "heldout_training_visits": 0,
+  "heldout_model_evaluation_images": 0,
+  "new_base_model_forwards": 0,
+  "new_oracle_solves": 0,
+  "mechanism_and_utility_gates": "not_evaluated",
+  "native_gain": null,
+  "historical_method_increment": null
+}

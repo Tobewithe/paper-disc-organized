@@ -1,0 +1,1222 @@
+--- a/experiments/mask_repair_preservation_20261016/CONFIG.json
++++ b/experiments/mask_repair_preservation_20261016/CONFIG.json
+@@ -0,0 +1,18 @@
++{
++  "schema_version": 1,
++  "panel": {"pairs": 256, "images": 243, "sha256": "170676d3017e4be7cd213ff1094ca28065727807c915b7602ecdaec48238cf31"},
++  "arms": ["C", "E", "EK", "E_equal"],
++  "solver": {
++    "penalty": 0.003, "error_margin": 1.0, "protection_weight": 1.0,
++    "max_iter": 120, "max_eval": 150, "history_size": 20, "lr": 1.0,
++    "tolerance_grad": 1e-9, "tolerance_change": 1e-12,
++    "gradient_acceptance": 1e-6, "line_search_fn": "strong_wolfe",
++    "dtype": "float64", "device": "cpu", "initialization": "zero_delta"
++  },
++  "numerics": {"proxy_atol": 0.0005, "proxy_rtol": 0.00005, "equal_rms_atol": 0.0001, "equal_rms_rtol": 0.0001},
++  "statistics": {"bootstrap_replicates": 2000, "seed": 1729, "quantile_method": "linear", "image_order": "ascending"},
++  "gates": {"min_increment_over_C": 0.005, "min_relative_tp_loss_reduction": 0.25, "max_iou_loss_to_equal": 0.001, "min_C_witness_retention": 0.95},
++  "budget": {"smoke_pairs": 4, "smoke_seconds": 600, "full_seconds": 7200, "full_solves": 768, "cpu_threads": 1, "rss_bytes": 6442450944, "output_bytes": 2147483648, "min_free_ram_bytes": 805306368, "min_free_disk_bytes": 2147483648},
++  "executor": {"host": "YANGLEI", "root": "D:\\coco_wire\\baseline_native_20261013", "python": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe", "network_training_steps": 0, "base_model_forward_calls": 0},
++  "preselected_existing_references": {"working_method": "RUN_S3_FULL_670fffd010664a648e096572fc7c476d: soft-IoU plus native area >=9216", "finite_oracle": "RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949: historical proto-BCE witness", "matched_control": "C: newly computed same-grid BCE with matched budget", "historical_comparison_scope": "same 256 detections; descriptive only, GT-assisted oracle versus deployed outputs is not fair deployment superiority"}
++}
+--- a/experiments/mask_repair_preservation_20261016/engineering/PREFLIGHT_V1_FAILURE.json
++++ b/experiments/mask_repair_preservation_20261016/engineering/PREFLIGHT_V1_FAILURE.json
+@@ -0,0 +1,15 @@
++{
++  "stage": "input_preflight_before_freeze",
++  "host": "YANGLEI",
++  "execution_status": "failed",
++  "error_type": "KeyError",
++  "error": "category_id",
++  "location": "scripts/prepare.py: smoke target metadata construction",
++  "cause": "The native per-GT ledger does not store category_id; the initial preflight incorrectly assumed it did.",
++  "repair": "Resolve category_id from the already SHA-pinned original COCO annotation using annotation_id and assert the same image_id. Eligibility, sorting and sample count are unchanged.",
++  "freeze_manifest_created": false,
++  "scientific_run_created": false,
++  "oracle_optimization_calls": 0,
++  "network_training_steps": 0,
++  "scientific_outcomes_computed": false
++}
+--- a/experiments/mask_repair_preservation_20261016/INPUT_EXPECTATIONS.json
++++ b/experiments/mask_repair_preservation_20261016/INPUT_EXPECTATIONS.json
+@@ -0,0 +1,24 @@
++{
++  "files": {
++    "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/run.json": "8b10b5c35af899dd8db83797167cf76c409733085591674b1da9c05f49600725",
++    "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/EVAL_CONTRACT.json": "8dd10307f8c9a60120d555a6a8e416d1ce6a0c072226cdf4e5dc1d7b9e00e65c",
++    "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/trace/TRACE_MANIFEST.json": "c4c2b11eb0f6c9628c7ab3494b74b08d6e0835b46426413fbdafb2b2119abfab",
++    "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/trace/native/predictions.json": "a8c3e7d0af9db4684653c9b7b412f734d6105dc1e1c98a20c0782cf8d2fd3151",
++    "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/ledger/PER_GT_FAILURE.jsonl": "8e563c9a3f32e6a3289b6649685c8160f557d74f19b35209b9f712f79c2e5884",
++    "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/run.json": "a7846d885beb965707fc72c408d25ac9eff260d9164ca9b3acf1a1dbdb1e1d49",
++    "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/TARGET_PANEL.json": "170676d3017e4be7cd213ff1094ca28065727807c915b7602ecdaec48238cf31",
++    "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/ORACLE_RESULTS.jsonl": "6e7ff1c080d934d742a9c4e10dbf3e0bcb3fdfe57fa9dc7d61edba53cc791767",
++    "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/INPUT_MANIFEST.json": "5e029b412da15a25b6696a3384167c73dd9a0e22d06694a4d48aaffc22c341d6",
++    "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/EVAL_CONTRACT.json": "09ada536d6cd2653d1fa4a0a20b3b2a8b98c05ec181e0f96253c7c913f43a58a",
++    "assets/datasets/coco_native_s0_20261013/annotations/instances_val2017.json": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
++    "assets/models/coco_clean_20260911/yolo26m-seg.pt": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
++    "paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json": "ae8133e371d121c642e0a32070b3743f6f7657ded587d6ab0491456329198e45",
++    "experiments/mask_opportunity_audit_20261015/runs/RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd/run.json": "3559f2455c9360bdbd41d49cf9e5b45e0cd6fb934f1df0d11a7a6a512c961199",
++    "experiments/mask_opportunity_audit_20261015/runs/RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd/EVAL_CONTRACT.json": "1c8e8a44225a9276079e6a105cafc774e0e5862dcab938a67e98538541fbf4ee",
++    "experiments/mask_opportunity_audit_20261015/runs/RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd/PAIRED_MASKS.jsonl": "1a7f0553e4ced589f13655289fa2e69dda3d64585064ae58947038f93c9d50ba",
++    "experiments/mask_opportunity_audit_20261015/runs/RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd/PAIR_RESULTS.jsonl": "201a3625b1986675c8f53c0e54666308323fbccb7e36794c168c6ca982552d9b"
++  },
++  "pairs": 256,
++  "images": 243,
++  "note": "Original-source SHA receipts plus current byte hashes of returned opportunity evidence; execution-host verification mandatory."
++}
+--- a/experiments/mask_repair_preservation_20261016/PROTOCOL.md
++++ b/experiments/mask_repair_preservation_20261016/PROTOCOL.md
+@@ -0,0 +1,87 @@
++# 同检测系数修复—正确像素保护：有限机制协议 V1
++
++2026-10-16。替代本 Study 的[未执行设计草案](PROTOCOL_DRAFT.md)，不改任何旧 Run。正式冻结时间及每个文件的实际字节 SHA 以 `FREEZE_MANIFEST.json` 为准；只有输入预检与合成工程测试通过才生成该清单。`CONFIG.json` 是完整机器参数，不接受运行时科学参数覆盖。
++
++**授权与范围：** 用户在当前状态汇报后要求“继续吧”，继续当前唯一下一步：补齐并冻结本项有限系数机制检验，具备条件后在本会话已授权的笔记本 `YANGLEI / ssh 28358lan` 执行一次面板外 smoke 和一次固定256条评价。只优化每条实例的32维临时系数变量；网络训练步数、模型/adapter forward 均为0，不更新已有 checkpoint，不自动进入三臂训练、S2/S3/S4、扫参数或提交推送。原讨论授权仅设计的边界由这次继续指令扩展到本项核验。其它研究任务、历史协议与失败均保留。
++
++## 1. 问题—机制假说—针对性干预
++
++问题：原 S1 256条中122条已有同检测 fixed-P Mask75见证；机会核对中100条未由adapter修到Mask75、10条修复被门控撤回、12条保留。特定BCE异常样本的像素记账又显示，降损可集中在未翻转像素，而前景丢失造成二值IoU退化。AMT-v1取得原生收益但相对原soft-IoU+面积门控增量为负，不能据此推论“所有目标都无效”或“已证明是样本太少”。证据和 Run 见[草案第1节](PROTOCOL_DRAFT.md#1-主判断与已有证据)。
++
++**H：**显式区分“推动原错误像素越过阈值”和“维持原正确像素的已有间隔”，可在共享32维系数的联动中取得更好的修复—保护折中。**竞争解释：**保护表现只来自改动幅度降低；或者该目标干预没有额外效用，真正未兑现环节仍在条件方向预测。H是待检验目标机制，不是已经定位的唯一根因，也不是不可避免的32维容量冲突证明。
++
++针对性干预：C为同网格BCE；E只集中修错；EK在完全相同E上加入保护；E-equal沿E方向一次缩放到EK的实际logit改动幅度。EK−E是保护项移除对照，EK−E-equal排查幅度解释；EK−C检验该复合目标是否值得进入真实学习。每臂同32变量、同c0初始化、同数据/几何/正则/求解预算。新增网络参数为0。有限oracle阳性不等于网络能学会或部署安全。
++
++## 2. 样本、参照、身份与冻结输入
++
++- 正式面板：原 `RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/TARGET_PANEL.json` 的全部256条、243图；SHA `170676d3017e4be7cd213ff1094ca28065727807c915b7602ecdaec48238cf31`。不只选择122或100，不删失败/数值未收敛项，不换检测。
++- 原生 N：`RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170` 的同一最终 Box75 检测；GT为原生COCO segm75任务失败且该检测自己的原图 MaskIoU<.75。保留预测namespace、全局行号、图/类/GT/raw身份、框、分数、排序、全部N行系数矩阵形状。
++- 指定已有方法 R_G：原soft-IoU checkpoint加固定原生面积≥9216门控，来源全量 `RUN_S3_FULL_670fffd010664a648e096572fc7c476d`，复用已独立核验的 `RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd/PAIRED_MASKS.jsonl` 中同256条掩码。
++- 历史有限参照 R_S1：该面板原S1 proto-BCE oracle；仅历史见证。新C在输入尺度而历史S1在proto尺度，不能把两者的差归因为保护项。
++- 每次报告 EK−N、EK−C，并单列 EK−R_G、EK−R_S1。后两项是同检测IoU描述性比较；oracle使用GT，不能宣称优于无GT部署方法或把增量称作AP。固定256条没有原成功实例总体，因此不作22957个成功GT的损伤保证。
++- 四个 smoke：在原生账本中选正式243图之外、满足同一Box75/Mask75失败定义的记录，按 `(image_id,annotation_id)` 升序选前四个不同图。不查看任何新求解结果来选样。具体ID随 `PREPARATION.json` 在求解前冻结；不并入正式分母。
++- `INPUT_EXPECTATIONS.json` 固定原生权重、完整COCO GT、原生输出/账本/trace清单、原S1面板及历史参照字节SHA。预检另核247张图及cache的SHA、实际geometry；运行再次核输入和cache。GT仅离线目标/测量，未调用任何预测网络。
++
++## 3. 原生解码、ROI和浮点合同
++
++核准源码为 Ultralytics8.4.100：`process_mask_native` 用**完整N×32** FP32 GEMM形成proto logits，按 `max(1,32000000//(H*W))` 分块 `scale_masks` 到 `native_decode_hw`，严格`>0`转uint8，再用输入坐标预测框裁剪。随后 `SegmentationValidator.scale_preds` 用缓存ratio_pad对**二值**掩码 `scale_masks` 回原图并`.byte()`；禁止换成最终0.5阈值。实际版本/源码和运行数值开关与原生合同逐字段相等。
++
++所有新臂的首次阈值网格都是该实际输入网格（缓存断言`native_decode_hw=input_hw=4*proto_hw`）。ROI严格按像素坐标 `x>=x1,x<x2,y>=y1,y<y2`。原始COCO GT nearest重采样到缓存真实resized尺寸，再按真实整数left/top/right/bottom补0；奇数padding不擅自改成对称。原图主IoU总是完整GT RLE，包括框外GT。
++
++**为避免伪双精度，明确一个共同代理：**固定版`ops.scale_masks`内部调用`.float()`，直接把FP64系数送入它不能宣称全FP64求解。因此仅优化端使用P通道的等价实数双线性插值（FP64、align_corners=False）得到B，ROI内目标为 `z(delta)=z0_native_FP32.double()+B*delta`。原生c0处由真实完整形状GEMM的logit锚定，E/K分组不会被代理舍入改变。该代理对所有臂完全一致，属于本次事前明确的数值实现；不是改变实际decoder。
++
++返回系数统一 `(c0.double()+delta).float()` 放回完整N行；实际输入二值掩码与原图RLE均经原生FP32算子得到。每个像素核代理和实际logit差 `<=5e-4+5e-5*abs(actual)`；记录最大误差、越限像素和阈值翻转差。代理的阈值不用于最终评分。任何越限、非有限量、等幅失配均不能支持机制阳性；非有限量或身份/重放失配为工程失败。
++
++每图zero-delta经原生bridge精确重放全部输出RLE；自定义分阶段捕获还须与bridge逐像素相等。所有变体保留非目标输出的首次二值与原图mask逐像素相等，框/类/score/ID始终来自未改动原生行。
++
++## 4. 三目标、分组及等幅对照
++
++ROI内GT为y，s=2y−1。以**实际c0首次阈值**一次固定 E=`(z0>0)!=y` 和 K为其补集，迭代不重分组。各非空组各自取均值，空组项0；空ROI实例不删，其所有系数更新为0，列出数量。
++
++| 臂 | 唯一操作 |
++|---|---|
++| C | `mean_ROI(BCEWithLogits(z,y)) + .003*||delta||²/2` |
++| E | `mean_E(relu(1−s*z)²) + .003*||delta||²/2` |
++| EK | E加 `mean_K(relu(min(1,s*z0)−s*z)²)`，权重1 |
++| E-equal | 已解E方向乘 `RMS_ROI(actual_z_EK−z0)/RMS_ROI(actual_z_E−z0)` 一次，再原生解码 |
++
++K间隔在c0时保护损失为0，不奖励已满足间隔像素继续增信。E与C是复合目标对比，不声称单独识别hinge/组归约/像素选择中的某一个因素。`softplus(-s*z)`等价BCE，不能换写法当新机制。
++
++等幅比值来自实际FP32logit，非GT成绩；允许放大>1，不限幅，不做二次搜索/矫正。两者RMS都精确为0，取alpha=0，记both_zero；E为0而EK非0，记undefined_zero_direction，仍保留该行，整体数值不可裁决。重放后RMS误差须`<=1e-4+1e-4*RMS_EK`，不达标不修改容差补跑。
++
++## 5. 求解预算、工程控制与数值裁决
++
++CPU单线程、FP64、delta=0、Torch LBFGS/strong_wolfe：lr1，120迭代，150次目标/梯度closure硬上限，history20，tolerance_grad1e−9，tolerance_change1e−12；最终梯度无穷范数≤1e−6记收敛。达到closure硬上限时保留已经计算过的最低**目标值**迭代点，标明cap，不按GT IoU选解；末次梯度仅作收敛检查、不再更新。三臂完全相同。
++
++数学工程控制在任何真实样本求解前完成：三目标有限差分梯度、C/E/EK各自非零已知最优解、固定E/K与保护项初始0、空组/空ROI、等幅零/放大规则、线性插值与奇数padding、真实byte解码区别、TP/TN/FP/FN独立计数、图宏归约和分母缺失拒绝。合成测试不算真实模型或科学Gate通过。
++
++最多smoke4条×3解、≤600秒；正式256×3=768解、≤7200秒；每Run输出≤2GiB、RSS<6GiB、空闲RAM≥768MiB、磁盘余量≥2GiB。启动前空闲RAM≥3GiB且磁盘≥4GiB。每closure、每图核预算；不因结果追加迭代、换seed或补样。smoke全部工程/数值/独立核验通过，且 `1.2×smoke逐图处理耗时×256/4+120秒≤7200秒`，才执行完整面板。预算不足只结案工程限制，不能自动扩预算。
++
++所有256条进入图宏统计，且主量、保留和保护判据都依赖完整面板；任一用于正式比较的求解未收敛或数值代理/等幅失败，本次整体记 `INCONCLUSIVE_NUMERICAL`。未收敛数据保留，不作不可达证明，不从有效分母剔除。此规则补齐草案中“是否影响裁决”的歧义，事前一次固定。
++
++## 6. 统计、门槛与三个出口
++
++每个指标先同图实例均值，再243图等权。按image_id升序形成向量；NumPy default_rng(1729)生成2000组243图有放回索引，同一索引用于全部比较，双侧2.5/97.5百分位，quantile method=linear。面板已用于方法开发，区间仅描述开发证据，不具有新的盲测确认含义。
++
++必须同时满足：
++
++1. EK−C原图平均IoU≥.005，配对95%下界>0。
++2. 首次阈值网格 `TP→FN/max(1,native_TP)` 以同样图宏归约；EK较E-equal均值相对下降≥25%，**绝对下降量**的95%下界>0；EK−E-equal原图IoU≥−.001。native_TP=0实例计0并列数；E-equal平均损失为0，不能声称相对下降通过。
++3. C达到原图Mask75的实例中，EK保留≥95%，并列每个新增/丢失ID。C没有成功见证不视作保留通过。
++4. 全部样本、实际原生重放、输入/身份、数值、源码、独立RLE/统计核验有效。
++
++- **阳性 `FINITE_MECHANISM_SUPPORTED`：**四项全过，支持这个有限系数目标干预具有保护相关增益。唯一下一步为另冻同架构/同预算C/E/EK训练消融，检验能否学会；本轮不启动。
++- **阴性 `CONFIGURATION_REJECTED`：**工程数值有效，但任何点值护栏不达标。关闭这个margin/保护目标配置，停止同类loss的串行尝试。优先聚焦已知有益方向的条件预测；先形成有自己证据支持的具体输入/读出命题，不自动恢复181维二分类、扩量或改门控。
++- **信息不足：**点值均合格但要求的区间未过记`INSUFFICIENT_PRECISION`；数值未决记`INCONCLUSIVE_NUMERICAL`；身份或执行错误为工程失败。均停止本Run并保留，不能偷偷放宽Gate或追加样本/预算。可验证的工程问题另行登记修复，不能把同协议已看到的结果包装成新盲测。
++
++这些是机制探索投资门槛，不追溯修改任何旧S1/S2/S3。首次阈值保护属于失败实例内部正确像素；不替代原成功GT损伤，不计算新的COCO AP。
++
++## 7. 配置、运行登记、独立验证与交付
++
++沿用原生8.4.100官方权重及实际640/batch16/rect缓存，不重新分batch、不再forward。原生end2end、conf=.001、iou=.7、max_det300、agnostic_nms=False、mask_ratio4、overlap=True、retina=False、FP32与TF32等完整实际环境按源Run逐项核验；官方权重训练元数据mask_ratio1不进入本次评价。官网52.5/44.1 parity未过与native账本有效双状态保留。
++
++每次实际执行才登记独立Run、原命令、主机/PID、父Run、protocol/code/input哈希及源码快照；原子阶段锁防重复。输入预检和源码冻结先完成，再smoke，再一次正式Run。同阶段已存在Run即拒绝自动重跑；不终止其它会话任务。
++
++原始逐实例结果保存c0、三解及等幅delta/FP32系数、收敛/实际RMS/代理误差、首次阈值GT/原生/新掩码RLE、完整原图GT/各参照RLE及像素迁移计数。`verify.py`不用优化器代码，以独立压缩RLE解码、像素计数和图宏bootstrap复算统计及Gate；笔记本完成后回传全Run（含失败、源码快照）并核SHA，本机执行同一冻结verify脚本再核统计。此独立检查不冒称在本机重跑GPU P解码。
++
++产物：PREPARATION/FREEZE、Run的EVAL_CONTRACT、PAIR_RESULTS、STATISTICS、CONFIG_AUDIT、SUMMARY、DECISION、INDEPENDENT_LAPTOP、本机INDEPENDENT_LOCAL、回传清单、REPORT及配置复核；更新Study和总控，运行 `python project/check_active_plan.py`。结案按“问题—机制假说—针对性方法—实验反馈—唯一下一步”，同时说清原生收益、匹配C增量及与已有方法的比较范围。
+--- a/experiments/mask_repair_preservation_20261016/PROTOCOL_DRAFT.md
++++ b/experiments/mask_repair_preservation_20261016/PROTOCOL_DRAFT.md
+@@ -0,0 +1,102 @@
++# 修复—保护机制检验：后续研究设计草案
++
++2026-10-16；依据提交 `c23d8a2c43d1995979ff757fe7f6ebef5199e086` 及其本地完整结案证据。
++
++**状态：设计草案，未冻结、未实现、未执行。** 用户本轮要求阅读项目讨论并制定后续计划。本文件让下一步可以被审查，不创建实际 Run，不授权启动求解、推理或训练。唯一执行路由仍为[总控](../../project/ACTIVE_PLAN.md)。下文数值是运行前拟采用的设计选择，必须在正式 Protocol、输入清单和源码快照中冻结后才有执行效力；不能在看见本方案科学结果后改动。
++
++## 1. 主判断与已有证据
++
++**优先研究：如何让一个共享的32维系数变化修正错误像素，同时减少对原正确像素的破坏。** 先做有限系数层面的受控干预，再决定是否值得把这个目标交给无GT的预测网络。当前不优先扩大训练集、增加Prototype通道、追加网络或继续教师替换。
++
++| 依据 | 已核实事实 | 本计划采用的含义 |
++|---|---|---|
++| [S1](../mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md) | 固定256条中122条找到32维同检测Mask75解 | 这些实例已有可达见证；不是所有失败都由32维容量不足造成 |
++| [机会兑现核对](../mask_opportunity_audit_20261015/REPORT.md)，`RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd` | 122条中100条无门控也未修好，10条修好后被门控撤回，12条保留 | 优先处理修正方向的生成；该核对已完成，不再重复 |
++| [BCE像素记账](../mask_readout_bce_decomposition_20261014/REPORT.md)，`RUN_BCE_DECOMP_V2_FULL_5be07d9955054ac1bb0480e221d61d0f` | 特定2159条异常中2051条主要靠未翻转像素降损；1998条IoU下降由前景丢失主导 | 支持检验修复与正确像素保持的目标分工；只是观测动机，不能直接认定方向冲突为根因 |
++| [训练内/开发核验](../mask_soft_fit_audit_20261016/REPORT.md) | 门控内train/dev改善接近；共同支持仅29/82、28图 | 未确立小样本过拟合因果，不能直接扩量或瘦身网络 |
++| [AMT-v1](../mask_attainable_teacher_20261016/REPORT.md)，`RUN_AMT_S2_FULL_5dbbed12ed4b4f0989826ff4eabf3357` | 有3091条接受教师，但新G比原G目标改善少0.004605，配对CI完全低于0 | “换成可达答案”本身未解决学习；新方案必须直接检验不同的梯度/保护操作，而不是再次换教师 |
++| [原G全量S3](../mask_gate_s3r_20261015/REPORT.md) | +0.141573 Mask AP点，损伤90/22957，未达+0.3点 | 保留为工作参照；安全选择有价值，但不能据此说改选择器足以补齐主要缺口 |
++
++**对前一建议的主动修正：** AMT结案时建议先测181维表征能否区分“可修失败/原成功”。该标签可分不等于能预测有益的32维方向，也不直接区分目标冲突与读出问题。该建议尚未执行，现移为后备设计；其旧报告不改写，`superseded_by=experiments/mask_repair_preservation_20261016/PROTOCOL_DRAFT.md`。这次选择源自对判别价值的重新评估，不是新增实验发现。
++
++## 2. 科学准入四问
++
++**M1：主假说 H。** 在固定P的联合像素变化中，既有目标对“错误像素真正越过阈值”和“原正确像素不被推错”的区分不足；显式分工可以找到更有利的修复—保持折中。这里检验的是一个可干预的目标机制，不预设“32维必然存在不可避免冲突”。
++
++**竞争解释 H_alt：** 改善只是修正幅度变小，或者目标干预在同一固定P中不能提供额外的安全收益；已有oracle方向存在而adapter未兑现，更应归入条件读出/优化的后继问题。AMT阴性支持认真保留这个竞争解释，但没有证明输入信息不足。
++
++**M2：不同预测。** 若H获得支持，加入正确像素保护后，在相同有效logit改变量下应少产生TP→FN，同时保留修复，并相对同网格BCE找到实质更好的原图掩码。若只有改动幅度下降，等幅对照应消除优势；若有限目标本身无增益，就不把它投入新的训练。
++
++**M3：匹配条件。** 第一阶段每臂都是同一检测的32个系数变量，固定P、c0、GT、ROI、网格、初始化、正则和求解预算，没有新增网络参数/输入。未来训练阶段固定原167872参数架构、原初始化、原2000图、数据顺序、优化器和每臂1500步；所有差异逐项列白名单。
++
++**M4：机制移除。** 必须比较“错误修复目标”与“同目标加正确像素保护”，另做等幅方向对照。训练目标不能在推理时直接删除，后续必须用同预算移除保护项的训练臂验证，不能把同checkpoint简单缩小Δc伪称为删除了训练机制。
++
++## 3. 下一项唯一实验：有限系数修复—保护干预（拟议）
++
++### 3.1 对象与几何
++
++- 使用原S1固定256条/243图，面板SHA `170676d3017e4be7cd213ff1094ca28065727807c915b7602ecdaec48238cf31`。不只挑100条或122条做主统计，不补样、不换检测；旧122条及L/G/R仅作事前已知分层。
++- 固定原最终Box75检测、P/c0、框/类/score/排序、实际batch16/rect缓存几何和原生decoder。所有臂共享同一个**原生首次二值化前的输入尺度logit网格**及相同GT投影、预测框支撑；最终主评分仍为完整原图GT RLE的同检测MaskIoU。
++- 原S1的proto尺度BCE oracle仅作历史见证，**不能直接充当本次输入尺度BCE控制臂**。新C臂须在与新方法完全相同的网格、ROI和数值实现上求解；必要计算不属于重复旧S1问题。
++- 工程实现须读固定版本的真实`process_mask_native`与后续`scale_masks`路径，核准插值、裁切、阈值顺序。不得将“proto阈值”冒充原生首次阈值，或擅自把原生解码换成“最后在原图0.5阈值”。
++- GT只进入离线有限oracle及测量，结果不算无GT部署效果。未找到解是有限求解结果；不作不可表达/不可行性证书。
++
++### 3.2 三臂与一个无求解等幅对照
++
++设监督网格内真实首次阈值前logit为`z`，`s=2y-1`。以**原生c0**一次冻结错误集合E及正确集合K，迭代中不重分组。原生判定为`z>0`。各非空集合内取像素均值；空集合项记0、实例保留在原分母。
++
++| 臂 | 拟议目标/操作 | 要隔离的因素 |
++|---|---|---|
++| C | 同网格全部ROI像素BCE + `0.003*||Δc||²/2` | 新网格的匹配控制 |
++| E | `mean_E(max(0,1-s*z)²)` + 同一正则 | 将修复目标集中到原错误像素；与C的差异是复合目标效应，不单独归因为某一个公式因子 |
++| EK | E + `mean_K(max(0,m_keep-s*z)²)`，`m_keep=min(1,s*z0)` | 在E完全不变时加入正确像素保护，保护项权重拟定1，不扫描 |
++| E-equal | 只把E得到的Δc乘一个非负标量，使同ROI内实际阈值前`Δz`的RMS与EK相同，然后通过原生decoder评分 | 排除“只是变化幅度更小”；无需新增优化或训练 |
++
++K中`s*z0≥0`，因此拟议保护项在c0处为0；它不奖励已经满足保护间隔的像素继续变得更自信。错误margin拟定1。这里使用有饱和区间的平方hinge并显式分组；**`softplus(-s*z)`在相同归约下就是BCE，不能仅靠改写公式宣称新机制。**这些具体起点值并非已证明最优，正式冻结后不得根据结果调节。
++
++等幅标量由预定RMS比值一次计算，允许大于1，不按GT收益选取。两臂均零时记录零变化；E为零而EK非零时，等幅方向不存在，记录无法支持此例的独立机制归因，保留分母。不能挑选只在等幅对照有利的实例。按原生FP32完整输出形状最终重放，不能以FP64代理目标达标代替实际RLE达标。
++
++### 3.3 预期统计与拟议准入门槛
++
++主统计按图内实例均值、再图等权；固定243图配对bootstrap 2000次、seed1729，区间算法在正式Protocol冻结。该面板已用于开发，区间不具有新盲测确认含义。
++
++拟议门槛是**新机制探索的投资判据**，不是修改原S1/S2/S3 Gate：
++
++1. **实际效用主量：** EK相对同网格C的原图MaskIoU平均增量≥0.005，95%配对区间下界>0。
++2. **保护机制护栏：** 在首次阈值网格，`TP→FN/max(1,原TP)`按相同图宏归约；EK相对E-equal平均下降至少25%，下降量95%区间下界>0，同时原图平均IoU不得比E-equal低超过0.001。原TP=0的实例计0并单列数量；E-equal损失为0时不能声称满足相对下降。
++3. **有效见证保留：** C臂达到原图Mask75的实例中，EK至少保留95%；列出每个新增与丢失ID。C没有有效成功时不能用空集合声称保留通过。
++4. **有效性：** 全256条及预定对照完整、有原生zero-delta/身份/源码核验。数值未收敛仍保留；若影响裁决则记`INCONCLUSIVE_NUMERICAL`，不当作科学阴性或不可达。
++
++主量、机制护栏、保留护栏和有效性均满足，才推荐下一阶段训练；不能只看其中最好的一项。首次阈值TP保护是**同一失败实例内部**的像素保护，不是对全22957个原成功GT的损伤保证。
++
++### 3.4 预算与缺项
++
++拟定单进程、CPU线程1；每臂同一float64 zero-delta有限求解预算，参考原LBFGS `max_iter=120/max_eval=150/history=20/lr=1`，相同正则及收敛判据。三臂最多`3×256=768`次正式有限求解；工程smoke固定最多4个面板外实例、≤600秒，正式总墙钟≤7200秒，新增产物≤2GiB。到预算停止，不能按科学结果追加迭代。**这叫零网络训练，仍有明确的oracle优化计算成本。**
++
++正式冻结前必须补齐：原生首次阈值网格实现与浮点误差合同、三目标的梯度/非零已知解控制、所有输入和缓存SHA、等幅零方向规则、数值失败裁决、运行登记与独立复核脚本、实际设备资源和任务归属。当前未连接笔记本检查这些条件，不把已有清单等同于当前文件可用或设备空闲。
++
++### 3.5 三个结果出口
++
++- **阳性：** 推荐一次同架构目标干预pilot，检验有限系数层面的改善能否被无GT网络学会；oracle阳性本身不放行S2/S3、不复活AMT-v1。
++- **阴性：** 关闭本次margin/保护目标配置，停止同类loss的串行尝试；研究重点转到“已知有益方向为何未被条件读出兑现”，保留其存在性证据，先形成输入/读出信息的明确新命题再决定是否立项。不会自动重启181维二分类或追加训练。
++- **信息不足/工程无效：** 停止本Run，保存完整错误或区间；只允许另行登记可验证的工程修正，不扩大样本/预算或改阈值来改变科学判定。
++
++## 4. 有条件的后续链路
++
++| 阶段 | 计划动作 | 进入/退出条件 |
++|---|---|---|
++| P0 当前 | 完成上述设计、实现核验并冻结单个机制Study | 本轮只完成设计；无新Run |
++| P1 下一项 | 同256条有限系数C/E/EK及等幅对照 | 全部拟议准入条件满足，才推荐P2；否则按三个出口结束 |
++| P2 条件成立后 | 同架构C/E/EK目标干预；原2000图、原初始化和顺序，每臂3轮/1500步；有效参数167872不增 | 最多三臂4500个更新步，不能称总算力等于单臂1500步；如旧E4控制在全部实际配置/源码上严格等价则优先复用，否则不得硬称同对照。另冻训练Protocol与预算后执行 |
++| P3 方法筛查与全量 | 三臂完整输出按原S2评价；主部署形式在训练前固定为原9216面积策略，U同时作为描述性读数；通过后仅对同一预选checkpoint做5000图S3 | 原S2目标≥.005且CI下界>0、总体≥−.001、损伤单侧上界≤1%；还须相对原soft-IoU+G有正的配对增量，且保护消融有效。之后S3仍需相对原生+0.3 AP点、CI下界>0、22957全体损伤≤1%、Box身份不变 |
++| P4 最后 | 开发外确认，再讨论扩量/多seed与论文机制声称 | 需方法与机制两条证据均过关，并另有未参与选择的数据与冻结预算；旧COCO val不重命名成盲测 |
++
++训练阶段原`.1`全输出保持项、GT配对和分组分母须保持原合同并单列；新的K像素项属于待检验的GT目标变化。K/E只能由train2017标签离线产生；模型forward不得读GT、oracle标签或成功状态。P2受限E臂必须与EK拥有相同训练次数、初始化、输入和优化器，不能仅用P1的oracle消融替代真实学习机制证据。
++
++## 5. 配置与交付底线
++
++延用固定Ultralytics8.4.100、官方权重SHA、640/batch16/rect真实缓存几何、end2end、conf/max_det、GT/decoder和实际数值开关；以[基线配置](../../paper/manuscripts/neighbor_sensitive_p3/BASELINE_CONFIGURATION.md)与原Run合同为来源。权重训练元数据的mask_ratio=1不替代当前原生验证配置mask_ratio=4。每个阶段前后核对完整配置白名单，不只复核mask_ratio。
++
++每次真实执行独立Study/Run登记、输入/源码快照、输出身份、配置审计、SUMMARY/DECISION、原始逐实例记录、哈希与独立复核。失败与未回传状态完整保存；GitHub不存大文件不能推断没执行。结束先用通俗语言解释“验证什么、结果、含义、唯一下一步”，再给证据。
++
++本计划不声称已找到唯一根因，不宣称新方法有效或新颖；论文新颖性应在有机制准入证据后单独做文献核查。原官方发布AP parity未通过与本地原生账本有效的双状态保持，所有新方法只能先在明示的同配置范围公平比较。
+--- a/experiments/mask_repair_preservation_20261016/scripts/analysis_stats.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/analysis_stats.py
+@@ -0,0 +1,66 @@
++"""Image-macro paired statistics; no re-selection of targets or comparators."""
++from collections import defaultdict
++import numpy as np
++
++
++def summarize(rows, cfg, scientific=True):
++    if not rows or len({r['output_detection_id'] for r in rows}) != len(rows):
++        raise ValueError('empty or duplicated panel')
++    ids = sorted({r['image_id'] for r in rows})
++    grouped = defaultdict(list)
++    for r in rows:
++        grouped[r['image_id']].append(r)
++    sampling = np.random.default_rng(cfg['statistics']['seed']).integers(
++        0, len(ids), size=(cfg['statistics']['bootstrap_replicates'], len(ids)))
++
++    def macro(fn):
++        return np.asarray([np.mean([fn(r) for r in grouped[i]]) for i in ids], dtype=np.float64)
++
++    def receipt(v):
++        draws = v[sampling].mean(axis=1)
++        return dict(mean=float(v.mean()), ci95=[float(x) for x in np.quantile(draws, [.025, .975], method='linear')])
++
++    arms = tuple(a for a in ('N', 'C', 'E', 'EK', 'E_equal', 'R_G', 'R_S1') if all(a in r['arms'] for r in rows))
++    if scientific and not {'R_G', 'R_S1'}.issubset(arms):
++        raise ValueError('missing preselected existing references')
++    ious = {a: macro(lambda r: r['arms'][a]['original_iou']) for a in arms}
++    metrics = {a: dict(original_iou=receipt(ious[a]), delta_vs_native=receipt(ious[a]-ious['N']),
++                       repaired_instances=sum(r['arms'][a]['original_iou'] >= .75 for r in rows)) for a in arms}
++    comparisons = {name: receipt(ious[a]-ious[b]) for name, a, b in (
++        ('EK_minus_C', 'EK', 'C'), ('EK_minus_E_equal', 'EK', 'E_equal'),
++        ('EK_minus_E', 'EK', 'E'), ('EK_minus_R_G', 'EK', 'R_G'), ('EK_minus_R_S1', 'EK', 'R_S1')) if a in ious and b in ious}
++    damage = {a: macro(lambda r: r['arms'][a]['tp_to_fn']/max(1, r['native_tp'])) for a in ('C', 'E', 'EK', 'E_equal')}
++    decrease = receipt(damage['E_equal']-damage['EK'])
++    denom = float(damage['E_equal'].mean())
++    relative = decrease['mean']/denom if denom > 0 else None
++    control_success = {r['output_detection_id'] for r in rows if r['arms']['C']['original_iou'] >= .75}
++    protected_success = {r['output_detection_id'] for r in rows if r['arms']['EK']['original_iou'] >= .75}
++    retained = len(control_success & protected_success)
++    numerical = all(r['numerical_valid'] and all(r['arms'][a]['solver']['solver_status']=='converged'
++        for a in ('C','E','EK')) for r in rows)
++    full = len(rows)==cfg['panel']['pairs'] and len(ids)==cfg['panel']['images']
++    g = cfg['gates']
++    point = dict(utility=comparisons['EK_minus_C']['mean']>=g['min_increment_over_C'],
++        protection=relative is not None and relative>=g['min_relative_tp_loss_reduction'],
++        equal_iou=comparisons['EK_minus_E_equal']['mean']>=-g['max_iou_loss_to_equal'],
++        retention=bool(control_success) and retained/len(control_success)>=g['min_C_witness_retention'])
++    intervals = dict(utility=comparisons['EK_minus_C']['ci95'][0]>0, protection=decrease['ci95'][0]>0)
++    if not scientific:
++        decision='ENGINEERING_ONLY'
++    elif not full or not numerical:
++        decision='INCONCLUSIVE_NUMERICAL'
++    elif all(point.values()) and all(intervals.values()):
++        decision='FINITE_MECHANISM_SUPPORTED'
++    elif not all(point.values()):
++        decision='CONFIGURATION_REJECTED'
++    else:
++        decision='INSUFFICIENT_PRECISION'
++    return dict(pairs=len(rows), images=len(ids), unit='IoU_0_to_1_not_AP',
++        reduction='instance_mean_within_image_then_equal_image_mean', metrics=metrics, comparisons=comparisons,
++        tp_loss={a:receipt(v) for a,v in damage.items()}, protection_decrease=decrease,
++        relative_tp_loss_reduction=relative, control_successes=len(control_success), retained_C_successes=retained,
++        added_vs_C=sorted(protected_success-control_success), lost_vs_C=sorted(control_success-protected_success),
++        native_tp_zero_instances=sum(r['native_tp']==0 for r in rows),
++        point_gates=point, interval_gates=intervals, numerical_valid=numerical,
++        denominator_complete=full, decision=decision,
++        deployment_claim=False, reused_development_panel=True, new_training_steps=0, base_model_forward_calls=0)
+--- a/experiments/mask_repair_preservation_20261016/scripts/launch.ps1
++++ b/experiments/mask_repair_preservation_20261016/scripts/launch.ps1
+@@ -0,0 +1,20 @@
++param(
++    [Parameter(Mandatory=$true)][ValidateSet('smoke','full')][string]$Scope,
++    [string]$ParentRun
++)
++$ErrorActionPreference = 'Stop'
++$taskRoot = 'D:\coco_wire\baseline_native_20261013'
++$studyRoot = Join-Path $taskRoot 'experiments\mask_repair_preservation_20261016'
++Set-Location -LiteralPath $taskRoot
++$env:PYTHONPATH = Join-Path $taskRoot '_site'
++$env:YOLO_OFFLINE = 'true'
++$env:YOLO_AUTOINSTALL = 'false'
++$env:YOLO_CONFIG_DIR = Join-Path $taskRoot '_ultralytics_config'
++$env:OMP_NUM_THREADS = '1'
++$env:PYTHONDONTWRITEBYTECODE = '1'
++$env:PYTHONIOENCODING = 'utf-8'
++Remove-Item Env:MKL_NUM_THREADS -ErrorAction SilentlyContinue
++$taskArgs = @('-B', (Join-Path $studyRoot 'scripts\run_mechanism.py'), '--scope', $Scope)
++if ($ParentRun) { $taskArgs += @('--parent-run', $ParentRun) }
++& 'C:\Users\28358\anaconda3\envs\pytorch\python.exe' @taskArgs
++exit $LASTEXITCODE
+--- a/experiments/mask_repair_preservation_20261016/scripts/mechanism_common.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/mechanism_common.py
+@@ -0,0 +1,104 @@
++"""New Study ownership, immutable inputs and source freezing; old Runs are read-only."""
++from pathlib import Path
++import json
++import os
++import shutil
++import socket
++import sys
++
++ROOT = Path(__file__).resolve().parents[3]
++STUDY = ROOT / 'experiments/mask_repair_preservation_20261016'
++BASE = ROOT / 'experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170'
++S1 = ROOT / 'experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949'
++AUDIT = ROOT / 'experiments/mask_opportunity_audit_20261015/runs/RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd'
++GT = ROOT / 'assets/datasets/coco_native_s0_20261013/annotations/instances_val2017.json'
++sys.path.insert(0, str(ROOT / 'experiments/mask_readout_mechanism_v2_20261012/scripts'))
++from posttrain_run import RegisteredRun, configure_native, read_json, write_new, sha256, require, now, save
++from posttrain_audit import read_jsonl
++
++OWN = ['PROTOCOL.md', 'CONFIG.json', 'INPUT_EXPECTATIONS.json', 'SOURCE_CONTEXT.json', 'SOURCE_DIRTY.patch',
++       'scripts/objectives.py', 'scripts/analysis_stats.py', 'scripts/native_geometry.py',
++       'scripts/mechanism_common.py', 'scripts/prepare.py', 'scripts/run_mechanism.py',
++       'scripts/verify.py', 'scripts/test_mechanism.py', 'scripts/launch.ps1']
++CODE = ['experiments/mask_repair_preservation_20261016/' + p for p in OWN]
++CODE += ['experiments/mask_readout_mechanism_v2_20261012/scripts/' + p for p in (
++    'posttrain_run.py', 'adapter_data.py', 's1_geometry.py')]
++CODE += ['shared/evaluation/' + p for p in ('posttrain_audit.py', 'native_output_bridge.py', 'native_source_pins.json')]
++CODE += ['paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json']
++
++
++def inspect_inputs():
++    cfg = read_json(STUDY / 'CONFIG.json')
++    require(socket.gethostname().upper() == cfg['executor']['host'], 'authorized laptop required')
++    require(str(ROOT).lower() == cfg['executor']['root'].lower(), 'unexpected executor checkout')
++    require(Path(sys.executable).resolve() == Path(cfg['executor']['python']).resolve(), 'wrong interpreter')
++    expected = read_json(STUDY / 'INPUT_EXPECTATIONS.json')
++    for relative, digest in expected['files'].items():
++        require(sha256(ROOT / relative) == digest, 'input changed: ' + relative)
++    profile, environment = configure_native()
++    require(environment == read_json(AUDIT / 'EVAL_CONTRACT.json')['environment'], 'native runtime changed')
++    return cfg, expected, profile, environment
++
++
++def ownership_check():
++    import psutil
++    require(not list(ROOT.glob('experiments/*/.*.lock')), 'existing experiment lock; do not remove')
++    require(not list(ROOT.glob('experiments/*/.AUTONOMOUS_OWNER.guard')), 'existing execution owner; do not remove')
++    others = [p.info for p in psutil.process_iter(['pid', 'name', 'cmdline'])
++              if p.info['pid'] != os.getpid() and 'python' in (p.info['name'] or '').lower()]
++    require(not others, 'other Python task present; leave it unchanged: ' + str(others))
++
++
++def resources(run):
++    import psutil
++    cfg = read_json(STUDY / 'CONFIG.json')['budget']
++    run.check_budget()
++    require(psutil.Process().memory_info().rss < cfg['rss_bytes'], 'RSS budget exceeded')
++    require(psutil.virtual_memory().available >= cfg['min_free_ram_bytes'], 'RAM reserve exhausted')
++    require(shutil.disk_usage(ROOT).free >= cfg['min_free_disk_bytes'], 'disk reserve exhausted')
++    require(sum(p.stat().st_size for p in run.path.rglob('*') if p.is_file()) <= cfg['output_bytes'], 'artifact budget exceeded')
++
++
++class MechanismRun(RegisteredRun):
++    def __init__(self, scope, parent):
++        cfg = read_json(STUDY / 'CONFIG.json')
++        super().__init__('REPAIR_KEEP_' + scope.upper(), 'FINITE_MECHANISM', parent, CODE,
++                         cfg['budget'][scope + '_seconds'], protocol='PROTOCOL.md')
++        self.path = STUDY / 'runs' / self.run_id
++        self.lock = STUDY / '.FINITE_MECHANISM.lock'
++        self.meta.update(study_id='STUDY_MASK_REPAIR_PRESERVATION_20261016', scope=scope,
++            base_model_forward_calls=0, new_training_steps=0, oracle_optimization_calls=0,
++            baseline_run_id=BASE.name, source_S1_run_id=S1.name)
++
++    def __enter__(self):
++        ownership_check()
++        return super().__enter__()
++
++    def freeze(self, contract):
++        frozen = read_json(STUDY / 'FREEZE_MANIFEST.json')
++        self.sources = {rel: sha256(ROOT / rel) for rel in CODE}
++        require(self.sources == frozen['files'], 'frozen code/protocol drift')
++        require(sha256(STUDY / 'PREPARATION.json') == frozen['preparation_sha256'], 'preparation drift')
++        origin = read_json(STUDY / 'SOURCE_CONTEXT.json')
++        self.meta.update(code_commit=origin['code_commit'], source_context_sha256=sha256(STUDY / 'SOURCE_CONTEXT.json'),
++                         dirty_patch_sha256=sha256(STUDY / 'SOURCE_DIRTY.patch'))
++        write_new(self.path / 'SOURCE_MANIFEST.json', frozen)
++        mapping = {}
++        for i, rel in enumerate(self.sources):
++            dest = self.path / 'source_snapshot' / (f'{i:02d}_' + Path(rel).name)
++            dest.parent.mkdir(exist_ok=True)
++            shutil.copyfile(ROOT / rel, dest)
++            mapping[rel] = dest.relative_to(self.path).as_posix()
++        write_new(self.path / 'SOURCE_SNAPSHOT_MAP.json', mapping)
++        for name in ('PROTOCOL.md', 'CONFIG.json', 'PREPARATION.json', 'INPUT_EXPECTATIONS.json'):
++            shutil.copyfile(STUDY / name, self.path / name)
++        write_new(self.path / 'EVAL_CONTRACT.json', contract)
++        self.update(plan_status='frozen', protocol_path=str(self.path / 'PROTOCOL.md'),
++            protocol_sha256=sha256(self.path / 'PROTOCOL.md'), input_manifest_sha256=sha256(STUDY / 'INPUT_EXPECTATIONS.json'),
++            contract_sha256=sha256(self.path / 'EVAL_CONTRACT.json'))
++
++
++def jsonl(path, rows):
++    with path.open('x', encoding='utf8') as f:
++        for row in rows:
++            f.write(json.dumps(row, ensure_ascii=False, allow_nan=False) + '\n')
+--- a/experiments/mask_repair_preservation_20261016/scripts/native_geometry.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/native_geometry.py
+@@ -0,0 +1,74 @@
++"""Pinned native stages, actual first-threshold logits, and FP64 linear map."""
++import torch
++import torch.nn.functional as F
++
++
++def roi_for(cache, rank, device='cpu'):
++    h, w = cache['native_decode_hw']
++    box = cache['boxes_input'][rank].detach().to(device=device, dtype=torch.float32)
++    x = torch.arange(w, device=device, dtype=box.dtype)[None, :]
++    y = torch.arange(h, device=device, dtype=box.dtype)[:, None]
++    return (x >= box[0]) & (x < box[2]) & (y >= box[1]) & (y < box[3])
++
++
++def target_grid(binary_original, cache):
++    from s1_geometry import geometry
++    info = geometry(cache)
++    y = torch.as_tensor(binary_original.copy(), dtype=torch.float32)
++    if list(y.shape) != info['original_hw'] or not ((y == 0) | (y == 1)).all():
++        raise ValueError('GT/cache shape or binary identity changed')
++    y = F.interpolate(y[None, None], info['resized_hw'], mode='nearest')
++    left, top, right, bottom = info['ltrb_padding']
++    y = F.pad(y, (left, right, top, bottom))[0, 0]
++    if list(y.shape) != list(cache['native_decode_hw']):
++        raise ValueError('first-threshold/input-grid dimensions changed')
++    return y
++
++
++def lifted_basis(cache):
++    """Exact real-valued bilinear operator, with FP64 rather than ops' FP32 cast."""
++    p = cache['proto'].detach().cpu().double()
++    shape = list(cache['native_decode_hw'])
++    if shape != [4 * v for v in p.shape[-2:]] or shape != list(cache['input_hw']):
++        raise ValueError('only the frozen 4x, no-first-stage-padding geometry is supported')
++    return F.interpolate(p[None], size=shape, mode='bilinear', align_corners=False)[0]
++
++
++def native_stages(cache, coefficients, ranks):
++    """Keep full N x 32 GEMM shape and native chunk boundaries for every arm."""
++    from ultralytics.utils import ops
++    p = cache['proto'].to('cuda')
++    c = coefficients.to(device='cuda', dtype=cache['c0'].dtype)
++    boxes = cache['boxes_input'].to('cuda')
++    shape = cache['native_decode_hw']
++    if c.shape != cache['c0'].shape or not torch.isfinite(c).all():
++        raise ValueError('invalid full-shape coefficient matrix')
++    selected = {}
++    with torch.inference_mode():
++        first = ops.process_mask_native(p, c, boxes, shape)
++        final = ops.scale_masks(first[None], cache['original_hw'], ratio_pad=cache['ratio_pad'])[0].byte()
++        ph, pw = p.shape[-2:]
++        proto_logits = c @ p.float().view(p.shape[0], -1)
++        step = max(1, 32_000_000 // (shape[0] * shape[1]))
++        for start in range(0, len(c), step):
++            wanted = [r for r in ranks if start <= r < start + step]
++            if not wanted:
++                continue
++            up = ops.scale_masks(proto_logits[start:start+step].view(-1, ph, pw)[None], shape)[0]
++            for rank in wanted:
++                grid = up[rank-start]
++                if not torch.equal((grid > 0) & roi_for(cache, rank, 'cuda'), first[rank].bool()):
++                    raise ValueError('native first-threshold stage does not match captured logits')
++                selected[rank] = grid.cpu().clone()
++    return first.cpu(), final.cpu(), selected
++
++
++def pixel_counts(native_binary, changed_binary, target, roi):
++    native, changed, truth = native_binary.bool(), changed_binary.bool(), target.bool()
++    tp = native & truth & roi
++    tn = ~native & ~truth & roi
++    fp = native & ~truth & roi
++    fn = ~native & truth & roi
++    return dict(native_tp=int(tp.sum()), native_tn=int(tn.sum()), native_fp=int(fp.sum()), native_fn=int(fn.sum()),
++        tp_to_fn=int((tp & ~changed).sum()), tn_to_fp=int((tn & changed).sum()),
++        fp_to_tn=int((fp & ~changed).sum()), fn_to_tp=int((fn & changed).sum()))
+--- a/experiments/mask_repair_preservation_20261016/scripts/objectives.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/objectives.py
+@@ -0,0 +1,106 @@
++"""Frozen, zero-network-training coefficient objectives and bounded solver.
++
++z0 is the actual native FP32 input-grid logit, lifted to FP64. The design is
++the real-valued bilinear map of P; the affine surrogate is z0 + design @ dc.
++Final masks must always be evaluated with the original FP32 decoder.
++"""
++import time
++
++
++def groups(z0, target):
++    import torch
++    if z0.shape != target.shape or z0.ndim != 1:
++        raise ValueError('expected equal flattened ROI arrays')
++    if not torch.isfinite(z0).all() or not ((target == 0) | (target == 1)).all():
++        raise ValueError('invalid logits or binary targets')
++    sign = 2 * target - 1
++    error = (z0 > 0) != target.bool()
++    keep = ~error
++    margin = torch.minimum(torch.ones_like(z0), sign * z0)
++    if (margin[keep] < 0).any():
++        raise ValueError('negative correct-pixel margin')
++    return sign, error, keep, margin
++
++
++def objective(delta, design, z0, target, grouping, arm, cfg):
++    import torch
++    import torch.nn.functional as F
++    z = z0 + design @ delta
++    sign, error, keep, margin = grouping
++    zero = delta.sum() * 0
++    if arm == 'C':
++        data = F.binary_cross_entropy_with_logits(z, target) if len(z) else zero
++    elif arm in ('E', 'EK'):
++        data = F.relu(cfg['error_margin'] - sign[error] * z[error]).square().mean() if error.any() else zero
++        if arm == 'EK' and keep.any():
++            data = data + cfg['protection_weight'] * F.relu(margin[keep] - sign[keep] * z[keep]).square().mean()
++    else:
++        raise ValueError('unknown objective arm')
++    return data + cfg['penalty'] * delta.square().sum() / 2
++
++
++def solve(design, z0, target, arm, cfg, budget_check=lambda: None):
++    import torch
++    p, z, y = [v.detach().to(device='cpu', dtype=torch.float64) for v in (design, z0, target)]
++    if p.ndim != 2 or z.shape != (p.shape[0],) or y.shape != z.shape:
++        raise ValueError('invalid design dimensions')
++    if not all(torch.isfinite(v).all() for v in (p, z, y)):
++        raise ValueError('nonfinite solver input')
++    grouping = groups(z, y)
++    delta = torch.zeros(p.shape[1], dtype=torch.float64, requires_grad=True)
++    opt = torch.optim.LBFGS([delta], lr=cfg['lr'], max_iter=cfg['max_iter'],
++        max_eval=cfg['max_eval'], history_size=cfg['history_size'],
++        tolerance_grad=cfg['tolerance_grad'], tolerance_change=cfg['tolerance_change'],
++        line_search_fn=cfg['line_search_fn'])
++    evaluations, capped = 0, False
++    best_value, best_delta = float('inf'), delta.detach().clone()
++    started = time.monotonic()
++
++    class EvaluationLimit(Exception):
++        pass
++
++    def closure():
++        nonlocal evaluations, best_value, best_delta
++        budget_check()
++        if evaluations >= cfg['max_eval']:
++            raise EvaluationLimit()
++        evaluations += 1
++        opt.zero_grad()
++        value = objective(delta, p, z, y, grouping, arm, cfg)
++        if not torch.isfinite(value):
++            raise FloatingPointError('nonfinite objective')
++        value.backward()
++        if not torch.isfinite(delta.grad).all():
++            raise FloatingPointError('nonfinite objective gradient')
++        if value.item() < best_value:
++            best_value, best_delta = value.item(), delta.detach().clone()
++        return value
++
++    if len(z):
++        try:
++            opt.step(closure)
++        except EvaluationLimit:
++            capped = True
++            with torch.no_grad():
++                delta.copy_(best_delta)
++    value = objective(delta, p, z, y, grouping, arm, cfg)
++    gradient = torch.autograd.grad(value, delta)[0]
++    residual = float(gradient.abs().max())
++    if not torch.isfinite(delta).all() or not torch.isfinite(gradient).all():
++        raise FloatingPointError('nonfinite final solution')
++    return delta.detach(), dict(arm=arm, objective=float(value.detach()),
++        gradient_inf_norm=residual, iterations=int(opt.state[delta].get('n_iter', 0)),
++        function_evals=evaluations, hard_evaluation_cap_hit=capped,
++        solver_status=('converged' if residual <= cfg['gradient_acceptance'] else 'budget_exhausted'),
++        roi_pixels=len(z), error_pixels=int(grouping[1].sum()), correct_pixels=int(grouping[2].sum()),
++        empty_roi_no_action=not len(z), elapsed_seconds=time.monotonic() - started)
++
++
++def rms(x):
++    return float(x.double().square().mean().sqrt()) if x.numel() else 0.0
++
++
++def equal_scale(error_rms, protected_rms):
++    if error_rms == 0:
++        return (0.0, 'both_zero') if protected_rms == 0 else (0.0, 'undefined_zero_direction')
++    return protected_rms / error_rms, 'defined'
+--- a/experiments/mask_repair_preservation_20261016/scripts/prepare.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/prepare.py
+@@ -0,0 +1,73 @@
++"""Read inputs and current resource ownership; freeze before any scientific solve."""
++from mechanism_common import *
++import argparse
++import psutil
++
++
++def main():
++    parser = argparse.ArgumentParser()
++    parser.add_argument('--test-report', required=True)
++    args = parser.parse_args()
++    ownership_check()
++    cfg, expected, profile, environment = inspect_inputs()
++    test_path = Path(args.test_report).resolve()
++    require(test_path.is_relative_to(STUDY), 'test receipt must be in this Study')
++    tests = read_json(test_path)
++    require(tests['status']=='passed', 'engineering tests did not pass')
++    for rel, digest in tests['tested_sources'].items():
++        require(sha256(ROOT / rel)==digest, 'tested implementation drift: ' + rel)
++    panel = read_json(S1 / 'TARGET_PANEL.json')['targets']
++    panel_ids = sorted({r['image_id'] for r in panel})
++    require(len(panel)==cfg['panel']['pairs'] and len(panel_ids)==cfg['panel']['images'], 'S1 denominator changed')
++    require(sha256(S1 / 'TARGET_PANEL.json')==cfg['panel']['sha256'], 'S1 target panel changed')
++    panel_set = set(panel_ids)
++    # Deterministic four distinct, panel-external images; selection uses only the old native ledger.
++    eligible = sorted((r for r in read_jsonl(BASE / 'ledger/PER_GT_FAILURE.jsonl')
++        if r['image_id'] not in panel_set and not r['is_ignored'] and r['task_mask75']=='failure'
++        and r.get('bbox75_match_output_id') and r.get('box_iou_of_bbox_match', 0)>=.75
++        and r.get('mask_iou_of_bbox_match', 1)<.75), key=lambda r:(r['image_id'],r['annotation_id']))
++    annotations = {a['id']:a for a in read_json(GT)['annotations']}
++    smoke, used = [], set()
++    for row in eligible:
++        if row['image_id'] in used:
++            continue
++        used.add(row['image_id'])
++        ann = annotations[row['annotation_id']]
++        require(ann['image_id']==row['image_id'], 'smoke GT/ledger image differs')
++        smoke.append(dict(image_id=row['image_id'], annotation_id=row['annotation_id'],
++            output_detection_id=row['bbox75_match_output_id'], baseline_mask_iou=row['mask_iou_of_bbox_match'],
++            category_id=ann['category_id']))
++        if len(smoke)==cfg['budget']['smoke_pairs']:
++            break
++    require(len(smoke)==4 and not (used & panel_set), 'invalid smoke allocation')
++    all_ids = panel_set | used
++    trace = read_json(BASE / 'trace/TRACE_MANIFEST.json')
++    records = [r for r in trace['images'] if r['image_id'] in all_ids]
++    require(len(records)==len(all_ids), 'missing input cache record')
++    for row in records:
++        require(sha256(BASE / 'trace' / row['cache'])==row['cache_sha256'], 'cache hash mismatch')
++        image = ROOT / 'assets/datasets/coco_native_s0_20261013/images/val2017' / f"{row['image_id']:012d}.jpg"
++        require(sha256(image)==row['image_sha256'], 'image hash mismatch')
++    available, free = psutil.virtual_memory().available, shutil.disk_usage(ROOT).free
++    require(available>=3*1024**3 and free>=4*1024**3, 'insufficient launch resources')
++    write_new(STUDY / 'PREPARATION.json', dict(status='passed', at=now(), host=socket.gethostname(),
++        environment=environment, profile_sha256=sha256(ROOT / 'paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json'),
++        full_targets=panel, full_image_ids=panel_ids, smoke_targets=smoke,
++        verified_cache_and_image_records=records, available_ram_bytes=available, free_disk_bytes=free,
++        engineering_test_report=test_path.relative_to(STUDY).as_posix(), engineering_test_sha256=sha256(test_path),
++        scientific_outcomes_computed=False, optimization_calls=0, new_training_steps=0, base_model_forward_calls=0))
++    frozen = dict(frozen_at=now(), files={rel:sha256(ROOT / rel) for rel in CODE},
++        preparation_sha256=sha256(STUDY / 'PREPARATION.json'), input_manifest_sha256=sha256(STUDY / 'INPUT_EXPECTATIONS.json'))
++    write_new(STUDY / 'FREEZE_MANIFEST.json', frozen)
++    study = read_json(STUDY / 'study.json')
++    study.update(plan_status='frozen', execution_status='not_started', artifact_status='implementation_and_inputs_frozen',
++        scientific_status='hypothesis_only', protocol='PROTOCOL.md', frozen_at=frozen['frozen_at'],
++        protocol_sha256=sha256(STUDY / 'PROTOCOL.md'), current_phase='finite_mechanism_smoke_ready',
++        execution_environment=dict(host=socket.gethostname(), root=str(ROOT), resources_verified_at=now()))
++    save(STUDY / 'study.json', study)
++    print(json.dumps(dict(status='frozen', files=len(CODE), full_pairs=len(panel), smoke_targets=smoke,
++                         protocol_sha256=study['protocol_sha256'])))
++
++
++if __name__ == '__main__':
++    main()
+--- a/experiments/mask_repair_preservation_20261016/scripts/run_mechanism.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/run_mechanism.py
+@@ -0,0 +1,205 @@
++"""One registered smoke or full finite-coefficient comparison; no base/adapter forward."""
++from mechanism_common import *
++import argparse
++from collections import defaultdict
++import contextlib
++import gc
++import time
++
++
++def execute(run):
++    import torch
++    from pycocotools.coco import COCO
++    from pycocotools import mask as masks
++    from adapter_data import FrozenCache
++    from s1_geometry import full_rle_iou
++    from native_output_bridge import decode_native, encode_rle, native_environment
++    from native_geometry import native_stages, roi_for, target_grid, lifted_basis, pixel_counts
++    from objectives import solve, rms, equal_scale
++    from analysis_stats import summarize
++    from verify import verify
++
++    cfg, expected, profile, environment = inspect_inputs()
++    preparation = read_json(STUDY / 'PREPARATION.json')
++    require(environment == preparation['environment'], 'runtime differs from preparation')
++    scope = run.meta['scope']
++    panel = preparation[scope + '_targets']
++    ids = sorted({r['image_id'] for r in panel})
++    run.freeze(dict(scope=scope, environment=environment, native_profile=profile,
++        candidate_policy='fixed_output_detection', input_files=expected['files'],
++        panel_sha256=cfg['panel']['sha256'], targets=panel, image_ids=ids, config=cfg,
++        optimizer_surrogate='native_FP32_z0_plus_FP64_bilinear_P_times_delta',
++        actual_decoder='pinned_full_shape_FP32_process_mask_native_then_scale_masks_byte',
++        new_training_steps=0, base_model_forward_calls=0, comparison_scope='exposed finite-oracle panel, not deployed AP'))
++    write_new(run.path / 'TARGETS.json', panel)
++    source = FrozenCache(BASE / 'trace', ids)
++    with (run.path / 'coco_load.log').open('x',encoding='utf8') as log, contextlib.redirect_stdout(log):
++        coco = COCO(str(GT))
++    historical = {r['output_detection_id']:r for r in read_jsonl(AUDIT / 'PAIRED_MASKS.jsonl')}
++    by_image = defaultdict(list)
++    for row in panel:
++        by_image[row['image_id']].append(row)
++    write_new(run.path / 'INPUT_CACHE_RECORDS.json', [source.records[i] for i in ids])
++    rows, solves, zero_rows, process_seconds = [], 0, 0, 0.
++    with (run.path / 'PAIR_RESULTS.jsonl').open('x',encoding='utf8') as stream:
++        for image_number,image_id in enumerate(ids):
++            resources(run)
++            started = time.monotonic()
++            cache, native_rows = source.load(image_id)
++            indices = cache['prediction_indices']
++            ranks_by_index = {index:rank for rank,index in enumerate(indices)}
++            targets = by_image[image_id]
++            target_ranks = [ranks_by_index[int(t['output_detection_id'].rsplit(':',1)[1])] for t in targets]
++            require(len(target_ranks)==len(set(target_ranks)), 'duplicated target detection')
++            first0, final0, z0_all = native_stages(cache, cache['c0'], target_ranks)
++            require(torch.equal(final0, decode_native(cache).cpu()), 'native stage/bridge replay differs')
++            for rank,prediction in enumerate(native_rows):
++                require(encode_rle(final0[rank])==prediction['segmentation'], 'native zero-delta RLE differs')
++                zero_rows += 1
++            basis = lifted_basis(cache)
++            cases = {}
++            for target,rank in zip(targets,target_ranks,strict=True):
++                native = native_rows[rank]
++                ann = coco.anns[target['annotation_id']]
++                require(ann['image_id']==native['image_id']==image_id, 'GT/detection image mismatch')
++                require(ann['category_id']==native['category_id']==target['category_id'], 'GT/detection category mismatch')
++                require(not ann.get('iscrowd',0) and not ann.get('ignore',0), 'ignored GT')
++                require(target['output_detection_id']==source.manifest['predictions_sha256']+':'+str(indices[rank]), 'detection namespace mismatch')
++                gt = coco.annToRLE(ann)
++                if isinstance(gt['counts'],bytes):gt={**gt,'counts':gt['counts'].decode('ascii')}
++                native_iou = full_rle_iou(native['segmentation'],gt)
++                require(abs(native_iou-target['baseline_mask_iou'])<=1e-12 and native_iou<.75, 'native fixed-pair IoU mismatch')
++                require(float(masks.iou([native['bbox']],[ann['bbox']],[0])[0,0])>=.75, 'not a fixed Box75 detection')
++                roi = roi_for(cache,rank)
++                truth = target_grid(masks.decode(gt),cache)
++                z0 = z0_all[rank][roi].double()
++                design = basis[:,roi].T.contiguous()
++                y = truth[roi].double()
++                initial_counts = pixel_counts(first0[rank],first0[rank],truth,roi)
++                record = dict(**target,rank=rank,global_index=indices[rank],raw_id=cache['raw_ids'][rank],
++                    cache_sha256=source.records[image_id]['cache_sha256'],c0=cache['c0'][rank].tolist(),
++                    boxes_input=cache['boxes_input'][rank].tolist(),input_hw=list(cache['native_decode_hw']),
++                    native_prediction=native,GT_rle=gt,target_grid_rle=encode_rle(truth.byte()),
++                    roi_pixels=int(roi.sum()),native_tp=initial_counts['native_tp'],
++                    numerical_valid=True,arms=dict(N=dict(original_iou=native_iou,original_rle=native['segmentation'],
++                        input_rle=encode_rle(first0[rank]),**initial_counts)))
++                if scope=='full':
++                    old=historical[target['output_detection_id']]
++                    require(old['native_prediction']==native and old['GT_rle']==gt, 'historical comparator identity changed')
++                    for arm,key in (('R_G','gated_rle'),('R_S1','oracle_rle')):
++                        record['arms'][arm]=dict(original_rle=old[key],original_iou=full_rle_iou(old[key],gt))
++                case = dict(record=record,design=design,z0=z0,target=y,truth=truth,roi=roi,deltas={})
++                for arm in ('C','E','EK'):
++                    delta,receipt=solve(design,z0,y,arm,cfg['solver'],lambda:resources(run))
++                    solves += 1
++                    case['deltas'][arm]=delta
++                    record['arms'][arm]=dict(delta_float64=delta.tolist(),solver=receipt)
++                cases[rank]=case
++
++            def evaluate_arm(arm):
++                coefficients=cache['c0'].clone()
++                for rank,case in cases.items():
++                    coefficients[rank]=(cache['c0'][rank].double()+case['deltas'][arm]).float()
++                first,final,grids=native_stages(cache,coefficients,target_ranks)
++                unchanged=[i for i in range(len(indices)) if i not in cases]
++                require(torch.equal(first[unchanged],first0[unchanged]) and torch.equal(final[unchanged],final0[unchanged]),
++                        'non-target outputs changed')
++                for rank,case in cases.items():
++                    record=case['record'];actual=grids[rank][case['roi']].double()
++                    proxy=case['z0']+case['design']@case['deltas'][arm]
++                    tolerance=cfg['numerics']['proxy_atol']+cfg['numerics']['proxy_rtol']*actual.abs()
++                    bad=int(((proxy-actual).abs()>tolerance).sum())
++                    record['numerical_valid'] &= bad==0
++                    result=record['arms'][arm]
++                    rle=encode_rle(final[rank])
++                    result.update(coefficients_fp32=coefficients[rank].tolist(),original_rle=rle,
++                        original_iou=full_rle_iou(rle,record['GT_rle']),input_rle=encode_rle(first[rank]),
++                        actual_delta_logit_rms=rms(actual-case['z0']),proxy_exceeded_pixels=bad,
++                        proxy_max_abs_error=float((proxy-actual).abs().max()) if len(actual) else 0.,
++                        proxy_binary_disagreements=int(((proxy>0)!=(actual>0)).sum()),
++                        **pixel_counts(first0[rank],first[rank],case['truth'],case['roi']))
++                del first,final,grids,coefficients
++                torch.cuda.empty_cache()
++
++            for arm in ('C','E','EK'):
++                evaluate_arm(arm)
++            for rank,case in cases.items():
++                record=case['record']
++                alpha,status=equal_scale(record['arms']['E']['actual_delta_logit_rms'],record['arms']['EK']['actual_delta_logit_rms'])
++                delta=case['deltas']['E']*alpha
++                require(torch.isfinite(delta).all(), 'equal-amplitude coefficients are nonfinite')
++                case['deltas']['E_equal']=delta
++                record['arms']['E_equal']=dict(scale=alpha,scale_status=status,delta_float64=delta.tolist())
++                record['numerical_valid'] &= status!='undefined_zero_direction'
++            evaluate_arm('E_equal')
++            for rank,case in cases.items():
++                record=case['record']
++                a,b=(record['arms'][v]['actual_delta_logit_rms'] for v in ('E_equal','EK'))
++                tolerance=cfg['numerics']['equal_rms_atol']+cfg['numerics']['equal_rms_rtol']*b
++                record['arms']['E_equal']['rms_match_error']=abs(a-b)
++                record['numerical_valid'] &= abs(a-b)<=tolerance
++                stream.write(json.dumps(record,allow_nan=False)+'\n')
++                rows.append(record)
++            stream.flush()
++            process_seconds += time.monotonic()-started
++            run.update(phase='finite_coefficient_comparison',completed_images=image_number+1,completed_pairs=len(rows),
++                oracle_optimization_calls=solves,zero_delta_exact_rows=zero_rows)
++            print('PROGRESS',image_number+1,'/',len(ids),'pairs',len(rows),'solves',solves,'seconds',round(process_seconds,1),flush=True)
++            del cases,basis,cache,native_rows,first0,final0,z0_all
++            gc.collect();torch.cuda.empty_cache()
++
++    require(len(rows)==len(panel) and solves==3*len(panel), 'incomplete frozen execution')
++    require(native_environment()==environment,'runtime configuration drift after execution')
++    summary=summarize(rows,cfg,scientific=scope=='full')
++    summary.update(zero_delta_exact_rows=zero_rows,oracle_optimization_calls=solves,
++        solve_and_decode_seconds=process_seconds,projected_full_seconds_from_smoke=(process_seconds*256/len(rows)*1.2+120 if scope=='smoke' else None))
++    write_new(run.path/'STATISTICS.json',summary)
++    independent=verify(run.path)
++    write_new(run.path/'INDEPENDENT_LAPTOP.json',independent)
++    require(independent['status']=='passed','independent verification failed')
++    if scope=='smoke':
++        require(summary['numerical_valid'],'smoke numerical validity failed; retain, do not tune science')
++        require(summary['projected_full_seconds_from_smoke']<=cfg['budget']['full_seconds'],'projected budget exceeds frozen full budget')
++    write_new(run.path/'CONFIG_AUDIT.json',dict(status='passed',environment_before_equals_after=True,
++        full_shape_native_decoder=True,zero_delta_exact_rows=zero_rows,input_files_verified=len(expected['files']),
++        immutable_output_fields=True,non_target_masks_unchanged=True,network_training_steps=0,base_model_forward_calls=0,
++        all_numeric_proxy_checks_passed=summary['numerical_valid'],protocol_sha256=sha256(STUDY/'PROTOCOL.md')))
++    next_action=('Run the frozen full panel once' if scope=='smoke' else
++        'Recommend a separately frozen, same-architecture training ablation; do not auto-start' if summary['decision']=='FINITE_MECHANISM_SUPPORTED' else
++        'Close this objective configuration; prioritize conditional prediction of witnessed beneficial directions' if summary['decision']=='CONFIGURATION_REJECTED' else
++        'Retain inconclusive evidence; resolve the recorded numerical or precision limitation without tuning this Run')
++    run.finish(summary,status='passed' if scope=='smoke' or summary['decision']=='FINITE_MECHANISM_SUPPORTED' else 'failed',
++        scientific='engineering_only' if scope=='smoke' else summary['decision'],next_action=next_action)
++
++
++def main():
++    parser=argparse.ArgumentParser();parser.add_argument('--scope',choices=['smoke','full'],required=True)
++    parser.add_argument('--parent-run');args=parser.parse_args()
++    parent=BASE
++    if args.scope=='full':
++        require(args.parent_run is not None and Path(args.parent_run).name==args.parent_run,'full requires exact smoke Run ID')
++        parent=STUDY/'runs'/args.parent_run
++        meta=read_json(parent/'run.json')
++        require(meta['scope']=='smoke' and meta['execution_status']=='completed' and meta['exit_code']==0,'smoke not complete')
++        require(read_json(parent/'DECISION.json')['status']=='passed','smoke not passed')
++        require(read_json(parent/'INDEPENDENT_LAPTOP.json')['status']=='passed','smoke independent verification missing')
++    require(not list((STUDY/'runs').glob('RUN_REPAIR_KEEP_'+args.scope.upper()+'_*')),'a Run already exists for this scope; do not repeat automatically')
++    run=MechanismRun(args.scope,parent)
++    study=read_json(STUDY/'study.json')
++    try:
++        with run:
++            study.update(execution_status='running',active_run_id=run.run_id,current_phase=args.scope)
++            save(STUDY/'study.json',study)
++            execute(run)
++    finally:
++        if (run.path/'run.json').exists():
++            meta=read_json(run.path/'run.json')
++            study.update(execution_status=meta['execution_status'],active_run_id=None,latest_run_id=run.run_id,
++                scientific_status=meta['scientific_status'],artifact_status=meta['artifact_status'],
++                current_phase=('full_ready_after_smoke' if args.scope=='smoke' and meta['execution_status']=='completed' else
++                               'awaiting_transfer_and_local_verification' if meta['execution_status']=='completed' else 'engineering_failure_retained'))
++            save(STUDY/'study.json',study)
++
++
++if __name__=='__main__':
++    main()
+--- a/experiments/mask_repair_preservation_20261016/scripts/test_mechanism.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/test_mechanism.py
+@@ -0,0 +1,131 @@
++"""Synthetic engineering tests; no COCO examples, no model/checkpoint loading."""
++from pathlib import Path
++import argparse
++import hashlib
++import json
++import sys
++import traceback
++import unittest
++import numpy as np
++import torch
++
++ROOT=Path(__file__).resolve().parents[3]
++STUDY=ROOT/'experiments/mask_repair_preservation_20261016'
++sys.path.insert(0,str(ROOT/'experiments/mask_readout_mechanism_v2_20261012/scripts'))
++from objectives import groups, objective, solve, equal_scale
++from native_geometry import lifted_basis, target_grid, roi_for, pixel_counts
++from analysis_stats import summarize
++
++CFG=json.loads((STUDY/'CONFIG.json').read_text(encoding='utf8'))
++torch.set_num_threads(1)
++
++
++class MechanismTests(unittest.TestCase):
++    def test_gradients_all_three_objectives(self):
++        p=torch.tensor([[1.,.2],[-.5,1.],[.2,-.1],[.7,.3]],dtype=torch.float64)
++        z=torch.tensor([-.5,.8,-.4,.6],dtype=torch.float64)
++        y=torch.tensor([1.,1.,0.,0.],dtype=torch.float64)
++        for arm in ('C','E','EK'):
++            d=torch.tensor([.12,-.17],dtype=torch.float64,requires_grad=True)
++            self.assertTrue(torch.autograd.gradcheck(lambda x:objective(x,p,z,y,groups(z,y),arm,CFG['solver']), (d,), eps=1e-6,atol=1e-5,rtol=1e-4))
++
++    def test_known_nonzero_error_and_protected_optima(self):
++        p=torch.tensor([[1.],[-1.]],dtype=torch.float64)
++        z=torch.tensor([-.5,.2],dtype=torch.float64)
++        y=torch.ones(2,dtype=torch.float64)
++        for arm, expected in [('E',3/(2+.003)),('EK',3/(4+.003))]:
++            d,receipt=solve(p,z,y,arm,CFG['solver'])
++            self.assertEqual(receipt['solver_status'],'converged')
++            self.assertAlmostEqual(float(d[0]),expected,places=5)
++        # Deleting protection must change the known optimum, not just rename a loss.
++
++    def test_known_binary_BCE_optimum(self):
++        p=torch.ones((1,1),dtype=torch.float64);z=torch.tensor([-.3],dtype=torch.float64);y=torch.ones(1,dtype=torch.float64)
++        lo,hi=0.,10.
++        for _ in range(100):
++            mid=(lo+hi)/2
++            grad=1/(1+np.exp(-(-.3+mid)))-1+.003*mid
++            if grad>0:hi=mid
++            else:lo=mid
++        d,r=solve(p,z,y,'C',CFG['solver'])
++        self.assertEqual(r['solver_status'],'converged')
++        self.assertAlmostEqual(float(d[0]),(lo+hi)/2,places=4)
++
++    def test_correct_pixels_zero_penalty_and_fixed_groups(self):
++        z=torch.tensor([0.,0.,-.5,1.],dtype=torch.float64);y=torch.tensor([0.,1.,0.,1.],dtype=torch.float64)
++        g=groups(z,y)
++        self.assertEqual(g[1].tolist(),[False,True,False,False])
++        d=torch.zeros(4,dtype=torch.float64);p=torch.eye(4,dtype=torch.float64)
++        self.assertEqual(float(objective(d,p,z,y,g,'EK',CFG['solver'])-objective(d,p,z,y,g,'E',CFG['solver'])),0.)
++
++    def test_empty_groups_and_empty_roi_keep_rows(self):
++        for z,y in [(torch.tensor([1.]),torch.tensor([1.])),(torch.tensor([-1.]),torch.tensor([1.])),(torch.empty(0),torch.empty(0))]:
++            p=torch.ones((len(z),2),dtype=torch.float64)
++            for arm in ('C','E','EK'):
++                d,r=solve(p,z,y,arm,CFG['solver'])
++                self.assertTrue(torch.isfinite(d).all())
++                self.assertEqual(r['roi_pixels'],len(z))
++
++    def test_equal_direction_zero_and_amplification(self):
++        self.assertEqual(equal_scale(0,0),(0.,'both_zero'))
++        self.assertEqual(equal_scale(0,1),(0.,'undefined_zero_direction'))
++        self.assertEqual(equal_scale(2,3),(1.5,'defined'))
++
++    def test_decoder_operator_and_odd_padding(self):
++        from ultralytics.utils import ops
++        p=torch.arange(3*3*4,dtype=torch.float32).reshape(3,3,4)/30-.5
++        cache=dict(proto=p,input_hw=[12,16],native_decode_hw=[12,16],original_hw=[9,15],
++                   ratio_pad=((1.,1.),(0.,1.)),boxes_input=torch.tensor([[1.5,2.,13.1,11.]]))
++        basis=lifted_basis(cache)
++        c=torch.tensor([.2,-.6,.7],dtype=torch.float64)
++        direct=torch.nn.functional.interpolate((c@p.double().flatten(1)).reshape(1,1,3,4),(12,16),mode='bilinear',align_corners=False)[0,0]
++        self.assertTrue(torch.allclose(c@basis.flatten(1),direct.flatten(),atol=1e-12,rtol=1e-12))
++        truth=np.ones((9,15),dtype=np.uint8);gt=target_grid(truth,cache)
++        self.assertEqual(int(gt.sum()),135)
++        self.assertEqual(list(gt.shape),[12,16])
++        roi=roi_for(cache,0)
++        cropped=ops.crop_mask(torch.ones((1,12,16),dtype=torch.uint8),cache['boxes_input'])[0].bool()
++        self.assertTrue(torch.equal(roi,cropped))
++
++    def test_native_final_byte_is_not_half_threshold(self):
++        from ultralytics.utils import ops
++        x=torch.tensor([[[[0,1],[1,0]]]],dtype=torch.uint8)
++        continuous=ops.scale_masks(x,(5,5),padding=False)
++        self.assertFalse(torch.equal(continuous.byte(),(continuous>.5).byte()))
++
++    def test_pixel_transition_counts(self):
++        native=torch.tensor([[1,1,0,0]],dtype=torch.uint8);changed=1-native
++        counts=pixel_counts(native,changed,torch.tensor([[1,0,1,0]]),torch.ones((1,4),dtype=torch.bool))
++        for v in counts.values():self.assertEqual(v,1)
++
++    def test_independent_RLE_decoder(self):
++        from pycocotools import mask as masks
++        from verify import decode
++        rng=np.random.default_rng(1729)
++        for binary in (np.zeros((9,13),dtype=np.uint8),np.ones((11,17),dtype=np.uint8),
++                       (rng.random((37,29))>.4).astype(np.uint8)):
++            encoded=masks.encode(np.asfortranarray(binary))
++            encoded['counts']=encoded['counts'].decode('ascii')
++            self.assertTrue(np.array_equal(decode(encoded),binary.astype(bool)))
++
++    def test_image_macro_and_denominator_gate(self):
++        def row(i,j,value):
++            arms={a:dict(original_iou=value,tp_to_fn=0,solver=dict(solver_status='converged')) for a in ('N','C','E','EK','E_equal','R_G','R_S1')}
++            return dict(image_id=i,output_detection_id=str(j),arms=arms,native_tp=1,numerical_valid=True)
++        r=summarize([row(1,1,0),row(1,2,0),row(2,3,1)],CFG)
++        self.assertEqual(r['metrics']['N']['original_iou']['mean'],.5)
++        self.assertFalse(r['denominator_complete'])
++        self.assertEqual(r['decision'],'INCONCLUSIVE_NUMERICAL')
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser();parser.add_argument('--output',required=True);args=parser.parse_args()
++    result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(MechanismTests))
++    files=['CONFIG.json','scripts/objectives.py','scripts/native_geometry.py','scripts/analysis_stats.py','scripts/test_mechanism.py','scripts/verify.py']
++    report=dict(status='passed' if result.wasSuccessful() else 'failed',tests=result.testsRun,
++        failures=[text for _,text in result.failures],errors=[text for _,text in result.errors],
++        python=sys.version,torch=str(torch.__version__),scope='synthetic engineering only; no scientific outcomes',
++        tested_sources={str((STUDY/p).relative_to(ROOT)).replace('\\','/'):hashlib.sha256((STUDY/p).read_bytes()).hexdigest() for p in files})
++    out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
++    with out.open('x',encoding='utf8') as f:json.dump(report,f,indent=2,allow_nan=False)
++    raise SystemExit(0 if result.wasSuccessful() else 1)
+--- a/experiments/mask_repair_preservation_20261016/scripts/verify.py
++++ b/experiments/mask_repair_preservation_20261016/scripts/verify.py
+@@ -0,0 +1,155 @@
++"""Independent RLE/count/statistic verification. No objective or solver imports.
++
++Uses an independent compressed-COCO-RLE decoder and NumPy. Can run locally
++without Torch/COCO packages. It verifies recorded pixels/statistics, not GPU
++re-execution of P; the executor's exact native replay is a separate receipt.
++"""
++from pathlib import Path
++import argparse
++import hashlib
++import json
++from collections import defaultdict
++import numpy as np
++
++
++def read(path):
++    return json.loads(Path(path).read_text(encoding='utf8'))
++
++
++def decode(rle):
++    data=rle['counts'];runs=[];offset=0
++    if not isinstance(data,str):raise ValueError('expected compressed string RLE')
++    while offset<len(data):
++        value=0;shift=0
++        while True:
++            b=ord(data[offset])-48;offset+=1
++            if not 0<=b<=63:raise ValueError('invalid compressed RLE character')
++            value|=(b&31)<<(5*shift);shift+=1
++            if not b&32:
++                if b&16:value|=-1<<(5*shift)
++                break
++        if len(runs)>2:value+=runs[-2]
++        if value<0:raise ValueError('negative RLE run')
++        runs.append(value)
++    size=int(np.prod(rle['size']))
++    if sum(runs)!=size:raise ValueError('RLE total does not match shape')
++    flat=np.empty(size,dtype=bool);start=0
++    for i,length in enumerate(runs):
++        flat[start:start+length]=bool(i%2);start+=length
++    return flat.reshape(rle['size'],order='F')
++
++
++def close(a,b,label):
++    if not np.allclose(a,b,atol=1e-12,rtol=0,equal_nan=False):
++        raise ValueError(label+': '+str(a)+' != '+str(b))
++
++
++def verify(run_path):
++    path=Path(run_path)
++    cfg=read(path/'CONFIG.json');contract=read(path/'EVAL_CONTRACT.json')
++    expected=read(path/'STATISTICS.json');panel=read(path/'TARGETS.json')
++    rows=[json.loads(line) for line in (path/'PAIR_RESULTS.jsonl').read_text(encoding='utf8').splitlines() if line]
++    def identity(r):return (r['image_id'],r['annotation_id'],r['output_detection_id'])
++    if len(rows)!=len(panel) or {identity(r) for r in rows}!={identity(r) for r in panel}:
++        raise ValueError('panel identity or denominator drift')
++    if len({identity(r) for r in rows})!=len(rows):raise ValueError('duplicate rows')
++    grouped=defaultdict(list);pixel_checks=0;mask_checks=0;numerical=True
++    for row in rows:
++        grouped[row['image_id']].append(row)
++        truth=decode(row['GT_rle']);target=decode(row['target_grid_rle'])
++        native=decode(row['arms']['N']['input_rle']);h,w=row['input_hw'];box=np.asarray(row['boxes_input'],dtype=np.float32)
++        x=np.arange(w,dtype=np.float32)[None,:];y=np.arange(h,dtype=np.float32)[:,None]
++        roi=(x>=box[0])&(x<box[2])&(y>=box[1])&(y<box[3])
++        if target.shape!=(h,w) or native.shape!=(h,w) or int(roi.sum())!=row['roi_pixels']:
++            raise ValueError('ROI geometry drift')
++        tp=native&target&roi;tn=~native&~target&roi;fp=native&~target&roi;fn=~native&target&roi
++        if int(tp.sum())!=row['native_tp']:raise ValueError('native TP count drift')
++        for arm,result in row['arms'].items():
++            binary=decode(result['original_rle'])
++            if binary.shape!=truth.shape:raise ValueError('original mask shape drift')
++            union=np.count_nonzero(binary|truth)
++            value=np.count_nonzero(binary&truth)/union if union else 0.
++            close(value,result['original_iou'],'full-image IoU '+arm);mask_checks+=1
++            if arm in ('R_G','R_S1'):continue
++            changed=decode(result['input_rle'])
++            if changed.shape!=native.shape or (changed&~roi).any():raise ValueError('input crop drift')
++            counts=dict(native_tp=int(tp.sum()),native_tn=int(tn.sum()),native_fp=int(fp.sum()),native_fn=int(fn.sum()),
++                tp_to_fn=int((tp&~changed).sum()),tn_to_fp=int((tn&changed).sum()),fp_to_tn=int((fp&~changed).sum()),fn_to_tp=int((fn&changed).sum()))
++            for key,val in counts.items():
++                if val!=result[key]:raise ValueError('transition count drift: '+key)
++            pixel_checks+=1
++            if arm=='N':continue
++            c=(np.asarray(row['c0'],dtype=np.float64)+np.asarray(result['delta_float64'],dtype=np.float64)).astype(np.float32)
++            if not np.array_equal(c,np.asarray(result['coefficients_fp32'],dtype=np.float32)):
++                raise ValueError('coefficient casting changed')
++            if result['proxy_exceeded_pixels']!=0:numerical=False
++            if arm in ('C','E','EK'):
++                solver=result['solver']
++                if solver['roi_pixels']!=int(roi.sum()) or solver['error_pixels']!=int((fp|fn).sum()) or solver['correct_pixels']!=int((tp|tn).sum()):
++                    raise ValueError('fixed group denominator drift')
++                converged=solver['gradient_inf_norm']<=cfg['solver']['gradient_acceptance']
++                if (solver['solver_status']=='converged')!=converged:raise ValueError('convergence label drift')
++                if solver['function_evals']>cfg['solver']['max_eval']:raise ValueError('function-evaluation budget exceeded')
++                numerical &= converged
++        equal=row['arms']['E_equal'];ek=row['arms']['EK'];e=row['arms']['E']
++        er,kr=e['actual_delta_logit_rms'],ek['actual_delta_logit_rms']
++        scale=kr/er if er else 0.
++        close(equal['scale'],scale,'equal scalar')
++        close(equal['delta_float64'],np.asarray(e['delta_float64'])*scale,'equal direction')
++        error=abs(equal['actual_delta_logit_rms']-kr)
++        close(error,equal['rms_match_error'],'equal RMS receipt')
++        per_numeric=all(row['arms'][a]['proxy_exceeded_pixels']==0 for a in ('C','E','EK','E_equal'))
++        per_numeric &= not(er==0 and kr!=0) and error<=cfg['numerics']['equal_rms_atol']+cfg['numerics']['equal_rms_rtol']*kr
++        if bool(per_numeric)!=bool(row['numerical_valid']):raise ValueError('numerical validity receipt differs')
++        numerical &= per_numeric
++
++    ids=sorted(grouped);n=len(ids)
++    draws=np.random.default_rng(cfg['statistics']['seed']).integers(0,n,size=(cfg['statistics']['bootstrap_replicates'],n))
++    def vector(fn):return np.array([sum(fn(r) for r in grouped[i])/len(grouped[i]) for i in ids],dtype=np.float64)
++    def receipt(values):
++        low,high=np.percentile(np.mean(values[draws],axis=1),[2.5,97.5],method='linear')
++        return dict(mean=float(np.mean(values)),ci95=[float(low),float(high)])
++    def compare_receipt(actual,wanted,label):
++        close(actual['mean'],wanted['mean'],label+' mean');close(actual['ci95'],wanted['ci95'],label+' CI')
++    vectors={a:vector(lambda r:r['arms'][a]['original_iou']) for a in expected['metrics']}
++    for a,v in vectors.items():
++        compare_receipt(receipt(v),expected['metrics'][a]['original_iou'],a)
++        compare_receipt(receipt(v-vectors['N']),expected['metrics'][a]['delta_vs_native'],a+' native delta')
++        if sum(r['arms'][a]['original_iou']>=.75 for r in rows)!=expected['metrics'][a]['repaired_instances']:
++            raise ValueError('repaired-instance count differs')
++    for name,record in expected['comparisons'].items():
++        a,b=name.split('_minus_');compare_receipt(receipt(vectors[a]-vectors[b]),record,name)
++    damage={a:vector(lambda r:r['arms'][a]['tp_to_fn']/max(1,r['native_tp'])) for a in ('C','E','EK','E_equal')}
++    for a,v in damage.items():compare_receipt(receipt(v),expected['tp_loss'][a],a+' damage')
++    decrease=receipt(damage['E_equal']-damage['EK'])
++    compare_receipt(decrease,expected['protection_decrease'],'protection decrease')
++    denom=float(damage['E_equal'].mean());relative=decrease['mean']/denom if denom>0 else None
++    if relative is None:
++        if expected['relative_tp_loss_reduction'] is not None:raise ValueError('empty relative reduction')
++    else:close(relative,expected['relative_tp_loss_reduction'],'relative reduction')
++    cs={r['output_detection_id'] for r in rows if r['arms']['C']['original_iou']>=.75}
++    ks={r['output_detection_id'] for r in rows if r['arms']['EK']['original_iou']>=.75}
++    if sorted(ks-cs)!=expected['added_vs_C'] or sorted(cs-ks)!=expected['lost_vs_C']:raise ValueError('witness identity drift')
++    if len(cs)!=expected['control_successes'] or len(cs&ks)!=expected['retained_C_successes']:raise ValueError('witness count drift')
++    utility=receipt(vectors['EK']-vectors['C']);ei=receipt(vectors['EK']-vectors['E_equal']);g=cfg['gates']
++    points=dict(utility=utility['mean']>=g['min_increment_over_C'],protection=relative is not None and relative>=g['min_relative_tp_loss_reduction'],
++        equal_iou=ei['mean']>=-g['max_iou_loss_to_equal'],retention=bool(cs) and len(cs&ks)/len(cs)>=g['min_C_witness_retention'])
++    intervals=dict(utility=utility['ci95'][0]>0,protection=decrease['ci95'][0]>0)
++    complete=len(rows)==cfg['panel']['pairs'] and n==cfg['panel']['images']
++    decision=('ENGINEERING_ONLY' if contract['scope']=='smoke' else 'INCONCLUSIVE_NUMERICAL' if not complete or not numerical else
++        'FINITE_MECHANISM_SUPPORTED' if all(points.values()) and all(intervals.values()) else
++        'CONFIGURATION_REJECTED' if not all(points.values()) else 'INSUFFICIENT_PRECISION')
++    if points!=expected['point_gates'] or intervals!=expected['interval_gates'] or decision!=expected['decision']:
++        raise ValueError('independent Gate decision differs')
++    if bool(numerical)!=expected['numerical_valid'] or complete!=expected['denominator_complete']:raise ValueError('validity state differs')
++    return dict(status='passed',verification_scope='independent compressed RLE pixels, transition counts, coefficient casting, paired image statistics and Gates; not GPU re-execution',
++        pairs=len(rows),images=n,original_masks_checked=mask_checks,input_masks_checked=pixel_checks,decision=decision,
++        pair_results_sha256=hashlib.sha256((path/'PAIR_RESULTS.jsonl').read_bytes()).hexdigest(),
++        statistics_sha256=hashlib.sha256((path/'STATISTICS.json').read_bytes()).hexdigest(),numpy_version=np.__version__)
++
++
++if __name__=='__main__':
++    parser=argparse.ArgumentParser();parser.add_argument('--run',required=True);parser.add_argument('--output',required=True);args=parser.parse_args()
++    result=verify(args.run)
++    with Path(args.output).open('x',encoding='utf8') as f:json.dump(result,f,indent=2,allow_nan=False)
++    print(json.dumps(result))

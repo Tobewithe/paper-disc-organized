@@ -1,0 +1,96 @@
+{
+    "launcher_sha256":  "c9a2a1287b48a041d40a1091826d6adca524ec542a901a119f83c55cf8b0fd19",
+    "new_training_steps":  0,
+    "fit_run":  "RUN_CET_FIT_82cb342bda694f4da095bfcb83c9980e",
+    "full_run":  "RUN_CET_FULL_3d2de9164a2f434eba4ff3a756690c45",
+    "child_pid":  null,
+    "host":  "YANGLEI",
+    "started_at":  "2026-10-16T18:13:37.2173228Z",
+    "status":  "completed_and_independently_verified",
+    "controller_pid":  23596,
+    "phases":  [
+                   {
+                       "label":  "TESTS",
+                       "pid":  17924,
+                       "arguments":  [
+                                         "-B",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\scripts\\test_math.py"
+                                     ],
+                       "ended_at":  "2026-10-16T18:13:38.0517821Z",
+                       "exit_code":  0
+                   },
+                   {
+                       "label":  "FIT",
+                       "pid":  17252,
+                       "arguments":  [
+                                         "-B",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\scripts\\run_audit.py",
+                                         "fit"
+                                     ],
+                       "ended_at":  "2026-10-16T18:14:36.5411105Z",
+                       "exit_code":  0
+                   },
+                   {
+                       "label":  "FIT_VERIFY",
+                       "pid":  21540,
+                       "arguments":  [
+                                         "-B",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\scripts\\verify.py",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\runs\\RUN_CET_FIT_82cb342bda694f4da095bfcb83c9980e"
+                                     ],
+                       "ended_at":  "2026-10-16T18:15:48.0794934Z",
+                       "exit_code":  0
+                   },
+                   {
+                       "label":  "SMOKE",
+                       "pid":  23448,
+                       "arguments":  [
+                                         "-B",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\scripts\\run_audit.py",
+                                         "smoke",
+                                         "--fit-run",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\runs\\RUN_CET_FIT_82cb342bda694f4da095bfcb83c9980e"
+                                     ],
+                       "ended_at":  "2026-10-16T18:16:32.9693426Z",
+                       "exit_code":  0
+                   },
+                   {
+                       "label":  "SMOKE_VERIFY",
+                       "pid":  664,
+                       "arguments":  [
+                                         "-B",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\scripts\\verify.py",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\runs\\RUN_CET_SMOKE_45f02e4eed5f4bcdb7b1d3cea39daddb"
+                                     ],
+                       "ended_at":  "2026-10-16T18:17:06.7872936Z",
+                       "exit_code":  0
+                   },
+                   {
+                       "label":  "FULL",
+                       "pid":  21712,
+                       "arguments":  [
+                                         "-B",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\scripts\\run_audit.py",
+                                         "full",
+                                         "--fit-run",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\runs\\RUN_CET_FIT_82cb342bda694f4da095bfcb83c9980e"
+                                     ],
+                       "ended_at":  "2026-10-16T18:19:26.4833679Z",
+                       "exit_code":  0
+                   },
+                   {
+                       "label":  "FULL_VERIFY",
+                       "pid":  15824,
+                       "arguments":  [
+                                         "-B",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\scripts\\verify.py",
+                                         "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_coefficient_error_transfer_20261017\\runs\\RUN_CET_FULL_3d2de9164a2f434eba4ff3a756690c45"
+                                     ],
+                       "ended_at":  "2026-10-16T18:21:53.5965479Z",
+                       "exit_code":  0
+                   }
+               ],
+    "updated_at":  "2026-10-16T18:21:53.6005579Z",
+    "smoke_run":  "RUN_CET_SMOKE_45f02e4eed5f4bcdb7b1d3cea39daddb",
+    "current_phase":  "closed_no_training"
+}

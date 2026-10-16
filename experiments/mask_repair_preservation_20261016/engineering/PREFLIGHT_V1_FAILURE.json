@@ -1,0 +1,15 @@
+{
+  "stage": "input_preflight_before_freeze",
+  "host": "YANGLEI",
+  "execution_status": "failed",
+  "error_type": "KeyError",
+  "error": "category_id",
+  "location": "scripts/prepare.py: smoke target metadata construction",
+  "cause": "The native per-GT ledger does not store category_id; the initial preflight incorrectly assumed it did.",
+  "repair": "Resolve category_id from the already SHA-pinned original COCO annotation using annotation_id and assert the same image_id. Eligibility, sorting and sample count are unchanged.",
+  "freeze_manifest_created": false,
+  "scientific_run_created": false,
+  "oracle_optimization_calls": 0,
+  "network_training_steps": 0,
+  "scientific_outcomes_computed": false
+}

@@ -4,6 +4,10 @@
 
 > **当前执行入口：** [统一科研总控](../../../project/ACTIVE_PLAN.md) → [GT 真实输出基线](../../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) → [固定权重 Prototype→Coefficient 后训练计划](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。本页下文的“2026-09-30 历史主线记录”属于历史状态，不再授权 TAL 或五臂 20k。
 
+**2026-10-17当前论文正文：** [结果与讨论](RESULTS_AND_DISCUSSION_ZH_20261017.md)围绕“可修机会—实际兑现—损伤代价”展开，逐项报告相对原生和已有方法的收益、损伤及未证边界，附[正文核验](RESULTS_AND_DISCUSSION_ZH_20261017.audit.json)。这是当前O2O后训练路线的正文节选；旧raw/argmax的MANUSCRIPT_ZH/main.tex与旧P3正文继续保留各自历史对象，尚未与本节合稿。
+
+**论文证据入口：** [证据与主张表](EVIDENCE_AND_CLAIMS_20261017.md)，附[来源哈希及原始字段](EVIDENCE_AND_CLAIMS_20261017.sources.json)。本次只完成写作与证据核对，未追加训练或新实验。
+
 ## 历史主线记录（2026-09-30）
 
 当时冻结的主线：**在 YOLO26m-Seg 与 COCO 的既定实验范围内，建立固定原型下的系数可恢复空间与原生无 GT 系数预测之间的差距，并通过受控对照区分其可能形成环节；只有在机制获得证据后，才用针对性干预验证能否改善正常推理输出。**
@@ -16,12 +20,15 @@
 
 | 文件 | 用途 |
 | --- | --- |
-| [PAPER_DRAFT_ZH.md](PAPER_DRAFT_ZH.md) | 中文完整正文，便于讨论论述和方法 |
-| [PAPER_DRAFT.md](PAPER_DRAFT.md) | 英文完整正文，含摘要、引言、相关工作、诊断、方法、实验、讨论、结论 |
-| [EVIDENCE_MAP.md](EVIDENCE_MAP.md) | 每项主张与原始结果、实现、文献的对应关系；待补结果的具体位置 |
+| [RESULTS_AND_DISCUSSION_ZH_20261017.md](RESULTS_AND_DISCUSSION_ZH_20261017.md) | 当前O2O后训练论文的中文“结果与讨论”正文；含双参照结果、解释与局限 |
+| [EVIDENCE_AND_CLAIMS_20261017.md](EVIDENCE_AND_CLAIMS_20261017.md) | 当前后训练路线的论文主张、已证/未证边界、完整实验链路、双参照收益与研究取舍；非新实验 |
+| [MANUSCRIPT_ZH.md](MANUSCRIPT_ZH.md) / [main.tex](main.tex) | 历史raw/argmax可恢复性完整稿及英文镜像；本轮未改写，不作为当前O2O方法结果正文 |
+| [PAPER_DRAFT_ZH.md](PAPER_DRAFT_ZH.md) | 历史P3中文完整稿 |
+| [PAPER_DRAFT.md](PAPER_DRAFT.md) | 历史P3英文完整稿 |
+| [EVIDENCE_MAP.md](EVIDENCE_MAP.md) | 历史P3主张与原始结果、实现、文献的对应关系 |
 | [references.bib](references.bib) | 相关文献的 BibTeX |
 
-状态：**完整研究初稿；当前机制主线已冻结，尚非最终投稿定稿。**
+状态：**当前O2O“结果与讨论”正文已完成；引言与方法尚未按本次对象统一合稿。历史完整稿与当前章节分开保留，尚非最终投稿定稿。**
 
 ## 研究目录
 

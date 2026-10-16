@@ -1,0 +1,127 @@
+{
+  "run_id": "RUN_ADAPTER_RAY_SMOKE_4fe9912dd6dd4422bc9f0c079f6267e3",
+  "pairs": 4,
+  "images": 4,
+  "unit": "original_mask_IoU_0_to_1_not_AP",
+  "reduction": "instance_mean_within_image_then_equal_image_mean",
+  "metrics": {
+    "N": {
+      "original_iou": {
+        "mean": 0.6665336354267395,
+        "ci95": [
+          0.5935585911274079,
+          0.739508679726071
+        ]
+      },
+      "delta_vs_N": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "repaired": 0
+    },
+    "U": {
+      "original_iou": {
+        "mean": 0.6441445898951045,
+        "ci95": [
+          0.5813516280945927,
+          0.7069375516956162
+        ]
+      },
+      "delta_vs_N": {
+        "mean": -0.022389045531635038,
+        "ci95": [
+          -0.04631622176327643,
+          -0.004015957024408989
+        ]
+      },
+      "repaired": 0
+    },
+    "C": {
+      "original_iou": {
+        "mean": 0.711050341377762,
+        "ci95": [
+          0.6515645726101258,
+          0.7675267770204479
+        ]
+      },
+      "delta_vs_N": {
+        "mean": 0.044516705951022556,
+        "ci95": [
+          -0.023826533492191215,
+          0.12870266816802292
+        ]
+      },
+      "repaired": 2
+    },
+    "R": {
+      "original_iou": {
+        "mean": 0.6692729300401752,
+        "ci95": [
+          0.5945147113729428,
+          0.7440311487074078
+        ]
+      },
+      "delta_vs_N": {
+        "mean": 0.0027392946134357776,
+        "ci95": [
+          0.00017301038062284002,
+          0.007175258404461038
+        ]
+      },
+      "repaired": 1
+    }
+  },
+  "comparisons": {
+    "R_minus_N": {
+      "mean": 0.0027392946134357776,
+      "ci95": [
+        0.00017301038062284002,
+        0.007175258404461038
+      ]
+    },
+    "R_minus_U": {
+      "mean": 0.025128340145070815,
+      "ci95": [
+        0.004799066889321024,
+        0.05309992523528145
+      ]
+    },
+    "R_minus_C": {
+      "mean": -0.04177741133758678,
+      "ci95": [
+        -0.12805159766463264,
+        0.026087767982859555
+      ]
+    }
+  },
+  "opportunity_capture": null,
+  "C_witness_capture": null,
+  "numerical_valid": true,
+  "reference_valid": false,
+  "denominator_complete": false,
+  "decision": "ENGINEERING_ONLY",
+  "alpha": {
+    "min": 0.0023037211960096823,
+    "median": 0.07784243483267553,
+    "max": 0.14536612203754476,
+    "zero": 0,
+    "one": 0,
+    "at_max": 0
+  },
+  "C_witness_lost": [
+    "a8c3e7d0af9db4684653c9b7b412f734d6105dc1e1c98a20c0782cf8d2fd3151:72053"
+  ],
+  "new_training_steps": 0,
+  "base_model_forward_calls": 0,
+  "GT_assisted_selection": true,
+  "deployment_claim": false,
+  "reused_development_panel": true,
+  "zero_delta_exact_rows": 706,
+  "adapter_forward_calls": 4,
+  "S3_delta_exact_images": 2,
+  "processing_seconds": 18.57800000003772,
+  "projected_full_seconds_from_smoke": 1546.7904000028968
+}
