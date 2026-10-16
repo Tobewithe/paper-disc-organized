@@ -1,0 +1,44 @@
+diff --git a/project/ACTIVE_PLAN.md b/project/ACTIVE_PLAN.md
+index 609f1faf..a33f8b51 100644
+--- a/project/ACTIVE_PLAN.md
++++ b/project/ACTIVE_PLAN.md
+@@ -1,6 +1,6 @@
+ # 当前科研总控：原型—系数链路
+ 
+-**更新：2026-10-15｜原9216面积门控候选S3已结案并回传：Mask AP +0.141573点，2000次配对区间[+0.084732,+0.204922]；90/22957原成功GT损伤（0.392037%），Box身份不变。收益未达+0.3点，S3晋级拒绝；配置及两机独立复核通过。当前无运行项，不启动S4/20k。**
++**更新：2026-10-15｜原9216面积门控候选S3已结案并回传：Mask AP +0.141573点，2000次配对区间[+0.084732,+0.204922]；90/22957原成功GT损伤（0.392037%），Box身份不变。收益未达+0.3点，S3晋级拒绝；配置及两机独立复核通过。现已获用户授权，准备原S1固定256条同检测机会兑现核对；不训练、不扫阈值、不启动S4/20k。**
+ 
+ 本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+ 
+@@ -30,7 +30,7 @@
+ | **S3 已结案：增益幅度未通过** | 原soft-IoU checkpoint、9216面积门控；全部5000图/539128最终输出，新增训练0 | 冻结Mask AP≥+0.3点且配对区间下界>0、全22957成功GT损伤≤1%、Box不变 | [S3结案](../experiments/mask_gate_s3r_20261015/REPORT.md)：`RUN_S3_FULL_670fffd010664a648e096572fc7c476d`，AP 44.014175→44.155748，Δ+0.141573，CI[+0.084732,+0.204922]，损伤90/22957，恢复189，Box不变；仅幅度Gate失败。96文件回传、配置和两机独立复核通过；[旧smoke工程失败与V2恢复](../experiments/mask_gate_s3r_20261015/RECOVERY.md)保留 |
+ | **S4 不启动**：扩量/独立确认 | S3通过后才规划扩量或开发外确认 | 需S3通过并有新授权/冻结预算 | 本候选S3未通过，不晋级、不扩20k，不把重复开发COCO当独立确认 |
+ 
+-**当前运行队列为空；已授权S3评价、配置复核和回传均已完成。唯一建议下一步是先冻结“同检测oracle—adapter—门控机会兑现核对”协议，等待用户安排后执行，不训练。** 肯定方向是把已知可恢复机会转化成无GT条件下的安全修复：S1找到122/256个同检测恢复解，本次S3已有受控的正AP收益，但幅度不足；尚未证明面积门控覆盖或Δc学习不足中的哪一个主导剩余差距。后继固定原S1的256条身份，区分“门控前已经修复而被门控撤回”与“oracle可修而当前Δc仍未修复”，以此选择安全收益选择器或修复目标学习这一具体方法问题；判据必须在新协议中事前冻结。本轮未启动该核对，不能拿189个COCO任务恢复替代同检测比较。详见[S3方向裁决](../experiments/mask_gate_s3r_20261015/REPORT.md)和[配置复核](../experiments/mask_gate_s3r_20261015/CONFIGURATION_REVIEW.md)。当前停止扩大E1/E2/E4这些已拒绝配置，不给新checkpoint临时套面积门控重判，不扫面积阈值，也不因E3找到互补解而绕过其净增Gate训练128维adapter。
++**当前唯一动作：按用户最新授权，在笔记本冻结并执行原S1的256条同检测机会兑现核对。** [新诊断协议](../experiments/mask_opportunity_audit_20261015/PROTOCOL.md)固定原S1面板、原soft-IoU checkpoint、S0缓存及9216面积门控，区分oracle成功的122条中“Δc尚未修好”与“已修好却被门控撤回”，另报修好且保留；全部256条保留，COCO任务状态与固定检测IoU分开。准备状态见[Study](../experiments/mask_opportunity_audit_20261015/study.json)，只有完成预检及源码/输入哈希冻结才启动smoke和正式Run。本次新增训练0、不追加oracle求解、不扫阈值、不换checkpoint；结果复核后仅推荐一个下一步，不自动执行。该核对不是新S2/S3效用验收，S3 +0.3点幅度Gate失败仍保留，不启动S4/20k。当前停止扩大已拒绝E1/E2/E4配置，不给新checkpoint临时套面积门控重判，不因E3互补解绕过净增Gate训练128维adapter。
+ 
+ **追加用户授权（2026-10-15）：** 用户要求随后自主完成实验2、3、4。E1修订先结案，再依次冻结并完成E2球面门控adapter pilot、E3子区域有限oracle、E4解码对齐监督与排斥loss比较；继续使用已授权笔记本。旧协议中“不得自动启动后续实验”是旧授权边界，本指令明确扩展执行范围；仍不启动S3/20k或扫描参数。每项独立Run、配置审计、结果回传和判定，阴性不自动取消用户明确要求的其它独立实验。
+ 
+diff --git a/project/PLAN_CATALOG.json b/project/PLAN_CATALOG.json
+index 1f335908..89b0eb52 100644
+--- a/project/PLAN_CATALOG.json
++++ b/project/PLAN_CATALOG.json
+@@ -1,6 +1,6 @@
+ {
+   "schema_version": 1,
+-  "reviewed_at": "2026-10-15",
++  "reviewed_at": "2026-10-16",
+   "source_commit": "14172b57156178955a8391167932ddb53a9f9bcc",
+   "canonical_route": "project/ACTIVE_PLAN.md",
+   "scope": "Filename inventory of project/paper plan-like files plus current two studies; not a scientific audit of 336 experiment directories. Roles do not replace frozen Run protocols or independent research lines.",
+@@ -309,6 +309,10 @@
+     {
+       "path": "experiments/mask_gate_s3r_20261015/CONFIGURATION_REVIEW.md",
+       "role": "post_run_actual_configuration_evidence_not_replacement_protocol"
++    },
++    {
++      "path": "experiments/mask_opportunity_audit_20261015/PROTOCOL.md",
++      "role": "study_specific_frozen_diagnostic_protocol_current_route_in_ACTIVE_PLAN"
+     }
+   ]
+ }

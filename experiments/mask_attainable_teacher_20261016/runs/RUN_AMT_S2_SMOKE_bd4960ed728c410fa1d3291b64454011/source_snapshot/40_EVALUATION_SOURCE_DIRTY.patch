@@ -1,0 +1,95 @@
+diff --git a/project/ACTIVE_PLAN.md b/project/ACTIVE_PLAN.md
+index 609f1faf..161e548e 100644
+--- a/project/ACTIVE_PLAN.md
++++ b/project/ACTIVE_PLAN.md
+@@ -1,6 +1,6 @@
+ # 当前科研总控：原型—系数链路
+ 
+-**更新：2026-10-15｜原9216面积门控候选S3已结案并回传：Mask AP +0.141573点，2000次配对区间[+0.084732,+0.204922]；90/22957原成功GT损伤（0.392037%），Box身份不变。收益未达+0.3点，S3晋级拒绝；配置及两机独立复核通过。当前无运行项，不启动S4/20k。**
++**更新：2026-10-16｜用户已授权开始AMT-v1同checkpoint的冻结S2验收。训练已完成且独立配置核验通过；当前唯一动作是原dev512及一次新抽签成功1024面板的U/G/原G对照评价。正在冻结评价代码并准备笔记本smoke，不追加训练、不自动S3/S4。**
+ 
+ 本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+ 
+@@ -28,9 +28,18 @@
+ | **S1机会扩展·实验三：已结案** | 同256条面板的Q-all/Q-local有限空间oracle；不训练adapter | 找到比例≥20%且相对原global32净增≥13 | [E3报告](../experiments/mask_readout_quadrant_oracle_20261015/REPORT.md)：Q-all132/256，新增28、丢失18、净增10；未过Gate。Q-local仅覆盖104条，启动前可达性检查遗漏已记录，不把全量失败当作局部表达能力否定 |
+ | **S2 实验四：已结案** | 解码输入尺度GT BCE对照R与R+.1排斥REP，各原2000图/3轮 | 两臂各按原S2三项；排斥增量另需目标配对区间下界>0且REP全部通过 | [E4报告](../experiments/mask_readout_aligned_repulsion_20261015/REPORT.md)：R/REP目标+.009783/+.009617均通过，总体均通过；损伤57/52，上界6.8607%/6.3249%均失败；REP−R区间跨零。配置/回传/两机统计复核完成，训练描述性均值回执差异保留 |
+ | **S3 已结案：增益幅度未通过** | 原soft-IoU checkpoint、9216面积门控；全部5000图/539128最终输出，新增训练0 | 冻结Mask AP≥+0.3点且配对区间下界>0、全22957成功GT损伤≤1%、Box不变 | [S3结案](../experiments/mask_gate_s3r_20261015/REPORT.md)：`RUN_S3_FULL_670fffd010664a648e096572fc7c476d`，AP 44.014175→44.155748，Δ+0.141573，CI[+0.084732,+0.204922]，损伤90/22957，恢复189，Box不变；仅幅度Gate失败。96文件回传、配置和两机独立复核通过；[旧smoke工程失败与V2恢复](../experiments/mask_gate_s3r_20261015/RECOVERY.md)保留 |
++| **S1—S3机会兑现核对：已结案** | 原S1固定256条/243图、同soft-IoU checkpoint及9216门控，零训练 | 冻结L/G/R互斥分解；原生/oracle/旧输出精确重放与独立复算 | [机会核对报告](../experiments/mask_opportunity_audit_20261015/REPORT.md)：原122条oracle阳性中100/10/12；按冻结规则学习侧优先，配置/回传/两机核验通过；不是新的S2/S3 Gate |
++| **训练内拟合/开发落差核验：已结案** | 同soft-IoU checkpoint、原fit2000、U/G完整输出；dev512直接复用，零训练 | 训练内修复/保护诊断要求及冻结的组成可比性；不放行S3 | [核验报告](../experiments/mask_soft_fit_audit_20261016/REPORT.md)：`RUN_SOFT_FIT_FULL_14971e618ba8498a9fa8efcd19d21770`，G训练三项满足，U训练损伤4.04%仍失败；门控内train/devΔ为+.054824/+.054241。共同支持仅29/82、28图且差距区间跨零；不确立小样本因果。配置、140文件回传和两机独立核验通过 |
++| **当前：AMT-v1冻结S2验收准备** | 训练内同检测有限oracle→可达二值proto目标；原2000图/初始化/架构/3轮1500步 | 教师Gate及独立重放、训练smoke；后续原S2三项加对原G对照的配对增量 | [AMT-v1协议](../experiments/mask_attainable_teacher_20261016/PROTOCOL.md)；教师质量Gate/独立重放、训练smoke通过；正式 `RUN_AMT_TRAIN_e10144e6d3d94803824aef1c636d831f` 已完成1500步/6000图访问，配置与回传核验通过；见[训练结案](../experiments/mask_attainable_teacher_20261016/TRAINING_REPORT.md) |
+ | **S4 不启动**：扩量/独立确认 | S3通过后才规划扩量或开发外确认 | 需S3通过并有新授权/冻结预算 | 本候选S3未通过，不晋级、不扩20k，不把重复开发COCO当独立确认 |
+ 
+-**当前运行队列为空；已授权S3评价、配置复核和回传均已完成。唯一建议下一步是先冻结“同检测oracle—adapter—门控机会兑现核对”协议，等待用户安排后执行，不训练。** 肯定方向是把已知可恢复机会转化成无GT条件下的安全修复：S1找到122/256个同检测恢复解，本次S3已有受控的正AP收益，但幅度不足；尚未证明面积门控覆盖或Δc学习不足中的哪一个主导剩余差距。后继固定原S1的256条身份，区分“门控前已经修复而被门控撤回”与“oracle可修而当前Δc仍未修复”，以此选择安全收益选择器或修复目标学习这一具体方法问题；判据必须在新协议中事前冻结。本轮未启动该核对，不能拿189个COCO任务恢复替代同检测比较。详见[S3方向裁决](../experiments/mask_gate_s3r_20261015/REPORT.md)和[配置复核](../experiments/mask_gate_s3r_20261015/CONFIGURATION_REVIEW.md)。当前停止扩大E1/E2/E4这些已拒绝配置，不给新checkpoint临时套面积门控重判，不扫面积阈值，也不因E3找到互补解而绕过其净增Gate训练128维adapter。
++**已完成的原S1固定256条机会兑现核对保留。** [结案报告](../experiments/mask_opportunity_audit_20261015/REPORT.md)对应正式Run `RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd`：原122条oracle阳性分解为L=100（无门控Δc仍未修好）、G=10（已修好但门控撤回）、R=12（修好且保留）；134条原oracle未找到解完整保留。110条未兑现机会中学习侧占90.91%，按事前协议优先选择可恢复失败的条件修复学习；门控也损失10/22条已实现修复，不能忽略，但放宽门控不能解决另100条。49,976行原生/门控重放与旧输出精确一致、256条oracle重放和独立RLE IoU通过；[配置复核](../experiments/mask_opportunity_audit_20261015/CONFIGURATION_REVIEW.md)、80文件回传与两机独立核验通过。本机首次Python3.10描述性均值末位相等检查失败已保留；原冻结脚本在本机Python3.12复验全通过，未改容差或科学结论。
++
++**此前soft-IoU训练内/开发落差核验已完成，以下作为本次目标对照的来源证据。** [报告](../experiments/mask_soft_fit_audit_20261016/REPORT.md)与[配置复核](../experiments/mask_soft_fit_audit_20261016/CONFIGURATION_REVIEW.md)对应正式Run `RUN_SOFT_FIT_FULL_14971e618ba8498a9fa8efcd19d21770`。训练218209输出、T2669、原成功9748；门控内有效监督3453/14268=24.2%，涉及1620张图。G训练目标+.010484、总体+.002194、损伤31/9748，诊断三项满足；开发G目标+.010024、损伤8/2355（本次512图census，不替代旧S2抽样上界）。无门控U训练损伤394/9748，说明保护问题在训练内也存在。分层差距区间跨零且共同支持不足，不认定小样本因果，也不宣称train/dev统计等效。140文件回传、两机独立复核、完整输出身份及12097配对RLE核验均通过，新增训练/基础模型forward/oracle求解均为0。
++
++**当前唯一动作：已训练AMT-v1 checkpoint的冻结S2对照验收（用户已授权开始）。** 用户最新指令“开始”授权本轮评价；执行细则见[评价执行冻结](../experiments/mask_attainable_teacher_20261016/EVALUATION_EXECUTION.md)。先冻结评价源代码/合同、一次抽签，再独立任务完成smoke与正式S2；不修改原训练协议。 用户明确授权“先冻结协议，然后启动训练”；以[新协议](../experiments/mask_attainable_teacher_20261016/PROTOCOL.md)和[Study](../experiments/mask_attainable_teacher_20261016/study.json)为唯一执行入口。原2000图、初始化、架构、顺序、3epoch/1500步、soft-IoU公式、.1成功保护和9216原生面积推理门控均不变；只对训练内同原join的失败实例，用固定P有限oracle构建经过原图质量核验的二值proto目标。教师质量/来源/独立重放及训练smoke通过后才启动正式训练；对照复用原soft-IoU，S2验收还要求同开发T配对增量区间下界>0。协议于2026-10-15T18:07:18Z冻结（本地10月16日02:07），SHA `5d944b782471f18558d017dad659882b0f0ec1efe172e2640f85349c622d974c`；34份源文件两机一致、31项输入和2000缓存预检通过。独立Windows任务 `Codex-AMT-Training-20261016` 已依次完成教师/训练smoke、完整教师及独立重放；正式教师 `RUN_AMT_TEACHER_FULL_24a4d184c8e54f45bf4327b0ab4710ca` 4521条求解全部收敛，接受3091条，门控内360条/305图，7项前置Gate通过。正式训练 `RUN_AMT_TRAIN_e10144e6d3d94803824aef1c636d831f` 已于2026-10-16 02:30完成1500步/6000图访问；全部原训练合同字段相同，仅目标策略改变。最终checkpoint SHA为 `b39df4f2720bf60f3ffe64f79ce426d2dc55ee28188c0068e6b1aa3061cf79b7`；笔记本独立序列/optimizer/参数/目标使用审计与本机51项回传哈希、完整日志核验均通过。见[教师准备结案](../experiments/mask_attainable_teacher_20261016/TEACHER_REPORT.md)及[训练启动核验](../experiments/mask_attainable_teacher_20261016/TRAINING_LAUNCH_VERIFICATION.json)。[训练结案](../experiments/mask_attainable_teacher_20261016/TRAINING_REPORT.md)已完成，独立任务退出，无本Study进程/锁；S2新效果尚未评价，教师通过和训练完成不等于学生有效。原训练流水线已按原边界停止。本次新授权只扩展到冻结S2及独立审计，不自动评价S3、扩量、提交或推送。
++
++此前直接提出教师方案的未执行建议曾 `superseded_by=experiments/mask_soft_fit_audit_20261016/PROTOCOL.md`，本轮先补齐训练内证据才作上述方向选择。启动前RLE格式工程修订及首版冻结见[记录](../experiments/mask_soft_fit_audit_20261016/PRELAUNCH_ENGINEERING_REVIEW.md)，不改变科学协议。S3 +0.3点幅度Gate失败不变，不晋级S4/20k；E1/E2/E4阴性及E3净增Gate均保留。
+ 
+ **追加用户授权（2026-10-15）：** 用户要求随后自主完成实验2、3、4。E1修订先结案，再依次冻结并完成E2球面门控adapter pilot、E3子区域有限oracle、E4解码对齐监督与排斥loss比较；继续使用已授权笔记本。旧协议中“不得自动启动后续实验”是旧授权边界，本指令明确扩展执行范围；仍不启动S3/20k或扫描参数。每项独立Run、配置审计、结果回传和判定，阴性不自动取消用户明确要求的其它独立实验。
+ 
+diff --git a/project/PLAN_CATALOG.json b/project/PLAN_CATALOG.json
+index 1f335908..7285454e 100644
+--- a/project/PLAN_CATALOG.json
++++ b/project/PLAN_CATALOG.json
+@@ -1,6 +1,6 @@
+ {
+   "schema_version": 1,
+-  "reviewed_at": "2026-10-15",
++  "reviewed_at": "2026-10-16",
+   "source_commit": "14172b57156178955a8391167932ddb53a9f9bcc",
+   "canonical_route": "project/ACTIVE_PLAN.md",
+   "scope": "Filename inventory of project/paper plan-like files plus current two studies; not a scientific audit of 336 experiment directories. Roles do not replace frozen Run protocols or independent research lines.",
+@@ -309,6 +309,50 @@
+     {
+       "path": "experiments/mask_gate_s3r_20261015/CONFIGURATION_REVIEW.md",
+       "role": "post_run_actual_configuration_evidence_not_replacement_protocol"
++    },
++    {
++      "path": "experiments/mask_opportunity_audit_20261015/PROTOCOL.md",
++      "role": "frozen_completed_diagnostic_protocol"
++    },
++    {
++      "path": "experiments/mask_opportunity_audit_20261015/REPORT.md",
++      "role": "completed_diagnostic_evidence_not_execution_authority"
++    },
++    {
++      "path": "experiments/mask_opportunity_audit_20261015/CONFIGURATION_REVIEW.md",
++      "role": "completed_diagnostic_evidence_not_execution_authority"
++    },
++    {
++      "path": "experiments/mask_soft_fit_audit_20261016/PROTOCOL.md",
++      "role": "completed_zero_training_fit_generalization_diagnostic_protocol"
++    },
++    {
++      "path": "experiments/mask_soft_fit_audit_20261016/REPORT.md",
++      "role": "completed_diagnostic_evidence_not_execution_authority"
++    },
++    {
++      "path": "experiments/mask_soft_fit_audit_20261016/CONFIGURATION_REVIEW.md",
++      "role": "completed_post_run_configuration_evidence"
++    },
++    {
++      "path": "experiments/mask_attainable_teacher_20261016/PROTOCOL.md",
++      "role": "active_authorized_attainable_mask_target_comparison_protocol"
++    },
++    {
++      "path": "experiments/mask_attainable_teacher_20261016/study.json",
++      "role": "active_study_execution_state"
++    },
++    {
++      "path": "experiments/mask_attainable_teacher_20261016/TEACHER_REPORT.md",
++      "role": "completed_teacher_precondition_evidence_not_student_effectiveness"
++    },
++    {
++      "path": "experiments/mask_attainable_teacher_20261016/TRAINING_REPORT.md",
++      "role": "completed_training_and_configuration_evidence_no_S2_effect_claim"
++    },
++    {
++      "path": "experiments/mask_attainable_teacher_20261016/EVALUATION_EXECUTION.md",
++      "role": "active_authorized_frozen_S2_execution_addendum_original_science_unchanged"
+     }
+   ]
+ }

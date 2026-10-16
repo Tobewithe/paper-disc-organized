@@ -1,0 +1,79 @@
+{
+  "target": {
+    "mean": 0.010024491543988425,
+    "ci95": [
+      0.0028224530560372455,
+      0.018451005200629575
+    ],
+    "images": 257,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "all_bbox75": {
+    "mean": 0.0008909711434980322,
+    "ci95": [
+      -0.0002087930718154455,
+      0.002046956117606457
+    ],
+    "images": 508,
+    "resamples": 2000,
+    "seed": 1729,
+    "unit": "IoU_fraction_0_to_1",
+    "method": "paired_image_macro_percentile_linear"
+  },
+  "damage": {
+    "population_successes": 22957,
+    "sample_size": 1024,
+    "damaged": 6,
+    "point_rate": 0.005859375,
+    "upper_damaged_count": 261,
+    "upper_rate": 0.011369081325957224,
+    "confidence": 0.95,
+    "unit": "fraction",
+    "method": "hypergeometric_CDF_inversion_inclusive",
+    "scope": "frozen_finite_baseline_success_GT_population",
+    "census": false,
+    "gate": "blocked_insufficient_precision",
+    "evaluated_images": 898,
+    "evaluated_GT": 11270,
+    "counted_GT": 1024,
+    "note": "Count only sampled S; other GT in the same image are not additional sampled units."
+  },
+  "target_GT": 655,
+  "all_bbox75_GT": 2925,
+  "target_fixed_detection_repaired": 18,
+  "target_task_repaired": 20,
+  "prediction_sha256": "8a955e068e437a8fe2570bad8b3a06b7bbf30345f0f8dcd55b9a7d7bb0dfb0de",
+  "secondary_AP_on_union": {
+    "bbox": {
+      "AP": 51.840461300369626,
+      "AP50": 69.18859289704345,
+      "AP75": 57.00485298237476,
+      "APS": 37.89261571972802,
+      "APM": 56.688130009163274,
+      "APL": 72.17336505566298,
+      "AR1": 34.1174083259469,
+      "AR10": 63.61138197392734,
+      "AR100": 70.77042886995451,
+      "ARS": 55.49139354220303,
+      "ARM": 75.52153606244194,
+      "ARL": 87.64823519395733
+    },
+    "segm": {
+      "AP": 43.63350761753978,
+      "AP50": 67.02527909421151,
+      "AP75": 47.5375947885018,
+      "APS": 28.691029917700746,
+      "APM": 48.47496905610389,
+      "APL": 65.1810040421583,
+      "AR1": 30.06110298857354,
+      "AR10": 53.978856230792516,
+      "AR100": 59.274875564590936,
+      "ARS": 42.513163566927936,
+      "ARM": 64.84281247486872,
+      "ARL": 79.07076810537839
+    }
+  }
+}

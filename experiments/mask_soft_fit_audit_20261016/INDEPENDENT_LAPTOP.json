@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "at": "2026-10-15T17:38:31.961135+00:00",
+  "interpreter": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+  "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+  "frozen_verifier_sha256": "2afa82a4254a112323957e9b92a98c2ca366e7c3e85c98485328329ec1ffe528",
+  "fit_images": 2000,
+  "dev_images": 512,
+  "identities": {
+    "FIT": [
+      15118,
+      12097
+    ],
+    "DEV": [
+      3772,
+      2925
+    ]
+  },
+  "statistics_tolerance": 1e-12,
+  "all_frozen_statistics_recomputed": true,
+  "original_supervision_counts_verified": true,
+  "raw_fit_verification": {
+    "all_output_rows": 218209,
+    "fixed_pairs": 12097,
+    "maximum_integer_RLE_IoU_error": 0.0,
+    "gate_mask_selection_exact": true,
+    "nonmask_fields_exact": true
+  },
+  "large_predictions_retained_on_laptop": [],
+  "decision": {
+    "finding": "fit_supported_but_comparable_generalization_evidence_insufficient",
+    "priority_direction": "attainable_conditional_repair_strength",
+    "next_action": "Freeze an attainable conditional-repair comparison using the established finite-oracle opportunity; do not claim small-data causality or relax this audit support criteria.",
+    "gated_fit_requirements_met": true,
+    "substantial_standardized_gap": false,
+    "new_training_authorized_by_this_decision": false,
+    "prior_S2_S3_decisions_unchanged": true,
+    "small_sample_causal_claim": "not_identified_by_observational_train_dev_comparison"
+  }
+}

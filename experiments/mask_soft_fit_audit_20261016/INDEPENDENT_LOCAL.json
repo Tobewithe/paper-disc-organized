@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "at": "2026-10-15T17:40:55.155543+00:00",
+  "interpreter": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "frozen_verifier_sha256": "2afa82a4254a112323957e9b92a98c2ca366e7c3e85c98485328329ec1ffe528",
+  "fit_images": 2000,
+  "dev_images": 512,
+  "identities": {
+    "FIT": [
+      15118,
+      12097
+    ],
+    "DEV": [
+      3772,
+      2925
+    ]
+  },
+  "statistics_tolerance": 1e-12,
+  "all_frozen_statistics_recomputed": true,
+  "original_supervision_counts_verified": true,
+  "raw_fit_verification": null,
+  "large_predictions_retained_on_laptop": [
+    {
+      "run": "RUN_SOFT_FIT_FULL_14971e618ba8498a9fa8efcd19d21770",
+      "relative_path": "G_predictions.json",
+      "size_bytes": 82095431,
+      "sha256": "cf8799514c63682896114678ce777337bf36e41653e4507510a6d2c4d06ccc4d",
+      "storage_scope": "execution_host",
+      "availability": "present"
+    },
+    {
+      "run": "RUN_SOFT_FIT_FULL_14971e618ba8498a9fa8efcd19d21770",
+      "relative_path": "U_predictions.json",
+      "size_bytes": 82177621,
+      "sha256": "35283ea815c066a3b806e4da14562d91879cb7663f280196728c8260d49160e7",
+      "storage_scope": "execution_host",
+      "availability": "present"
+    },
+    {
+      "run": "RUN_SOFT_FIT_SMOKE_08a4178d2a044e779ace539ceeeb1b17",
+      "relative_path": "G_predictions.json",
+      "size_bytes": 372563,
+      "sha256": "745bfe7ddee9752a1960c2934bfa4b51cf908e654f62568e99ff08ea116d8d0c",
+      "storage_scope": "execution_host",
+      "availability": "present"
+    },
+    {
+      "run": "RUN_SOFT_FIT_SMOKE_08a4178d2a044e779ace539ceeeb1b17",
+      "relative_path": "U_predictions.json",
+      "size_bytes": 370737,
+      "sha256": "9704892bb1017388453ccaa94b885b4f8657402dfd2de78321bf1af1fcd37c11",
+      "storage_scope": "execution_host",
+      "availability": "present"
+    }
+  ],
+  "decision": {
+    "finding": "fit_supported_but_comparable_generalization_evidence_insufficient",
+    "priority_direction": "attainable_conditional_repair_strength",
+    "next_action": "Freeze an attainable conditional-repair comparison using the established finite-oracle opportunity; do not claim small-data causality or relax this audit support criteria.",
+    "gated_fit_requirements_met": true,
+    "substantial_standardized_gap": false,
+    "new_training_authorized_by_this_decision": false,
+    "prior_S2_S3_decisions_unchanged": true,
+    "small_sample_causal_claim": "not_identified_by_observational_train_dev_comparison"
+  }
+}

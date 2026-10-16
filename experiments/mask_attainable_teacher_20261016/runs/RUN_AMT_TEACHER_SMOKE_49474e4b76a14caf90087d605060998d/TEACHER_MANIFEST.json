@@ -1,0 +1,84 @@
+{
+  "scope": "smoke",
+  "images": {
+    "551677": {
+      "path": "targets/551677.pt",
+      "sha256": "45c02ec293ac8977498598bc19d2d243aa82bd080981965399f41e0691b9a681",
+      "accepted": 0,
+      "joins": 1
+    },
+    "34761": {
+      "path": "targets/34761.pt",
+      "sha256": "7c895b48f6b2a7c800a8c847c0fcd781dd9623b43c5bccca4440c731419b9b8a",
+      "accepted": 0,
+      "joins": 3
+    },
+    "276750": {
+      "path": "targets/276750.pt",
+      "sha256": "57e6bf1596907def2e3e84659c1b8d63022499fe3ef15afe9abb78380029393e",
+      "accepted": 1,
+      "joins": 7
+    },
+    "514901": {
+      "path": "targets/514901.pt",
+      "sha256": "716b3637600be36113a2b9559c8471afe9c0f61446106fb7dc613cb7227f5743",
+      "accepted": 1,
+      "joins": 3
+    },
+    "310094": {
+      "path": "targets/310094.pt",
+      "sha256": "fb839761ec47d4feddca26c871ac04548cc2e2f7fa215a4feb71f77f405ce130",
+      "accepted": 1,
+      "joins": 3
+    },
+    "55169": {
+      "path": "targets/55169.pt",
+      "sha256": "97a915668fb97093a93c7aa8967326af779a8d111b9d8acfc2888b46da85fc58",
+      "accepted": 0,
+      "joins": 6
+    },
+    "112394": {
+      "path": "targets/112394.pt",
+      "sha256": "b9acf0b3be9279bcd07629baba562b9c4b49940d8e602e1f0104df5cff29a05a",
+      "accepted": 0,
+      "joins": 3
+    },
+    "404652": {
+      "path": "targets/404652.pt",
+      "sha256": "002368f41e401de801d3c7f9bdd155ad431a8a233906025081bc152527850d4c",
+      "accepted": 0,
+      "joins": 3
+    }
+  },
+  "spec": {
+    "name": "AMT_v1_conditional_hard_functional_target",
+    "solver": {
+      "penalty": 0.003,
+      "max_iter": 120,
+      "max_eval": 150,
+      "history_size": 20,
+      "lr": 1.0,
+      "tolerance_grad": 1e-09,
+      "tolerance_change": 1e-12,
+      "gradient_acceptance": 1e-06,
+      "line_search_fn": "strong_wolfe",
+      "dtype": "float64",
+      "initialization": "zero_delta",
+      "loss_normalization": "mean_over_frozen_roi_pixels"
+    },
+    "minimum_native_gain": 0.01,
+    "minimum_converged_fraction": 0.95,
+    "minimum_solved": 200,
+    "minimum_accepted": 200,
+    "minimum_accepted_fraction": 0.2,
+    "minimum_accepted_mean_gain": 0.05,
+    "minimum_gate_on_accepted": 64,
+    "minimum_gate_on_images": 32,
+    "inference_area": 9216,
+    "eligibility": "ordinary_original_training_join; task_mask75_failure; paired_mask_iou_lt_0.75; nonempty_ROI",
+    "target": "full_same_image_FP32_CUDA_coefficients_matmul_P_gt_zero_binary_proto_mask",
+    "fallback": "original_projected_GT_for_every_nonaccepted_join; no_filter_or_reweight",
+    "protection": "original_all_output_BCE_weight_0.1_and_fixed_native_mask_area_gate"
+  },
+  "rows_sha256": "0154d782b4ff6df2fcf10397b4bc6f9c93aeed57efa43590886cc625279ae835"
+}

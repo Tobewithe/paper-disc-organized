@@ -1,0 +1,83 @@
+{
+  "status": "failed_exact_descriptive_mean_equality",
+  "at": "2026-10-15T16:20:57.854004+00:00",
+  "python": "3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]",
+  "command": "python -B scripts/verify.py --run RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd --smoke-run RUN_OPPORTUNITY_SMOKE_e581d455fed3416ca891fa9d40101839 --out INDEPENDENT_LOCAL.json",
+  "exception": "ValueError: group mean incorrect at verify.py:155",
+  "primary_checks_completed_before_failure": "all 256 RLE IoUs, identities, L/G/R partition and direction exact",
+  "differences": [
+    {
+      "group": "all",
+      "arm": "ungated",
+      "recorded": -0.0012055480912137768,
+      "local_sum": -0.0012055480912137766,
+      "local_fsum": -0.0012055480912137768,
+      "abs_error": 2.168404344971009e-19,
+      "fsum_exact": true
+    },
+    {
+      "group": "all",
+      "arm": "gated",
+      "recorded": 0.007053677587869639,
+      "local_sum": 0.007053677587869637,
+      "local_fsum": 0.007053677587869639,
+      "abs_error": 1.734723475976807e-18,
+      "fsum_exact": true
+    },
+    {
+      "group": "oracle_found_group",
+      "arm": "ungated",
+      "recorded": 0.017193648502159157,
+      "local_sum": 0.017193648502159164,
+      "local_fsum": 0.017193648502159157,
+      "abs_error": 6.938893903907228e-18,
+      "fsum_exact": true
+    },
+    {
+      "group": "oracle_found_group",
+      "arm": "gated",
+      "recorded": 0.015033196886977802,
+      "local_sum": 0.015033196886977799,
+      "local_fsum": 0.015033196886977802,
+      "abs_error": 3.469446951953614e-18,
+      "fsum_exact": true
+    },
+    {
+      "group": "oracle_unfound_group",
+      "arm": "ungated",
+      "recorded": -0.017957055437418986,
+      "local_sum": -0.017957055437418986,
+      "local_fsum": -0.017957055437418986,
+      "abs_error": 0.0,
+      "fsum_exact": true
+    },
+    {
+      "group": "oracle_unfound_group",
+      "arm": "gated",
+      "recorded": -0.00021125789340794416,
+      "local_sum": -0.00021125789340794416,
+      "local_fsum": -0.00021125789340794416,
+      "abs_error": 0.0,
+      "fsum_exact": true
+    },
+    {
+      "group": "L_group",
+      "arm": "ungated",
+      "recorded": -0.0048440172680852475,
+      "local_sum": -0.004844017268085247,
+      "local_fsum": -0.0048440172680852475,
+      "abs_error": 8.673617379884035e-19,
+      "fsum_exact": true
+    },
+    {
+      "group": "L_group",
+      "arm": "gated",
+      "recorded": -0.0007995316390294747,
+      "local_sum": -0.0007995316390294747,
+      "local_fsum": -0.0007995316390294747,
+      "abs_error": 0.0,
+      "fsum_exact": true
+    }
+  ],
+  "source_not_modified": true
+}
