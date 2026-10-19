@@ -6,6 +6,10 @@
 
 **研究线命名（2026-10-14，用户指定）：** 展示名称统一为“原型—系数链路”（Prototype→Coefficient）。`neighbor_sensitive_p3` 保留为历史技术标识和目录名，维持既有证据引用；邻域机制、P3 干预等具体方法是否采用，由证据与所属实验协议决定，名称不预设机制结论。本次更名不改变下列阶段、冻结配置或 Gate。
 
+**2026-10-20当前授权：SSR-v1“空间采样×实例条件读出”交叉实验。** 用户要求选择足以检验效果的预算并开始；新[协议](../experiments/mask_sampling_readout_20261020/PROTOCOL.md)明确登记A/B/C/D/M及同预算G20k，每臂20k图×3轮、15000步，合计90000步，仅笔记本执行。当前在补齐原20k清单的缺图并完成执行冻结；合成梯度/容量检查和16图历史原生输入/P/c0/RLE预检已通过，**正式训练尚未开始**。预注册D为唯一主方法，完整5000图、真实原成功GT全查、同checkpoint错配和等幅控制分别检验机制及效用。一次有限接续依次验证输入→冻结→smoke→训练→评价→统计，不设置定时任务或目标模式，不自动提交推送；以[Study](../experiments/mask_sampling_readout_20261020/study.json)及执行端真实run.json更新状态。其他研究线保持独立。
+
+此前本研究线的“当前/唯一下一步”均为历史状态，现由本条新授权取代；不修改任何旧 Run 的冻结协议或判定。
+
 ## 0. 唯一研究命题与路线裁决
 
 > 固定官方 `yolo26m-seg.pt` 的预训练网络、Box/Class、原生 Prototype P、原始系数 c0 和正常最终检测身份，只对真实推理输出进行**后训练的无 GT 条件系数残差修复**：`c'=c0+Δcθ`。检验哪些原 Mask75 任务失败的 GT 在同一最终 Box75 检测上具备固定 P 的有限可恢复空间，以及新读出器是否能救回且不会损伤原成功实例。
@@ -18,6 +22,7 @@
 
 | 阶段 | 研究对象与唯一动作 | 必需输入/通过判据 | 产物/进度 |
 |---|---|---|---|
+| **SSR-v1：已授权，输入补齐与执行冻结** | 五组信息/读出机制对照＋同预算G20k；每臂20k×3轮、15000步；D固定为主方法 | 完整原图SHA、8.4.100源码、zero-delta、真实梯度/容量与资源smoke通过后才训练；门槛见新协议 | [协议](../experiments/mask_sampling_readout_20261020/PROTOCOL.md) · [Study](../experiments/mask_sampling_readout_20261020/study.json)；本机代取缺图后回传，尚无正式训练步 |
 | **S0 已结案**：采用本地配置范围的原生基线 | 按固定 `v8.4.100` 读取实际 O2O 输出，确认 `end2end=True`、`agnostic_nms=False`、类别/图片/面积/decoder、官方 bbox 与 segm 分别匹配，同输出 ID 不混用 | 模型 SHA 和标注、5000 图；`native_gt_ledger_validity=passed`。官网公布 AP parity 是**另一个独立 Gate**，未过不能自称刊载基线复现，但只要原生任务账本有效，可继续在明示 `native_config_scoped` 下做科研诊断 | [冻结 GT 基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) · [真实执行状态](../experiments/official_gt_failure_rebaseline_20261013/EXECUTION_STATUS.md)。原生账本通过，发表 AP 复现未过；主 Run `RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170`，详见[结果报告](../experiments/official_gt_failure_rebaseline_20261013/REPORT.md) |
 | **S1 已通过**：同最终检测系数可恢复性 | 在基线 Mask75 失败且同一最终 Box75 检测自身 MaskIoU<.75 的集合 T，只优化系数；P、框、类别、score、decoder和输出身份冻结 | 预注册 ≥200个GT、找到 Mask75 ≥20%；有限机会下界，不是可部署成绩 | [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)：`RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949`，122/256，全部收敛，控制/配置/回传审计通过 |
 | **S2 已结案：BCE及soft-IoU当前配置均拒绝** | soft-IoU从原B initial.pt、原2000图/逐轮顺序/3epoch/1500步，只替换GT loss；执行完整结束 | 原门槛：目标ΔIoU≥.005且95%下界>0、总体≥−.001、成功损伤上界≤1% | [soft-IoU结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)：评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0`，目标+.006799但CI下界−.001267、总体−.002618、损伤53/1024且上界6.4338%，三项失败；配置/回传/独立复算通过。旧[BCE结案](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)保留 |

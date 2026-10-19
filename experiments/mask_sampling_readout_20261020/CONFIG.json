@@ -1,0 +1,92 @@
+{
+  "study_id": "STUDY_MASK_SAMPLING_READOUT_20261020",
+  "study_root": "D:/coco_wire/baseline_native_20261013/experiments/mask_sampling_readout_20261020",
+  "weights": "D:/coco_wire/baseline_native_20261013/assets/models/coco_clean_20260911/yolo26m-seg.pt",
+  "profile": "D:/coco_wire/baseline_native_20261013/paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json",
+  "adapter_initial": "D:/coco_wire/baseline_native_20261013/experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S2_TRAIN_B_6c7bc7e8c0dc48509a733d11e60f0ee2/initial.pt",
+  "existing_G": "D:/coco_wire/baseline_native_20261013/experiments/mask_readout_soft_iou_pilot_20261014/runs/RUN_SOFT_IOU_TRAIN_53afd0bb8aba428482159f5e426878eb/last.pt",
+  "historical_native_trace": "D:/coco_wire/baseline_native_20261013/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/trace/TRACE_MANIFEST.json",
+  "historical_native_ledger": "D:/coco_wire/baseline_native_20261013/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/ledger/PER_GT_FAILURE.jsonl",
+  "existing_G_predictions": "D:/coco_wire/baseline_native_20261013/experiments/mask_gate_s3r_20261015/runs/RUN_S3_FULL_670fffd010664a648e096572fc7c476d/predictions_mixed.json",
+  "train_annotations": "D:/coco_wire/data/annotations/instances_train2017.json",
+  "val_annotations": "D:/coco_wire/data/annotations/instances_val2017.json",
+  "arms": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "M",
+    "G20k"
+  ],
+  "training_seed": 0,
+  "fit_images": 20000,
+  "epochs": 3,
+  "source_batch": 16,
+  "effective_batch": 4,
+  "steps_per_arm": 15000,
+  "optimizer": {
+    "lr": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "amsgrad": false,
+    "foreach": false,
+    "maximize": false,
+    "capturable": false,
+    "differentiable": false,
+    "fused": false
+  },
+  "hours": {
+    "smoke": 1,
+    "train": 96,
+    "evaluate": 24,
+    "statistics": 24
+  },
+  "area_gate": 9216,
+  "runtime_policy": {
+    "matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8"
+  },
+  "policy": {
+    "AMP": false,
+    "EMA": false,
+    "scheduler": null,
+    "augmentation": false,
+    "gradient_clip": null,
+    "checkpoint": "last",
+    "chunk_rows": 4,
+    "activation_recompute": true
+  },
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 1729,
+    "unit": "paired_whole_image",
+    "percentiles": [
+      2.5,
+      97.5
+    ]
+  },
+  "gates": {
+    "minimum_target_IoU_gain": 0.005,
+    "ci_lower_gt": 0,
+    "minimum_full_AP_gain_vs_native": 0.3,
+    "maximum_success_damage_fraction": 0.01,
+    "overall_IoU_floor": -0.001
+  },
+  "authorization": {
+    "user": "设计可以体现出效果的合适预算，开始；继续",
+    "device": "laptop 28358lan",
+    "no_schedules": true,
+    "no_goal": true,
+    "no_auto_commit_push": true
+  }
+}

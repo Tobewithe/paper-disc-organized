@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Dpan\codexproject\paper-disc-organized\experiments\mask_sampling_readout_20261020\scripts\relay_download.py", line 20, in main
+    inv=read(STUDY/'inputs/REMOTE_INVENTORY.json');assert not inv['bad']
+  File "C:\Dpan\codexproject\paper-disc-organized\experiments\mask_sampling_readout_20261020\scripts\prepare_inputs.py", line 20, in read
+    return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+                      ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dpan\envsfiles\miniconda3\Lib\pathlib\__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Dpan\envsfiles\miniconda3\Lib\pathlib\__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\mask_sampling_readout_20261020\\inputs\\REMOTE_INVENTORY.json'
