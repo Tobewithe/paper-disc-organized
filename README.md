@@ -14,6 +14,12 @@
 
 研究线元信息由 [project/research_lines.json](project/research_lines.json) 记录；此处的当前任务**不改变其它论文线**。例如独立的 [mask_boundary_calibration](paper/manuscripts/mask_boundary_calibration/README.md) 仍有自己的原冻结结果、稿件与历史研究计划。
 
+## 新登记的独立应用型论文主线（2026-10-21）
+
+**[SPM-YOLO：Blender 合成—真实原型记忆增强的猪群实例分割](paper/manuscripts/spm_yoloseg/README.md)**：以毕业所需应用型 SCI 论文为目标，探索 Blender 合成图 + 真实猪群可见实例 Mask 构建可冻结特征原型，再在 YOLO26-Seg 的 Neck→Segment26 之间进行 P3/P4 条件检索与门控残差注入。[研究章程](paper/manuscripts/spm_yoloseg/RESEARCH_CHARTER.md) · [研究线规则](paper/manuscripts/spm_yoloseg/RESEARCH_RULES.md) · [首轮实验草案](experiments/spm_yoloseg_20261021/PROTOCOL_DRAFT.md) · [Study 登记](experiments/spm_yoloseg_20261021/study.json)。
+
+**登记状态：** `research_draft / hypothesis_only / not_started`，本次没有 Blender 渲染、GPU 训练、Run 或 AP 结果。先执行 P0 数据、源码、基线与防泄漏审计；**不更改**[原型—系数线当前执行总控](project/ACTIVE_PLAN.md)及其它并行研究线的冻结结果。
+
 ## 新登记的独立研究主线（2026-10-20）
 
 **[世界模型的行动时间分辨率盲区与可辨识性](paper/manuscripts/world_model_action_time_identifiability/README.md)**：关注固定采样端点下的动力学不可辨识性、模型对区间内切换动作的决策外推，以及数据相容反对模型引导的少量辨识动作。[研究章程](paper/manuscripts/world_model_action_time_identifiability/RESEARCH_CHARTER.md) · [第一轮实验草案](experiments/world_model_action_time_identifiability_20261020/PROTOCOL_DRAFT.md) · [Study登记](experiments/world_model_action_time_identifiability_20261020/study.json)。
