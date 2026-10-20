@@ -14,6 +14,12 @@
 
 研究线元信息由 [project/research_lines.json](project/research_lines.json) 记录；此处的当前任务**不改变其它论文线**。例如独立的 [mask_boundary_calibration](paper/manuscripts/mask_boundary_calibration/README.md) 仍有自己的原冻结结果、稿件与历史研究计划。
 
+## 新登记的独立研究主线（2026-10-20）
+
+**[世界模型的行动时间分辨率盲区与可辨识性](paper/manuscripts/world_model_action_time_identifiability/README.md)**：关注固定采样端点下的动力学不可辨识性、模型对区间内切换动作的决策外推，以及数据相容反对模型引导的少量辨识动作。[研究章程](paper/manuscripts/world_model_action_time_identifiability/RESEARCH_CHARTER.md) · [第一轮实验草案](experiments/world_model_action_time_identifiability_20261020/PROTOCOL_DRAFT.md) · [Study登记](experiments/world_model_action_time_identifiability_20261020/study.json)。
+
+这是与「原型—系数链路」并列的正式研究方向登记，**尚未冻结实验、没有训练或科学结果**。不改变本文件上方原型—系数线的现行执行总控、SSR协议和既有结论；新方向运行状态以自己的研究入口及 Study 为准，所有主线登记以 [research_lines.json](project/research_lines.json) 为索引。
+
 ## 目录职责（不让历史笔记争夺执行权）
 
 | 目录 | 权威边界 |
