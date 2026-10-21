@@ -1,0 +1,117 @@
+{
+  "status": "completed_and_verified",
+  "pid": 4620,
+  "started_at": "2026-10-16T20:30:11.270449+00:00",
+  "phases": [
+    {
+      "label": "TESTS",
+      "pid": 18100,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_test.py"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:30:19.359755+00:00"
+    },
+    {
+      "label": "PREPARE",
+      "pid": 2408,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_prepare.py"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:37:08.550389+00:00"
+    },
+    {
+      "label": "SMOKE_LOCAL",
+      "pid": 19708,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_train.py",
+        "--scope",
+        "smoke",
+        "--arm",
+        "LOCAL"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:37:30.237244+00:00"
+    },
+    {
+      "label": "SMOKE_UNIFORM",
+      "pid": 16904,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_train.py",
+        "--scope",
+        "smoke",
+        "--arm",
+        "UNIFORM"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:37:50.721347+00:00"
+    },
+    {
+      "label": "FULL_LOCAL",
+      "pid": 23604,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_train.py",
+        "--scope",
+        "full",
+        "--arm",
+        "LOCAL"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:40:48.667258+00:00"
+    },
+    {
+      "label": "FULL_UNIFORM",
+      "pid": 18660,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_train.py",
+        "--scope",
+        "full",
+        "--arm",
+        "UNIFORM"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:43:52.072567+00:00"
+    },
+    {
+      "label": "EVALUATION",
+      "pid": 12036,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_evaluate.py"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:47:15.084879+00:00"
+    },
+    {
+      "label": "VERIFY",
+      "pid": 18804,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\scripts\\lrp_verify.py",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_residual_pilot_20261017\\runs\\RUN_LRP_EVALUATION_f89d8084795244a985b37031a6b395a9"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:48:28.847975+00:00"
+    }
+  ],
+  "new_scheduler": false,
+  "new_goal": false,
+  "current_phase": "awaiting_transfer",
+  "child_pid": null,
+  "ended_at": "2026-10-16T20:48:28.850415+00:00"
+}

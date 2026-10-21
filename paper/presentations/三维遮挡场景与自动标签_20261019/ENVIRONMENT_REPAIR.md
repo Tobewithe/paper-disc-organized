@@ -1,0 +1,5 @@
+# 环境工程修复记录
+
+Slurm116 / RUN_SCENE_SETUP_20261019T092428_8c7844f7：官方Blender包SHA通过且解包完成；启动因libSM.so.6缺失失败，ldd同时发现libICE.so.6缺失。原Run、原源码快照、ERROR和版本日志保留。
+
+修复仅下载与服务器发行版一致的官方openEuler24.03-LTS-SP1两个运行库RPM，验证包散列与rpmkeys签名后提取到项目software/runtime-libs，通过该项目进程的LD_LIBRARY_PATH使用。不执行系统安装、不改驱动或共享环境。setup_recheck独立Run核对原可执行文件与官方压缩包中的散列，再核启动及ldd。

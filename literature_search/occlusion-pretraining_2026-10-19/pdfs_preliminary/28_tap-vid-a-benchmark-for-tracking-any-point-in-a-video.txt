@@ -1,0 +1,1533 @@
+
+
+PAGE 1
+TAP-Vid: A Benchmark for Tracking Any Point in a
+Video
+Carl Doersch∗ Ankush Gupta∗ Larisa Markeeva∗ Adrià Recasens∗
+Lucas Smaira∗ Yusuf Aytar∗ João Carreira∗ Andrew Zisserman∗† Yi Yang∗
+∗DeepMind †VGG, Department of Engineering Science, University of Oxford
+Abstract
+Generic motion understanding from video involves not only tracking objects, but
+also perceiving how their surfaces deform and move. This information is useful to
+make inferences about 3D shape, physical properties and object interactions. While
+the problem of tracking arbitrary physical points on surfaces over longer video
+clips has received some attention, no dataset or benchmark for evaluation existed,
+until now. In this paper, we ﬁrst formalize the problem, naming it tracking any
+point (TAP). We introduce a companion benchmark, TAP-Vid, which is composed
+of both real-world videos with accurate human annotations of point tracks, and
+synthetic videos with perfect ground-truth point tracks. Central to the construction
+of our benchmark is a novel semi-automatic crowdsourced pipeline which uses
+optical ﬂow estimates to compensate for easier, short-term motion like camera
+shake, allowing annotators to focus on harder sections of video. We validate our
+pipeline on synthetic data and propose a simple end-to-end point tracking model
+TAP-Net, showing that it outperforms all prior methods on our benchmark when
+trained on synthetic data. Code and data are available at the following URL:
+https://github.com/deepmind/tapnet.
+1 Introduction
+Motion is essential for scene understanding: perceiving how people and objects move, accelerate,
+turn, and deform improves understanding physical properties, taking actions, and inferring intentions.
+It becomes even more crucial for embodied agents (i.e. robots), as many tasks require precise spatial
+control of objects over time. While substantial attention has been given to motion estimation, e.g.,
+through algorithms for correspondence and tracking, this paper addresses one particularly under-
+studied problem: long-term motion estimation of points on generic physical surfaces in real scenes.
+There is a multitude of tracking algorithms which address this problem, but partially and with
+different weaknesses, illustrated in Figure 2. Popular box and segment tracking algorithms provide
+limited information about deformation and rotation of surfaces. Optical ﬂow can track any point
+on any surface, but only over pairs of frames, with limited ability to estimate occlusion. Keypoint
+matching algorithms common in structure from motion typically detect sparse interest points and are
+not designed for deformable and weakly-textured objects. For some of the most common tracking
+problems (e.g. faces, hands, and human poses), researchers thus build trackers for hand-chosen
+semantic keypoints, which is extremely useful but not scalable to arbitrary objects and surfaces.
+Our work aims to formalize the problem of long-term physical point tracking directly. Our formulation,
+Tracking Any Point (TAP) is shown in Figure 1. We require only that the target point and surface
+can be determined unambiguously from a single pixel query (i.e. we don’t deal with transparent
+objects, liquids, or gasses), and directly estimate how it moves across a video. Our task can be seen
+as an extension of optical ﬂow to longer timeframes with occlusion estimation, or an extension of
+36th Conference on Neural Information Processing Systems (NeurIPS 2022) Track on Datasets and Benchmarks.
+arXiv:2211.03726v2  [cs.CV]  31 Mar 2023
+
+PAGE 2
+Tracker
+Video and Query Points
+Predicted Tracks 
+with Occlusion
+InputOutput
+Figure 1: The problem of tracking any point (TAP) in a video. The input is a video clip (e.g. 10s
+long) and a set of query points (x,y,t in the pixel/frame coordinates; shown with double circles). The
+goal is to predict trajectories (x,y pixel coordinates; coloured lines) over the whole video, indicating
+the same physical point on the same surface, as well as a binary occlusion indicator (black solid
+segments) indicating frames where it isn’t visible.
+typical structure-from-motion keypoint matching to typical real-world videos, including e.g. nonrigid
+or weakly-textured objects and surfaces, also with occlusion estimation. To train and evaluate, we
+rely on a mixture of real benchmarks (where humans can directly perceive the correctness of point
+tracking) and synthetic benchmarks (where even textureless points can be tracked).
+While tracking synthetic points is straightforward, obtaining groundtruth labels for arbitrary real-
+world videos is not. Thankfully, there’s good evidence that humans (and other animals) excel at
+perceiving whether point tracking is accurate, as it is an example of the “common fate” Gestalt
+principle [17, 65, 69, 72, 73]. However, annotating point tracks in real videos is extremely time-
+consuming, since both objects and cameras tend to move in complex, non-linear ways; this may
+explain why this problem has received so little attention in computer vision. Therefore, in this work,
+we ﬁrst build a pipeline to enable efﬁcient and accurate annotation of point tracks on real videos. We
+then use this pipeline to label 1,1891 real YouTube videos from Kinetics [7] and 30 DA VIS evaluation
+videos [53] with roughly 25 points each, using a small pool of skilled annotators and multiple rounds
+of checking to ensure the accuracy of the annotations. Overall we ﬁnd that on average, roughly 3.3
+annotator hours are required to track 30 points through every frame on a 10-second video clip.
+The contributions of this paper are threefold. First, we design and validate an algorithm which
+assists annotators to more accurately track points. Second, we build an evaluation dataset with
+31,951 (31,301+650) points tracked across 1,219 (1,189 + 30) real videos. Third, we explore several
+baseline algorithms, and we compare our point tracking dataset to the closest existing point tracking
+dataset—JHMDB human keypoint tracking [ 30]—demonstrating that training using our formulation
+of the problem can increase performance on this far more limited dataset.
+2 Related Work
+Though box and segment tracking has been widely benchmarked [ 11, 24, 51, 53, 82, 84, 87, 89],
+we focus here on methods that track points. A few early hand-engineered works address long-
+term tracking of surface points [ 4, 42, 43, 57, 62, 81], though without learning, these approaches
+are brittle. Optical Flow estimates dense motion, but only between image pairs [ 22, 44]; modern
+approaches [13, 26, 55, 67, 70] train and evaluate on synthetic scenes [6, 13, 50, 66], though depth
+scanners provide limited real data [16]. Structure-From-Motion (SFM) [12, 31, 47, 52] relies on
+sparse keypoint matches given image pairs of rigid scenes, and typically ignores occlusion, as it
+can use geometry to ﬁlter errors [21, 59, 75, 77]. This work is thus often restricted to rigid scenes
+[49, 92], and is benchmarked accordingly [3, 10, 39, 39, 40, 61, 93]. Semantic Keypoint Tracking
+typically chooses a (very small) set of object categories and hand-deﬁnes a small number of keypoints
+to track [30, 54, 64, 68, 74, 85], though some variants track densely for humans [19, 48]. Keypoint
+discovery aims to discover keypoints and correspondence on more general objects, typically with
+1The exact number may change due to Youtube wipeout policy.
+2
+
+PAGE 3
+Bounding-box
+ tracking
+Video object 
+segmentation
+Optical ﬂowStructure from 
+motion
+Semantic Keypoint
+Tracking
+Physical Point
+Tracking (ours)
+Figure 2: Correspondence tasks in videos. Most prior work on motion understanding has involved
+tracking (1) bounding boxes or (2) segments, which loses information about rotation and deformation;
+(3) optical ﬂow which analyzes each frame pair in isolation; (4) structure-from-motion inspired
+physical keypoints which struggle with deformable objects, or (5) semantic keypoints which are
+chosen by hand for every object of interest. Our task, in contrast, is to Track Any Point on physical
+surfaces, including those on deformable objects, over an entire video.
+the goal of robotic manipulation [ 14, 28, 29, 71, 91], but these typically train from large datasets
+depicting a single object. Comparison with existing tracking datasets is summarized in Table 1.
+One notable approach which combines several of the above paradigms is a concurrent work PIPs [20].
+This work learns a form of long-term video point tracking inspired by Particle Videos [57], using
+a sim2real setup similar to TAP-Net. However, it struggles to ﬁnd both training and testing data,
+relying principally on BADJA [5] for evaluation, which contains just 9 videos and tracks joints rather
+than surface points.
+Our work is also related to "smart" software that aids human annotators, making guesses that
+annotators may accept or reject, so they don’t need to label exhaustively. Polygon RNN [1] and UVO
+3
+
+PAGE 4
+TAP-Vid-DA VISTAP-Vid-Kinetics
+TAP-Vid-RGB-StackingTAP-Vid-Kubric
+Figure 3: The TAP-Vid point tracking datasets. Ground-truth point annotations on two random
+videos from four point tracking datasets we use for evaluation—TAP-Vid-Kinetics and TAP-Vid-
+DA VIS containing real-world videos with point annotations collected from humans, the synthetic
+TAP-Vid-Kubric dataset, and TAP-Vid-RGB-Stacking from simulated robotics environment.
+Dataset Type #Videos
+(#Images)
+Duration/
+Time-scale
+Long-
+term?
+Point
+Precise?
+Class
+Agnostic?
+Non-
+rigid?
+KITTI [16] Optical ﬂow 156 400 frame pairs    
+COCO-DensePose [19] Surface Points (50k) —    
+COCO-WholeBody [32] Semantic Keypoints (200k) —    
+DA VIS [53] Masks (multi-object) 150 25 fps @ 2-5s    
+GOT-10k [24] BBs (single-object) 10k 10 fps @ 15s    
+TAO [11] BBs (multi-object) 3k 1 fps @ 37s    
+YouTube-BB [56] BBs (single-object) 240k 1 fps @ 20s    
+PoseTrack [2] Semantic Keypoints 550 (37k) train: 30 fps @ 1s
+eval: 7 fps @ 3–5s   
+300VW [63] Facial Keypoints 300 30 fps @1–2 mins    
+ScanNet [10] SfM 3D recons. 1500 ∼1 min    
+MegaDepth [40] SfM 3D recons. 200 scenes
+(130k) —    
+TAP-Vid-Kinetics Arbitrary points 1,189 25 fps @10s    
+Table 1: Comparison with tracking datasets. Our dataset includes precise human annotated tracks
+of arbitrary class-agnostic points over long(-er) duration (10 seconds), unlike the existing datasets.
+segmentation [82] accelerated image and video segmentation respectively, and similar systems have
+been proposed for object tracking in videos [33, 78, 79].
+3 Dataset Overview
+Figure 1 illustrates our general problem formulation. Algorithms receive both a video and a set of
+query points, i.e., a list of points (x,y,t ):x,y for 2d position andt for time. For each query point,
+the algorithm must output 1) a set of positions (xt,yt), one per frame, estimating where that point has
+moved, and 2) a binary valueot indicating if the point is occluded on each frame. During occlusions,
+the (xt,yt) output is typically assumed to be meaningless. Our benchmark combines both synthetic
+datasets—with perfect tracks but imperfect realism—and real datasets, where points must be tracked
+by hand. Note that with our real-world data, we principally aim for an evaluation benchmark. We
+expect TAP will be used in domains beyond the ones we annotate, e.g., novel robotics problems that
+have not yet been formulated. Transfer to evaluation datasets from synthetic data like Kubric is more
+likely to be representative of performance on unseen domains. This is thus the avenue we pursue
+in this work: we use Kubric for training the presented models, and hold out the other three datasets
+exclusively for testing. Note that evaluating the ability of an algorithm to track any point does not
+4
+
+PAGE 5
+Dataset #Videos Avg. points #Frames Initial resolution Sim/Real Eval resolution
+TAP-Vid-Kinetics 1,189 26.3 250 ≥720p Real 256x256TAP-Vid-DA VIS 30 21.7 34-104 1080p Real 256x256TAP-Vid-Kubric 38,325/799 ﬂexible 24 256x256 Sim 256x256TAP-Vid-RGB-Stacking 50 30 250 256x256 Sim 256x256
+Table 2: Statistics of our four TAP-Vid datasets. Avg. points is average number of annotated
+points per video; # Frames is the number of frames per video. Note, the TAP-Vid-Kubric data loader
+can sample arbitrary points, and therefore there are functionally unlimited points per Kubric video.
+require us to label every point; the points must simply be a sufﬁciently random sample of all trackable
+points. Therefore, given a ﬁnite annotation budget, we prioritize diversity, and label a few points on
+each of a large set of videos.
+For real-world evaluation, we annotate videos from the Kinetics-700 validation subset [7], a standard
+large-scale dataset for video understanding with diverse human actions, and the DA VIS validation
+set [53], a go-to benchmark for evaluating class-agnostic correspondence via segment tracking. For
+synthetic data, we turn to Kubric MOVi-E [18] and RGB-Stacking [36], as an example downstream
+task relevant to roboticists. For these synthetic datasets, we rely on the simulator to obtain ground-
+truth point tracks; implementation details can be found in Appendix D. Table 2 lists basic statistics
+for our TAP-Vid benchmark, and Figure 3 shows example video frames. Our annotations are released
+under a Creative Commons Attribution 4.0 License.
+3.1 TAP-Vid Datasets
+TAP-Vid-Kinetics. This dataset consists of videos from the Kinetics-700 validation set [7], which
+represent a diverse set of actions relevant to people. We randomly sample videos which have 720p
+resolution available, as this aids annotation accuracy. These videos are unstructured YouTube clips,
+often with multiple moving objects, as well as moving or shaking cameras and non-ideal lighting
+conditions. Kinetics clips are 10 seconds, which we resample at 25 fps, resulting in 250-frame clips.
+TAP-Vid-DA VIS.This dataset consists of videos from DA VIS 2017 validation set [53]: 30 videos
+intended to be challenging for segment tracking. We use the same annotation pipeline, but as DA VIS
+often contains only one salient object, we ask annotators to label up to 5 objects and 5 points per
+object. The point tracks were annotated at 1080p resolution to improve the precision. Like with
+TAP-Vid-Kinetics, the whole dataset is used for evaluation, resized to 256x256.
+TAP-Vid-Kubric. We use the synthetic MOVi-E dataset introduced in Kubric [18] as both our main
+source of supervised training data and also for evaluation. Each video consists of roughly 20 objects
+dropped into a synthetic scene, with physics from Bullet [9] and raytraced rendering from Blender [8].
+For training, we follow prior augmentation algorithms: cropping the video with an aspect ratio up to
+2 : 1 and as little as 30% of the pixels. A validation set of 799 videos from the same distribution is
+held out for testing.
+TAP-Vid-RGB-Stacking. This synthetic dataset consists of videos recorded from a simulated robotic
+stacking environment introduced in [36]. We record 50 episodes in which teleoperators play with
+geometric shapes and are asked to display diverse and interesting motions. We use thetriplet-4 object
+set and the front-left camera. We sample 30 points per video from the ﬁrst frame (20 on moving
+objects and 10 static objects/background) and track them via the simulator. The dataset is particularly
+challenging because objects are textureless and rotationally symmetric with frequent occlusions from
+the gripper, which are common in robotic manipulation environments.
+4 Real-World Dataset Construction
+Inspired by the Tracking Any Object (TAO) dataset [11], we aim for generality by allowing annotators
+to choose any object and any point they consider important, rather than specifying a closed-world set
+of points to annotate. Given a video, annotation proceeds in three stages, depicted in Figure 4. First,
+annotators choose objects, especially moving ones, without regard to their difﬁculty in tracking. Next,
+they choose points on each selected object and track them. Finally, we have a reﬁnement phase where
+low-quality annotations are corrected by a different annotator, iterating as many times as needed. The
+5
+
+PAGE 6
+Stage 1: Object Selection Stage 2: Point Annotation
+Stage 3: Iterative Refinement
+Third Point
+First Point
+Flow Propagation
+Second Point
+Interpolation
+. . .
+Figure 4: Annotation workﬂow. There are 3 stages: (1): object selection with bounding-boxes, (2)
+point annotation through optical-ﬂow based assistance, and (3) iterative reﬁnement and correction.
+Figure 5: Point annotation interface and instructions. The interface consists of three components:
+visualization panel, buttons, and information panels. The instructions consist of six steps which guide
+annotators to iteratively add points with the help of the track assist algorithm.
+work was performed by 15 annotators in Google’s crowdsourcing pool, paid hourly. Note that, by
+using a relatively small and stable pool, annotators gain expertise with the tasks and the annotation
+interface in order to label most effectively. The full details of our design, including compensation
+rates, were reviewed by DeepMind’s independent ethical review committee. All annotators provided
+informed consent prior to completing tasks and were reimbursed for their time.
+Stage 1: Object Selection In the ﬁrst stage, annotators choose up toK objects (K = 10 for Kinetics
+andK = 5 for DA VIS). We ask annotators to prioritize objects that are salient and appear for a
+longer duration. We also prioritize moving objects and those producing sounds. We deﬁne an object
+as a standalone entity where it exists on its own, e.g. car, chair, person, which are solid, avoiding
+liquids/gasses and transparent objects (see Appendix C for detailed instructions). Annotators then
+draw a box around each object once every 30 frames, using the interface from [33] (though we don’t
+use any automated box tracking), and annotators also add a text label per object.
+Stage 2: Point Annotation For every object selected in the ﬁrst stage, annotators choose a set ofM
+points (M = 3 for Kinetics andM = 5 for DA VIS). Then they must annotate every other frame in
+the video with the corresponding location (except when occluded; annotators mark frames where
+points are not visible). Annotating every other frame makes annotation more accurate, as human eyes
+are tuned to whether or not a point is attached to a surface from how it moves. Exhaustively labeling
+every frame, however, is prohibitive, so we provide a noveltrack assist algorithm, which uses optical
+ﬂow to convert sparsely-chosen points into dense tracks that follow the estimated motion.
+Annotators can choose as many or as few points as required to achieve the desired accuracy.
+Stage 3: Iterative ReﬁnementTo ensure annotation quality, after initial submission, each annotated
+point goes to a second annotator, who checks and corrects points to achieve the desired accuracy. This
+iterative reﬁnement continues until the last annotator agrees with all previous labels. On average, a 10s
+video takes approximately 3.3 hours to ﬁnish, often with 4–5 annotators working on the reﬁnement.
+6
+
+PAGE 7
+4.1 Annotation Interface
+Figure 5 shows the point annotation interface based on Kuznetsova et al. [33] presented to annotators
+in stages 2 and 3. The interface loads and visualizes video in the visualization panel. Buttons in
+the video play panel allow annotators to navigate frames during annotation. The information panel
+provides basic information, e.g., the current and total number of frames. The annotation buttons (NEW
+and SUBMIT) allow annotators to add new point tracks or submit the labels if ﬁnished. The label info
+panel shows each annotated point track and the associated ‘tag’ string.
+Each track begins with an ENTER point, continues with MOVE points, and ﬁnishes when the annotator
+sets it as an EXIT point. Annotators can restart the track after an occlusion by adding another ENTER
+point and continuing. The cursor is cross shaped which allows annotators to localize more precisely.
+More details are provided in Appendix C.
+4.2 Track Assist Algorithm
+Given an initial point, modern optical ﬂow algorithms like RAFT [70] can track a point somewhat
+reliably over a few frames, meaning they have the potential to annotate many frames with a single
+click. However, there are two problems: the estimates tend to drift if interpolated across many frames,
+and they cannot handle occlusions. Annotators manually end tracks at occlusions, but to deal with
+drift, we need an algorithm that allows annotators to adjust estimates created via optical ﬂow to
+compensate for errors that would otherwise accumulate.
+We ﬁrst compute optical ﬂow using RAFT for the entire video. When the annotator selects a starting
+pointps on frames, we use ﬂow to propagate that point from one frame to the next (using bilinear
+interpolation for fractional pixels) all the way to the last frame. When the annotator chooses a second
+pointpt on framet, we ﬁnd the path which minimizes the squared discrepancy with the optical ﬂow
+estimated for each frame. This corresponds to solving the following optimization problem:
+arg min
+ρ∈Ps:t
+t−1∑
+i=s
+∥(ρi+1−ρi)−F (pi)∥2 s.t. ρs =ps,ρt =pt (1)
+Here,Ps:t is the set of all possible paths from frames to framet, where each path is described by a list
+of points. That is, each element ρ inPs,t is a list{ρi,i∈{s,...,t}} whereρi∈ Z2.F : Z2→ R2 is
+the optical ﬂow tensor, i.e., it maps image pixels to an optical ﬂow vector.
+While this is a non-convex optimization problem, it can be seen as a shortest-path problem on a graph
+where each node corresponds to a pixel in a given frame. Each pixel in framei is connected to every
+pixel in framei + 1, with a weight proportional to the squared discrepancy with the optical ﬂow at
+framei. This can be solved efﬁciently with a form of Dijkstra’s algorithm. In practice, the shortest
+path is typically found within a few seconds (faster than an annotator can click points) even when
+points are separated by dozens of frames (a few seconds of video). Annotators are instructed to check
+all returned tracks and to ‘split’ unsatisfactory interpolations, by adding more points that become new
+endpoints for the interpolation. If two points chosen by the annotators are closer than 5 frames apart,
+we assume the optical ﬂow estimates are not helpful and interpolate linearly, and annotators have the
+option to fall back on linear interpolation at any time. We ﬁnd that on average, annotators manually
+click 10.2 points per each track-segment (i.e., contiguous, un-occluded sub-track). There are about 57
+points per segment on average, with a minimum of 2 manually-selected points per segment (the start
+and end, except for the occasional rare segments which are visible for a single frame). These results
+suggest that annotators are actively engaged in removing errors and drift from imperfect automatic
+propagation.
+4.3 Evaluation and Metrics
+We aim to provide a simple metric which captures accuracy at both predicting the locations of visible
+points and predicting occluded points. However, comparing a binary decision (occlusion) with a
+regression problem isn’t straightforward; therefore, similar to PCK [88], we threshold the regression
+problem so that it becomes binary. Then, as has been advocated for object box tracking [ 45], we
+compute a Jaccard-style metric which incorporates both position and occlusion.
+7
+
+PAGE 8
+0 50 100 150 200 250
+No. of frames
+0.00
+0.05
+0.10
+0.15
+0.20
+0.25
+0.30
+0.35Normalized frequency
+Track Length (#Frames, 250 max.)
+0.0 0.2 0.4 0.6 0.8 1.0
+Occlusion ratio
+0.00
+0.10
+0.20
+0.30
+0.40
+0.50
+0.60Normalized frequency
+Frac. of Occluded Time-steps
+2 4 6 8
+Number of traj. segments
+0.00
+0.10
+0.20
+0.30
+0.40
+0.50
+0.60Normalized frequency
+Contiguous Segments in Trajectories
+0.0 0.2 0.4 0.6 0.8 1.0
+Trajectory diameter
+0.00
+0.03
+0.05
+0.08
+0.10
+0.12
+0.15
+0.18Normalized frequency
+Traj. Diameter
+5 10 15 20 25 30
+No. of traj. clusters
+0.00
+0.01
+0.02
+0.03
+0.04
+0.05Normalized frequency
+No. of Trajectory Clusters (30 trajs/video)
+1 2 3 4 5 6 7
+No. of videos from an action category
+0
+50
+100
+150
+200No. of different action categories
+K700 Action Categories (532 unique)
+Figure 6: Statistics of trajectories in TAP-Vid-Kinetics. Diameter refers to the maximum distance
+between the positions of a point over time. Trajectory Segments refer to the different number of
+contiguous sections of point trajectories with breaks due to occlusion. Trajectory Clusters are formed
+from clustering the 30 trajectories per video with the distance between two trajectories being invariant
+to their relative offset; a large number of clusters indicate diverse point motion.
+Speciﬁcally, we adopt three evaluation metrics. (1)Occlusion Accuracy (OA)is a simple classiﬁcation
+accuracy for the point occlusion prediction on each frame. (2)<δ x evaluates the position accuracy
+only for frames where the point is visible. Like PCK [88], for a given thresholdδ, it measures the
+fraction of points that are within that threshold of their ground truth. While PCK typically scales
+the threshold relative to a body (e.g., a human), our metric simply assumes images are resized to
+256x256 and measures in pixels. < δx
+avg averages across 5 thresholds: 1,2,4,8, and 16 pixels. (3)
+The ﬁnal metric, Jaccard at δ, evaluates both occlusion and position accuracy. It’s the fraction
+of ‘true positives’, i.e., points within the threshold of any visible ground truth points, divided by
+‘true positives’ plus ‘false positives’ (points that are predicted visible, but the ground truth is either
+occluded or farther than the threshold) plus ‘false negatives’ (groundtruth visible points that are
+predicted as occluded or the prediction is farther than the threshold). Average Jaccard (AJ)averages
+Jaccard across the same thresholds as<δ x
+avg.
+When evaluating on TAP-Vid, users are encouraged to train only on TAP-Vid-Kubric, but validation
+is a challenge, as TAP-Vid-Kubric performance may not correlate very well with performance on
+other datasets due to domain overﬁtting, especially with larger models. Therefore, if running a large
+number of experiments, we encourage users to use TAP-Vid-DA VIS as a validation dataset and hold
+out the other datasets purely for testing. Automated validation (e.g. large-scale architecture search)
+on the held-out datasets, even TAP-Vid-DA VIS, is discouraged.
+5 Dataset Analysis
+We ﬁrst provide some basic dataset statistics. Then we validate the accuracy of our point tracking
+procedure, both qualitatively and manually annotating tracks on synthetic data where they may be
+compared with ground truth. Finally, to aid future research, we evaluate several baseline algorithms
+from the literature. Finding that they perform relatively poorly, we develop our own somewhat
+stronger baseline (TAP-Net) using a version of cost volumes inspired from optical ﬂow algorithms.
+5.1 Point trajectory statistics
+Figure 6 summarizes a few key statistics of the point trajectories in our dataset. Most tracks span the
+entire duration of the clip (250 frames), are not occluded (55%), and are broken into a small number
+8
+
+PAGE 9
+of segments due to occlusion (> 70% have≤ 2 segments). To quantify the amount of motion a point
+undergoes, we compute its trajectory diameter, i.e., the maximum distance between any two positions
+of the point over the entire trajectory; the point motion is large, with an almost uniform coverage
+of diameters up to 55% of the image dimensions. To measure diversity of point motion, we cluster
+point trajectories within each video (≈ 30 trajectories/video) using agglomerative clustering. A large
+number of clusters would suggest diverse motion of points within the given video. The distance
+between two clusters is measured as the minimum distance between any two constituent trajectories,
+where the trajectory distance is the mean-centered Euclidean distance between non-occluded points.
+The clusters are recursively merged until all inter-cluster distances are at least 2 pixels, starting with
+each trajectory assigned to an independent cluster (see Appendix E for details). We ﬁnd ≥ 85%
+videos have≥ 5 clusters, suggesting diverse motion. Finally, a large number of Kinetics-700 action
+categories (532 unique) are represented in the videos.
+5.2 Evaluation of human annotation quality
+We adopt two approaches to evaluate the human annotation: 1) using simulated groundtruth, and 2)
+using human inter-rater reliability on real videos.
+Simulated Groundtruth Kubric [18] contains all the information required to obtain perfect ground
+truth tracks for any point the annotators might choose. Therefore, we ask them to annotate 10 Kubric
+videos with length 2 seconds (50 frames at 25 FPS), where we have known ground truth point tracks.
+With our optical ﬂow track assistance, over 99% of annotated points are accurate to within 8 pixels,
+96% to within 4 pixels, and 87% to within 2 pixels. This is true even though Kubric includes many
+difﬁcult objects that fall and bounce in unpredictable ways. In terms of annotation time, optical ﬂow
+assistance improve annotation speed by 28%, from 50 minutes per video to 36 minutes per video.
+This is nontrivial considering the overall video length is only 2 seconds. See Appendix F.1 for more
+details, including a demonstration of the non-trivial improvement from our track assist algorithm.
+Human Agreement After a ﬁrst round of annotation on DA VIS, we perform a second round of
+annotation using the ﬁrst frame points from the ﬁrst round. That is, we ask different human raters to
+annotate the same set of points. We then compare the similarity between the human annotations on the
+same point track using our established metrics. Overall human agrees with 95.5% on occlusion and
+92.5% on location with a 4 pixel threshold. On average, there is only a 1.46 pixel difference between
+two independent human tracks on the same point under 256x256 resolution. See Appendix F.2 for
+more details.
+6 Baselines
+Few existing baselines can be applied directly to our task. Therefore, we adapt several state-of-the-art
+methods which perform different kinds of point tracking with simple extensions. We expect that
+ideas from these papers can be better integrated into a more complete point tracking setup, but as
+baselines, we aim to keep the implementations simple. Kubric-VFS-Like [18]: A baseline for point
+tracking trained on Kubric using contrastive learning, inspired by VFS [86]. RAFT [70]: We extend
+this state-of-the-art optical ﬂow algorithm to multiple frames by integrating the ﬂow from the query
+point: i.e., we use bilinear interpolation of the ﬂow to update the query point, move to the next frame,
+and repeat. We handle out-of-bounds points by using the ﬂow from the nearest pixel, and mark points
+as occluded when they’re outside the frame. COTR [31]: This method is intended to be used with
+larger baselines, so to propagate a query point, we apply this algorithm with the query frame paired
+with every other frame. We use cycle consistency inspired by Kubric-VFS-Like [ 18] to estimate
+occlusion. See Appendix I for details.
+6.1 TAP-Net
+Overall, we ﬁnd existing baselines give unsatisfactory performance. The above baselines don’t handle
+occlusion (RAFT), they deal poorly with deformable objects (COTR), or they exhibit poor transfer
+performance from synthetic to real data (Kubric-VFS-Like). This is in part due to the structure of prior
+point tracking benchmarks: existing optical ﬂow and SFM benchmarks use only frame pairs (thus
+encouraging algorithms that are too slow for video), and they don’t evaluate occlusion estimation.
+While numerous prior works contain ideas which likely have a place in solving the TAP task, we
+9
+
+PAGE 10
+...
+...
+...
+frame features
+...time = tq
+...
+...
+Ft*
+jq
+iq
+q
+Ft
+w’ = w/8
+query features @ iqjqtq
+h’ = h/8
+dot 
+product
+h’ x w’
+d
+h
+w 
+query point
+(iq, jq, tq)
+bilinear
+interp.
+visual backbone
+(Per-frame 
+ConvNet)
+d
+video frames
+query point q
+time = t*
+cost volume C
+     for query point
+       q at time t*
+qt*
+Figure 7: Cost volume computation for a single query. Features for all video frames are extracted
+using a per-frame ConvNet. Features for the given query point location (i,j ) in thetq–th frame are
+then obtained through 2D bilinear interpolation. The features are dotted with the spatial features from
+a different timet∗ to obtain the corresponding cost volume.
+here implement a basic baseline which aims for simplicity while also achieving a fast runtime and
+reasonable performance. This is the ﬁrst end-to-end deep learning algorithm we are aware of for
+tracking any point.
+Our approach is inspired by cost volumes [23, 58, 90], which have proven successful for optical ﬂow.
+We ﬁrst compute a dense feature grid for the video, and then compare the features for the query point
+with the features everywhere else in the video. Then, given the set of comparisons between a query
+and another frame, we apply a small neural network which regresses to the point location (trained via
+Huber loss) and classiﬁes occlusion (trained via cross entropy).
+6.1.1 Cost Volume
+Any tracking problem involves comparing the query point to other locations in the video in order to
+ﬁnd a match. Our approach is inspired by cost volumes [23, 58, 90], which have proven successful
+for optical ﬂow. We ﬁrst compute a dense feature grid for the video, and then compare the features for
+the query point with the features everywhere else in the video. Then we treat the set of comparisons
+as if it were a feature itself, and perform more neural network computation on top. Cost volumes can
+detect repeated patterns even when those patterns are unlike those seen in training.
+Figure 7 shows the procedure. Given a video, we ﬁrst compute a feature grid F , where Fijt is a
+d-dimensional feature representing the image content at spatial locationi,j and timet. For this, a
+TSM-ResNet-18 [41] with time shifting in only the ﬁrst two layers, as we ﬁnd that single-frame
+feature maps, and feature maps with a larger temporal footprint, tended to perform worse. Given a
+query point at positionxq,yq and timetq, we extract a feature to represent it from the feature gridFt
+via bilinear interpolation on the grid, at positioniq,jq,tq. We call the extracted featureFq. We then
+compute the cost volume as a matrix product: i.e., if each feature in the feature map F is shaped,
+then the output cost volumeCqijt =F⊤
+q Fijt. Thus,Cq is a 3-D tensor, to which we apply a ReLU
+activation.
+6.1.2 Track Prediction
+The next step is to post-process the cost volume associated with the query point, which is done
+independently for each frame. The architecture for one frame is shown in Figure 8. After a ﬁrst
+Conv+ReLU, we split into two branches: one for occlusion inference, and the other for position
+inference. Our occlusion branch uses a Conv (32 units), followed by spatial average pooling. This is
+followed by a linear layer (16 units), a ReLU, and another linear layer which produces a single logit.
+10
+
+PAGE 11
+cost volume
+h’ x w’
+conv
+relu
+conv
+avg. pool 1 x 1 x m
+linear
+    relu
+linear
+occlusion
+logit
+conv
+h’ x w’ x 1
+softmax weighted avg. 
+within B
+argmax
+B predicted
+(x, y)
+Figure 8: Inferring position and occlusion from a cost volume. The cost volume slice (for frame
+t∗ and queryq) is fed into two branches: occlusion and coordinate regression. The occlusion branch
+collapses the spatial features through pooling before regressing a scalar occlusion logit. The point-
+regression branch collapses the channels through a Conv layer, applies a spatial softmax, and then
+applies a soft argmax (weighted average of grid-coordinates within a Euclidean ballB).
+For position inference, we apply a Conv layer with a single output, followed by a spatial softmax.
+This is followed by a soft argmax [37], which means computing the argmax of the heatmap, followed
+by a spatial average position of the activations within a radius around that argmax location.
+Mathematically, let us assume thatSqijt∈ R is the softmax activation at timet and spatial position
+i,j for query q. Let G be a spatial grid, i.e., Gij ∈ R2 is the spatial position of Sij in image
+coordinates. Finally, let (ˆiqt, ˆjqt) be the argmax location ofSqt. Then we compute the output position
+as:
+pqt =
+∑
+ij 1
+(
+||(ˆiqt, ˆjqt)− (i,j )||2 <τ
+)
+SqijtGij
+∑
+ij 1
+(
+||(ˆiqt, ˆjqt)− (i,j )||2 <τ
+)
+Sqijt
+(2)
+τ here is a constant, typically equal to 5 grid cells. Note that some parts of this expression are not
+differentiable: notably the thresholding and the argmax. However, the gradients will still point in
+the right direction, as errors will typically cause the network to shift the overall mass of the softmax
+toward the ground truth location [37].
+6.1.3 Loss Deﬁnition
+Our loss for each query point then has the following form:
+L(ˆp, ˆo,pgt,ogt) =
+∑
+t
+(1−ogt
+t )LH (ˆpt,pgt
+t )−λ
+[
+log(ˆo)ogt + log(1− ˆo)(1−ogt)
+]
+(3)
+Here,LH is the Huber loss [25].pgt is the ground-truth position, andogt is a (binary) ground truth
+occlusion. That is, we treat position as a simple regression problem for frames where the point is
+visible. We use a Huber loss because we expect occasional large errors, and we don’t want to penalize
+these excessively. For occlusions, the loss is a standard cross entropy.λ is the trade-off parameter.
+For further details, see Appendix G.
+7 Results
+Table 3 shows the comparison results. TAP-Net outperforms prior baseline methods on all 4 datasets
+by a large margin, and provides competitive performance with one concurrent work [20]. Kubric-
+VFS-Like provides somewhat competitive performance, especially on Kubric itself, but its cycle-
+consistency-based method for detecting occlusions is not particularly effective on real-world data,
+and the lack of end-to-end training means that its tracks are not very precise. COTR shares similar
+difﬁculties on detecting occlusions as it has no built-in method for doing so. Even ignoring occlusion
+estimation, COTR struggles with moving objects, as it was trained on rigid scenes. COTR sees
+11
+
+PAGE 12
+Kinetics Kubric DA VIS RGB-Stacking
+Method AJ <δxavg OA AJ <δxavg OA AJ <δxavg OA AJ <δxavg OA
+COTR [31] 19.0∗ 38.8∗ 57.4∗ 40.1 60.7 78.5 35.4 51.3 80.2 6.8 13.5 79.1
+Kubric-VFS-Like [18]40.5 59.0 80.0 51.9 69.8 84.6 33.1 48.5 79.4 57.9 72.6 91.9
+RAFT [70] 34.5 52.5 79.7 41.2 58.2 86.4 30.0 46.3 79.6 44.0 58.6 90.4
+PIPs [20] 35.1 54.8 77.1 59.1 74.8 88.6 42.0 59.4 82.1 37.3 51.0 91.6
+TAP-Net 46.6 60.9 85.0 65.4 77.7 93.0 38.4 53.1 82.3 59.9 72.8 90.4
+Table 3: Comparison of TAP-Net versus several established methods on TAP-Vid . TAP-Net
+outperforms all prior works, often by a wide margin. The reported metrics are average Jaccard
+(AJ), average position accuracy of visible points (<δ x
+avg), and binary occlusion accuracy (AO) (see
+section 4.3 for details). For starred entries, the underlying algorithm was not fast enough to run on
+the full Kinetics dataset in a practical timeframe, so we ran on a random subset. See Appendix I for
+details.
+especially poor performance on the RGB-Stacking dataset; most likely the lack of textures results in
+degenerate solutions. RAFT likewise cannot easily detect occlusions, and due to the frame-by-frame
+nature of tracking, errors tend to accumulate, leading to poor performance.
+Concurrent work PIPs [20], however, provides perhaps the strongest competition, as it was designed
+for point tracking in video in the same spirit as our benchmark. It provides the best performance
+on TAP-Vid-DA VIS, although it struggles on TAP-Vid-Kinetics and TAP-Vid-RGB-Stacking. This
+is likely because PIPs is essentially an online algorithm; given the tracking result forN frames, it
+performs inference on framesN toN + 8 assuming that the result on theN-th frame is approximately
+correct, and performs only local searches. If the track is lost for more than 8 frames (e.g. a long
+occlusion) or if there is a discontinuity in the sequence (e.g. a cut in the video), then PIPs is likely to
+fail catastrophically. DA VIS videos tend to be continuous shots with smooth motion, which means
+that the ‘local search’ and smoothness inductive biases are helpful; in Kinetics, however, there are
+more occlusions, cuts, and rapid motion like camera shake, which means that these inductive biases
+may be more harmful than helpful. PIPs also struggles on TAP-Vid-RGB-Stacking, possibly because
+it also contains long occlusions, but also possibly due to the textureless objects, a problem which
+might be attributed to the training dataset. PIPs is trained on FlyingThings3D [50], and it remains
+unclear if this is comparable to Kubric for training point tracking. One advantage of PIPs, however,
+is that it is straightfoward to higher-resolution videos, although it runs slowly. We evaluated it on
+full-resolution DA VIS videos (1080p) and found average jaccard improves from 42.0% to 48.6%
+(<δ x
+avg rises from 59.4% to 66.6% and occlusion accuracy rises from 82.1% to 83%). While this
+isn’t a fair comparison to other methods, which only have access to lower-resolution videos, we
+believe that “full resolution” evaluation is interesting in its own right, as users will likely want
+improved accuracy on high-resolution videos. Therefore, we pose this as a separate challenge for
+future research.
+See the online NeurIPS supplementary material for qualitative examples of tracking results.
+7.1 Comparison to JHMDB
+Although JHMDB is designed for human pose tracking [30], numerous prior works [27, 34, 35, 38,
+80, 83, 86] use it as an evaluation for class-agnostic point tracking. The task is to track 15 human
+joints given only the joint positions in the ﬁrst frame. This is an ill-posed problem, as the joints are
+inside the object, at some depth which is not known to the algorithm; worse, annotators estimate
+joint locations even when they are occluded. Algorithms typically follow an ad-hoc formulation
+that converts the points into segments before tracking the segments. Despite the dataset’s ﬂaws, it
+remains the best available for point tracking on deformable objects, which explains its popularity
+(and underscores the need for something better). In this section, we aim to demonstrate the generality
+of TAP-Vid-Kinetics point tracking by showing that ﬁnetuning on it it can improve downstream
+performance on the much-more-speciﬁc (but also highly useful) JHMDB tracking task. Conversely,
+we demonstrate the lack of generality of JHMDB by showing that ﬁnetuning on JHMDB actually
+harms performance on TAP-Vid-Kinetics.
+We take the full model pretrained on TAP-Vid-Kubric and ﬁne-tune using the same settings on both
+Kinetics and JHMDB. For simplicity, we use no data augmentation on either dataset; both datasets are
+12
+
+PAGE 13
+Kinetics Kubric DA VIS RGB-Stacking JHMDB PCKMethod AJ <δxavg OA AJ <δxavg OA AJ <δxavg OA AJ <δxavg OA @0.1 @0.2
+Kubric Only 46.6 60.9 85.0 65.4 77.7 93.0 38.4 53.1 82.3 59.9 72.8 90.4 62.3 79.8Fine-tune Kinetics51.6 64.9 90.4 59.9 73.1 90.8 41.5 56.0 82.4 63.2 74.7 90.2 63.4 80.1Fine-tune JHMDB36.4 58.6 71.3 51.4 69.9 83.9 31.6 49.0 77.0 53.0 69.1 90.9 71.3 87.7
+Table 4: TAP-Net performance after ﬁne-tuning for all tasks, compared to no ﬁne-tuning. The
+relevant cross-dataset transfer results are highlighted. We see that ﬁne-tuning on JHMDB harms
+performance on all datasets except JHMDB by a large margin, but ﬁnetuning on Kinetics improves
+performance on JHMDB, demonstrating the domain transfer properties of the TAP task when the
+dataset contains arbitrary points tracked on a diverse YouTube dataset. The cross-dataset performance
+of particular interest is highlighted.
+resized to 256x256. Note that the two datasets have similar scale: 928 clips for JHMDB versus1, 280
+for TAP-Vid-Kinetics. For each training example, we sample 128 queries from each video uniformly
+at random from all possible queries (unoccluded tracked points), and feed the corresponding tracks as
+training examples (note that the same track is often sampled multiple times with different queries). We
+train with 1 video per TPU core, and otherwise use the same training setup as for training on Kubric
+(64 TPU-v3 cores, Adam optimizer). We train for only 5000 steps (100 warmup steps followed by a
+cosine schedule) with a much smaller learning rate of 1e− 5 (otherwise the network overﬁts badly to
+the relatively small number of points). For JHMDB, we ﬁne-tune on the full train+val dataset, but we
+evaluate (after Kinetics ﬁne-tuning) on only the JHMDB val-set in order to be comparable with prior
+results in the literature.
+Table 4 shows the performance across all datasets with and without ﬁnetuning. Not that we’re
+particularly interested in transfer (salmon-colored rows); i.e., it’s not surprising that performance on
+Kinetics is best for the model ﬁnetuned there, and same for JHMDB, as we train on the evaluation
+images for both. However, what’s interesting is that our full model obtains 62.3 PCK@0.1 and 79.8
+PCK@0.2 on JHMDB when trained only on Kubric, but 63.4 PCK@0.1 and 80.1 PCK@0.2 after
+ﬁnetuning on Kinetics. However, the model ﬁnetuned on JHMDB obtains58.6<δ x
+avg on Kinetics,
+and 36.4 Average Jaccard, versus 46.6 and 60.9 respectively training purely on synthetic data. Note
+the loss of performance on occlusion accuracy and Average Jaccard are perhaps not so surprising,
+as JHMDB contains no information about occlusion (the evaluation assumes that points which are
+unoccluded in the ﬁrst frame are unoccluded in all frames, and we train on all such points). However,
+< δx
+avg ignores occlusion, and TAP-Net is still substantially worse with JHMDB ﬁnetuning than
+without it. We see a consistent downtrend in<δ x
+avg (and average Jaccard) throughout training for all
+datasets, suggesting that this is not merely an issue of overﬁtting, but rather a fundamental problem
+with the JHMDB dataset.
+8 Conclusions
+In this paper we introduce the problem of Tracking Any Point (TAP) in a given video, as well as
+the TAP-Vid dataset to spur progress in this under-studied domain. By training on synthetic data, a
+straightforward network TAP-Net performs better on our benchmark than prior methods. TAP still has
+limitations: for instance, we cannot handle liquids or transparent objects, and for real data, annotators
+cannot be perfect, as they are limited to textured points and even then may make occasional errors
+due to carelessness. We believe that the ethical concerns of our dataset are minimal; however, our
+real data comes from existing public sources, meaning PII and biases must be treated with care to
+ensure no harms to anyone in those sources, as well as fairness of the ﬁnal algorithm. For our largest
+dataset, Kinetics, we will follow its approach of removing videos that are taken down from YouTube
+to ensure consent and issues with PII. Kinetics has also been vetted for biases [7]; training synthetic
+data should further minimize biases that might be learned by the algorithm. Advancements in TAP
+will potentially bring solutions to many interesting challenges, e.g., better handling of dynamic or
+deformable objects in SFM [60], and allowing the semantic keypoint-based methods [15, 46, 47, 76]
+often employed in robotic object manipulation to be applied to generic objects, independent of their
+class.
+13
+
+PAGE 14
+9 Acknowledgements
+We wish to thank Klaus Greff and Andrea Tagliasacchi for discussions on Kubric; Alina Kuznetsova,
+Yiwen Luo, Aakrati Talati and Lily Pagan for helping us with the human annotation tool; Muqthar
+Mohammad, Mahesh Maddinala, Vijay Vibha Tumala, Yilin Gao, and Shivamohan Garlapati for
+help with organizing the human annotation effort; Adam Harley for help with PIPs; Jon Scholz,
+Mel Vecerik, Junlin Zhang, Karel Lenc, Viorica Patraucean, Alex Frechette and Dima Damen for
+helpful discussions, advice, and side projects that shaped this paper, and ﬁnally Nando de Freitas for
+continuously supporting the research effort.
+14
+
+PAGE 15
+References
+[1] Acuna, D., Ling, H., Kar, A., Fidler, S.: Efﬁcient interactive annotation of segmentation datasets
+with polygon-rnn++. In: Proceedings of the IEEE conference on Computer Vision and Pattern
+Recognition. pp. 859–868 (2018)
+[2] Andriluka, M., Iqbal, U., Insafutdinov, E., Pishchulin, L., Milan, A., Gall, J., Schiele, B.:
+Posetrack: A benchmark for human pose estimation and tracking. In: Proceedings of the IEEE
+conference on computer vision and pattern recognition (2018)
+[3] Balntas, V ., Lenc, K., Vedaldi, A., Mikolajczyk, K.: Hpatches: A benchmark and evaluation of
+handcrafted and learned local descriptors. In: Proceedings of the IEEE conference on computer
+vision and pattern recognition. pp. 5173–5182 (2017)
+[4] Bay, H., Tuytelaars, T., Gool, L.V .: Surf: Speeded up robust features. In: European conference
+on computer vision. pp. 404–417. Springer (2006)
+[5] Biggs, B., Roddick, T., Fitzgibbon, A., Cipolla, R.: Creatures great and SMAL: Recovering the
+shape and motion of animals from video. In: ACCV (2018)
+[6] Butler, D.J., Wulff, J., Stanley, G.B., Black, M.J.: A naturalistic open source movie for optical
+ﬂow evaluation. In: European conference on computer vision. pp. 611–625. Springer (2012)
+[7] Carreira, J., Zisserman, A.: Quo vadis, action recognition? a new model and the kinetics dataset.
+In: proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. pp.
+6299–6308 (2017)
+[8] Community, B.O.: Blender - a 3D modelling and rendering package. Blender Foundation,
+Stichting Blender Foundation, Amsterdam (2022), http://www.blender.org
+[9] Coumans, E.: Bullet physics simulation. In: ACM SIGGRAPH 2015 Courses, p. 1 (2015)
+[10] Dai, A., Chang, A.X., Savva, M., Halber, M., Funkhouser, T., Nießner, M.: Scannet: Richly-
+annotated 3d reconstructions of indoor scenes. In: Proceedings of the IEEE conference on
+computer vision and pattern recognition. pp. 5828–5839 (2017)
+[11] Dave, A., Khurana, T., Tokmakov, P., Schmid, C., Ramanan, D.: Tao: A large-scale benchmark
+for tracking any object. In: European conference on computer vision. pp. 436–454. Springer
+(2020)
+[12] DeTone, D., Malisiewicz, T., Rabinovich, A.: Superpoint: Self-supervised interest point
+detection and description. In: Proceedings of the IEEE conference on computer vision and
+pattern recognition workshops. pp. 224–236 (2018)
+[13] Dosovitskiy, A., Fischer, P., Ilg, E., Hausser, P., Hazirbas, C., Golkov, V ., Van Der Smagt,
+P., Cremers, D., Brox, T.: Flownet: Learning optical ﬂow with convolutional networks. In:
+Proceedings of the IEEE international conference on computer vision. pp. 2758–2766 (2015)
+[14] Florence, P., Manuelli, L., Tedrake, R.: Self-supervised correspondence in visuomotor policy
+learning. IEEE Robotics and Automation Letters 5(2), 492–499 (2019)
+[15] Florence, P.R., Manuelli, L., Tedrake, R.: Dense object nets: Learning dense visual object
+descriptors by and for robotic manipulation. arXiv preprint arXiv:1806.08756 (2018)
+[16] Geiger, A., Lenz, P., Urtasun, R.: Are we ready for autonomous driving? the kitti vision
+benchmark suite. In: 2012 IEEE conference on computer vision and pattern recognition. pp.
+3354–3361. IEEE (2012)
+[17] Gibson, J.J.: The perception of the visual world. (1950)
+[18] Greff, K., Belletti, F., Beyer, L., Doersch, C., Du, Y ., Duckworth, D., Fleet, D.J., Gnanapragasam,
+D., Golemo, F., Herrmann, C., Kipf, T., Kundu, A., Lagun, D., Laradji, I., Liu, H.T.D., Meyer,
+H., Miao, Y ., Nowrouzezahrai, D., Oztireli, C., Pot, E., Radwan, N., Rebain, D., Sabour, S.,
+Sajjadi, M.S.M., Sela, M., Sitzmann, V ., Stone, A., Sun, D., V ora, S., Wang, Z., Wu, T., Yi,
+K.M., Zhong, F., Tagliasacchi, A.: Kubric: a scalable dataset generator. In: Proceedings of the
+IEEE conference on computer vision and pattern recognition (2022)
+15
+
+PAGE 16
+[19] Güler, R.A., Neverova, N., Kokkinos, I.: Densepose: Dense human pose estimation in the
+wild. In: Proceedings of the IEEE conference on computer vision and pattern recognition. pp.
+7297–7306 (2018)
+[20] Harley, A.W., Fang, Z., Fragkiadaki, K.: Particle videos revisited: Tracking through occlusions
+using point trajectories. In: European Conference on Computer Vision (2022)
+[21] Hartley, R., Zisserman, A.: Multiple view geometry in computer vision. Cambridge university
+press (2003)
+[22] Horn, B.K., Schunck, B.G.: Determining optical ﬂow. Artiﬁcial intelligence 17(1-3), 185–203
+(1981)
+[23] Hosni, A., Rhemann, C., Bleyer, M., Rother, C., Gelautz, M.: Fast cost-volume ﬁltering
+for visual correspondence and beyond. IEEE Transactions on Pattern Analysis and Machine
+Intelligence 35(2), 504–511 (2012)
+[24] Huang, L., Zhao, X., Huang, K.: Got-10k: A large high-diversity benchmark for generic object
+tracking in the wild. IEEE Transactions on Pattern Analysis and Machine Intelligence 43(5),
+1562–1577 (2019)
+[25] Huber, P.J.: Robust estimation of a location parameter. In: Breakthroughs in statistics, pp.
+492–518. Springer (1992)
+[26] Ilg, E., Mayer, N., Saikia, T., Keuper, M., Dosovitskiy, A., Brox, T.: Flownet 2.0: Evolution
+of optical ﬂow estimation with deep networks. In: Proceedings of the IEEE conference on
+computer vision and pattern recognition. pp. 2462–2470 (2017)
+[27] Jabri, A., Owens, A., Efros, A.: Space-time correspondence as a contrastive random walk.
+Advances in neural information processing systems 33, 19545–19560 (2020)
+[28] Jakab, T., Gupta, A., Bilen, H., Vedaldi, A.: Unsupervised learning of object landmarks through
+conditional image generation. Advances in neural information processing systems 31 (2018)
+[29] Jakab, T., Gupta, A., Bilen, H., Vedaldi, A.: Self-supervised learning of interpretable keypoints
+from unlabelled videos. In: Proceedings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition. pp. 8787–8797 (2020)
+[30] Jhuang, H., Gall, J., Zufﬁ, S., Schmid, C., Black, M.J.: Towards understanding action recogni-
+tion. In: Proceedings of the IEEE international conference on computer vision. pp. 3192–3199
+(2013)
+[31] Jiang, W., Trulls, E., Hosang, J., Tagliasacchi, A., Yi, K.M.: Cotr: Correspondence transformer
+for matching across images. In: Proceedings of the IEEE/CVF International Conference on
+Computer Vision. pp. 6207–6217 (2021)
+[32] Jin, S., Xu, L., Xu, J., Wang, C., Liu, W., Qian, C., Ouyang, W., Luo, P.: Whole-body human
+pose estimation in the wild. In: European Conference on Computer Vision (2020)
+[33] Kuznetsova, A., Talati, A., Luo, Y ., Simmons, K., Ferrari, V .: Efﬁcient video annotation with
+visual interpolation and frame selection guidance. In: Proceedings of the IEEE/CVF Winter
+Conference on Applications of Computer Vision (W ACV). pp. 3070–3079 (January 2021)
+[34] Lai, Z., Lu, E., Xie, W.: Mast: A memory-augmented self-supervised tracker. In: Proceedings
+of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. pp. 6479–6488
+(2020)
+[35] Lai, Z., Xie, W.: Self-supervised learning for video correspondence ﬂow. arXiv preprint
+arXiv:1905.00875 (2019)
+[36] Lee, A.X., Devin, C.M., Zhou, Y ., Lampe, T., Bousmalis, K., Springenberg, J.T., Byravan,
+A., Abdolmaleki, A., Gileadi, N., Khosid, D., et al.: Beyond pick-and-place: Tackling robotic
+stacking of diverse shapes. In: 5th Annual Conference on Robot Learning (2021)
+16
+
+PAGE 17
+[37] Levine, S., Finn, C., Darrell, T., Abbeel, P.: End-to-end training of deep visuomotor policies.
+The Journal of Machine Learning Research 17(1), 1334–1373 (2016)
+[38] Li, X., Liu, S., De Mello, S., Wang, X., Kautz, J., Yang, M.H.: Joint-task self-supervised
+learning for temporal correspondence. Advances in Neural Information Processing Systems 32
+(2019)
+[39] Li, Z., Dekel, T., Cole, F., Tucker, R., Snavely, N., Liu, C., Freeman, W.T.: Learning the depths
+of moving people by watching frozen people. In: Proceedings of the IEEE/CVF Conference on
+Computer Vision and Pattern Recognition. pp. 4521–4530 (2019)
+[40] Li, Z., Snavely, N.: Megadepth: Learning single-view depth prediction from internet photos.
+In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. pp.
+2041–2050 (2018)
+[41] Lin, J., Gan, C., Wang, K., Han, S.: Tsm: Temporal shift module for efﬁcient and scalable video
+understanding on edge devices. IEEE transactions on pattern analysis and machine intelligence
+(2020)
+[42] Lowe, D.G.: Object recognition from local scale-invariant features. In: Proceedings of the
+seventh IEEE international conference on computer vision. vol. 2, pp. 1150–1157. Ieee (1999)
+[43] Lowe, D.G.: Distinctive image features from scale-invariant keypoints. International journal of
+computer vision 60(2), 91–110 (2004)
+[44] Lucas, B.D., Kanade, T.: An iterative image registration technique with an application to stereo
+vision. In: Proceedings of the 7th international joint conference on Artiﬁcial intelligence-V olume
+2. pp. 674–679 (1981)
+[45] Luiten, J., Osep, A., Dendorfer, P., Torr, P., Geiger, A., Leal-Taixé, L., Leibe, B.: Hota: A
+higher order metric for evaluating multi-object tracking. International journal of computer vision
+129(2), 548–578 (2021)
+[46] Manuelli, L., Gao, W., Florence, P., Tedrake, R.: kpam: Keypoint affordances for category-level
+robotic manipulation. arXiv preprint arXiv:1903.06684 (2019)
+[47] Manuelli, L., Li, Y ., Florence, P., Tedrake, R.: Keypoints into the future: Self-supervised
+correspondence in model-based reinforcement learning. arXiv preprint arXiv:2009.05085 (2020)
+[48] von Marcard, T., Henschel, R., Black, M.J., Rosenhahn, B., Pons-Moll, G.: Recovering accurate
+3d human pose in the wild using imus and a moving camera. In: Proceedings of the European
+Conference on Computer Vision (ECCV). pp. 601–617 (2018)
+[49] Marr, D., Poggio, T.: A computational theory of human stereo vision. Proceedings of the Royal
+Society of London. Series B. Biological Sciences 204(1156), 301–328 (1979)
+[50] Mayer, N., Ilg, E., Hausser, P., Fischer, P., Cremers, D., Dosovitskiy, A., Brox, T.: A large
+dataset to train convolutional networks for disparity, optical ﬂow, and scene ﬂow estimation. In:
+Proceedings of the IEEE conference on computer vision and pattern recognition. pp. 4040–4048
+(2016)
+[51] Milan, A., Leal-Taixé, L., Reid, I., Roth, S., Schindler, K.: Mot16: A benchmark for multi-object
+tracking. arXiv preprint arXiv:1603.00831 (2016)
+[52] Ono, Y ., Trulls, E., Fua, P., Yi, K.M.: Lf-net: Learning local features from images. Advances in
+neural information processing systems 31 (2018)
+[53] Pont-Tuset, J., Perazzi, F., Caelles, S., Arbeláez, P., Sorkine-Hornung, A., Van Gool, L.: The
+2017 davis challenge on video object segmentation. arXiv preprint arXiv:1704.00675 (2017)
+[54] Ramanan, D., Forsyth, D.A., Zisserman, A.: Strike a pose: Tracking people by ﬁnding styl-
+ized poses. In: 2005 IEEE Computer Society Conference on Computer Vision and Pattern
+Recognition (CVPR’05). vol. 1, pp. 271–278. IEEE (2005)
+17
+
+PAGE 18
+[55] Ranjan, A., Black, M.J.: Optical ﬂow estimation using a spatial pyramid network. In: Pro-
+ceedings of the IEEE conference on computer vision and pattern recognition. pp. 4161–4170
+(2017)
+[56] Real, E., Shlens, J., Mazzocchi, S., Pan, X., Vanhoucke, V .: Youtube-boundingboxes: A large
+high-precision human-annotated data set for object detection in video. In: proceedings of the
+IEEE Conference on Computer Vision and Pattern Recognition (2017)
+[57] Sand, P., Teller, S.: Particle video: Long-range motion estimation using point trajectories.
+International Journal of Computer Vision 80(1), 72–91 (2008)
+[58] Scharstein, D., Szeliski, R.: A taxonomy and evaluation of dense two-frame stereo correspon-
+dence algorithms. International journal of computer vision 47(1), 7–42 (2002)
+[59] Schonberger, J.L., Frahm, J.M.: Structure-from-motion revisited. In: Proceedings of the IEEE
+conference on computer vision and pattern recognition. pp. 4104–4113 (2016)
+[60] Schönberger, J.L., Frahm, J.M.: Structure-from-motion revisited. In: Conference on Computer
+Vision and Pattern Recognition (CVPR) (2016)
+[61] Schops, T., Schonberger, J.L., Galliani, S., Sattler, T., Schindler, K., Pollefeys, M., Geiger,
+A.: A multi-view stereo benchmark with high-resolution images and multi-camera videos.
+In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. pp.
+3260–3269 (2017)
+[62] Sethi, I.K., Jain, R.: Finding trajectories of feature points in a monocular image sequence. IEEE
+Transactions on pattern analysis and machine intelligence (1), 56–73 (1987)
+[63] Shen, J., Zafeiriou, S., Chrysos, G.G., Kossaiﬁ, J., Tzimiropoulos, G., Pantic, M.: The ﬁrst
+facial landmark tracking in-the-wild challenge: Benchmark and results. In: Proceedings of the
+IEEE international conference on computer vision workshops. pp. 50–58 (2015)
+[64] Shrivastava, A., Pﬁster, T., Tuzel, O., Susskind, J., Wang, W., Webb, R.: Learning from
+simulated and unsupervised images through adversarial training. In: Proceedings of the IEEE
+conference on computer vision and pattern recognition. pp. 2107–2116 (2017)
+[65] Stürzel, F., Spillmann, L.: Perceptual limits of common fate. Vision research44(13), 1565–1573
+(2004)
+[66] Sun, D., Vlasic, D., Herrmann, C., Jampani, V ., Krainin, M., Chang, H., Zabih, R., Freeman,
+W.T., Liu, C.: Autoﬂow: Learning a better training set for optical ﬂow. In: Proceedings of the
+IEEE/CVF Conference on Computer Vision and Pattern Recognition. pp. 10093–10102 (2021)
+[67] Sun, D., Yang, X., Liu, M.Y ., Kautz, J.: Pwc-net: Cnns for optical ﬂow using pyramid, warping,
+and cost volume. In: Proceedings of the IEEE conference on computer vision and pattern
+recognition. pp. 8934–8943 (2018)
+[68] Sun, Y ., Chen, Y ., Wang, X., Tang, X.: Deep learning face representation by joint identiﬁcation-
+veriﬁcation. Advances in neural information processing systems27 (2014)
+[69] Tangemann, M., Schneider, S., von Kügelgen, J., Locatello, F., Gehler, P., Brox, T., Kümmerer,
+M., Bethge, M., Schölkopf, B.: Unsupervised object learning via common fate. arXiv preprint
+arXiv:2110.06562 (2021)
+[70] Teed, Z., Deng, J.: Raft: Recurrent all-pairs ﬁeld transforms for optical ﬂow. In: European
+conference on computer vision. pp. 402–419. Springer (2020)
+[71] Thewlis, J., Bilen, H., Vedaldi, A.: Unsupervised learning of object landmarks by factorized
+spatial embeddings. In: Proceedings of the IEEE international conference on computer vision.
+pp. 5916–5925 (2017)
+[72] Todd, J.T.: The visual perception of three-dimensional structure from motion. In: Perception of
+space and motion, pp. 201–226. Elsevier (1995)
+18
+
+PAGE 19
+[73] Todd, J.T., Bressan, P.: The perception of 3-dimensional afﬁne structure from minimal apparent
+motion sequences. Perception & psychophysics 48(5), 419–430 (1990)
+[74] Tompson, J., Stein, M., Lecun, Y ., Perlin, K.: Real-time continuous pose recovery of human
+hands using convolutional networks. ACM Transactions on Graphics (ToG)33(5), 1–10 (2014)
+[75] Torr, P.H., Zisserman, A.: Feature based methods for structure and motion estimation. In:
+International workshop on vision algorithms. pp. 278–294. Springer (1999)
+[76] Vecerik, M., Regli, J.B., Sushkov, O., Barker, D., Pevceviciute, R., Rothörl, T., Schuster,
+C., Hadsell, R., Agapito, L., Scholz, J.: S3k: Self-supervised semantic keypoints for robotic
+manipulation via multi-view consistency. arXiv preprint arXiv:2009.14711 (2020)
+[77] Vijayanarasimhan, S., Ricco, S., Schmid, C., Sukthankar, R., Fragkiadaki, K.: Sfm-net: Learn-
+ing of structure and motion from video. arXiv preprint arXiv:1704.07804 (2017)
+[78] V ondrick, C., Patterson, D., Ramanan, D.: Efﬁciently scaling up crowdsourced video annotation.
+International journal of computer vision 101(1), 184–204 (2013)
+[79] V ondrick, C., Ramanan, D.: Video annotation and tracking with active learning. Advances in
+Neural Information Processing Systems 24 (2011)
+[80] V ondrick, C., Shrivastava, A., Fathi, A., Guadarrama, S., Murphy, K.: Tracking emerges by
+colorizing videos. In: Proceedings of the European conference on computer vision (ECCV). pp.
+391–408 (2018)
+[81] Wang, H., Schmid, C.: Action recognition with improved trajectories. In: Proceedings of the
+IEEE international conference on computer vision. pp. 3551–3558 (2013)
+[82] Wang, W., Feiszli, M., Wang, H., Tran, D.: Unidentiﬁed video objects: A benchmark for
+dense, open-world segmentation. In: Proceedings of the IEEE/CVF International Conference
+on Computer Vision. pp. 10776–10785 (2021)
+[83] Wang, X., Jabri, A., Efros, A.A.: Learning correspondence from the cycle-consistency of time.
+In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. pp.
+2566–2576 (2019)
+[84] Wu, Y ., Lim, J., Yang, M.H.: Online object tracking: A benchmark. In: Proceedings of the
+IEEE conference on computer vision and pattern recognition. pp. 2411–2418 (2013)
+[85] Xiong, X., De la Torre, F.: Supervised descent method and its applications to face alignment. In:
+Proceedings of the IEEE conference on computer vision and pattern recognition. pp. 532–539
+(2013)
+[86] Xu, J., Wang, X.: Rethinking self-supervised correspondence learning: A video frame-level
+similarity perspective. In: Proceedings of the IEEE/CVF International Conference on Computer
+Vision. pp. 10075–10085 (2021)
+[87] Xu, N., Yang, L., Fan, Y ., Yue, D., Liang, Y ., Yang, J., Huang, T.: Youtube-vos: A large-scale
+video object segmentation benchmark. arXiv preprint arXiv:1809.03327 (2018)
+[88] Yang, Y ., Ramanan, D.: Articulated human detection with ﬂexible mixtures of parts. IEEE
+transactions on pattern analysis and machine intelligence 35(12), 2878–2890 (2012)
+[89] Yilmaz, A., Javed, O., Shah, M.: Object tracking: A survey. Acm computing surveys (CSUR)
+38(4), 13–es (2006)
+[90] Zbontar, J., LeCun, Y ., et al.: Stereo matching by training a convolutional neural network to
+compare image patches. J. Mach. Learn. Res. 17(1), 2287–2318 (2016)
+[91] Zhang, Y ., Guo, Y ., Jin, Y ., Luo, Y ., He, Z., Lee, H.: Unsupervised discovery of object landmarks
+as structural representations. In: Proceedings of the IEEE Conference on Computer Vision and
+Pattern Recognition. pp. 2694–2703 (2018)
+19
+
+PAGE 20
+[92] Zhang, Z.: A ﬂexible new technique for camera calibration. IEEE Transactions on pattern
+analysis and machine intelligence 22(11), 1330–1334 (2000)
+[93] Zhou, T., Tucker, R., Flynn, J., Fyffe, G., Snavely, N.: Stereo magniﬁcation: Learning view
+synthesis using multiplane images. arXiv preprint arXiv:1805.09817 (2018)
+A Dataset Examples
+To provide more context and information to the reader, we expand Figure 2 in the paper providing
+many examples per dataset. We provide examples of TAP-Vid-Kinetics in Figures 9 and 10, TAP-
+Vid-Davis in Figure 11 and TAP-Vid-Kubric and TAP-Vid-RGB-Stacking in Figure 12. These ﬁgures
+illustrate the diversity of the tracked points across all the different datasets. Figures 9, 10 and 11
+show how we are tracking points beyond the most salient objects in the video; the vast majority of
+tracked points do not correspond to the semantic keypoints of existing datasets. The website contains
+even more examples in video format, under the ‘Visualized Ground Truth Examples’ heading.
+B Supplementary Videos, Code, and Website
+The website for this project https://github.com/deepmind/tapnet contains the following:
+1. Ground Truth Point Tracking Annotations.Video examples of groundtruth point anno-
+tations in our datasets, as summarized in Section A above.
+2. Dataset Download Links and Processing. Download links for the TAP-Vid-{Kinetics,
+DA VIS, RGB-Stacking} datasets, and instructions for processing and aligning raw Kinetics
+videos to the annotations and for running the visualization scripts. It also includes licensing
+information.
+3. Improving Human Point Annotation with Flow-Based Tracker.Comparison of human
+point annotation quality on the DA VIS dataset with and without optical ﬂow track assistance.
+C Annotation Instructions and Workﬂow
+Figure 13 summarizes the guidelines given to the annotators to encourage acquisition of high-quality
+point tracks. Note, the guidelines do not limit the scope of the kind or type of points the annotators
+can select (e.g., a speciﬁc object category etc.); hence, any point which the annotators can track
+reliably is admissible, resulting in a diverse set of point trajectories in the dataset. The annotators
+are encouraged to leverage the optical ﬂow track assist algorithm to help improve their accuracy and
+productivity, although they have the option to turn it off if it’s not helpful, resulting in a fallback to
+linear interpolation. A visual representation of acceptable discrepancy between manual and automated
+point selections is provided to help the annotators decide when to intervene by adding another point.
+D Simulated Dataset Generation
+For synthetic data, obtaining point tracks is conceptually straightforward, as the simulator typically
+knows the shape and position of all objects. However, most modern simulators don’t directly expose
+point tracks, so we must compute them. Since both Kubric and RGB-Stacking contain only rigid
+objects, we therefore obtain point tracks in the following manner. We ﬁrst choose query points
+in pixel space, which ensures that the query is visible. Then we ﬁnd the location of that point in
+the object’s local coordinate frame, using either coordinate maps (available for Kubric objects) or
+by back-projecting using the depth map and applying the inverse object transformation. Next, we
+compute the 3D location in world coordinates for every other frame using the known transformation
+of each object. Finally we project the point to the image plane. To compute occlusion, we compare
+the computed depth at the target frame with the depth map rendered from the simulator. Speciﬁcally,
+if the point is behind the depth map (the max depth of the 4 nearest pixels to the reprojected point) by
+a sufﬁcient margin (1%), we mark it as occluded.
+For Kubric, we sample exactly 256 query points from each video, and we try to have the same number
+of points for every object, including the background. However, this can lead to far too many points for
+20
+
+PAGE 21
+Figure 9: Examples from TAP-Vid-Kinetics: In this ﬁgure we show a few examples of TAP-Vid-
+Kinetics annotations with 3 frames per example.
+21
+
+PAGE 22
+Figure 10: Examples from TAP-Vid-Kinetics: In this ﬁgure we show a few examples of TAP-Vid-
+Kinetics annotations with 3 frames per example.
+22
+
+PAGE 23
+Figure 11: Examples from TAP-Vid-Davis: In this ﬁgure we show examples of TAP-Vid-Davis
+annotations with 3 frames per example. 23
+
+PAGE 24
+TAP-Vid-RGB-Stacking TAP-Vid-Kubric
+Figure 12: Examples from TAP-Vid-Kubric and TAP-Vid-RGB-Stacking: In this ﬁgure we show
+examples of TAP-Vid-Kubric and TAP-Vid-RGB-Stacking annotations with 3 frames per example.
+24
+
+PAGE 25
+1. View the video once. Choose a point that appears on the object (speciﬁed by the given
+bounding-box) for the very ﬁrst time. Prefer locations such that the point marker plotted at
+the chosen location should have its center and periphery both completely inside the object
+region. Try to spread out the points on different parts and label them with part tags if
+possible (i.e., human hand, human head, car wheel etc.).
+2. Find the last frame after which the point gets occluded (e.g., because the object moves
+outside of the frame) and end the track. Then if it becomes visible again, and start a new
+track to follow it under the same tag, repeating this process until the end of the video.
+3. Wait for the optical ﬂow assist algorithmic annotations to adjust based on the manual input.
+Once the algorithmic annotations are available, add manual annotations until both manual
+and automated annotations are consistent with the schematic below:
+Edit:
+Make changes
+ 
+Accept:
+Do not make any 
+changes 
+(Acceptable 
+accuracy)
+ 
+Intended point Point annotated by the algorithm
+4. Go through the video again to identify any interpolated points in the un-annotated frames
+with obvious position errors. Correct the error by manually adding a point. Wait a few
+seconds for the assist algorithm to update the point tracks. Continue the process of reducing
+errors in the remaining un-annotated frames.
+5. Once satisﬁed with the point track in all frames where it is visible, choose another point
+and repeat the process from the beginning.
+Figure 13: Representative annotator guidelines. (Minor variations were used as we saw results
+and gave feedback).
+very small objects, so we limit sampling to 0.16% of the total pixels on each object. There may then
+not be enough pixels on the smallest objects to sample the same number for each object. Therefore,
+we sort objects by the number of pixels, and sample iteratively starting with the smallest: if there are
+K objects, and the smallest object has only P pixels, then we sampleN pixels from this smallest
+object, whereN =⌊min(P∗.0016, 256/K)⌋. Then we reduce 256 byN, reduceK by 1, and repeat
+until we’ve sampled points from all objects. This ensures the most balanced set of points possible
+without having too many points per object.
+For TAP-Vid-RGB-Stacking, we sample exactly 600 query points uniformly from the ﬁrst frame for
+each video and tracked them via the described method above throughout the video. Then we sample
+30 points per video such that 20 of them are from moving objects (i.e. tracks with signiﬁcant motion)
+and 10 points are from static objects/background (i.e. tracks with minimal or no motion).
+E Dataset Statistics: Agglomerative Clustering of Trajectories
+To assess diversity of point motion in our annotations, we cluster the point trajectories in each
+labelled video (approx. 30 trajectories per video). Agglomerative clustering is performed starting
+with assigning each trajectory to an independent cluster and recursively merging the clusters until
+all the inter-cluster distance are greater than a threshold (set to 2 pixels). The cluster distance
+between two given clusters is the minimum distance between any two trajectories in the two clusters.
+The distance between trajectories is computed as the mean-centered Euclidean distance between
+non-occluded trajectory points; this distance is assumed to be undeﬁned (i.e., not counted when
+comparing clusters) if there are less than 10 frames of overlap. Listing 1 gives a Python-pseudocode
+implementation of the above.
+25
+
+PAGE 26
+import numpy as np
+def track_dist(t1, t2):
+vis = np.logical_and(t1.raw_vis, t2.raw_vis)
+if np.sum(vis.astype(np.float32)) <= 10:
+return float( 'inf')
+xy1 = t1.t_xy[vis]
+xy2 = t2.t_xy[vis]
+offset = np.mean(xy1 - xy2, axis=0, keepdims=True)
+xy2 = xy2 + offset
+dist = np.sqrt(np.sum(np.square(xy1 - xy2), axis=-1))
+return np.mean(dist)
+def cluster_dist(c1, c2):
+min_dist = float( 'inf')
+for t1 in c1.children:
+for t2 in c2.children:
+d = track_dist(t1, t2)
+min_dist = min(d, min_dist)
+return min_dist
+def all_dists(clusters):
+n = len(clusters)
+dists = np.zeros((n, n)) + float( 'inf')
+for i in range(n-1):
+c_i = clusters[i]
+for j in range(i+1, n):
+c_j = clusters[j]
+if c_i and c_j are not merged:
+dists[i, j] = cluster_dist(clusters[i], clusters[j])
+return dists
+def greedy_cluster(xy, occ, dist_thresh=2/256):
+"""
+Agglomerative trajectory clustering.
+xy: [N, T, 2] shaped batch of N trajectory coordinates.
+occ: [N, T] shaped batch of N trajectory occlusions.
+dist_thresh: float, distance threshold for merging clusters.
+"""
+# initialize with one cluster per trajectory
+clusters = []
+for i in range(xy.shape[0]):
+clusters.append((xy[i], occ[i]))
+# compute all NxN pairwise trajectory distances
+dists = all_dists(clusters)
+while np.min(dists) < dist_thresh:
+min_ij = np.argmin(dists)
+i, j = np.unravel_index(min_ij, dists.shape)
+# merge trajectories i and j (impl omitted)
+...
+# re-compute trajectory distances:
+dists = all_dists(clusters)
+return clusters
+Listing 1: Agglomerative clustering of trajectories.
+26
+
+PAGE 27
+method AJ <δxavg OA Jac.δ0 Jac.δ1 Jac.δ2 Jac.δ3 Jac.δ4 <δ0 <δ1 <δ2 <δ3 <δ4
+No OF 74.7 83.1 97.4 25.8 64.2 90.5 96.2 96.9 41.2 78.8 96.3 99.5 100.0
+With OF 81.4 90.0 96.9 49.5 76.1 90.0 95.2 96.0 66.6 87.5 96.2 99.5 100.0
+Table 5: Annotation accuracy with and without the optical ﬂow track assist algorithm. Jac. δx is the
+Jaccard metric measuring both occlusion estimation and point accuracy, with a threshold ofδx; AJ
+is the Average Jaccard acrossx between 0 and 4.<δ x is the fraction of points not occluded in the
+ground truth for which the prediction is less thanδx, and<δ x
+avg is the average acrossx between 0
+and 4. Occlusion Accuracy is denoted with OA. We setδ = 2.
+F Quantitative Validation of the Human Annotation Procedure
+F.1 Validation on Simulated Videos
+While it is difﬁcult to validate our annotation procedure on real data, we can easily do so on synthetic
+data where the ground truth is known. We annotate videos with length 2-seconds (24-frame) from
+the Kubric dataset [18], where we have known ground truth point tracks. Annotators are instructed
+to label 3 points on any object up to a maximum of 10 objects (up to 30 points per video). We
+instruct annotators to choose points which are visible in the ﬁrst frame, and treat those as queries for
+computing ground truth tracks.
+Because it is a graphics package, Kubric contains all the information required to obtain perfect
+ground-truth tracks for any point the annotators choose. We can compare the annotated tracks to the
+ground truth using the same metrics proposed in the original point tracking task.
+To make the videos more representative of realistic annotation challenges, we simulate camera jitter
+(not present in MOVi-E), which is a common phenomenon in many real-world videos. We also
+increase the framerate from 12 FPS to 25, to match our real videos. All generated videos are included
+in our supplementary html ﬁles. Annotators are instructed to label 3 points on any object up to a
+maximum of 10 objects (up to 30 points per video). We can compare the annotated tracks to the
+ground truth. In both cases, annotation was performed at 1024× 1024 resolution, although the
+evaluation is still done at 256× 256 pixels to be consistent with our evaluation procedure. The
+most intuitive method is the fraction of points with error less than a given threshold, although for
+completeness we include all metrics proposed for evaluation.
+Table 5 gives our full results, demonstrating the accuracy of our annotators given the optical ﬂow
+track assist algorithm. Table 5 also compares results with and without the proposed optical ﬂow track
+assist algorithm. We see non-trivial improvements in accuracy with the proposed tool, especially
+on the metrics emphasizing higher levels of precision: for instance, the error rate for pixels<δ 1 (2
+pixels away) has been cut by almost half, and for<δ 0 (1 pixel away) it has increased by over 25% in
+absolute terms. This is true even though annotation was done much faster: time was reduced from 50
+minutes per video to 36 minutes per video by using the OF track assist.
+F.2 Validation on Inter-Rater Agreement
+We further conduct inter-human agreement studies on the DA VIS point track videos. For the total
+of 650 points in 30 videos, we select the ﬁrst-frame points from the ﬁrst round of annotation, and
+ask 2 human raters annotate the following frames for each point. We then compare the similarity
+between the 2 human annotations using our established metrics. Table 6 shows the human agreement
+results. On average, human on occlusion with 95.5% accuracy, and 92.5% on location with a 4 pixel
+threshold. Note that the metrics are evaluated under 256x256 resolution.
+G TAP-Net Implementation Details
+After computing the cost volume, we feed the output to a Conv layer with stride 1, a 3× 3 receptive
+ﬁeld, and 16 hidden units, followed by a ReLU.
+27
+
+PAGE 28
+OA <δ 0 <δ 1 <δ 2 <δ 3 <δ 4
+95.5 51.8 78.3 92.5 98.7 100.0
+Table 6: Inter-rater agreement on the same set of point tracks for DA VIS. < δx is the fraction of
+points not occluded in the ground truth for which the prediction is less thanδx,x between 0 and 4.
+We setδ = 2. Occlusion Accuracy is denoted with OA.
+Method AJ <δxavg OA Jac.δ0 Jac.δ1 Jac.δ2 Jac.δ3 Jac.δ4 <δ0 <δ1 <δ2 <δ3 <δ4
+Full Model 46.6 60.9 85.0 11.3 31.6 53.3 65.8 71.2 19.8 46.4 69.3 81.7 87.4
+ResNet-18 46.0 60.7 85.8 9.6 29.5 52.7 66.2 71.9 17.6 45.0 69.8 82.8 88.6
+Full TSM 45.4 60.1 83.7 10.8 31.0 52.1 64.0 69.1 19.2 45.9 68.5 80.6 86.4
+No Soft Argmax45.8 59.0 84.6 10.4 30.8 52.6 64.8 70.2 18.2 44.8 67.4 79.1 85.3
+Table 7: Ablation of the architectural choices for our model on TAP-Vid-Kinetics. ResNet-18 has no
+temporal receptive ﬁeld in the backbone, whereas Full TSM uses time-shifting at every layer, giving
+a large temporal receptive ﬁeld. No Soft Argmax replaces the soft argmax with a simple MLP.
+The occlusion branch takes this output and applies a convolution with stride 2, 3× 3 receptive ﬁeld,
+and 32 hidden units. This is followed by average pooling, a linear layer with 16 hidden units, ReLU,
+and a ﬁnal linear layer for output.
+The prediction branch applies a Conv layer with stride 1, 3× 3 receptive ﬁeld, and 1 hidden unit,
+which produces the input for the softmax, which is then used in the soft argmax above.
+When computing the Huber loss, we ﬁrst rescale both the prediction and ground truth coordinates
+to be in the range [-1,1]. For each coordinate, we compute the Euclidean distance ||(ˆxqt, ˆyqt)−
+(xgt
+qt,ygt
+qt )||2 =
+√
+(xqt− ˆxgt
+qt)2 + (yqt− ˆygt
+qt )2). Then we apply a Huber loss with a threshold 1/32
+(which corresponds to 4 pixels error in the 256× 256 images we train on). The Huber loss is scaled
+much smaller than the sigmoid cross entropy, so we setλ = 100.
+Our TSM-ResNet-18 follows ResNet-18: i.e., it has no ‘bottleneck’ layers, so each residual unit is
+2 convolutional layers with a 3× 3 spatial receptive ﬁeld. Each ‘layer’ contains 2 units. It uses no
+temporal downsampling, meaning that each output has a temporal receptive ﬁeld of 9 frames. The
+ﬁnal output has 256 channels.
+G.1 Training
+We use a cosine learning rate schedule with a peak rate of 2e−3 and 5,000 warmup steps. We train
+on 64 TPU-v3 cores with a batch size of 4 MOVi-E 24-frame videos per core. Each model trains
+for 50,000 steps. We use an Adam optimizer with β1 = .9 andβ2 = .95. We also use weight
+decay of 1e−2, applied after the Adam rescaling (i.e. Adam-W). We use cross-replica batch norm in
+the ResNet/TSM-ResNet backbone, but don’t use batch norm anywhere in or after the cost volume
+computation.
+We performed minimal hyperparameter tuning by observing transfer performance primarily on DA VIS,
+tuning learning rate, model size, and optimizer parameters in separate sweeps. Each experiment
+requires roughly 24 hours. Roughly 25 full-scale experiments were required to arrive at the ﬁnal
+model.
+G.2 Model Ablations
+We next ablate our design decisions. For this, we use TAP-Vid-Kinetics, the largest and most realistic
+dataset available to us. We follow the same training setup as TAP-Net for all experiments.
+We ﬁrst ablate our backbone network. Recall that we use a TSM-ResNet-18, with shifting only in the
+ﬁrst two layers. Thus we try TSM-ResNet-18, which uses time shifting at every layer, and ResNet-18,
+without time shifting. We also tried replacing the soft argmax operation with a 2-layer MLP regressor
+(128 hidden units, ReLU activations) that operates directly on the output heatmap.
+28
+
+PAGE 29
+Query method Kinetics DA VIS RGB-Stacking
+Strided 46.6 60.9 85.0 38.4 53.1 82.3 59.9 72.8 90.4
+First 38.5 54.4 80.6 33.0 48.6 78.8 53.5 68.1 86.3
+Table 8: Comparison of performance for the same output tracks, but with different query points.
+‘First’ refers to using only the ﬁrst visible point in each trajectory as a query, whereas ‘Strided’ means
+sampling multiple query points per trajectory at a stride of 5 frames.
+We see that all of these changes harm the performance to some extent. Surprisingly, TSM-ResNet
+performs worse despite allowing the network to integrate across more frames; one possible interpreta-
+tion is that it gives the network an opportunity to memorize motions in the Kubric dataset. On the
+other hand, giving no temporal information is also somewhat worse, particularly for the Average
+Jaccard metric (though not for occlusion estimation), suggesting that this method makes errors on
+occlusion estimation even when the location is correct and vice-versa. One possible interpretation
+is that with a small amount of temporal information, the network can do a better job of segmenting
+the object of interest, which allows the network to track and estimate occlusion for the body as a
+whole. Allowing this kind of reasoning while preventing memorization of motion patterns presents
+an interesting challenge for future research. The soft argmax is also important, possibly because it
+enforces that the network performs matching rather than memorizing motion patterns.
+H Query sampling strategies
+Recall that our prediction algorithms take as input query points, which specify which point needs to
+be tracked. For most of this work, we assume that all points are treated equally: any point along a
+track may be sampled as a query. In practice, we sample queries in a strided fashion: every 5 frames
+starting at frame 0, we sample a query for every visible point. This means we may have multiple
+queries with the same target output trajectory. An alternative approach which is potentially relevant in
+an online setting is to start with the ﬁrst frame where the point is visible, and track only into the future
+(during evaluation, we ignore the predictions for frames earlier than the query frame, as the algorithm
+can easily assume that these points are occluded, and we don’t want to encourage researchers to
+hardcode this). In practice, this setting is harder, because on average, the query frame will be farther
+from each output frame. However, we include both in order to facilitate comparisons with online
+methods. Table 8 shows the comparison for the three relevant datasets. Kubric is not included, as it
+uses a different, randomized sampling strategy detailed in the original paper [18]. Note that query
+sampling is a potential area of improvement for this dataset: some queries may be ambiguous if they
+are, e.g., behind translucent objects or very close to occlusion boundaries. However, we leave the
+problem of query sampling to future work.
+I Baselines
+Kubric-VFS-Like We ﬁrst evaluate a point tracking algorithm inspired by VFS [86] released as
+part of Kubric [18], and the only algorithm which can be applied directly to our setup. This algorithm
+uses a contrastive loss to learn features, contrasting points along the trajectory with points off of the
+trajectory. At test time, this algorithm computes dot products between the query features and the
+features at every other frame, before applying a spatial soft argmax similar to the one described in
+equation 2 for each frame. It ﬁnally estimates occlusion via cycle consistency: i.e., by computing
+correspondence backward from the target frame to the query frame, and seeing if the correspondence
+is the same. Note that our metrics don’t exactly match those from the original paper [18]; the codebase
+is the same, but we used a ResNet-18 backbone to match this paper, and unlike the original work, we
+include the query points in the evaluation.
+RAFT [70] This algorithm performs near state-of-the-art for optical ﬂow estimation, i.e., tracking
+points between individual frames. We extend this to multiple frames by integrating the ﬂow from the
+query point: i.e., we use bilinear interpolation of the ﬂow estimate to update the query point, and
+then move to the next frame and repeat. If the point is outside the frame, we use the ﬂow value at
+the nearest visible pixel. While RAFT is extremely accurate over short time scales, this approach
+has some obvious problems with long time scales. First, it provides no simple way to deal with
+29
+
+PAGE 30
+occlusions (we simply mark points as occluded if they’re outside the frame). Furthermore, it has no
+way to recover from errors, so slight inaccuracies on each frame tend to accumulate over time even
+when the point remains visible.
+COTR [31] Like RAFT, COTR operates on pairs of images; however, it was designed to handle
+substantially more motion between images. The underlying architecture uses a transformer to ﬁnd
+global scene alignment, followed by more local reﬁnement steps to ensure high accuracy. It is trained
+on MegaDepth [40], which contains real-world scenes and uses reconstruction to get ground-truth
+correspondence. Due to this robustness, we use a different strategy from RAFT to apply COTR to
+videos: we compare the query frame to every other frame in the video, and ﬁnd correspondences
+directly. COTR has no simple mechanism for detecting occlusions, so we apply the cycle-consistency
+strategy proposed in Kubric-VFS-Like: given correspondences between the query and target frame,
+we take the points in the target frame and ﬁnd their correspondence in the query image. If the distance
+to the original query is greater than 48 pixels, we mark the point as occluded. Note that it’s very
+expensive to run the model in this way: if there’s queries on every frame, then we need to run COTR
+on every frame pair. Each pair takes 1 second with 30 points. Thus, for evaluation, we simplify our
+benchmark and take only queries from a single frame; thus these numbers are not precise, but good
+enough to get an idea of COTR’s performance on our benchmarks.
+PIPs [20] We ran Persistent Independent Particles (PIPs) following the "chaining" workﬂow, as
+the bulk of the algorithm is intended to operate on 8-frame segments. PIPs extracts features for both
+the query point and the rest of the video using a ConvNet, similar to TAP-Net. With the chaining
+workﬂow, tracks on each segment are estimated one-by-one, with the ﬁnal point of each segment
+used to initialize the subsequent segment. Given an initial position estimate for a segment, it reﬁnes
+both the query features and the output trajectory using an MLP-Mixer applied iteratively. Similar to
+TAP-Net, the input for this reﬁnement network includes the dot product between the query features
+and the features in the other frames, although in the case of PIPs, the dot products come from a local
+neighborhood around the spatial position estimate. The initial spatial position for each 8-frame chunk
+is the last spatial position that the point was estimated to be visible. As PIPs operates only forward
+in time, we run it twice for each query point: once forward, and once backward in time. Otherwise,
+we run the algorithm without modiﬁcation, directly using its visibility estimates with a threshold of
+0.5 to estimate occlusion. We found that the chaining algorithm requires more than 30 minutes to
+process a 250-frame video at 256× 256 resolution, meaning that we only had time to run on 167
+random Kinetics videos before the deadline. Unlike for COTR, however, these results use all points
+available in each video. Experiments were run on a GCP machine with 1 V100 GPU and required
+approximately 100 hours.
+J Semantic analysis
+Although our dataset is not intended for classiﬁcation, it is useful to consider the distribution of
+labeled objects to understand performance. While DA VIS and RGB-stacking are small enough for
+the object distribution to be observed qualitatively, for Kinetics, we had annotators explicitly label the
+boxes before adding points. This process was informal, and we don’t control for duplicates or typos;
+nevertheless, we show the full list of labels as well as their frequencies in Tables 9–12. We see a large
+variety of objects, although unsurprisingly for Kinetics, they tend to be people, clothing, and moving
+objects that are relevant for human actions, across indoor and outdoor, as well as several types of
+animals. We manually broke these into broader categories, and found 26.1% are on humans, 23.4%
+on clothing (on or off the body), and 50.4% are on other types of objects. This is consistent with the
+instructions (to target moving/foreground objects), and we believe it makes the dataset relevant for
+agents interacting with humans and performing tasks in human environments.
+30
+
+PAGE 31
+person:7012 ﬂexi:9 hacksaw:3 lady:3 cleaning brush:3
+shoe:842 mini car:9 statue table:3 black curtain:3 sleeveless:3
+pant:833 plant pot:9 dried palm leaves:3 electric pencil sharpner:3 strap:3
+tshirt:796 cat:9 blue blanket:3 white jacket:3 aquarium:3
+object:614 weight plate:9 blue mat:3 ﬂowers:3 green grill:3
+shirt:608 musical instrument:9 steel tap:3 window sheet:3 tumbler:3
+hand:542 clock:9 silver foil:3 ﬂoor mat:3 arrow holder:3
+car:447 comb:9 toy train tracker:3 decor:3 roll:3
+short:413 paper roll:9 gas:3 frame stand:3 elastic band:3
+t shirt:412 ac:9 plastic plate:3 wash basin:3 welding machine:3
+cap:377 roller:9 sledge:3 bathtub:3 cotton box:3
+chair:372 lamp light:9 mini trampoline:3 showcase plant:3 steel rods:3
+box:370 screw tighter:9 pendant:3 spinning top:3 white scooter:3
+table:347 garland:9 snake:3 hook:3 propane fueling station:3
+bottle:310 tower:9 face cream:3 wall hanger:3 blue scooter:3
+jacket:247 black coat:9 headphone:3 mining helmet:3 hanging handle:3
+helmet:235 plastic item:9 violin stick:3 color box:3 wall decor:3
+ring:223 barrier:9 circular frame:3 sleeve dress:3 thermocol:3
+light:215 tree pot:9 skiers:3 crocodile:3 green bag:3
+watch:214 crown:9 system:3 christmas tree:3 machine part:3
+bowl:209 chess piece:9 paint spray machine:3 white tray:3 wood object:3
+cloth:207 bedsheet:9 iron grill:3 helmate:3 screwdriver:3
+glove:186 wrist band:9 marker pen:3 red shirt:3 concrete ﬁre bowl:3
+machine:186 pencil:9 yarn:3 righthand:3 side pin:3
+bag:176 glouse:9 plastic glass:3 streetlight:3 whistle:3
+pole:167 yacht:9 glass bowl:3 trumpet:3 icebreaker:3
+toy:163 wall poster:9 p:3 whiper:3 sushi food:3
+plate:158 headphones:9 pouch:3 shaving razor:3 plaster roller:3
+spects:150 red button:9 mic stand:3 golfstick:3 gift wrap:3
+ball:147 blue tshirt:9 car cover:3 banner stand:3 plaster:3
+frame:147 lantern:9 staff:3 ﬂex:3 blue cover:3
+wood:140 black short:9 chips:3 bean bag:3 spects frame:3
+door:139 wood board:9 handband:3 egg:3 snow scooter:3
+dress:138 black top:9 snow bike:3 holdingbelt:3 switch box:3
+paper:135 bat:9 bed cot:3 air pump machine:3 man hole:3
+glass:132 photographer:9 yellow belt:3 blue barrel:3 embroidery hoop ring:3
+vehicle:132 jug:9 shark:3 dumbell:3 staple puller:3
+stick:119 wood block:9 plastic box:3 broom stick:3 cutting plier:3
+sofa:117 wind cart:9 luggage bag:3 right gloves:3 clothes tub:3
+coat:115 electric pole:9 double tape:3 plunger:3 black bucket:3
+window:114 instrument:9 decoration light:3 western toilet seat:3 clothes bag:3
+board:108 light stand:9 baw:3 cutting machine:3 silver stick:3
+rod:105 ﬂying disc:9 refrigerator:3 pallet:3 wooden roller:3
+rope:102 vacuum cleaner:9 teeth braces:3 black dress:3 support board:3
+stand:97 oil bottle:9 side mirror:3 blade:3 metal water pipe:3
+tool:93 mouse:9 tool box:3 meat pieces:3 paper sheet:3
+knife:92 weight lift:9 machinery equipment:3 groove machine:3 automatic door operator:3
+ﬂag:92 watermelon:9 cable:3 white short:3 chef cap:3
+pipe:91 zip:9 putty plate:3 measuring tape:3 green apple:3
+bucket:91 ﬁsh:9 coupling pipe:3 baby boy:3 petrol holder:3
+band:86 cleaner:8 stairs:3 wooden spoon:3 car petrol cap:3
+mat:84 card shelf:8 neck support:3 white pad:3 petrol pipe:3
+right hand:81 cushion:8 glass object:3 black cup:3 orange light:3
+brush:79 bandage:8 gear shifter:3 red block:3 white light:3
+curtain:76 red box:8 drilling machine:3 shield:3 red light:3
+thread:75 black t shirt:8 hinge:3 electric stove:3 car bumper:3
+hat:75 red ball:8 door engis:3 streeing:3 dumbbell plate:3
+book:75 wooden board:8 goal post:3 metal chrome polish bottle:3 ﬂex banner:3
+left hand:74 carpet:8 fedlight:3 exhaust pipe:3 podium:3
+chain:74 mixer:7 yellow bucket:3 wooden staircase:3 baby mattress:3
+dog:72 spatula:7 wood bench:3 ladder stand:3 wood tray:3
+mirror:72 ﬁre extinguisher:7 paino:3 bubble bottle:3 sharpner:3
+horse:72 googles:7 western top:3 scrubber:3 tissue box:3
+belt:70 tile:7 black item:3 water sprinkler:3 brown sheet:3
+wire:70 bottle cap:7 coconut:3 chandelier:3 cup board:3
+hand band:63 carry bag:7 green mat:3 cot:3 fruits:3
+socket:63 wall clock:7 art sheet:3 pumpkin piece:3 snow lifter:3
+cover:62 straightener:6 blue egg:3 backet:3 wood cutting machine:3
+button:61 key:6 pink basket:3 exercise suit:3 wood box:3
+cycle:60 elephant statue:6 yellow egg:3 watermelon piece:3 snow toy:3
+goggles:58 specs:6 dog sofa:3 torch light:3 vaccum pipe:3
+bike:58 bridge:6 left gloves:3 leather hand band:3 carry baby bag:3
+handle:56 yoga mat:6 green button:3 hoop hula:3 straw:3
+photo frame:55 mattress:6 suitcase:3 rings:3 pink jacket:3
+speaker:55 plastic bowl:6 light lamp:3 white hoody:3 mitten:3
+spectacles:55 black pant:6 car engine:3 soap bubble sticks:3 pepper crusher:3
+Table 9: Full list of object categories named by annotators in TAP-Vid-Kinetics. Number of
+points per category is listed next to the category.
+31
+
+PAGE 32
+basket:54 green rope:6 injector pipe:3 white item:3 oil container:3
+poster:54 ﬂower:6 tube:3 pagdi:3 mug jar:3
+mike:53 wooden pole:6 desktop:3 wooden mud pot:3 wafer:3
+pot:53 basketball board:6 support rod:3 tyrecap:3 orange rope:3
+girl:52 cutting player:6 machine tool:3 black paper:3 paint bottle:3
+mobile:51 wall:6 woolen thread:3 right ring:3 table cover:3
+boy:51 paper rocket:6 weaving needle:3 left bracelet:3 dolpin:3
+switch board:51 rolling mat:6 trolly:3 guitar box:3 railing bridge:3
+packet:51 doughnut:6 brown bricks:3 baby chair:3 ice box:3
+ear ring:48 washing machine:6 train toy:3 refridgerator:3 cold jar:3
+top:47 clothes:6 chisel:3 string:3 black rod:3
+right shoe:46 motorcycle:6 orange pencil:3 food packet:3 net holder:3
+spoon:46 scooter:6 white marble:3 swim glasses:3 exercise ball:3
+bed:46 left glove:6 paper punch:3 traning ﬁn:3 big basket:3
+cup:45 jack:6 papers:3 scuba diving ﬁns:3 ash shirt:3
+tyre:45 blue jacket:6 backpack:3 hookah pipe:3 wooden base:3
+card:45 red bag:6 knife box:3 lorry:3 hair straightener:3
+pan:44 rim:6 phone mount:3 chopping board:3 blue board:3
+equipment:43 chimney:6 ornament:3 cake piece:3 cement brick:3
+apple piece:42 sandle:6 motor switch:3 steel plate:3 pompoms:3
+boat:42 speedometer:6 seat cover:3 decorative:3 gift box:3
+hair band:42 wind gong:6 sign:3 painting board:3 exam pad:3
+jar:42 nut:6 milk box:3 key hole:3 wooden ﬂoor:3
+hoodie:41 number plate:6 mixer grinder:3 glass pipe:3 stretcher:3
+net:40 blue joystick:6 steel net:3 frock:3 powered parachute:3
+tray:40 swim suit:6 white bricks:3 music instrument plate:3 ring box:3
+guitar:40 stage:6 blue button:3 crash cymbal:3 stopper cone:3
+left shoe:40 tire:6 white machine:3 card door lock:3 gas stove:3
+stool:39 digging tool:6 glass bottle:3 selﬁe stick:3 wheel barrow:3
+kid:39 ribbon:6 carrot piece:3 banana:3 wax strip:3
+wheel:39 steel table:6 wing screw:3 basketball hoop:3 router box:3
+bracelet:39 animal:6 microphone stand:3 ﬁlmy equipment:3 small tin:3
+parachute:38 binding rod:6 sand tray:3 wooden pad:3 pipe slide:3
+mic:37 steel rod:6 brown pant:3 hand towel:3 ear stud:3
+scissor:36 necklace:6 extinguisher:3 water jug:3 shorts:3
+stone:36 rightshoe:6 coke bottle:3 plates:3 barbell rod:3
+socks:35 hipbelt:6 purse:3 mud remover:3 score card:3
+pillow:35 display:6 tripod:3 leaves:3 baseball bat:3
+television:35 inner wear:6 ridge gourd:3 swim ﬁn:3 id card:3
+rock:35 log:6 costume:3 paint spray:3 black grill:3
+slipper:35 metal sheet:6 ridge gourd piece:3 chain locket:3 music instrument:3
+camera:34 utensil:6 pink shirt:3 ceiling ac vents:3 pad plates:3
+apple:34 cucumber:6 cable roller:3 pink object:3 pool bridge:3
+pen:33 wall frame:6 airtrack:3 mike stand:3 air meter:3
+monitor:33 goal:6 nose ring:3 baby crib:3 swimming item:3
+child:33 diving shoe:6 steel tray:3 wooden stool:3 eyebrow pencil:3
+house:33 duster:6 igloo house:3 metal wall design:3 eye lash shaper:3
+bolt:33 time adjuster:6 wooden table:3 brake:3 curling machine:3
+tub:33 white bin:6 vechile:3 rubber:3 kids play slide:3
+towel:33 bus:6 blue short:3 pad stand:3 plastic ring:3
+black object:33 wooden cupboard:6 yellow tshirt:3 round table:3 pink tshirt:3
+jeans:32 play card:6 green short:3 fruit basket:3 water skater:3
+cupboard:32 hairclip:6 woodframe:3 mike transmitter:3 sand machine:3
+tie:30 charger:6 cock:3 silver nut:3 extension socket:3
+statue:30 swim cap:6 mannequin:3 water pot:3 paint tube:3
+baby:30 trolley:6 soft boat:3 yellow bowl:3 cotton cake box:3
+bangle:30 clay:6 ﬁre stand:3 snow shovel:3 weight:3
+red object:29 wooden bar:6 yellow handle:3 book rack:3 round comb:3
+lamp:29 blue jeans:6 stroller:3 white pipe:3 creddle:3
+white box:28 signboard:6 back wheel:3 black stand:3 glass plate:3
+sheet:28 bread piece:6 shell:3 ﬁre wood:3 water safety:3
+hammer:28 brown object:6 beanie:3 small girl:3 cake plate:3
+dustbin:27 white cap:6 yellow rope:3 chess board:3 white stool:3
+bicycle:27 dumble:6 iron handler:3 pink box:3 hair roller:3
+laptop:27 wooden chair:6 mushroom:3 pink book:3 dish wash bottle:3
+holder:27 potted plant:6 strings:3 meat:3 solar board:3
+bench:27 head cap:6 wick:3 helicopter:3 screw holder:3
+candle:27 red thread:6 black board:3 statue head:3 nail polish:3
+needle:27 measuring tool:6 black half sleeve shirt:3 ﬁnger cap:3 paper packet:3
+Table 10: Full list of object categories named by annotators in TAP-Vid-Kinetics, continued.
+32
+
+PAGE 33
+ladder:26 shoe rack:6 oxygen tank:3 steel item:3 peeler:3phone:25 white block:6 toy track:3 girl dress:3 oil tub:3sign board:25 glass jar:6 purple jacket:3 short pant:3 locker:3tree:25 food:6 fuel can:3 surfboard:3 water can:3dumbbell:25 painting:6 match stick:3 drum plate:3 support stand:3rack:25 baby bed:6 pink top:3 door closer:3 white band:3bow:24 orange:6 footwear:3 wood plank:3 dust bin:3photo:24 orange slice:6 stove stand:3 gear:3 pine apple:3mascara:24 giraffe:6 white ﬂower:3 plastic knob:3 white blind:2doll:24 sheep:6 tape dispenser:3 wooden rack:3 right sock:2fan:24 metal candle cup:6 balloon toy:3 snowman:3 sketch:2tap:24 glass table:6 ballon:3 wind instrument:3 pink thread:2gloves:24 tomato:6 supporter:3 safety cap:3 ﬁlter:2cutter:24 steel object:6 aeroplane:3 window glass:3 saddle:2earring:24 stainer:6 pineapple:3 dash board:3 stethoscope:2sweater:23 projector:6 pink bin:3 electric engraving machine:3 foam:2cake:21 steel box:6 cards:3 wood stand:3 white cardboard:2blue cloth:21 white strip:6 right indicator:3 orangestool:3 hinges:2spray bottle:21 sponge:6 left indicator:3 calender:3 saddle rope:2dolphin:21 door handle:6 match box:3 blinds:3 news paper:2sticker:21 blue top:6 broom:3 vaccum machine:3 doormate:2balloon:21 head scarf:6 roti maker:3 game equipment:3 bull ride:2fence:21 cradle:6 cleaning machine:3 game board:3 pineapple slice:2drum:21 light pole:6 cabin:3 coolent box:3 box cap:2steering:21 head band:6 card board:3 funnel:3 grinder:2banner:21 boxing bag:6 food box:3 infuser:3 bracelette:2fork:21 cd box:6 pricetag:3 bike delivery box:3 wind manipulator:2block:21 wardrobe:6 stamps:3 carrot:3 underwear:2screw:21 door lock:6 gum tube:3 wooden pot:3 white napkin:2tin:21 woman:6 number sheet:3 showpiece:3 robot toy:2black box:21 rubber band:6 roughﬁle:3 stainless steel water jug:3 mobile holder:2yellow object:20 dish:6 label:3 cigarette pipe:3 oxygen pumping machine:2berry:20 piano:6 softdrink tin:3 bluetooth:3 gym bench:2fridge:20 train:6 arrow:3 watering pipe:3 tennis bat:2white board:20 scale:6 foot:3 radio:3 red rod:2blue shirt:20 gear rod:6 yellow short:3 decor light:3 green pant:2stove:20 slide:6 dressing table:3 disco light:3 orange shirt:2remote:20 water bottle:6 cristmas tree:3 music box:3 violet dress:2oven:19 mixer jar:6 jumping castle:3 drum stick:3 left handle:2napkin:19 yellow thread:6 machine top:3 music plate:3 ﬂower balloons:2hanger:18 machine rod:6 bike mirror:3 bell plate:3 yellow button:2potato:18 wool:6 front shield:3 windgong:3 frontwheel:2steel:18 battery box:6 swim board:3 air pump:3 black band:2white object:18 microphone:6 torch:3 spading stick:3 watertin:2vest:18 iron sheet:6 bra pad:3 pool lane rope:3 pertson:2tissue:18 thread bundle:6 bra tag:3 bee box:3 vehcile:2cow:18 black button:6 sewing machine:3 steel glass:3 hanging light:2skate board:18 car seat:6 blue object:3 tea pot:3 ﬁshing stick:2lighter:18 white t shirt:6 cotton:3 sleeve shirt:3 plane:2ﬂute:18 crane:6 cleaning mop:3 fencing mesh:3 ﬁshing rod:2hand glove:18 weight equipment:6 decoration item:3 cooling glasses:3 plastic disk:2black bag:18 spray:6 white ball:3 sticky notes:3 iron stand:2shovel:18 red carpet:6 white boat:3 album:3 table fan:2screen:18 steamer:6 legs:3 stick paper:3 shed:2apron:18 wooden bench:6 wallet:3 ﬁle handle:3 goat:2headband:17 commode:6 globe:3 hand kerchief:3 head cover:2plant:17 wristband:6 trimble scanning:3 id tag:3 fencing rod:2seat:17 wiper:6 avacado:3 snow stick:3 dartboard:2sock:16 sword:6 handles:3 metal tool:3 blue banner:2red cloth:16 leftshoe:6 rubiks cube:3 treadmill:3 textperson:2knob:16 scissors:6 right mirror:3 spin bike:3 shampoo bottle:2coin:15 books:6 metal wire:3 left slipper:3 tperson:1ship:15 green box:6 chopstick:3 tongs:3 boxcap:1umbrella:15 extension box:6 nail cutter:3 wrist belt:3 parchute:1blanket:15 soap:6 hatchet:3 handwash:3 bracelettle:1blue box:15 right leg:6 black ﬁle:3 honey tray:3 letter e:1pin:15 trafﬁc cone:6 hand catcher:3 shutter gear box:3 dishwasher:1tv:15 walkie talkie:6 speed meter:3 gear box:3 frige:1mask:15 black stick:6 inhaler:3 shop:3 shie:1drill machine:15 ski:6 horn switch:3 football net:3 wodd:1brick:15 trunk belt:6 letter m:3 sink:3 coffee maker:1cabinet:15 boot:6 t shirt roll:3 breather:3 blue suit:1tape:15 tab:6 menu book:3 handle knob:3 pine apple slice:1cylinder:15 weight lifting equipment:6 green jacket:3 red machine:3 bandage clip:1camel:15 blue pant:6 ski helmet:3 show case:3 new paper:1windmill:15 watering can:6 trafﬁc light:3 yellow stone:3 pany:1red cap:15 left leg:6 steel bowl:3 chappal:3 newspaper:1leg:15 disk:6 water melon piece:3 white background:3 water melon peice:1gate:15 weight lifting:6 toy brick:3 wrapper:3 show peice:1bird:15 cigar pipe:6 ﬂip ﬂop:3 land line:3 dart board:1cardboard:15 lefthand:6 left socks:3 ventilator:3 white cupboard:1
+Table 11: Full list of object categories named by annotators in TAP-Vid-Kinetics, continued.
+33
+
+PAGE 34
+hand bag:15 trimmer:6 knife holder:3 suit:3 head:1van:15 mortar board holder:6 megaphone speaker:3 sleeveless tshirt:3 oxygen pumpimg machine:1wooden box:15 metal:6 barricating ﬂoor stand:3 detector:3 wall poster top:1iron rod:15 wrench:6 porch swing:3 sniper box:3 cushoin:1pad:15 spanner:6 watertank:3 thermocol sheet:3 galss:1axe:15 basin:6 tiger:3 track pant:3 frame top:1berries:15 couch:6 black suit:3 white bucket:3 peerson:1wooden object:15 bud:6 wooden shelf:3 green truck:3 pizza oven:1gun:15 white tshirt:6 red clip:3 circle balloon:3 gyn bench:1lock:15 chips packet:6 hairpin:3 toy block:3 branch:1tent:15 burner:6 mobile case:3 trafﬁc light toy:3 preson:1idol:15 vase:6 wood blocks:3 spectacle:3 sipper:1can:14 eyelash curler:6 black pipe:3 baby dress:3 street light:1hockey stick:14 marble:6 blue block:3 baby apron:3 headlight:1scarf:14 ribbon roll:5 ﬁnger tool:3 sausage:3 cardshelf:1cone:14 blue sheet:5 green shirt:3 blue chalk:3 persoon:1black shirt:14 container:5 glue gun tool:3 soap stand:3 greenpipe:1white cloth:14 pig:5 iron frame:3 gamepad:3 glasse middle:1clip:13 chip:5 umberlla stand:3 yellow toy:3 glass right:1white sheet:13 guage:5 bathing basin:3 door handler:3 glass left:1ﬂower vase:13 tube light:5 plastic curtain:3 purple bottle:3 laddder:1bin:12 left mirror:5 fan hanger:3 c c camera:3 vihicle:1grill:12 kite:5 rod piece:3 hairband:3 paper shredder:1bed sheet:12 playing machine:5 orange tool:3 hut:3 frame middle:1black jacket:12 dish washer:5 maroon cloth:3 yellow paper:3 persson:1gym equipment:12 ice axe:5 yellow cloth:3 syringe:3 form:1ﬁle:12 photoframe:5 telephone:3 metal piece:3 tbowl:1duck:12 show piece:5 car number plate:3 drawer:3 boardboard:1headset:12 wooden log:5 blue thread:3 toy house:3 plastic desk:1pumpkin:12 skipping rope:5 toy stick:3 marker:3 whiteshirt:1black cloth:12 white shirt:5 olive oil bottle:3 barricade:3 palne:1sandal:12 hoddie:5 detecting machine:3 hand break:3 bowling equipment:1sprayer:12 cpu:5 mixing bowl:3 wooden piece:3 hooddie:1puzzle:12 dining table:5 steel tool:3 tambourine:3 res cloth:1elephant:12 point:5 paint ﬁller:3 guitar bag:3 red scarf:1chess coin:12 track:5 piano keyboard:3 white bottle:3 yelllow object:1tissue roll:12 hair dryer:4 tv stand:3 glass door:3 tabel:1skirt:12 gauge:4 toy car:3 stop indicator board:3 plastic object:1wooden block:12 building:4 cutting board:3 leaning bench:3 mug:1tong:12 black thread:4 sound box:3 bar lifting:3 balack band:1wood piece:12 motor:4 tambourine hand percussion:3 threadmill:3 front wheel:1wooden plank:12 iron box:4 pool lane divider:3 mosquito killer:3 spects left:1diaper:12 power box:4 desk:3 shelf:3 white rolling button:1wrist watch:12 wooden stick:4 wooden tray:3 dvd player:3 person back shoulder:1racket:12 blue funnel:3 bread:3 paper crusher:3 person forehead:1lid:12 handler:3 red jacket:3 auto:3 cupboard top:1ﬂower pot:12 plucker tool:3 work piece:3 woollen:3 cupboard middle:1glasses:12 skate boarding:3 red blanket:3 blue color object:3 cupboard bottom:1hair clip:12 iron lid:3 cloths:3 green object:3 personn:1carton box:12 greentub:3 pebble:3 person hand:3 rind:1truck:12 cement lid:3 trowel:3 candle cap:3 door mate:1joystick:12 router:3 red suit:3 cube:3 jeans jacket:1keyboard:12 yellow carpet:3 rope ball:3 brown box:3 white card board:1bulb:12 tractor:3 woolen roll:3 paper glass:3 ttshirt:1screw driver:12 baby bottle:3 man:3 wood machine:3 table right:1stud:12 kids walker:3 talcum powder:3 light box:3 table middle:1plastic cover:12 store:3 drink bottle:3 laptop table:3 table left:1right glove:11 dumbbell set:3 turban:3 rack cupboard:3 parachute skydiving:1fruit:11 left ear stud:3 ash tshirt:3 tyer:3 nuts packet bottom:1switch:11 needle bag:3 round disk:3 orange tshirt:3 perason:1green pipe:11 parachute rope:3 safety jacket:3 rod stand:3 blue stone:1text:11 controller:3 plank:3 red curtain:3 swimming goggles:1switchboard:10 violin:3 teddy:3 dryer:3 hesd cover:1kangaroo:10 cellphone:3 chart:3 railing:3 photofrane:1plastic bag:10 kids slide:3 cake pan:3 topwear:3 balll:1paint brush:9 red toy:3 orange object:3 strainer:3 nuts packet top:1egg yolk:9 electrical box cover:3 tank:3 brown bag:3 nuts packet middle:1head light:9 big spoon:3 room cleaner:3 mascara stick:3 frame bottom:1black tshirt:9 left sock:3 wheel cap:3 pink sheet:3
+Table 12: Full list of object categories named by annotators in TAP-Vid-Kinetics, continued.
+34

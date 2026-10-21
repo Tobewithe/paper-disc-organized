@@ -1,0 +1,182 @@
+{
+  "config": {
+    "study_id": "STUDY_MASK_LOCAL_EDITABILITY_20261017",
+    "tau": 1.5,
+    "random_support_repeats": 8,
+    "seed": 20261017,
+    "bootstrap_replicates": 2000,
+    "min_effect": 0.005,
+    "min_C_witness_retention": 0.95,
+    "max_editable_fraction": 0.25,
+    "max_success_damage": 0.01,
+    "scope": {
+      "full_pairs": 256,
+      "full_images": 243,
+      "C_witnesses": 159,
+      "smoke_pairs": 4
+    },
+    "budget": {
+      "smoke_seconds": 600,
+      "full_seconds": 3600,
+      "verify_seconds": 3600,
+      "rss_bytes": 6442450944,
+      "gpu_reserved_bytes": 6442450944,
+      "output_bytes": 2147483648,
+      "min_ram_bytes": 805306368,
+      "min_disk_bytes": 2147483648
+    },
+    "executor": {
+      "host": "YANGLEI",
+      "root": "D:/coco_wire/baseline_native_20261013",
+      "python": "C:/Users/28358/anaconda3/envs/pytorch/python.exe"
+    },
+    "new_training_steps": 0,
+    "base_model_forward_calls": 0,
+    "adapter_forward_calls": 0,
+    "oracle_optimization_calls": 0
+  },
+  "scope": "smoke",
+  "environment": {
+    "ultralytics_version": "8.4.100",
+    "torch_version": "2.5.1",
+    "source_sha256": {
+      "ultralytics.nn.modules.head": "759a454e03a9b4ebe4c69628292b0acc0469bb5f9dba278f7bc4b54c214bf209",
+      "ultralytics.models.yolo.segment.val": "701f57cd593609e54930d52b29e2b20734b706f8a2464fd450ec625a3992f4d6",
+      "ultralytics.models.yolo.detect.val": "55068be1bd32ddc3491cfe3b0bf5149ceb46fd301abf0026e6699264f696456a",
+      "ultralytics.utils.ops": "3138933eda1076ad91d680e57b08c881f937fd9bd07e8f6daf85efa6545239c5",
+      "ultralytics.utils.nms": "588f81e4cdebd58d3ba16cd0106623b776b961a56d198424db1a5d58f40a7b7e",
+      "ultralytics.engine.validator": "b8ce30b2cd9e070c8cb8beec24128db94943362b24d3b099cac51a59e7876e0a",
+      "ultralytics.nn.autobackend": "5c3f36f108f6669ae733f6a71dbfd04eaf41b0a4b7e27f7811f0603c6f8db6f9",
+      "ultralytics.nn.backends.pytorch": "eab69efaaadcb274d2aa4d16f395ada43fae12e6990463a4e063dd75fbc252e5"
+    },
+    "python_version": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "cuda_version": "12.4",
+    "matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "execution_env": {
+      "YOLO_OFFLINE": "true",
+      "YOLO_CONFIG_DIR": "D:\\coco_wire\\baseline_native_20261013\\_ultralytics_config",
+      "PYTHONPATH": "D:\\coco_wire\\baseline_native_20261013\\_site",
+      "CUDA_VISIBLE_DEVICES": null,
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": null
+    },
+    "packages": {
+      "torchvision": "0.20.1",
+      "numpy": "2.4.3",
+      "pycocotools": "2.0.11",
+      "opencv-python": "4.13.0.92",
+      "Pillow": "11.1.0",
+      "PyYAML": "6.0.2"
+    }
+  },
+  "native_profile": {
+    "profile_id": "yolo26m_seg_v84100_native_coco_fp32_v1",
+    "ultralytics_version": "8.4.100",
+    "model_sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "annotations_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+    "packages": {
+      "torch": "2.5.1",
+      "torchvision": "0.20.1",
+      "numpy": "2.4.3",
+      "faster-coco-eval": "1.8.0",
+      "pycocotools": "2.0.11",
+      "opencv-python": "4.13.0.92",
+      "Pillow": "11.1.0",
+      "PyYAML": "6.0.2"
+    },
+    "executor": {
+      "host": "YANGLEI",
+      "environment": "laptop_windows",
+      "python": "3.12.3",
+      "cuda_build": "12.4",
+      "gpu": "RTX 4060 Laptop 8GB",
+      "ultralytics_isolation": "private wheel overlay; existing 8.4.27 environment unchanged"
+    },
+    "native_args": {
+      "imgsz": 640,
+      "batch": 16,
+      "rect": true,
+      "device": "0",
+      "quantize": null,
+      "workers": 0,
+      "split": "val",
+      "save_json": true,
+      "end2end": true,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "agnostic_nms": false,
+      "single_cls": false,
+      "classes": null,
+      "augment": false,
+      "compile": false,
+      "dnn": false,
+      "mask_ratio": 4,
+      "overlap_mask": true,
+      "retina_masks": false,
+      "plots": false,
+      "verbose": false,
+      "save_txt": false,
+      "seed": 0,
+      "deterministic": true
+    },
+    "runtime_policy": {
+      "matmul_precision": "highest",
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": true,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": false,
+      "deterministic_algorithms": false,
+      "deterministic_warn_only": false,
+      "cublas_workspace_config": ":4096:8"
+    },
+    "acceptance": {
+      "published_bbox_ap": 52.5,
+      "published_segm_ap": 44.1,
+      "published_decimal_places": 1,
+      "backend_max_abs_ap_points": 0.02,
+      "zero_delta": "exact_RLE"
+    },
+    "budget": {
+      "smoke_images": 16,
+      "full_images": 5000,
+      "full_forward_runs": 1,
+      "cache_bytes": 53687091200
+    }
+  },
+  "image_ids": [
+    139,
+    632,
+    724,
+    785
+  ],
+  "denominator": {
+    "images": 4,
+    "pairs": 4,
+    "ordinary_gt": 43,
+    "native_success_gt": 20,
+    "native_prediction_rows": 706
+  },
+  "candidate_policy": "original_S1_fixed_final_Box75_detection",
+  "decoder": "unchanged_native_then_final_original_binary_support_composition",
+  "region": "abs(native_prethreshold_logit_scaled_to_original)<=1.5 inside serialized_bbox",
+  "parameters_changed": [
+    "final_original_binary_edit_support"
+  ],
+  "training_steps": 0,
+  "base_model_forward_calls": 0,
+  "adapter_forward_calls": 0,
+  "oracle_optimization_calls": 0,
+  "no_new_AP": true,
+  "engineering_recovery": {
+    "original_failed_run_id": "RUN_LEA_SMOKE_6b56df7df3d64803bc21c2824fbced70",
+    "scientific_configuration_unchanged": true
+  }
+}

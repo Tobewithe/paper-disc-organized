@@ -1,0 +1,104 @@
+--- original_V3/run_audit.py
++++ completion/run_completion.py
+@@ -1,5 +1,5 @@
+ """Execute fixed-mask re-centering and matched pressure; zero network training."""
+-from common import *
++from completion_common import *
+ import argparse, gc, time
+ 
+ 
+@@ -9,13 +9,16 @@
+     from adapter_data import FrozenCache
+     from native_geometry import lifted_basis, roi_for
+     from native_output_bridge import decode_native, encode_rle, native_environment
+-    from native_ops import Decoder, measure, matched_coefficients
++    from native_ops import Decoder, measure
++    from completion_ops import matched_coefficients
+     from margin_math import recenter, geometric_margin, draw
+-    from margin_stats import analyze
+-    from verify import verify
++    from completion_stats import analyze
++    from verify_completion import verify
+     scope=run.meta['scope'];cfg=read_json(STUDY/'CONFIG.json');prep=read_json(STUDY/'PREPARATION.json')
+     inputs_check();profile,env=configure_native();require(env==prep['environment'],'runtime drift')
+     controls=lines((C_FULL if scope=='full' else C_SMOKE)/'PAIR_RESULTS.jsonl')
++    if scope=='smoke':
++        controls += [r for r in lines(C_FULL/'PAIR_RESULTS.jsonl') if r['image_id']==270883 and r['annotation_id']==1665102]
+     controls=sorted(controls,key=lambda r:(r['image_id'],r['annotation_id']))
+     history={r['output_detection_id']:r for r in lines(OLD/'PAIRED_MASKS.jsonl')}
+     ids=sorted({r['image_id'] for r in controls});source=FrozenCache(BASE/'trace',ids)
+@@ -83,11 +86,13 @@
+                 pressure=[]
+                 for index,label in enumerate(pressure_labels):
+                     check=scope=='smoke' or index==0
+-                    cpr,_,_=decoder.evaluate(cp[index],check);wpr,_,_=decoder.evaluate(wp[index],check)
++                    cpr,_,cpz=decoder.evaluate(cp[index],check);wpr,_,wpz=decoder.evaluate(wp[index],check)
+                     full_checks+=2*int(check)
+                     pressure.append({**label,'vector':vectors[index].tolist(),'pre_normalization_rms':float(vector_rms[index]),
+                         'C_coefficients':cp[index].tolist(),'W_coefficients':wp[index].tolist(),'C_actual_rms':float(camp[index]),'W_actual_rms':float(wamp[index]),
+                         'C_normalization_scale':cnorm['scales'][index],'W_normalization_scale':wnorm['scales'][index],
++                        'C_decoded_difference_rms':float(np.sqrt(np.mean((cpz-cz)**2))),
++                        'W_decoded_difference_rms':float(np.sqrt(np.mean((wpz-wz)**2))),
+                         'C':measure(cpr,gt),'W':measure(wpr,gt)})
+                 oldg=None
+                 if oid in history:
+@@ -101,6 +106,9 @@
+                     candidate_margin=candidate_margin,C_logit_rms=rms_C,W_logit_rms=rms_W,pressure_amplitude=amplitude,
+                     normalization_C=cnorm['history'],normalization_W=wnorm['history'],
+                     endpoints={'N':measure(nr,gt),'C':measure(cr,gt),'W':measure(wr,gt),'G_old':oldg,'G_budget':None},pressure=pressure)
++                tol=cfg['numerics']['rms_relative_tolerance']
++                row['original_pressure_precision_valid']=all(abs(p[k]/amplitude-1)<=tol for p in pressure for k in ['C_actual_rms','W_actual_rms'])
++                row['pressure_precision_valid']=row['original_pressure_precision_valid'] and all(abs(p[k]/amplitude-1)<=tol for p in pressure for k in ['C_decoded_difference_rms','W_decoded_difference_rms'])
+                 stream.write(json.dumps(row,allow_nan=False)+'\n');stream.flush();results.append(row)
+                 print('PAIR',len(results),'/',len(controls),'accepted',accepted,'solver',solver['status'],flush=True)
+                 del decoder,B,row,pressure,cf,cz,wf,wz,cp,wp
+@@ -120,36 +128,37 @@
+     independent=verify(run.path,replay=True);write_new(run.path/'INDEPENDENT_LAPTOP.json',independent)
+     require(independent['status']=='passed','independent check failed')
+     if scope=='smoke':
+-        require(all(r['proxy_valid'] for r in results),'smoke proxy invalid')
++        require(len(results)==5 and any(r['image_id']==270883 and r['annotation_id']==1665102 and not r['original_pressure_precision_valid'] for r in results),'114 failure flag regression missing')
+         require(summary['projected_full_seconds']<=cfg['budget']['full_seconds'],'smoke exceeds full budget')
+-    audit={'status':'passed','native_and_C_RLE_exact':True,'nominal_W_equals_C':True,'pressure_RMS_matched':True,
++    audit={'status':'passed','native_and_C_RLE_exact':True,'nominal_W_equals_C':True,'pressure_RMS_matched':summary['pressure_precision_valid'],'precision_failures_retained':True,
+            'inputs_and_sources_unchanged':True,'source_environment_exact':True,'network_training_steps':0,
+            'base_model_forward_calls':0,'adapter_forward_calls':0,'finite_coefficient_solves':len(results),
+            'G_budget_comparison':'unavailable_not_substituted','solver_numerical_valid':summary['numerical_valid']}
+     write_new(run.path/'CONFIG_AUDIT.json',audit)
+-    next_action='Execute frozen full panel once' if scope=='smoke' else ('Recover the G_budget checkpoint and complete matched reference before any stability-training design' if summary['decision']=='STABILITY_DESIGN_SUPPORTED_REFERENCE_PENDING' else 'Do not train this margin objective; retain measured evidence and restore G_budget final-weight backup for an independent-confirmation design')
++    next_action='Complete the unchanged 256-pair descriptive panel' if scope=='smoke' else 'Review complete effect sizes and numerical failures before selecting any follow-up; no training authorized'
+     run.finish(summary,status='passed' if scope=='smoke' else 'supported' if summary['decision']=='STABILITY_DESIGN_SUPPORTED_REFERENCE_PENDING' else 'not_passed',scientific=summary['decision'],next_action=next_action)
++
+ 
+ 
+ def main():
+     parser=argparse.ArgumentParser();parser.add_argument('--scope',choices=['smoke','full'],required=True);parser.add_argument('--parent-run');args=parser.parse_args()
++    require(not list((NEW_STUDY/'runs').glob('RUN_RSMC_'+args.scope.upper()+'_*')), 'already executed: inspect retained Run')
++    parent=OLD_STUDY/'runs/RUN_RSM_FULL_f02b00986ed14331871c00f9564d6426'
+     if args.scope=='full':
+-        require(args.parent_run and Path(args.parent_run).name==args.parent_run,'smoke id required')
+-        parent=STUDY/'runs'/args.parent_run
++        require(args.parent_run and Path(args.parent_run).name==args.parent_run,'smoke required')
++        parent=NEW_STUDY/'runs'/args.parent_run
+         require(read_json(parent/'run.json')['execution_status']=='completed','smoke incomplete')
+-        require(read_json(parent/'INDEPENDENT_LAPTOP.json')['status']=='passed','smoke verification incomplete')
+-    else:parent=C_SMOKE
+-    require(not list((STUDY/'runs').glob('RUN_RSM_'+args.scope.upper()+'_*')),'Run already exists; explicit engineering retry required')
+-    run=MarginRun(args.scope,parent);study=read_json(STUDY/'study.json')
++        require(read_json(parent/'INDEPENDENT_LAPTOP.json')['status']=='passed','smoke verification')
++    run=CompletionRun(args.scope,parent);study=read_json(NEW_STUDY/'study.json')
+     try:
+         with run:
+             study.update(execution_status='running',active_run_id=run.run_id,current_phase=args.scope,artifact_status='partial')
+-            save(STUDY/'study.json',study);execute(run)
++            save(NEW_STUDY/'study.json',study);execute(run)
+     finally:
+         if (run.path/'run.json').exists():
+             m=read_json(run.path/'run.json');study.update(execution_status=m['execution_status'],scientific_status=m['scientific_status'],active_run_id=None,
+-               latest_run_id=run.run_id,artifact_status=m['artifact_status'],current_phase='full_ready' if args.scope=='smoke' and m['execution_status']=='completed' else 'awaiting_transfer' if m['execution_status']=='completed' else 'engineering_error_retained')
+-            save(STUDY/'study.json',study)
++                latest_run_id=run.run_id,artifact_status=m['artifact_status'],current_phase='full_ready' if args.scope=='smoke' and m['execution_status']=='completed' else 'awaiting_transfer' if m['execution_status']=='completed' else 'error_retained')
++            save(NEW_STUDY/'study.json',study)
+ 
+ 
+ if __name__=='__main__':main()

@@ -1,0 +1,225 @@
+{
+  "reviewed_at_utc": "2026-10-18T03:12:59.187375+00:00",
+  "scope": "read_only_review_of_returned_receipts_no_model_execution_no_training",
+  "study": "STUDY_MASK_BRANCH_JOINT_ADAPTATION_20261018",
+  "data_ready": {
+    "run_id": "RUN_DATA_ENV_VERIFY_9c0c1c8e1491479198bcbcc3ec1a4f76",
+    "status": "completed",
+    "inputs_ready": true,
+    "train_images": 118287,
+    "val_images": 5000,
+    "archive_hashes_and_nonempty_filename_census_passed": true,
+    "packages_match_frozen": true,
+    "annotation_hashes_match_frozen": true,
+    "failed_preparations_retained": [
+      "RUN_DATA_ENV_8394c214fcc14e9cb8a4698e4b2598ee",
+      "RUN_DATA_ENV_PYTHON_RECOVERY_9b71ff58e43f4eda93210e49d1c7d9af",
+      "RUN_DATA_ENV_RECOVERY_10b640b4f66e444ab46ae244a38487ec"
+    ],
+    "failed_range_recovery_scope": "Train ZIP receipt passed CRC/count/Range checks; Run failed only when final aggregator asserted environment in old parent Job97 rather than recovery receipt. Independent verification Job101 subsequently passed."
+  },
+  "prepare": {
+    "run_id": "RUN_JOINT_PREPARE_d3a8938b18be497a910502bcbf3f6b98",
+    "status": "completed",
+    "summary": {
+      "train_images": 20000,
+      "val_images": 5000,
+      "source_batch": 16,
+      "effective_batch": 4,
+      "epochs": 3,
+      "optimizer_steps_per_arm": 15000,
+      "data_contract_sha256": "7a67fcb478f57d2e6520a99d3800acba7ef32ce71379e41d05ae3e97afee3680",
+      "image_orders_sha256": "c8f6db48560743159898584516131aeb874cf87e7835556e6e45b21ab54a2d74"
+    },
+    "actual_train_ids": 20000,
+    "actual_val_ids": 5000,
+    "original_fit_ids": 2000,
+    "original_fit_retained": true,
+    "train_val_disjoint": true,
+    "train_source_batches": 1250,
+    "val_source_batches": 313,
+    "per_image_hashes_complete": true,
+    "planned_steps_not_executed_steps": "SUMMARY.optimizer_steps_per_arm=15000 describes IMAGE_ORDERS plan; run.optimizer_steps=0."
+  },
+  "preflight": {
+    "run_id": "RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7",
+    "status": "completed",
+    "images_identity_and_zero_delta": 16,
+    "output_rows": 2349,
+    "native_zero_delta_RLE_exact": true,
+    "branch_initial_P_c_logits_exact_all_16_images": true,
+    "gradient_supervision_images_per_arm": 4,
+    "source_feature_batch_images": 16,
+    "optimizer_steps": 0,
+    "arms": {
+      "G_budget": {
+        "trainable_parameters": 167872,
+        "trainable_tensors": 17,
+        "gradient_tensor_counts": {
+          "present": 17,
+          "finite": 17,
+          "nonzero": 2
+        },
+        "loss": 0.41273412108421326,
+        "optimizer_steps": 0
+      },
+      "C_native": {
+        "trainable_parameters": 854496,
+        "trainable_tensors": 18,
+        "gradient_tensor_counts": {
+          "present": 18,
+          "finite": 18,
+          "nonzero": 18
+        },
+        "loss": 0.41273412108421326,
+        "optimizer_steps": 0
+      },
+      "PC_native": {
+        "trainable_parameters": 3158016,
+        "trainable_tensors": 32,
+        "gradient_tensor_counts": {
+          "present": 32,
+          "finite": 32,
+          "nonzero": 32
+        },
+        "loss": 0.41273412108421326,
+        "optimizer_steps": 0
+      }
+    },
+    "formal_32_image_smoke_replacement": false,
+    "frozen_base_state_checked_after_each_arm": true,
+    "scope_limit": "First val source batch only; three backward passes without optimizer. Formal worst-rectangle train+val 32-image/2-steps-per-arm smoke has not executed.",
+    "G_zero_nonfinal_gradients": "G output layer initialized to zero; all 17 gradients finite, 2 final readout tensors nonzero at initialization. Not evidence of failed gradient plumbing; later-step coverage untested because formal smoke has not run."
+  },
+  "environment": {
+    "RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7": {
+      "runtime_policy_matches_CONFIG": {
+        "matmul_precision": true,
+        "cuda_matmul_allow_tf32": true,
+        "cudnn_allow_tf32": true,
+        "cudnn_benchmark": true,
+        "cudnn_deterministic": true,
+        "deterministic_algorithms": true,
+        "deterministic_warn_only": true,
+        "cublas_workspace_config": true
+      },
+      "runtime_policy_matches_baseline_profile": {
+        "matmul_precision": true,
+        "cuda_matmul_allow_tf32": true,
+        "cudnn_allow_tf32": true,
+        "cudnn_benchmark": true,
+        "cudnn_deterministic": true,
+        "deterministic_algorithms": true,
+        "deterministic_warn_only": true,
+        "cublas_workspace_config": true
+      },
+      "native_profile_args_all_match": true,
+      "native_profile_arg_count": 26,
+      "native_arg_mismatches": {},
+      "source_hashes_match_frozen_pins": true,
+      "gpu_name": "NVIDIA RTX A6000",
+      "gpu_total_bytes": 51033931776,
+      "python": "3.12.3 (main, Oct 18 2026, 03:38:24) [GCC 12.3.1 (openEuler 12.3.1-62.oe2403sp1)]",
+      "torch": "2.5.1+cu124",
+      "ultralytics": "8.4.100",
+      "cuda_build": "12.4",
+      "package_receipt_omission": "faster-coco-eval absent from this ENVIRONMENT.json packages map, but all nine expected packages checked in environment() and recorded by independent READY.json."
+    },
+    "RUN_JOINT_NATIVE_e284935425c048e9a7f02875bef9916b": {
+      "runtime_policy_matches_CONFIG": {
+        "matmul_precision": true,
+        "cuda_matmul_allow_tf32": true,
+        "cudnn_allow_tf32": true,
+        "cudnn_benchmark": true,
+        "cudnn_deterministic": true,
+        "deterministic_algorithms": true,
+        "deterministic_warn_only": true,
+        "cublas_workspace_config": true
+      },
+      "runtime_policy_matches_baseline_profile": {
+        "matmul_precision": true,
+        "cuda_matmul_allow_tf32": true,
+        "cudnn_allow_tf32": true,
+        "cudnn_benchmark": true,
+        "cudnn_deterministic": true,
+        "deterministic_algorithms": true,
+        "deterministic_warn_only": true,
+        "cublas_workspace_config": true
+      },
+      "native_profile_args_all_match": true,
+      "native_profile_arg_count": 26,
+      "native_arg_mismatches": {},
+      "source_hashes_match_frozen_pins": true,
+      "gpu_name": "NVIDIA RTX A6000",
+      "gpu_total_bytes": 51033931776,
+      "python": "3.12.3 (main, Oct 18 2026, 03:38:24) [GCC 12.3.1 (openEuler 12.3.1-62.oe2403sp1)]",
+      "torch": "2.5.1+cu124",
+      "ultralytics": "8.4.100",
+      "cuda_build": "12.4",
+      "package_receipt_omission": "faster-coco-eval absent from this ENVIRONMENT.json packages map, but all nine expected packages checked in environment() and recorded by independent READY.json."
+    }
+  },
+  "resource_limits": {
+    "preflight_completed_seconds": 11.85468512299849,
+    "gpu_capacity_gib": 47.529052734375,
+    "preflight_completed_under_44GiB_guard": true,
+    "measured_peak_gib": null,
+    "formal_training_runtime_projection_available": false,
+    "detail": "Run.finish calls peak allocated/reserved <=44GiB check, but PREFLIGHT summary does not serialize numeric peak. Formal smoke cost forecast and worst-rectangle resource evidence are not available."
+  },
+  "native_export": {
+    "run_id": "RUN_JOINT_NATIVE_e284935425c048e9a7f02875bef9916b",
+    "execution_status": "failed",
+    "error": "historical native geometry drift: batch_position",
+    "completed_source_batches": 2,
+    "completed_images": 32,
+    "partial_output_rows_each": 4234,
+    "complete_evaluation_input": false,
+    "strict_json_parse": {
+      "G_old_s_predictions.json": {
+        "valid": false,
+        "error": "Expecting ',' delimiter: line 4234 column 274 (char 1317123)",
+        "original_preserved": true
+      },
+      "Ns_predictions.json": {
+        "valid": false,
+        "error": "Expecting ',' delimiter: line 4234 column 274 (char 1316518)",
+        "original_preserved": true
+      }
+    },
+    "AP_available": false,
+    "published_parity_assessed": false,
+    "server_reference_migration_gate": "not_reached",
+    "formal_smoke": "not_run"
+  },
+  "formal_training": {
+    "train_run_ids": [],
+    "smoke_run_ids": [],
+    "all_existing_joint_runs_optimizer_steps_zero": true,
+    "checkpoints": [],
+    "full_metrics": [],
+    "arm_status": {
+      "G_budget": "not_started_no_Run_no_checkpoint_no_result",
+      "C_native": "not_started_no_Run_no_checkpoint_no_result",
+      "PC_native": "not_started_no_Run_no_checkpoint_no_result"
+    }
+  },
+  "configuration_boundary": {
+    "confirmed": "Frozen environment versions, source hashes, weight/input hashes, numeric runtime policy and 26 native args match receipts; input ordering historical batch_position guard failed before reference completion.",
+    "not_confirmed": "Actual formal optimizer settings/state, 15000-step execution, formal smoke resource forecast, complete5000-image reference parity, method AP/damage/identity/bootstrap results are absent because those phases never ran.",
+    "default_namespace_warning": "NATIVE_ARGS carries unrelated framework training defaults (amp=true, optimizer=auto, epochs=100, lr0=.01). NativeBatches actually uses fp16=False and custom branch training uses CONFIG and explicit AdamW. These namespace defaults are not executed training evidence."
+  },
+  "sources": {
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7/SUMMARY.json": "386375ffaeea21af6afc48062920aa8d8385fd4248bc3419e66d762cc1d45388",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7/NATIVE_IDENTITY.json": "a3e73ddd7351d21994d78a59f70494f414d3730a04f49e80e8e099402fdb374a",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7/ENVIRONMENT.json": "85069025351e47b8c096ef0e9bef6f619a493cce7c603b4860b8f557c8cc2a13",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7/run.json": "e44684aaff57109031a8ade1448d48d4816c736cc6b823f1d7dce8d7872ee8cf",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREPARE_d3a8938b18be497a910502bcbf3f6b98/DATA_CONTRACT.json": "7a67fcb478f57d2e6520a99d3800acba7ef32ce71379e41d05ae3e97afee3680",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREPARE_d3a8938b18be497a910502bcbf3f6b98/SUMMARY.json": "c950ecef599fbbfaed2bff60a990ed32b533df1bb3ad0543ea0fe98120146d12",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREPARE_d3a8938b18be497a910502bcbf3f6b98/run.json": "3eb8a63c785feb4d9eb59b43665e48906b33d0e3fb4d757ef14acc1768de90b4",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_NATIVE_e284935425c048e9a7f02875bef9916b/run.json": "718b45f70726943adb05e644eaf78321228316df00156830d33ab2b3f642a188",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_NATIVE_e284935425c048e9a7f02875bef9916b/ERROR.txt": "02058450c2c33ebc023bf15e4d0ce92cd59776a43c74fea563f86e366eb85b3e",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/data_environment_READY.json": "ae211904a782a1a561f974b4e5a77c620753f15ca0c6c4cc888b56c9214bfe34",
+    "experiments/mask_branch_joint_adaptation_20261018/audits/status_20261018/remote_snapshot/study/CONFIG.json": "3386fee552835e1fbdde782cb927ac70dfe4f4416433092358132ba671274437"
+  }
+}

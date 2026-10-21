@@ -1,0 +1,97 @@
+{
+  "run_id": "RUN_DATA_ENV_WHEEL_RECOVERY_de188f6c52d645eda5490c27e4d2cc2c",
+  "retry_of": "RUN_DATA_ENV_PYTHON_RECOVERY_9b71ff58e43f4eda93210e49d1c7d9af",
+  "job_id": "100",
+  "execution_status": "completed",
+  "scientific_status": "not_applicable_data_environment_preparation",
+  "created_at": "2026-10-17T19:50:37Z",
+  "training_steps": 0,
+  "model_forwards": 0,
+  "reason": "Exact official SHA-verified wheels replace prolonged official-index metadata transport; dependencies from Tsinghua mirror",
+  "interrupted_original_index_install_after_exact_wheel_verification": true,
+  "completed_at": "2026-10-17T20:47:46Z",
+  "recovery_used": true,
+  "results": {
+    "train2017.zip": {
+      "source_url": "http://images.cocodataset.org/zips/train2017.zip",
+      "archive": "/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/train2017.zip",
+      "bytes": 19336861798,
+      "sha256": "69a8bb58ea5f8f99d24875f21416de2e9ded3178e903f1f7603e283b9e06d929",
+      "source": "COCO original official host; HTTP because HTTPS endpoint TLS handshake failed",
+      "started_extract": "2026-10-17T20:44:36Z",
+      "status": "passed",
+      "file_count": 118287,
+      "member_crc_verified": true,
+      "completed_at": "2026-10-17T20:47:45Z",
+      "range_transfer": {
+        "streams": 8,
+        "etag": "\"62ff7d7fbcc7e0c0604cbb0f9047ce77-2306\"",
+        "status_206_content_range_etag_all_checked": true,
+        "original_prefix_exact": true
+      }
+    },
+    "val2017.zip": {
+      "source_url": "http://images.cocodataset.org/zips/val2017.zip",
+      "archive": "/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/val2017.zip",
+      "bytes": 815585330,
+      "sha256": "4f7e2ccb2866ec5041993c9cf2a952bbed69647b115d0f74da7ce8f4bef82f05",
+      "source": "COCO original official host; HTTP because HTTPS endpoint TLS handshake failed",
+      "started_extract": "2026-10-17T19:40:18Z",
+      "status": "passed",
+      "file_count": 5000,
+      "member_crc_verified": true,
+      "completed_at": "2026-10-17T19:40:21Z"
+    },
+    "annotations_trainval2017.zip": {
+      "source_url": "http://images.cocodataset.org/annotations/annotations_trainval2017.zip",
+      "archive": "/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/annotations_trainval2017.zip",
+      "bytes": 252907541,
+      "sha256": "113a836d90195ee1f884e704da6304dfaaecff1f023f49b6ca93c4aaae470268",
+      "source": "COCO original official host; HTTP because HTTPS endpoint TLS handshake failed",
+      "started_extract": "2026-10-17T19:30:19Z",
+      "status": "passed",
+      "file_count": 6,
+      "member_crc_verified": true,
+      "completed_at": "2026-10-17T19:30:23Z",
+      "instances": {
+        "train2017": {
+          "path": "/srv/gpu-lab/users/a25023104/datasets/coco2017/annotations/instances_train2017.json",
+          "sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+          "images": 118287,
+          "annotations": 860001,
+          "categories": 80
+        },
+        "val2017": {
+          "path": "/srv/gpu-lab/users/a25023104/datasets/coco2017/annotations/instances_val2017.json",
+          "sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+          "images": 5000,
+          "annotations": 36781,
+          "categories": 80
+        }
+      }
+    },
+    "environment": {
+      "status": "passed",
+      "versions": {
+        "ultralytics": "8.4.100",
+        "torch": "2.5.1+cu124",
+        "torchvision": "0.20.1+cu124",
+        "numpy": "2.4.3",
+        "pycocotools": "2.0.11",
+        "faster-coco-eval": "1.8.0",
+        "opencv-python": "4.13.0.92",
+        "Pillow": "11.1.0",
+        "PyYAML": "6.0.2",
+        "python": "3.12.3 (main, Oct 18 2026, 03:38:24) [GCC 12.3.1 (openEuler 12.3.1-62.oe2403sp1)]",
+        "cuda_build": "12.4"
+      }
+    }
+  },
+  "component_receipts": {
+    "train2017.zip": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_RECOVERY_10b640b4f66e444ab46ae244a38487ec/train2017.zip.json",
+    "val2017.zip": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_8394c214fcc14e9cb8a4698e4b2598ee/val2017.zip.json",
+    "annotations_trainval2017.zip": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_8394c214fcc14e9cb8a4698e4b2598ee/annotations_trainval2017.zip.json",
+    "environment": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_WHEEL_RECOVERY_de188f6c52d645eda5490c27e4d2cc2c/ENVIRONMENT.json"
+  },
+  "all_required_inputs_ready": true
+}

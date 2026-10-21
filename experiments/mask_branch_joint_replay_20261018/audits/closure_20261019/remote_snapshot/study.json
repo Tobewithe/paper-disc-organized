@@ -1,0 +1,59 @@
+{
+  "study_id": "STUDY_MASK_BRANCH_JOINT_REPLAY_20261018",
+  "parent_study": "STUDY_MASK_BRANCH_JOINT_ADAPTATION_20261018",
+  "research_line": "neighbor_sensitive_p3",
+  "display_name": "原生掩码分支联合适配：历史批次重放恢复",
+  "protocol": "PROTOCOL.md",
+  "engineering_recovery": "ENGINEERING_RECOVERY.md",
+  "plan_status": "frozen_authorized_engineering_recovery",
+  "execution_status": "completed_evidence_audit_passed",
+  "scientific_status": "primary_joint_configuration_does_not_pass_frozen_investment_gate",
+  "artifact_status": "v2_frozen_438_files",
+  "transfer_status": "20_launch_receipts_sha_verified",
+  "actual_formal_training_steps_verified": 45000,
+  "planned_training_arms": [
+    "G_budget",
+    "C_native",
+    "PC_native"
+  ],
+  "planned_steps_per_arm": 15000,
+  "planned_total_steps": 45000,
+  "no_automation_or_goal": true,
+  "slurm_jobs": {
+    "gate": 108,
+    "G_budget": 109,
+    "C_native": 110,
+    "PC_native": 111,
+    "evaluation": 112,
+    "closure": 113
+  },
+  "runs": [
+    {
+      "stage": "PREPARE",
+      "run_id": "RUN_JOINT_PREPARE_56fa3ba7fe974a9ab6df42599788ef75"
+    },
+    {
+      "stage": "NATIVE",
+      "run_id": "RUN_JOINT_NATIVE_299731c6c64d4cc0acf3b0915401e1e6"
+    },
+    {
+      "stage": "SMOKE",
+      "run_id": "RUN_JOINT_SMOKE_8c70c8df51504bdabbc3813a7ac7af9d"
+    },
+    {
+      "stage": "TRAIN_G_budget",
+      "run_id": "RUN_JOINT_TRAIN_G_budget_73cca72b692e4097a974426de2a5b226",
+      "status": "running",
+      "verified_steps": 1625
+    }
+  ],
+  "last_verified_utc": "2026-10-18T08:22:12.854174+00:00",
+  "server_references": {
+    "native_box_AP": 52.34795017624022,
+    "native_mask_AP": 44.01383582200932,
+    "G_old_mask_AP": 44.15239321081922,
+    "G_old_gain_AP": 0.13855738880990032,
+    "native_success_gt": 22958
+  },
+  "closure": "closure/results/REPORT.md"
+}

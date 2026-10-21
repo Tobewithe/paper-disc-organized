@@ -1,0 +1,21 @@
+2026-10-17T19:35:56Z python-source-download ['curl', '--fail', '--location', '--retry', '3', '--connect-timeout', '20', '--max-time', '300', '--output', '/srv/gpu-lab/users/a25023104/.cache/python3123-source-build/Python-3.12.3.tgz', 'https://mirrors.huaweicloud.com/python/3.12.3/Python-3.12.3.tgz']
+2026-10-17T19:36:46Z python-configure ['./configure', '--prefix=/srv/gpu-lab/users/a25023104/.cache/python3123-source-runtime', '--with-ensurepip=no']
+2026-10-17T19:37:03Z python-build ['make', '-j4']
+2026-10-17T19:38:33Z python-install-private ['make', 'install']
+2026-10-17T19:38:48Z source-python-check ['/srv/gpu-lab/users/a25023104/.cache/python3123-source-runtime/bin/python3.12', '-c', 'import sys,ssl,zlib,bz2,lzma,ctypes,multiprocessing,hashlib,json; assert sys.version_info[:3]==(3,12,3); print(json.dumps({"python":sys.version,"openssl":ssl.OPENSSL_VERSION,"required_standard_library_imports":"passed"}))']
+2026-10-17T19:38:48Z venv-create ['uv', 'venv', '--python', '/srv/gpu-lab/users/a25023104/.cache/python3123-source-runtime/bin/python3.12', '/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv']
+2026-10-17T19:38:48Z torch-install ['uv', 'pip', 'install', '--python', '/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv/bin/python', '--index-url', 'https://download.pytorch.org/whl/cu124', 'torch==2.5.1+cu124', 'torchvision==0.20.1+cu124']
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/data_environment_python_recovery.py", line 113, in <module>
+    main()
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/data_environment_python_recovery.py", line 71, in main
+    runtime = base.prepare_environment()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 55, in prepare_environment
+    command(['uv', 'pip', 'install', '--python', py, '--index-url', 'https://download.pytorch.org/whl/cu124', 'torch==2.5.1+cu124', 'torchvision==0.20.1+cu124'], 'torch-install')
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/data_environment_python_recovery.py", line 69, in command
+    return original_command(args, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 49, in command
+    raise RuntimeError(f'{name} exited {result.returncode}; see {RUN / (name + ".log")}')
+RuntimeError: torch-install exited -15; see /srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_PYTHON_RECOVERY_9b71ff58e43f4eda93210e49d1c7d9af/torch-install.log

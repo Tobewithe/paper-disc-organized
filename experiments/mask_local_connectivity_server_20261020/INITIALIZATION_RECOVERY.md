@@ -1,0 +1,9 @@
+# 迁移初始化工程修订（正式训练前）
+
+Slurm151在包版本检查退出，真实优化0步；Slurm152四臂smoke各4步通过同服务器原生重放/梯度/四卡相同初始化，但随后CPU逐张量复核发现：Linux同seed0初始化仅feature.0及零输出头相同，其余13/17个张量与笔记本原initial.pt不相同。具体平台随机初始化差异原因尚未归因；不能宣称同seed即跨平台同张量。
+
+此修订不改变科学设计。正式训练和新smoke的四臂均严格载入原笔记本A/initial.pt中的零步state_dict；原四臂初始state_dict已经证实相同。原文件SHA为a561c529b2dbf168da9dd6378de44ea69eab388198070fe272b7fc7c9a3c2b4a，必须optimizer_steps=0、completed_epochs=0、parent CONFIG SHA匹配。仅载入初始模型张量；新建AdamW，优化器状态为空。模型/loss/数据/梯度/参数量/精度不变，加载由服务器执行包装器完成，原科学模块保持逐字节相同。
+
+152与其16步smoke权重/Run完整保留并丢弃，不作正式起点。追加本次相同4步/臂smoke后，服务器真实数据smoke累计32步；笔记本smoke另16步；合成工程优化单列。原失败2165步与服务器新正式60000步记账不变，累计正式尝试上限62165步。新的SERVER_FREEZE_MANIFEST及四臂smoke Gate必须对应同一修订，旧通过Gate不用于放行。
+
+该文是MIGRATION_PROTOCOL第2/5节的执行补充：原“全新相同初始化”具体实施为原零步张量精确复制；不载入任何已训练张量、不追加正式学习预算、不重新选择初始化。首次正式提交前必须核对真实initial.pt与该参考逐张量一致。

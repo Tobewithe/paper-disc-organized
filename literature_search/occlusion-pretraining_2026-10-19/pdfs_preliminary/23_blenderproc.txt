@@ -1,0 +1,501 @@
+
+
+PAGE 1
+BlenderProc
+https://github.com/DLR-RM/BlenderProc
+Maximilian Denninger1, Martin Sundermeyer1,
+Dominik Winkelbauer1, Youssef Zidan1, Dmitry Oleﬁr1,
+Mohamad Elbadrawy1, Ahsan Lodhi1, and Harinandan Katam1
+1German Aerospace Center (DLR)
+Fig. 3: The BlenderProc can generate color, normal and depth images and also class segmentation and
+instance segmentation masks, which can be used for the training of convolutional neural networks.
+Abstract—BlenderProc is a modular procedural
+pipeline, which helps in generating real looking
+images for the training of convolutional neural
+networks. These can be used in a variety of use
+cases including segmentation, depth, normal and
+pose estimation and many others. A key feature
+of our extension of blender is the simple to use
+modular pipeline, which was designed to be easily
+extendable. By oﬀering standard modules, which
+cover a variety of scenarios, we provide a starting
+point on which new modules can be created.
+I. Introduction
+In the past years the demand for high quality
+images, which can be used for training has risen
+drastically. In order to generate these images in
+certain domains like pose estimation or instance
+arXiv:1911.01911v1  [cs.CV]  25 Oct 2019
+
+PAGE 2
+segmentation, a horde of students has to be used
+to single-handedly mask and label all the images.
+This is expensive and time consuming, to avoid
+this we created BlenderProc.
+BlenderProc is a modular procedural pipeline,
+which can generate real looking images of scenes,
+which provide perfect segmentation masks, depth
+or normal images. For that we use the open source
+project Blender [1], which provides a nice and
+clean python API, on which our pipeline was
+built.
+This enables us to generate perfect training
+data even in scenarios where this might be chal-
+lenging. We use BlenderProc so far with the
+SUNCG dataset [2], all objects used in the bob
+challenge [3] and we enable normals and depth
+reconstruction in the replica dataset [4].
+Of course we are deeply interested in increasing
+the replacement of standard OpenGL Renderer
+in as many datasets possible. That’s why we
+make the source code open source and we will
+keep contributing to it and are hoping of the
+contributions of others.
+A main objective in the design of our pipeline is
+keeping it easy to use, simple to extend and clear
+to read. We provide an in-depth documentation
+to all functions and modules, which include their
+usage and the possible settings values to conﬁgure
+each module to the problem at hand. Integrating
+new modules, including renderer for normal or
+depth images, can be done by just adding the
+name of the corresponding module to the settings
+ﬁle.
+In comparison to an OpenGL implementation
+speed was not our main objective, as we see
+data as something, which is less often changed
+as an architecture. So spending one or two days
+on generating the necessary amount of data, is
+an acceptable time demand for us. Of course,
+this makes it hard to use in scenarios, where
+videos or reinforcement learning loops are used.
+Nonetheless, we are committed to improve the
+speed of the data generation.
+II. Related work
+In various computer vision tasks the use of
+synthetic images for benchmarking and training
+of convolutional neural networks is widely done.
+Most approaches train on images generated
+with OpenGL pipelines based on simple raster-
+ization techniques. Su et al. [5] estimated the
+viewpointbygeneratingimagesof3Dobjectmod-
+els. Hinterstoisser et al. [6] synthesized images for
+object instance segmentation and Dosovitskiy et
+al. [7] for optical ﬂow estimation. Sundermeyer et
+al. [8] computed images for 6D pose estimation,
+where they randomized the parameters to gener-
+ate objects and pasted those in front of random
+selected real photographs.
+All of those approaches are easy to implement
+however, the resulting images are not realistic.
+The shading of the objects is not consistent and
+similar to the real world, which plays an im-
+portant role if several objects are in close prox-
+imity to each other. These missing interactions
+between each other are completely neglected in
+such pipelines, where the main asset is speed. Fur-
+thermore, sampling in these environments hap-
+pens usually randomly that not even physical
+constraints are applied, which makes the scenes
+even more unrealistic. In particular in the in-
+stances were photos are copied in front of real
+images the shading is complete inconsistent. For
+example Movshovitz-Attias et al. [9] showed the
+beneﬁt when using photo realistic images of 3D
+car models placed within real looking 3D scene
+models over naive rendering methods.
+Li and Snavely [10] train models for intrin-
+sic image decomposition with Physically based
+rendering (PBR) images. Zhang et al. [11] use
+these images for semantic segmentation, normal
+estimation and boundary detection, but where
+they use Mitsuba [12], we use blender-integrated
+cycles and get nicer looking images in less time.
+Other ways of creating PBR images haven been
+also proposed [13]–[15]. Hodañ et al. [16] also
+presented a nearly perfect PBR simulation in his
+work about object instance detection. However,
+they are not using a open source backend, which
+means even when they release their source code,
+people would have to buy the required license of
+Autodesk Maya.
+As just proven we are not the ﬁrst to do
+PBR, but our main objective is a diﬀerent one in
+contrast to prior work. Our main goal is designing
+a pipeline, which can be used by any one in
+
+PAGE 3
+Computer Vision ﬁeld to generate the data they
+need by providing a good starting point and even
+complete solutions for a lot of datasets. By pro-
+viding a good starting point and even complete
+solutions for a lot of datasets.
+III. Modules
+As mentioned earlier our pipeline consists of
+several modules, which can be easily conﬁgured
+over a conﬁg ﬁle, which is explained more in depth
+in section IV. These modules can change, for ex-
+ample, the world state in blender by loading new
+objects or sampling new camera positions. Not
+all modules do that though, some, like the color
+renderer (see section VI-A), only run through all
+key points of the cameras and render the given
+scene. Each pipeline run includes the deﬁnition
+of the camera positions. These positions are saved
+as key points for a camera object. A key point is
+the location and rotation of a certain object at
+a certain time in the animation run, which we
+use to render several images per scene. Each key
+point then generates a corresponding image. After
+the loading of the camera positions the scene is
+loaded (see section V), this includes some objects
+and light sources. The ﬁnal step is the desired ren-
+dering, the color renderer and the depth renderer
+might be executed after each other. The ﬁnal
+result will be collected and stored in an hdf5 ﬁle
+[17]. The keys of it can be speciﬁed in the conﬁg
+ﬁle. This process enables it to easily generate
+images, where the labels and all corresponding
+data is stored in the same ﬁle, which is also
+compressed.
+IV. Config
+As general conﬁguration we use YAML ﬁles,
+which we parse for certain speciﬁc keys, we intro-
+duce in this chapter.
+Each conﬁg ﬁle contains three parts, the ﬁrst
+is the setup:
+" setup " : {
+" b l e n d e r _ i n s t a l l _ p a t h " : "/ PATH " ,
+" b l e n d e r _ v e r s i o n " : " blender -2.80" ,
+" pip " : [
+" h5py " ,
+" imageio "
+]
+}
+It contains the blender install path, where
+blender will be installed, if you don’t have it
+already. We advise installing blender again for
+the tests to avoid that the installation of new
+packages in the blender python distribution will
+cause any problems for other simulations you
+might run. The key "pip" stores all packages,
+which will be additionally installed in the blender
+python distribution, here you can add the pack-
+ages, you need for your own modules. Important
+to note is that blender comes with its own python
+distribution, which is independent of your system
+wide installation.
+However, the run.py script will be executed
+by your own python distribution and has some
+requirements, which will be checked when it is
+ﬁrst executed.
+The second part named "global" describes set-
+tings, which are available in all modules. In con-
+trast to that are all the settings, which are spec-
+iﬁed in the "modules", those are only accessible
+in the corresponding module. The "output_dir"
+is set here to "<args:0>", this means, the run.py
+takes additional parameters, which then get feed
+into these values. Here "<args:0>" stands for the
+ﬁrst value after the conﬁg ﬁle path. This makes
+it easy to pass values from the command line to
+the relevant module.
+" global " : {
+" all " : {
+" o u t p u t _ d i r " : " < args : 0 >"
+}
+}
+The last part are the "modules", where the
+order in the conﬁg determines the execution or-
+der. Each module has a name, which corresponds
+to the name of the module folder and the class
+name, the pipeline will load the corresponding
+class dynamically. This class has to be derived
+from our module base class and will execute the
+code inside of it, the corresponding settings here
+will be passed to it.
+" modules " : [
+{
+" name " : " main . I n i t i a l i z e r "
+} ,
+{
+" name " : " loader . O bj Lo ad er " ,
+" config " : { " path " : " < args : 1 >" }
+}
+]
+
+PAGE 4
+In this example the "main.Initializer" sets up
+the blender environment at ﬁrst and afterwards
+the "loader.ObjLoader" is run. This module can
+load a single .obj ﬁle into the scene.
+Each module has at the top of its class deﬁni-
+tion an explanation of all the conﬁg parameters,
+which can be set for this module.
+V. Loader
+The loader modules load all kinds of 3D meshes
+into the scene and furthermore all other objects
+like lamps and cameras. The basic loader as
+shown in the last section can just load one .obj
+ﬁle. We also provide a loader for the suncg-scenes
+renders, which were shown in ﬁgure 3. This loader
+loads all the .obj ﬁles and the corresponding
+textures and categories, which we later use in
+the segmentation renderer (see section VI-D).
+Additionally it loads all camera poses, to do that
+we generate a generic camera loader, where you
+can specify the structure of your camera positions
+ﬁles, which will then be loaded into blender. If
+you want to load more than a few objects and
+want to do a semantic segmentation, you will
+most likely have to write your own loader. This
+generic camera loader style can also be used to
+load lights.
+VI. Renderer
+A renderer in this work is anything that pro-
+duces an image like output of a given scene. It is
+tightly coupled to the camera key points, which
+positions are deﬁned in the loader. The standard
+one is the color renderer, which generates an rgb
+image for each camera pose of the given scene.
+Each renderer has several options, a few are
+explained here:
+• "resolution_x, resolution_y": The resolution
+of the images to render
+• "samples": The amount of samples used to
+renderascene,moresamplesreducethenoise
+• "render_depth": Renders the depth of the
+current image (see section VI-B)
+• "stereo": Enables the rendering of stereo im-
+ages
+Fig. 4: Rendered color image of a suncg scene [2]
+A. Color renderer
+The color renderer produces realistic looking
+images of a given scene, as depicted in ﬁgure 4.
+This image was generated based on the data from
+the suncg dataset [2]. In order to get enough light
+in these scenes, we made the ceiling emit light,
+because not all rooms in this dataset contained
+lamps and the placement of them did not lead to
+a suﬃcient and realistic illumination.
+The color renderer has additional options, some
+are explained here:
+• "min_bounces, max_bounces": Restricts the
+number of bounces each ray can do; the
+higher, the better the quality of the results,
+but the lower the rendering speed
+• "glossy_bounces": Maximum number of
+glossy reﬂection bounces, has to be bigger
+than zero, such that glossy eﬀects are visible
+B. Depth renderer
+This renderer generates depth images based on
+the internal depth estimation of blender. This
+might mean that the results do not have a perfect
+precision based on the fact that the Z-Buﬀer is
+used to generate the results. So far we did not
+evaluate the precision of this. Furthermore, it
+is to note that the depth renderer can only be
+used with a diﬀerent renderer in combination,
+because the depth rendering is a byproduct of an-
+other renderer. The settings ﬂag "render_depth"
+should than be set to true. Furthermore, the key
+"depth_output_key" can be changed to set the
+key in the .hdf5 ﬁle.
+
+PAGE 5
+Fig. 5: Depth image of a suncg scene [2]
+In the case that not the whole image is covered
+by objects all empty pixel will be set to inﬁnity.
+C. Normal renderer
+Fig. 6: Normal image of a suncg scene [2]
+Many deep learning tasks greatly improve by
+introducing normals as an input to the training
+problem. One of those problem is for example
+depth estimation. The normals are normalized
+and presented as XYZ values.
+D. Segmentation renderer
+For the segmentation to work each object needs
+a category id, in the suncg loader they are already
+set correctly. For your own loader, you would have
+to do this manually, by adding the attribute "cat-
+egory_id" to all objects. This attribute contains
+the number of the class in your the dataset.
+The output is saved as an one dimensional 2D
+image, where the classes are stored as values from
+0 to the number of classes speciﬁed. It is also
+Fig. 7: Segmentation mask of a suncg scene [2]
+possible to create instance segmentation masks,
+where not only the indices are saved but also a
+dictionary, which maps the indices to a class and
+an instances number. Both of them are stored in
+the .hdf5 ﬁle, which makes the usage easier.
+To switch between semantic and instance seg-
+mentation the following setting is available:
+• "map_by": If set to "class", then semantic
+segmentation based on the "category_id" is
+done. If set to "instance", then instance seg-
+mentation is performed
+VII. Sampler
+BlenderProc contains several samplers, for
+lights, cameras and objects in general. All of those
+can be speciﬁed over the settings, this process was
+designed to be as simple as possible. We already
+provide a variety of samplers to choose from. We
+have basic samplers like sampling in a bounding
+box or a sphere and more complex ones where you
+can sample on the shell of a sphere or collision free
+in a bounding box.
+Here are two examples of how to easily use
+samplers when generating light sources or camera
+locations.
+" location " : {
+" name " : " U n i f o r m 3 d S a m p l e r " ,
+" p a r a m e t e r s " : {
+" min " : [ 0 , 0 , 0 ] ,
+" max " : [ 1 , 1 , 1 ]
+}
+}
+Furthermore, each sampler can perform prox-
+imity checks. This means that for example a
+
+PAGE 6
+" location " : {
+" name " : " S p h e r e S a m p l e r " ,
+" p a r a m e t e r s " : {
+" center " : [ 0 , 0 , 1 ] ,
+" radius " : 4 ,
+" mode " : " SURFACE "
+}
+}
+camera might be sampled and then checked if the
+position is at least a meter away from a any object
+and also that the mean distance of objects in the
+scene is in a certain range. Those options can be
+arbitrarily logically combined, which makes creat-
+ing the perfect conditions easy. In this example it
+is required that a camera is at least one unit away
+from any object in its view and that the average
+distance over its values is between one and four
+unit. Only then is the pose used.
+" p r o x i m i t y _ c h e c k s " : {
+" min " : 1.0 ,
+" avg " : {
+" min " : 1.0 ,
+" max " : 4.0
+}
+}
+VIII. Generation Time
+The generation is done oﬄine in a batch fash-
+ion, if the camera poses are already sampled then
+only the speciﬁc renderers are called per scene
+and in the end all the ﬁles per camera pose are
+combined to an .hdf5 ﬁle. For the suncg ﬁles we
+could generate around 3.000 images per hour on
+a single gpu. However, these are rather complex
+scenes and in the most scenarios the rendering
+should even be faster than this. Nonetheless,
+was speed no major concern for us, as we think
+generating is usually not a repeating process. So
+spending a weekend on it and then having 180.000
+images is usually enough for most training tasks.
+In general the generation of anything except the
+color is quite fast, because only for those cases
+multi-sampling is necessary.
+Currently, the generation time is mostly slowed
+by rebuilding a spatial tree of the scene for every
+frame, this is currently a missing feature, where
+we are already in contact with the blender foun-
+dation if we can get support for this.
+IX. Examples
+This chapters contain more examples images
+from the BlenderProc. In ﬁgure 8 ten scenes
+are shown with the corresponding color, normal,
+depth and segmentation images. Each set would
+be saved in one compressed .hdf5 container ﬁle.
+X. Future Work
+As this project is still under heavy develop-
+ment, we still have major updates planned.
+• Physics integration, where objects should get
+a gravity attribute to make them fall into a
+container
+• Object swapper, which will randomly swap
+objects from the same category
+• More samplers, we already oﬀer some basic
+samplers for lights and cameras, but we want
+to extend to this to a variety of samplers
+• Decreasing render speed, by avoiding recal-
+culation of the scene
+References
+[1] B. O. Community, Blender - a 3D modelling and
+rendering package, Blender Foundation, Stichting Blender
+Foundation, Amsterdam, 2019. [Online]. Available: http:
+//www.blender.org
+[2] S. Song, F. Yu, A. Zeng, A. X. Chang, M. Savva, and
+T. Funkhouser, “Semantic scene completion from a single
+depth image.”
+[3] T. Hodaň, F. Michel, E. Brachmann, W. Kehl,
+A. Glent Buch, D. Kraft, B. Drost, J. Vidal, S. Ihrke,
+X. Zabulis, C. Sahin, F. Manhardt, F. Tombari, T.-K.
+Kim, J. Matas, and C. Rother, “BOP: Benchmark for
+6D object pose estimation,” European Conference on
+Computer Vision (ECCV) , 2018.
+[4] J. Straub, T. Whelan, L. Ma, Y. Chen, E. Wijmans,
+S. Green, J. J. Engel, R. Mur-Artal, C. Ren, S. Verma
+et al. , “The replica dataset: A digital replica of indoor
+spaces,” arXiv preprint arXiv:1906.05797, 2019.
+[5] H. Su, C. R. Qi, Y. Li, and L. Guibas, “Render for cnn:
+Viewpoint estimation in images using cnns trained with
+rendered 3d model views.”
+[6] S. Hinterstoisser, V. Lepetit, P. Wohlhart, and K. Kono-
+lige, “On pre-trained image features and synthetic images
+for deep learning,” inProceedings of the European Confer-
+ence on Computer Vision (ECCV) , 2018, pp. 0–0.
+[7] A. Dosovitskiy, P. Fischer, E. Ilg, P. Hausser, C. Hazirbas,
+V. Golkov, P. Van Der Smagt, D. Cremers, and T. Brox,
+“Flownet: Learning optical ﬂow with convolutional net-
+works,” in Proceedings of the IEEE international confer-
+ence on computer vision , 2015, pp. 2758–2766.
+[8] M. Sundermeyer, Z.-C. Marton, M. Durner, M. Brucker,
+and R. Triebel, “Implicit 3d orientation learning for 6d
+object detection from rgb images.”
+
+PAGE 7
+Fig. 8: A variety of example images from Blender-
+Proc on the SUNCG dataset [2]
+[9] Y. Movshovitz-Attias, T. Kanade, and Y. Sheikh, “How
+useful is photo-realistic rendering for visual learning?” in
+European Conference on Computer Vision . Springer,
+2016, pp. 202–217.
+[10] Z. Li and N. Snavely, “Cgintrinsics: Better intrinsic im-
+age decomposition through physically-based rendering,”
+in Proceedings of the European Conference on Computer
+Vision (ECCV), 2018, pp. 371–387.
+[11] Y. Zhang, S. Song, E. Yumer, M. Savva, J.-Y. Lee,
+H. Jin, and T. Funkhouser, “Physically-based rendering
+for indoor scene understanding using convolutional neural
+networks,” in Proceedings of the IEEE Conference on
+Computer Vision and Pattern Recognition,2017,pp.5287–
+5295.
+[12] W. Jakob, “Mitsuba renderer,” 2010. [Online]. Available:
+http://www.mitsuba-renderer.org
+[13] E. Wood, T. Baltrusaitis, X. Zhang, Y. Sugano, P. Robin-
+son, and A. Bulling, “Rendering of eyes for eye-shape
+registration and gaze estimation,” in Proceedings of the
+ICCV, 2015, pp. 3756–3764.
+[14] E. Wood, T. Baltrušaitis, L.-P. Morency, P. Robinson, and
+A. Bulling, “Learning an appearance-based gaze estimator
+from one million synthesised images,” in Proceedings of
+the Ninth Biennial ACM Symposium on Eye Tracking
+Research & Applications. ACM, 2016, pp. 131–138.
+[15] A. Shrivastava, T. Pﬁster, O. Tuzel, J. Susskind,
+W. Wang, and R. Webb, “Learning from simulated and
+unsupervised images through adversarial training,” in
+Proceedings of the IEEE conference on computer vision
+and pattern recognition, 2017, pp. 2107–2116.
+[16] T. Hodan, V. Vineet, R. Gal, E. Shalev, J. Hanzelka,
+T. Connell, P. Urbina, S. N. Sinha, and B. Guenter, “Pho-
+torealistic image synthesis for object instance detection,”
+arXiv preprint arXiv:1902.03334, 2019.
+[17] The HDF Group. (1997-2019) Hierarchical Data Format,
+version 5. [Online]. Available: http://www.hdfgroup.org/
+HDF5/

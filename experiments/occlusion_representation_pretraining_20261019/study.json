@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "study_id": "STUDY_OCCLUSION_REPRESENTATION_PRETRAINING_20261019",
+  "line_id": "LINE_01701394050a46a3835bc63fb0d95f86",
+  "line_key": "occlusion_representation_pretraining",
+  "title": "视频遮挡表征预训练",
+  "created_on": "2026-10-19",
+  "plan_status": "frozen",
+  "execution_status": "running",
+  "scientific_status": "pipeline_validated_method_utility_unmeasured",
+  "artifact_status": "E0_validated_implementation_and_four_arm_jobs_submitted",
+  "transfer_status": "lightweight_receipt_verified_assets_persist_on_server",
+  "entrypoint": "../../paper/manuscripts/occlusion_representation_pretraining/README.md",
+  "canonical_route": "../../project/ACTIVE_PLAN.md",
+  "protocol": "EXECUTION_E1_V02.md",
+  "protocol_frozen": true,
+  "data_contract": "DATA_CONTRACT_VIDEO_V02_DRAFT.md",
+  "source_evidence": "SOURCE_EVIDENCE_VIDEO_V02.json",
+  "current_stage": "pilot_data_generation",
+  "hypothesis": "物理干预下的视频内容保持与可见证据响应监督，相比同预算普通视频训练改善跨遮挡对应及冻结表征迁移",
+  "authorization": {
+    "request": "就按这个方向继续，在服务器上先把最小视频事件包、自动标签和模型损失接口做出来，核验通过后跑四组对照，重点验证遮挡后恢复和错误补接有没有实际改善，不要只停在方案。",
+    "scope": "server_implementation_E0_validation_then_four_arm_bounded_pilot",
+    "date": "2026-10-20",
+    "new_training_launched_by_this_request": false,
+    "engineering_training_executed": true,
+    "formal_training_job_submitted": true
+  },
+  "scope_transition": {
+    "predecessor_line_key": "dense_video_identity",
+    "relationship": "new_independent_core_method_line_with_tracking_as_downstream_application",
+    "superseded_by": "paper/manuscripts/occlusion_representation_pretraining/README.md",
+    "supersedes_scope": "毕业论文后续核心研究定位，以及旧模型方案和文献建议中未执行的 SAM 优先、先状态分类再叠加任务损失安排",
+    "supersedes_draft_sources": [
+      "paper/毕业论文模型方案_密集视频身份保持与遮挡恢复_20261018.md",
+      "literature_search/occlusion-pretraining_2026-10-19/summary.md"
+    ],
+    "frozen_predecessor_runs_and_protocols_changed": false
+  },
+  "candidate_backbone": "frozen official DINOv2 ViT-S/14; weight SHA in server_execution/BACKBONE_DOWNLOAD.json",
+  "loss_terms": [
+    "visible_correspondence_and_no_visible_correspondence",
+    "point_and_instance_visibility_evidence",
+    "conditional_counterfactual_content_correspondence",
+    "detached_input_matching_confidence_calibration"
+  ],
+  "planned_transfer_tasks": [
+    "real_video_point_correspondence",
+    "instance_candidate_association_and_identity_recovery"
+  ],
+  "optional_later_tasks": [
+    "YOLO_distillation_or_joint_finetuning",
+    "SAM_frontend_transfer",
+    "static_detection_segmentation_transfer",
+    "long_horizon_or_cross_renderer_generalization"
+  ],
+  "formal_budget": {
+    "arms": [
+      "B",
+      "P",
+      "I",
+      "Hpos"
+    ],
+    "steps_per_arm": 2000,
+    "total_updates": 8000,
+    "seeds": [
+      0
+    ],
+    "scene_families_train_validation_test": [
+      160,
+      40,
+      80
+    ],
+    "rgb_frames": 40320
+  },
+  "executor": "a25023104@192.168.71.10",
+  "jobs": [
+    {
+      "stage": "final_audit",
+      "job_id": "159",
+      "dependency": "158",
+      "script": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02/final_audit.sbatch",
+      "script_sha256": "616a27c6adf1f6639f64ca5b56ea4544dc8d6618c17877cc87f0bfe085432b3a",
+      "time_limit": "00:30:00"
+    },
+    {
+      "stage": "pilot_prepare",
+      "job_id": "160",
+      "dependency": "159",
+      "script": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02/pilot_prepare.sbatch",
+      "script_sha256": "b629f28717d1be076d1fd979df8e5239bc7fa5a2caf43646498daf2c9fb1f211",
+      "time_limit": "24:00:00"
+    },
+    {
+      "stage": "four_arm",
+      "job_id": "161",
+      "dependency": "160",
+      "script": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02/four_arm.sbatch",
+      "script_sha256": "77b8ed7a42069e64d1c25ff55b020b7e215d2c7915860e6cf2e47038041108ad",
+      "time_limit": "12:00:00"
+    }
+  ],
+  "runs": [
+    "RUN_VOR_FEATURES_ENGINEERING_FIRST_191fb09d65a1",
+    "RUN_VOR_FINAL_AUDIT_70700ad7fcfe",
+    "RUN_VOR_RENDER_ENGINEERING_ENGINEERING_0000_0b1e6d2ccef3",
+    "RUN_VOR_RENDER_ENGINEERING_ENGINEERING_0000_44ea641b70e0",
+    "RUN_VOR_RENDER_ENGINEERING_ENGINEERING_0001_d8d90cc64b91",
+    "RUN_VOR_RENDER_PILOT_TRAIN_0000_565c71df87ac",
+    "RUN_VOR_SMOKE_ENGINEERING_FIRST_6168931e469d",
+    "RUN_VOR_VALIDATE_ENGINEERING_FIRST_2007fcf994e5"
+  ],
+  "training_steps_completed": 0,
+  "pending_execution_freeze": [],
+  "record_paths": [
+    "study.json",
+    "study.v01_20261019.json",
+    "PROTOCOL_VIDEO_V02_DRAFT.md",
+    "DATA_CONTRACT_VIDEO_V02_DRAFT.md",
+    "MODEL_AND_LOSS_VIDEO_V02_DRAFT.md",
+    "EXPERIMENT_MATRIX_VIDEO_V02_DRAFT.md",
+    "SOURCE_EVIDENCE_VIDEO_V02.json",
+    "PROTOCOL_DRAFT.md",
+    "DATA_CONTRACT_DRAFT.md",
+    "SOURCE_EVIDENCE.json",
+    "EXECUTION_E0_V02.md",
+    "EXECUTION_E1_V02.md",
+    "E0_REPORT.md",
+    "HANDOFF.md",
+    "server_execution/TRAIN_FREEZE.json",
+    "server_execution/DELIVERY_RECEIPT.json"
+  ],
+  "updated_on": "2026-10-20",
+  "design_version": "v0.2",
+  "model_and_loss": "MODEL_AND_LOSS_VIDEO_V02_DRAFT.md",
+  "experiment_matrix": "EXPERIMENT_MATRIX_VIDEO_V02_DRAFT.md",
+  "candidate_model": "frozen visual backbone + trainable spatial adapter + causal query temporal module + protected initial anchor + 8-frame observation buffer + recurrent summary memory",
+  "authorization_history": [
+    {
+      "request": "在项目把这个开个主线？",
+      "scope": "register_independent_research_line_and_design_documents",
+      "new_training_launched_by_this_request": false
+    },
+    {
+      "request": "那就把主线改成视频遮挡表征预训练，数据生成、模型和损失函数都围绕视频来设计，兼顾泛化和避免走捷径，先把具体方案和对照实验整理出来。",
+      "scope": "revise_research_route_and_prepare_video_data_model_loss_and_control_designs",
+      "new_training_launched_by_this_request": false
+    }
+  ],
+  "design_revisions": [
+    {
+      "version": "v0.1",
+      "status": "superseded_design_draft",
+      "study_snapshot": "study.v01_20261019.json",
+      "protocol": "PROTOCOL_DRAFT.md",
+      "data_contract": "DATA_CONTRACT_DRAFT.md",
+      "superseded_by": "PROTOCOL_VIDEO_V02_DRAFT.md",
+      "scope": "空间优先、后续视频以及静态分割优先迁移的未执行设计；旧冻结实验不变",
+      "original_protocol_sha256": "845c399a36ff7bec37514e9c410a07390f49be920a645a525104de1d335fd47b",
+      "original_data_contract_sha256": "2cb3d47bb7a6cefb23c4cfbb2fa91cc0729ba1507b3b813f570f5def3426c0bb"
+    }
+  ],
+  "proposed_pilot_budget": {
+    "status": "frozen_and_submitted_waiting_data_dependency",
+    "arms": [
+      "B",
+      "P",
+      "I",
+      "Hpos"
+    ],
+    "steps_per_arm": 2000,
+    "total_updates": 8000,
+    "seed_count": 1,
+    "scene_families_train_val_test": [
+      160,
+      40,
+      80
+    ],
+    "variants_per_family": 3,
+    "frames_per_clip": 48,
+    "rgb_frames_total": 40320,
+    "resource_request_submitted": true
+  },
+  "execution_contract": "EXECUTION_E1_V02.md",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02",
+  "engineering_training_steps_completed": 16,
+  "latest_snapshot_utc": "2026-10-20T07:24:01.240501+00:00",
+  "current_run": "RUN_VOR_RENDER_PILOT_TRAIN_0000_565c71df87ac"
+}

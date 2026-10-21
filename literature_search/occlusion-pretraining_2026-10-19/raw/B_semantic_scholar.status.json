@@ -1,0 +1,15 @@
+{
+  "bucket": "B_semantic_scholar",
+  "completed_at": "2026-10-19",
+  "cutoff_date": "2026-10-19",
+  "status": "partial_rate_limited_primary_source_fallback",
+  "semantic_scholar_api_attempts": [
+    {"endpoint": "https://api.semanticscholar.org/graph/v1/paper/search", "queries": ["amodal video segmentation occlusion synthetic", "object permanence tracking occlusion synthetic data", "occlusion-aware pretraining object detection segmentation", "synthetic video correspondence occlusion tracking"], "status": "HTTP 429 Too Many Requests"},
+    {"endpoint": "https://api.semanticscholar.org/graph/v1/paper/ARXIV:2305.03052", "purpose": "seed citation graph retrieval", "status": "HTTP 429 Too Many Requests"}
+  ],
+  "official_web_search": {"endpoint": "https://www.semanticscholar.org/search", "status": "unavailable to this search environment; no result was treated as a Semantic Scholar hit"},
+  "fallback_method": "Retained only high-relevance records whose metadata and technical claims were checked on primary CVPR/ICCV/arXiv pages. Records reused from bucket A are labeled semantic_scholar_fallback_reuse_arXiv_primary.",
+  "citation_snowball": {"seed": "ARXIV:2305.03052", "status": "not retrieved because the API returned HTTP 429; no citation counts, references, or cited-by relations are claimed."},
+  "records_written": 10,
+  "deduplication": "none; this is a raw source-bucket record set. Some records intentionally overlap A because B could not retrieve a Semantic Scholar graph."
+}

@@ -1,0 +1,1170 @@
+
+
+PAGE 1
+Tuning-Free Amodal Segmentation via
+the Occlusion-Free Bias of Inpainting Models
+Jae Joong Lee, Bedrich Benes, Raymond A. Yeh
+Department of Computer Science, Purdue University
+{lee2161, bbenes, rayyeh }@purdue.edu
+Abstract
+Amodal segmentation aims to predict segmentation masks
+for both the visible and occluded regions of an object. Most
+existing works formulate this as a supervised learning prob-
+lem, requiring manually annotated amodal masks or syn-
+thetic training data. Consequently, their performance de-
+pends on the quality of the datasets, which often lack diver-
+sity and scale. This work introduces a tuning-free approach
+that repurposes pretrained diffusion-based inpainting mod-
+els for amodal segmentation. Our approach is motivated
+by the “occlusion-free bias” of inpainting models, i.e., the
+inpainted objects tend to be complete objects without occlu-
+sions. Specifically, we reconstruct the occluded regions of
+an object via inpainting and then apply segmentation, all
+without additional training or fine-tuning. Experiments on
+five datasets demonstrate the generalizability and robust-
+ness of our approach. On average, our approach achieves
+5.3% more accurate masks over the state-of-the-art.
+1. Introduction
+Amodal segmentation refers to predicting segmentation
+masks even under occlusions [25]. This challenging task
+involves reasoning about the unseen portion of an object
+under complex occlusion and illumination scenarios. It
+is an important problem with potential applications in au-
+tonomous driving and robot planning, which require rea-
+soning beyond what is directly observed to predict possible
+future events in the environment [5, 12, 51].
+Following the success of deep segmentation methods [3,
+21, 30, 41], amodal segmentation is often formulated as a
+supervised learning task, i.e., a dataset of (image, amodal
+mask) pairs is collected to train a model. However, prepar-
+ing a large dataset for amodal segmentation is challenging.
+Annotating amodal masks requires reasoning over occluded
+reason, which may be difficult and inconsistent among hu-
+man annotators. Furthermore, scaling the diversity of the
+dataset is challenging as it requires numerous combinations
+Input Inpainted samples
+Figure 1. Occlusion-free bias for a diffusion inpainting model.
+We observe that an inpainted object is always placed without oc-
+clusions inside the inpainting area (blue box), e.g., a tree could
+have been inpainted behind the fence.
+of occluders and objects.
+Inevitably, several amodal segmentation methods turns
+to synthetically generating occlusions [1, 10, 34, 49] and
+3D game engine rendering [18] to obtain the annotations.
+However, the performance is still limited by (a) the dis-
+tribution gap between the synthetic and real data and (b)
+the size of the dataset. For example, the currently avail-
+able SOTA [34] uses only 800k data pairs for training/fine-
+tuning, which is relatively small compared to the recent
+internet-scale datasets for other tasks [35, 36, 40]. An-
+other work [50] also proposes to use a pre-trained diffusion
+model, but it requires iterative occlusion removal and is con-
+strained to a fixed 83 object categories, which has limited
+generalizability.
+To address these challenges, we present a tuning-free
+approach that utilizes existing foundation models trained
+on internet-scale datasets. Our method does not require
+any amodal data. Hence, the method is naturally zero-
+shot and without restriction to pre-defined object classes.
+Our approach is motivated by the observation that diffu-
+sion inpainting models have an “occlusion-free bias”, i.e.,
+the inpainting model prefers to generate a whole object
+rather than the occluder given a reasonable mask as shown
+in Fig. 1. We propose to perform inpainting over an en-
+larged modal mask, where the diffusion model fills the oc-
+1
+arXiv:2503.18947v1  [cs.CV]  24 Mar 2025
+
+PAGE 2
+cluded regions. With the inpainted occluded regions, we
+extract the modal segmentation as the amodal prediction.
+We demonstrate the effectiveness of our approach on
+five diverse amodal segmentation datasets, namely, COCO-
+A [62], BSDS-A [61], KINS [37], FishBowl [45], and
+SAILVOS [18]. Notably, our tuning-free approach outper-
+forms the current supervised SOTA [34] by an average of
+5.3% in the mIoU.
+Our contributions are as follows:
+• We propose a tuning-free method for amodal segmenta-
+tion (zero-shot) by exploiting the occlusion-free bias of
+diffusion inpainting models.
+• The method involves several novel components, includ-
+ing a context-aware approach to background composition
+using RGB distribution, a noising process image for con-
+ditioning, and a modal mask construction procedure.
+• We demonstrate the generalizability of the proposed
+method by conducting extensive experiments over four
+diffusion inpainting models on five diverse datasets.
+2. Related Work
+Amodal perception and segmentation. Humans can of-
+ten detect and identify an object even if it is (partially) oc-
+cluded [23]. Seminal work by Li and Malik [25] begins
+the line of work of using deep learning for amodal tasks.
+Many architectures and models have been proposed, e.g.,
+CNN [25, 49, 51, 60], Generative Adversarial Networks [8],
+Transformer [11, 46], and Diffusion-based models [34, 59].
+Existing works are evaluated on datasets such as COCO-
+A [62], BSDS-A [61], KINS [37], and MP3D-Amodal [59],
+which consist of common objects from the real world. Other
+synthetic benchmarks are also popular, e.g., SAILVOS [18]
+or FishBowl [45]. These synthetic datasets provide more
+diverse object categories and precise amodal mask annota-
+tions without human errors.
+The current SOTA in amodal segmnetation that involves
+training are pix2gestalt [34] and AmodalWild [59]. We re-
+fer to pix2gestalt as the SOTA as its code is ultimately re-
+leased, whereas AmodalWild did not release the training
+code. pix2gestalt [34], which trains a deep-net to predict the
+occluded pixels following an analysis by synthesis frame-
+work [56]. Specifically, they created a synthetic amodal
+dataset by occluding objects with randomly sampled over-
+lays using another object. Our work does not require any
+amodal datasets, i.e., it is tuning-free.
+Next, the closest related to our work is the tuning-free
+method proposed by Xu et al. [50], where they propose to
+iteratively use an inpainting modal for amodal completion,
+i.e., they are interested in high image quality. Nonetheless,
+as a modal mask can be extracted from the completed im-
+age, we consider it to be an amodal segmentation method.
+The key limitation of Xu et al. [50], upon reviewing their
+code [20], is that the approach leverages class information
+and is limited to only 83 classes his greatly limits the us-
+ability of their approach. In contrast, our method does not
+have class restrictions and does not require multiple calls to
+the inpainting model.
+Image inpainting is the task of filling in missing regions
+of a given image, where the missing region is indicated us-
+ing a mask. Early works in inpainting leverage low-level
+properties of natural images, e.g., smoothness [6, 47] or
+low-rank [13, 19], to tackle this task. In cases where the
+image contains a large missing region, then generative or
+learning-based methods are proposed [14, 24, 26, 28, 53–
+55, 57]. More recently, diffusion models have emerged as
+the state-of-the-art in image generation, naturally, image in-
+painting methods based on diffusion have also been pro-
+posed [4, 29, 31, 40, 42, 44]. This work leverages pre-
+trained diffusion inpainting models for the tasks of zero-
+shot amodal segmentation, i.e., we do not require high im-
+age quality, only accurate object contours.
+Tuning-free methods for diffusion models. A diffusion
+model requires training on a large number of images to
+generate a realistic output. Although pre-trained diffusion
+models exist, fine-tuning is still needed for new tasks. Re-
+cent tuning-free methods leverage pre-trained models for
+performance gains and other tasks without extra training,
+improving Text-to-Image synthesis [7, 58] and video gener-
+ation [15, 38]. Our approach aligns with these works as we
+do not require additional fine-tuning. Differently, this paper
+focuses on using pre-trained inpainting models for the task
+of amodal segmentation, and the method is tuning-free.
+3. Preliminaries
+We review diffusion models [17] and inpainting with diffu-
+sion [31]. Diffusion models add noise to the data (forward
+process) and learn to undo the added noise (reverse process)
+during training. At generation, diffusion models start from
+a purely sampled noise and perform the reverse process.
+Forward diffusion process gradually adds Gaussian noise
+to a clean image, x0, over T timesteps where xt is the noisy
+version of the image at timestep t with αt controlling the
+amount of noise added at each step. The noisy image xt
+can be computed from x0 as follows
+xt = √¯αtx0 +
+√
+1 − ¯αtϵ (1)
+where ¯αt = Qt
+s=1 αs is the cumulative product of the noise
+scaling factors and ϵ ∼ N (0, I) is a Gaussian noise.
+Reverse diffusion process undoes the forward diffusion by
+denoising an image iteratively, starting from a pure noise
+image, xT to the clean image, x0. This is formulated as a
+sequence of conditional probabilities
+pθ(xt−1 | xt) = N (xt−1; µθ(xt, t), σtI) (2)
+following the Gaussian distribution with mean µθ(xt, t),
+and diagonal covariance matrix predicted from a deep-net
+with parameters θ. Intuitively, µθ can be thought of as act-
+2
+
+PAGE 3
+Inputs
+Object
+Image 𝐼𝐼 
+Visible
+Mask 𝑉𝑉
+Condition 
+Image 𝒙𝒙
+Inpainting
+Mask 𝑴𝑴
+Contours
+Sec. 4.1 Leakage Inpainting
+Sec. 4.2 Designing Condition Image
+Sec. 4.3 Designing Inpainting Area
+Amodal 
+Mask �𝑨𝑨
+Inpainted
+Image �𝒙𝒙0
+SAM
+Color 
+Histogram
+Sample
+Add noise 
+& Mask
+⊙
+ +
+× 𝑇𝑇
+Diffusion Model
+Figure 2. Our approach takes two inputs an RGB image I and a visible mask V . From I, we generate a conditioned RGB image with a
+color distribution-aware background xbck and a partial Gaussian noise-added object xobj. From V , we create a customized inpainting area
+M so that we utilize any diffusion-based inpainting models to create an inpainted image ˆx0 to extract amodal mask ˆA.
+ing as an image denoiser that gradually removes noise ac-
+cording to a schedule. Another common choice, introduced
+by DDPM [17], is to use a deep-net to model the residual
+noise ϵθ. This is equivalent to choosing a denoiser
+µ(x, t) ≜ x − σt · ϵθ(x, t) (3)
+Inpainting predicts masked-out regions of a given input im-
+age. Diffusion-based method [31] leverages the generative
+prior of a pre-trained DDPM [17] to do so. This is achieved
+by iteratively removing noise from the linear combination
+of the noisy unmasked regions with the generated mask re-
+gions. More formally, given an input image x and a mask
+M ∈ {0, 1}H×W the generation process to produce an in-
+painted image ˆx0 is as follows:
+˜xt ∼ N (µθ(ˆxt−1, t), σt−1)) (4)
+ˆxt = M ⊙ ˜xt + (1 − M) ⊙ xt (5)
+where xt is the noise added input image following Eq. (1),
+˜xT is assumed to be pure noise, and ⊙ denotes element-
+wise multiplication. Recent foundation diffusion mod-
+els [22, 36, 40] are text-conditioned. The denoiser takes
+in an additional text prompt c to guide the generation, i.e.,
+˜xt(c) ∼ µθ (ˆxt−1, c, t) . (6)
+4. Training-free Amodal Segmentation
+Problem formulation. We consider the amodal segmen-
+tation setup as in Ozguroglu et al. [34]. Given an object’s
+image I and corresponding visible (modal) mask V , the
+task is to predict the object’s amodal mask ˆA that covers
+the whole object, including occluded regions.
+Overview. We propose a tuning-free method for amodal
+segmentation by re-purposing diffusion inpainting models.
+Our approach leverages the “occlusion-free” bias of diffu-
+sion inpainting models, as shown in Fig. 1, where an in-
+painted object is almost always generated without occlu-
+sion. Hence, we inpaint an occluded object to remove the
+occlusion and use a segmentation method, e.g., SAM [21],
+on the unoccluded object to extract the amodal mask ˆA.
+While the proposed method seems straightforward, the
+devil is in the details.
+To achieve high-quality amodal masks, we needed to
+carefully design the generation procedure of the inpainting
+model (Sec. 4.1), the conditioning image x (Sec. 4.2), and
+the inpainting area M (Sec. 4.3). A visual illustration of
+the approach is provided in Fig. 2.
+4.1. Inpainting via leakage conditioning
+Recent diffusion inpainting models [22, 36, 40] are often
+text-conditioned, i.e., the model performs a conditional gen-
+eration on the masked area with a text-prompt. As the task
+of amodal segmentation does not involve any text prompt,
+we need another way to condition the model. Specifically,
+besides the standard diffusion sampling for inpainting we
+further “leak” the original unmasked conditioning image x
+to the model. Instead of Eq. (5), we perform the following:
+ˆxt = s · (M ⊙ ˜xt + (1 − M) ⊙ xt)| {z }
+Inpainting term
++ (1 − s) · xt| {z }
+Leakage term
+, (7)
+where s ∈ R+ controls the strength of the leakage. The
+purpose of the leakage term is that we want the model to
+inpaint occluded parts relevant to the current scene context,
+3
+
+PAGE 4
+Figure 3. We show a visual process of the diffusion model. As we are doing soft-inpainting, observe that our approach can predict an
+amodal mask much larger than the visible mask, i.e., extrapolate.
+both masked and non-masked regions. Empirically, we set
+s = 0.3 to balance the level of image context preservation,
+which is equivalent to using an image that is the combina-
+tion of 30% of a newly generated image and 70% of the
+original image to maintain the overall original context. In-
+creasing noise loses visual contexts, leading to random ob-
+jects with poor quality of amodal segmentation.
+Please note that the update equation in Eq. (7) no longer
+strictly performs image inpainting as the non-masked re-
+gion is not guaranteed to be the same as the conditioning
+image x. Instead, we perform a “soft”-inpainting where
+the model generates an image that roughly resembles the
+condition image x for the unmasked regions and focuses
+on generating within the inpainting area. As the inpainting
+area is not strict, this also has the benefit thatpixels outside
+of the inpainting area M can be changed , i.e., the pre-
+dicted amodal mask can be larger than the inpainting area
+M, which helps with cases where extrapolation of the visi-
+ble mask is needed. To handle this, we leverage the leakage
+from Eq. (7), which acts like a “soft scaffold”, allowing the
+model to perform “soft-inpainting”, changing pixels outside
+the mask. We show this process visually in Fig. 3 and more
+extrapolation examples in Fig. 7.
+4.2. Designing the condition image
+The inpainting procedure needs an input condition image,
+denoted as x, to guide the generation process. Our objec-
+tive is to create a complete object without any occlusions.
+To achieve this, we want the model to focus on the visible
+parts of the object rather than the background. Therefore,
+we have a separate procedure for preparing the object and
+background pixels, where
+x = V ⊙ xobj + (1 − V ) ⊙ xbck. (8)
+Object pixels. Given the image I containing the object and
+its corresponding visible mask V , we extract the object pix-
+els by overlaying the visible mask using an element-wise
+multiplication. Next, as a diffusion model expected a noisy
+image, we add noise to the object pixels similar to [4, 33],
+i.e.,
+xobj = (s · ϵ + (1 − s) · I) , (9)
+where ϵ ∼ N (0, I) and s = 0.3.
+Background pixels. In standard inpainting, the pixel val-
+ues in the masked-out region (background) do not matter.
+Hence, it is common to choose either black or white color.
+However, the background now plays a role due to our leak-
+age conditioning in Eq. (7). The default choice of black or
+white introduces a sharp contrast around the object’s con-
+tours, and diffusion models do not react well to this pixel
+intensity discontinuity.
+Inspired by previous works to blend images seamlessly,
+such as leveraging the denoising process [31] and incorpo-
+rating latent information from text-guided diffusion mod-
+els [2]. We construct a smooth background that matches
+the object’s color distribution. First, we build a color his-
+togram from the object’s visible pixels in I, then sample
+background pixels xbck based on histogram frequencies,
+and finally apply a Gaussian blur.
+4.3. Designing the soft inpainting area
+Besides the condition image x, the inpainting procedure
+also requires an inpainting area M, which specifies where
+to focus on the generation.
+From the visible mask V , we extract contours from a set
+of points corresponding to visible regions, whereCi is the ith
+contour. Next, we combine the contours into one region by
+taking their union and finding the smallest convex polygon
+CnvxHull(S
+i=1 Ci) that can enclose all contours. Finally,
+we get the inpainting region,M, by setting values inside the
+convex polygon to one, where a visible pixel at (x, y):
+M =
+(
+1, if (x, y) ∈ CnvxHull(S
+i=1 Ci),
+0, otherwise. (10)
+Next, diffusion inpainting models are trained to take an in-
+painting region as conditioning input, i.e., ˜xt(M). Hence,
+this allows us to use classifier-free guidance [16] with the
+mask during the generation. Let w denote the intensity of
+the strictness which is how the model needs to follow the
+conditioning of the inpainting region M a classifier-free-
+guided sample computes
+˜xCFG
+t = (1 + w) · ˜xt(M) − w · ˜xt(∅), (11)
+where ∅ denotes the empty representation of M. Instead
+of using ˜x directly in Eq. (5), ˜xCFG
+t is used. Intuitively,
+smaller w gives more freedom to generate new pixel infor-
+mation independent of the inpainting area shape. Empiri-
+cally, we setw = 0.75 for Stable Diffusion version 1.5 [40],
+Stable Diffusion XL [36] and w as 1.5 with Flux [22].
+4
+
+PAGE 5
+Method DiffMod COCO BSDS KINS FBowl SV Avg
+pix2gestalt SD2 82.9 80.8 39.2 73.3 52.3 65.7
+Amodal Wild - 90.2 - - - - -
+SAM - 66.6 65.3 40.8 68.3 55.9 59.4
+SAM2 - 70.1 63.1 46.9 65.5 57.0 60.5
+Inpaint SDXL 76.5 74.2 - - - -
+Ours SDXL 82.7 75.6 60.4 73.0 63.5 71.0
+Ours SD1.5 79.9 75.2 58.4 71.0 66.6 70.2
+Ours SD2 73.2 72.6 57.2 72.8 57.2 66.6
+Ours Flux 75.5 75.5 60.2 75.2 65.6 70.4
+Table 1. Quantiative comparisons of amodal mask in mIoU(%) ↑.
+Methods except for pix2gestalt are tuning-free. The best result is
+bolded, and the second best is colored in blue.
+5. Experiments
+Our method is tuning-free, and also a zero-shot amodal seg-
+mentation method. For a fair comparison, we strictly fol-
+low the experiment setup of zero-shot amodal segmenta-
+tion experiment setting by Ozguroglu et al. [34] on COCO-
+A [62] and BSDS-A [61]. To study the zero-shot capability,
+we evaluate three additional datasets, including KINS [37],
+FishBowl [45], and SAILVOS [18]. We report quantitative
+and qualitative results followed by ablations.
+5.1. Experiment setup
+We report on the following five datasets covering both real-
+world and synthetic images:
+❶ COCO-A [62]: Based on COCO [27] dataset, COCO-
+A [62] is a human-annotated amodal segmentation dataset
+over natural images. We report on its evaluation set with
+13k ground truth object amodal annotations in 2.5k images,
+including common objects.
+❷ BSDS-A [61]: Derived from the Berkeley Segmentation
+Dataset (BSDS) [32], BSDS-A [61] is an amodal segmen-
+tation dataset labeled with manual amodal annotation. We
+report on the evaluation image sets with 200 images from
+the real world.
+❸ KINS [37]: KINS [37], derived from KITTI [12] for
+autonomous driving, features manually annotated amodal
+masks and an evaluation set of 7k images.
+❹ FishBowl (Fbowl) [45] is a synthetic dataset that has dif-
+ferent numbers of fish from an WebGL demo [48]. Its eval-
+uation set contains 1k videos of 128 frames each, with each
+frame treated independently for amodal segmentation.
+❺ SAILVOS (SV) [18] is a synthetic dataset from the photo-
+realistic game GTA-V . It contains 26k images along with
+507k objects in the evaluation set.
+Evaluation metric. Following Ozguroglu et al. [34], we
+report the mean intersection over union (mIoU) to evaluate
+predicted amodal masks. A higher mIoU indicates a better
+match of the prediction with the ground truth. We also re-
+port the mIoU over different subsets of the data based on the
+occlusion rate of the object. Specifically, we report on oc-
+Method DiffMod ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+pix2gestalt SD2 83.1 83.7 84.3 85.2 86.7 87.0
+Amodal Wild - 86.7 88.3 88.6 89.9 93.3 92.2
+SAM - 68.4 71.2 73.7 76.3 79.9 81.2
+SAM2 - 70.0 72.8 75.6 78.5 81.9 83.4
+Ours SD1.5 79.9 82.9 85.9 88.8 92.1 93.6
+Ours SDXL 82.7 85.4 88.0 90.6 93.6 95.0
+Ours SD2 77.5 79.8 82.1 84.1 87.1 88.3
+Ours Flux 76.2 77.2 78.7 80.4 83.2 84.1
+Table 2. We compare the quality of amodal mask in mIoU(%) ↑
+from COCO-A [62].
+clusion rate subsets that are less than 50%. We observed that
+highly occluded objects yield uncertain annotations, as im-
+ages often lack enough details for a complete amodal mask.
+Baselines. We consider the state-of-the-art baseline of
+pix2gestalt, two training-required methods, and three addi-
+tional tuning-free methods.
+➀ pix2gestalt [34] takes an RGB image and its modal mask
+to generate an amodal mask by using SAM [21] to collect
+on a customized training dataset that has more than 800k
+image pairs with occlusions to a fine-tuned a pre-trained
+diffusion model of StableDiffusion2 (SD2) [43].
+➁ Amodal Wild [59] uses a two-stage approach. First, an
+occluder mask is predicted from an RGB image and its
+modal mask. Next, a U-Net-based model leveraging fea-
+tures from a pre-trained Stable Diffusion (using the modal
+mask and occluder boundary) predicts the amodal mask.
+➂ Inpaint-SDXL [36]: Given a visible mask and an RGB
+image, SDXL inpaints its region by leveraging a pre-trained
+model to remove missing pixel information. This baseline
+is proposed by Ozguroglu et al. [34] in pix2gestalt. We di-
+rectly report the number from their paper, as the code for
+this baseline has not been released.
+➃ SAM [21]: takes a set of points and an RGB image to
+segment pixels that fall into the same object category based
+on features from an image encoder. This is a strong modal
+baseline, as reported by Ozguroglu et al. [34]
+➄ SAM2 [39]: We also consider a even strong modal base-
+line of SAM2, which is a improved version of SAM.
+We also tried comparing to Amodal Completion by Xu
+et al. [50], however, as it is limited to 83 categories, the ap-
+proach was unable to generate a prediction for many images
+in the datasets we considered.
+Implementation. We consider several popular diffusion
+models, including Stable Diffusion 1.5 and 2 (SD1.5,
+SD2) [40], Stable Diffusion XL (SDXL) [36], and
+Flux [22]. We set s = 0 .3, w = 7 .5 for Stable Diffu-
+sion 1.5 [40] and Stable Diffusion XL [36], and w = 1 .5
+for Flux [22]. Images are refined with 20 iterative steps
+for amodal completion, and the mask M is extracted by
+uniformly sampling nine points from V using SAM [21].
+All experiments were performed on an NVIDIA RTX 4090
+(24GB VRAM), and 8-bit quantization was applied for Flux
+to reduce the memory usage.
+5
+
+PAGE 6
+Method DiffMod ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+pix2gestalt SD2 77.1 78.0 79.0 80.2 81.4 81.9
+SAM - 62.1 64.6 66.8 69.3 72.6 74.9
+SAM2 - 63.4 66.6 69.4 72.4 76.7 78.6
+Ours SD1.5 78.3 80.5 82.5 84.5 86.7 87.4
+Ours SDXL 75.7 79.2 82.2 85.7 88.9 90.7
+Ours SD2 76.2 79.8 82.8 85.8 88.7 90.1
+Ours Flux 76.4 78.5 81.0 84.1 85.9 72.6
+Table 3. We compare the quality of amodal mask in mIoU(%) ↑
+from BSDS-A [61].
+Method DiffMod ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+pix2gestalt SD2 39.1 40.2 41.7 43.7 48.0 55.1
+SAM - 42.2 42.8 43.7 44.8 47.3 50.8
+SAM2 - 48.7 49.6 50.7 52.3 54.9 58.3
+Ours SD1.5 64.8 66.2 68.2 70.6 74.1 77.3
+Ours SDXL 60.4 62.1 64.1 66.6 70.8 75.1
+Ours SD2 60.2 61.4 63.0 64.8 68.1 73.5
+Ours Flux 64.7 65.4 67.3 69.5 72.7 75.6
+Table 4. We compare the quality of amodal mask in mIoU(%) ↑
+from KINS [37].
+5.2. Quantitative results
+Main results. Tab. 1 reports mIoU using five datasets, and
+we bold the best metric and colored the second best metric.
+For the COCO-A [62] and BSDS-A [61], pix2gestalt [34]
+(a non-tuning free method) has the best metrics, followed
+by Stable Diffusion XL with ours by 0.2% and 5.2%.
+We highlight that the first two datasets are reported in
+pix2gestalt to study zero-shot amodal segmentation. Re-
+call that their approach trains on a “synthetically curated
+dataset” and is hence zero-shot. However, it is unclear
+whether this curated dataset generalizes beyond COCO-A
+and BSDS-A e.g., what if the testing distribution is very
+different from their curated data.
+We report on three additional datasets with various ob-
+ject categories to further study the zero-shot capability. On
+KINS [37], FishBowl (FBowl) [45], SAILVOS (SV) [18],
+show that our methods generate 21.2%, 1.9%, and 14.3%
+more accurate mask than pix2gestalt. Importantly, our
+method performs best from the tuning-free approaches and
+convincingly outperforms the modal baseline. We could not
+compare on Inpainting-SDXL, as the code was not released,
+and we could not reproduce it.
+Below, we report and discuss the detailed results based
+on different object occlusion rates. In the appendix, we pro-
+vide further qualitative analysis for each dataset.
+Detailed COCO-A results. Tab. 2 shows the performance
+based on our approach using four foundation models (Sta-
+ble Diffusion 1.5 [40], Stable Diffusion XL [36], Stable
+Diffusion 2 [43], Flux [22]) to pix2gestalt [34] along with
+SAM [21] and SAM2 [39].
+Our work using Stable Diffusion XL [36] generates
+1.7%, 3.7%, 5.4%, 6.9%, and 8.0% more accurate amodal
+Method DiffMod ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+pix2gestalt SD2 77.1 78.0 79.0 80.2 81.4 81.9
+SAM - 60.9 63.0 65.0 67.3 70.4 74.3
+SAM2 - 68.0 69.8 72.4 74.4 77.1 79.8
+Ours SD1.5 79.0 81.3 83.8 86.7 89.6 90.1
+Ours SDXL 79.5 81.1 83.6 85.3 87.1 87.5
+Ours SD2 77.9 79.3 80.7 81.9 82.7 82.9
+Ours Flux 80.4 82.8 85.3 88.0 90.7 91.9
+Table 5. We compare the quality of amodal mask in mIoU(%) ↑
+from FishBowl [45].
+Method DiffMod ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+pix2gestalt SD2 59.4 60.2 61.3 62.9 65.6 67.8
+SAM - 66.2 68.7 71.1 73.5 76.2 79.3
+SAM2 - 67.5 69.9 72.2 74.5 76.8 79.2
+Ours SD1.5 80.0 82.3 84.1 85.8 87.4 88.7
+Ours SDXL 62.3 64.0 65.7 67.5 70.5 72.1
+Ours SD2 68.6 70.1 71.6 73.2 75.9 77.7
+Ours Flux 79.3 81.8 83.6 85.4 87.2 88.8
+Table 6. We compare the quality of amodal mask in mIoU(%) ↑
+from SAILVOS.
+masks on average when objects are occluded less than equal
+to 40%, 30%, 20%, 10%, and 5% compared to pix2gestalt,
+respectively and it has a 0.2% higher mIoU as shown Tab. 1.
+While the training-required method [59] achieves a 7.%
+mIoU gain, our approach improves 0.7%, 0.3%, and 2.8%
+at 20%, 10%, and 5% occlusion, respectively.
+Detailed BSDS-A results. In Tab. 3, our method hash
+higher 1.2% and 2.5% mIoU with Stable Diffusion 1.5 [40]
+at 50% and 40% occlusion, 3.8% and 5.6% with Stable Dif-
+fusion 2 [43] at 30% and 20%, and 5.9% and 6.6% with
+Stable Diffusion XL [36] at 10% and 5%, compared to
+pix2gestalt [34]. Our method achieves 4.9% more accurate
+amodal mask on average for occlusions under 50%.
+Detailed KINS results. In Tab. 4, Stable Diffusion 1.5 [40]
+with our approach predicts 25.7%, 26%, 26.5%, 26.9%,
+26.1%, and 22.2% more accurate amodal masks, in all
+occlusion rates, compared to pix2gestalt [34]. On aver-
+age, our method outperforms 25.6% to generate an ac-
+curate amodal mask with occlusion rates of 50% or less.
+The largest performance gap among the five datasets comes
+from pix2gestalt’s training data, which is insufficient to
+cover KINS [37] occlusions, leading to robustness issues.
+Detailed FishBowl results. In Tab. 5, our approach with
+Flux [22] shows 1.2%, 3.3%, 5.7%, 8.4%, and 9.6% more
+accurate amodal mask than pix2gestalt [34]. For occlusion
+rates of 50% or less, our method predicts an average mIoU
+that is 6.9% higher than pix2gestalt, further demonstrating
+the zero-shot capabilities.
+Detailed SAILVOS results. Tab. 6 shows that our ap-
+proach generates 20.6%, 22.1%, 22.8%, 22.9%, 21.8%,
+21% more precise amodal mask than pix2gestalt [34], av-
+eraging 21.9% higher mIoU for occlusions ≤ 50%.
+6
+
+PAGE 7
+Image Visible Mask Ours (SD1.5) Ours (SDXL) Ours (SD2) Ours (Flux) pix2gestalt GT
+Figure 4. We compare the accuracy of amodal mask in COCO-A [62] and BSDS-A [61] using various diffusion-based inpainting models.
+Keep in mind that we focus on generating accurate amodal masks rather than on synthesizing an accurate and high-quality image. We
+highlight incomplete and out-of-shape areas using a red box.
+Input Visible Mask Ours (SD1.5) Ours (SDXL) Ours (SD2) Ours (Flux) pix2gestalt GT
+KINS
+FishBowl
+SAILVOS
+Figure 5. Qualitative comparison of amodal mask on KINS [37], FishBowl [45], and SAILVOS [18]. We observe that for novel cate-
+gories/ domain pix2gestalt may hallucinate inaccurate amodal masks.
+5.3. Qualitative results
+We compare the visual quality of the amodal mask in Fig. 4.
+Please remember that our goal is not to generate high-
+quality inpainted results. That is, one should judge how
+closely the contour of the inpainted object matches the
+ground truth. Our method successfully predicts the oc-
+cluded regions, e.g., removing the occlusion and generating
+a complete horse. On the other hand, pix2gestalt fails to
+generate in the occluded areas (rows 1 and 2) and struggles
+to handle the outside of the visible area (rows 3 and 4).
+Next, we further show the amodal mask generation re-
+sults on the three additional datasets, including KINS [37]
+7
+
+PAGE 8
+Image Mask Ours pix2gestalt
+Figure 6. Amodal completion results on in-the-wild images com-
+paring Ours (SDXL) and pix2gestalt [34].
+GT Ours Mask Diff Ours RGB
+Figure 7. Blue pixels denote differences between the visible mask
+and our predicted mask.
+(row 1), FishBowl [45] (row 2), and SAILVOS [18] (row 3)
+in Fig. 5. The first row shows that pix2gestalt overextends
+the car. The second row demonstrates that pix2gestalt mis-
+understands the visual context and adds “hallucinations”,
+which is another car, to generate amodal masks. Overall,
+we observe that pix2gestalt performs worse on these addi-
+tional datasets, possibly due to a larger gap in distribution
+from their curated data. In contrast, our method shows ro-
+bustness with high-quality amodal masks.
+We also experimented with in-the-wild images to vali-
+date our approaches compared to pix2gestalt (Fig. 6). We
+start with the horse (first row) that pix2gestalt reported in
+their paper. The predicted mask from our approach shows
+a comparable quality to that generated by pix2gestalt. We
+also show another example (second row), where ours com-
+pletes a cloth behind the cup that Grogu is holding, while
+pix2gestalt barely made any changes to the input image.
+Moreover, Fig. 7 shows cases of amodal mask extrapola-
+tion, demonstrating our method’s robustness.
+5.4. Ablation studies & analysis
+Ablations. We evaluate the effectiveness of each compo-
+nent by removing them in Tab. 7. The experiment is con-
+ducted on COCO-A [62] using Stable Diffusion XL [36].
+The first row shows the mIoU with all the components
+DiffMod Leakage Background Mask mIoU(%) ↑
+SDXL ✓ ✓ ✓ 76.5
+SDXL ✗ ✓ ✓ 38.9
+SDXL ✓ ✗ ✓ 70.9
+SDXL ✓ ✓ ✗ 70.3
+Table 7. We show our component’s effectiveness using mIoU by
+excluding each component from the pipeline.
+s ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+0.1 75.0 77.5 80.1 82.5 86.3 87.9
+0.15 75.8 78.2 80.7 83.0 86.6 88.1
+0.3 79.9 82.9 85.9 88.8 92.1 93.6
+0.45 75.1 77.2 79.2 81.2 84.4 85.5
+0.6 69.6 71.3 73.1 75.1 78.5 79.4
+0.9 60.1 61.6 63.0 64.4 66.1 67.1
+Table 8. The impact of s using mIoU(%) from COCO-A.
+M-type background≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+Ours Ours 79.9 82.9 85.9 88.8 92.1 93.6
+Rect. Ours 77.7 80.0 82.1 84.1 86.9 88.2
+Ours White 71.4 73.8 76.2 78.6 81.8 83.1
+Rect. White 70.3 72.9 75.2 77.7 81.0 82.3
+Table 9. Comparisons with a different mask and color histogram.
+included. When the leaking conditioning (Sec. 4.1), the
+context-aware background (Sec. 4.2), or the inpainting area
+(Sec. 4.3) is excluded, the accuracy of the amodal mask
+falls by 37.6%, 5.6%, 6.2% in the mIoU compared to using
+all components respectively and the greater drop indicates
+higher importance for generating accurate amodal masks.
+Moreover, we ablate the value of s (Tab. 8). In Tab. 9, we
+verify the effectiveness of our designed inpainting region,
+M, along with the context-aware background by comparing
+it to a simple rectangular mask with a white background.
+Computation efficiency. We compare the efficiency of our
+approach to pix2gestalt. For the smallest model, SD2 is
+4.1× more efficient in memory, and the inference (0.3 sec-
+onds) is 19 × faster compared to pix2gestalt [34]. Addi-
+tionally, our best model (SDXL) is also more efficient than
+pix2gestalt. See Tab. S1 in the Appendix for more results.
+6. Conclusion
+We introduce a tuning-free/zero-shot amodal segmentation
+method by leveraging the occlusion-fere bias of pre-trained
+diffusion inpainting models. Our approach customizes the
+conditioning image, designs a new inpainting region, and
+uses a novel leakage conditioning technique. Experiments
+on five datasets demonstrate that our model (SDXL) im-
+proves mIoU by 5.3%, with 4.8× faster inference and 1.4×
+VRAM efficiency over pix2gestalt. Other models (SD1.5,
+SD2, Flux) are also effective. As diffusion inpainting tech-
+niques continue to improve, we anticipate further advance-
+ments in segmentation performance.
+8
+
+PAGE 9
+References
+[1] Jiayang Ao, Qiuhong Ke, and Krista A Ehinger. Amodal
+intra-class instance segmentation: Synthetic datasets and
+benchmark. In WACV, 2024. 1
+[2] Omri Avrahami, Dani Lischinski, and Ohad Fried. Blended
+diffusion for text-driven editing of natural images. In CVPR,
+2022. 4
+[3] Mathilde Caron, Hugo Touvron, Ishan Misra, Herv ´e J´egou,
+Julien Mairal, Piotr Bojanowski, and Armand Joulin. Emerg-
+ing properties in self-supervised vision transformers. In
+ICCV, 2021. 1
+[4] Ciprian Corneanu, Raghudeep Gadde, and Aleix M Mar-
+tinez. Latentpaint: Image inpainting in latent space with
+diffusion models. In WACV, 2024. 2, 4
+[5] Tung Dang, Frank Mascarich, Shehryar Khattak, Christos
+Papachristos, and Kostas Alexis. Graph-based path planning
+for autonomous robotic exploration in subterranean environ-
+ments. In IEEE/RSJ IROS, 2019. 1
+[6] Soheil Darabi, Eli Shechtman, Connelly Barnes, Dan B
+Goldman, and Pradeep Sen. Image melding: Combining in-
+consistent images using patch-based synthesis. ACM TOG,
+2012. 2
+[7] Ganggui Ding, Canyu Zhao, Wen Wang, Zhen Yang, Zide
+Liu, Hao Chen, and Chunhua Shen. Freecustom: Tuning-
+free customized image generation for multi-concept compo-
+sition. In CVPR, 2024. 2
+[8] Kiana Ehsani, Roozbeh Mottaghi, and Ali Farhadi. Segan:
+Segmenting and generating the invisible. In CVPR, 2018. 2
+[9] Hao Fei, Shengqiong Wu, Wei Ji, Hanwang Zhang, and Tat-
+Seng Chua. Dysen-vdm: Empowering dynamics-aware text-
+to-video diffusion with llms. In CVPR, 2024. 3
+[10] Patrick Follmann, Rebecca K ¨onig, Philipp H ¨artinger,
+Michael Klostermann, and Tobias B ¨ottger. Learning to see
+the invisible: End-to-end trainable amodal instance segmen-
+tation. In WACV, 2019. 1
+[11] Jianxiong Gao, Xuelin Qian, Yikai Wang, Tianjun Xiao,
+Tong He, Zheng Zhang, and Yanwei Fu. Coarse-to-fine
+amodal segmentation with shape prior. In ICCV, 2023. 2
+[12] Andreas Geiger, Philip Lenz, and Raquel Urtasun. Are we
+ready for autonomous driving? the kitti vision benchmark
+suite. In CVPR, 2012. 1, 5
+[13] Qiang Guo, Shanshan Gao, Xiaofeng Zhang, Yilong Yin, and
+Caiming Zhang. Patch-based image inpainting via two-stage
+low rank approximation. IEEE TVCG, 2017. 2
+[14] Xiefan Guo, Hongyu Yang, and Di Huang. Image inpaint-
+ing via conditional texture and structure dual generation. In
+ICCV, 2021. 2
+[15] Yingqing He, Shaoshu Yang, Haoxin Chen, Xiaodong Cun,
+Menghan Xia, Yong Zhang, Xintao Wang, Ran He, Qifeng
+Chen, and Ying Shan. Scalecrafter: Tuning-free higher-
+resolution visual generation with diffusion models. In ICLR,
+2023. 2
+[16] Jonathan Ho and Tim Salimans. Classifier-free diffusion
+guidance. arXiv preprint arXiv:2207.12598, 2022. 4
+[17] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffu-
+sion probabilistic models. NeurIPS, 2020. 2, 3
+[18] Y .-T. Hu, H.-S. Chen, K. Hui, J.-B. Huang, and A. G.
+Schwing. SAIL-VOS: Semantic Amodal Instance Level
+Video Object Segmentation – A Synthetic Dataset and Base-
+lines. In CVPR, 2019. 1, 2, 5, 6, 7, 8, 3
+[19] Kyong Hwan Jin and Jong Chul Ye. Annihilating filter-based
+low-rank hankel matrix approach for image inpainting.IEEE
+TIP, 2015. 2
+[20] K8xu. Official code of amodal completion via progres-
+sive mixed context diffusion. https://github.com/
+k8xu/amodal/blob/main/classes.txt, 2025. 2
+[21] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao,
+Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer White-
+head, Alexander C Berg, Wan-Yen Lo, et al. Segment any-
+thing. In ICCV, 2023. 1, 3, 5, 6
+[22] Black Forest Labs. FLUX.1 [Schnell]. https : / /
+huggingface . co / black - forest - labs / FLUX .
+1- schnell, 2024. [Accessed 09-09-2024]. 3, 4, 5, 6,
+1, 2
+[23] Steven Lehar. Gestalt isomorphism and the quantification of
+spatial perception. Gestalt theory, 1999. 2
+[24] Jingyuan Li, Ning Wang, Lefei Zhang, Bo Du, and Dacheng
+Tao. Recurrent feature reasoning for image inpainting. In
+CVPR, 2020. 2
+[25] Ke Li and Jitendra Malik. Amodal instance segmentation. In
+ECCV, 2016. 1, 2
+[26] Wenbo Li, Zhe Lin, Kun Zhou, Lu Qi, Yi Wang, and Jiaya
+Jia. Mat: Mask-aware transformer for large hole image in-
+painting. In CVPR, 2022. 2
+[27] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays,
+Pietro Perona, Deva Ramanan, Piotr Doll´ar, and C Lawrence
+Zitnick. Microsoft coco: Common objects in context. In
+ECCV, 2014. 5
+[28] Guilin Liu, Aysegul Dundar, Kevin J Shih, Ting-Chun Wang,
+Fitsum A Reda, Karan Sapra, Zhiding Yu, Xiaodong Yang,
+Andrew Tao, and Bryan Catanzaro. Partial convolution for
+padding, inpainting, and image synthesis. IEEE TPAMI,
+2022. 2
+[29] Kendong Liu, Zhiyu Zhu, Chuanhao Li, Hui Liu, Huanqiang
+Zeng, and Junhui Hou. Prefpaint: Aligning image inpaint-
+ing diffusion model with human preference. arXiv preprint
+arXiv:2410.21966, 2024. 2
+[30] Jonathan Long, Evan Shelhamer, and Trevor Darrell. Fully
+convolutional networks for semantic segmentation. In
+CVPR, 2015. 1
+[31] Andreas Lugmayr, Martin Danelljan, Andres Romero, Fisher
+Yu, Radu Timofte, and Luc Van Gool. Repaint: Inpainting
+using denoising diffusion probabilistic models. In CVPR,
+2022. 2, 3, 4
+[32] D. Martin, C. Fowlkes, D. Tal, and J. Malik. A database
+of human segmented natural images and its application to
+evaluating segmentation algorithms and measuring ecologi-
+cal statistics. In ICCV, 2001. 5
+[33] Chenlin Meng, Yutong He, Yang Song, Jiaming Song, Jia-
+jun Wu, Jun-Yan Zhu, and Stefano Ermon. SDEdit: Guided
+image synthesis and editing with stochastic differential equa-
+tions. In ICLR, 2022. 4
+9
+
+PAGE 10
+[34] Ege Ozguroglu, Ruoshi Liu, D ´ıdac Sur´s, Dian Chen, Achal
+Dave, Pavel Tokmakov, and Carl V ondrick. pix2gestalt:
+Amodal segmentation by synthesizing wholes. CVPR, 2024.
+1, 2, 3, 5, 6, 8
+[35] William Peebles and Saining Xie. Scalable diffusion models
+with transformers. In ICCV, 2023. 1
+[36] Dustin Podell, Zion English, Kyle Lacey, Andreas
+Blattmann, Tim Dockhorn, Jonas M ¨uller, Joe Penna, and
+Robin Rombach. Sdxl: Improving latent diffusion mod-
+els for high-resolution image synthesis. arXiv preprint
+arXiv:2307.01952, 2023. 1, 3, 4, 5, 6, 8, 2
+[37] Lu Qi, Li Jiang, Shu Liu, Xiaoyong Shen, and Jiaya Jia.
+Amodal instance segmentation with kins dataset. In CVPR,
+2019. 2, 5, 6, 7, 1, 3
+[38] Haonan Qiu, Menghan Xia, Yong Zhang, Yingqing He, Xin-
+tao Wang, Ying Shan, and Ziwei Liu. Freenoise: Tuning-free
+longer video diffusion via noise rescheduling. InICLR, 2024.
+2
+[39] Nikhila Ravi, Valentin Gabeur, Yuan-Ting Hu, Ronghang
+Hu, Chaitanya Ryali, Tengyu Ma, Haitham Khedr, Roman
+R¨adle, Chloe Rolland, Laura Gustafson, Eric Mintun, Junt-
+ing Pan, Kalyan Vasudev Alwala, Nicolas Carion, Chao-
+Yuan Wu, Ross Girshick, Piotr Doll´ar, and Christoph Feicht-
+enhofer. SAM2: Segment anything in images and videos.
+arXiv preprint arXiv:2408.00714, 2024. 5, 6
+[40] Robin Rombach, Andreas Blattmann, Dominik Lorenz,
+Patrick Esser, and Bj¨orn Ommer. High-resolution image syn-
+thesis with latent diffusion models. In CVPR, 2022. 1, 2, 3,
+4, 5, 6
+[41] Olaf Ronneberger, Philipp Fischer, and Thomas Brox. U-net:
+Convolutional networks for biomedical image segmentation.
+In MICCAI, 2015. 1
+[42] Chitwan Saharia, William Chan, Huiwen Chang, Chris Lee,
+Jonathan Ho, Tim Salimans, David Fleet, and Mohammad
+Norouzi. Palette: Image-to-image diffusion models. In ACM
+SIGGRAPH, 2022. 2
+[43] Stability-AI. Stability-ai/stablediffusion: High-resolution
+image synthesis with latent diffusion models. https://
+github.com/Stability- AI/stablediffusion ,
+2024. [Accessed 11-04-2024]. 5, 6, 1, 2, 3
+[44] Roman Suvorov, Elizaveta Logacheva, Anton Mashikhin,
+Anastasia Remizova, Arsenii Ashukha, Aleksei Silvestrov,
+Naejin Kong, Harshith Goka, Kiwoong Park, and Victor
+Lempitsky. Resolution-robust large mask inpainting with
+fourier convolutions. In WACV, 2022. 2
+[45] Matthias Tangemann, Steffen Schneider, Julius
+V on K¨ugelgen, Francesco Locatello, Peter Gehler, Thomas
+Brox, Matthias K ¨ummerer, Matthias Bethge, and Bernhard
+Sch¨olkopf. Unsupervised object learning via common fate.
+arXiv preprint arXiv:2110.06562, 2021. 2, 5, 6, 7, 8, 1, 3
+[46] Minh Tran, Khoa V o, Kashu Yamazaki, Arthur Fernan-
+des, Michael Kidd, and Ngan Le. Aisformer: Amodal
+instance segmentation with transformer. arXiv preprint
+arXiv:2210.06323, 2022. 2
+[47] David Tschumperl ´e and Rachid Deriche. Vector-valued im-
+age regularization with pdes: A common framework for dif-
+ferent applications. IEEE TPAMI, 2005. 2
+[48] WebGLSamples. WebGL Aquarium — webglsam-
+ples.org. https://webglsamples.org/aquarium/
+aquarium.html, 2024. [Accessed 16-09-2024]. 5
+[49] Yuting Xiao, Yanyu Xu, Ziming Zhong, Weixin Luo, Jiawei
+Li, and Shenghua Gao. Amodal segmentation based on vis-
+ible region segmentation and shape prior. In AAAI, 2021. 1,
+2
+[50] Katherine Xu, Lingzhi Zhang, and Jianbo Shi. Amodal com-
+pletion via progressive mixed context diffusion. In CVPR,
+2024. 1, 2, 5
+[51] Jianwei Yang, Zhile Ren, Mingze Xu, Xinlei Chen, David J
+Crandall, Devi Parikh, and Dhruv Batra. Embodied amodal
+recognition: Learning to move to perceive objects. In ICCV,
+2019. 1, 2
+[52] Lihe Yang, Bingyi Kang, Zilong Huang, Xiaogang Xu, Jiashi
+Feng, and Hengshuang Zhao. Depth anything: Unleashing
+the power of large-scale unlabeled data. In CVPR, 2024. 2
+[53] Raymond A Yeh, Chen Chen, Teck Yian Lim, Alexander G
+Schwing, Mark Hasegawa-Johnson, and Minh N Do. Seman-
+tic image inpainting with deep generative models. In CVPR,
+2017. 2
+[54] Ahmet Burak Yildirim, Hamza Pehlivan, Bahri Batuhan
+Bilecen, and Aysegul Dundar. Diverse inpainting and editing
+with gan inversion. In ICCV, 2023.
+[55] Jiahui Yu, Zhe Lin, Jimei Yang, Xiaohui Shen, Xin Lu, and
+Thomas S Huang. Free-form image inpainting with gated
+convolution. In ICCV, 2019. 2
+[56] Alan Yuille and Daniel Kersten. Vision as bayesian infer-
+ence: analysis by synthesis? Trends in cognitive sciences ,
+2006. 2
+[57] Yu Zeng, Zhe Lin, Jimei Yang, Jianming Zhang, Eli Shecht-
+man, and Huchuan Lu. High-resolution image inpainting
+with iterative confidence feedback and guided upsampling.
+In ECCV, 2020. 2
+[58] Yu Zeng, Vishal M Patel, Haochen Wang, Xun Huang, Ting-
+Chun Wang, Ming-Yu Liu, and Yogesh Balaji. Jedi: Joint-
+image diffusion models for finetuning-free personalized text-
+to-image generation. In CVPR, 2024. 2
+[59] Guanqi Zhan, Chuanxia Zheng, Weidi Xie, and Andrew Zis-
+serman. Amodal ground truth and completion in the wild. In
+CVPR, 2024. 2, 5, 6
+[60] Ziheng Zhang, Anpei Chen, Ling Xie, Jingyi Yu, and
+Shenghua Gao. Learning semantics-aware distance map with
+semantics layering network for amodal instance segmenta-
+tion. In ACM MM, 2019. 2
+[61] Yan Zhu, Yuandong Tian, Dimitris Metaxas, and Piotr
+Doll´ar. Semantic amodal segmentation. In CVPR, 2017. 2,
+5, 6, 7, 1, 3
+[62] Yan Zhu, Yuandong Tian, Dimitris Metaxas, and Piotr
+Doll´ar. Semantic amodal segmentation. In CVPR, 2017. 2,
+5, 6, 7, 8, 1, 3
+10
+
+PAGE 11
+Tuning-Free Amodal Segmentation via
+the Occlusion-Free Bias of Inpainting Models
+Supplementary Material
+The appendix is organized as follows:
+• In Sec. S1, we provide additional qualitative results.
+• In Sec. S2, we conduct additional ablations by comparing
+two different ways of creating mask regions.
+• In Sec. S3, we provide implementation details.
+S1. Additional Qualitative Analysis
+We demonstrate a more detailed qualitative analysis us-
+ing the four foundation diffusion-based inpainting mod-
+els, SD1.5 [40], SD2 [43], SDXL [36], Flux [22], and
+pix2gestalt [34], which is the SOTA, from the five diverse
+image datasets. We put a red bounding box around a defec-
+tive part for visualization purposes.
+Using COCO-A [62] dataset, we show a side-by-side
+comparison in Fig. S1. The first row shows that pix2gestalt
+does not generate any part from the visible mask. The sec-
+ond and fifth rows show that pix2gestalt overestimates com-
+pared to our works. The third row shows that pix2gestalt
+fails to generate an occluded region, but ours can generate
+the missing pixel information. In the fourth row, the base-
+line ignores the scene context, which is a stretched arm, by
+putting a bent arm instead, while all of our methods suc-
+cessfully generate the stretched arm.
+Similar issues from pix2gestalt are observed from
+BSDS-A [61] dataset, as shown in Fig. S2. The first, sec-
+ond, fourth, and fifth rows show the recurring overestimat-
+ing issue while ours can generate similar to the ground truth.
+The third row shows that the missing pixel information still
+exists, while our work can predict the occluded regions.
+In Fig. S3, we show examples from the KINS [37]
+dataset. From the third row, pix2gestalt covers most re-
+gions irrelevant to the visible mask. This dataset is not used
+in the original report in pix2gestalt, so the KINS dataset
+distribution might not be considered when constructing the
+training dataset, which shows the difficulties in designing
+customized datasets for robustness. On the other hand, our
+method is tuning-free and leverages the Internet-scaled pre-
+trained foundation models.
+This issue remains for pix2gestalt when generating
+amodal masks in FishBowl [45] as shown in Fig. S4. The
+first and third rows still demonstrate overgrown issues from
+pix2gestalt generated amodal masks. The second and fifth
+rows still have missing pixel information, but our methods
+can predict the occluded regions. From the fourth row, when
+a visible mask is occluded heavily, the generated amodal
+mask from the baseline is a symmetrical shape. This dataset
+is not originally included in the report of pix2gestalt.
+Input SD1.5 Flux pix2gestaltSDXLVisible Mask GT
+SD2
+Figure S1. We show visual results of an amodal segmentation task
+based on COCO-A [62].
+Input SD1.5 Flux pix2gestaltSDXLVisible Mask GTSD2
+Figure S2. We show visual results of an amodal segmentation task
+based on BSDS-A [61].
+SAILVOS [18] dataset reveals a new issue: hallucina-
+tion. As we show in Fig. S5, all the rows show that
+pix2gestalt generates a random object that cannot be re-
+trieved from the given scene. The fourth row shows the
+same category, which is a truck, but the details are not sim-
+ilar. While pix2gestalt constructs a customized dataset with
+800k image pairs, it seems that pix2gestalt cannot cover all
+the occluded scenarios, while our tuning-free approach han-
+dles them well.
+S2. Additional Ablation Study
+Computation efficiency. We study the efficiency of our
+approach during the amodal mask generation compared to
+pix2gestalt. Tab. S1 reports the VRAM usage and infer-
+1
+
+PAGE 12
+Input SD1.5 Flux pix2gestaltSDXLVisible Mask GTSD2
+Figure S3. We show visual results of an amodal segmentation task
+based on KINS [37].
+Input SD1.5 Flux pix2gestaltSDXLVisible Mask GTSD2
+Figure S4. We show visual results of an amodal segmentation task
+based on FishBowl [45].
+Input SD1.5 Flux pix2gestaltSDXLVisible Mask GTSD2
+Figure S5. We show visual results of an amodal segmentation task
+based on SAILVOS [18].
+ence time. The smallest model SD2 is 4.1 × more efficient
+in memory, and the inference (0.3 seconds) is 19 × faster
+compared to pix2gestalt [34]. Additionally, our best model
+(SDXL) is also more efficient than pix2gestalt.
+SD1.5 [40] SDXL [36] SD2 [43] Flux [22] pix2gestalt [34]
+VRAM (GB)↓ 3.9 10.6 3.7 21.5 15.3
+Inference (s)↓ 0.3 1.2 0.3 0.5 5.7
+Table S1. We show peak GPU VRAM usage and inference time.
+We first investigate further mIoU between the inpaint-
+ing areas, M, and the ground truth amodal masks to vali-
+date our method by re-purposing the inpainting models to
+complete the missing pixel information. In Tab. S2, we
+show mIoU values from each dataset in different occlu-
+sion ranges. The mIoU difference between our best val-
+ues and the mask coverage from each occlusion rate of all
+the datasets is 21.2%. Therefore, our proposed method
+generates a more accurate amodal mask than naively using
+the making area which takes unions of contours of visible
+masks as we explained.
+To show that our proposed inpainting area method is ef-
+fective, we create two additional mask baselines: 1) a naive
+bounding box style mask around the visible mask and 2) a
+depth-map-based mask using a deep learning-based monoc-
+ular depth estimation [52], and those masks are presented
+as R, D, respectively. R is constructed with the smallest
+bounding box containing the visible mask of a target object
+to be inpatined. To generateD, we only include objects that
+are neighbors within 10 pixel-wise L2 distances from the
+target object. Then, we filter out any objects farther than
+the target object using the estimated depth map. Intuitively,
+we construct D that are close enough and objects that are
+in front of the target object, which causes an occlusion, in a
+certain range, r.
+Using COCO-A [62], our proposed mask, M method
+generates 3.8% more accurate amodal masks on average
+from each occlusion rate as we shown in Tab. S3. Based
+on this dataset, when the occlusion rates are less than 50%
+and 40%, SD1.5 [40] with mask R and 40%, 30%, 20%,
+10%, and 5% occlusion rates show that SDXL with mask
+D is the second-most accurate amodal mask. These trends
+continue with BSDS-A [61]. Our proposed mask, M, gen-
+erates 1.6% better quality of amodal mask instead of us-
+ing two masks R, D as shown in Tab. S4. Among using
+the two masks with different foundation models, Flux with
+mask D generates the second most accurate amodal mask
+when the objects are occluded less than 50% and 40%, and
+SDXL [36] with R works the second best when the occlu-
+sion rates are 30%, 20%, 10% and 5% or less. From Tab. S5
+using KINS [37], we observed an interesting result that us-
+ing a depth-aware mask, D, generates 5.0% more accurate
+amodal mask when the occlusion rates are 50%, 40%, 30%,
+and 20% or less compared to the method with mask M.
+When the objects are occluded 10%, 5% or less, mask M
+generates 6.1% more accurate amodal masks. In contrast to
+KINS [37], Tab. S6 shows mask M on FishBowl [45] pre-
+dicts 2.3% more accurate amodal mask on average of six
+different occlusion rate ranges. The mask M performs bet-
+2
+
+PAGE 13
+Dataset ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+COCO-A [62] 66.5 67.7 68.8 69.6 71.4 71.6
+BSDS-A [61] 75.2 75.1 75.0 74.4 73.5 73.7
+KINS [37] 66.7 68.9 71.4 74.2 77.8 80.1
+FishBowl [45] 59.4 59.7 60.0 60.1 60.4 60.7
+SAILVOS [18] 30.0 30.2 30.4 30.8 31.0 30.9
+Table S2. We evaluate mIoU(%) ↑ with our inpainting area, M,
+and ground truth amodal segmentation masks from five different
+datasets among various occlusion rates from 50% to 5%.
+DiffMod Mask ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+Ours M 82.7 85.4 88.0 90.6 93.6 95.0
+SD1.5 R 77.7 80.0 82.1 84.1 86.9 88.2
+SD1.5 D 75.6 78.1 80.4 82.7 85.8 87.3
+SD2 R 75.4 77.7 79.8 81.8 84.5 85.6
+SD2 D 75.8 78.2 80.4 82.7 85.6 86.9
+SDXL R 76.7 79.5 82.0 84.6 87.7 88.9
+SDXL D 77.0 80.0 82.5 85.1 88.6 90.6
+Flux R 75.0 77.4 79.5 81.4 83.8 84.8
+Flux D 76.8 79.3 81.5 83.7 86.4 87.5
+Table S3. We evaluate our approach using COCO-A [62] with the
+other two masks approaches, (R, D), using mIoU(%)↑.
+DiffMod Mask ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+Ours M 78.3 80.5 82.8 85.8 88.9 90.7
+SD1.5 R 74.8 77.8 80.4 83.1 86.0 87.6
+SD1.5 D 74.7 77.6 80.3 83.2 86.2 87.9
+SD2 R 75.6 78.4 80.8 83.2 85.6 87.2
+SD2 D 75.0 77.5 79.9 82.4 84.6 86.2
+SDXL R 75.0 78.4 81.3 84.5 87.7 89.1
+SDXL D 74.7 77.4 79.9 82.6 85.7 87.4
+Flux R 74.6 77.5 79.9 82.3 84.6 86.0
+Flux D 76.2 78.8 81.0 83.2 85.6 86.3
+Table S4. We evaluate our approach using BSDS-A [61] with the
+other two masks approaches, (R, D), using mIoU(%)↑.
+ter when the objects are occluded 40%, 30%, 20%, 10%,
+and 5% or less. Only SDXL [36] with mask D performs
+0.2% better when the occlusion rate is 50% or less com-
+pared to the mask M. Tab. S7 shows that mask M gener-
+ates 4.9% better quality of accurate amodal mask on all oc-
+clusion rate ranges compared to the masks R, D with other
+four foundation models including SD1.5 [40], SD2 [43],
+SDXL [36] and Flux [22].
+S3. Implementation Details
+Our implementation is based on Diffusers library ver-
+sion 0.31.0.dev0 from https : / / github . com /
+huggingface/diffusers and Flux inpainting from
+https : / / github . com / Gothos / diffusers /
+DiffMod Mask ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+Ours M 64.8 66.2 68.2 70.6 74.1 77.3
+SD1.5 R 60.7 61.8 63.2 64.9 67.5 70.7
+SD1.5 D 63.5 64.8 66.5 68.6 71.7 74.8
+SD2 R 61.7 62.7 63.9 65.4 67.6 70.7
+SD2 D 63.4 64.4 65.8 67.5 69.9 72.9
+SDXL R 46.8 48.4 50.9 54.1 60.2 69.1
+SDXL D 60.4 62.1 66.6 70.8 67.3 70.5
+Flux R 67.5 71.7 60.2 70.8 69.8 73.9
+Flux D 70.7 74.8 69.1 75.1 72.3 77.0
+Table S5. We evaluate our approach using KINS [37] with the
+other two masks approaches, (R, D), using mIoU(%)↑.
+DiffMod Mask ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+Ours M 80.4 82.8 85.3 88.0 90.7 91.9
+SD1.5 R 60.9 63.0 65.0 67.3 70.4 74.3
+SD1.5 D 79.7 81.1 82.9 84.4 85.9 86.3
+SD2 R 72.5 74.6 76.6 78.6 80.4 81.1
+SD2 D 74.1 76.3 78.6 81.1 83.4 84.7
+SDXL R 76.9 79.2 81.6 83.8 85.8 86.7
+SDXL D 80.6 82.1 84.0 85.3 86.8 86.8
+Flux R 77.6 78.9 80.3 81.3 82.0 81.9
+Flux D 64.1 65.4 67.3 69.5 72.7 75.6
+Table S6. We evaluate our approach using FishBowl [9] with the
+other two masks approaches, (R, D), using mIoU(%)↑.
+DiffMod Mask ≤50% ≤40% ≤30% ≤20% ≤10% ≤5%
+Ours M 80.0 82.3 84.1 85.8 87.4 88.8
+SD1.5 R 67.5 69.4 70.8 72.2 74.0 76.1
+SD1.5 D 65.6 67.4 68.8 70.5 72.3 74.6
+SD2 R 68.2 69.8 71.2 72.7 75.5 77.3
+SD2 D 69.7 71.4 72.8 74.5 77.1 78.8
+SDXL R 57.4 59.0 60.6 62.5 65.6 67.6
+SDXL D 63.5 65.1 66.6 68.2 70.7 72.3
+Flux R 66.7 68.6 70.1 71.7 73.4 75.8
+Flux D 76.1 77.8 79.2 80.5 81.9 83.6
+Table S7. We evaluate our approach using SAILVOS [18] with the
+other two masks approaches, (R, D), using mIoU(%)↑.
+tree/flux-inpaint using Pytorch 2.4.1+cu124 and
+diffusion inpainting models from Hugging Face. The URL
+for SD15, SDXL, SD2 and Flux are
+• https://huggingface.co/benjamin-paine/
+stable-diffusion-v1-5-inpainting ,
+• https : / / huggingface . co / diffusers /
+stable - diffusion - xl - 1 . 0 - inpainting -
+0.1,
+• https : / / huggingface . co / stabilityai /
+stable-diffusion-2-inpainting
+• https : / / huggingface . co / black - forest -
+labs/FLUX.1-schnell
+To utilize Hugging face diffusion-based inpainting models,
+3
+
+PAGE 14
+we use AutoPipelineForInpainting module from the Dif-
+fusers library. Especially, we set num inference steps
+as 20, which is not a high value, since our goal is not
+generating photo-realistic quality images. All foundation
+models can fit into 24GB VRAM GPU, but we are un-
+able to load Flux [22], so we apply 8-bit quantization us-
+ing optimum-quanto from https://github.com/
+huggingface/optimum- quanto . We will release
+our implementation upon acceptance of this work.
+4

@@ -1,0 +1,205 @@
+{
+  "baseline": [
+    {
+      "label": "无合格框配对",
+      "n": 7148,
+      "denominator": 13378,
+      "percent": 53.43100612946628
+    },
+    {
+      "label": "框合格、轮廓不合格 T",
+      "n": 6229,
+      "denominator": 13378,
+      "percent": 46.56151891164599
+    },
+    {
+      "label": "匹配竞争案例",
+      "n": 1,
+      "denominator": 13378,
+      "percent": 0.007474958887726118
+    }
+  ],
+  "oracle": [
+    {
+      "label": "小目标",
+      "n": 38,
+      "denominator": 148,
+      "percent": 25.675675675675677
+    },
+    {
+      "label": "中目标",
+      "n": 44,
+      "denominator": 64,
+      "percent": 68.75
+    },
+    {
+      "label": "大目标",
+      "n": 40,
+      "denominator": 44,
+      "percent": 90.9090909090909
+    }
+  ],
+  "pilot": [
+    {
+      "label": "空间打乱（BCE）",
+      "mean_pp": -1.929821423812812,
+      "low_pp": -3.0334652950991368,
+      "high_pp": -0.8898761783986378,
+      "GT": 655,
+      "images": 257,
+      "source": "E2"
+    },
+    {
+      "label": "保留空间（BCE）",
+      "mean_pp": -0.9956305888378028,
+      "low_pp": -2.0109430154570314,
+      "high_pp": 0.01144760928844366,
+      "GT": 655,
+      "images": 257,
+      "source": "E2"
+    },
+    {
+      "label": "保留空间（soft-IoU）",
+      "mean_pp": 0.6798975667984141,
+      "low_pp": -0.1266561190290227,
+      "high_pp": 1.6392694404626862,
+      "GT": 655,
+      "images": 257,
+      "source": "E3"
+    }
+  ],
+  "damage_by_native_area": [
+    {
+      "label": "小掩码",
+      "group": "S",
+      "n": 37,
+      "denominator": 270,
+      "percent": 13.703703703703704,
+      "low_percent": 9.76538681402439,
+      "high_percent": 18.04590803932909,
+      "T_n": 377,
+      "T_delta_pp": -0.9553800645730949
+    },
+    {
+      "label": "中掩码",
+      "group": "M",
+      "n": 14,
+      "denominator": 424,
+      "percent": 3.30188679245283,
+      "low_percent": 1.7317293169994967,
+      "high_percent": 5.172607952780366,
+      "T_n": 196,
+      "T_delta_pp": 0.7363065848806613
+    },
+    {
+      "label": "大掩码",
+      "group": "L",
+      "n": 2,
+      "denominator": 330,
+      "percent": 0.6060606060606061,
+      "low_percent": 0.0,
+      "high_percent": 1.5822784810126582,
+      "T_n": 82,
+      "T_delta_pp": 5.424115285820841
+    }
+  ],
+  "adjusted_contrasts": [
+    {
+      "label": "小掩码 − 中大掩码",
+      "factor": "area",
+      "mean_pp": 11.76487534457743,
+      "low_pp": 5.6652533203495965,
+      "high_pp": 18.709577505954115,
+      "stable": true
+    },
+    {
+      "label": "高重叠 − 低重叠",
+      "factor": "crowd",
+      "mean_pp": 3.2870035329709597,
+      "low_pp": -2.7001887879659714,
+      "high_pp": 7.168224773426986,
+      "stable": false
+    }
+  ],
+  "soft_guardrails": {
+    "population_successes": 22957,
+    "sample_size": 1024,
+    "damaged": 53,
+    "point_rate": 0.0517578125,
+    "upper_damaged_count": 1477,
+    "upper_rate": 0.0643376747832905,
+    "confidence": 0.95,
+    "unit": "fraction",
+    "method": "hypergeometric_CDF_inversion_inclusive",
+    "scope": "frozen_finite_baseline_success_GT_population",
+    "census": false,
+    "gate": "damage_guardrail_failed",
+    "evaluated_images": 886,
+    "evaluated_GT": 10598,
+    "counted_GT": 1024,
+    "note": "Count only sampled S; other GT in the same image are not additional sampled units.",
+    "all_bbox75_delta": -0.0026183614941798364
+  },
+  "oracle_scope": "GT-assisted finite coefficient optimization on 256 selected T; same-detection MaskIoU>=.75, not deployment recovery or AP",
+  "run_sources": {
+    "E0": "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170",
+    "E1": "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949",
+    "E2": "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S2_EVAL_a24a564568c943eab362784abfbe2c54",
+    "E3": "experiments/mask_readout_soft_iou_pilot_20261014/runs/RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0",
+    "E4": "experiments/mask_readout_stratified_audit_20261015/runs/RUN_STRATIFIED_FULL_c1066461caf64b9cb18d2563df4ca643"
+  },
+  "source_hashes": [
+    {
+      "path": "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/run.json",
+      "sha256": "8b10b5c35af899dd8db83797167cf76c409733085591674b1da9c05f49600725"
+    },
+    {
+      "path": "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/SUMMARY.json",
+      "sha256": "9a4b9d8b9c4a22ba99d5eeb184fc92750f26665955c287ad36ada147cd1a56ca"
+    },
+    {
+      "path": "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/run.json",
+      "sha256": "a7846d885beb965707fc72c408d25ac9eff260d9164ca9b3acf1a1dbdb1e1d49"
+    },
+    {
+      "path": "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949/SUMMARY.json",
+      "sha256": "54018a5a707aa934ae182c1de545af1f600637b5fc7a714a092368a202a555b2"
+    },
+    {
+      "path": "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S2_EVAL_a24a564568c943eab362784abfbe2c54/run.json",
+      "sha256": "3801909c68752c7f021bc28f21a88a45834a4182cf5301c787a7c531db21622a"
+    },
+    {
+      "path": "experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S2_EVAL_a24a564568c943eab362784abfbe2c54/SUMMARY.json",
+      "sha256": "0293f2d53eb690240f28f2f3343a53b3e19878c843c3fdf231a810ff77ecc5dd"
+    },
+    {
+      "path": "experiments/mask_readout_soft_iou_pilot_20261014/runs/RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0/run.json",
+      "sha256": "58e2dec0e8f88c82d36c3552d7d98fe539ecc9eeea7037029777d715480581b5"
+    },
+    {
+      "path": "experiments/mask_readout_soft_iou_pilot_20261014/runs/RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0/SUMMARY.json",
+      "sha256": "b482453f9b7a7dbf45ecfc64eec407f12f0696334e58445901d20b5aee225891"
+    },
+    {
+      "path": "experiments/mask_readout_stratified_audit_20261015/runs/RUN_STRATIFIED_FULL_c1066461caf64b9cb18d2563df4ca643/run.json",
+      "sha256": "bcfc2b8d27b73367cb66392519ce56fadbd8d9ae1b99680cabac725b6152b734"
+    },
+    {
+      "path": "experiments/mask_readout_stratified_audit_20261015/runs/RUN_STRATIFIED_FULL_c1066461caf64b9cb18d2563df4ca643/SUMMARY.json",
+      "sha256": "d57389c99564e45757ffbf19ed57749c5805e376a49e0fffa55b88550ee8324b"
+    },
+    {
+      "path": "experiments/official_gt_failure_rebaseline_20261013/runs/RUN_HISTORY_RECONCILIATION_ea22c6c2ae3c49eda6899b1ea98f40f4/NATIVE_LEDGER_DIAGNOSTICS.json",
+      "sha256": "769f6b3b88ad59fb78d5e78ab6b40be57c24c87d50b3204e8a31b4ae4b8ed1f5"
+    },
+    {
+      "path": "experiments/mask_readout_stratified_audit_20261015/runs/RUN_STRATIFIED_FULL_c1066461caf64b9cb18d2563df4ca643/CONFIG_AUDIT.json",
+      "sha256": "ca72b55eda7b1c97beb587d3aac42d31ad89a4c3ceeb77f2ae52eac19871cffe"
+    },
+    {
+      "path": "experiments/mask_readout_stratified_audit_20261015/runs/RUN_STRATIFIED_FULL_c1066461caf64b9cb18d2563df4ca643/LOCAL_INDEPENDENT_RECHECK.json",
+      "sha256": "a1e5f04db1275c168da46d6cfe625ce3c592d46cc9090e4a8dbda22ea79f0aef"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+RUN_START RUN_OCC_FEATURES_20261019T102912_6a4e254e
+RUN_END RUN_OCC_FEATURES_20261019T102912_6a4e254e failed
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/runner.py", line 44, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/runner.py", line 43, in main
+    f()
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/features.py", line 89, in main
+    hashes=read(ROOT/'data/MANIFEST.json')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/common.py", line 4, in read
+    def read(p):return json.loads(pathlib.Path(p).read_text(encoding='utf-8-sig'))
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/data/MANIFEST.json'

@@ -1,0 +1,60 @@
+{
+  "design": "v0.2-E1-frozen",
+  "seed": 0,
+  "resolution_rgb": [
+    512,
+    320
+  ],
+  "resolution_geometry": [
+    128,
+    80
+  ],
+  "continuous_point_labels": true,
+  "model_input_wh": [
+    448,
+    280
+  ],
+  "feature_grid": [
+    32,
+    20
+  ],
+  "backbone": "dinov2_vits14",
+  "source": "official_facebookresearch",
+  "backbone_frozen": true,
+  "adapter_hidden": 64,
+  "width": 256,
+  "temporal_layers": 2,
+  "temporal_heads": 4,
+  "temporal_buffer": 8,
+  "frames": 48,
+  "fps": 12,
+  "point_queries": 24,
+  "region_queries": 3,
+  "arms": [
+    "B",
+    "P",
+    "I",
+    "Hpos"
+  ],
+  "steps_per_arm": 2000,
+  "effective_batch_families": 4,
+  "optimizer": "AdamW",
+  "lr": 0.0001,
+  "weight_decay": 0.0001,
+  "loss_weights": {
+    "corr": 1,
+    "evidence": 0.5,
+    "cf": 0.1,
+    "cal": 0.1,
+    "hidden_Hpos": 0.2
+  },
+  "temperature": 0.07,
+  "lambda_xy": 1,
+  "max_grad_norm": 1,
+  "checkpoint_selection": "last_step",
+  "formal_training_allowed": true,
+  "engineering_max_updates_per_arm": 4,
+  "engineering_manifest_sha256": "cc17c23999bacbb92817c0e4c08a553573dadbc3a89387e9a20662889b601624",
+  "pilot_manifest_sha256": "c84ef0b4986eac4fbca9bdfddcf7af5d455959795c1d25a9dd14c187319f3d9d",
+  "source_commit": "f70c9a0af6c0f64cf0c51873b03110c37a3633e0"
+}

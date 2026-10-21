@@ -1,0 +1,83 @@
+{
+  "arms": [
+    "bytetrack",
+    "immediate",
+    "confirm",
+    "reversible",
+    "botsort",
+    "deepocsort",
+    "fasttrack"
+  ],
+  "sequences": [
+    "pig_3",
+    "horse_4"
+  ],
+  "config": {
+    "seed": 20261018,
+    "detector": {
+      "imgsz": 960,
+      "conf": 0.1,
+      "iou": 0.7,
+      "max_det": 200
+    },
+    "identity": {
+      "hidden": 128,
+      "embedding": 64,
+      "steps": 300,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "identities_per_batch": 16,
+      "samples_per_identity": 4,
+      "temperature": 0.12
+    },
+    "utility": {
+      "hidden": 32,
+      "steps": 200,
+      "lr": 0.001,
+      "future_horizon": 12,
+      "write_weight": 0.1,
+      "threshold": 0.0
+    },
+    "tracker": {
+      "track_high_thresh": 0.3,
+      "track_low_thresh": 0.1,
+      "new_track_thresh": 0.3,
+      "track_buffer": 60,
+      "match_thresh": 0.8,
+      "fuse_score": true,
+      "delta_t": 3,
+      "inertia": 0.2,
+      "use_byte": true,
+      "gmc_method": "none",
+      "with_reid": true,
+      "model": "auto",
+      "proximity_thresh": 0.5,
+      "appearance_thresh": 0.9,
+      "alpha_fixed_emb": 0.95
+    },
+    "recovery": {
+      "max_delay_frames": 6,
+      "min_tracklet_frames": 3,
+      "min_similarity": 0.75,
+      "min_margin": 0.05,
+      "max_normalized_distance": 2.0
+    },
+    "arms": [
+      "bytetrack",
+      "deepocsort",
+      "overlap_freeze",
+      "utility_memory",
+      "freeze_recovery",
+      "utility_recovery"
+    ]
+  },
+  "new_trainable_parameters": 0,
+  "new_training_steps": 0,
+  "max_output_latency_frames": 4,
+  "GT": "after inference only",
+  "model": {
+    "run_id": "RUN_IDENTITY_TRAIN_20261018T230440_4db76d96",
+    "checkpoint": "D:/thesis-video-20261018/runs/RUN_IDENTITY_TRAIN_20261018T230440_4db76d96/identity.pt",
+    "sha256": "0e74863d8d417eaa91a34c2623e7163ce21c37a497cf2203e2af06279e8d0f0e"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "run_id": "RUN_LCFS_B_SMOKE_8c0bac77f12f4e468a262d5259e834c5",
+  "study_id": "STUDY_MASK_LOCAL_CONNECTIVITY_SERVER_20261020",
+  "stage": "smoke",
+  "pid": 2981777,
+  "slurm_job_id": "151",
+  "slurm_procid": "1",
+  "arm": "B",
+  "retry_of": "RUN_LCF_TRAIN_ced92f98a1aa4d8898fe5a24c0b13a39",
+  "restart_from_initialization": true,
+  "host": "master-01",
+  "started_at": "2026-10-20T06:38:15.585871+00:00",
+  "execution_status": "failed",
+  "scientific_status": "engineering_failure",
+  "optimizer_steps": 0,
+  "command": [
+    "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv/bin/python",
+    "experiments/mask_local_connectivity_server_20261020/scripts/server_runner.py",
+    "smoke"
+  ],
+  "config_sha256": "4f398636b224514c5d92987ac588d74963d9d320e8de331076b1b008f7027e4d",
+  "protocol_sha256": "55f7dda0fa34e0950273f499f54e5a3636dce240e03c01efe192bcf65d9c62e3",
+  "code_commit": "f70c9a0a+frozen_migration_sources",
+  "freeze_manifest_sha256": "b86c9cb4c7b7283967de8f4270b1226d98268e60ecf9879f28cc1c97cd76d135",
+  "phase": "failed",
+  "updated_at": "2026-10-20T06:38:23.023889+00:00",
+  "elapsed_seconds": 7.438082161010243,
+  "error": "package drift: torch",
+  "finished_at": "2026-10-20T06:38:23.023873+00:00",
+  "exit_code": 1
+}

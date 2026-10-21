@@ -1,0 +1,192 @@
+{
+  "study_id": "STUDY_MASK_BRANCH_JOINT_REPLAY_20261018",
+  "parent_study": "STUDY_MASK_BRANCH_JOINT_ADAPTATION_20261018",
+  "research_line": "neighbor_sensitive_p3",
+  "display_name": "原生掩码分支联合适配：历史批次重放恢复",
+  "protocol": "PROTOCOL.md",
+  "engineering_recovery": "ENGINEERING_RECOVERY.md",
+  "plan_status": "closed_under_original_frozen_protocol",
+  "execution_status": "completed_and_independently_rechecked",
+  "scientific_status": "primary_joint_configuration_does_not_pass_frozen_investment_gate",
+  "artifact_status": "complete_original_runs_and_frozen_sources_preserved",
+  "transfer_status": "291_transferred_contents_sha_verified_27_large_artifacts_retained_server",
+  "actual_formal_training_steps_verified": 45000,
+  "planned_training_arms": [
+    "G_budget",
+    "C_native",
+    "PC_native"
+  ],
+  "planned_steps_per_arm": 15000,
+  "planned_total_steps": 45000,
+  "no_automation_or_goal": true,
+  "slurm_jobs": {
+    "gate": 108,
+    "G_budget": 109,
+    "C_native": 110,
+    "PC_native": 111,
+    "evaluation": 112,
+    "closure": 113
+  },
+  "runs": [
+    {
+      "stage": "PREPARE",
+      "run_id": "RUN_JOINT_PREPARE_56fa3ba7fe974a9ab6df42599788ef75",
+      "execution_status": "completed",
+      "slurm_job_id": "108",
+      "finished_at": "2026-10-18T03:21:32.760891+00:00"
+    },
+    {
+      "stage": "NATIVE",
+      "run_id": "RUN_JOINT_NATIVE_299731c6c64d4cc0acf3b0915401e1e6",
+      "execution_status": "completed",
+      "slurm_job_id": "108",
+      "finished_at": "2026-10-18T03:37:40.604658+00:00"
+    },
+    {
+      "stage": "SMOKE",
+      "run_id": "RUN_JOINT_SMOKE_8c70c8df51504bdabbc3813a7ac7af9d",
+      "execution_status": "completed",
+      "slurm_job_id": "108",
+      "finished_at": "2026-10-18T03:38:09.447425+00:00"
+    },
+    {
+      "stage": "TRAIN_G_budget",
+      "run_id": "RUN_JOINT_TRAIN_G_budget_73cca72b692e4097a974426de2a5b226",
+      "execution_status": "completed",
+      "slurm_job_id": "109",
+      "finished_at": "2026-10-18T04:27:20.307862+00:00",
+      "verified_steps": 15000
+    },
+    {
+      "stage": "TRAIN_C_native",
+      "run_id": "RUN_JOINT_TRAIN_C_native_8544ae971c9644a5afbad4ad9bb59ed1",
+      "execution_status": "completed",
+      "slurm_job_id": "110",
+      "finished_at": "2026-10-18T05:13:35.391598+00:00",
+      "verified_steps": 15000
+    },
+    {
+      "stage": "TRAIN_PC_native",
+      "run_id": "RUN_JOINT_TRAIN_PC_native_27a3311439904036bf09225118f81233",
+      "execution_status": "completed",
+      "slurm_job_id": "111",
+      "finished_at": "2026-10-18T06:14:33.312753+00:00",
+      "verified_steps": 15000
+    },
+    {
+      "stage": "EVAL_G_budget",
+      "run_id": "RUN_JOINT_EVAL_G_budget_b079a976da574ad8a65db95132583da8",
+      "execution_status": "completed",
+      "slurm_job_id": "112",
+      "finished_at": "2026-10-18T06:28:08.901048+00:00"
+    },
+    {
+      "stage": "EVAL_C_native",
+      "run_id": "RUN_JOINT_EVAL_C_native_0cd8bfef737b47f08a7870202b718b8a",
+      "execution_status": "completed",
+      "slurm_job_id": "112",
+      "finished_at": "2026-10-18T06:41:33.423890+00:00"
+    },
+    {
+      "stage": "EVAL_PC_native",
+      "run_id": "RUN_JOINT_EVAL_PC_native_c00834e276ef476681793cfaab9dcdd9",
+      "execution_status": "completed",
+      "slurm_job_id": "112",
+      "finished_at": "2026-10-18T06:54:59.548153+00:00"
+    },
+    {
+      "stage": "STATISTICS",
+      "run_id": "RUN_JOINT_STATISTICS_6bf82147bf394da69fd4d6d4bc243e61",
+      "execution_status": "completed",
+      "slurm_job_id": "112",
+      "finished_at": "2026-10-18T08:22:07.268633+00:00"
+    }
+  ],
+  "last_verified_utc": "2026-10-19T05:52:21.853102+00:00",
+  "server_references": {
+    "native_box_AP": 52.34795017624022,
+    "native_mask_AP": 44.01383582200932,
+    "G_old_mask_AP": 44.15239321081922,
+    "G_old_gain_AP": 0.13855738880990032,
+    "native_success_gt": 22958
+  },
+  "active_jobs": [],
+  "report": "REPORT.md",
+  "configuration_review": "CONFIGURATION_REVIEW.md",
+  "independent_recheck": "audits/closure_20261019/LOCAL_INDEPENDENT_RECHECK.json",
+  "remote_artifact_inventory": "audits/closure_20261019/REMOTE_ARTIFACT_INVENTORY.json",
+  "primary_gate_passed": false,
+  "additional_training_steps_this_audit": 0,
+  "published_baseline_parity": "failed",
+  "native_gt_ledger_validity": "passed",
+  "no_automatic_followup_training": true,
+  "results": {
+    "Mask_AP_points": {
+      "Ns": 44.01383582200932,
+      "G_old_s": 44.15239321081922,
+      "G_budget": 44.26517285116028,
+      "C_native": 44.253024195471745,
+      "PC_native": 44.017702724763794
+    },
+    "damage": {
+      "Ns": {
+        "damaged": 0,
+        "repaired": 0,
+        "net_repaired": 0,
+        "damage_fraction": 0.0
+      },
+      "G_old_s": {
+        "damaged": 90,
+        "repaired": 192,
+        "net_repaired": 102,
+        "damage_fraction": 0.003920202108197578
+      },
+      "G_budget": {
+        "damaged": 81,
+        "repaired": 250,
+        "net_repaired": 169,
+        "damage_fraction": 0.0035281818973778205
+      },
+      "C_native": {
+        "damaged": 120,
+        "repaired": 268,
+        "net_repaired": 148,
+        "damage_fraction": 0.005226936144263438
+      },
+      "PC_native": {
+        "damaged": 198,
+        "repaired": 320,
+        "net_repaired": 122,
+        "damage_fraction": 0.008624444638034672
+      }
+    },
+    "primary_gate_passed": false,
+    "primary_failed_comparisons": [
+      "PC_native_minus_Ns",
+      "PC_native_minus_G_old_s",
+      "PC_native_minus_G_budget",
+      "PC_native_minus_C_native"
+    ],
+    "guards": {
+      "native_success_damage": true,
+      "all_output_identity": true,
+      "inference_cost": true
+    },
+    "best_observed_existing_method": "G_budget",
+    "selection_scope": "highest observed AP; not retroactive primary promotion or proven superiority to C"
+  },
+  "next_action": {
+    "action": "consolidate_G_budget_gains_and_PC_C_controls_into_existing_paper_evidence_and_claims",
+    "status": "completed_manuscript_integration_20261019",
+    "direction": "fixed_P_lightweight_coefficient_adaptation_as_current_empirically_supported_method",
+    "training_authorized": false,
+    "completed_on": "2026-10-19",
+    "timezone": "Asia/Taipei",
+    "paper_artifacts": [
+      "paper/manuscripts/neighbor_sensitive_p3/RESULTS_AND_DISCUSSION_ZH_20261017.md",
+      "paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_AND_CLAIMS_20261017.md"
+    ],
+    "additional_training_steps": 0
+  },
+  "current_followup_status": "no_active_experiment_await_user_direction"
+}

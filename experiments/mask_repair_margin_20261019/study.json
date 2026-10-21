@@ -1,0 +1,73 @@
+{
+  "study_id": "STUDY_MASK_REPAIR_MARGIN_20261019",
+  "research_line": "neighbor_sensitive_p3",
+  "title": "固定P修复解容错余量核验",
+  "protocol": "PROTOCOL.md",
+  "plan_status": "closed",
+  "execution_status": "error",
+  "scientific_status": "INVALID_ENGINEERING",
+  "artifact_status": "partial_formal_complete_engineering_evidence",
+  "transfer_status": "verified",
+  "executor": "28358lan / YANGLEI",
+  "current_phase": "closed_recovery_no_valid_repair",
+  "active_run_id": null,
+  "new_training_steps": 0,
+  "G_budget_reference_status": "historical_only_checkpoint_unavailable",
+  "protocol_sha256": "fc18e379f8679920ec8f472af2ad8ac955859ee449f7d99d32519d44d09dad12",
+  "frozen_at": "2026-10-19T15:51:35.994170+00:00",
+  "latest_run_id": "RUN_RSM_VERIFY114_1924036e4cb543169c4701a45efcc76b",
+  "protocol_status": "frozen",
+  "closure_status": "completed",
+  "verification_run_id": "RUN_RSM_VERIFY_8f24ea1564ee4176b0317079f8737382",
+  "formal_pairs_completed": 113,
+  "formal_pairs_required": 256,
+  "formal_images_completed": 107,
+  "formal_images_required": 243,
+  "accepted_centers_retained": 98,
+  "required_accepted_centers": 244,
+  "maximum_possible_accepted_centers": 241,
+  "training_readiness": "not_recommended_current_margin_implementation",
+  "configuration_review": "RECOVERY_CONFIGURATION_REVIEW_20261020.md",
+  "report": "REPORT.md",
+  "closed_at": "2026-10-19T16:52:09.791797+00:00",
+  "next_action": {
+    "action": "Design a numerically stable same-mask/same-scale coefficient representation and determine equivalence to the frozen margin objective before any implementation or scientific-protocol change",
+    "status": "not_started",
+    "new_training_authorized": false
+  },
+  "full_panel_effect_estimate": null,
+  "full_panel_bootstrap_interval": null,
+  "numerical_limitations": {
+    "ill_conditioned_metric_rows": 14,
+    "center_scale_fallback_rows": 1,
+    "linear_proxy_invalid_rows": 1,
+    "pressure_precision_stop_at_pair": 114
+  },
+  "verification": {
+    "laptop": "runs/RUN_RSM_VERIFY_8f24ea1564ee4176b0317079f8737382/INDEPENDENT_LAPTOP.json",
+    "local": "preflight/INDEPENDENT_LOCAL_RETAINED.json",
+    "transfer": "preflight/TRANSFER_FINAL_VERIFIED.json"
+  },
+  "recovery_contract": "NUMERICAL_RECOVERY_20261020.md",
+  "regeneration_run_id": "RUN_RSM_RECOVER114_f22b016c00f5482eb7551a4acbe3dad9",
+  "formal_run_id": "RUN_RSM_FULL_f02b00986ed14331871c00f9564d6426",
+  "recovery_execution_status": "completed",
+  "recovery_scientific_status": "ENGINEERING_ONLY",
+  "repair_status": "not_validated_at_scope",
+  "recovery_report": "RECOVERY_REPORT_20261020.md",
+  "recovery_runs": [
+    "RUN_RSM_RECOVER114_f22b016c00f5482eb7551a4acbe3dad9",
+    "RUN_RSM_STATES114_02fb6e10ff3e40228f5b044467b245bc",
+    "RUN_RSM_VERIFY114_1924036e4cb543169c4701a45efcc76b"
+  ],
+  "recovery_findings": {
+    "native_regenerated_images_exact": 16,
+    "native_masks_exact": 1851,
+    "C_directions_matched": 24,
+    "W_original_direction_RMS_matched": 22,
+    "W_actual_dual_precision_matched": 16,
+    "required_directions_per_center": 24,
+    "new_smoke_started": false,
+    "new_formal_run_started": false
+  }
+}

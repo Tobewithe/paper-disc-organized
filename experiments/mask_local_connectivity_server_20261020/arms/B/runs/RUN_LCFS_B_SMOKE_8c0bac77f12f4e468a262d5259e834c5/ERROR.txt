@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/lcf-server-20261020/experiments/mask_local_connectivity_server_20261020/scripts/server_runner.py", line 24, in smoke
+    profile,env=environment()
+                ^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/lcf-server-20261020/experiments/mask_local_connectivity_server_20261020/scripts/lcf_runtime.py", line 56, in environment
+    profile,env=configure_native()
+                ^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/lcf-server-20261020/experiments/mask_readout_mechanism_v2_20261012/scripts/posttrain_run.py", line 140, in configure_native
+    require(importlib.metadata.version(name) == version, "package drift: " + name)
+  File "/srv/gpu-lab/users/a25023104/projects/lcf-server-20261020/shared/evaluation/posttrain_audit.py", line 37, in require
+    raise ValueError(message)
+ValueError: package drift: torch

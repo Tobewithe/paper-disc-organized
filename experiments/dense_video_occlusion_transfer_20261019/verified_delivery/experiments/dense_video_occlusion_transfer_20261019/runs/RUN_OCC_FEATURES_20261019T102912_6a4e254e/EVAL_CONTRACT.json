@@ -1,0 +1,18 @@
+{
+  "inputs": "RGB and past/current visible observations only",
+  "train_targets": "synthetic geometry only",
+  "backbone": "ResNet18 frozen through layer2",
+  "window": 8,
+  "real_GT": "not read",
+  "missing": "constant velocity; no hidden box",
+  "geometry": [
+    "present",
+    "gap/60",
+    "w/W",
+    "h/H",
+    "cx/W",
+    "cy/H",
+    "max intersection/own-area",
+    "score"
+  ]
+}

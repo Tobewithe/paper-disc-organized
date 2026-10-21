@@ -1,0 +1,24 @@
+{
+  "submitted_at_utc": "2026-10-18T03:43:37.808410+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--partition=gpu",
+    "--account=lab",
+    "--qos=normal",
+    "--nodes=1",
+    "--ntasks=1",
+    "--cpus-per-task=2",
+    "--mem=4G",
+    "--time=00:30:00",
+    "--dependency=afterany:112",
+    "--job-name=pc-closure",
+    "--output=/srv/gpu-lab/users/a25023104/logs/pc-closure-%j.log",
+    "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_replay_20261018/closure/close.sbatch"
+  ],
+  "returncode": 0,
+  "stdout": "113\n",
+  "stderr": "",
+  "no_new_training": true,
+  "one_shot_no_timer": true
+}

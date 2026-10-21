@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF" />
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#315E9D">02 研究方法 · 模块一</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">原始候选能力：每个 GT 划入一个状态</text></g>
+<g id="classification-scope" data-pptx-bounds="64 161 1152 75" font-size="22" fill="#596B80"><text x="64" y="185">COCO val2017 · 5,000 张图 · 36,335 个普通 GT · 全部原始候选</text><text x="64" y="222">不按类别、分数筛选；框与掩码均以 IoU ≥ 0.75 为达标</text><text x="1080" y="222">GT 数 / 占比</text></g>
+<g id="raw-gt-states" data-pptx-bounds="64 245 1152 390">
+ <g id="raw-gt-states-chartArea">
+  <line x1="675" y1="595" x2="1045" y2="595" stroke="#596B80" />
+  
+  <rect x="675" y="268" width="352.314" height="24" fill="#315E9D" />
+  <rect x="675" y="338" width="98.9824" height="24" fill="#007F82" />
+  <rect x="675" y="408" width="7.2076" height="24" fill="#8495A8" />
+  <rect x="675" y="478" width="7.8588" height="24" fill="#8495A8" />
+  <rect x="675" y="548" width="71.3952" height="24" fill="#596B80" />
+ </g>
+ <g id="raw-class-labels" fill="#25374C">
+  <text x="64" y="283" font-weight="bold">同一候选双达标</text><text x="64" y="314" font-size="22" fill="#596B80">存在同一候选：框与掩码均达标</text>
+  <text x="64" y="353" font-weight="bold" fill="#007F82">仅框达标</text><text x="64" y="384" font-size="22" fill="#596B80">有达标框，整个候选池无达标掩码</text>
+  <text x="64" y="423" font-weight="bold">仅掩码达标</text><text x="64" y="454" font-size="22" fill="#596B80">有达标掩码，整个候选池无达标框</text>
+  <text x="64" y="493" font-weight="bold">分别达标</text><text x="64" y="524" font-size="22" fill="#596B80">好框与好掩码在不同候选，无同一候选双达标</text>
+  <text x="64" y="563" font-weight="bold">均未达标</text><text x="64" y="594" font-size="22" fill="#596B80">框与掩码都没有达标候选</text>
+ </g>
+ <g id="raw-counts" fill="#25374C" font-weight="bold">
+  <text x="1080" y="287">23,805</text><text x="1080" y="357" fill="#007F82">6,688</text><text x="1080" y="427">487</text><text x="1080" y="497">531</text><text x="1080" y="567">4,824</text>
+ </g>
+ <g id="raw-percentages" font-size="22" fill="#596B80"><text x="1080" y="316">65.52%</text><text x="1080" y="386" fill="#007F82">18.41%</text><text x="1080" y="456">1.34%</text><text x="1080" y="526">1.46%</text><text x="1080" y="596">13.28%</text></g>
+ <g id="raw-axis-labels" font-size="20" fill="#596B80" text-anchor="middle"><text x="675" y="623">0</text><text x="749" y="623">5,000</text><text x="823" y="623">10,000</text><text x="897" y="623">15,000</text><text x="971" y="623">20,000</text><text x="1045" y="623">25,000</text></g>
+</g>
+<g id="raw-interpretation" data-pptx-bounds="64 645 1152 40"><text x="64" y="674" font-weight="bold" fill="#172B46">6,688 个 GT 已有好框，却未产生合格掩码，提示需要研究掩码形成。</text></g>
+</svg>

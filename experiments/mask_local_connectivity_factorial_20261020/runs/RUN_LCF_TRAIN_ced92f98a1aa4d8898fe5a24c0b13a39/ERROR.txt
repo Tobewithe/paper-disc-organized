@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_local_connectivity_factorial_20261020\scripts\lcf_runner.py", line 127, in train
+    run.check();model=models[arm];opt=opts[arm];opt.zero_grad(set_to_none=True)
+    ^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_local_connectivity_factorial_20261020\scripts\lcf_runtime.py", line 110, in check
+    require(torch.cuda.max_memory_reserved()<=6*2**30,'CUDA reserved exceeds 6 GiB')
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_local_connectivity_factorial_20261020\scripts\lcf_runtime.py", line 44, in require
+    if not ok:raise RuntimeError(msg)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: CUDA reserved exceeds 6 GiB

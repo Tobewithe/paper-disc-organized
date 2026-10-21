@@ -1,0 +1,1285 @@
+
+
+PAGE 1
+Learning to Track with Object Permanence
+Pavel Tokmakov Jie Li Wolfram Burgard Adrien Gaidon
+Toyota Research Institute
+first.last@tri.global
+Abstract
+Tracking by detection, the dominant approach for online
+multi-object tracking, alternates between localization and
+association steps. As a result, it strongly depends on the
+quality of instantaneous observations, often failing when
+objects are not fully visible. In contrast, tracking in hu-
+mans is underlined by the notion of object permanence:
+once an object is recognized, we are aware of its physical
+existence and can approximately localize it even under full
+occlusions. In this work, we introduce an end-to-end train-
+able approach for joint object detection and tracking that
+is capable of such reasoning. We build on top of the re-
+cent CenterTrack architecture, which takes pairs of frames
+as input, and extend it to videos of arbitrary length. To this
+end, we augment the model with a spatio-temporal, recur-
+rent memory module, allowing it to reason about object lo-
+cations and identities in the current frame using all the pre-
+vious history. It is, however , not obvious how to train such
+an approach. We study this question on a new, large-scale,
+synthetic dataset for multi-object tracking, which provides
+ground truth annotations for invisible objects, and propose
+several approaches for supervising tracking behind occlu-
+sions. Our model, trained jointly on synthetic and real
+data, outperforms the state of the art on KITTI and MOT17
+datasets thanks to its robustness to occlusions.
+1. Introduction
+Consider the video sequence from the KITTI dataset [26]
+shown in Figure 1. A man on the left walks behind the
+moving car and is not visible anymore. Yet, there is no
+question that he is still there, and did not simply vanish.
+Moreover, we can approximately infer his location at that
+moment. This capability is known to cognitive scientists
+as object permanence, and is observed in infants at a very
+early age [5, 56]. In adults, understanding that occluded
+objects do not disappear is important for tasks like driving.
+In this work, we propose a deep learning-based method for
+multi-object tracking that is capable of such reasoning.
+Virtually all modern multi-object tracking algorithms
+Figure 1. Video frames from the KITTI dataset with outputs of
+CenterTrack [69] (above), and our method (below). By modeling
+object permanence, our approach is able to hallucinate trajectories
+of fully occluded instances, such as the person behind the car.
+operate in the tracking-by-detection paradigm. That is, they
+use an existing object detector to localize objects of interest
+in every frame of a video, and then link them into tracks,
+either in an online [11, 13], or in an ofﬂine manner [7, 8,
+12, 36, 45]. In this work we focus on the online setting,
+where a method needs to associate current detections with
+previously established trajectories [11, 57, 62, 65]. A ma-
+jor limitation of these methods is that the localization step
+is completely independent from the previous history, thus,
+once an object becomes partially or fully occluded, the de-
+tector fails and the trajectory gets broken (see Figure 1, top).
+Recently, several approaches combine detection and track-
+ing in a single model [9, 69]. They take pairs of frames as
+input and output detections together with pairwise associ-
+ations. While these methods improve tracking robustness,
+they can only handle single-frame occlusions.
+In this work, we propose an end-to-end trainable, on-
+line approach for multi-object tracking that leverages object
+permanence as an inductive prior. To this end, we ﬁrst ex-
+tend the recent CenterTrack architecture [69] from pairs of
+frames as input to arbitrary video sequences . The frames
+are processed by a convolutional gated recurrent unit (Con-
+arXiv:2103.14258v2  [cs.CV]  30 Sep 2021
+
+PAGE 2
+vGRU) [6] that encodes the spatio-temporal evolution of
+objects in the input video, taking the entire history into ac-
+count. As a result, it can can reason about locations of par-
+tially and fully occluded instances using the object perma-
+nence assumption (see Figure 1, bottom).
+Supervising this behavior is a major challenge. No track-
+ing dataset currently provides consistent annotations for oc-
+cluded objects at a large scale (see Figure 5) because of
+the associated uncertainty. In this paper, we instead pro-
+pose to use synthetic data . Using the Parallel Domain
+(PD) [3] simulation platform, we generate a dataset of syn-
+thetic videos that automatically provides accurate labels for
+all objects, irrespective of their visibility (see Figure 2). We
+then use this dataset to analyze various approaches for su-
+pervising tracking behind occlusions with both ground-truth
+and pseudo-ground-truth labels for occluded instances.
+Despite the progress in simulation, the domain gap be-
+tween synthetic and real videos may limit performance.
+As we show in Section 4.3, a model directly trained
+on synthetic videos indeed underperforms when applied
+to real-world multi-object tracking benchmarks such as
+KITTI [26]. However, we ﬁnd that this domain gap can be
+overcome by just training our model jointly on synthetic and
+real data, supervising invisible objects only on synthetic se-
+quences. This allows to learn complex behaviors across do-
+mains, including trajectory hallucination for fully occluded
+instances although this was never labeled in the real world.
+Our contributions are three-fold. (1) We propose an
+end-to-end trainable architecture for joint object detection
+and tracking that operates on videos of arbitrary length in
+Sec. 3.2. (2) We demonstrate how this architecture can be
+trained to hallucinate trajectories of fully invisible objects
+in Sec. 3.3. (3) We show how to supervise our method
+with a mix of synthetic and real data in Sec. 3.4, and val-
+idate it on the KITTI [26] and MOT17 [41] real-world
+benchmarks in Sec. 4, outperforming the state of the art.
+Source code, models, and data are publicly available at
+https://github.com/TRI-ML/permatrack.
+2. Related Work
+Our approach addresses the problem of multi-object
+tracking by designing a joint model forobject detection and
+tracking in videos and training it on synthetic data. Below,
+we review the most relevant works in each of these ﬁelds.
+Multi-object tracking is the problem of localizing objects
+from a predeﬁned list of categories in a video and asso-
+ciating them over time based on identity. Most existing
+approaches treat these two tasks separately, in a paradigm
+known as tracking-by-detection. The main difference be-
+tween the methods in this category is whether the associa-
+tion step is performed online or ofﬂine.
+State-of-the-art online object trackers [9, 11, 62, 65, 69]
+keep a set of active trajectories as they progress through
+a video. In every frame, a new list of object detec-
+tions is processed by either associating them with an ex-
+isting trajectory, or starting a new one. Early approaches,
+such as SORT [11], used Kalman ﬁlter to associate detec-
+tions based on bounding box overlap, or appearance fea-
+tures from a deep network [62]. Recent methods pro-
+posed to utilize more complex features for association, such
+as human pose [57], or trajectory representations learned
+with spatio-temporal graph convolutions [65]. Although
+some of the methods in this category use a linear motion
+model [13, 43, 67] to propagate a trajectory hypothesis be-
+hind occlusions, this heuristic ignores changes in the scene
+context. In contrast, our approach learns to hallucinate tra-
+jectories of occluded objects in an end-to-end manner, out-
+performing the aforementioned heuristic.
+On the other hand, ofﬂine approaches [7, 8, 12, 36] ﬁrst
+build a spatio-temporal graph spanning the whole video,
+with object detections as nodes [7]. Edge costs are de-
+ﬁned based on overlap between detections [32, 45, 68],
+their appearance similarity [12, 42, 50, 65], or motion-based
+models [4, 15, 18, 36, 47]. The association can then be
+formulated as maximum ﬂow [8] or, minimum cost prob-
+lem [32, 36]. While these methods can handle complex sce-
+narios, they are not practical due to their non-casual nature
+and computational complexity. In contrast, our approach
+does not require future frames and runs in real time.
+A few methods have recently attempted to combine ob-
+ject detection and tracking in a single end-to-end learnable
+framework. Bergman et al. [9] utilize the box regression
+branch in the Faster RCNN detector [48] to propagate ob-
+jects from frame t− 1 tot. Zhou et al. [69] take a pair of
+frames as input, and directly output the detections and asso-
+ciation vectors, resulting in a simpler architecture. How-
+ever, both these methods only capture short-term object
+correspondences. Our approach builds on top of [69], but
+modiﬁes it to model spatio-temporal evolution of objects in
+video sequences of arbitrary length, and uses synthetic data
+to learn to detect and track even under full occlusions.
+Several classical methods [28, 30, 44] have attempted to
+capture the notion of object permanence through heuristics,
+such as correlation between the motion of visible and invis-
+ible instances in [28]. However, these rule-based methods
+lack in ﬂexibility. Recently, Shamsian et al. [54] proposed
+a fully learning-based approach with promising results on
+toy, synthetic examples. In contrast, our method is capable
+of handling full occlusions in the wild.
+Video object detection is primarily concerned with im-
+proving the robustness of detectors in videos. Early ap-
+proaches processed frames individually, but used a Siamese
+network to establish association between detections and
+smooth their scores [23]. Later, Kang et al. [33] proposed
+to pass a stack of several frames to a network and directly
+
+PAGE 3
+Figure 2. A sample from our synthetic dataset (Section 4.1) with
+ground truth visibility labels. Unlike real datasets, virtual ones
+provide accurate annotations for all the objects, irrespective of
+their visibility.
+output short object tubelets. Finally, Xiao et al. [64] aug-
+mented an object detector with a spatio-temporal memory
+module, allowing it to process videos of arbitrary length.
+Notice that none of these methods tackled the problem of
+multi-object tracking. Instead, they used short-term associ-
+ations to improve detection robustness. Similarly to [64],
+our architecture also combines an object detector with a
+spatio-temporal memory module, however, we use a more
+recent CenterPoint [70] detector framework and train the
+model to hallucinate trajectories of fully occluded objects
+using synthetic data.
+Synthetic data has been used in the past to circumvent
+the need for manually labeling images [20, 49, 51] or
+videos [21, 24, 58]. Most approaches have focused on
+the setting in which no labels are available in the real
+world, leveraging unsupervised domain adaptation tech-
+niques such as adversarial training [25, 29, 37, 59] and self-
+training [35, 53, 71, 72]. Although signiﬁcant progress has
+been achieved, the performance of these models remains
+signiﬁcantly below their counterparts trained on real data
+in a fully supervised way. In videos, the most successful
+approaches combined large amounts of synthetic data with
+small sets of labeled real videos [31, 58]. In this work, we
+follow a similar route and utilize synthetic data to obtain the
+expensive labels for occlusion scenarios, while relying on
+visible object annotations in multi-object tracking datasets
+to minimize the domain gap. Synthetic datasets with ob-
+ject track labels have been proposed in the past [22, 24].
+We choose to capitalize on the recent progress in simula-
+tion tools and collect a new, more realistic one.
+3. Methodology
+3.1. Background
+We build our method on top of the recent Center-
+Track [69] architecture. Their approach addresses tracking
+from a local perspective. In particular, CenterTrack takes
+a pair of frames {I t−1,I t} as input together with H t−1
+- an encoding of locations of previously detected objects
+in frame t− 1. Objects are represented with their cen-
+ter points p∈ R2, thus H t−1 is compactly encoded with
+a heatmap. The three input tensors are concatenated and
+passed through a backbone network f, producing a feature
+map F t = f (H t−1,I t−1,I t), which is used to both lo-
+calize the object centers in the current frame {ˆpt
+0, ˆpt
+1,...},
+regress their bounding box sizes {ˆst
+0, ˆst
+1,...}, and predict
+their displacement vectors with respect to the previous
+frame{ˆdt
+0, ˆdt
+1,...}. At test time, displacement vectors are
+used to project each center to the previous frame viaˆpt
+i− ˆdt
+i,
+and then greedily match it to the closest available center
+ˆpt−1
+∗ , thus recovering the tracks (see [69] for more details).
+The local nature of CenterTrack is both its strength and
+its weakness. While only considering a pair of consecutive
+frames simpliﬁes the architecture of the model, it limits its
+representational power. In particular, it cannot capture the
+notion of object permanence in videos, and learn to localize
+and associate objects under full occlusions. To address this
+limitation, we ﬁrst extend [69] to a video-level model in
+Section 3.2. We then describe how to train such a model to
+track invisible objects using synthetic data in Section 3.3,
+and detail our domain adaptation approach is Section 3.4.
+3.2. A video-level model for tracking
+Our model, shown in Figure 3, takes a sequence of
+frames{I 1,I 2,...,I n} as input. Each frame is passed
+through the backbonef individually to obtain feature maps
+{F 1,F 2,...,F n}, which, per CenterTrack formalism, en-
+code the locations of visible objects in that frame - an in-
+stantaneous representation. To learn a permanent represen-
+tations of objects in a video, we augment our network with a
+convolutional gated recurrent unit (ConvGRU) [6]. It is an
+extension of the classical GRU [16], which replaces a 1D
+state vector with a 2D feature map M, and fully connected
+layers, used to compute state updates, with convolutions.
+At each time step t, the corresponding feature map
+F t is passed to the ConvGRU, together with the pre-
+vious state M t−1 to compute the updated state M t =
+GRU (M t−1,F t). Intuitively, the state matrix M rep-
+resents the entire history of the previously seen objects
+{o1,o 2,...} in frames{1,...,t − 1} and is updated with the
+encoding of the visible objects in frame t via a series of
+learnable, multiplicative transformations (see [6] for further
+details). It can thus model the spatio-temporal evolution of
+objects in the input video sequence by guiding their local-
+ization and association in frame t using previous history.
+Moreover, it can predict locations of the objects that were
+seen in the past, but are currently occluded. Notice that
+with this architecture there is no need to pass the explicit
+encoding of the previous frame centers H t−1, since they
+are already captured in the ConvGRU stateM t−1.
+In practice, to generate the tracks on-line, M t
+
+PAGE 4
+Figure 3. Our method takes a sequence of frames as input and processes them individually with a backbone network (shown in yellow).
+The resulting feature maps (shown in blue) are passed to the ConvGRU module which aggregates a representation of the scene, encoding
+all the previously seen objects, even if they are fully occluded in the current frame. The memory state at time t, (shown in gold), is then
+used to decode object centers, and estimate their visibility (other outputs directly adapted from [69] are not shown for readability).
+is recurrently passed through separate sub-networks
+fp,f of f,f s,f d, which following [69], are used to decode
+the bounding boxes of the objects and link them into tracks.
+We augment those with a new visibility headfv, which pro-
+duces an output mapV t∈ [0, 1]H×W . It is a binary classi-
+ﬁer, predicting whether the object center at a particular lo-
+cation corresponds to a visible, or a fully occluded instance.
+See, for example, the person walking behind the red SUV
+on the right in Figure 3. His location behind occlusion is
+supervised as a positive for the localization headP t, but as
+a negative forV t. This distinction is important for evalua-
+tion, since annotations for invisible objects are not provided
+(we also remove them from the validation set of PD for a
+fair comparison). To avoid being penalized for ‘false pos-
+itive’ predictions, we only output bounding boxes that are
+classiﬁed as visible by our model, but use the invisible ones
+to recover object identities after occlusions.
+All the operations detailed here are fully differentiable,
+and thus the model can be trained in an end-to-end fashion
+with backpropagation through time [61]. Following [69],
+we use focal loss [39] to supervise P t andV t, and L1 loss
+for the latter three heads. The overall training objective is:
+L = 1
+N
+N∑
+t=1
+Lt
+p +Lt
+v +λof fLt
+of f +λsLt
+s +λdLt
+d, (1)
+where N is the length of the input sequence, and
+λof f,λ s,λ d are hyper-parameters that balance the contri-
+bution of the corresponding losses in the overall objective.
+As we discuss in Section 4.3, training our model on
+visible objects alone results in noticeable improvements
+over [69] due to increased robustness to noise in instanta-
+neous observations. Next, we discuss our approach to su-
+pervising fully occluded objects.
+3.3. Learning to track behind occlusions
+3.3.1 Disambiguating levels of visibility
+To generate training labels for a video sequence of length
+N, our method takes object annotations{O1,O 2,...,O N},
+with Ot = {ot
+1,o t
+2,...,o t
+m} as input. Each object ot
+i =
+(p, s,id,vis ) is described by its center p ∈ R2, bound-
+ing box size s∈ R2, identityid∈ I, which is used, together
+with p, to supervise the displacement vectorsd, and visibil-
+ity levelvis∈ [0, 1], indicating what fraction of the object
+is visible in the current frame. Naively, one could simply
+ignore the visibility levels and supervise all the objects in
+every frame. This would, however, result in the model be-
+ing forced to hallucinate objects trajectories before they ﬁrst
+become visible (e.g. the car driving in front of the truck in
+Figure 2 for the whole duration of the video). As we show
+in our experiments (Table 2), such supervision is effectively
+label noise and decreases model’s performance.
+To avoid this, we pre-process the annotations to only
+start supervising occluded objects after they have been visi-
+ble for at least 2 frames. This is the minimal sufﬁcient time
+for the model to both localize an object and estimate its ve-
+locity - the required information for predicting its position
+under occlusion.
+Concretely, we introduce two thresholds Tvis andToccl.
+Then, starting from the ﬁrst frame in a sequence O1, for
+every object o1
+i , if vis1
+i < Tvis the object is treated as a
+negative, ifTvis < vis1
+i < Toccl it is ignored (the model is
+not penalized for predicting it), and ﬁnally, ifvis1
+i > Toccl
+its marked as visible and used to produce the labels. The
+same procedure is repeated for every frame in a sequence,
+with the only difference that, starting from frame 3, objects
+that were marked as visible for two consecutive frames in
+the past are treated as positives regardless of their visibil-
+ity status in the current frame. This procedure reduces the
+ambiguity of supervision for the model. In particular, the
+second threshold Toccl allows for a soft transition between
+visible and invisible objects.
+3.3.2 Supervising the invisible
+The ambiguity of the location of an invisible object is
+not fully addressed by the algorithm above. Consider the
+ground truth trajectory of a person shown in white in Fig-
+ure 4. She walks behind the bus stop, and then stops. In
+
+PAGE 5
+Figure 4. Illustration of the ambiguity of ground truth object locations under full occlusions. The woman, shown in white, walks behind
+the bus stop and then stops. Instead of trying to predict this random event, we propose to supervise the model with deterministic pseud-
+ground-truth in such scenarios (shown in green, matches the ground truth in the ﬁrst two frames).
+the absence of observations it is impossible for the model
+to predict this behavior. Consequently, such examples also
+constitute label noise. In fact, the only deterministic as-
+sumption both a person and a neural network can make
+about the trajectory of an occluded object is that it will
+maintain constant velocity.
+Propagating the last observed object location with its
+constant velocity in the camera frame is also the state of the
+art approach for handling occlusions in multi-object track-
+ing literature [9, 69]. It is however, not robust to changes
+in camera motion. Instead, we propose to generate pseudo-
+ground-truth labels for supervising our model by propagat-
+ing the occluded object locations with their last observed
+velocity in 3D, and projecting the resulting centers to the
+camera frame, which is made possible by the availability of
+the full ground truth information in our synthetic dataset.
+Concretely, for an objecti getting occluded at timet, we
+take its ground truth centers in the previous two frames in
+the world coordinate system Pt−1
+i , Pt−2
+i ∈ R3, and com-
+pute the object velocity Vi = Pt−1
+i − Pt−2
+i . We then use it
+to estimate the location of the object center at time t under
+the constant velocity assumption via ˜Pt
+i = Pt−1
+i + Vi. Fi-
+nally, this estimated center is projected to the camera frame
+via ˜pt
+i = K[R|t] ˜Pt
+i, where K is the camera intrinsics, and
+[R|t] is the camera extrinsic matrix, and is used to replaced
+the ground-truth center pt
+i in the corresponding label set
+ot
+i. The same procedure is repeated for all the frames dur-
+ing which the object remains invisible. This principled ap-
+proach, shown in green in Figure 4, results in a deterministic
+supervision for invisible objects.
+If the object does not re-appear at the expected location,
+the model is supervised to keep hallucinating the box as de-
+scribed above. Re-identiﬁcation is then performed at the
+time of dis-occlusiont by supervising the displacement vec-
+tordt to project the ground-truth, visible location to the hal-
+lucinated location att− 1.
+3.4. Bridging the sim-to-real domain gap
+Analyzing the approaches for supervising tracking be-
+hind occlusion described above requires a large video
+dataset with objects densely labeled regardless of whether
+they are visible, together with precise visibility scores, 3D
+coordinates and camera matrices. No real dataset with such
+labels exists due to the cost and complexity of collecting
+these annotations.
+Instead of going the expensive route, we use synthetic
+data for which it is easy to automatically generate physi-
+cally accurate ground truth. However, generalization to real
+videos remains a challenge. A few approaches that used
+synthetic videos for training in the past addressed the do-
+main discrepancy by simply ﬁnetuning the resulting model
+on a small real dataset [24, 31, 58]. Recall, however, that
+real datasets in our scenario do not provide consistent an-
+notations for occluded objects, thus such ﬁnetuning would
+result in forgetting the trajectory hallucination behaviour.
+To mitigate this issue, we propose to jointly train our ap-
+proach on synthetic and real data, where at each iteration a
+batch is sampled from one of the datasets at random. More-
+over, we cannot use real sequences of length more than 2
+for the same reason mentioned above (we want the invisible
+objects supervision to remain consistent). As a result, we
+sample synthetic clips of lengthN and real ones of length 2
+during training, with the ﬁnal loss being:
+L = 1
+N
+N∑
+t=1
+Lt
+sym + 1
+2
+2∑
+t=1
+Lt
+real, (2)
+where Lsym and Lsym are deﬁned in the same way as in
+Equation 1. Effectively, we use synthetic videos to learn
+the desired behavior, and real frame pairs to minimize the
+domain discrepancy.
+4. Experiments
+4.1. Datasets and evaluation
+We use two real datasets in the experimental analysis to
+compare to prior work: KITTI [26] and MOT17 [41]. In
+addition, we use a virtual dataset - ParallelDomain (PD), to
+learn to track behind occlusions. Details of these datasets
+are provided in the appendix. While our work is focused
+on the 2D setting, our approach can be directly extended to
+3D tracking, as we show on the nuScenes [14] benchmark
+in the appendix.
+Evaluation metrics Traditionally, multi-object tracking
+datasets have been using the CLEAR MOT metrics for eval-
+
+PAGE 6
+uation [10], with MOTA being the main metric used to com-
+pare the methods. It has recently been shown, however,
+that it overemphasizes detection over association [40]. In-
+stead, supplementary metrics, such as fraction of tracks that
+are maintained for at least 80% of their duration (‘mostly
+tracked’) have to be used in conjunction with MOTA.
+The lack of a single metric that combines detection
+and association accuracy has been addressed by track
+intersection-over-union (IoU) based metrics [19, 52, 66],
+and HOTA [40]. In our analysis we use the former due to its
+larger emphasis on association accuracy. To formally deﬁne
+track IoU, let G ={g1,...,g T} and D ={d1,...,d T}
+be a groundtruth and a corresponding predicted track for
+a video with T frames. Importantly, only one predicted
+track can be assigned to each ground truth trajectory, and
+all the unassigned ones are treated as false positives. Track
+IoU is then deﬁned as: IoU (D,G ) =
+∑T
+t=1 gt∩dt∑T
+t=1 gt∪dt
+. Simi-
+larly to standard object detection metrics, track IoU together
+with track conﬁdence can be used to compute mean average
+precision (mAP) across categories using a predeﬁned IoU
+threshold. Following [19] we use a threshold of 0.5, refer-
+ring to this metric as Track AP. When comparing to the state
+of the art, we report the standard metrics for each dataset.
+4.2. Implementation details
+For the components of our model shared with Center-
+Track [69] we follow their architecture and protocol ex-
+actly. Here we only provide the values of the new hyper-
+parameters. Additional details, such as joint training on
+synthetic and real data, are reported in the appendix.
+The ConvGRU has a feature dimension of 256, and uses
+7× 7 convolutions. We train the model on synthetic se-
+quences of length 17 for 21 epochs with a batch size 16
+using the Adam optimizer. The choice of the clip length
+is deﬁned by GPU memory constraints. The learning rate
+is set to 1.25e−4 and decreased by a factor of 10 every 7
+epochs for 1 epoch. It is then increased back to the origi-
+nal value. We have found such a periodic schedule to speed
+up convergence. We set the visibility thresholdTvis to 0.05
+and the occlusion threshold Toccl to 0.15, corresponding to
+5% and 15% of the object being visible respectively. Dur-
+ing evaluation, our model is applied in a fully online way,
+processing all the frames from a video one by one. It runs
+on a single Tesla V100 GPU at around 10FPS.
+4.3. Ablation analysis
+In this section, we analyze our proposed approach. All
+the variants are trained using exactly the same hyper-
+parameters and learning rate schedules. Invisible object an-
+notations are ignored in the validation set of PD, so only
+visible parts of the trajectories are used for evaluation. This
+allows to fairly compare methods that do and do not have
+access to invisible object labels during training.
+GRUHt−1 Input Car AP Person AP mAP
+CenterTrack - ✓ 2 fr 66.2 54.4 60.3
+Ours 3×3 ✓ 2 fr 64.6 49.7 57.1
+Ours 7×7 ✓ 2 fr 65.2 54.0 59.6
+Ours 7×7  2 fr 65.7 55.6 60.6
+Ours 7×7  Video 66.8 57.9 62.4
+Table 1. Analysis of the architecture of our our model using Track
+AP on the validation set of PD. We ablate the effect of the ﬁlter size
+in ConvGRU, explicitly passing the encoding of object centers in
+the previous frame H t−1, and training on videos vs frame pairs.
+Invis. sup. Post-proc. Car AP Person APmAP
+Ours All GT - 66.0 58.3 62.2
+Ours Filtered GT - 71.1 60.6 65.9
+Ours 2D const v - 70.7 60.8 65.7
+Ours 3D const v - 71.0 63.0 67.0
+CenterTrack- 2D const v 67.6 54.9 61.2
+Ours 3D const v 2D const v 72.7 63.1 67.9
+Table 2. Comparison of different approaches for handling full oc-
+clusions using Track AP on the validation set of PD. We evaluate
+several supervision strategies, and compare the best variant to the
+heuristic-based constant velocity track propagation.
+Model variants. We begin by studying the variants of our
+video-level tracking model. To this end, we ﬁrst train Cen-
+terTrack on PD using the code provided by the authors and
+report the results in row 1 of Table 1. The basic variant our
+our model, shown in row 2, like CenterTrack, takes pairs of
+frames as input together withH t−1, the encoding of detec-
+tions in the previous frame, but processes them recurrently
+with a ConvGRU. It performs signiﬁcantly worse than the
+baseline, due to the fact that CenterTrack uses a deep net-
+work with a large ﬁeld-of-view to combine the two frames
+and establish associations between the objects, whereas our
+model relies on a few convolutional layers in the ConvGRU
+with 3×3 ﬁlters. Increasing the ﬁlter size (row 3 in Table 1)
+indeed results in a noticeable performance improvement.
+Next, we observe that the additional H t−1 input is re-
+dundant in our case. Moreover, removing this input allows
+to avoid the corresponding heat map augmentation strategy
+proposed by [69]. This simpliﬁcation (show in row 4 in
+Table 1) further improves the performance of our model,
+matching CenterTrack. Finally, training and evaluating on
+longer sequences (last row in Table 1) unlocks the full po-
+tential of our architecture to capture object permanence in
+videos. Even when trained only on visible objects, this vari-
+ant signiﬁcantly outperforms the baseline due to its robust-
+ness to the noise in instantaneous observations.
+Tracking behind occlusions. In Table 2 we now compare
+various strategies for supervising full occlusion scenarios.
+Firstly, we observe that the naive approach of training the
+model to detect and track all the invisible object results in a
+slight decrease in performance compared to variant trained
+only on visible ones (last row in Table 1). As discussed in
+Section 3.3, such supervision is highly ambiguous, as the
+model cannot localize the fully occluded objects it has not
+seen before. Accounting for this fact with our proposed an-
+
+PAGE 7
+Figure 5. Evaluation of the effect of the number of training videos
+using Track mAP on the validation set of PD. The gap between
+our full approach (shown in green), and the variant trained without
+invisible object labels (shown in blue), increases consistently with
+the dataset size. This demonstrates that a large dataset is required
+to learn to hallucinate trajectories of fully occluded objects, and
+KITTI (shown in yellow) would not be sufﬁcient.
+notation ﬁltering strategy (second row in Table 2) results in
+a 3.5 mAP improvement, validating its importance.
+Next, we compare using ground truth location of invisi-
+ble object to pseudo-ground-truth obtained via propagating
+the occluded object with its constant velocity in 2D, or in
+3D (see Section 3.3 for details). Constant velocity in 2D
+(row 3 in Table 2) is not robust to camera changes and re-
+sults in a lower performance than the ground truth locations.
+In contrast, propagating the target with its last observed ve-
+locity in 3D world coordinates (row 4 in the table), results in
+labels which are both consistent with the observations and
+fully deterministic, further improving the performance.
+Finally, we compare our learning-based approach to the
+constant velocity post-processing, which is a common way
+of handling occlusions in the tracking literature [9, 69], in
+the last two rows in Table 2. Firstly, this heuristic-based step
+does indeed improve the performance of [69], but it remains
+5.8 mAP points below our principled method. Secondly,
+applying this post-processing to the outputs of our method
+also improves its performance. We do not use any post-
+processing in the remainder of the experiments.
+Effect of the dataset size. In Figure 5 we plot the valida-
+tion performance of two variants of our model: the full one,
+and the one trained on visible objects only, while increas-
+ing the number of videos in the training set of PD. One can
+easily see that the gap between the two variants consistently
+increases. In fact, below 75 videos it is close to 0. This
+demonstrates that a large number of examples is required to
+learn the tracking behind occlusions behaviour.
+Yellow dashed line corresponds to the number of videos
+in the training set of KITTI, and illustrates that even if this
+dataset provided all required annotations, it would not be
+sufﬁcient to train our model. MOT17 contains only 7 train-
+KITTI PD Car AP Person AP mAP
+CenterTrack [69] ✓  73.8 39.4 56.6
+Ours  ✓ 83.3 38.2 60.8
+Ours (tune) ✓ ✓ 75.7 44.6 60.2
+Ours (joint) ✓ ✓ 84.7 56.3 70.5
+CenterTrack (joint)✓ ✓ 77.2 51.6 64.4
+Table 3. Domain adaptation analysis using Track AP on the valida-
+tion set of KITTI. We demonstrate the effectiveness of our simple
+strategy, and conﬁrm that the improvements mainly come from
+better occlusion handling.
+ing videos, making it even less practical for our purposes.
+Domain adaptation. We now demonstrate how the model
+learned on the large-scale, synthetic PD dataset can be
+transferred to a real-world benchmark such as KITTI in Ta-
+ble 3, and compare to the CenterTrack model released by
+the authors. Firstly, we directly evaluate our model trained
+on PD (fourth row in Tabel 2) and report the results in the
+second row of Table 3. Despite the signiﬁcant domain gap
+between the synthetic and real videos, this variant manages
+to outperform CenterTrack without seeing a single frame
+from KITTI. The gap in performance on the Person cate-
+gory remains large, due to its higher visual variability.
+Directly ﬁne-tuning our model on KITTI (shown in the
+third row in the table), helps to reduce the domain discrep-
+ancy, improving the Person performance, but also results in
+un-learning the tracking behind occlusions behaviour, as re-
+ﬂected in the drop in Car AP. In contrast, jointly training on
+the two datasets achieves the best results overall, validating
+the effectiveness of the proposed approach.
+Finally, we apply our domain adaptation approach to the
+CenterTrack model trained on PD (ﬁrst row in Table 1), and
+report the results in the last row of Table 3. One can see that
+synthetic data also improves CenterTrack results, but they
+remain 6.1 mAP point below those of our approach. This
+demonstrates that the improvements mainly come from our
+model’s ability to better handle occlusions.
+4.4. Comparison to the state of the art
+In this section, we compare our full method, which
+we refer to as PermaTrack, to the state of the art on the
+KITTI [26], and MOT17 [41] benchmarks. All our models
+are pre-trained on PD and adapted to the real domain using
+the training set of the corresponding dataset.
+KITTI. Table 4 lists the results on the KITTI test set, com-
+paring to vision-based, online methods. Our method out-
+performs the state of the art on all metrics on both cate-
+gories, except for ML (Mostly Lost) on Car, where we are
+0.4 points below [46]. Notice that we are 5.7 point above
+this method on the main HOTA metric, and are outperform-
+ing it by a large margin on all metrics on Person. Our
+improvements over the state-of-the-art CenterTrack are 5
+HOTA points on Car and 8.4 on Person, which is notable,
+given that typical differences between the methods on the
+
+PAGE 8
+Figure 6. Qualitative results on a test sequence from the KITTI benchmark. Our approach is able to successfully track a fully occluded car
+on the left (id 6 , highlighted in white). Please see supplementary video for a more comprehensive analysis on both datasets.
+Car Person
+HOTA↑ MOTA↑ MT↑ PT↓ ML↓ HOTA↑ MOTA↑ MT↑ PT↓ ML↓
+MASS [34] 68.3 84.6 74.0 23.1 2.9 - - - - -
+IMMDP [63] 68.7 82.8 60.3 27.5 12.2 - - - - -
+AB3D [60] 69.8 83.5 67.1 21.5 11.4 35.6 38.9 17.2 41.6 41.2
+TuSimple [17] 71.6 86.3 71.1 22.0 6.9 45.9 57.6 30.6 44.3 25.1
+SMAT [27] 71.9 83.6 62.8 31.2 6.0 - - - - -
+TrackMPNN [46] 72.3 87.3 84.5 13.4 2.2 39.4 52.1 35.1 46.1 18.9
+CenterTrack [69] 73.0 88.8 82.2 15.4 2.5 40.4 53.8 35.4 43.3 21.3
+PermaTrack (Ours) 78.0 91.3 85.7 11.7 2.6 48.6 66.0 48.8 35.4 15.8
+Table 4. Comparison to the state of the art on the test set of the KITTI benchmark using aggregate metrics. Some methods only report
+results on Car. Our approach outperforms all the other methods by a signiﬁcant margin on all the metrics except for ML on Car.
+T.R. IDF1↑ MOTA↑ MT↑ PT↓ ML↓
+Public
+CenterTrack [69] 63.2 63.1 37.5 38.1 24.5
+PermaTrack (Ours) 67.0 67.8 43.7 36.3 20.1
+CenterTrack [69]✓ 66.4 63.8 37.2 38.1 24.8
+PermaTrack (Ours)✓ 71.1 68.2 41.0 39.5 19.5
+Private
+CenterTrack [69] 64.2 66.1 41.3 37.5 21.2
+PermaTrack (Ours) 68.2 69.4 46.3 36.0 17.7
+CenterTrack [69]✓ 69.4 66.2 39.5 38.3 22.1
+PermaTrack (Ours)✓ 71.9 69.5 42.5 39.8 17.7
+Table 5. Comparison to the state of the art on the validation set of
+the MOT17 using private and public detections. Our method out-
+performs the state-of-the-art CenterTrack approach on all metrics
+both with and without the Track Rebirth (T.R.) post-processing.
+leader-board are within 1 point, and that CenterTrack is pre-
+trained on a large-scale, real-world nuScenes dataset [14].
+MOT17. The policy on this dataset is that only methods
+that don’t use external data for training can be evaluated on
+the test server with public detections. With just 7 videos in
+the training set, MOT17 is not sufﬁcient to learn the com-
+plex tracking behind occlusions behaviour. For fairness, we
+compare our method to the variant of the state-of-the-art
+CenterTrack which is pre-trained on the real-world Crowd-
+Human dataset [55] using the validation set of MOT17 in
+Table 5. The results on the test set using private detections
+are reported in the appendix.
+Without post-processing, our approach outperforms [69]
+using both public and private detections. The improvements
+are especially signiﬁcant in the public evaluation (the same
+bounding boxes used by both methods), emphasizing our
+method’s better tracking abilities. Finally, adding Track Re-
+birth post-processing from [69] (T.R. in the table, a variant
+of constant velocity) improves the performance of both ap-
+proaches and does not change the conclusions.
+Qualitative results. We provide an example of the output
+of our method on a sequence from the test set of KITTI in
+Figure 6. In this challenging scenario, as the ego-vehicle
+drives forward, the car on the left ( id 6 , highlighted in
+white) is fully occluded by another moving vehicle (id 2 ),
+but our method manages to correctly localize it and main-
+tain the trajectory. A more comprehensive analysis of our
+approach is presented in the supplementary video1.
+5. Conclusion
+In this work, we propose PermaTrack, an end-to-end-
+trainable approach for joint object detection and tracking.
+Thanks to its recurrent memory module, it is capable of rea-
+soning about the location of objects using the entire previ-
+ous history, and not just the current observation. Combined
+with supervision from synthetic data, this allows to train the
+model to track objects when they are fully occluded - a key
+concept in cognitive science known as object permanence.
+Our method obtains state-of-the-art results on the KITTI
+and MOT17 multi-object tracking benchmarks. While the
+ablation analysis demonstrates that hallucinating trajecto-
+ries of invisible objects is a crucial factor in the ﬁnal per-
+formance, knowledge about the full history also increases
+robustness to partial occlusions, and other low visibility sce-
+narios, such as motion blur.
+1https://www.youtube.com/watch?v=Dj2gSJ_xILY
+
+PAGE 9
+References
+[1] KITTI benchmark. http://www.
+cvlibs.net/datasets/kitti/eval_
+tracking_detail.php?result=
+82c08bddb89f9faa0fb00a60d55fea792ebede7d,
+March 2021. 14
+[2] MOT17 benchmark. https://motchallenge.net/
+method/MOT=4308&chl=10, March 2021. 14
+[3] Parallel domain. https://paralleldomain.com/,
+March 2021. 2, 12, 13
+[4] Alexandre Alahi, Kratarth Goel, Vignesh Ramanathan,
+Alexandre Robicquet, Li Fei-Fei, and Silvio Savarese. So-
+cial LSTM: Human trajectory prediction in crowded spaces.
+In CVPR, 2016. 2
+[5] Renee Baillargeon, Elizabeth S Spelke, and Stanley Wasser-
+man. Object permanence in ﬁve-month-old infants. Cogni-
+tion, 20(3):191–208, 1985. 1
+[6] Nicolas Ballas, Li Yao, Chris Pal, and Aaron Courville.
+Delving deeper into convolutional networks for learning
+video representations. In ICLR, 2016. 2, 3
+[7] Jerome Berclaz, Francois Fleuret, and Pascal Fua. Ro-
+bust people tracking with global trajectory optimization. In
+CVPR, 2006. 1, 2
+[8] Jerome Berclaz, Francois Fleuret, Engin Turetken, and Pas-
+cal Fua. Multiple object tracking using k-shortest paths op-
+timization. IEEE Transactions on Pattern Analysis and Ma-
+chine Intelligence, 33(9):1806–1819, 2011. 1, 2
+[9] Philipp Bergmann, Tim Meinhardt, and Laura Leal-Taixe.
+Tracking without bells and whistles. In ICCV, 2019. 1, 2, 5,
+7
+[10] Keni Bernardin and Rainer Stiefelhagen. Evaluating mul-
+tiple object tracking performance: the clear mot metrics.
+EURASIP Journal on Image and Video Processing , 2008:1–
+10, 2008. 6, 14
+[11] Alex Bewley, Zongyuan Ge, Lionel Ott, Fabio Ramos, and
+Ben Upcroft. Simple online and realtime tracking. In ICIP,
+2016. 1, 2
+[12] Guillem Bras ´o and Laura Leal-Taix ´e. Learning a neural
+solver for multiple object tracking. In CVPR, 2020. 1, 2
+[13] Michael D Breitenstein, Fabian Reichlin, Bastian Leibe, Es-
+ther Koller-Meier, and Luc Van Gool. Robust tracking-by-
+detection using a detector conﬁdence particle ﬁlter. InICCV,
+2009. 1, 2
+[14] Holger Caesar, Varun Bankiti, Alex H. Lang, Sourabh V ora,
+Venice Erin Liong, Qiang Xu, Anush Krishnan, Yu Pan, Gi-
+ancarlo Baldan, and Oscar Beijbom. nuScenes: A multi-
+modal dataset for autonomous driving. In CVPR, 2020. 5, 8,
+12, 14
+[15] Boyu Chen, Dong Wang, Peixia Li, Shuang Wang, and
+Huchuan Lu. Real-time ’actor-critic’ tracking. In ECCV,
+2018. 2
+[16] Kyunghyun Cho, Bart Van Merri ¨enboer, Caglar Gulcehre,
+Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, and
+Yoshua Bengio. Learning phrase representations using
+rnn encoder-decoder for statistical machine translation. In
+EMNLP, 2014. 3
+[17] Wongun Choi. Near-online multi-target tracking with aggre-
+gated local ﬂow descriptor. In ICCV, 2015. 8
+[18] Wongun Choi and Silvio Savarese. Multiple target tracking
+in world coordinate with single, minimally calibrated cam-
+era. In ECCV, 2010. 2
+[19] Achal Dave, Tarasha Khurana, Pavel Tokmakov, Cordelia
+Schmid, and Deva Ramanan. TAO: A large-scale benchmark
+for tracking any object. In ECCV, 2020. 6
+[20] C ´esar Roberto de Souza, Adrien Gaidon, Yohann Cabon,
+Naila Murray, and Antonio Manuel L ´opez. Generating hu-
+man action videos by coupling 3D game engines and proba-
+bilistic graphical models. IJCV, pages 1–32, 2019. 3
+[21] Alexey Dosovitskiy, Philipp Fischer, Eddy Ilg, Philip
+Hausser, Caner Hazirbas, Vladimir Golkov, Patrick Van
+Der Smagt, Daniel Cremers, and Thomas Brox. Flownet:
+Learning optical ﬂow with convolutional networks. In
+CVPR, 2015. 3
+[22] Matteo Fabbri, Fabio Lanzi, Simone Calderara, Andrea
+Palazzi, Roberto Vezzani, and Rita Cucchiara. Learning to
+detect and track visible and occluded body joints in a virtual
+world. In ECCV, 2018. 3
+[23] Christoph Feichtenhofer, Axel Pinz, and Andrew Zisserman.
+Detect to track and track to detect. In ICCV, 2017. 2
+[24] Adrien Gaidon, Qiao Wang, Yohann Cabon, and Eleonora
+Vig. Virtual worlds as proxy for multi-object tracking anal-
+ysis. In CVPR, 2016. 3, 5
+[25] Yaroslav Ganin and Victor Lempitsky. Unsupervised domain
+adaptation by backpropagation. In ICML, 2015. 3
+[26] Andreas Geiger, Philip Lenz, and Raquel Urtasun. Are we
+ready for autonomous driving? The KITTI vision benchmark
+suite. In CVPR, 2012. 1, 2, 5, 7, 12, 14
+[27] Nicolas Franco Gonzalez, Andres Ospina, and Philippe
+Calvez. SMAT: Smart multiple afﬁnity metrics for multiple
+object tracking. In ICIAR, 2020. 8
+[28] Helmut Grabner, Jiri Matas, Luc Van Gool, and Philippe Cat-
+tin. Tracking the invisible: Learning where the object might
+be. In CVPR, 2010. 2
+[29] Judy Hoffman, Eric Tzeng, Taesung Park, Jun-Yan Zhu,
+Phillip Isola, Kate Saenko, Alexei Efros, and Trevor Darrell.
+Cycada: Cycle-consistent adversarial domain adaptation. In
+ICML, 2018. 3
+[30] Yan Huang and Irfan Essa. Tracking multiple objects through
+occlusions. In CVPR, 2005. 2
+[31] Eddy Ilg, Nikolaus Mayer, Tonmoy Saikia, Margret Keuper,
+Alexey Dosovitskiy, and Thomas Brox. FlowNet 2.0: Evolu-
+tion of optical ﬂow estimation with deep networks. In CVPR,
+2017. 3, 5
+[32] Hao Jiang, Sidney Fels, and James J Little. A linear pro-
+gramming approach for multiple object tracking. In CVPR,
+2007. 2
+[33] Kai Kang, Hongsheng Li, Tong Xiao, Wanli Ouyang, Junjie
+Yan, Xihui Liu, and Xiaogang Wang. Object detection in
+videos with tubelet proposal networks. In CVPR, 2017. 2
+[34] Hasith Karunasekera, Han Wang, and Handuo Zhang. Mul-
+tiple object tracking with attention to appearance, structure,
+motion and size. IEEE Access, 7:104423–104434, 2019. 8
+
+PAGE 10
+[35] Jiaqi Zou Ke Mei, Chuang Zhu and Shanghang Zhang. In-
+stance adaptive self-training for unsupervised domain adap-
+tation. In ECCV, 2020. 3
+[36] Laura Leal-Taix ´e, Michele Fenzi, Alina Kuznetsova, Bodo
+Rosenhahn, and Silvio Savarese. Learning an image-based
+motion context for multiple people tracking. In CVPR, 2014.
+1, 2
+[37] Kuan-Hui Lee, German Ros, Jie Li, and Adrien Gaidon. SPI-
+GAN: privileged adversarial learning from simulation. In
+ICLR, 2019. 3
+[38] Yuan Li, Chang Huang, and Ram Nevatia. Learning to asso-
+ciate: Hybridboosted multi-target tracker for crowded scene.
+In 2009 IEEE conference on computer vision and pattern
+recognition, pages 2953–2960. IEEE, 2009. 14
+[39] Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and
+Piotr Doll´ar. Focal loss for dense object detection. In ICCV,
+2017. 4
+[40] Jonathon Luiten, Aljosa Osep, Patrick Dendorfer, Philip
+Torr, Andreas Geiger, Laura Leal-Taix´e, and Bastian Leibe.
+HOTA: A higher order metric for evaluating multi-object
+tracking. International Journal of Computer Vision , pages
+1–31, 2020. 6, 14
+[41] Anton Milan, Laura Leal-Taix ´e, Ian Reid, Stefan Roth, and
+Konrad Schindler. MOT16: A benchmark for multi-object
+tracking. arXiv preprint arXiv:1603.00831 , 2016. 2, 5, 7,
+12, 14
+[42] Anton Milan, Seyed Hamid Rezatoﬁghi, Anthony Dick, Ian
+Reid, and Konrad Schindler. Online multi-target tracking
+using recurrent neural networks. In AAAI, 2017. 2
+[43] Dennis Mitzel, Esther Horbert, Andreas Ess, and Bastian
+Leibe. Multi-person tracking with sparse detection and con-
+tinuous segmentation. In ECCV, 2010. 2
+[44] Vasilis Papadourakis and Antonis Argyros. Multiple objects
+tracking in the presence of long-term occlusions. Computer
+Vision and Image Understanding, 114(7):835–846, 2010. 2
+[45] Hamed Pirsiavash, Deva Ramanan, and Charless C Fowlkes.
+Globally-optimal greedy algorithms for tracking a variable
+number of objects. In CVPR, 2011. 1, 2
+[46] Akshay Rangesh, Pranav Maheshwari, Mez Gebre, Sid-
+dhesh Mhatre, Vahid Ramezani, and Mohan M Trivedi.
+TrackMPNN: A message passing graph neural architecture
+for multi-object tracking. arXiv preprint arXiv:2101.04206,
+2021. 7, 8
+[47] Liangliang Ren, Jiwen Lu, Zifeng Wang, Qi Tian, and Jie
+Zhou. Collaborative deep reinforcement learning for multi-
+object tracking. In ECCV, 2018. 2
+[48] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.
+Faster R-CNN: Towards real-time object detection with re-
+gion proposal networks. In NIPS, 2015. 2
+[49] Stephan R Richter, Vibhav Vineet, Stefan Roth, and Vladlen
+Koltun. Playing for data: Ground truth from computer
+games. In ECCV, 2016. 3
+[50] Ergys Ristani and Carlo Tomasi. Features for multi-target
+multi-camera tracking and re-identiﬁcation. In CVPR, 2018.
+2
+[51] German Ros, Laura Sellart, Joanna Materzynska, David
+Vazquez, and Antonio M Lopez. The Synthia dataset: A
+large collection of synthetic images for semantic segmenta-
+tion of urban scenes. In CVPR, 2016. 3
+[52] Olga Russakovsky, Jia Deng, Hao Su, Jonathan Krause, San-
+jeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy,
+Aditya Khosla, Michael Bernstein, et al. ImageNet large
+scale visual recognition challenge. International Journal of
+Computer Vision, 115(3):211–252, 2015. 6
+[53] Antoine Saporta, Tuan-Hung Vu, M. Cord, and P. P´erez. Esl:
+Entropy-guided self-supervised learning for domain adapta-
+tion in semantic segmentation. ArXiv, 2020. 3
+[54] Aviv Shamsian, Ofri Kleinfeld, Amir Globerson, and Gal
+Chechik. Learning object permanence from video. In ECCV,
+2020. 2
+[55] Shuai Shao, Zijian Zhao, Boxun Li, Tete Xiao, Gang Yu,
+Xiangyu Zhang, and Jian Sun. CrowdHuman: A bench-
+mark for detecting human in a crowd. arXiv preprint
+arXiv:1805.00123, 2018. 8
+[56] Elizabeth S Spelke. Principles of object perception. Cogni-
+tive science, 14(1):29–56, 1990. 1
+[57] Siyu Tang, Mykhaylo Andriluka, Bjoern Andres, and Bernt
+Schiele. Multiple people tracking by lifted multicut and per-
+son re-identiﬁcation. In CVPR, 2017. 1, 2
+[58] Pavel Tokmakov, Cordelia Schmid, and Karteek Alahari.
+Learning to segment moving objects. International Journal
+of Computer Vision, 127(3):282–301, 2019. 3, 5
+[59] Tuan-Hung Vu, Himalaya Jain, Maxime Bucher, Mathieu
+Cord, and Patrick P´erez. DADA: Depth-aware domain adap-
+tation in semantic segmentation. In ICCV, 2019. 3
+[60] Xinshuo Weng and Kris Kitani. A baseline for 3D multi-
+object tracking. arXiv preprint arXiv:1907.03961, 2019. 8
+[61] Paul J Werbos. Backpropagation through time: what it does
+and how to do it. Proceedings of the IEEE , 78(10):1550–
+1560, 1990. 4
+[62] Nicolai Wojke, Alex Bewley, and Dietrich Paulus. Simple
+online and realtime tracking with a deep association metric.
+In ICIP, 2017. 1, 2
+[63] Yu Xiang, Alexandre Alahi, and Silvio Savarese. Learning
+to track: Online multi- object tracking by decision making.
+In ICCV, 2015. 8
+[64] Fanyi Xiao and Yong Jae Lee. Video object detection with
+an aligned spatial-temporal memory. In ECCV, 2018. 3
+[65] Jiarui Xu, Yue Cao, Zheng Zhang, and Han Hu. Spatial-
+temporal relation networks for multi-object tracking. In
+ICCV, 2019. 1, 2
+[66] Linjie Yang, Yuchen Fan, and Ning Xu. Video instance seg-
+mentation. In ICCV, 2019. 6
+[67] Qian Yu, G ´erard Medioni, and Isaac Cohen. Multiple tar-
+get tracking using spatio-temporal markov chain monte carlo
+data association. In CVPR, 2007. 2
+[68] Li Zhang, Yuan Li, and Ramakant Nevatia. Global data as-
+sociation for multi-object tracking using network ﬂows. In
+CVPR, 2008. 2
+[69] Xingyi Zhou, Vladlen Koltun, and Philipp Kr ¨ahenb¨uhl.
+Tracking objects as points. In ECCV, 2020. 1, 2, 3, 4, 5,
+6, 7, 8, 13, 14, 16
+[70] Xingyi Zhou, Dequan Wang, and Philipp Kr ¨ahenb¨uhl. Ob-
+jects as points. arXiv preprint arXiv:1904.07850 , 2019. 3,
+12
+
+PAGE 11
+[71] Yang Zou, Zhiding Yu, Xiaofeng Liu, B.V .K. Vijaya Kumar,
+and Jinsong Wang. Conﬁdence regularized self-training. In
+ICCV, 2019. 3
+[72] Yang Zou, Zhiding Yu, BVK Vijaya Kumar, and Jinsong
+Wang. Unsupervised domain adaptation for semantic seg-
+mentation via class-balanced self-training. In ECCV, 2018.
+3
+
+PAGE 12
+Appendices
+In this appendix, we provide additional visualizations, ex-
+perimental results and implementation details that were not
+included in the main paper due to space limitations. We be-
+gin by describing the contents of the supplementary video,
+which includes qualitative examples of our algorithm’s out-
+put in Section A. In Section B we provide details about the
+datasets used in our work, and further elaborate on the PD
+dataset in Section C. A real world nuScenes [14] dataset for
+3D tracking could potentially be used to train our method
+directly, and we demonstrate preliminary results on it in
+Section D. We conclude by reporting all the metrics on
+KITTI [26] and MOT17 [41] benchmarks in Section E and
+listing the remaining implementation details in Section F.
+A. Qualitative analysis
+We demonstrate the outputs of our method on several
+videos from KITTI and MOT17 datasets 2. We show raw
+outputs of the model, without any post-processing steps,
+such as constant velocity propagation.
+00:08-00:20 In the video version of the example from Fig-
+ure 5 in the main paper it is easier to see how our approach is
+able to correctly localize the moving car ( id 6 ) occluded
+by the black vehicle at an intersection. Despite the com-
+plexity of the scenario (both cars, as well as the ego vehicle,
+are in motion) our approach successfully tracks this object
+as it undergoes a full occlusion.
+00:24-00:49 In this example, the grey car (id 5 ) arrives at
+an intersection and is repeatedly occluded by three other ve-
+hicles. Again, our approach is able to maintain its trajectory
+throughout the whole sequence of occlusions.
+00:53-01:09 The ﬁnal example from the KITTI test set
+demonstrates occlusions by people. First, the person with
+id 18 is occluded by a group of people, but his trajectory
+is not broken. Then the group continues forward to hide the
+car with id 6 , and the person with id 18 is re-occluded
+by another pedestrian, but both cases are successfully han-
+dled by our method.
+01:13-01:35 In this sequence from the validation set of
+MOT17 it is worth paying attention to the group of peo-
+ple in the back on the left. They get occluded by another
+group, but this complex, multi-target occlusion scenario is
+also effectively solved by our learning-based approach.
+01:39-01:50 The ﬁnal positive example shows a scenario
+which differs from our synthetic dataset: a camera with a
+top-down view is ﬂying over a street as a group of people
+is getting occluded by a pole. Nevertheless, our method is
+able to generalize to this challenging sequence.
+2https://www.youtube.com/watch?v=Dj2gSJ_xILY
+01:54-02:05 Here we demonstrate a failure mode of our
+method: the car with id 5 is occluded by a grey wagon
+and, for a moment, their centers overlap. CenterPoint [70]
+detector architecture, which serves as a basis of our model,
+can only predict one object center at every location. As
+a result, the wagon is not detected in this frame, and an
+id switch happens between the two trajectories. Such mis-
+takes can often be ﬁxed by a short-term constant velocity
+post-processing.
+02:09-02:17 Another failure mode is shown in this exam-
+ple. In the complex, indoor scene shot from a person’s per-
+spective the agent with id 45 occludes two people on the
+left. The furthest of them is tracked for a few frames, but
+is eventually lost. This is due to the fact that the person
+was partially occluded in the beginning, so the initial conﬁ-
+dence of the model was low, illustrating a limitation of our
+approach.
+B. Datasets
+KITTI is a multi-object tracking benchmark capturing city
+driving scenarios [26]. It consists of 21 training and 29
+test sequences. Cars, pedestrians, and cyclists are annotated
+with 2D bounding boxes at 10 FPS. Following prior work,
+we evaluate on the former two categories. For ablation anal-
+ysis, we split each training sequence in half, and use the ﬁrst
+half for training and the second for validation. The test set
+is reserved for comparison to the state of the art.
+MOT17 is the standard benchmark for people tracking [41].
+Unlike KITTI, most of the videos are captured with a static
+camera, and feature crowded indoor and outdoor areas. It
+consists of 7 training and 7 test sequences annotated with
+2D bounding boxes at 25-30 FPS. As for KITTI, we split the
+training videos in half to create a validation set. The stan-
+dard policy on this dataset is to only report methods that do
+not use external data on the test set with public detections.
+For fairness, we compare to the state of the art on the vali-
+dation set, but also report results with private detections on
+the test set below.
+ParallelDomain (PD) is our synthetic dataset used for
+learning to track behind occlusions. It was collected using
+a state-of-the-art synthetic data generation service [3]. The
+dataset contains 210 photo-realistic videos with driving sce-
+narios in city environments captured at 20 FPS. Represent-
+ing crowded streets, these videos feature lots of occlusion
+and dis-occlusion scenarios involving people and vehicles,
+providing all aforementioned annotations required by our
+method. Each video is 10 seconds long and comes with 3 in-
+dependent camera views, effectively increasing the dataset
+size to 630 videos. We use 582 of those for training, and
+the remaining 48 for validation. We ignore invisible object
+labels in the validation set, and evaluate all the models on
+visible parts of the trajectories only.
+
+PAGE 13
+C. Statistics for the Parallel Domain Dataset
+Our synthetic dataset is generated through a state-of-
+the-art synthetic data generation service powered by Par-
+allel Domain [3]. The dataset contains 210 short snippet
+of crowded urban driving scenarios. Each video is 10 sec-
+onds long and is captured at 20FPS, providing 3 indepen-
+dent camera views. We treat the different camera views as
+independent videos, resulting in 630 videos in total. We
+split the videos into a training set with582 videos and a val-
+idation set with 48 videos. There are no overlapping scenes
+between the two sets.
+Each frame of a video is annotated with amodal bound-
+ing boxes deﬁned for 9 object classes, though we focus on
+Pedestrians and Cars in this work. Consistent instance ids
+are provided across the video to support tracking associa-
+tion. Both visible and occluded bounding boxes are labeled
+with a precise visibility scores, indicating the fraction of the
+object which is visible in the current frame. The dataset fea-
+tures environments with a variable number of agents, time
+of day, and weather conditions. We summarize the per-class
+statistic regarding the length of tracks in Table 6. One can
+see that most trajectories span close to a half of the video,
+which is crucial for learning long-term tracking behaviour.
+We additionally provide histograms depicting the distri-
+bution of the fraction of trajectories that are occluded within
+a video for the classes used in our work in Figure 7. This
+ﬁgure demonstrates that64.9% of Pedestrian and 58.1% of
+Car trajectories are fully occluded for at least 10% of their
+duration, providing enough training examples for learning
+to track with object permanence.
+The photo-realistic synthetic data along with the amodal
+annotations in the Parallel Domain dataset allow us to inves-
+tigate a wide variety of model variants and supervision ap-
+proaches with accurate annotations. As indicated in our ex-
+perimental analysis, the dataset can not only be used for pro-
+totyping and analysing the proposed algorithm, but also to
+pre-train models with object permanence awareness that can
+be successfully transferred to real world datasets through
+our simple sim-to-real adaptation approach.
+D. Evaluation on nuScenes
+In this section, we validate our method on the large-scale
+nuScenes benchmark for 3D tracking. Since this dataset is
+comparable in scale to PD, and provides full 3D informa-
+tion, we train on it directly, using the approach described in
+Section 3.3.2 of the main paper (see Section F for details).
+In Table 7, we compare the performance of our proposed
+method to the CenterTrack [69] baseline on the validation
+set. Our approach indeed improves the performance on the
+main metrics. In particular, we improve the AMOTA by 4.1
+points, which is a 60% relative improvement.
+Note that our work focuses on 2D tracking and we only
+Class # of Tracks Avg. Length Max Length
+Train Val Train Val Train Val
+Pedestrian 13056 846 83.9 65.3 200 200
+Car 15604 1517 105.9 94.2 200 200
+Bicyclist 283 12 92.0 44.4 200 108
+Bus 274 13 118.3 78.8 200 200
+Caravan/RV 90 3 112.6 71.3 200 86
+OtherMovable 1537 134 107.1 83.3 200 200
+Motorcycle 223 24 90.1 79.1 200 192
+Motorcyclist 246 28 90.2 75.0 200 200
+Truck 839 76 111.2 91.4 200 200
+Table 6. Parallel Domain per-category dataset statistics. Note that
+we count the same instances observed from different cameras sep-
+arately as we treat them independently during training and evalua-
+tion.
+Figure 7. Histogram of occlusion ratios for the tracks in PD. We
+plot the fraction of the trajectory length during which the visibility
+score of the boxes is lower than0.05 for both Pedestrian and Car
+categories. 0 indicates that the object is at least partially visible for
+the whole duration of the track, while1 indicates that it is occluded
+for the whole duration.
+AMOTA MOTA Recall
+CenterTrack [69] 6.8 6.1 0.23
+PermaTrack (Ours) 10.9 8.1 0.23
+Table 7. Validating that our method can be generalized to 3D ob-
+ject tracking using the validation set of nuScenes. Our method in-
+deed outperforms the CenterTrack baseline by a signiﬁcant margin
+on the main metrics, but a thorough investigation of 3D tracking is
+out of scope of this work.
+report these results to validate that our method can in prin-
+ciple be generalized to the 3D scenario. Tracking objects in
+3D is an important problem in itself, and comes with many
+caveats. For instance, nuScenes is annotated at a very low
+frame rate (2FPS) and features a signiﬁcant amount of label
+noise. Thoroughly investigating the effect of these factors
+on our method’s performance is out of scope of this work.
+
+PAGE 14
+E. Full Tables for KITTI and MOT17
+In this section we report the ﬁnal results of our method
+on KITTI and MOT17 using all the metrics on these bench-
+marks for reference.
+KITTI uses 3 main sets of tracking metrics: HOTA-
+based metrics [40], CLEAR MOT metrics [10], and
+MT/PT/ML metrics [38]. We report them in Tables 8, 9,
+and 10 respectively. Full results are available on the chal-
+lenge website [1].
+MOT17 uses a combination of CLEAR MOT and
+MT/PT/ML metrics. We report all the metrics on the vali-
+dation set in Table 11, and on the test set with private detec-
+tions in Table 12. Full results are available on the challenge
+website [2].
+F. Further Implementation Details
+Learning to localize objects that are not visible in the
+current frame is challenging, and the model tends to ignore
+them. To avoid this, we increase the weight of the localiza-
+tion loss by a factor of 20 for fully occluded instances and
+sample sequences which contain occlusion scenarios with a
+probability which is proportional to the occlusion length.
+For domain adaptation to KITTI [26] and MOT17 [41],
+we ﬁrst pre-train the model on PD, and then ﬁne-tune it
+jointly on PD and the corresponding dataset using the loss
+in Equation 2 in the main paper. The batches are sampled
+from each dataset with an equal probability. We use batch
+size 16 for all datasets, and train for 5 epochs with a learn-
+ing rate of 1.25e−4 using the Adam optimizer. The learning
+rate is decreased by a factor of 10 after the 4th epoch. An
+epoch is deﬁned as 5000 iterations for KITTI + PD training,
+and as 1600 iterations for MOT + PD due to the difference
+in dataset sizes.
+We have found that, since videos in MOT17 are mostly
+captured with static cameras and the occlusions are mostly
+short-term, constant velocity in 2D serves as a reasonable
+approximation for ground truth locations of occluded peo-
+ple. Based on this observation, we use MOT17 sequences of
+length 13 during joint ﬁne-tuning, and supervise person lo-
+cations under occlusions using the pseudo-groundtruth ob-
+tained via trajectory interpolation. This strategy simpliﬁes
+domain adaptation, however, as we have discussed in the
+main manuscript, the training set of MOT17 is too small to
+learn the parameters of our model from scratch.
+When training on the large scale nuScenes [14] dataset
+we do not use PD, and instead generate pseudo-ground truth
+labels using the approach described in Section 3.3.2 in the
+main paper. For supervising 3D losses we follow all the de-
+tails in [69] exactly. We have found that due to a signiﬁcant
+amount of label noise in nuScenes using a large batch size
+is crucial for achieving top results. Following [69], we ﬁrst
+pre-train our model using sequences of length 2 and batch
+size 64 for 70 epochs. The learning rate is set to 1.25e−4
+and decreased by factor of 10 after 60 epochs. We then
+ﬁne-tune this model using sequences of length 6 and batch
+size 32 for 10 epochs, decreasing the initial learning rate of
+1.25e−4 by a factor of 10 after the 8th epoch. Finally, we
+freeze the backbone and further ﬁne-tune this model with
+sequences of length 17 and batch size 32 to capture longer-
+term occlusions. This last ﬁne-tuning stage uses the same
+learning rate schedule as the previous one.
+
+PAGE 15
+Category HOTA↑ DetA↑ AssA↑ DetRe↑ DetPr↑ AssRe↑ AssPr↑ LocA↑
+Car 78.0 78.3 78.4 81.7 86.5 81.1 89.5 87.1
+Person 48.6 52.3 45.6 57.4 71.0 49.6 73.3 78.6
+Table 8. Results of our method on the test set of the KITTI benchmark using the HOTA metrics.
+Category MOTA↑ MOTP↑ MODA↑ IDSW↓ sMOTA↑
+Car 91.3 85.7 92.1 258 78.0
+Person 66.0 74.5 67.7 403 47.1
+Table 9. Results of our method on the test set of the KITTI benchmark using the CLEAR MOT metrics.
+Category MT↑ PT↓ ML↓ FRAG↓
+Car 85.7 11.7 2.6 250
+Person 48.8 35.4 15.8 646
+Table 10. Results of our method on the test set of the KITTI bench-
+mark using the MT/PT/ML metrics.
+
+PAGE 16
+T.R. IDF1↑ IDP↑ IDR↑ MOTA↑ MOTP↑ MT↑ PT↓ ML↓ IDSW↓ FRAG↓
+Public
+PermaTrack  67.0 77.5 59.0 67.8 0.178 43.7 36.3 20.1 0.8% 1.0%
+PermaTrack ✓ 71.1 82.1 62.6 68.2 0.181 41.0 39.5 19.5 0.5% 1.1%
+Private
+PermaTrack  68.2 75.9 61.9 69.4 0.18 46.3 36.0 17.7 0.9% 1.1%
+PermaTrack ✓ 71.9 81.0 64.7 69.5 0.181 42.5 39.8 17.7 0.5% 1.1%
+Table 11. Results of our method on the validation set of the MOT17 using private and public detections. T.R. stand for Track Rebirth
+post-processing from [69].
+T.R. IDF1↑ IDP↑ IDR↑ MOTA↑ MT↑ ML↓ IDSW↓ FRAG↓
+PermaTrack ✓ 68.9 75.1 63.6 73.8 43.8 17.2 3699 6132
+Table 12. Results of our method on the test set of the MOT17 using private detections. This variant uses Track Rebirth (T.R.). A subset of
+metrics is shown, which is reported on the MOT leader-board.

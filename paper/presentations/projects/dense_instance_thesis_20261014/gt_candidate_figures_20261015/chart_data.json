@@ -1,0 +1,81 @@
+{
+  "denominator": 36335,
+  "images": 5000,
+  "threshold_box": 0.75,
+  "threshold_mask": 0.75,
+  "raw": [
+    {
+      "key": "joint_good",
+      "label": "同一候选双达标",
+      "count": 23805,
+      "percent": 65.51534333287464
+    },
+    {
+      "key": "box_good_mask_unavailable",
+      "label": "仅有达标框",
+      "count": 6688,
+      "percent": 18.406495114902985
+    },
+    {
+      "key": "mask_good_box_unavailable",
+      "label": "仅有达标掩码",
+      "count": 487,
+      "percent": 1.340305490573827
+    },
+    {
+      "key": "separate_good_no_joint",
+      "label": "分别达标但不在同一候选",
+      "count": 531,
+      "percent": 1.461400853171873
+    },
+    {
+      "key": "neither_good",
+      "label": "框与掩码均无达标候选",
+      "count": 4824,
+      "percent": 13.276455208476676
+    }
+  ],
+  "argmax": [
+    {
+      "key": "Semantic fail",
+      "label": "无类别正确候选",
+      "count": 44,
+      "percent": 0.12109536259804596
+    },
+    {
+      "key": "Box fail",
+      "label": "类别正确但无达标框",
+      "count": 6335,
+      "percent": 17.434980046786844
+    },
+    {
+      "key": "Mask fail",
+      "label": "类别与框达标但无达标掩码",
+      "count": 6459,
+      "percent": 17.776248795926794
+    },
+    {
+      "key": "Box/Mask misaligned",
+      "label": "分别达标但不在同一候选",
+      "count": 484,
+      "percent": 1.3320489885785056
+    },
+    {
+      "key": "Success",
+      "label": "同一候选类别正确且双达标",
+      "count": 23013,
+      "percent": 63.335626806109815
+    }
+  ],
+  "sources": [
+    {
+      "path": "experiments/coco_raw_capability_5000_20260916/runs/RUN_a7c840bb695d45b4b66bc346715ca1aa/SUMMARY.json",
+      "sha256": "d5c7551ffda15adb12be4776cb299c7d650f7b8e8f85402f8d32a31a1d9ba96f"
+    },
+    {
+      "path": "experiments/coco_raw_argmax_conditioned_20261005/runs/RUN_83e9f6f1f0de4d969868fd9a04321786/SUMMARY.json",
+      "sha256": "7d9ad06ee0e594ac806038eb7db4ac90371c654ba73258fdc5c398b92f13bdbd"
+    }
+  ],
+  "caution": "Raw existence and argmax-correct raw existence are not final-output task recall; neither is AP."
+}

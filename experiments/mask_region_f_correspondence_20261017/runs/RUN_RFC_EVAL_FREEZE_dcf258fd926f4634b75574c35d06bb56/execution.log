@@ -1,0 +1,10 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_region_f_correspondence_20261017\runs\RUN_RFC_EVAL_FREEZE_dcf258fd926f4634b75574c35d06bb56
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_region_f_correspondence_20261017\scripts\rfc_evaluation.py", line 84, in freeze_stage
+    data=inspect_inputs(); resources=initial_resources(); checkpoints=training_audit(data)
+                                                                      ^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_region_f_correspondence_20261017\scripts\rfc_evaluation.py", line 67, in training_audit
+    require(saved['arm']==arm and saved['completed_epochs']==3 and saved['optimizer_steps']==1500,'not final checkpoint')
+                                                                   ~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'optimizer_steps'
+

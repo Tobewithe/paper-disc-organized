@@ -1,0 +1,30 @@
+{
+  "bucket": "C_crossref_openalex",
+  "retrieved_at_utc": "2026-10-19",
+  "cutoff_date": "2026-10-19",
+  "sources": {
+    "openalex": {
+      "endpoint": "https://api.openalex.org/works",
+      "attempted_queries": 6,
+      "successful_queries": 1,
+      "rate_limited_queries": 5,
+      "notes": "The first broad query returned ten works. Subsequent calls returned HTTP 429 after the shared anonymous daily budget was exhausted. The normalized file retains the directly relevant records captured before the limit; it does not claim an exhaustive OpenAlex result set."
+    },
+    "crossref": {
+      "endpoint": "https://api.crossref.org/works",
+      "attempted_broad_queries": 6,
+      "broad_query_429": 3,
+      "broad_query_partial_success": 3,
+      "exact_doi_successes": 3,
+      "exact_doi_failures": 2,
+      "notes": "Crossref was intermittently rate-limited. Exact DOI lookups verified Kubric, Rethinking Amodal Video Segmentation, and Amodal Optical Flow. A CVPR DOI inferred for Occlusion-Aware Video Object Inpainting returned 404 and is therefore not used as DOI evidence."
+    }
+  },
+  "normalization_policy": "One record per captured source hit; no cross-facet deduplication. arXiv DOI aliases such as 10.48550/arXiv.x are retained as DOI fields when returned by the source. Items published after the cutoff, or with only a year and no resolvable date, are labelled in notes rather than used as evidence of the cutoff corpus.",
+  "record_count_written": 18,
+  "known_metadata_ambiguities": [
+    "TAO-Amodal was not returned by Crossref title search. It must be resolved from arXiv/official venue metadata in another bucket; do not merge its reported 880-category initial version with the later 833-category benchmark wording.",
+    "Amodal SAM (arXiv:2604.20748) and MAPRPose (arXiv:2604.20650) are dated after the 2026-10-19 cutoff despite appearing in OpenAlex search output, so they are excluded from this bucket's conclusions.",
+    "Crossref title search did not locate SAMEO or Track Anything Behind Everything as canonical publications; these require official/arXiv verification before they are cited as published methods."
+  ]
+}

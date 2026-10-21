@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_region_f_correspondence_20261017\scripts\rfc_evaluation.py", line 290, in evaluate_stage
+    effects=prediction_stage(run,data,freeze,input_run,source,baseline,ids)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_region_f_correspondence_20261017\scripts\rfc_evaluation.py", line 180, in prediction_stage
+    run.check_budget(); cache,native=source.load(iid)
+    ^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_region_f_correspondence_20261017\scripts\rfc_runtime.py", line 121, in check_budget
+    require(max(self.peak_cuda_allocated, self.peak_cuda_reserved) <= 7*GiB,
+  File "D:\coco_wire\baseline_native_20261013\shared\evaluation\posttrain_audit.py", line 37, in require
+    raise ValueError(message)
+ValueError: CUDA allocated/reserved exceeds frozen 7 GiB

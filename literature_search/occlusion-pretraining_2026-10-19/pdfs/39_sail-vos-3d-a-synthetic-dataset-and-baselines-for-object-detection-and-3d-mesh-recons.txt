@@ -1,0 +1,1357 @@
+
+
+PAGE 1
+SAIL-VOS 3D: A Synthetic Dataset and Baselines for Object Detection and 3D
+Mesh Reconstruction from Video Data
+Y uan-Ting Hu, Jiahong Wang, Raymond A. Y eh, Alexander G. Schwing
+University of Illinois at Urbana-Champaign
+{ythu2, jiahong4, yeh17, aschwing }@illinois.edu
+Figure 1. Temporal information in videos provides a lot of cues for 3D mesh reconstruction. For instance, as the main character in this
+scene turns we can accurately reconstruct both the front and back. Unfortunately, existing image-based datasets don’t permit to develop
+such methods. To alleviate this we introduce the synthetic SAIL-VOS 3D dataset and develop ﬁrst baselines for this task.
+Abstract
+Extracting detailed 3D information of objects from video
+data is an important goal for holistic scene understand-
+ing. While recent methods have shown impressive results
+when reconstructing meshes of objects from a single im-
+age, results often remain ambiguous as part of the object
+is unobserved. Moreover , existing image-based datasets for
+mesh reconstruction don’t permit to study models which in-
+tegrate temporal information. To alleviate both concerns we
+present SAIL-VOS 3D: a synthetic video dataset with frame-
+by-frame mesh annotations which extends SAIL-VOS. We
+also develop ﬁrst baselines for reconstruction of 3D meshes
+from video data via temporal models. We demonstrate efﬁ-
+cacy of the proposed baseline on SAIL-VOS 3D and Pix3D,
+showing that temporal information improves reconstruction
+quality. Resources and additional information are available
+at
+http://sailvos.web.illinois.edu.
+1. Introduction
+Understanding the 3D shape of an observed object over
+time is an important goal in computer vision. V ery early
+work towards this goal [ 42, 43, 44] focused on recovering
+lines and primitives like triangles, squares and circles in im-
+ages. Due to many seminal contributions, the ﬁeld has sig-
+niﬁcantly advanced since those early days. Given a single
+image, exciting recent work [
+21, 31, 37, 76] detects objects
+and infers their detailed 3D shape. Notably, the shapes are
+signiﬁcantly more complex than the early primitives.
+To uncover the 3D shape, recently, single view 3D shape
+reconstruction [
+10, 16, 41, 48, 55, 56, 77, 81] has garnered
+much attention. The developed data-driven and learning-
+based approaches achieve realistic reconstructions by infer-
+ring the 3D geometry and structure of objects. All those
+methods have in common the use of a single input im-
+age. However, moving objects and temporal information are
+not considered. Intuitively, as illustrated in Fig.
+1, we ex-
+pect temporal information to aid 3D shape reconstruction.
+How can methods beneﬁt from complementary information
+available in multiple views?
+Classical multi-view 3D reconstruction [
+6, 18, 65] ex-
+ploits the geometric properties exposed in multiple views.
+For instance, structure from motion algorithms, e.g., [
+65],
+infer the 3D shape using multi-view geometry [ 24]. How-
+ever note that the assumption of a static scene in these clas-
+sical methods is often violated in practice. Moreover, clas-
+1
+1418
+
+
+PAGE 2
+Table 1. Comparisons of SAIL-VOS 3D and other 3D datasets.
+ShapeNet [7] ModelNet [ 82] PartNet [ 48] SUNCG [ 69] IKEA [ 39] Pix3D [ 71] ScanNet [ 14] PASCAL3D+ [ 84] ObjectNet3D [ 83] KITTI [ 20] OASIS [ 8] SAIL-VOS 3D
+Type Synthetic Synthetic Synthetic Synthetic Real Real Real Real Real Real Real Synthetic
+Image/Video - - - Image Image Image Video Image Image Video Image Video
+Indoor/Outdoor - - - Indoor Indoor Indoor Indoor Both Both Outdoor Both Both
+Dynamics Static Static Static Static Static Static Static Static Static Dynamic Static Dynamic
+Background Uniform Uniform Uniform Cluttered Cluttered Cluttered Cluttered Cluttered Cluttered Cluttered Cluttered Cluttered
+# of Images - - - 130,269 759 10,069 2,492,518 30,362 90,127 41,778 140,000 237,611
+Objects per Images Single Single Single Multiple Single Single Multiple Multiple Multiple Multiple Multiple Multiple
+# of Categories 55 662 24 84 7 9 296 12 100 3 - 178
+3D Annotation Type 3D model 3D model 3D model V oxel, depth 3D model 3D model Depth, 3D model 3D model 3D model Point cloud Normals, depth 3D model, depth
+Amodal/Modal GT Amodal Amodal Amodal Amodal Amodal Amodal Modal Amodal Amodal Modal Modal Amodal
+# of 3D Annotations 51,300 127,915 26,671 5,697,217 759 10,069 101,854 55,867 201,888 40,000 140,000 3,460,213
+sical 3D reconstruction focuses on ﬁnding the 3D shape of
+observed object parts. Nonetheless it is important for meth-
+ods to predict occluded parts of objects or to infer object
+extent beyond the observed view [
+53].
+To achieve a more realistic and more detailed reconstruc-
+tion we aim to leverage temporal information. For this
+we think ground-truth 3D mesh annotations for video-data
+are particularly helpful. Unfortunately, this form of an-
+notated data is not available in existing datasets. This is
+not surprising as acquiring this form of data is very time-
+consuming and hence expensive. In addition, annotations
+of this form are often ambiguous due to occlusions. How-
+ever, following recent work on amodal segmentation [
+27],
+we think photo-realistic renderings of assets in computer
+games could come to the rescue. To study this solution,
+in this paper, we collect SAIL-VOS 3D, a synthetic video
+dataset with frame-by-frame 3D mesh annotations for ob-
+jects, ground-truth depth for scenes and 2D annotations in
+the form of bounding boxes, instance-level semantic seg-
+mentation and amodal segmentation. We think this data
+serves as a good test bed for 3D perception algorithms.
+In order to deal with dynamics of 3D shapes, we propose
+to take the temporal information into account by developing
+a baseline model. Speciﬁcally, instead of reﬁning a spher-
+ical shape we introduce a reference mesh which carries in-
+formation from earlier frames.
+Based on the collected SAIL-VOS 3D dataset and exist-
+ing image datasets like Pix3D [
+71], we study the proposed
+method as well as recent techniques for 3D reconstruction
+of meshes from images. We illustrate the efﬁcacy of the
+developed model and the use of temporal information on
+the collected SAIL-VOS 3D dataset. Using Pix3D [
+71] we
+demonstrate generality.
+2. Related Work
+Single-View Object Shape Reconstruction: Recently, a
+number of methods [
+10, 15, 15, 16, 22, 31, 37, 41, 47,
+47, 48, 49, 54, 55, 56, 76, 77, 80, 81, 87] have been
+proposed for shape reconstruction from a single image.
+These approaches vary by their shape representation, e.g.,
+meshes [
+77], occupancy grids [ 82], octrees [ 73], implicit
+ﬁelds [ 11, 47, 54] and point clouds [ 22]. Many of these
+methods assume that there is only a single shape to be re-
+constructed. Consequently, these methods usually use a cu-
+rated datasets like ShapeNet [
+7], which contains only a sin-
+gle object at a time.
+3D shape reconstruction methods that deal with multi-
+ple objects [ 21, 31, 37, 76] usually either involve a detec-
+tion network [ 21, 31, 37] like Faster-RCNN [ 59], which
+has been very successful on 2D instance-level multi-object
+detection, or assume instance-level bounding boxes are
+given [
+76]. After obtaining the bounding boxes, the 3D
+shape of each instance is inferred within each bounding box.
+To generally deal with multiple objects, we also combine
+detection with shape reconstruction. However, instead of
+employing a single image, the proposed approach differs in
+our use of video data for reconstruction.
+Multiple-View Object Shape Reconstruction: 3D under-
+standing using multiple images has been studied and used
+for depth estimation [
+34, 74], scene reconstruction [ 51],
+semantic segmentation for 3D scenes [ 38], 3D object de-
+tection [ 9, 50, 68], and 3D object reconstruction [ 12, 85].
+We focus on 3D object shape reconstruction literature here
+as it aligns with our goal. Traditional multi-view shape
+reconstruction approaches including structure from mo-
+tion (SfM) [
+65] and simultaneous localization and mapping
+(SLAM) [ 6, 18] estimate 3D shapes from multiple 2D im-
+ages using multi-view geometry [ 24]. However, these clas-
+sical algorithms have well known constraints and are chal-
+lenged by textureless objects as well as moving entities.
+Also, classical multi-view geometry does not infer the shape
+of unseen parts of an object.
+Due to the success of deep learning, learning-based ap-
+proaches to multi-view object 3D reconstruction [
+5, 12, 17,
+26, 30, 33, 52, 72, 75, 79, 85] have received a lot of attention
+lately. Again, the majority of the aforementioned methods
+deal with only a single object. Dealing with instance-level
+multi-view reconstruction remains challenging as it requires
+not only object detection, but also object tracking as well as
+3D shape estimation. Closer to the goal of our approach,
+SLAM-based methods have been proposed for object-level
+multi-view reconstruction [
+13, 26, 64, 70]. However, these
+methods are challenged by inaccurate estimation of camera
+poses and moving objects. In contrast, our approach aims
+at 3D understanding for dynamic objects.
+3D Datasets: A number of 3D datasets have been intro-
+duced in recent years [
+2, 3, 4, 7, 8, 14, 20, 28, 36, 39, 46,
+48, 62, 66, 69, 71, 82, 83, 84], all of which are commonly
+used for training, testing and evaluating 3D reconstruction
+21419
+
+
+PAGE 3
+person person
+person
+Door fridge
+bedboxbox box
+plate
+bottle
+mug
+bottlebottle
+paper bag
+bottle
+can
+can
+bin
+can
+box
+box
+bin
+box
+doughnut
+can
+can
+bottle
+business 
+bag
+can
+bin
+can
+paper bag
+𝐃𝐞𝐩𝐭𝐡
+𝐒𝐞𝐠𝐦𝐞𝐧𝐭𝐚𝐭𝐢𝐨𝐧
+𝐎𝐛𝐣𝐞𝐜𝐭	𝐌𝐞𝐬𝐡𝐞𝐬	&	𝐒𝐞𝐦𝐚𝐧𝐭𝐢𝐜𝐬
+𝐕𝐢𝐝𝐞𝐨	𝐅𝐫𝐚𝐦𝐞
+paper bag
+person
+box
+fence
+light
+car
+chair
+bottle
+cup
+bin
+door
+can
+road barrierpaperpotted plantbagumbrella
+cloth
+dining table
+cratestonewood
+wheelstickcouch
+stop sign
+tv
+gun
+truck trailer
+bird
+bench
+accessories
+truck
+traffic light
+scrapflag
+bowl
+cell phonecabinettool
+book
+pot
+machanical devicelaptopmat
+shelter
+printer
+roofvent
+gas tankrope
+trolley
+letter box
+pillar
+board
+rabbit
+statue
+remote
+pallet pile
+plate
+handbag
+heavy duty car
+air conditioner
+vase
+motorcycle
+camera
+cigarette
+fire hydrant
+piperefrigerator
+roll
+candle
+gun mag
+wine glass
+suitcase
+airplane
+dvd
+rack
+satdish
+ladder
+helicopter
+bicyclesmoke alarm
+tire
+window
+portaloo
+lamp
+canopy
+doggroup of stuffs
+bedkeyboard
+donutmushroomsports ball
+boat
+wall
+breadtelescope
+pumpkin
+torture
+shoe
+knifesurfboardparking meter
+bbqscissors
+inktoaster
+headset
+speaker
+banana
+monster
+glasses
+treecar wreck
+gorilla
+holster
+cat
+busvalveaircraftrail wreck
+calculator
+street stand
+glasses stand
+goat
+Categories
+0.0~0.1
+0.1~0.2
+0.2~0.3
+0.3~0.4
+0.4~0.5
+0.5~0.6
+0.6~0.7
+0.7~0.8
+0.8~0.9
+0.9~1.0
+1.0
+Occlusion Rate
+Figure 2. The annotations of SAIL-VOS 3D include depth, instance-level modal and amodal segmentation, semantic labels and 3D meshes.
+On the right we show the statistics of the dataset in terms of numbers of objects in different categories and with different occlusion rate.
+Figure 3. We overlay the RGB frame with the 3D mesh annota-
+tions. Note, the dataset contains annotations for partially observed
+objects including occluded and out-of-view objects. It is also a
+good benchmark for 2D/3D amodal perception.
+algorithms. We summarize the properties of several com-
+mon 3D datasets in Tab.
+1. Datasets annotated on real world
+images [8, 39, 71, 83, 84] or videos [ 14, 20] are often small
+compared to synthetic datasets such as SUNCG [69]. More-
+over, KITTI [20] and OASIS [ 8] contain only modal anno-
+tations, i.e., only visible regions are annotated. In order to
+create large scale datasets without labor-intensive annota-
+tion processes, synthetic 3D datasets [
+7, 69, 82] are useful.
+Among those, ShapeNet [ 7] is one of the commonly
+used synthetic benchmarks for 3D reconstruction. However,
+the rendered images usually contain uniform backgrounds,
+making the distribution of rendered images very different
+from real world images. SUNCG [
+69] is one of the largest
+among the synthetic 3D datasets. However, the dataset con-
+tains static indoor scenes only, and doesn’t cover outdoor
+scenarios or dynamic scenes. In fact, except for KITTI [
+20],
+which contains dynamic scenes, i.e., moving objects with
+complex motion, to the best of our knowledge, there is no
+large scale 3D video dataset with instance-level 3D annota-
+tion that captures dynamic scenes with diverse scenarios.
+Synthetic Datasets: Simulated worlds have been used for
+computer vision tasks such as optical ﬂow [
+45], visual
+odometry [23, 60] and semantic segmentation [ 63] and hu-
+man shape modeling [ 58, 86]. The game engine GTA-V
+has been used to collect large-scale data, e.g., for seman-
+tic segmentation [35, 60, 61], object detection [ 32], amodal
+segmentation [ 27], optical ﬂow [ 35, 60] and human pose
+estimation [19].
+3. SAIL-VOS 3D Dataset
+For more accurate 3D video object shape prediction,
+we propose the SAIL-VOS 3D dataset: We collect an
+object-centric 3D video dataset from the photorealistic
+game engine GTA-V . The game engine simulates a three-
+dimensional world by modeling a real-life city. The result-
+ing diverse object categories and the obtainable 3D struc-
+tures make the game engine a suitable choice for collecting
+a large-scale 3D perception dataset.
+As shown in Fig.
+2 we collect the following data: video
+frames, camera matrices, depth data, instance level segmen-
+tation, instance level amodal segmentation and the corre-
+sponding 3D object shapes. Each instance is assigned a
+consistent id across frames.
+3.1. Dataset Statistics
+The presented SAIL-VOS 3D dataset contains 484
+videos with a total of 237,611 frames at a resolution of
+1280×800. Note that each video may contain shot tran-
+sitions. There are a total of 6,807 clips in the dataset and
+on average 34.6 frames per clip. The dataset is annotated
+with 3,460,213 object instances coming from 3,576 mod-
+els, which we assign to 178 categories. To assign the cat-
+egories, we use the SAIL-VOS labels [
+27]. There are 48
+classes that overlap with the categories in the MSCOCO
+dataset [
+40]. Fig. 2 (right) shows the distribution of in-
+stances among the categories and their respective occlusion
+rate. Detailed statistics for clip length can be found in the
+Appendix.
+We compare the proposed SAIL-VOS 3D dataset with
+other 3D datasets in Tab.
+1. SUNCG [ 69], ScanNet [ 14],
+OASIS [8] and SAIL-VOS 3D are large scale datasets con-
+31420
+
+
+PAGE 4
+Figure 4. Example frames overlayed with 3D mesh annotations from SAIL-VOS 3D. We use different colors for different instances.
+taining more than 100K images. In OASIS only visible
+parts of objects are annotated. In SUNCG and ScanNet
+static indoor scenes are used for collecting the datasets. In
+contrast, SAIL-VOS 3D contains moving objects, different
+scenarios (both indoor and outdoor with different lighting
+conditions and weather), and amodal 3D annotations. Com-
+pared to the commonly used ShapeNet [
+7], SAIL-VOS 3D
+contains images rendered with cluttered backgrounds and
+more object categories (178 vs. 55).
+We show several annotated frames sampled from SAIL-
+VOS 3D in Fig.
+3 and Fig. 4. Note, the dataset contains
+meshes despite occlusions, i.e., the entire shape is annotated
+even if part of it is out-of-view as shown in Fig. 3.
+3.2. Dataset Collection Methodology
+We collect the cutscenes in GTA-V following the work
+of Hu et al. [27]. Similarly, we alter the weather condition,
+the time of day and clothing of the characters to increase
+the diversity of the synthetic environment. However, dif-
+ferent from their method, we are interested in capturing 3D
+information in the form of meshes, camera data, etc. This
+requires to extend the approach by Hu et al . [
+27], and we
+describe the details for obtaining the data in the following.
+Meshes: The shapes of objects in GTA-V are all repre-
+sented as meshes. In order to retrieve the meshes, we
+use GameHook [
+35] to hook into the Direct3D 11 graph-
+ics pipeline [ 1] which GTA-V employs. We ﬁrst brieﬂy
+highlight the key components of the Direct3D 11 graphics
+pipeline before we delve into details.
+The Direct3D 11 graphics pipeline [
+1] consists of several
+stages which are traversed when rendering an image, e.g.,
+the vertex shader stage, where vertices are processed by
+applying per-vertex operations such as coordinate transfor-
+mations, the stream-output stage, where vertex data can
+be streamed to memory buffers, the rasterizer stage, where
+shapes or primitives are converted into a raster image (pix-
+els), and the pixel shader stage, where shading techniques
+are applied to compute the color. The intermediate output of
+stages before the stream-output stage, e.g., the vertex shader
+stage, can not be directly copied to staging resources, i.e.,
+resources which can be used to transfer data from GPU to
+CPU. This makes access to vertex data, and hence our ap-
+proach, more complicated than earlier work: design of the
+graphics pipeline only permits access to vertex data via the
+stream-output stage.
+In GTA-V , the vertex shader stage processes object ver-
+tices by applying the camera matrices as well as the trans-
+formation matrices to animate articulated models. Our goal
+is to retrieve the output of the vertex shader stage which
+contains the meshes. Since the output of the vertex shader is
+not directly accessible, we need to retrieve it via the stream-
+output stage. For this we enable the stream-output stage by
+using a hook to alter the behavior of the Direct3D func-
+tion CreateV ertexShader. We ask it to not only create a
+vertex shader (it’s original behavior) but to additionally ex-
+ecute CreateGeometryShaderWithStreamOutput. This per-
+mits to append our own geometry shader whenever the ver-
+tex shader is created. Our geometry shader takes as input
+the output of the vertex shader. It doesn’t change the vertex
+data and directly writes the vertex data via the stream-output
+stage to a stream-output buffer. As this buffer is not CPU
+accessible, we subsequently copy the data to a staging re-
+source so that it can be read by the CPU. We then store the
+vertex data, i.e., the meshes, using the OBJ ﬁle format.
+Camera & Viewport: To obtain camera matrices we col-
+lect camera data from the constant buffers in the render-
+ing pipeline. In each draw call, we store the world matrix,
+which transforms model coordinates to world coordinates,
+the view matrix, which transforms the world coordinates
+to camera coordinates, the projection matrix, which trans-
+forms the camera coordinates into image coordinates, as
+well as the viewport, which deﬁnes the viewing region in
+the rendering-device-speciﬁc coordinate.
+Depth & Others: Along with the 3D shapes and cam-
+era matrices, we collect depth by copying the depth buffer
+from the rendering pipeline. We label shot transitions for
+each video. For each object in the dataset, we also col-
+lect additional information like the 2D segmentation, 2D
+4
+1421
+
+
+PAGE 5
+ResNet
+Class, !!
+"
+Box, "!
+"
+ROI Align
+#!#$ #! $!%$!#$
+̅ "
+'!#$
+'!
+(%!
+"
+Detection and Tracking (Sec. 4.1)
+Matching
+Temporal Mesh Prediction 
+(Sec 4.2)
+Box 
+Head
+Mean M esh, -.&!
+"
+/!
+"
+Predicted
+Mesh
+Y N
+Matched?
+/!#$
+"
+0 /!#$
+"
+VertAlign
+GCN
+GCN
+GCN
++ +
++
+Mesh
+Refine
+Figure 5. Video2Mesh: Mesh generation for the foreground person in frame It using the boxed person in It−1 as a reference.
+amodal segmentation and 2D/3D human poses following
+Hu et al. [
+27].
+4. Video2Mesh for 3D reconstruction
+Given a video sequence (I1, . . . , IT ) of T frames, we
+are interested in inferring the set of meshes Mt for the ex-
+isting objects in each frame It. A pictorial overview of our
+approach, Video2Mesh, is shown in Fig. 5.
+To infer the meshes, we ﬁrst detect objects in each frame
+It. We let the unordered set Ot = {oi
+t} refer to the de-
+tected objects, i.e., oi
+t is the ith detected object. Note that
+the set is unordered, i.e., oi
+t and oi
+t−1 may not refer to the
+same object in frames It and It−1. To establish object cor-
+respondence across time, we solve an assignment problem.
+This permits to use temporal information during shape pre-
+diction. Formally, for every frame It we rearrange the ob-
+jects Ot−1 from the previous frame into the ordered tuple
+˜Ot
+t−1 = (˜o1
+t−1, . . . ,˜ont
+t−1), where nt = |Ot|. Speciﬁcally,
+for object oi
+t from frame It we let ˜oi
+t−1 denote the corre-
+sponding object from frame It−1. If we cannot ﬁnd a match
+in the previous frame, a special token is assigned to ˜oi
+t−1.
+With the objects tracked, we can use the prediction from
+the previous frame as a reference to predict meshes in the
+current frame. We detail detection and tracking in Sec.
+4.1
+and explain the temporal mesh prediction in Sec. 4.2.
+4.1. Detection and Tracking
+To obtain the set of objects Ot for frame It, we ﬁrst use
+Faster-RCNN [59] to detect object bounding boxes and their
+class. Hence, each object oi
+t = (bi
+t, ci
+t) consists of a bound-
+ing box and class estimate, i.e., bi
+t and ci
+t. As previously
+mentioned, there are no correspondences for the detected
+objects between frames. To obtain those we solve an as-
+signment problem.
+Formally, given the detected objects from two consecu-
+tive frames, the assignment problem is formulated as fol-
+lows:
+max
+At
+∑
+i,j At,ij
+(
+IoU(bi
+t, bj
+t−1) − L(ci
+t, cj
+t−1)
+)
+s.t. At,ij ∈ {0, 1}, ∑
+i At,ij ≤ 1, ∑
+j At,ij = 1. (1)
+Here, At ∈ { 0, 1}nt×nt−1 is an assignment matrix, IoU is
+the intersection over-union distance between two bounding
+boxes and L is the zero-one loss between two class labels.
+Intuitively, detected objects from two different frames will
+be matched if their bounding boxes are spatially close and
+their class labels are the same.
+Given the assignment matrix At, we align the objects of
+two frames as follows:
+˜oi
+t−1 ← oj
+t−1, if At,ij = 1 ∧ IoU(bi
+t, bj
+t−1) > 0.5,
+˜oi
+t−1 ← ¯o, otherwise. (2)
+Here, ¯o denotes a special token indicating that there were
+no matches. We don’t match objects if their IoU is too low.
+4.2. Temporal Mesh Prediction
+Our goal is to predict the set of meshes M = {mi
+t}
+for all objects oi
+t ∈ O t. In our case, each mesh mi
+t is a
+triangular mesh , i.e., mi
+t = ( V i
+t , F i
+t ) is characterized by a
+set of K vertices V i
+t ∈ RK×3 and a set of triangle-faces
+F i
+t ⊆ [1, . . . , K]3.
+To predict a mesh mi
+t, we deform the vertices of a refer-
+ence mesh ˜mi
+t−1 based on the detected object’s ROI feature
+Roi
+t
+extracted from the image frame. The reference mesh
+˜mi
+t−1 is a class-speciﬁc mean mesh ¯Mci
+t
+if object ot is not
+tracked, and it is the predicted mesh mi
+t−1 from the previous
+frame if object ot is tracked. Formally,
+˜mi
+t−1 =
+{
+Toi
+t
+( ¯Mci
+t
+) if ˜oi
+t−1 = ¯o,
+mi
+t−1 otherwise. (3)
+5
+1422
+
+
+PAGE 6
+Module 1: MeshRefine(l)(R, ~
+V)Input: ROI Feature R and reference vertices ˜V
+φ V = VertAlign(Conv1x1(l)(R)) ∈ RK×E(l)
+∆V = GCN(l)(Concat(φ V , ˜V )) ∈ RK×3
+Return: ˜V + ∆V
+Recall, ¯o is a special token indicating that there are no
+matches from the previous frame (see Eq. ( 2)). We use
+the transformation matrix Toi
+t
+to align the mean mesh ¯Mci
+t
+with the reference frame of oi
+t. We parameterize Toi
+t
+using
+a deep-net, which regresses the transformation matrix from
+the ROI features of oi
+t. Speciﬁcally, a mapping from Roi
+t
+to
+a rotation matrix with three degrees of freedom (the three
+Euler angles) is inferred. We do not consider translation
+here, as the mesh is centered in a bounding box.
+Next, following prior work [
+21, 77] we reﬁne the ver-
+tices of the reference mesh ˜mi
+t−1 by performing L stages of
+reﬁnement using the MeshRefine procedure summarized
+in Module
+1. Different from prior work, our reference mesh
+is propagated from the previous frames, i.e.,
+˜V (l+1),i
+t = MeshRefine(l)(Roi
+t
+, ˜V (l),i
+t ), (4)
+where ˜V (0),i
+t are the vertices of the reference mesh ˜mi
+t−1.
+Finally, we use the original reference’s faces ˜F i
+t−1 for the
+ﬁnal mesh output, i.e.,
+mi
+t = (V (L),i
+t , ˜F i
+t−1). (5)
+In greater detail, the MeshRefine procedure in Module
+1
+extracts image-aligned feature vectors for each vertex from
+an object’s ROI feature Roi
+t
+using the VertAlign oper-
+ation [
+21, 77], where E(l) denotes the number of feature
+dimensions. Subsequently, a Graph Convolution Network
+(GCN) is used to learn a reﬁnement offset ∆V to update the
+reference vertices ˜V . Finally, the module returns the up-
+dated mesh vertices to be processed in the next stage. In
+our case, we use L = 3 and each GCN (l) consists of three
+GraphConv layers with ReLU non-linearity.
+Importantly, and different from prior work, instead of
+predicting meshes from a sphere [
+77], our approach de-
+pends on an additional time dependent reference mesh
+˜mi
+t−1. This reference ˜mi
+t−1 summarizes information about
+an object oi
+t obtained from the previous frame It−1. This
+enables a recurrent formulation suitable for mesh genera-
+tion from videos by incorporating temporal information.
+4.3. Training
+We train our model using the dataset discussed in
+Sec.
+3 which consists of sequences of image frames, object
+bounding box annotations, class labels, and corresponding
+meshes. In the following, we discuss the training details
+abstractly and leave speciﬁcs to Appendix Sec.
+A.
+To train the model parameters for mesh prediction, we
+use a gradient-based method to minimize the mesh loss
+based on differentiable mesh sampling [
+67]. The loss in-
+cludes the Chamfer and normal distance between two sets
+of sampled points each from the prediction and ground-truth
+mesh. Minimizing the mesh loss encourages the predicted
+meshes to be similar to the ground-truth mesh. The train-
+ing of bounding-boxes follows the standard Mask-RCNN
+procedure [
+25].
+Different from standard end-to-end training, our training
+procedure consist of two stages:
+Stage 1: We ﬁrst pre-train the mesh reﬁnement without tak-
+ing temporal information into account. This is done by set-
+ting the reference mesh ˜mi
+t−1 = Toi
+t
+( ¯Mci
+t
+) ∀˜oi
+t−1.
+Stage 2: We ﬁne-tune our model to incorporate the tem-
+poral information of the reference mesh following Eq. (
+3).
+Note that at training time, we do not unroll the recursion
+which would be computationally expensive. Instead, we
+use an augmented ground-truth mesh of oi
+t as an approxi-
+mation. This is done by randomly rotating the mesh and
+adding Gaussian noise to the vertices. Without the augmen-
+tation, the ground-truth mesh will not resemble ˜mi
+t−1 which
+leads to a mismatch at test time.
+5. Experimental Results
+In the following we ﬁrst discuss the experimental setup,
+i.e., datasets, metrics and baselines. Afterwards we show
+quantitative and qualitative results on the proposed SAIL-
+VOS 3D dataset and the commonly used Pix3D dataset.
+5.1. Experimental Setup
+We use the proposed SAIL-VOS 3D dataset to study
+instance-level video object reconstruction. Please see
+Sec.
+3.1 for statistics of this data. We also evaluate on
+Pix3D [71] to assess the proposed method on real images.
+Evaluation metrics: For evaluation we use metrics com-
+monly employed for object detection. Speciﬁcally, we re-
+port the average precision for bounding box detection, i.e.,
+APbox, using an intersection over union (IoU) threshold of
+0.5. We also provide the average precision for mask predic-
+tion, i.e., APmask, using an IoU threshold of 0.5.
+Additionally, to evaluate 3D shape prediction we follow
+Gkioxari et al . [
+21] and compute the average area under
+the per-category precision-recall curve using F1@0.3 with
+a threshold of 0.5, which we refer to via AP mesh. Note, we
+consider a predicted mesh a true-positive if its predicted
+label is correct, not a duplicate detection, and its F1@0.3
+≥ 0.5. Here, F1@0.3 is the F-score computed using pre-
+cision and recall. For this, precision is the percentage of
+points sampled from the predicted mesh that lie within a
+distance of 0.3 to the ground-truth mesh. Conversely, re-
+call is the percentage of points sampled from the ground-
+truth mesh that lie within a distance of 0.3 to the predic-
+6
+1423
+
+
+PAGE 7
+Table 2. Performance on SAIL-VOS 3D. Following MeshR-CNN [ 21] we report box AP , mask AP , and mesh AP .
+% All Small Objects Medium Objects Large Objects
+APbox APmask APmesh APbox APmask APmesh APbox APmask APmesh APbox APmask APmesh
+Pixel2Mesh†
+25.29 23.08
+8.96
+6.47 3.81
+2.30
+21.72 19.64
+10.73
+44.35 43.78
+19.09
+Pix2V ox† 6.62 2.81 7.51 16.56
+MeshR-CNN [21] 9.68 2.53 10.35 20.80
+Video2Mesh (Ours) 10.21 2.93 9.78 22.56
+% Slightly Occluded Heavily Occluded Short Clips Long Clips
+APbox APmask APmesh APbox APmask APmesh APbox APmask APmesh APbox APmask APmesh
+Pixel2Mesh†
+30.10 29.90
+12.44
+16.27 13.04
+2.21
+29.38 26.85
+12.92
+23.33 22.74
+8.43
+Pix2V ox† 9.31 2.80 9.05 6.80
+MeshR-CNN [21] 12.66 3.34 13.39 9.03
+Video2Mesh (Ours) 13.58 3.62 12.85 9.26
+[21]
+Ours
+Figure 6. Visualization of 3D reconstructions on SAIL-VOS 3D.
+Table 3. Ablation study of our method. “MS”: mean shape. “T”:
+estimate T (Sec.
+4.2). “Temp.”: temporal prediction (Sec. 4.2).
+MS T Temp. AP box APmask APmesh
+1) - - - 25.29 23.08 8.96
+2) ✓ - - 25.29 23.08 9.23
+3) ✓ ✓ - 25.29 23.08 9.66
+4) ✓ ✓ ✓ 25.29 23.08 10.21
+tion. For SAIL-VOS 3D, we rescale the meshes such that
+the longest edge of the ground-truth mesh is 5. For Pix3D,
+following [
+21], we rescale the meshes such that the longest
+edge of the ground-truth mesh is 10.
+For more insights, we further evaluate the aforemen-
+tioned metrics on subsets of the object instances. This in-
+cludes a split based on objects’ sizes (small – area less than
+322, medium, and large – area greater than 962). We also
+split the objects based on occlusion rate, i.e., an object is
+heavily occluded if its occlusion rate is greater than 25%,
+otherwise it’s slightly occluded. Finally, we split based on
+the length of the video clip, i.e., a clip is classiﬁed as long
+if the number of frames is more than 30, otherwise short.
+Baselines: In addition to the developed method we study
+three baselines on the proposed SAIL-VOS 3D data:
+MeshR-CNN [
+21] – a single-view multi-object baseline.
+Its output representation is a mesh but the intermediate re-
+sult is a voxel representation.
+Pixel2Mesh† – The original Pixel2Mesh [
+77] is a single-
+view single-object baseline. To deal with multiple objects
+we use Mask-RCNN and attach Pixel2Mesh as an ROI
+head. We refer to this adjustment via Pixel2Mesh †. We use
+the implementation by Gkioxari et al . [
+21] for this exten-
+sion. We also considered as a baseline Pixel2Mesh++ [ 78],
+a multi-view single-object method. The fact that it is a
+single-object method makes a simple extension challeng-
+ing as we would need to incorporate a tracking procedure.
+Moreover, Pixel2Mesh++ assumes camera matrices to be
+known which is not always feasible.
+Pix2V ox† – The original Pix2V ox [
+85] is a multi-view
+single-object baseline which uses a voxel representation.
+Similar to Pixel2Mesh †, to enable multiple object recon-
+struction, we extend the original Pix2V ox by attaching it to
+a Mask-RCNN. Similar to Pixel2Mesh++ it is non-trivial to
+extend Pix2V ox to the multi-object setting. It would require
+to include object tracking.
+5.2. SAIL­VOS 3D Dataset
+SAIL-VOS 3D consists of 484 videos made up of
+215,703 image frames. The data is split into 162 training
+videos (72,567 images, 754,895 instances) and 41 clips for
+validation (1,305 images, 12,199 instances). We leave the
+rest in test-dev/test-challenge sets for future use. Following
+Hu et al. [
+27] we use the 24 classes with an occlusion rate
+less than 0.75 for experimentation. To compute the mean
+shape, we average the occupancy grids in the object coordi-
+7
+1424
+
+
+PAGE 8
+Input
+ Predicted Shape
+Figure 7. Predicted shapes of the SAIL-VOS 3D trained
+Video2Mesh model tested on DA VIS.
+Figure 8. Visualization of 3D reconstructions from our
+Video2Mesh method on Pix3D.
+nate system over all the instances of a class using the train-
+ing set. We binarize the averaged occupancy values, ﬁnd
+the largest connected component, perform marching cubes
+to get the mesh, and simplify the mesh such that it contains
+about 4000 faces using [
+29].
+Quantitative results: Quantitative results for the SAIL-
+VOS 3D dataset are provided in Tab. 2. Note that we ﬁrst
+train and ﬁx the box and mask heads and then train differ-
+ent baselines for predicting meshes. On SAIL-VOS 3D we
+ﬁnd that methods which predict shape via a mesh represen-
+tation (Pixel2Mesh †, MeshR-CNN, and our Video2Mesh)
+perform better than methods which predict using a voxel
+representation (Pix2V ox†). We observe that our method
+outperforms the best baseline MeshR-CNN [
+21] in terms of
+APmesh. More notably, our method also outperforms base-
+lines in slightly and heavily occluded subsets as well as long
+clips. This is to be expected, as our approach utilizes tem-
+poral information which helps to reason about occluded re-
+gions. To conﬁrm this, we conduct an ablation study.
+Ablation study: We study the importance of the mean
+shape (abbreviated via ‘MS’), whether to estimate trans-
+formation between mean shape and current frame (abbre-
+viated via ‘T’) and the temporal prediction (abbreviated via
+Table 4. Results of transferring SAIL-VOS 3D to Pix3D (AP mesh).
+% of Pix3D data 10% 20% 50% 100%
+Ours 9.0 16.8 36.6 43.7
+Ours pretrained w/ SAIL-VOS 3D 16.4 22.5 38.0 42.8
+‘Temp.’). The results are summarized in Tab. 3. Note that
+we ﬁx the box and mask head for this ablation study, which
+ensures a proper evaluation of our mesh head modiﬁcations.
+We observe use of the mean shape to lead to slight im-
+provements (Row 2 vs. Row 1). Having transformation en-
+abled improves results more signiﬁcantly (Row 3 vs. Row
+2), while the temporal prediction leads to further increase in
+performance (Row 4 vs. Row 3).
+Qualitative results on SAIL-VOS 3D: Qualitative results
+are shown in Fig.
+6. We compare to the runner-up approach
+MeshR-CNN. Due to the use of a mean shape, we observe
+the 3D reconstructions of our method to be smoother.
+Qualitative results on Real Data: We tested a SAIL-VOS
+3D trained model (trained on person only) on a real video
+from the DA VIS dataset [
+57] and show a qualitative exam-
+ple in Fig. 7. We ﬁnd that predicted shapes are reasonable
+even though the model is trained on synthetic data.
+6. Transferring to Pix3D
+To assess the use of synthetic data we study transfer-
+ability. Speciﬁcally, we use the SAIL-VOS 3D pretrained
+model and ﬁnetune on Pix3D [
+71] using different amounts
+of Pix3D training data. Pix3D [ 71] is an image dataset.
+Consequently, we cannot study temporal aspects of our
+model. We use as conditional input the mean shape rather
+than the prediction from the previous frame. For evaluation
+we follow Gkioxari et al. [
+21] and report the AP metrics in
+Tab. 4. More details regarding experimental setup and im-
+plementation are given in Appendix A. Qualitative results
+of our Video2Mesh method trained on all Pix3D data are
+provided in Fig.
+8.
+In the low-data regime where only 10%, 20%, and 50% real
+mesh data (Pix3D) are available, pretraining on synthetic
+data is beneﬁcial: the model pretrained on SAIL-VOS 3D
+outperfoms the model without pretraining. Note that depth
+data may also be a useful cue to facilitate transferability
+which we didn’t study yet.
+7. Conclusion
+We introduce SAIL-VOS 3D and develop a baseline for
+3D mesh reconstruction from video data. In a ﬁrst study
+we observe temporal data to aid reconstruction. We hope
+SAIL-VOS 3D facilitates further research in this direction.
+Acknowledgements: This work is supported in part by
+NSF under Grant #1718221, 2008387, 2045586, MRI
+#1725729, and NIFA award 2020-67021-32799, UIUC,
+Samsung, Amazon, 3M, and Cisco Systems Inc. (Gift
+Award CG 1377144 - thanks for access to Arcetri).
+8
+1425
+
+
+PAGE 9
+References
+[1] Direct3d graphics pipeline. https : / / docs .
+microsoft . com / en - us / windows / win32 /
+direct3d11 / overviews - direct3d - 11 -
+graphics-pipeline
+. 4
+[2] Phil Ammirato, Patrick Poirson, Eunbyung Park, Jana
+Koˇseck´a, and Alexander C Berg. A dataset for developing
+and benchmarking active vision. In Proc. ICRA, 2017. 2
+[3] Iro Armeni, Sasha Sax, Amir R Zamir, and Silvio Savarese.
+Joint 2d-3d-semantic data for indoor scene understanding.
+arXiv preprint arXiv:1702.01105, 2017.
+2
+[4] Iro Armeni, Ozan Sener, Amir R. Zamir, Helen Jiang, Ioan-
+nis Brilakis, Martin Fischer, and Silvio Savarese. 3d se-
+mantic parsing of large-scale indoor spaces. In Proc. CVPR,
+2016.
+2
+[5] Amir Arsalan Soltani, Haibin Huang, Jiajun Wu, Tejas D
+Kulkarni, and Joshua B Tenenbaum. Synthesizing 3d shapes
+via modeling multi-view depth maps and silhouettes with
+deep generative networks. In Proc. CVPR, 2017.
+2
+[6] Tim Bailey and Hugh Durrant-Whyte. Simultaneous Local-
+ization and Mapping (SLAM): Part II. IEEE robotics & au-
+tomation magazine, 2006. 1, 2
+[7] Angel X Chang, Thomas Funkhouser, Leonidas Guibas,
+Pat Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese,
+Manolis Savva, Shuran Song, Hao Su, et al. Shapenet:
+An information-rich 3d model repository. arXiv preprint
+arXiv:1512.03012, 2015.
+2, 3, 4, 13
+[8] Weifeng Chen, Shengyi Qian, David Fan, Noriyuki Kojima,
+Max Hamilton, and Jia Deng. OASIS: A Large-Scale Dataset
+for Single Image 3D in the Wild. In Proc. CVPR, 2020.
+2, 3
+[9] Xiaozhi Chen, Huimin Ma, Ji Wan, Bo Li, and Tian Xia.
+Multi-view 3d object detection network for autonomous
+driving. In Proc. CVPR, 2017.
+2
+[10] Zhiqin Chen, Andrea Tagliasacchi, and Hao Zhang. Bsp-net:
+Generating compact meshes via binary space partitioning. In
+Proc. CVPR, 2020.
+1, 2
+[11] Zhiqin Chen and Hao Zhang. Learning implicit ﬁelds for
+generative shape modeling. In Proc. CVPR, 2019. 2
+[12] Christopher B Choy, Danfei Xu, JunY oung Gwak, Kevin
+Chen, and Silvio Savarese. 3D-R2N2: A uniﬁed approach
+for single and multi-view 3d object reconstruction. In Proc.
+ECCV, 2016.
+2
+[13] Javier Civera, Dorian G ´alvez-L´opez, Luis Riazuelo, Juan D
+Tard´os, and Jose Maria Martinez Montiel. Towards seman-
+tic slam using a monocular camera. In Proc. International
+Conference on Intelligent Robots and Systems , 2011. 2
+[14] Angela Dai, Angel X Chang, Manolis Savva, Maciej Hal-
+ber, Thomas Funkhouser, and Matthias Nießner. Scannet:
+Richly-annotated 3d reconstructions of indoor scenes. In
+Proc. CVPR, 2017.
+2, 3
+[15] Angela Dai, Charles Ruizhongtai Qi, and Matthias Nießner.
+Shape completion using 3d-encoder-predictor cnns and
+shape synthesis. In Proc. CVPR, 2017.
+2
+[16] Boyang Deng, Kyle Genova, Soroosh Y azdani, Soﬁen
+Bouaziz, Geoffrey Hinton, and Andrea Tagliasacchi. Cvxnet:
+Learnable convex decomposition. In Proc. CVPR, 2020.
+1,
+2
+[17] Endri Dibra, Himanshu Jain, Cengiz ¨Oztireli, Remo Ziegler,
+and Markus Gross. HS-Nets: Estimating human body shape
+from silhouettes with convolutional neural networks. In
+Proc. 3DV, 2016.
+2
+[18] Hugh Durrant-Whyte and Bailey T. Simultaneous Localiza-
+tion and Mapping (SLAM): Part I. IEEE robotics & automa-
+tion magazine, 2006. 1, 2
+[19] Matteo Fabbri, Fabio Lanzi, Simone Calderara, Andrea
+Palazzi, Roberto V ezzani, and Rita Cucchiara. Learning to
+detect and track visible and occluded body joints in a virtual
+world. In Proc. ECCV, 2018.
+3
+[20] Andreas Geiger, Philip Lenz, and Raquel Urtasun. Are we
+ready for autonomous driving? the kitti vision benchmark
+suite. In Proc. CVPR, 2012.
+2, 3
+[21] Georgia Gkioxari, Jitendra Malik, and Justin Johnson. Mesh
+R-CNN. In Proc. CVPR, 2019. 1, 2, 6, 7, 8, 12, 15
+[22] Thibault Groueix, Matthew Fisher, Vladimir G Kim,
+Bryan C Russell, and Mathieu Aubry. A papier-m ˆach´e ap-
+proach to learning 3d surface generation. In Proc. CVPR ,
+2018. 2
+[23] Ankur Handa, Thomas Whelan, John McDonald, and An-
+drew J Davison. A benchmark for rgb-d visual odometry, 3d
+reconstruction and slam. In Proc. ICRA, 2014.
+3
+[24] R. I. Hartley and A. Zisserman. Multiple View Geometry in
+Computer Vision. Cambridge University Press, 2004. 1, 2
+[25] Kaiming He, Georgia Gkioxari, Piotr Doll ´ar, and Ross Gir-
+shick. Mask R-CNN. In Proc. ICCV, 2017. 6, 13
+[26] Lan Hu, Wanting Xu, Kun Huang, and Laurent Kneip. Deep-
+slam++: Object-level rgbd slam based on class-speciﬁc deep
+shape priors. arXiv preprint arXiv:1907.09691, 2019.
+2
+[27] Y .-T. Hu, H.-S. Chen, K. Hui, J.-B. Huang, and A. G.
+Schwing. SAIL-VOS: Semantic Amodal Instance Level
+Video Object Segmentation – A Synthetic Dataset and Base-
+lines. In Proc. CVPR, 2019.
+2, 3, 4, 5, 7, 13
+[28] Binh-Son Hua, Quang-Hieu Pham, Duc Thanh Nguyen,
+Minh-Khoi Tran, Lap-Fai Y u, and Sai-Kit Y eung. Scenenn:
+A scene meshes dataset with annotations. In Proc. 3DV ,
+2016.
+2
+[29] Jingwei Huang, Hao Su, and Leonidas Guibas. Robust water-
+tight manifold surface generation method for shapenet mod-
+els. arXiv preprint arXiv:1802.01698, 2018.
+8
+[30] Zeng Huang, Tianye Li, Weikai Chen, Y ajie Zhao, Jun Xing,
+Chloe LeGendre, Linjie Luo, Chongyang Ma, and Hao Li.
+Deep volumetric video from very sparse multi-view perfor-
+mance capture. In Proc. ECCV, 2018.
+2
+[31] Hamid Izadinia, Qi Shan, and Steven M Seitz. IM2CAD. In
+Proc. CVPR, 2017. 1, 2
+[32] Matthew Johnson-Roberson, Charles Barto, Rounak Mehta,
+Sharath Nittur Sridhar, Karl Rosaen, and Ram V asudevan.
+Driving in the matrix: Can virtual worlds replace human-
+generated annotations for real world tasks? In Proc. ICRA,
+2017.
+3
+[33] Abhishek Kar, Christian H ¨ane, and Jitendra Malik. Learning
+a multi-view stereo machine. In Proc. NIPS, 2017. 2
+[34] Maria Klodt and Andrea V edaldi. Supervising the new with
+the old: learning sfm from sfm. In Proc. ECCV, 2018. 2
+[35] Philipp Kr ¨ahenb¨uhl. Free supervision from video games. In
+Proc. CVPR, 2018. 3, 4
+[36] Jonathan Krause, Michael Stark, Jia Deng, and Li Fei-Fei.
+3D object representations for ﬁne-grained categorization. In
+Proc. CVPR Workshops, 2013.
+2
+[37] Abhijit Kundu, Yin Li, and James M Rehg. 3d-rcnn:
+91426
+
+
+PAGE 10
+Instance-level 3d object reconstruction via render-and-
+compare. In Proc. CVPR, 2018.
+1, 2
+[38] Abhijit Kundu, Xiaoqi Yin, Alireza Fathi, David Ross, Brian
+Brewington, Thomas Funkhouser, and Caroline Pantofaru.
+Virtual multi-view fusion for 3d semantic segmentation. In
+Proc. ECCV, 2020.
+2
+[39] Joseph J Lim, Hamed Pirsiavash, and Antonio Torralba.
+Parsing ikea objects: Fine pose estimation. In Proc. ICCV,
+2013. 2, 3
+[40] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays,
+Pietro Perona, Deva Ramanan, Piotr Doll ´ar, and C Lawrence
+Zitnick. Microsoft coco: Common objects in context. In
+Proc. ECCV, 2014.
+3
+[41] Jisan Mahmud, True Price, Akash Bapat, and Jan-Michael
+Frahm. Boundary-aware 3d building reconstruction from a
+single overhead image. In Proc. CVPR, 2020.
+1, 2
+[42] David Marr. Vision: A Computational Investigation into the
+Human Representation and Processing of Visual Informa-
+tion. MIT Press, 1982.
+1
+[43] David Marr and Ellen C Hildreth. Theory of edge detection.
+In Proc. Royal Society of London , 1980. 1
+[44] David Marr and H. Keith Nishihara. Representation and
+recognition of the spatial organization of three-dimensional
+shapes. In Proc. Royal Society of London , 1978.
+1
+[45] Nikolaus Mayer, Eddy Ilg, Philip Hausser, Philipp Fischer,
+Daniel Cremers, Alexey Dosovitskiy, and Thomas Brox. A
+large dataset to train convolutional networks for disparity,
+optical ﬂow, and scene ﬂow estimation. In Proc. CVPR ,
+2016.
+3
+[46] John McCormac, Ankur Handa, Stefan Leutenegger, and
+Andrew J Davison. Scenenet rgb-d: Can 5m synthetic im-
+ages beat generic imagenet pre-training on indoor segmenta-
+tion? In Proc. ICCV, 2017.
+2
+[47] Lars Mescheder, Michael Oechsle, Michael Niemeyer, Se-
+bastian Nowozin, and Andreas Geiger. Occupancy net-
+works: Learning 3d reconstruction in function space. In
+Proc. CVPR, 2019.
+2
+[48] Kaichun Mo, Shilin Zhu, Angel X Chang, Li Yi, Subarna
+Tripathi, Leonidas J Guibas, and Hao Su. Partnet: A large-
+scale benchmark for ﬁne-grained and hierarchical part-level
+3d object understanding. In Proc. CVPR, 2019.
+1, 2
+[49] Charlie Nash, Y aroslav Ganin, SM Eslami, and Peter W
+Battaglia. PolyGen: An autoregressive generative model of
+3d meshes. arXiv preprint arXiv:2002.10880, 2020.
+2
+[50] Ahmed Samy Nassar, S ´ebastien Lef `evre, and Jan Dirk Weg-
+ner. Simultaneous multi-view instance detection with learned
+geometric soft-constraints. In Proc. ICCV, 2019.
+2
+[51] Richard A Newcombe, Shahram Izadi, Otmar Hilliges,
+David Molyneaux, David Kim, Andrew J Davison, Pushmeet
+Kohi, Jamie Shotton, Steve Hodges, and Andrew Fitzgib-
+bon. Kinectfusion: Real-time dense surface mapping and
+tracking. In IEEE International Symposium on Mixed and
+Augmented Reality, 2011.
+2
+[52] Michael Niemeyer, Lars Mescheder, Michael Oechsle, and
+Andreas Geiger. Occupancy ﬂow: 4d reconstruction by
+learning particle dynamics. In Proc. ICCV, 2019.
+2
+[53] Stephen E Palmer. Vision science: Photons to phenomenol-
+ogy. MIT press, 1999. 2
+[54] Jeong Joon Park, Peter Florence, Julian Straub, Richard
+Newcombe, and Steven Lovegrove. Deepsdf: Learning con-
+tinuous signed distance functions for shape representation.
+In Proc. CVPR, 2019.
+2
+[55] Despoina Paschalidou, Luc V an Gool, and Andreas Geiger.
+Learning unsupervised hierarchical part decomposition of 3d
+objects from a single rgb image. In Proc. CVPR, 2020.
+1, 2
+[56] Songyou Peng, Michael Niemeyer, Lars Mescheder, Marc
+Pollefeys, and Andreas Geiger. Convolutional occupancy
+networks. In Proc. ECCV, 2020.
+1, 2
+[57] Jordi Pont-Tuset, Federico Perazzi, Sergi Caelles, Pablo Ar-
+bel´aez, Alexander Sorkine-Hornung, and Luc V an Gool.
+The 2017 davis challenge on video object segmentation.
+arXiv:1704.00675, 2017.
+8
+[58] Konstantinos Rematas, Ira Kemelmacher-Shlizerman, Brian
+Curless, and Steve Seitz. Soccer on your tabletop. In Proc.
+CVPR, 2018. 3
+[59] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.
+Faster r-cnn: Towards real-time object detection with region
+proposal networks. In Proc. NIPS, 2015.
+2, 5
+[60] Stephan R Richter, Zeeshan Hayder, and Vladlen Koltun.
+Playing for benchmarks. In Proc. ICCV, 2017. 3
+[61] Stephan R Richter, Vibhav Vineet, Stefan Roth, and Vladlen
+Koltun. Playing for data: Ground truth from computer
+games. In Proc. ECCV, 2016.
+3
+[62] Hayko Riemenschneider, Andr ´as B ´odis-Szomor´u, Julien
+Weissenberg, and Luc V an Gool. Learning where to clas-
+sify in multi-view semantic segmentation. In Proc. ECCV,
+2014.
+2
+[63] German Ros, Laura Sellart, Joanna Materzynska, David
+V azquez, and Antonio M Lopez. The synthia dataset: A large
+collection of synthetic images for semantic segmentation of
+urban scenes. In Proc. CVPR, 2016.
+3
+[64] Renato F Salas-Moreno, Richard A Newcombe, Hauke
+Strasdat, Paul HJ Kelly, and Andrew J Davison. Slam++: Si-
+multaneous localisation and mapping at the level of objects.
+In Proc. CVPR, 2013.
+2
+[65] Johannes L. Sch ¨onberger and Jan-Michael Frahm. Structure-
+from-motion revisited. In Proc. CVPR, 2016. 1, 2
+[66] Nathan Silberman, Derek Hoiem, Pushmeet Kohli, and Rob
+Fergus. Indoor segmentation and support inference from
+rgbd images. In Proc. ECCV, 2012.
+2
+[67] Edward Smith, Scott Fujimoto, Adriana Romero, and David
+Meger. Geometrics: Exploiting geometric structure for
+graph-encoded objects. In Proc. ICML, 2019.
+6, 12
+[68] Shiyu Song and Manmohan Chandraker. Joint sfm and de-
+tection cues for monocular 3d localization in road scenes. In
+Proc. CVPR, 2015.
+2
+[69] Shuran Song, Fisher Y u, Andy Zeng, Angel X Chang, Mano-
+lis Savva, and Thomas Funkhouser. Semantic scene comple-
+tion from a single depth image. In Proc. CVPR , 2017.
+2,
+3
+[70] Edgar Sucar, Kentaro Wada, and Andrew Davison. Neural
+object descriptors for multi-view shape reconstruction. arXiv
+preprint arXiv:2004.04485, 2020. 2
+[71] Xingyuan Sun, Jiajun Wu, Xiuming Zhang, Zhoutong
+Zhang, Chengkai Zhang, Tianfan Xue, Joshua B Tenenbaum,
+and William T Freeman. Pix3d: Dataset and methods for
+single-image 3d shape modeling. In Proc. CVPR, 2018.
+2,
+3, 6, 8, 13, 15
+[72] Maxim Tatarchenko, Alexey Dosovitskiy, and Thomas Brox.
+101427
+
+
+PAGE 11
+Multi-view 3d models from single images with a convolu-
+tional network. In Proc. ECCV, 2016.
+2
+[73] Maxim Tatarchenko, Alexey Dosovitskiy, and Thomas Brox.
+Octree generating networks: Efﬁcient convolutional archi-
+tectures for high-resolution 3d outputs. In Proc. ICCV, 2017.
+2
+[74] Zachary Teed and Jia Deng. DeepV2D: Video to depth with
+differentiable structure from motion. In Proc. ICLR, 2020. 2
+[75] Shubham Tulsiani, Alexei A Efros, and Jitendra Malik.
+Multi-view consistency as supervisory signal for learning
+shape and pose prediction. In Proc. CVPR, 2018.
+2
+[76] Shubham Tulsiani, Saurabh Gupta, David F Fouhey,
+Alexei A Efros, and Jitendra Malik. Factoring shape, pose,
+and layout from the 2d image of a 3d scene. In Proc. CVPR,
+2018.
+1, 2
+[77] Nanyang Wang, Yinda Zhang, Zhuwen Li, Y anwei Fu, Wei
+Liu, and Y u-Gang Jiang. Pixel2Mesh: Generating 3d mesh
+models from single rgb images. In Proc. ECCV, 2018.
+1, 2,
+6, 7
+[78] Chao Wen, Yinda Zhang, Zhuwen Li, and Y anwei Fu.
+Pixel2mesh++: Multi-view 3d mesh generation via deforma-
+tion. In Proc. ICCV, 2019.
+7
+[79] Olivia Wiles and Andrew Zisserman. SilNet: Single-
+and multi-view reconstruction by learning from silhouettes.
+arXiv preprint arXiv:1711.07888, 2017.
+2
+[80] Jiajun Wu, Yifan Wang, Tianfan Xue, Xingyuan Sun, Bill
+Freeman, and Josh Tenenbaum. Marrnet: 3d shape recon-
+struction via 2.5 d sketches. In Proc. NIPS, 2017.
+2
+[81] Rundi Wu, Yixin Zhuang, Kai Xu, Hao Zhang, and Bao-
+quan Chen. Pq-net: A generative part seq2seq network for
+3d shapes. In Proc. CVPR, 2020.
+1, 2
+[82] Zhirong Wu, Shuran Song, Aditya Khosla, Fisher Y u, Lin-
+guang Zhang, Xiaoou Tang, and Jianxiong Xiao. 3d
+shapenets: A deep representation for volumetric shapes. In
+Proc. CVPR, 2015.
+2, 3
+[83] Y u Xiang, Wonhui Kim, Wei Chen, Jingwei Ji, Christopher
+Choy, Hao Su, Roozbeh Mottaghi, Leonidas Guibas, and Sil-
+vio Savarese. Objectnet3d: A large scale database for 3d
+object recognition. In Proc. ECCV, 2016.
+2, 3
+[84] Y u Xiang, Roozbeh Mottaghi, and Silvio Savarese. Beyond
+pascal: A benchmark for 3d object detection in the wild. In
+Proc. WACV, 2014.
+2, 3
+[85] Haozhe Xie, Hongxun Y ao, Xiaoshuai Sun, Shangchen
+Zhou, and Shengping Zhang. Pix2V ox: Context-aware 3d
+reconstruction from single and multi-view images. In Proc.
+ICCV, 2019.
+2, 7
+[86] Luyang Zhu, Konstantinos Rematas, Brian Curless,
+Steven M Seitz, and Ira Kemelmacher-Shlizerman. Recon-
+structing nba players. In Proc. ECCV, 2020.
+3
+[87] Chuhang Zou, Ersin Y umer, Jimei Y ang, Duygu Ceylan, and
+Derek Hoiem. 3d-prnn: Generating shape primitives with
+recurrent neural networks. In Proc. ICCV, 2017.
+2
+111428

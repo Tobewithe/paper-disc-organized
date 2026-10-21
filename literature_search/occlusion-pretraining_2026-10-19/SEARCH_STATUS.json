@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-19",
+  "status": "completed_research_synthesis",
+  "depth": 3,
+  "retrieval_scope": "Focused deep multi-source search with primary-source reference snowballing; not an exhaustive systematic review.",
+  "raw_record_counts": {
+    "A_arxiv.json": 22,
+    "B_semantic_scholar.json": 10,
+    "C_crossref_openalex.json": 18,
+    "E_open_repositories.json": 8,
+    "F_dblp.json": 0,
+    "F_dblp_web.json": 1,
+    "G_official_web_code.json": 10,
+    "R_primary_updates.json": 3,
+    "S_snowball.json": 10
+  },
+  "raw_total": 82,
+  "unique_records": 49,
+  "record_kinds": {
+    "research_work": 48,
+    "engineering_documentation": 1
+  },
+  "included_core_or_secondary": 42,
+  "background_not_used_for_core_claims": 7,
+  "pdf_attempted": 49,
+  "pdf_acquired": 41,
+  "pdf_not_acquired": [
+    {
+      "rank": 40,
+      "title": "Temporally Consistent Unpaired Multi-domain Video Translation by Contrastive Learning",
+      "attempts": []
+    },
+    {
+      "rank": 42,
+      "title": "Occlusion-Supervised Amodal Instance Segmentation",
+      "attempts": []
+    },
+    {
+      "rank": 43,
+      "title": "Cosmos Transfer Sim2Real for Robotics Navigation Tasks",
+      "attempts": []
+    },
+    {
+      "rank": 45,
+      "title": "Amodal Panoptic Segmentation",
+      "attempts": []
+    },
+    {
+      "rank": 46,
+      "title": "A2vis: Amodal-Aware Approach to Video Instance Segmentation",
+      "attempts": []
+    },
+    {
+      "rank": 47,
+      "title": "A segmentation-aware object detection model with occlusion handling",
+      "attempts": []
+    },
+    {
+      "rank": 48,
+      "title": "Amodal Instance Segmentation",
+      "attempts": []
+    },
+    {
+      "rank": 49,
+      "title": "Occlusion-Aware Object Localization, Segmentation and Pose Estimation",
+      "attempts": []
+    }
+  ],
+  "source_limitations": [
+    "Semantic Scholar API: four theme queries and seed citation retrieval returnedHTTP429; records are transparently primary-source fallbacks, not successfulS2 query results.",
+    "OpenAlex/Crossref: some direct metadata results succeeded, some searches were rate-limited; exact requests/errors in source status.",
+    "DBLP: six JSONAPI attempts returned nonJSON; one verified record recovered byDBLP web search.",
+    "Open repository coverage used actual accessible official project/dataset pages; not all repositories or open-access aggregators were searched successfully.",
+    "Forward citation graph was not recovered; snowballing primarily followed backward references and directly linked official related work.",
+    "41 downloaded PDFs does not mean all41 were read in full; core method/label/implementation claims were checked selectively, with deeper reading of the closest prior art."
+  ],
+  "novelty_status": "Candidate contribution, not established originality or empirical efficacy.",
+  "new_training_started": false,
+  "rules_or_old_protocols_changed": false,
+  "user_clarification": "Existing self-modelled3D scenes/data are the source. Synthetic training supervision is automatic; manual annotation is not a prerequisite.",
+  "verification_errors": []
+}

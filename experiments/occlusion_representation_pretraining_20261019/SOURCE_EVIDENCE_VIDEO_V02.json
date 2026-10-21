@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "created_on": "2026-10-20",
+  "design_version": "v0.2",
+  "purpose": "video_first_design_evidence_and_prior_art_not_new_experimental_results",
+  "local_sources": [
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/REPORT.md",
+      "sha256": "c9a3f147d1be8befcef1f7cf3e3b910b688e002dc40f4f28fbb5389c7748c7a8",
+      "bytes": 8071,
+      "supports": "旧实验结果与11段历史留出的效用和机制边界"
+    },
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/MODEL_AND_NOVELTY.md",
+      "sha256": "ea3245339134f8eae5f29fcf69bd8ffee45f601104544c900079ba974096dcc8",
+      "bytes": 4493,
+      "supports": "旧模型冻结视觉和身份编码器，训练状态与权重的范围"
+    },
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/study.json",
+      "sha256": "148da9ff844dce15ed9fba89f7958ce3262cb11f09a1e67d5173089dedb9802a",
+      "bytes": 4889,
+      "supports": "既有真实Run和结案状态，保持原协议"
+    },
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/PROTOCOL.md",
+      "sha256": "7e8408ccffbacc9466423e39108c7a6266b25d7d224efbbc4f69fc32fd604035",
+      "bytes": 7583,
+      "supports": "旧冻结协议，仅作历史来源，不转移Gate"
+    },
+    {
+      "path": "shared/dense_video_occlusion/generate.py",
+      "sha256": "9c5f3a3b9f594f6abf89bb9bf3278ce8062d4379af9b87b71d70d0d2148f1622",
+      "bytes": 12581,
+      "supports": "现有几何监督写出字段、共用遮挡物ID与表面对应导出缺项"
+    },
+    {
+      "path": "literature_search/occlusion-pretraining_2026-10-19/summary.md",
+      "sha256": "115385c577d867d5f55d02cbe6ca89e70c468c2c2b1a8d37afe3b73bc138522b",
+      "bytes": 25664,
+      "supports": "已有文献证据；其中未执行的模型与训练顺序建议由本线新设计取代"
+    }
+  ],
+  "preserved_v01_design": [
+    {
+      "path": "experiments/occlusion_representation_pretraining_20261019/PROTOCOL_DRAFT.md",
+      "sha256": "845c399a36ff7bec37514e9c410a07390f49be920a645a525104de1d335fd47b",
+      "bytes": 10247
+    },
+    {
+      "path": "experiments/occlusion_representation_pretraining_20261019/DATA_CONTRACT_DRAFT.md",
+      "sha256": "2cb3d47bb7a6cefb23c4cfbb2fa91cc0729ba1507b3b813f570f5def3426c0bb",
+      "bytes": 5114
+    },
+    {
+      "path": "experiments/occlusion_representation_pretraining_20261019/SOURCE_EVIDENCE.json",
+      "sha256": "afa1032ee97c8b96f6c68d731e2b0e60b897235bdec96f9c2773ab47d8a767d2",
+      "bytes": 4289
+    },
+    {
+      "path": "experiments/occlusion_representation_pretraining_20261019/study.v01_20261019.json",
+      "sha256": "4480ba737108ca9ac52a99da48f72d1d6a029e5bdc8f9ca4384a4c0f1038e13a",
+      "bytes": 3049
+    }
+  ],
+  "observed_prior_results": {
+    "study_id": "STUDY_DENSE_VIDEO_OCCLUSION_TRANSFER_20261019",
+    "train_run": "RUN_OCC_TRAIN_20261019T103219_d68f927f",
+    "evaluation_run": "RUN_OCC_EVALUATE_20261019T103747_e09ab314",
+    "synthetic_macro_f1": 0.904537,
+    "synthetic_scope": "heldout assets under the same renderer and scene template family",
+    "real_videos": 11,
+    "full_minus_C_IDF1_points": 0.26292640015637403,
+    "full_minus_C_paired_video_bootstrap95": [
+      0.0,
+      0.4999871849349101
+    ],
+    "full_minus_SHUFFLE_IDF1_points": -0.10751637181117246,
+    "interpretation": "synthetic state learning established within scope; stable downstream increment and object-specific weighting mechanism not established; the old experiment does not isolate the cause",
+    "synthetic_NOW_macro_f1": 0.861037,
+    "full_minus_NOW_IDF1_points": 0.032255,
+    "real_physical_partial_occlusion_events": 11,
+    "physical_event_annotation_scope": "prior AI-reviewed development events, not independent human gold standard",
+    "strict_recovery_events": 0,
+    "recovery_detection_coverage": "41/132",
+    "reliable_full_occlusion_events": 0
+  },
+  "primary_literature": [
+    {
+      "title": "DINOv3 official repository",
+      "url": "https://github.com/facebookresearch/dinov3",
+      "checked_on": "2026-10-20",
+      "role": "candidate ViT-S/16 encoder; no bias-free guarantee or installed-weight claim",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "Kubric official repository",
+      "url": "https://github.com/google-research/kubric",
+      "checked_on": "2026-10-20",
+      "role": "synthetic video annotation precedent; existing Blender pipeline remains the proposed implementation",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "Tracking through Containers and Occluders in the Wild",
+      "url": "https://tcow.cs.columbia.edu/",
+      "checked_on": "2026-10-20",
+      "role": "synthetic occlusion supervision and target persistence; prior art, not project novelty",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "CoTracker3",
+      "url": "https://arxiv.org/abs/2410.11831",
+      "checked_on": "2026-10-20",
+      "role": "point trajectories, visibility and confidence; synthetic-real transfer",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "CoTracker3 supervision and online windows",
+      "url": "https://arxiv.org/html/2410.11831v1",
+      "checked_on": "2026-10-20",
+      "role": "visibility distinct from confidence; sliding windows not automatically strict per-frame causal",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "TAPNext",
+      "url": "https://arxiv.org/abs/2504.05579",
+      "checked_on": "2026-10-20",
+      "role": "causal online point tracking is prior art",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "TAPNext++",
+      "url": "https://arxiv.org/abs/2604.10582",
+      "checked_on": "2026-10-20",
+      "role": "long-sequence and re-detection training; mature reference and Hpos control",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "TAPNext++ project",
+      "url": "https://tap-next-plus-plus.github.io/",
+      "checked_on": "2026-10-20",
+      "role": "AJ_RD and 0.2 hidden-point auxiliary position-supervision description",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "TAP-Vid benchmark",
+      "url": "https://tapvid.github.io/",
+      "checked_on": "2026-10-20",
+      "role": "public point evaluation; initial prompts and annotation semantics stay explicit",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "BoT-SORT",
+      "url": "https://arxiv.org/abs/2206.14651",
+      "checked_on": "2026-10-20",
+      "role": "instance-association reference; compare same front-end outputs",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "SAM 2",
+      "url": "https://arxiv.org/abs/2408.00714",
+      "checked_on": "2026-10-20",
+      "role": "streaming-memory video segmentation",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "Relational Knowledge Distillation",
+      "url": "https://arxiv.org/abs/1904.05068",
+      "checked_on": "2026-10-20",
+      "role": "distance and angle relational distillation is established prior art",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    },
+    {
+      "title": "On the Spectral Bias of Neural Networks",
+      "url": "https://proceedings.mlr.press/v97/rahaman19a.html",
+      "checked_on": "2026-10-20",
+      "role": "low-frequency function learning does not justify blanket image high-frequency removal",
+      "verification_scope": "official abstract, project page, repository or relevant paper section; not an exhaustive novelty review"
+    }
+  ],
+  "novelty_status": "hypothesis_only_not_a_first_claim",
+  "new_runs_created": false,
+  "new_training_steps": 0
+}

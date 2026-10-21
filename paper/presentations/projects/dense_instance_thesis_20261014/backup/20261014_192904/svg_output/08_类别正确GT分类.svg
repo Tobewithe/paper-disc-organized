@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF"/>
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#315E9D">02 研究方法 · 模块一</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">类别正确后，进一步区分 GT 失败位置</text></g>
+<g id="classification-scope" data-pptx-bounds="64 161 1152 75" font-size="22" fill="#596B80"><text x="64" y="185">每个 GT 只检查最高分类得分对应类别与其一致的候选（argmax-correct）<tspan x="64" dy="37">仍统计全部 36,335 个 GT；未加入置信度或 Top-K 筛选</tspan></text><text x="1080" y="222">GT 数 / 占比</text></g>
+<g id="argmax-gt-states" data-pptx-bounds="64 245 1152 390">
+ <g id="argmax-gt-states-chartArea">
+  <line x1="675" y1="595" x2="1045" y2="595" stroke="#596B80"/>
+  <!-- chart-plot-area: object=argmax-gt-states | 675,245,1045,595 -->
+  <rect x="675" y="268" width="0.6512" height="24" fill="#8495A8"/>
+  <rect x="675" y="338" width="93.758" height="24" fill="#596B80"/>
+  <rect x="675" y="408" width="95.5932" height="24" fill="#007F82"/>
+  <rect x="675" y="478" width="7.1632" height="24" fill="#8495A8"/>
+  <rect x="675" y="548" width="340.5924" height="24" fill="#315E9D"/>
+ </g>
+ <g id="argmax-class-labels" fill="#25374C">
+  <text x="64" y="283" font-weight="bold">类别候选缺失</text><text x="64" y="314" font-size="22" fill="#596B80">该 GT 没有任何类别正确的候选</text>
+  <text x="64" y="353" font-weight="bold">框未达标</text><text x="64" y="384" font-size="22" fill="#596B80">有类别正确的候选，但没有达标框</text>
+  <text x="64" y="423" font-weight="bold" fill="#007F82">掩码未达标</text><text x="64" y="454" font-size="22" fill="#596B80">有达标框，但该候选子集内没有达标掩码</text>
+  <text x="64" y="493" font-weight="bold">分别达标</text><text x="64" y="524" font-size="22" fill="#596B80">好框与好掩码分别存在，无同一候选双达标</text>
+  <text x="64" y="563" font-weight="bold">联合达标</text><text x="64" y="594" font-size="22" fill="#596B80">同一候选类别正确，框与掩码均达标</text>
+ </g>
+ <g id="argmax-counts" fill="#25374C" font-weight="bold"><text x="1080" y="287">44</text><text x="1080" y="357">6,335</text><text x="1080" y="427" fill="#007F82">6,459</text><text x="1080" y="497">484</text><text x="1080" y="567">23,013</text></g>
+ <g id="argmax-percentages" font-size="22" fill="#596B80"><text x="1080" y="316">0.12%</text><text x="1080" y="386">17.43%</text><text x="1080" y="456" fill="#007F82">17.78%</text><text x="1080" y="526">1.33%</text><text x="1080" y="596">63.34%</text></g>
+ <g id="argmax-axis-labels" font-size="20" fill="#596B80" text-anchor="middle"><text x="675" y="623">0</text><text x="749" y="623">5,000</text><text x="823" y="623">10,000</text><text x="897" y="623">15,000</text><text x="971" y="623">20,000</text><text x="1045" y="623">25,000</text></g>
+</g>
+<g id="argmax-interpretation" data-pptx-bounds="64 645 1152 40"><text x="64" y="674" font-weight="bold" fill="#172B46">固定类别条件后，6,459 个 GT 仍缺少合格掩码，成为机制分析对象。</text></g>
+</svg>

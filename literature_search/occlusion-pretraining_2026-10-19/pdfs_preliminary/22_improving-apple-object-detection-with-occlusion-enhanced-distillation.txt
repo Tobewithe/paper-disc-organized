@@ -1,0 +1,607 @@
+
+
+PAGE 1
+IMPROVING APPLE OBJECT DETECTION WITH
+OCCLUSION -E NHANCED DISTILLATION
+Yuanping Shi1,2,3, Yanheng Ma1, Liang Geng 2,3, Lina Chu 1, Bingxuan Li 1
+1 Department of UA V Engineering, Shijiazhuang Campus, Army Engineering University, Shijiazhuang, 050003, China
+2 College of Mechanical and Electrical Engineering, Shijiazhuang University, Shijiazhuang, 050035, China
+3 Shijiazhuang Key Laboratory of Agricultural Robotics Intelligent Perception, Shijiazhuang, 050035, China
+1102061@sjzc.edu.cn (Y.Shi); mamyh11@163.com (Y.Ma); liang_geng@bupt.edu.cn (L.Geng);
+chulina@aeu.edu.cn (L.Chu); libingxuan2021@aeu.edu.cn (B.Li)
+ABSTRACT
+Apples growing in natural environments often face severe visual obstructions from leaves and branches.
+This significantly increases the risk of false detections in object detection tasks, thereby escalating the
+challenge. Addressing this issue, we introduce a technique called "Occlusion-Enhanced Distillation"
+(OED). This approach utilizes occlusion information to regularize the learning of semantically aligned
+features on occluded datasets and employs Exponential Moving Average (EMA) to enhance training
+stability. Specifically, we first design an occlusion-enhanced dataset that integrates Grounding DINO
+and SAM methods to extract occluding elements such as leaves and branches from each sample,
+creating occlusion examples that reflect the natural growth state of fruits. Additionally, we propose a
+multi-scale knowledge distillation strategy, where the student network uses images with increased
+occlusions as inputs, while the teacher network employs images without natural occlusions. Through
+this setup, the strategy guides the student network to learn from the teacher across scales of semantic
+and local features alignment, effectively narrowing the feature distance between occluded and non-
+occluded targets and enhancing the robustness of object detection. Lastly, to improve the stability of
+the student network, we introduce the EMA strategy, which aids the student network in learning more
+generalized feature expressions that are less affected by the noise of individual image occlusions. Our
+method significantly outperforms current state-of-the-art techniques through extensive comparative
+experiments.
+Keywords Occluded Apple Detection · Knowledge Distillation · Feature Alignment
+1 Introduction
+In modern agricultural automation, detecting fruits within orchards is a crucial task [1, 2, 3]. These tasks significantly
+assist farmers in managing resources, optimizing production processes, and making data-supported decisions during the
+harvest period. Particularly in the field of mechanized harvesting, efficient robotic systems are required to accurately
+identify fruits amidst cluttered canopies, which not only substantially enhances picking efficiency but also greatly
+reduces the labor intensity and cost associated with manual harvesting.
+However, occlusion is a common occurrence in fruit trees growing under natural conditions. Leaves and branches
+in the images may be very close to the position of the fruits, or even appear to merge with them, often leading to
+erroneous identification of fruits [4]. In some cases, the occluded parts contain only limited target information, leading
+to significant variations in the appearance of objects under different occlusion states. As shown in Figure 1, we simulate
+natural conditions by adding random occlusions to the original images, significantly altering the shape of the apple
+at the center due to occluding leaves. Under these circumstances, traditional object detection frameworks struggle to
+adapt to the learning needs of heavily occluded samples. This is primarily because convolution-based methods like Fast
+R-CNN [5], Faster R-CNN [6], Mask R-CNN [7], YOLO [8], and SSD [9], as well as Transformer-based algorithms
+such as Deformable DETR [10] and DINO [11], require direct mapping of fruit features to labels to perform object
+detection. However, due to the typically limited scale and complex occlusion scenarios of agricultural datasets, these
+arXiv:2409.01573v2  [cs.CV]  30 Oct 2024
+
+PAGE 2
+Running Title for Header
+methods often fail to effectively learn the significant shape variations caused by occlusions. Addressing these challenges
+necessitates more refined algorithmic design.
+Occlusion-Aware 
+Distillation
+Origin Candidate
+Occlusion Candidate
+Multiscale feature
+Multiscale feature
+Candidate 
+DistillationEMA
+Input Image
+Fine-grained Occlusion Features
+Fine-grained Occlusion Features
+Figure 1: Method Overview: We employ Multi-scale Feature Distillation to address the training challenges posed by
+substantial morphological differences in targets under severe occlusion. Specifically, Multi-scale Feature Distillation is
+divided into two parts: Candidate Distillation and Occlusion-Aware Distillation. Through weighted processes, relevant
+information is distilled from multi-scale features for knowledge transfer. Additionally, to enhance training stability, we
+utilize exponential moving averages.
+To address the issue of strong occlusions, traditional methods often rely on forcibly extracting image features and
+aligning them in semantic space. However, the significant morphological differences before and after occlusion lead to
+instability during the training process. Inspired by how humans infer the complete object through partial unoccluded
+information, this paper proposes a strategy that diverges from previous approaches. Instead of pursuing alignment of
+semantic features at the target scale, we utilize the similarities in the unoccluded parts of the target to guide the learning
+process. For instance, in the Occlusion Image of Figure 1, the area marked by the blue square shows the unoccluded
+part of the apple. Under the framework based on Deformable DETR [10], we select these features and align them across
+multiple scales, effectively mitigating the learning instability caused by morphological differences at the target scale.
+Specifically, we propose a new framework named Occlusion-Enhanced Distillation (OED). OED utilizes knowledge
+distillation techniques to align the feature embeddings of fruits before and after occlusion, thereby enhancing robustness
+against random occlusions. Our method is divided into three parts: Firstly, Grounding DINO [12] with the text prompt
+’leaves’ is applied on the dataset to obtain bounding boxes of the occluded objects, which helps capture the occlusion
+characteristics of fruits in their natural growing states, ensuring consistency with natural growth and lighting conditions.
+Next, we use SAM [13] to generate precise occlusion masks within these bounding boxes. Based on the annotated
+fruit masks in the dataset, we randomly occlude the fruits. Between the teacher and student models, we learn to align
+the feature embeddings of occluded and unoccluded samples through self-distillation of knowledge. Considering
+the significant changes in the appearance of fruits under severe occlusion, previous methods of directly performing
+knowledge distillation between teacher and student networks to achieve feature alignment [ 14, 15] may no longer
+be suitable. This is because significant morphological differences can lead to difficulties in the learning process. To
+overcome this challenge, we compute the similarity of feature responses between the student and teacher models at
+multiple scales and perform optimal patch matching to find semantically similar features at a specific scale. Additionally,
+we adopt an Exponential Moving Average (EMA) strategy for the student model’s weights to minimize the impact on
+the student network under extreme or irregular data perturbations.
+The main contributions of this study can be summarized as follows:
+• A novel method combining Grounding DINO with SAM was designed to construct an occlusion-enhanced
+dataset for teacher-student network self-distillation.
+2
+
+PAGE 3
+Running Title for Header
+• A multi-scale feature similarity assessment method was developed, implementing optimal patch matching to
+effectively address the significant differences in appearance between occluded and unoccluded fruits while
+retaining similar semantic features.
+• An Exponential Moving Average (EMA) strategy for student weights was introduced, enhancing the training
+stability of the student network when dealing with extreme and irregular data.
+2 Related Work
+Object detection: In the field of agricultural automation, particularly in the detection of apple targets in orchards,
+occlusion presents a ubiquitous and challenging problem. In real-world scenarios, apples are often obscured by leaves,
+branches, or other fruits, significantly increasing the difficulty of detection. Currently, object detection techniques based
+on Convolutional Neural Networks (CNNs) and Transformers each demonstrate distinct advantages and limitations in
+handling occluded target detection tasks. CNN-based methods, due to their robust feature extraction capabilities, are
+widely used for recognizing and locating complex objects in images, yet they may be limited in handling occlusions and
+overlapping objects. In contrast, Transformer-based techniques, such as DETR [16], by leveraging global contextual
+information, are better equipped to understand the occlusions and the relative spatial relationships between objects in
+images, thus enhancing the detection accuracy under occluded conditions.
+Existing research primarily employs Convolutional Neural Network (CNN)-based methods for addressing object
+detection issues. For example, Faster-RCNN [6] significantly improves processing speed and accuracy by introducing
+a Region Proposal Network (RPN), which generates candidate object regions and utilizes deep learning models for
+direct feature learning and classification. Additionally, algorithms such as YOLO [8] and SSD [9] approach detection
+tasks as a single regression problem, further enhancing processing speed. YOLO predicts bounding boxes and class
+probabilities directly across the entire image, markedly accelerating performance. Concurrently, SSD enhances the
+detection capability for apples of varying sizes by performing detection on feature maps at multiple scales. However,
+the efficiency and accuracy of these methods tend to be compromised when the degree of occlusion increases [ 17].
+Particularly when apples are mostly obscured by leaves, these detection models often struggle to accurately distinguish
+objects. This issue primarily arises because they fail to capture sufficient visual feature information in cases of severe
+occlusion [18]. Convolutional networks rely on local or boundary information to recognize objects, but in heavily
+occluded scenarios, effective features may be obscured by obstructions, leading to challenges in making accurate
+classifications.
+In recent years, Transformer models have increasingly demonstrated their unique advantages in the field of computer
+vision, particularly excelling in handling occluded object detection. For instance, DETR (Detection Transformer) [16]
+and its derivative models [10, 11] introduced an innovative approach by transforming the task of object detection into
+a set prediction problem, thus eliminating the need for complex post-processing steps typical of traditional region
+proposal-based detection methods. DETR utilizes the self-attention mechanism to process the global dependencies in
+images, which is particularly crucial for recognizing partially occluded objects against complex backgrounds. Despite
+their effective handling of global information through the self-attention mechanism, Transformer models may still face
+limitations in scenarios of extreme occlusion, where objects are mostly obscured. This is because even global attention
+mechanisms struggle to accurately infer complete object information from very limited visible cues, especially when
+occlusion is severe enough to obscure key visual features of the object.
+Knowledge distillation: Distillation methods enhance the learning effectiveness of student models by utilizing the
+relationships between different samples. For instance, by comparing how similar objects are processed in different
+images, student models can better understand the general appearance of objects under complex backgrounds or occluded
+conditions. Although guidance from high-level features assists the student model’s learning during hint-based training
+[19], the vast differences in target shapes under extreme occlusion may result in a lack of holistic information. The
+literature [20] suggests that forcing student models to mimic teacher models on features specified by attention maps can
+mislead the focus of attention when dealing with random occlusions like trees. Moreover, [21] proposes knowledge
+distillation using relationships between different samples, but direct similarity distillation across samples performs
+poorly under severe occlusion. Additionally, the distribution matching approach in [ 22] relies on complete target
+information, making it difficult to perform accurately during severe occlusion. Research [23] indicates that full feature
+imitation may lead to overfitting in the occluded parts by the student model, and has found that this approach might
+reduce the performance of the student model.
+3
+
+PAGE 4
+Running Title for Header
+Grounding DINO 
+& SAM
+Mask
+Input Image
+Candidate
+Occlusion 
+Enhancement
+Occlusion
+Figure 2: Data Occlusion Augmentation: Utilizing annotated masks from the dataset, occluders are extracted using
+Grounding Dino [12] and SAM [24] to occlude the targets.
+3 Data Occlusion Enhancement
+To conduct distillation learning on the MinneApple dataset, we implemented a series of occlusion data augmentation
+operations. Initially, RGB images were segmented using annotated masks from the dataset to create a set of instance
+templates. Subsequently, we employed a pretrained zero-shot detector, namely Grounding Dino [12], using text prompts
+such as "leaves" and "branches" to identify occluders in natural scenes and obtain their initial bounding boxes. Following
+this, we applied SAM [24] to generate masks based on these bounding boxes, thereby constructing a set of occlusion
+templates. Ultimately, by combining the occlusion template set with the instance template set, we built a candidate set
+for querying operations within the instance set.
+student 
+encoder
+teacher
+encoder
+teacher
+decoder
+teacher
+decoder
+…
+Teacher Queries
+…
+Teacher Queries
+…
+Predictions
+…
+Predictions
+Occlusion Image
+Grounding DINO 
+& SAM
+Occlusion 
+Generation Module
+Original Image
+Multi-scale Feature F𝑠𝑐𝑎𝑙𝑒  
+Adapter
+Adapter
+Patch matching 
+score 𝛽𝑖
+Occlusion-Aware 
+Distillation
+Candidate 
+Distillation
+Candidate matching 
+score 𝛾𝑖, 𝐴𝑙𝑞𝑖𝑘 
+Multi-scale Feature F𝑠𝑐𝑎𝑙𝑒  
+𝐹 𝑖
+𝑚𝑎𝑠𝑘
+𝐹 𝑖
+𝑚𝑎𝑠𝑘
+𝐹 𝑖
+𝑎𝑑𝑎𝑝𝑡𝑒𝑟
+𝐹 𝑖
+𝑚𝑎𝑠𝑘
+𝐹𝑠𝑐𝑎𝑙𝑒
+𝑇 𝐹𝑠𝑐𝑎𝑙𝑒
+𝑇
+𝐹𝑠𝑐𝑎𝑙𝑒
+𝑆
+𝐹𝑠𝑐𝑎𝑙𝑒
+𝑆
+Input Image
+Figure 3: Model Architecture: We employ Deformable DETR [10] as the backbone model to extract multi-scale features.
+Based on these multi-scale features, we implement two levels of knowledge distillation: Candidate Distillation and
+Occlusion-Aware Distillation. The feature weights used in these distillation processes are derived from the detector’s
+query responses and the fine-grained matching of occlusions.
+4 Occlusion-Enhanced Distillation (OED) Model
+Occlusion-Enhanced Distillation (OED) is a feature distillation technique specifically designed for dealing with heavy
+occlusion, aimed at improving the performance of deep learning models when processing occluded images. This method
+employs a hierarchical feature imitation strategy, meticulously aligning and optimizing the feature representation from
+the overall objective layer down to the local fine-grained occlusion layer. This approach is particularly suited for
+4
+
+PAGE 5
+Running Title for Header
+occlusion handling in visual recognition tasks, significantly enhancing model robustness and accuracy in complex
+environments (Section 4.1). Additionally, to boost model stability and convergence during training, we utilize an
+Exponential Moving Average (EMA) strategy. This method reduces variance during training by weighting and
+smoothing model parameters, giving greater weight to the most recent observations, thereby enhancing the model’s
+generalization capability in occlusion handling tasks (Section 4.2).
+4.1 Multi-Scale Feature Distillation
+Multi-scale feature extraction techniques significantly enhance the ability to capture target information at various levels
+within an image, from macroscopic instance levels to microscopic fine-grained levels, providing support for in-depth
+analysis. This study employs Deformable DETR [10] as the backbone model, optimizing multi-scale feature extraction
+through its unique deformable attention mechanism. Given the significant changes in the appearance of targets under
+occlusion conditions, this research designs a dual-level knowledge distillation framework, focusing on Candidate
+Distillation and Occlusion-Aware Distillation. Candidate Distillation is obtained through the target detection head
+of the backbone, while the occlusion-aware feature level focuses on extracting features from prominent unoccluded
+parts within the apple detection frame, utilizing adapters to extract from embedding features prior to the backbone
+encoder. These refined feature informations interact with multi-scale feature maps, and knowledge is distilled through
+the computed weights to enhance the model’s ability to recognize targets in complex environments and its robustness.
+Multi-scale Feature Extraction: One of the common challenges faced in detecting apples on fruit trees is the issue of
+small targets. Existing research [ 25] indicates that extracting features from multi-scale feature maps is particularly
+beneficial for small target detection. Based on this consensus, we employ Deformable DETR [10] as the backbone of
+the model, utilizing its optimized capabilities for multi-scale processing. The set of multi-scale feature maps input is
+defined as {xl}L
+l=1, where each feature map xl ∈ RC×Hl×Wl. The normalized coordinates of the reference point for
+the query element q are denoted as ˆpq ∈ [0, 1]2. Multi-scale features Fscale are defined by the following formula:
+Fscale(q) =
+LX
+l=1
+KX
+k=1
+Alqk · W · xl (φl (ˆpq) + ∆plqk) , (1)
+Here, l denotes the feature level, and k represents the sampling point. The sampling offset ∆plqk and the attention
+weight Alqk are defined as the offset and weight for the k − th sampling point in the lll-th feature level, respectively.
+All attention weights satisfy the normalization condition PL
+l=1
+PK
+k=1 Alqk = 1. The function ϕl(ˆpq) rescales the
+normalized coordinates of the query point ˆpq to the corresponding coordinate location on the input feature map of the
+l − th level.
+Candidate Distillation: In the task of apple detection, occlusion significantly impairs detection performance, mainly due
+to the target morphological differences caused by occlusion, which in turn affects the feature representation within
+the network. Therefore, refining the knowledge of the teacher model at the feature level is crucial for enhancing the
+imitation capabilities of the student network. To enable the student model to effectively mimic the spatial features of
+the teacher model, we have defined the following knowledge distillation objective function:
+Lf =
+F T
+scale − F S
+scale
+2
+2 , (2)
+Here, F T
+scale ∈ RH×W ×d and F S
+scale ∈ RH×W ×d represent the feature representations generated by the teacher and
+student models, respectively. H and W denote the height and width of the features, and d is the number of channels in
+the features of both the teacher and student models. However, in the object detection framework based on DETR [16],
+the detection head assigns a probability score for each feature patch, which may lead to the inclusion of many features
+unrelated to the targets in the objective function. Therefore, we selectively use the features from the teacher network by
+considering the Intersection Over Union (IOU) between the teacher’s predicted scoresci and bounding boxes bi, to
+enhance the relevance of target predictions and more effectively reduce the distance between the feature representations
+of the teacher and student models. Our designed method for computing weights is as follows:
+Sci = exp (ci)PN
+j=1 exp (cj)
+, (3)
+Sbi = exp (bi)PN
+j=1 exp (bj)
+, (4)
+5
+
+PAGE 6
+Running Title for Header
+γi = Sci ∗ Sbi , (5)
+Here, Sci and Sbi are the softmax weights for the classification scores and bounding box IOU scores, respectively, and
+the candidate weight coefficient γi is the product of the two. N is the total number of target predictions. Using softmax
+transforms the classification scores and IOU scores into a smoother probability distribution, which helps the model to
+more evenly consider the contributions of all queries. The final candidate feature distillation loss function is:
+Lcandidate =
+NX
+i=1
+γi · Alqik ·
+F T
+scale − F S
+scale
+2
+2 . (6)
+Adapted Embedding 𝐹 𝑖
+𝑎𝑑𝑎𝑝𝑡𝑒𝑟 
+Embedding 𝐹 𝑖
+𝑚𝑎𝑠𝑘
+ReLU
+ReLU
+MatMul
+MatMul
+Figure 4: The adapter employs a Vision Transformer (ViT) [ 26] structure consisting of two layers of self-attention
+mechanisms, specifically designed for further feature embedding.
+Occlusion-Aware Distillation: In the case of occluded fruits, the appearance of the fruit regions may exhibit significant
+differences. Therefore, relying solely on traditional global feature-based knowledge distillation methods (as shown in
+Equation (7)) may result in suboptimal learning performance due to substantial morphological differences. To achieve
+more effective feature distillation, this study focuses on comparing feature similarities between the student model and
+the teacher model at multiple scales, with particular attention to fine-grained knowledge distillation of the unoccluded
+parts of the target. This approach mimics the human mechanism of processing occluded objects by inferring information
+about the entire target through analyzing the visible parts. By employing this strategy, we can more accurately identify
+and utilize the key features of the unoccluded parts, thereby achieving more effective knowledge transfer and model
+training.
+First, the bounding box coordinates {(xmin, ymin, xmax, ymax)i}M
+i=1 defined in the RGB image are converted to the
+corresponding feature map coordinates of the Deformable DETR [10] convolutional layers, where M is the number
+of annotated targets in the image. This conversion process considers the stride and padding of each layer, making
+appropriate adjustments to the position and size of the bounding boxes. Each coordinate point of the bounding box is
+scaled according to the stride of each layer and adjusted according to the padding. With these converted coordinates, the
+regions covered by the bounding boxes on the feature map can be identified, which are directly related to the activated
+convolutional kernel regions {F mask
+i }M
+i=1. The mask features F mask
+i for each target are processed through the adapter
+to generate enhanced feature maps:
+F adapter
+i = Adapter(F mask
+i ) (7)
+The adapter here employs a Vision Transformer (ViT) [26] structure consisting of two layers of self-attention mech-
+anisms, specifically designed for further feature embedding, as illustrated in Figure. 4. After processing by the
+adapter, we extract features from both the teacher and student models, thus obtaining the features f T _adapter,patch
+i,j and
+f S_adapter,patch
+i,k for each patch j and k in each detection box i. These features are used to construct a similarity matrix
+S, where the similarity Sj,k is calculated using cosine similarity:
+sj,k = CosineSimilarity
+
+f T _adapter,patch
+i,j , f S_adapter,patch
+i,k
+
+(8)
+Next, we search for the patch with the highest similarity, which is accomplished through the following formula:
+6
+
+PAGE 7
+Running Title for Header
+j∗ = argmax
+j
+(max
+k
+Sj,k). (9)
+This patch selection strategy based on high similarity allows us to accurately align and distill fine-grained occlusion
+features, optimizing the learning effect of the model, especially in complex occlusion scenarios. We use the feature
+f Tadapter,patch
+i,j∗ corresponding to the highest similarity. For each target i, we calculate the similarity βi with the global
+feature F T
+scale:
+βi = CosineSimilarity
+
+f T _adapter,patch
+i,j∗ , F T
+scale
+
+. (10)
+Based on these similarity values, we define the Occlusion-Aware distillation objective:
+LOcclusion−Aware =
+MX
+i=1
+βi ·
+F T
+scale − F S
+scale
+2
+2 (11)
+4.2 Exponential Moving A verage
+Different from traditional knowledge distillation, we do not use fixed teacher network parameters. Instead, we
+dynamically construct the teacher network from past iterations of the student network. In the ablation experiments
+described in Section 5.6, we explore different update rules for the teacher network. The experimental results show that
+directly copying the weights of the student network to the teacher network does not achieve model convergence. In
+contrast, using the exponential moving average (EMA) of the student weights, also known as the momentum encoder
+[27], is suitable for our framework. The update rule is as follows:
+θt ← τ θt + (1 − τ)θs (12)
+Where τ is a decay parameter that varies from 0.996 to 1 according to a cosine schedule [28]. Initially, the momentum
+encoder was introduced as an alternative to the queue in contrastive learning [ 27]. However, in our framework, the
+role of the momentum encoder changes as we do not use a queue nor adopt a contrastive loss. By updating the
+teacher network using the exponential moving average (EMA), we achieve a smooth update of the teacher network by
+incorporating the exponentially decayed sum of historical weights. This method helps the teacher network learn more
+generalized feature representations that are not affected by individual image occlusion noise. In occlusion scenarios, the
+student network may be affected by extreme and irregular data perturbations. EMA provides a more stable learning
+target, allowing the student network to maintain learning continuity under dynamically changing training conditions.
+4.3 Overall Loss
+The total loss LLL used in our model training is computed as follows:
+L = Ldet + γ1Lcandidate + γ2LOcclusion−Aware, (13)
+The terms Ldet represent the object detection loss from Deformable DETR [10], while Lcandidate and LOcclusion−Aware
+are defined by equations (6) and (11) respectively. The weighting factors γ1 = 1 and γ2 = 15 are used to balance the
+contributions of the different loss components.
+5 Experiments
+5.1 Detection Datasets
+In our experiments, we employed the recently developed large-scale outdoor orchard apple detection dataset, MinneAp-
+ple [29], along with its related benchmarks. This dataset contains 1,000 images, covering over 41,000 annotated apple
+instances. These apples exhibit different colors and maturity stages and retain complex occlusions under natural growth
+conditions, without artificial removal of sparse leaves. The images were taken on both the sunny and shady sides of the
+tree rows, with shooting dates spanning multiple different days to ensure diversity in lighting conditions. The target
+instances are relatively small compared to the overall image size, and the number of targets per image can vary from 1
+to 120, which meets the needs of real-world unmanned picking scenarios.
+7
+
+PAGE 8
+Running Title for Header
+Table 1: Object Detection Accuracy Results
+Method AP[@0.5:0.05:0.95] AP[@0.5] AP[@0.75] AP[small] AP[large]
+Tiled FRCNN 0.341 0.639 0.339 0.197 0.208
+Faster RCNN 0.438 0.775 0.455 0.297 0.871
+Mask RCNN 0.433 0.763 0.449 0.295 0.809
+Detr 0.453 0.791 0.469 0.285 0.941
+Deformable Detr 0.512 0.842 0.520 0.428 0.943
+DetrDistill 0.636 0.894 0.588 0.479 0.958
+Ours 0.744 0.946 0.793 0.674 0.976
+5.2 Evaluation Metrics
+Consistent with the settings of the MinneApple [29] dataset, we use Average Precision (AP) as the main evaluation
+metric. Specifically, we calculate the AP scores starting from an Intersection over Union (IoU) threshold of 0.5,
+increasing in intervals of 0.05 up to 0.95, referred to as AP@0.5:0.05:0.95. Additionally, for more detailed evaluation,
+we also report AP scores at IoU thresholds of 0.5 and 0.75, denoted as AP@0.5 and AP@0.75, respectively. Considering
+that targets of different sizes may exhibit different detection performance under natural occlusion conditions, we report
+the AP scores for small targets (target area less than 322 pixels) and large targets (target area greater than or equal to
+922 pixels) separately.
+Figure 5: Qualitative Analysis: Our designed multi-scale distillation framework effectively enhances the model’s object
+detection capabilities under various occlusion conditions, while also demonstrating good robustness to different lighting
+conditions. The first row of the figure shows the original images, and the second row displays the corresponding
+detection results.
+5.3 Experimental Setup
+The experiments were conducted on four NVIDIA RTX A6000 GPUs. Unless otherwise specified, we use the pre-
+trained Deformable DETR [ 10] as the backbone network for the teacher model. The student model also adopts
+Deformable DETR as the base framework and is optimized using the Adam optimizer [30] over 50 training epochs.
+This experimental setup aims to explore the effect of the pre-trained backbone network in the knowledge distillation
+process and compare its performance.
+8
+
+PAGE 9
+Running Title for Header
+5.4 Quantitative Results
+As shown in Table 1, our method significantly outperforms traditional supervised learning-based methods in terms of
+bounding box detection performance. This significant performance improvement is mainly attributed to our multi-level
+knowledge distillation technique, which effectively learns and adapts to the impact of occlusion on target shape and
+semantics. Additionally, the experimental results indicate that our method demonstrates superior performance in
+handling small-sized target instances compared to traditional methods, successfully overcoming common challenges in
+small target detection.
+5.5 Qualitative Experiments
+For further validation of the effectiveness of our framework, Figure 5 presents the comparative results of three sample
+images selected from the MinneApple test set. The first row of the figure displays the original test images, while the
+second row shows the detection results obtained using our method. These comparative images clearly demonstrate the
+performance of our model in detecting apples under conditions of dense occlusion and shadows. From these images, it
+can be observed that even in complex environments where apples are closely spaced or partially occluded, our model is
+able to accurately identify the apples on the trees, showcasing its excellent performance.
+5.6 Ablation Study
+To gain a deeper understanding of the specific impact of each component in the Occlusion-Enhanced Distillation
+(OED) framework on model performance, we report the performance of each module in detail in Table 2. Our baseline
+model, Deformable DETR without any knowledge distillation techniques applied, is labeled as Row 0 in the table,
+with an Average Precision (AP) of 52.6. Introducing Exponential Moving Average (EMA), occlusion enhancement,
+and multi-scale feature distillation techniques separately improved the model performance by 1.4 AP, 2.4 AP, and 5.9
+AP, respectively. Finally, when these three techniques were applied simultaneously, the model’s AP increased to 74.4,
+achieving a significant improvement of 13.2 AP.
+Table 2: Ablation Study
+Row EMA Data Occlusion
+Enhancement
+Multi-scale feature
+distillation AP Ap_small AP_large
+0 0.512 0.428 0.943
+1 ✓ 0.526 0.433 0.945
+2 ✓ 0.536 0.454 0.948
+3 ✓ 0.571 0.495 0.953
+4 ✓ ✓ 0.545 0.467 0.949
+5 ✓ ✓ 0.643 0.576 0.961
+6 ✓ ✓ ✓ 0.744 0.674 0.976
+6 Conclusion
+In this study, we propose and thoroughly detail a novel method named "Occlusion-Enhanced Distillation" (OED),
+specifically designed to enhance the robustness of occluded instance detection. The OED method leverages occlusion
+information to normalize semantic alignment features during the learning process, thereby improving the model’s
+capability to handle random occlusions. Specifically, we have developed a technique that integrates Grounding
+DINO with SAM, which can accurately extract occluded elements (such as leaves and branches) from samples and
+generate occlusion samples that mimic the natural growth conditions of the fruits, simulating the occlusion scenarios
+encountered in natural environments. Additionally, we introduced a multi-scale knowledge distillation strategy where
+the student network is trained with images containing occlusions, while the teacher network processes images with
+natural unobstructed views. This configuration allows the student network to align with the teacher network across
+semantic and local features at different scales, effectively narrowing the feature discrepancies between occluded and
+non-occluded targets. To further enhance the stability of the student network, we also employed an Exponential Moving
+Average (EMA) strategy, which helps the network learn feature representations that are more generalized and less
+affected by occlusion noise from individual images. Through a series of comprehensive comparative experiments, we
+demonstrate that the proposed method significantly outperforms current state-of-the-art techniques.
+9
+
+PAGE 10
+Running Title for Header
+Declaration of interests
+The authors declare that they have no known competing financial interests or personal relationships that could have
+appeared to influence the work reported in this paper.
+References
+[1] Vasileios Moysiadis, Naoum Tsolakis, Dimitris Katikaridis, Claus G Sørensen, Simon Pearson, and Dionysis
+Bochtis. Mobile robotics in agricultural operations: A narrative review on planning aspects. Applied Sciences,
+10(10):3453, 2020.
+[2] Quanyu Wang, Jin He, Caiyun Lu, Chao Wang, Han Lin, Hanyu Yang, Hang Li, and Zhengyang Wu. Modelling
+and control methods in path tracking control for autonomous agricultural vehicles: A review of state of the art and
+challenges. Applied Sciences, 13(12):7155, 2023.
+[3] Muhammet Fatih Aslan, Akif Durdu, Kadir Sabanci, Ewa Ropelewska, and Seyfettin Sinan Gültekin. A compre-
+hensive survey of the recent studies with uav for precision agriculture in open fields and greenhouses. Applied
+Sciences, 12(3):1047, 2022.
+[4] Yuhao Lai, Ruijun Ma, Yu Chen, Tao Wan, Rui Jiao, and Huandong He. A pineapple target detection method in a
+field environment based on improved yolov7. Applied Sciences, 13(4):2691, 2023.
+[5] Ross Girshick. Fast r-cnn. In Proceedings of the IEEE international conference on computer vision , pages
+1440–1448, 2015.
+[6] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun. Faster r-cnn: Towards real-time object detection with
+region proposal networks. IEEE transactions on pattern analysis and machine intelligence , 39(6):1137–1149,
+2016.
+[7] Felipe Lucena, Fabio Marcelo Breunig, and Hermann Kux. The combined use of uav-based rgb and dem images
+for the detection and delineation of orange tree crowns with mask r-cnn: an approach of labeling and unified
+framework. Future Internet, 14(10):275, 2022.
+[8] Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi. You only look once: Unified, real-time object
+detection. In Proceedings of the IEEE conference on computer vision and pattern recognition , pages 779–788,
+2016.
+[9] Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed, Cheng-Yang Fu, and Alexander C
+Berg. Ssd: Single shot multibox detector. In Computer Vision–ECCV 2016: 14th European Conference,
+Amsterdam, The Netherlands, October 11–14, 2016, Proceedings, Part I 14 , pages 21–37. Springer, 2016.
+[10] Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai. Deformable detr: Deformable
+transformers for end-to-end object detection. arXiv preprint arXiv:2010.04159, 2020.
+[11] Hao Zhang, Feng Li, Shilong Liu, Lei Zhang, Hang Su, Jun Zhu, Lionel M Ni, and Heung-Yeung Shum. Dino:
+Detr with improved denoising anchor boxes for end-to-end object detection. arXiv preprint arXiv:2203.03605,
+2022.
+[12] Shilong Liu, Zhaoyang Zeng, Tianhe Ren, Feng Li, Hao Zhang, Jie Yang, Chunyuan Li, Jianwei Yang, Hang Su,
+Jun Zhu, et al. Grounding dino: Marrying dino with grounded pre-training for open-set object detection. arXiv
+preprint arXiv:2303.05499, 2023.
+[13] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer
+Whitehead, Alexander C Berg, Wan-Yen Lo, et al. Segment anything. In Proceedings of the IEEE/CVF
+International Conference on Computer Vision, pages 4015–4026, 2023.
+[14] Jianyuan Guo, Kai Han, Yunhe Wang, Han Wu, Xinghao Chen, Chunjing Xu, and Chang Xu. Distilling object
+detectors via decoupled features. In Proceedings of the IEEE/CVF conference on computer vision and pattern
+recognition, pages 2154–2164, 2021.
+[15] Jiahao Chang, Shuo Wang, Hai-Ming Xu, Zehui Chen, Chenhongyi Yang, and Feng Zhao. Detrdistill: A universal
+knowledge distillation framework for detr-families. In Proceedings of the IEEE/CVF International Conference on
+Computer Vision, pages 6898–6908, 2023.
+[16] Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko.
+End-to-end object detection with transformers. In European conference on computer vision , pages 213–229.
+Springer, 2020.
+10
+
+PAGE 11
+Running Title for Header
+[17] Kaziwa Saleh, Sándor Szénási, and Zoltán Vámossy. Occlusion handling in generic object detection: A review.
+In 2021 IEEE 19th World Symposium on Applied Machine Intelligence and Informatics (SAMI) , pages 000477–
+000484. IEEE, 2021.
+[18] Jiageng Ruan, Hanghang Cui, Yuhan Huang, Tongyang Li, Changcheng Wu, and Kaixuan Zhang. A review
+of occluded objects detection in real complex scenarios for autonomous driving. Green energy and intelligent
+transportation, 2(3):100092, 2023.
+[19] Hugo Touvron, Matthieu Cord, Matthijs Douze, Francisco Massa, Alexandre Sablayrolles, and Hervé Jégou.
+Training data-efficient image transformers & distillation through attention. InInternational conference on machine
+learning, pages 10347–10357. PMLR, 2021.
+[20] Zhendong Yang, Zhe Li, Mingqi Shao, Dachuan Shi, Zehuan Yuan, and Chun Yuan. Masked generative distillation.
+In European Conference on Computer Vision, pages 53–69. Springer, 2022.
+[21] Qiang Chen, Xiaokang Chen, Gang Zeng, and Jingdong Wang. Group detr: Fast training convergence with
+decoupled one-to-many label assignment. arXiv preprint arXiv:2207.13085, 2(3):12, 2022.
+[22] Kai Chen, Jiaqi Wang, Jiangmiao Pang, Yuhang Cao, Yu Xiong, Xiaoxiao Li, Shuyang Sun, Wansen Feng,
+Ziwei Liu, Jiarui Xu, et al. Mmdetection: Open mmlab detection toolbox and benchmark. arXiv preprint
+arXiv:1906.07155, 2019.
+[23] Ziteng Gao, Limin Wang, Bing Han, and Sheng Guo. Adamixer: A fast-converging query-based object detector.
+In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 5364–5373,
+2022.
+[24] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer
+Whitehead, Alexander C Berg, Wan-Yen Lo, et al. Segment anything. In Proceedings of the IEEE/CVF
+International Conference on Computer Vision, pages 4015–4026, 2023.
+[25] Shaoyu Chen, Tianheng Cheng, Jiemin Fang, Qian Zhang, Yuan Li, Wenyu Liu, and Xinggang Wang. Tinydet:
+accurate small object detection in lightweight generic detectors. arXiv preprint arXiv:2304.03428, 2023.
+[26] Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner,
+Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, et al. An image is worth 16x16 words:
+Transformers for image recognition at scale. arXiv preprint arXiv:2010.11929, 2020.
+[27] Kaiming He, Haoqi Fan, Yuxin Wu, Saining Xie, and Ross Girshick. Momentum contrast for unsupervised visual
+representation learning. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition ,
+pages 9729–9738, 2020.
+[28] Jean-Bastien Grill, Florian Strub, Florent Altché, Corentin Tallec, Pierre Richemond, Elena Buchatskaya, Carl
+Doersch, Bernardo Avila Pires, Zhaohan Guo, Mohammad Gheshlaghi Azar, et al. Bootstrap your own latent-a
+new approach to self-supervised learning. Advances in neural information processing systems , 33:21271–21284,
+2020.
+[29] Nicolai Häni, Pravakar Roy, and V olkan Isler. Minneapple: a benchmark dataset for apple detection and
+segmentation. IEEE Robotics and Automation Letters , 5(2):852–858, 2020.
+[30] Diederik P Kingma and Jimmy Ba. Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980,
+2014.
+11

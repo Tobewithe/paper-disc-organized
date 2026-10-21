@@ -1,0 +1,27 @@
+{
+  "kind": "read_only_input_audit_not_model_run",
+  "timestamp": "2026-10-16T20:15:45.186307+08:00",
+  "host": "YANGLEI",
+  "cache_files_verified": 2000,
+  "cache_bytes_verified": 5708013942,
+  "failures": [],
+  "checks": [
+    {
+      "path": "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_readout_mechanism_v2_20261012\\runs\\RUN_S2_CACHE_FULL_61ce0f1ca0e6479ca6704fb2fcceabec\\trace\\native\\predictions.json",
+      "expected_sha256": "b0ebb84d5cd5b1e4418948b7ad03d35b33f065668cc0f19b7acaa21c619bd2f6",
+      "actual_sha256": "b0ebb84d5cd5b1e4418948b7ad03d35b33f065668cc0f19b7acaa21c619bd2f6",
+      "passed": true
+    },
+    {
+      "path": "D:\\coco_wire\\bgcr_native_20261002\\data\\annotations\\instances_train2017.json",
+      "expected_sha256": "51477c03144651f01f941991661da85df0df17b6048a148feca0b7dad6bce26c",
+      "actual_sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "passed": false
+    }
+  ],
+  "duration_seconds": 10.177789211273193,
+  "new_model_forwards": 0,
+  "new_training_steps": 0,
+  "interpretation": "Original raw receipt retained: the full train2017 annotation was initially compared to the train2000 subset hash. This is a path/hash association error in the read-only check, not evidence of dataset drift. Corrected source/subset-specific check is required.",
+  "superseded_by": "NOTEBOOK_READ_ONLY_CHECK.json"
+}

@@ -1,0 +1,441 @@
+{
+  "arm": "PC_native",
+  "optimizer_steps": 15000,
+  "images_seen": 60000,
+  "epochs": 3,
+  "initial_state_sha256": "741193af5685dd71f2d71680aae5473ce919764a3191ac3b03cf0891a60c3d91",
+  "final_state_sha256": "cda12a9c1de214fb98ecb5f97a6307acd870725a38f8c381ee181467af6796c1",
+  "checkpoint_sha256": "fc26d4dbe6cd74eb76521a4a18f6452ebd07199b5c6625564a67f76f4c33ded7",
+  "checkpoint_selection": "last_only",
+  "parameters": {
+    "arm": "PC_native",
+    "trainable_whitelist": [
+      "coefficient_head.0.0.conv.weight",
+      "coefficient_head.0.0.conv.bias",
+      "coefficient_head.0.1.conv.weight",
+      "coefficient_head.0.1.conv.bias",
+      "coefficient_head.0.2.weight",
+      "coefficient_head.0.2.bias",
+      "coefficient_head.1.0.conv.weight",
+      "coefficient_head.1.0.conv.bias",
+      "coefficient_head.1.1.conv.weight",
+      "coefficient_head.1.1.conv.bias",
+      "coefficient_head.1.2.weight",
+      "coefficient_head.1.2.bias",
+      "coefficient_head.2.0.conv.weight",
+      "coefficient_head.2.0.conv.bias",
+      "coefficient_head.2.1.conv.weight",
+      "coefficient_head.2.1.conv.bias",
+      "coefficient_head.2.2.weight",
+      "coefficient_head.2.2.bias",
+      "proto.cv1.conv.weight",
+      "proto.cv1.conv.bias",
+      "proto.upsample.weight",
+      "proto.upsample.bias",
+      "proto.cv2.conv.weight",
+      "proto.cv2.conv.bias",
+      "proto.cv3.conv.weight",
+      "proto.cv3.conv.bias",
+      "proto.feat_refine.0.conv.weight",
+      "proto.feat_refine.0.conv.bias",
+      "proto.feat_refine.1.conv.weight",
+      "proto.feat_refine.1.conv.bias",
+      "proto.feat_fuse.conv.weight",
+      "proto.feat_fuse.conv.bias"
+    ],
+    "trainable_parameter_count": 3158016,
+    "trainable_tensor_count": 32,
+    "parameters": {
+      "coefficient_head.0.0.conv.weight": {
+        "shape": [
+          64,
+          256,
+          3,
+          3
+        ],
+        "numel": 147456,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.0.0.conv.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.0.1.conv.weight": {
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "numel": 36864,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.0.1.conv.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.0.2.weight": {
+        "shape": [
+          32,
+          64,
+          1,
+          1
+        ],
+        "numel": 2048,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.0.2.bias": {
+        "shape": [
+          32
+        ],
+        "numel": 32,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.1.0.conv.weight": {
+        "shape": [
+          64,
+          512,
+          3,
+          3
+        ],
+        "numel": 294912,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.1.0.conv.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.1.1.conv.weight": {
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "numel": 36864,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.1.1.conv.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.1.2.weight": {
+        "shape": [
+          32,
+          64,
+          1,
+          1
+        ],
+        "numel": 2048,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.1.2.bias": {
+        "shape": [
+          32
+        ],
+        "numel": 32,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.2.0.conv.weight": {
+        "shape": [
+          64,
+          512,
+          3,
+          3
+        ],
+        "numel": 294912,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.2.0.conv.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.2.1.conv.weight": {
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "numel": 36864,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.2.1.conv.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.2.2.weight": {
+        "shape": [
+          32,
+          64,
+          1,
+          1
+        ],
+        "numel": 2048,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "coefficient_head.2.2.bias": {
+        "shape": [
+          32
+        ],
+        "numel": 32,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.cv1.conv.weight": {
+        "shape": [
+          256,
+          256,
+          3,
+          3
+        ],
+        "numel": 589824,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.cv1.conv.bias": {
+        "shape": [
+          256
+        ],
+        "numel": 256,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.upsample.weight": {
+        "shape": [
+          256,
+          256,
+          2,
+          2
+        ],
+        "numel": 262144,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.upsample.bias": {
+        "shape": [
+          256
+        ],
+        "numel": 256,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.cv2.conv.weight": {
+        "shape": [
+          256,
+          256,
+          3,
+          3
+        ],
+        "numel": 589824,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.cv2.conv.bias": {
+        "shape": [
+          256
+        ],
+        "numel": 256,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.cv3.conv.weight": {
+        "shape": [
+          32,
+          256,
+          1,
+          1
+        ],
+        "numel": 8192,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.cv3.conv.bias": {
+        "shape": [
+          32
+        ],
+        "numel": 32,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.feat_refine.0.conv.weight": {
+        "shape": [
+          256,
+          512,
+          1,
+          1
+        ],
+        "numel": 131072,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.feat_refine.0.conv.bias": {
+        "shape": [
+          256
+        ],
+        "numel": 256,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.feat_refine.1.conv.weight": {
+        "shape": [
+          256,
+          512,
+          1,
+          1
+        ],
+        "numel": 131072,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.feat_refine.1.conv.bias": {
+        "shape": [
+          256
+        ],
+        "numel": 256,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.feat_fuse.conv.weight": {
+        "shape": [
+          256,
+          256,
+          3,
+          3
+        ],
+        "numel": 589824,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "proto.feat_fuse.conv.bias": {
+        "shape": [
+          256
+        ],
+        "numel": 256,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      }
+    },
+    "mutable_buffer_whitelist": [],
+    "frozen_buffers": {},
+    "loss_spec": {
+      "name": "same_ROI_soft_IoU",
+      "epsilon": 1e-06,
+      "formula": "1-(sum_ROI(sigmoid(z)*g)+eps)/(sum_ROI(sigmoid(z)+g-sigmoid(z)*g)+eps)",
+      "empty_GT": "same_formula_in_original_supervised_instance_denominator",
+      "empty_ROI": "exclude_and_count_as_original",
+      "dtype": "float32",
+      "reduction": "instance_mean_within_image_then_original_effective_batch4_mean",
+      "preservation": "original_BCE_all_nonempty_ROI_instances",
+      "preservation_weight": 0.1
+    },
+    "module_mode": "eval_with_autograd"
+  },
+  "parameters_with_nonzero_gradient": [
+    "coefficient_head.0.0.conv.bias",
+    "coefficient_head.0.0.conv.weight",
+    "coefficient_head.0.1.conv.bias",
+    "coefficient_head.0.1.conv.weight",
+    "coefficient_head.0.2.bias",
+    "coefficient_head.0.2.weight",
+    "coefficient_head.1.0.conv.bias",
+    "coefficient_head.1.0.conv.weight",
+    "coefficient_head.1.1.conv.bias",
+    "coefficient_head.1.1.conv.weight",
+    "coefficient_head.1.2.bias",
+    "coefficient_head.1.2.weight",
+    "coefficient_head.2.0.conv.bias",
+    "coefficient_head.2.0.conv.weight",
+    "coefficient_head.2.1.conv.bias",
+    "coefficient_head.2.1.conv.weight",
+    "coefficient_head.2.2.bias",
+    "coefficient_head.2.2.weight",
+    "proto.cv1.conv.bias",
+    "proto.cv1.conv.weight",
+    "proto.cv2.conv.bias",
+    "proto.cv2.conv.weight",
+    "proto.cv3.conv.bias",
+    "proto.cv3.conv.weight",
+    "proto.feat_fuse.conv.bias",
+    "proto.feat_fuse.conv.weight",
+    "proto.feat_refine.0.conv.bias",
+    "proto.feat_refine.0.conv.weight",
+    "proto.feat_refine.1.conv.bias",
+    "proto.feat_refine.1.conv.weight",
+    "proto.upsample.bias",
+    "proto.upsample.weight"
+  ],
+  "parameter_update_counts": {
+    "coefficient_head.0.0.conv.weight": 15000,
+    "coefficient_head.0.0.conv.bias": 15000,
+    "coefficient_head.0.1.conv.weight": 15000,
+    "coefficient_head.0.1.conv.bias": 15000,
+    "coefficient_head.0.2.weight": 15000,
+    "coefficient_head.0.2.bias": 15000,
+    "coefficient_head.1.0.conv.weight": 15000,
+    "coefficient_head.1.0.conv.bias": 15000,
+    "coefficient_head.1.1.conv.weight": 15000,
+    "coefficient_head.1.1.conv.bias": 15000,
+    "coefficient_head.1.2.weight": 15000,
+    "coefficient_head.1.2.bias": 15000,
+    "coefficient_head.2.0.conv.weight": 15000,
+    "coefficient_head.2.0.conv.bias": 15000,
+    "coefficient_head.2.1.conv.weight": 15000,
+    "coefficient_head.2.1.conv.bias": 15000,
+    "coefficient_head.2.2.weight": 15000,
+    "coefficient_head.2.2.bias": 15000,
+    "proto.cv1.conv.weight": 15000,
+    "proto.cv1.conv.bias": 15000,
+    "proto.upsample.weight": 15000,
+    "proto.upsample.bias": 15000,
+    "proto.cv2.conv.weight": 15000,
+    "proto.cv2.conv.bias": 15000,
+    "proto.cv3.conv.weight": 15000,
+    "proto.cv3.conv.bias": 15000,
+    "proto.feat_refine.0.conv.weight": 15000,
+    "proto.feat_refine.0.conv.bias": 15000,
+    "proto.feat_refine.1.conv.weight": 15000,
+    "proto.feat_refine.1.conv.bias": 15000,
+    "proto.feat_fuse.conv.weight": 15000,
+    "proto.feat_fuse.conv.bias": 15000
+  },
+  "empty_roi_instances": 11193,
+  "images_without_matched_supervision": 546,
+  "max_cuda_allocated": 3877953536,
+  "max_cuda_reserved": 5767168000
+}

@@ -1,0 +1,164 @@
+{
+  "table": [
+    {
+      "variant": "clear",
+      "all_n": 432,
+      "all_correct": 430,
+      "all_failures": 2,
+      "all_operational_iou": 0.8722631538598834,
+      "all_bridge": 0,
+      "all_split": 0,
+      "focus_n": 144,
+      "focus_correct": 143,
+      "focus_failures": 1,
+      "focus_operational_iou": 0.8719335570539184,
+      "focus_bridge": 0,
+      "focus_split": 0
+    },
+    {
+      "variant": "near",
+      "all_n": 432,
+      "all_correct": 395,
+      "all_failures": 37,
+      "all_operational_iou": 0.8017487611376796,
+      "all_bridge": 78,
+      "all_split": 4,
+      "focus_n": 144,
+      "focus_correct": 132,
+      "focus_failures": 12,
+      "focus_operational_iou": 0.8030000644278992,
+      "focus_bridge": 55,
+      "focus_split": 1
+    },
+    {
+      "variant": "rear",
+      "all_n": 432,
+      "all_correct": 430,
+      "all_failures": 2,
+      "all_operational_iou": 0.8711271873095747,
+      "all_bridge": 0,
+      "all_split": 0,
+      "focus_n": 144,
+      "focus_correct": 143,
+      "focus_failures": 1,
+      "focus_operational_iou": 0.8707126637280485,
+      "focus_bridge": 0,
+      "focus_split": 0
+    },
+    {
+      "variant": "front",
+      "all_n": 432,
+      "all_correct": 373,
+      "all_failures": 64,
+      "all_operational_iou": 0.751589817248094,
+      "all_bridge": 0,
+      "all_split": 1,
+      "focus_n": 144,
+      "focus_correct": 129,
+      "focus_failures": 15,
+      "focus_operational_iou": 0.7850720306953326,
+      "focus_bridge": 0,
+      "focus_split": 0
+    }
+  ],
+  "comparisons": [
+    {
+      "pressure": "near",
+      "control": "clear",
+      "n": 144,
+      "per_seed": [
+        {
+          "seed": 20261020,
+          "n": 48,
+          "failure_delta": 0.0625,
+          "iou_delta": -0.058420363355972525
+        },
+        {
+          "seed": 20261021,
+          "n": 48,
+          "failure_delta": 0.0625,
+          "iou_delta": -0.05647055557492192
+        },
+        {
+          "seed": 20261022,
+          "n": 48,
+          "failure_delta": 0.10416666666666667,
+          "iou_delta": -0.09190955894716292
+        }
+      ],
+      "failure_delta": 0.0763888888888889,
+      "iou_delta": -0.06893349262601912,
+      "jointly_correct": 132,
+      "bridge_pressure": 55,
+      "bridge_control": 0,
+      "effect_gate": false
+    },
+    {
+      "pressure": "front",
+      "control": "rear",
+      "n": 144,
+      "per_seed": [
+        {
+          "seed": 20261020,
+          "n": 48,
+          "failure_delta": 0.08333333333333333,
+          "iou_delta": -0.07365379091051392
+        },
+        {
+          "seed": 20261021,
+          "n": 48,
+          "failure_delta": 0.10416666666666667,
+          "iou_delta": -0.09175324877714104
+        },
+        {
+          "seed": 20261022,
+          "n": 48,
+          "failure_delta": 0.10416666666666667,
+          "iou_delta": -0.09151485941049241
+        }
+      ],
+      "failure_delta": 0.09722222222222222,
+      "iou_delta": -0.0856406330327158,
+      "jointly_correct": 129,
+      "bridge_pressure": 0,
+      "bridge_control": 0,
+      "effect_gate": false
+    },
+    {
+      "pressure": "rear",
+      "control": "clear",
+      "n": 144,
+      "per_seed": [
+        {
+          "seed": 20261020,
+          "n": 48,
+          "failure_delta": 0.0,
+          "iou_delta": -0.0013113856300859563
+        },
+        {
+          "seed": 20261021,
+          "n": 48,
+          "failure_delta": 0.0,
+          "iou_delta": -0.0012411879551999262
+        },
+        {
+          "seed": 20261022,
+          "n": 48,
+          "failure_delta": 0.0,
+          "iou_delta": -0.0011101063923238768
+        }
+      ],
+      "failure_delta": 0.0,
+      "iou_delta": -0.0012208933258699196,
+      "jointly_correct": 143,
+      "bridge_pressure": 0,
+      "bridge_control": 0,
+      "effect_gate": null
+    }
+  ],
+  "domain_gate": {
+    "20261020": true,
+    "20261021": true,
+    "20261022": true
+  }
+}

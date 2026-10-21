@@ -1,0 +1,138 @@
+{
+  "status": "passed",
+  "equal_fields": [
+    "arms",
+    "training_seed",
+    "fit_images",
+    "epochs",
+    "source_batch",
+    "effective_batch",
+    "steps_per_arm",
+    "optimizer",
+    "hours",
+    "area_gate",
+    "runtime_policy",
+    "policy",
+    "bootstrap",
+    "gates",
+    "model",
+    "loss",
+    "topology_gates",
+    "protocol_version"
+  ],
+  "byte_identical_scientific_sources": {
+    "lcf_model.py": "9391601f7aa6316a840c038824eef58b7c2a6bf8139dc01a41f68a5fd3082045",
+    "lcf_loss.py": "71957e44b31ef4430817e196ebabb7cfbdbdbc2c23c9da14ead90f1b300a50a1",
+    "lcf_targets.py": "27ac4e2081e95e22b431a61582196cfbeeb8459894fea664251ae110451e6942",
+    "connectivity_loss.py": "fa5c469a8c573c763a1ebe51f5836edac7fd1beb161fa2ad4611919169ab7b65",
+    "native_stream.py": "885a85a349b02d81e0ea41114f407ab253e198451c315881d78f2078fe4ea0a7",
+    "test_components.py": "9118b985a0e6097fd4890b0356a7ae637c13eea2c07cb5b2225e9047745bdaef",
+    "lcf_evaluation.py": "813ef2744036bd6050670adb931a91cc8d072442ba636e9da7b4323273b23474",
+    "lcf_statistics.py": "9f4e1fed020e40aa15495a468641b5ca958804f3a90876f8260c99ae8c3033ca"
+  },
+  "native_args_exact": true,
+  "runtime_policy_exact": true,
+  "scientific_configuration_unchanged": true,
+  "execution_differences": [
+    "Linux/A6000",
+    "private scipy overlay",
+    "independent per-arm process",
+    "44GiB device resource guard",
+    "server native identity population"
+  ],
+  "old_server_baseline": {
+    "Ns": {
+      "predictions_sha256": "376a3f4a1c64b9d6202722f9b808a20069a09e57b24e266ea365afc46c719ce4",
+      "outputs": 539125,
+      "images": 5000,
+      "metrics": {
+        "bbox": {
+          "AP": 52.34795017624022,
+          "AP50": 69.55138192590618,
+          "AP75": 57.461500984968964,
+          "APS": 34.371881227270926,
+          "APM": 57.377136910412574,
+          "APL": 67.93204166215811,
+          "AR1": 39.013775784909384,
+          "AR10": 65.7376188153244,
+          "AR100": 71.91153023519553,
+          "ARS": 54.98507014746444,
+          "ARM": 76.88155985873607,
+          "ARL": 85.88819227475418
+        },
+        "segm": {
+          "AP": 44.01383582200932,
+          "AP50": 66.79280095181099,
+          "AP75": 47.653285433925255,
+          "APS": 25.579839514436824,
+          "APM": 48.86876353274657,
+          "APL": 60.17031409325042,
+          "AR1": 34.221531692625696,
+          "AR10": 55.72515790348112,
+          "AR100": 60.15484298665359,
+          "ARS": 41.28030268990671,
+          "ARM": 65.79198021758603,
+          "ARL": 76.38579897650067
+        }
+      },
+      "faster_coco_eval_AP": {
+        "bbox": 52.34795017624022,
+        "segm": 44.01383582200932
+      },
+      "ordinary_gt": 36335,
+      "mask75_success": 22958
+    },
+    "G_old_s": {
+      "predictions_sha256": "df1070036d09d64390bce49882a02de6d3eaeee1c45a00f6f3fb06afc840579a",
+      "outputs": 539125,
+      "images": 5000,
+      "metrics": {
+        "bbox": {
+          "AP": 52.34795017624022,
+          "AP50": 69.55138192590618,
+          "AP75": 57.461500984968964,
+          "APS": 34.371881227270926,
+          "APM": 57.377136910412574,
+          "APL": 67.93204166215811,
+          "AR1": 39.013775784909384,
+          "AR10": 65.7376188153244,
+          "AR100": 71.91153023519553,
+          "ARS": 54.98507014746444,
+          "ARM": 76.88155985873607,
+          "ARL": 85.88819227475418
+        },
+        "segm": {
+          "AP": 44.15239321081922,
+          "AP50": 66.79514188037963,
+          "AP75": 47.82841467496431,
+          "APS": 25.579839514436824,
+          "APM": 48.85453315942788,
+          "APL": 60.386372890440576,
+          "AR1": 34.361547069449585,
+          "AR10": 55.89291751814528,
+          "AR100": 60.327456130944576,
+          "ARS": 41.28030268990671,
+          "ARM": 65.78859092678476,
+          "ARL": 76.59335879438686
+        }
+      },
+      "faster_coco_eval_AP": {
+        "bbox": 52.34795017624022,
+        "segm": 44.15239321081922
+      },
+      "ordinary_gt": 36335,
+      "mask75_success": 23060
+    },
+    "G_old_gain_AP_points": 0.13855738880990032,
+    "migration_checks": {
+      "native_box_AP": true,
+      "native_mask_AP": true,
+      "existing_G_gain": true
+    },
+    "migration_status": "passed",
+    "native_gt_ledger_validity": "passed",
+    "published_parity": "failed",
+    "all_output_identity_unchanged": true,
+    "additional_training_steps": 0
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "arm": "C_native",
+  "trainable_whitelist": [
+    "coefficient_head.0.0.conv.weight",
+    "coefficient_head.0.0.conv.bias",
+    "coefficient_head.0.1.conv.weight",
+    "coefficient_head.0.1.conv.bias",
+    "coefficient_head.0.2.weight",
+    "coefficient_head.0.2.bias",
+    "coefficient_head.1.0.conv.weight",
+    "coefficient_head.1.0.conv.bias",
+    "coefficient_head.1.1.conv.weight",
+    "coefficient_head.1.1.conv.bias",
+    "coefficient_head.1.2.weight",
+    "coefficient_head.1.2.bias",
+    "coefficient_head.2.0.conv.weight",
+    "coefficient_head.2.0.conv.bias",
+    "coefficient_head.2.1.conv.weight",
+    "coefficient_head.2.1.conv.bias",
+    "coefficient_head.2.2.weight",
+    "coefficient_head.2.2.bias"
+  ],
+  "trainable_parameter_count": 854496,
+  "trainable_tensor_count": 18,
+  "parameters": {
+    "coefficient_head.0.0.conv.weight": {
+      "shape": [
+        64,
+        256,
+        3,
+        3
+      ],
+      "numel": 147456,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.0.0.conv.bias": {
+      "shape": [
+        64
+      ],
+      "numel": 64,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.0.1.conv.weight": {
+      "shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "numel": 36864,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.0.1.conv.bias": {
+      "shape": [
+        64
+      ],
+      "numel": 64,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.0.2.weight": {
+      "shape": [
+        32,
+        64,
+        1,
+        1
+      ],
+      "numel": 2048,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.0.2.bias": {
+      "shape": [
+        32
+      ],
+      "numel": 32,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.1.0.conv.weight": {
+      "shape": [
+        64,
+        512,
+        3,
+        3
+      ],
+      "numel": 294912,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.1.0.conv.bias": {
+      "shape": [
+        64
+      ],
+      "numel": 64,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.1.1.conv.weight": {
+      "shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "numel": 36864,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.1.1.conv.bias": {
+      "shape": [
+        64
+      ],
+      "numel": 64,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.1.2.weight": {
+      "shape": [
+        32,
+        64,
+        1,
+        1
+      ],
+      "numel": 2048,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.1.2.bias": {
+      "shape": [
+        32
+      ],
+      "numel": 32,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.2.0.conv.weight": {
+      "shape": [
+        64,
+        512,
+        3,
+        3
+      ],
+      "numel": 294912,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.2.0.conv.bias": {
+      "shape": [
+        64
+      ],
+      "numel": 64,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.2.1.conv.weight": {
+      "shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "numel": 36864,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.2.1.conv.bias": {
+      "shape": [
+        64
+      ],
+      "numel": 64,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.2.2.weight": {
+      "shape": [
+        32,
+        64,
+        1,
+        1
+      ],
+      "numel": 2048,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    },
+    "coefficient_head.2.2.bias": {
+      "shape": [
+        32
+      ],
+      "numel": 32,
+      "dtype": "torch.float32",
+      "requires_grad": true
+    }
+  },
+  "mutable_buffer_whitelist": [],
+  "frozen_buffers": {},
+  "loss_spec": {
+    "name": "same_ROI_soft_IoU",
+    "epsilon": 1e-06,
+    "formula": "1-(sum_ROI(sigmoid(z)*g)+eps)/(sum_ROI(sigmoid(z)+g-sigmoid(z)*g)+eps)",
+    "empty_GT": "same_formula_in_original_supervised_instance_denominator",
+    "empty_ROI": "exclude_and_count_as_original",
+    "dtype": "float32",
+    "reduction": "instance_mean_within_image_then_original_effective_batch4_mean",
+    "preservation": "original_BCE_all_nonempty_ROI_instances",
+    "preservation_weight": 0.1
+  },
+  "module_mode": "eval_with_autograd"
+}

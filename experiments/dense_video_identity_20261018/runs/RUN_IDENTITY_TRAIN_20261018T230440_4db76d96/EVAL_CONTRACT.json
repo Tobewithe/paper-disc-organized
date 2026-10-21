@@ -1,0 +1,23 @@
+{
+  "config": {
+    "hidden": 128,
+    "embedding": 64,
+    "steps": 300,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "identities_per_batch": 16,
+    "samples_per_identity": 4,
+    "temperature": 0.12
+  },
+  "seed": 20261018,
+  "sequences": [
+    "pig_3",
+    "pig_5",
+    "horse_4",
+    "horse_6"
+  ],
+  "parent_feature_run": "RUN_FEATURES_20261018T225606_a471c9e2",
+  "trainable": "identity.net only; detector fully frozen",
+  "labels": "one-to-one bbox IoU >= .5 to official train GT",
+  "checkpoint_selection": "last_step_300"
+}

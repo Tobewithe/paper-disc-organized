@@ -1,0 +1,208 @@
+{
+  "study_id": "STUDY_MASK_REGION_F_CORRESPONDENCE_20261017",
+  "research_line": "neighbor_sensitive_p3",
+  "display_name": "原型—系数链路：实例区域F空间对应匹配对照",
+  "plan_status": "closed",
+  "execution_status": "completed",
+  "scientific_status": "RFC_v1_utility_failed_mechanism_not_supported",
+  "artifact_status": "complete_evaluation_results_and_checkpoints_local_F_sidecars_laptop_manifested",
+  "transfer_status": "verified_2041_files_two_host_independent_checks_passed",
+  "protocol": "PROTOCOL_DRAFT.md",
+  "design_spec": "DESIGN_SPEC.json",
+  "input_references": "INPUT_REFERENCES.json",
+  "execution_authorized": true,
+  "new_cache_export_authorized": true,
+  "training_authorized": true,
+  "planned_training_arms": [
+    "A",
+    "Q"
+  ],
+  "planned_steps_per_arm": 1500,
+  "planned_total_formal_steps": 3000,
+  "actual_new_training_steps": 3000,
+  "actual_new_cache_exports": 3310,
+  "runs": [
+    {
+      "run_id": "RUN_RFC_ENGINEERING_321dae09ce924ed6baa43bb695ce6dc9",
+      "kind": "engineering_only",
+      "execution_status": "completed",
+      "tests_passed": 24,
+      "source_revision": "first_component_suite_retained",
+      "scientific_status": "not_evaluated",
+      "optimizer_steps": 0
+    },
+    {
+      "run_id": "RUN_RFC_ENGINEERING_c70db0aebe254d34bd326a61a6252594",
+      "kind": "engineering_only",
+      "execution_status": "completed",
+      "tests_passed": 25,
+      "source_revision": "current_component_suite",
+      "scientific_status": "not_evaluated",
+      "optimizer_steps": 0
+    },
+    {
+      "run_id": "RUN_RFC_ENGINEERING_8cb5c4ace80c4708b791462590b87911",
+      "kind": "engineering_only",
+      "execution_status": "completed",
+      "scientific_status": "not_evaluated",
+      "optimizer_steps": 0
+    },
+    {
+      "run_id": "RUN_RFC_ENGINEERING_5df98dcee62b4cea8ad51c701abbba7e",
+      "kind": "engineering_only",
+      "execution_status": "completed",
+      "scientific_status": "not_evaluated",
+      "optimizer_steps": 0
+    },
+    {
+      "run_id": "RUN_RFC_PREFLIGHT_7aaf3a57b5b4448e955bc7de51a0473f",
+      "kind": "RFC_PREFLIGHT",
+      "execution_status": "completed",
+      "scientific_status": "execution_preflight_only",
+      "optimizer_steps": 0
+    },
+    {
+      "run_id": "RUN_RFC_INPUT_SMOKE_192922660ab94ad1a8e342aa68f71572",
+      "kind": "RFC_INPUT_SMOKE",
+      "execution_status": "completed",
+      "scientific_status": "input_replay_verified_not_method_effect",
+      "optimizer_steps": 0
+    },
+    {
+      "run_id": "RUN_RFC_INPUT_FULL_5959628271bc4cfeb792e9b5905d81ee",
+      "kind": "RFC_INPUT_FULL",
+      "execution_status": "completed",
+      "scientific_status": "input_replay_verified_not_method_effect",
+      "optimizer_steps": 0
+    },
+    {
+      "run_id": "RUN_RFC_SMOKE_A_133d4a85e54a4edb9fb332561b48a421",
+      "kind": "RFC_SMOKE_A",
+      "execution_status": "completed",
+      "scientific_status": "engineering_only",
+      "optimizer_steps": 2
+    },
+    {
+      "run_id": "RUN_RFC_SMOKE_Q_bd05243a99704dedbf5b4bf63bfc674d",
+      "kind": "RFC_SMOKE_Q",
+      "execution_status": "completed",
+      "scientific_status": "engineering_only",
+      "optimizer_steps": 2
+    },
+    {
+      "run_id": "RUN_RFC_TRAIN_A_59b094a35f9b4fc3a45f7a86862ec677",
+      "kind": "RFC_TRAIN_A",
+      "execution_status": "completed",
+      "scientific_status": "trained_not_evaluated",
+      "optimizer_steps": 1500
+    },
+    {
+      "run_id": "RUN_RFC_TRAIN_Q_ed1e5e49f60c42908d23822e5804f668",
+      "kind": "RFC_TRAIN_Q",
+      "execution_status": "completed",
+      "scientific_status": "trained_not_evaluated",
+      "optimizer_steps": 1500
+    },
+    {
+      "run_id": "RUN_RFC_EVAL_FREEZE_dcf258fd926f4634b75574c35d06bb56",
+      "kind": "RFC_EVAL_FREEZE",
+      "execution_status": "error",
+      "optimizer_steps": 0,
+      "scientific_status": "blocked_engineering"
+    },
+    {
+      "run_id": "RUN_RFC_EVAL_FREEZE_1cea8787508c4d59a29c2a1dbb75c451",
+      "kind": "RFC_EVAL_FREEZE",
+      "execution_status": "completed",
+      "optimizer_steps": 0,
+      "scientific_status": "evaluation_inputs_frozen_not_evaluated"
+    },
+    {
+      "run_id": "RUN_RFC_EVAL_INPUT_70a101e0c33644bc97e2be00ac41bdfa",
+      "kind": "RFC_EVAL_INPUT",
+      "execution_status": "completed",
+      "optimizer_steps": 0,
+      "scientific_status": "evaluation_input_replay_verified"
+    },
+    {
+      "run_id": "RUN_RFC_EVAL_FULL_82c717bc94c84c87959c84ae0051d6c4",
+      "kind": "RFC_EVAL_FULL",
+      "execution_status": "error",
+      "optimizer_steps": 0,
+      "scientific_status": "blocked_engineering",
+      "reason": "CUDA allocated/reserved exceeded frozen 7 GiB"
+    },
+    {
+      "run_id": "RUN_RFC_EVAL_RECOVERY_e2b485f03a5f4e96a0f96ab327f4e39f",
+      "kind": "RFC_EVAL_RECOVERY",
+      "execution_status": "completed",
+      "scientific_status": "RFC_v1_utility_failed",
+      "optimizer_steps": 0
+    }
+  ],
+  "current_scope": "RFC-v1 concluded; no running experiment or further training",
+  "next_action": "Integrate RFC-v1 findings into manuscript evidence table and results/discussion; retain G; not started",
+  "next_action_started": false,
+  "engineering_authorized": true,
+  "engineering_scope": "CPU component verification completed; pinned-laptop real integration authorized by EXECUTION_PROTOCOL.md",
+  "engineering_protocol": "ENGINEERING_PROTOCOL.md",
+  "implementation_status": "native_integration_real_smoke_and_full_training_input_verified",
+  "design_snapshot": "design_snapshot",
+  "real_data_execution_status": "evaluation_completed_and_independently_verified",
+  "native_smoke_status": "passed",
+  "implementation_report": "IMPLEMENTATION_REPORT.md",
+  "implementation_verification": "IMPLEMENTATION_VERIFICATION.json",
+  "last_reviewed": "2026-10-17",
+  "engineering_run": "RUN_RFC_ENGINEERING_5df98dcee62b4cea8ad51c701abbba7e",
+  "actual_new_base_model_forward_calls": null,
+  "actual_optimizer_steps": 3004,
+  "engineering_tests_passed": 29,
+  "native_environment_parity": true,
+  "execution_protocol": "EXECUTION_PROTOCOL.md",
+  "authorization": "AUTHORIZATION.json",
+  "launch_pid": null,
+  "storage_cleanup_receipt": "preflight/STORAGE_CLEANUP_COMPLETED.json",
+  "actual_new_base_model_forward_images": 7192,
+  "actual_smoke_optimizer_steps": 4,
+  "formal_steps_observed": {
+    "A": 1500,
+    "Q": 1500
+  },
+  "status_observed_at": "2026-10-17T09:46:44.498637+00:00",
+  "configuration_review": "CONFIGURATION_REVIEW.md",
+  "training_start_verification": "preflight/FORMAL_TRAINING_START_VERIFICATION.json",
+  "evaluation_protocol": "EVALUATION_PROTOCOL.md",
+  "evaluation_authorized": true,
+  "evaluation_images": 1294,
+  "evaluation_context_images": 4936,
+  "evaluation_phase": "closed",
+  "evaluation_damage_sample_size": 1024,
+  "evaluation_freeze_run": "RUN_RFC_EVAL_FREEZE_1cea8787508c4d59a29c2a1dbb75c451",
+  "evaluation_input_run": "RUN_RFC_EVAL_INPUT_70a101e0c33644bc97e2be00ac41bdfa",
+  "evaluation_recovery_protocol": "EVALUATION_RECOVERY_PROTOCOL.md",
+  "report": "REPORT.md",
+  "evaluation_run": "RUN_RFC_EVAL_RECOVERY_e2b485f03a5f4e96a0f96ab327f4e39f",
+  "gate_results": {
+    "extra_utility_A_G": false,
+    "S2_repair_A_N": true,
+    "S2_all_pairs": true,
+    "S2_damage": false,
+    "identity_and_configuration": true
+  },
+  "mechanism_gates": {
+    "A-Q": false,
+    "A-J": false,
+    "AeqQ-QeqA": false,
+    "AeqJ-JeqA": false
+  },
+  "this_turn_additional_training_steps": 0,
+  "remaining_authorized_training_steps": 0,
+  "formal_base_model_forward_images": 6936,
+  "smoke_base_model_forward_images": 256,
+  "evaluation_wall_seconds_including_failed_attempt": 1523.219,
+  "F_export_wall_seconds_formal_total": 2485.797,
+  "independent_laptop": "runs/RUN_RFC_EVAL_RECOVERY_e2b485f03a5f4e96a0f96ab327f4e39f/INDEPENDENT_LAPTOP.json",
+  "independent_local": "runs/RUN_RFC_EVAL_RECOVERY_e2b485f03a5f4e96a0f96ab327f4e39f/INDEPENDENT_LOCAL.json",
+  "transfer_verification": "preflight/TRANSFER_VERIFICATION_06.json",
+  "historical_training_launch_pid": 18168
+}

@@ -19,6 +19,91 @@
   ],
   "lines": [
     {
+      "line_id": "LINE_01701394050a46a3835bc63fb0d95f86",
+      "key": "occlusion_representation_pretraining",
+      "title": "视频遮挡表征预训练",
+      "status": "E0_validated_server_pilot_data_running_training_queued",
+      "entrypoint": "paper/manuscripts/occlusion_representation_pretraining/README.md",
+      "paper_directory": "paper/manuscripts/occlusion_representation_pretraining",
+      "study_ids": [
+        "STUDY_OCCLUSION_REPRESENTATION_PRETRAINING_20261019"
+      ],
+      "focus_documents": [
+        "paper/manuscripts/occlusion_representation_pretraining/README.md",
+        "paper/manuscripts/occlusion_representation_pretraining/RESEARCH_RULES.md",
+        "experiments/occlusion_representation_pretraining_20261019/study.json",
+        "experiments/occlusion_representation_pretraining_20261019/PROTOCOL_VIDEO_V02_DRAFT.md",
+        "experiments/occlusion_representation_pretraining_20261019/DATA_CONTRACT_VIDEO_V02_DRAFT.md",
+        "experiments/occlusion_representation_pretraining_20261019/MODEL_AND_LOSS_VIDEO_V02_DRAFT.md",
+        "experiments/occlusion_representation_pretraining_20261019/EXPERIMENT_MATRIX_VIDEO_V02_DRAFT.md",
+        "experiments/occlusion_representation_pretraining_20261019/SOURCE_EVIDENCE_VIDEO_V02.json",
+        "experiments/occlusion_representation_pretraining_20261019/EXECUTION_E0_V02.md",
+        "experiments/occlusion_representation_pretraining_20261019/EXECUTION_E1_V02.md",
+        "experiments/occlusion_representation_pretraining_20261019/E0_REPORT.md",
+        "experiments/occlusion_representation_pretraining_20261019/HANDOFF.md"
+      ],
+      "predecessor_line_key": "dense_video_identity",
+      "relationship": "independent_video_pretraining_core_with_correspondence_and_instance_identity_as_transfer_tasks",
+      "limits": [
+        "2026-10-20用户授权；E0已完成1152帧及16工程步，Job160正式数据准备运行、Job161训练待依赖，科研效用未测。",
+        "内容保持、可见状态响应、无对应和可信度为待验证设计；没有因果识别或消除捷径的理论保证。",
+        "旧空间优先草案保留，superseded_by 在 Study 登记；旧视频身份和原型—系数 Run 不改写。",
+        "几何/输入因果/四臂梯度核验通过；当前仅同渲染器留出资产，跨背景、跨模板和真实域泛化未证。",
+        "首轮正式上限四臂各2000步；依赖E0通过后冻结配置，一次性Slurm链失败即停；不追加步数或种子。"
+      ],
+      "design_version": "v0.2"
+    },
+    {
+      "line_id": "LINE_6dd1154d9754466da9c6441369c41fb9",
+      "key": "dense_video_identity",
+      "successor_line_key": "occlusion_representation_pretraining",
+      "title": "密集视频个体身份保持与遮挡恢复",
+      "status": "occlusion_model_trained_real_gain_small_mechanism_not_supported",
+      "entrypoint": "paper/manuscripts/dense_video_identity/README.md",
+      "paper_directory": "paper/manuscripts/dense_video_identity",
+      "study_ids": [
+        "STUDY_DENSE_VIDEO_IDENTITY_20261018",
+        "STUDY_DENSE_VIDEO_ASSOCIATION_V2_20261018",
+        "STUDY_DENSE_VIDEO_REVERSIBLE_IDENTITY_20261019",
+        "STUDY_DENSE_VIDEO_EVIDENCE_DECISION_20261019",
+        "STUDY_DENSE_VIDEO_SYNTHETIC_OCCLUSION_20261019",
+        "STUDY_DENSE_VIDEO_OCCLUSION_TRANSFER_20261019"
+      ],
+      "focus_documents": [
+        "paper/manuscripts/dense_video_identity/README.md",
+        "paper/manuscripts/dense_video_identity/RESEARCH_RULES.md",
+        "experiments/dense_video_occlusion_transfer_20261019/study.json",
+        "experiments/dense_video_occlusion_transfer_20261019/PROTOCOL.md",
+        "experiments/dense_video_synthetic_occlusion_20261019/REPORT.md",
+        "experiments/dense_video_synthetic_occlusion_20261019/PROTOCOL.md",
+        "experiments/dense_video_synthetic_occlusion_20261019/TOOL_SELECTION.md",
+        "experiments/dense_video_evidence_decision_20261019/REPORT.md"
+      ],
+      "locations": [
+        {
+          "host": "local",
+          "role": "sources_public_staging_and_showcase"
+        },
+        {
+          "host": "28358lan",
+          "role": "authorized_offline_pilot_and_system"
+        },
+        {
+          "host": "a25023104@192.168.71.10",
+          "role": "authorized_scene_generation_model_training_and_real_video_ablations"
+        }
+      ],
+      "limits": [
+        "独立毕业论文线，不继承原型—系数线模型干预和Gate。",
+        "第二轮有斑马1/2有限独立效用，原五视频无实用增量，新增收益监督未超过同容量对照。",
+        "现场143条可用稀疏AI复核观测不等于人工密集GT；没有确认的完整物理遮挡恢复事件。",
+        "第三轮19视频×7对照：新确认M相对ByteTrack +1.130 IDF1、相对BoT-SORT -1.456；回退误拆正确连接，稳定优越性未成立，固定配置关闭。",
+        "第三轮64事件初筛、16逐帧复核、11例物理遮挡补充层；可靠完整遮挡事件0，完整遮挡恢复目标尚未达到。",
+        "第四轮S0信息有效；CETD-v1三臂各12993参数800步，但新4视频模型无撤销、与仅确认C相同，未超过BoT-SORT。不得把C相对ByteTrack+2.679归为新增模型收益。",
+        "第五轮服务器生成6段144帧，几何与标签格式核验通过；两个程序化资产仅作工程验证，遮挡模型训练0步，真实视频收益未测。"
+      ]
+    },
+    {
       "line_id": "LINE_540602779c8740cf8a69ec9cd637dad8",
       "key": "neighbor_sensitive_p3",
       "title": "原型—系数链路",

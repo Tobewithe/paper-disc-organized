@@ -1,0 +1,45 @@
+{
+  "smoke_attempts": [
+    {
+      "job_id": 151,
+      "status": "failed",
+      "optimizer_steps": 0,
+      "reason": "exact CUDA wheel metadata +cu124 not declared"
+    },
+    {
+      "job_id": 152,
+      "status": "completed_but_superseded",
+      "optimizer_steps": 16,
+      "reason": "cross-platform same-seed initialization differs from laptop"
+    },
+    {
+      "job_id": 153,
+      "status": "completed_passed",
+      "initialization": "exact original zero-step tensor copy"
+    }
+  ],
+  "resources": {
+    "tasks": 4,
+    "GPUs_per_task": 1,
+    "CPUs_per_task": 4,
+    "memory_GiB": 144,
+    "smoke_walltime": "02:00:00"
+  },
+  "script": "scripts/server_stage.sbatch",
+  "formal_training_submitted": true,
+  "no_schedule_or_goal": true,
+  "formal": {
+    "job_id": 154,
+    "job_name": "LCFS-train-ABCD",
+    "state_observed": "RUNNING",
+    "tasks": 4,
+    "gpus": 4,
+    "walltime": "96:00:00",
+    "active_run_ids": {
+      "A": "RUN_LCFS_A_TRAIN_e99ac7f8bacf469cbbaab7babc4a3c1c",
+      "B": "RUN_LCFS_B_TRAIN_6428b48d81774d72b6a121369f221b0c",
+      "C": "RUN_LCFS_C_TRAIN_0ea3b01d9ddb4c96abf722794def9b2b",
+      "D": "RUN_LCFS_D_TRAIN_909459171de84d8bb1a8a4f39c82f066"
+    }
+  }
+}

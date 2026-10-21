@@ -1,0 +1,1219 @@
+{
+  "G_budget": {
+    "initial_replay": [
+      {
+        "image_id": 91387,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 295328,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 249792,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 453938,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 346185,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 458751,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 554523,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 18072,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 98872,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 215795,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 308506,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 353589,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 461092,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 548451,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 521240,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 2349,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      }
+    ],
+    "optimizer_steps": 2,
+    "gradient_names": [
+      "adapter.category.weight",
+      "adapter.coefficient.bias",
+      "adapter.coefficient.weight",
+      "adapter.feature.0.bias",
+      "adapter.feature.0.weight",
+      "adapter.feature.1.bias",
+      "adapter.feature.1.weight",
+      "adapter.feature.2.bias",
+      "adapter.feature.2.weight",
+      "adapter.readout.0.bias",
+      "adapter.readout.0.weight",
+      "adapter.readout.2.bias",
+      "adapter.readout.2.weight",
+      "adapter.spatial.0.bias",
+      "adapter.spatial.0.weight",
+      "adapter.spatial.2.bias",
+      "adapter.spatial.2.weight"
+    ],
+    "parameters": {
+      "arm": "G_budget",
+      "trainable_whitelist": [
+        "adapter.spatial.0.weight",
+        "adapter.spatial.0.bias",
+        "adapter.spatial.2.weight",
+        "adapter.spatial.2.bias",
+        "adapter.feature.0.weight",
+        "adapter.feature.0.bias",
+        "adapter.feature.1.weight",
+        "adapter.feature.1.bias",
+        "adapter.feature.2.weight",
+        "adapter.feature.2.bias",
+        "adapter.coefficient.weight",
+        "adapter.coefficient.bias",
+        "adapter.category.weight",
+        "adapter.readout.0.weight",
+        "adapter.readout.0.bias",
+        "adapter.readout.2.weight",
+        "adapter.readout.2.bias"
+      ],
+      "trainable_parameter_count": 167872,
+      "trainable_tensor_count": 17,
+      "parameters": {
+        "adapter.spatial.0.weight": {
+          "shape": [
+            64,
+            33,
+            3,
+            3
+          ],
+          "numel": 19008,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.spatial.0.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.spatial.2.weight": {
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "numel": 36864,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.spatial.2.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.feature.0.weight": {
+          "shape": [
+            64,
+            256
+          ],
+          "numel": 16384,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.feature.0.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.feature.1.weight": {
+          "shape": [
+            64,
+            512
+          ],
+          "numel": 32768,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.feature.1.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.feature.2.weight": {
+          "shape": [
+            64,
+            512
+          ],
+          "numel": 32768,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.feature.2.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.coefficient.weight": {
+          "shape": [
+            32,
+            32
+          ],
+          "numel": 1024,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.coefficient.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.category.weight": {
+          "shape": [
+            80,
+            16
+          ],
+          "numel": 1280,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.readout.0.weight": {
+          "shape": [
+            128,
+            181
+          ],
+          "numel": 23168,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.readout.0.bias": {
+          "shape": [
+            128
+          ],
+          "numel": 128,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.readout.2.weight": {
+          "shape": [
+            32,
+            128
+          ],
+          "numel": 4096,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "adapter.readout.2.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        }
+      },
+      "mutable_buffer_whitelist": [],
+      "frozen_buffers": {},
+      "loss_spec": {
+        "name": "same_ROI_soft_IoU",
+        "epsilon": 1e-06,
+        "formula": "1-(sum_ROI(sigmoid(z)*g)+eps)/(sum_ROI(sigmoid(z)+g-sigmoid(z)*g)+eps)",
+        "empty_GT": "same_formula_in_original_supervised_instance_denominator",
+        "empty_ROI": "exclude_and_count_as_original",
+        "dtype": "float32",
+        "reduction": "instance_mean_within_image_then_original_effective_batch4_mean",
+        "preservation": "original_BCE_all_nonempty_ROI_instances",
+        "preservation_weight": 0.1
+      },
+      "module_mode": "eval_with_autograd"
+    },
+    "frozen_base_verified": true,
+    "permitted_inactive_tensors_due_to_no_selected_native_raw_level": [],
+    "measured_step_seconds": [
+      0.7348346240032697,
+      0.06540375298936851
+    ],
+    "source_batch_seconds": 1.603644709000946,
+    "train_source_batch_index": 914,
+    "smoke_batch_selection": "maximum native rect pixels, lowest index tie-break",
+    "projected_formal_seconds_with_20percent_reserve": 21295.23377350324,
+    "cost_method": "max of two synchronized microsteps + complete native source batch / 4; multiplied by 15000 / .8; conservative estimate, not guarantee"
+  },
+  "C_native": {
+    "initial_replay": [
+      {
+        "image_id": 91387,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 295328,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 249792,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 453938,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 346185,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 458751,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 554523,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 18072,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 98872,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 215795,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 308506,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 353589,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 461092,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 548451,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 521240,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 2349,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      }
+    ],
+    "optimizer_steps": 2,
+    "gradient_names": [
+      "coefficient_head.0.0.conv.bias",
+      "coefficient_head.0.0.conv.weight",
+      "coefficient_head.0.1.conv.bias",
+      "coefficient_head.0.1.conv.weight",
+      "coefficient_head.0.2.bias",
+      "coefficient_head.0.2.weight",
+      "coefficient_head.1.0.conv.bias",
+      "coefficient_head.1.0.conv.weight",
+      "coefficient_head.1.1.conv.bias",
+      "coefficient_head.1.1.conv.weight",
+      "coefficient_head.1.2.bias",
+      "coefficient_head.1.2.weight",
+      "coefficient_head.2.0.conv.bias",
+      "coefficient_head.2.0.conv.weight",
+      "coefficient_head.2.1.conv.bias",
+      "coefficient_head.2.1.conv.weight",
+      "coefficient_head.2.2.bias",
+      "coefficient_head.2.2.weight"
+    ],
+    "parameters": {
+      "arm": "C_native",
+      "trainable_whitelist": [
+        "coefficient_head.0.0.conv.weight",
+        "coefficient_head.0.0.conv.bias",
+        "coefficient_head.0.1.conv.weight",
+        "coefficient_head.0.1.conv.bias",
+        "coefficient_head.0.2.weight",
+        "coefficient_head.0.2.bias",
+        "coefficient_head.1.0.conv.weight",
+        "coefficient_head.1.0.conv.bias",
+        "coefficient_head.1.1.conv.weight",
+        "coefficient_head.1.1.conv.bias",
+        "coefficient_head.1.2.weight",
+        "coefficient_head.1.2.bias",
+        "coefficient_head.2.0.conv.weight",
+        "coefficient_head.2.0.conv.bias",
+        "coefficient_head.2.1.conv.weight",
+        "coefficient_head.2.1.conv.bias",
+        "coefficient_head.2.2.weight",
+        "coefficient_head.2.2.bias"
+      ],
+      "trainable_parameter_count": 854496,
+      "trainable_tensor_count": 18,
+      "parameters": {
+        "coefficient_head.0.0.conv.weight": {
+          "shape": [
+            64,
+            256,
+            3,
+            3
+          ],
+          "numel": 147456,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.0.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.1.conv.weight": {
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "numel": 36864,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.1.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.2.weight": {
+          "shape": [
+            32,
+            64,
+            1,
+            1
+          ],
+          "numel": 2048,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.2.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.0.conv.weight": {
+          "shape": [
+            64,
+            512,
+            3,
+            3
+          ],
+          "numel": 294912,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.0.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.1.conv.weight": {
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "numel": 36864,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.1.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.2.weight": {
+          "shape": [
+            32,
+            64,
+            1,
+            1
+          ],
+          "numel": 2048,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.2.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.0.conv.weight": {
+          "shape": [
+            64,
+            512,
+            3,
+            3
+          ],
+          "numel": 294912,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.0.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.1.conv.weight": {
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "numel": 36864,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.1.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.2.weight": {
+          "shape": [
+            32,
+            64,
+            1,
+            1
+          ],
+          "numel": 2048,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.2.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        }
+      },
+      "mutable_buffer_whitelist": [],
+      "frozen_buffers": {},
+      "loss_spec": {
+        "name": "same_ROI_soft_IoU",
+        "epsilon": 1e-06,
+        "formula": "1-(sum_ROI(sigmoid(z)*g)+eps)/(sum_ROI(sigmoid(z)+g-sigmoid(z)*g)+eps)",
+        "empty_GT": "same_formula_in_original_supervised_instance_denominator",
+        "empty_ROI": "exclude_and_count_as_original",
+        "dtype": "float32",
+        "reduction": "instance_mean_within_image_then_original_effective_batch4_mean",
+        "preservation": "original_BCE_all_nonempty_ROI_instances",
+        "preservation_weight": 0.1
+      },
+      "module_mode": "eval_with_autograd"
+    },
+    "frozen_base_verified": true,
+    "permitted_inactive_tensors_due_to_no_selected_native_raw_level": [],
+    "measured_step_seconds": [
+      0.12800387699098792,
+      0.04522456800623331
+    ],
+    "source_batch_seconds": 1.603644709000946,
+    "train_source_batch_index": 914,
+    "smoke_batch_selection": "maximum native rect pixels, lowest index tie-break",
+    "projected_formal_seconds_with_20percent_reserve": 9917.157267022958,
+    "cost_method": "max of two synchronized microsteps + complete native source batch / 4; multiplied by 15000 / .8; conservative estimate, not guarantee"
+  },
+  "PC_native": {
+    "initial_replay": [
+      {
+        "image_id": 91387,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 295328,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 249792,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 453938,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 346185,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 458751,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 554523,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 18072,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 98872,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 215795,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 308506,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 353589,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 461092,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 548451,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 521240,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      },
+      {
+        "image_id": 2349,
+        "proto_equal": true,
+        "coefficients_equal": true,
+        "logits_equal": true,
+        "RLE_exact": true
+      }
+    ],
+    "optimizer_steps": 2,
+    "gradient_names": [
+      "coefficient_head.0.0.conv.bias",
+      "coefficient_head.0.0.conv.weight",
+      "coefficient_head.0.1.conv.bias",
+      "coefficient_head.0.1.conv.weight",
+      "coefficient_head.0.2.bias",
+      "coefficient_head.0.2.weight",
+      "coefficient_head.1.0.conv.bias",
+      "coefficient_head.1.0.conv.weight",
+      "coefficient_head.1.1.conv.bias",
+      "coefficient_head.1.1.conv.weight",
+      "coefficient_head.1.2.bias",
+      "coefficient_head.1.2.weight",
+      "coefficient_head.2.0.conv.bias",
+      "coefficient_head.2.0.conv.weight",
+      "coefficient_head.2.1.conv.bias",
+      "coefficient_head.2.1.conv.weight",
+      "coefficient_head.2.2.bias",
+      "coefficient_head.2.2.weight",
+      "proto.cv1.conv.bias",
+      "proto.cv1.conv.weight",
+      "proto.cv2.conv.bias",
+      "proto.cv2.conv.weight",
+      "proto.cv3.conv.bias",
+      "proto.cv3.conv.weight",
+      "proto.feat_fuse.conv.bias",
+      "proto.feat_fuse.conv.weight",
+      "proto.feat_refine.0.conv.bias",
+      "proto.feat_refine.0.conv.weight",
+      "proto.feat_refine.1.conv.bias",
+      "proto.feat_refine.1.conv.weight",
+      "proto.upsample.bias",
+      "proto.upsample.weight"
+    ],
+    "parameters": {
+      "arm": "PC_native",
+      "trainable_whitelist": [
+        "coefficient_head.0.0.conv.weight",
+        "coefficient_head.0.0.conv.bias",
+        "coefficient_head.0.1.conv.weight",
+        "coefficient_head.0.1.conv.bias",
+        "coefficient_head.0.2.weight",
+        "coefficient_head.0.2.bias",
+        "coefficient_head.1.0.conv.weight",
+        "coefficient_head.1.0.conv.bias",
+        "coefficient_head.1.1.conv.weight",
+        "coefficient_head.1.1.conv.bias",
+        "coefficient_head.1.2.weight",
+        "coefficient_head.1.2.bias",
+        "coefficient_head.2.0.conv.weight",
+        "coefficient_head.2.0.conv.bias",
+        "coefficient_head.2.1.conv.weight",
+        "coefficient_head.2.1.conv.bias",
+        "coefficient_head.2.2.weight",
+        "coefficient_head.2.2.bias",
+        "proto.cv1.conv.weight",
+        "proto.cv1.conv.bias",
+        "proto.upsample.weight",
+        "proto.upsample.bias",
+        "proto.cv2.conv.weight",
+        "proto.cv2.conv.bias",
+        "proto.cv3.conv.weight",
+        "proto.cv3.conv.bias",
+        "proto.feat_refine.0.conv.weight",
+        "proto.feat_refine.0.conv.bias",
+        "proto.feat_refine.1.conv.weight",
+        "proto.feat_refine.1.conv.bias",
+        "proto.feat_fuse.conv.weight",
+        "proto.feat_fuse.conv.bias"
+      ],
+      "trainable_parameter_count": 3158016,
+      "trainable_tensor_count": 32,
+      "parameters": {
+        "coefficient_head.0.0.conv.weight": {
+          "shape": [
+            64,
+            256,
+            3,
+            3
+          ],
+          "numel": 147456,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.0.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.1.conv.weight": {
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "numel": 36864,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.1.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.2.weight": {
+          "shape": [
+            32,
+            64,
+            1,
+            1
+          ],
+          "numel": 2048,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.0.2.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.0.conv.weight": {
+          "shape": [
+            64,
+            512,
+            3,
+            3
+          ],
+          "numel": 294912,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.0.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.1.conv.weight": {
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "numel": 36864,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.1.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.2.weight": {
+          "shape": [
+            32,
+            64,
+            1,
+            1
+          ],
+          "numel": 2048,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.1.2.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.0.conv.weight": {
+          "shape": [
+            64,
+            512,
+            3,
+            3
+          ],
+          "numel": 294912,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.0.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.1.conv.weight": {
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "numel": 36864,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.1.conv.bias": {
+          "shape": [
+            64
+          ],
+          "numel": 64,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.2.weight": {
+          "shape": [
+            32,
+            64,
+            1,
+            1
+          ],
+          "numel": 2048,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "coefficient_head.2.2.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.cv1.conv.weight": {
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "numel": 589824,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.cv1.conv.bias": {
+          "shape": [
+            256
+          ],
+          "numel": 256,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.upsample.weight": {
+          "shape": [
+            256,
+            256,
+            2,
+            2
+          ],
+          "numel": 262144,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.upsample.bias": {
+          "shape": [
+            256
+          ],
+          "numel": 256,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.cv2.conv.weight": {
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "numel": 589824,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.cv2.conv.bias": {
+          "shape": [
+            256
+          ],
+          "numel": 256,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.cv3.conv.weight": {
+          "shape": [
+            32,
+            256,
+            1,
+            1
+          ],
+          "numel": 8192,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.cv3.conv.bias": {
+          "shape": [
+            32
+          ],
+          "numel": 32,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.feat_refine.0.conv.weight": {
+          "shape": [
+            256,
+            512,
+            1,
+            1
+          ],
+          "numel": 131072,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.feat_refine.0.conv.bias": {
+          "shape": [
+            256
+          ],
+          "numel": 256,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.feat_refine.1.conv.weight": {
+          "shape": [
+            256,
+            512,
+            1,
+            1
+          ],
+          "numel": 131072,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.feat_refine.1.conv.bias": {
+          "shape": [
+            256
+          ],
+          "numel": 256,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.feat_fuse.conv.weight": {
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "numel": 589824,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        },
+        "proto.feat_fuse.conv.bias": {
+          "shape": [
+            256
+          ],
+          "numel": 256,
+          "dtype": "torch.float32",
+          "requires_grad": true
+        }
+      },
+      "mutable_buffer_whitelist": [],
+      "frozen_buffers": {},
+      "loss_spec": {
+        "name": "same_ROI_soft_IoU",
+        "epsilon": 1e-06,
+        "formula": "1-(sum_ROI(sigmoid(z)*g)+eps)/(sum_ROI(sigmoid(z)+g-sigmoid(z)*g)+eps)",
+        "empty_GT": "same_formula_in_original_supervised_instance_denominator",
+        "empty_ROI": "exclude_and_count_as_original",
+        "dtype": "float32",
+        "reduction": "instance_mean_within_image_then_original_effective_batch4_mean",
+        "preservation": "original_BCE_all_nonempty_ROI_instances",
+        "preservation_weight": 0.1
+      },
+      "module_mode": "eval_with_autograd"
+    },
+    "frozen_base_verified": true,
+    "permitted_inactive_tensors_due_to_no_selected_native_raw_level": [],
+    "measured_step_seconds": [
+      0.14020154598983936,
+      0.12169170498964377
+    ],
+    "source_batch_seconds": 1.603644709000946,
+    "train_source_batch_index": 914,
+    "smoke_batch_selection": "maximum native rect pixels, lowest index tie-break",
+    "projected_formal_seconds_with_20percent_reserve": 10145.863560751422,
+    "cost_method": "max of two synchronized microsteps + complete native source batch / 4; multiplied by 15000 / .8; conservative estimate, not guarantee"
+  }
+}

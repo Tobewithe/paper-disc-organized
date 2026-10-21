@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Dpan\codexproject\paper-disc-organized\experiments\dense_video_occlusion_transfer_20261019\prepare_real_videos.py", line 22, in main
+    rows=list(concurrent.futures.ThreadPoolExecutor(3).map(process,manifest['sequences']))
+  File "C:\Dpan\envsfiles\CondaData\envs\pytorch\lib\concurrent\futures\_base.py", line 621, in result_iterator
+    yield _result_or_cancel(fs.pop())
+  File "C:\Dpan\envsfiles\CondaData\envs\pytorch\lib\concurrent\futures\_base.py", line 319, in _result_or_cancel
+    return fut.result(timeout)
+  File "C:\Dpan\envsfiles\CondaData\envs\pytorch\lib\concurrent\futures\_base.py", line 451, in result
+    return self.__get_result()
+  File "C:\Dpan\envsfiles\CondaData\envs\pytorch\lib\concurrent\futures\_base.py", line 403, in __get_result
+    raise self._exception
+  File "C:\Dpan\envsfiles\CondaData\envs\pytorch\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Dpan\codexproject\paper-disc-organized\experiments\dense_video_occlusion_transfer_20261019\prepare_real_videos.py", line 15, in process
+    choices=index.get(s['name']+'.mp4',[]);source=next((p for p in choices if sha(p)==s['video_sha256']),None);assert source is not None,s['name']
+AssertionError: zebra_1

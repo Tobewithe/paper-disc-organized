@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\preflight\run_attached.py", line 24, in <module>
+    save(STUDY/'study.json',study);execute(run)
+                                   ^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\scripts\run_audit.py", line 82, in execute
+    wp,wamp,_,wnorm=matched_coefficients(decoder,w,vectors,amplitude,cfg['numerics']['rms_relative_tolerance'])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\scripts\native_ops.py", line 61, in matched_coefficients
+    if not np.all(np.abs(actual/amplitude-1)<=tolerance):raise ValueError('pressure functional RMS differs')
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: pressure functional RMS differs

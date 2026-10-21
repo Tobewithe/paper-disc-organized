@@ -1,0 +1,13 @@
+{
+  "run_id": "RUN_DATA_ENV_PYTHON_RECOVERY_9b71ff58e43f4eda93210e49d1c7d9af",
+  "retry_of": "RUN_DATA_ENV_8394c214fcc14e9cb8a4698e4b2598ee",
+  "job_id": "99",
+  "execution_status": "failed",
+  "scientific_status": "not_applicable_data_environment_preparation",
+  "created_at": "2026-10-17T19:35:56Z",
+  "training_steps": 0,
+  "model_forwards": 0,
+  "reason": "Exact Python 3.12.3 source-build fallback for slow official standalone delivery; no system package changes",
+  "completed_at": "2026-10-17T19:55:35Z",
+  "error": "Traceback (most recent call last):\n  File \"/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/data_environment_python_recovery.py\", line 71, in main\n    runtime = base.prepare_environment()\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py\", line 55, in prepare_environment\n    command(['uv', 'pip', 'install', '--python', py, '--index-url', 'https://download.pytorch.org/whl/cu124', 'torch==2.5.1+cu124', 'torchvision==0.20.1+cu124'], 'torch-install')\n  File \"/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/data_environment_python_recovery.py\", line 69, in command\n    return original_command(args, name)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py\", line 49, in command\n    raise RuntimeError(f'{name} exited {result.returncode}; see {RUN / (name + \".log\")}')\nRuntimeError: torch-install exited -15; see /srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_PYTHON_RECOVERY_9b71ff58e43f4eda93210e49d1c7d9af/torch-install.log\n"
+}

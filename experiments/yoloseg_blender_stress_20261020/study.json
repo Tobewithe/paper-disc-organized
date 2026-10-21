@@ -1,0 +1,40 @@
+{
+  "study_id": "STUDY_YOLOSEG_BLENDER_STRESS_20261020",
+  "title": "YOLO-seg Blender 成对视频压力测试",
+  "research_line": "neighbor_sensitive_p3",
+  "plan_status": "smoke_closed_larger_matrix_design_only",
+  "execution_status": "completed",
+  "scientific_status": "descriptive_findings_applicability_partial",
+  "artifact_status": "server_complete_local_results_and_previews",
+  "transfer_status": "59_files_verified_full_raw_retained_on_server",
+  "protocol": "PROTOCOL.md",
+  "authorized_executor": "a25023104@192.168.71.10",
+  "authorization": "用户要求多场景模拟，指定服务器通过Slurm申请一张空闲GPU",
+  "training_steps": 0,
+  "smoke_budget": {
+    "gpus": 1,
+    "hours": 2,
+    "scenes": 8,
+    "frames": 384
+  },
+  "larger_matrix_status": "design_only",
+  "notes": [
+    "独立零训练测试，不更改LCF四臂及其它会话作业",
+    "不创建定时器、目标或自动重启，不自动提交推送",
+    "完整20736帧矩阵是建议，未启动"
+  ],
+  "slurm_job_id": 162,
+  "run_id": "RUN_YB_SMOKE_c6f0333ccc994518bdf0790b52265526",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/yoloseg-blender-stress-20261020",
+  "freeze_sha256": "1481655eec278f27700cbb72c3ef22027853aa7e2291dc999b7e855f14b57a3e",
+  "ended_at": "2026-10-20T16:42:01+08:00",
+  "report": "REPORT.md",
+  "configuration_review": "CONFIGURATION_REVIEW.md",
+  "applicability_gate": {
+    "crossing": "passed",
+    "density": "failed",
+    "wall": "failed",
+    "fence": "failed"
+  },
+  "next_action": "design_v2_identifiable_scale_controlled_paired_scenes_not_started"
+}

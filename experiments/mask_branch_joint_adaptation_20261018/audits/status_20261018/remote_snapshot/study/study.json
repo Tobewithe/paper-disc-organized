@@ -1,0 +1,52 @@
+{
+  "study_id": "STUDY_MASK_BRANCH_JOINT_ADAPTATION_20261018",
+  "research_line": "neighbor_sensitive_p3",
+  "display_name": "原型—系数链路：原生掩码分支联合适配",
+  "plan_status": "frozen_authorized",
+  "execution_status": "finite_pipeline_submitted_waiting_data_and_environment",
+  "scientific_status": "not_evaluated",
+  "artifact_status": "frozen_protocol_runtime_and_input_bundle",
+  "transfer_status": "remote_bundle_420_hashes_verified_submission_receipt_returned",
+  "protocol": "PROTOCOL.md",
+  "authorization": "AUTHORIZATION.json",
+  "executor": "a25023104@192.168.71.10",
+  "primary_candidate": "PC_native",
+  "planned_training_arms": [
+    "G_budget",
+    "C_native",
+    "PC_native"
+  ],
+  "planned_training_images": 20000,
+  "planned_epochs": 3,
+  "planned_steps_per_arm": 15000,
+  "planned_total_steps": 45000,
+  "actual_formal_training_steps_verified": 0,
+  "historical_proposal": "../../project/research_notes/MASK_BRANCH_JOINT_ADAPTATION_PROPOSAL_20261017.md",
+  "prior_RFC_closed": true,
+  "old_S4_authorized": false,
+  "runs": [],
+  "data_preparation_run_receipts": "data_environment_submission.json",
+  "protocol_sha256": "4d7c983e70f6d9c62266f768b2738cd4acf0d0e0249bd5ac746c5dd65a9f9f97",
+  "configuration_sha256": "3386fee552835e1fbdde782cb927ac70dfe4f4416433092358132ba671274437",
+  "engineering_verification": {
+    "tests_passed": 16,
+    "scope": "CPU_component_tests_only_not_real_model_experiment",
+    "python": "3.10.19",
+    "torch": "2.9.1+cu128",
+    "device": "cpu",
+    "initial_default_python_attempt": "torch_not_installed_recorded_then_used_existing_pytorch_environment",
+    "scientific_runtime": "separate_server_Python3.12.3_torch2.5.1+cu124"
+  },
+  "bundle_sha256": "34b600747ca9741ce55ec941119e96342a5de051e8d0dfe09fa38bd455361b26",
+  "slurm_jobs": {
+    "final_input_verifier": 101,
+    "integration_preflight": 102,
+    "prepare_native_smoke": 103,
+    "train_G_budget": 104,
+    "train_C_native": 105,
+    "train_PC_native": 106,
+    "full_evaluation_statistics": 107
+  },
+  "formal_training_state": "pending_dependencies_not_started",
+  "last_verified_utc": "2026-10-17T20:04:52.745306+00:00"
+}

@@ -1,12 +1,12 @@
 # 原型—系数链路
 
-当前研究线名称为 **“原型—系数链路”**（Prototype→Coefficient），研究固定预训练模型下的系数可恢复性与后训练实例修复。`neighbor_sensitive_p3` 保留为历史技术标识及目录名，用于连接既有论文和 Run；具体机制与方法按证据选择。
+当前研究线名称为 **“原型—系数链路”**（Prototype→Coefficient），研究固定最终检测下的可修机会、后训练掩码修复及损伤；固定P的系数适配为当前实测方案，已完成的PC对照允许Proto变化。`neighbor_sensitive_p3` 保留为历史技术标识及目录名，用于连接既有论文和 Run；具体机制与方法按证据选择。
 
 > **当前执行入口：** [统一科研总控](../../../project/ACTIVE_PLAN.md) → [GT 真实输出基线](../../../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) → [固定权重 Prototype→Coefficient 后训练计划](../../../experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md)。本页下文的“2026-09-30 历史主线记录”属于历史状态，不再授权 TAL 或五臂 20k。
 
-**2026-10-17当前论文正文：** [结果与讨论](RESULTS_AND_DISCUSSION_ZH_20261017.md)围绕“可修机会—实际兑现—损伤代价”展开，逐项报告相对原生和已有方法的收益、损伤及未证边界，附[正文核验](RESULTS_AND_DISCUSSION_ZH_20261017.audit.json)。这是当前O2O后训练路线的正文节选；旧raw/argmax的MANUSCRIPT_ZH/main.tex与旧P3正文继续保留各自历史对象，尚未与本节合稿。
+**2026-10-19更新的当前论文正文：** [结果与讨论](RESULTS_AND_DISCUSSION_ZH_20261017.md)围绕“可修机会—实际兑现—损伤代价”展开，已补入G_budget相对同服务器原生/旧G的+0.251337/+0.112780 AP点、81/22958损伤及PC/C完整对照；旧S3与新主Gate分开，附[正文核验](RESULTS_AND_DISCUSSION_ZH_20261017.audit.json)。保留原文件名以维持引用。这是当前O2O后训练路线的正文节选；旧raw/argmax的MANUSCRIPT_ZH/main.tex与旧P3正文继续保留各自历史对象，尚未与本节合稿。
 
-**论文证据入口：** [证据与主张表](EVIDENCE_AND_CLAIMS_20261017.md)，附[来源哈希及原始字段](EVIDENCE_AND_CLAIMS_20261017.sources.json)。本次只完成写作与证据核对，未追加训练或新实验。
+**论文证据入口：** [证据与主张表](EVIDENCE_AND_CLAIMS_20261017.md)，E16收录完整三臂实验，附[来源哈希及原始字段](EVIDENCE_AND_CLAIMS_20261017.sources.json)。明确新收益属于固定P对照，PC效用失败，G_budget与C_native的AP差区间跨零；本次只完成写作与证据核对，未追加训练或新实验。
 
 ## 历史主线记录（2026-09-30）
 

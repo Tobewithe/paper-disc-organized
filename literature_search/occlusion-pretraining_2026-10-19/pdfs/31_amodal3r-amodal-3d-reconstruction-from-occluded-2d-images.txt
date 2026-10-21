@@ -1,0 +1,1398 @@
+
+
+PAGE 1
+Amodal3R: Amodal 3D Reconstruction from Occluded 2D Images
+Tianhao Wu1∗, Chuanxia Zheng2†, Frank Guan3, Andrea Vedaldi2, Tat-Jen Cham1
+∗S-Lab, 1Nanyang Technological University, 2Visual Geometry Group, University of Oxford
+3Singapore Institute of Technology
+{tianhao001,astjcham}@ntu.edu.sg, {cxzheng,vedaldi}@robots.ox.ac.uk
+Frank.guan@singaporetech.edu.sg
+3D Recast
+2D Input Stochastic sample 1 Stochastic sample 2
+In-the-wild Reconstruction
+2D Input Stochastic sample 1 Stochastic sample 2
+3D Scene Decomposition
+2D Input Decomposed 3D assets
+Figure 1. Example results of Amodal3R. Given partially visible objects within images (occluded regions are shown in black, visible areas
+in red outlines), our Amodal3R generates diverse semantically meaningful 3D assets with reasonable geometry and plausible appearance.
+We sample multiple times to get different results from the same occluded input. Trained on synthetic datasets, it generalizes well to real-
+scene and in-the-wild images, where most objects are partially visible, and reconstructs reasonable 3D assets.
+Abstract
+Most image-based 3D object reconstructors assume that ob-
+jects are fully visible, ignoring occlusions that commonly
+occur in real-world scenarios. In this paper, we introduce
+Amodal3R, a conditional 3D generative model designed to
+reconstruct 3D objects from partial observations. We start
+from a “foundation” 3D generative model and extend it to
+recover plausible 3D geometry and appearance from oc-
+cluded objects. We introduce a mask-weighted multi-head
+cross-attention mechanism followed by an occlusion-aware
+attention layer that explicitly leverages occlusion priors to
+guide the reconstruction process. We demonstrate that, by
+training solely on synthetic data, Amodal3R learns to re-
+cover full 3D objects even in the presence of occlusions
+in real scenes. It substantially outperforms existing meth-
+†Project Lead.
+ods that independently perform 2D amodal completion fol-
+lowed by 3D reconstruction, thereby establishing a new
+benchmark for occlusion-aware 3D reconstruction. See our
+project page https://sm0kywu.github.io/Amodal3R/.
+1. Introduction
+Humans possess a remarkable ability to infer the complete
+3D shape and appearance of objects from single views,
+even when the objects are partly hidden behind occlud-
+ers. This ability, namely amodal completion , is key to
+operating in complex real-world environments, where ob-
+jects are often partially occluded by surrounding clutter.
+However, existing image-based 3D reconstruction mod-
+els [5, 6, 24, 42, 49, 50, 67, 72, 73, 76, 78, 81, 88, 89] fail to
+recover full 3D assets when the object is partially occluded.
+We thus consider the problem of reconstructing 3D objects
+1
+arXiv:2503.13439v1  [cs.CV]  17 Mar 2025
+
+PAGE 2
+from one or more partially-occluded views, a novel task that
+we call amodal 3D reconstruction.
+Amodal 3D reconstruction is a challenging task that re-
+quires reconstructing an object’s 3D geometry and appear-
+ance while completing its occluded parts, both of which
+are highly ambiguous. Previous approaches to amodal 3D
+reconstruction [7, 56] have decomposed the task into 2D
+amodal completion [85, 86, 91], followed by conventional
+3D reconstruction [42, 76, 89]. While these two-stage
+pipelines are easy to implement, they have some drawbacks.
+First, 2D amodal completion methods rely predominantly
+on appearance-based priors rather than explicit 3D struc-
+tural cues. This lack of 3D geometric reasoning is subop-
+timal. Second, some 3D reconstruction methods can use
+or require multiple views to function. In this case, 2D
+amodal completion may lack multi-view consistency, par-
+ticularly when it is performed independently for different
+views, which confuses the 3D reconstruction process.
+In this paper, we introduce Amodal3R, a novel single-
+stage paradigm for amodal 3D reconstruction that sur-
+passes previous state-of-the-art approaches (see Fig. 1).
+Amodal3R augments the “foundation” 3D generator TREL-
+LIS [81] with an additional branch to condition on occlu-
+sions. Its key advantage is performing reconstruction, com-
+pletion, and occlusion reasoning directly in a 3D latent
+space instead of using a two-stage scheme. In this way,
+the model can reconstruct both visible and occluded regions
+of the object coherently and plausibly. To adapt TRELLIS
+to amodal reconstruction, we introduce mask weighting in
+multi-head cross-attention and a newocclusion-aware layer.
+These guide the model to focus more on visible parts of the
+object without perturbing the pre-trained model too much.
+We evaluated the effectiveness of Amodal3R on datasets
+like Google Scanned Objects [16] and Toys4K [69] aug-
+mented with occlusions, on 3D scenes from Replica [70],
+and on real-world monocular images. Without relying on
+additional heuristics, Amodal3R achieves significantly su-
+perior performance compared to state-of-the-art models and
+generalizes well to different datasets, including real ones.
+In summary, our main contributions are as follows:
+• We propose a novel occlusion-aware 3D reconstruc-
+tion model that directly reconstructs complete and high-
+quality 3D objects from one or more partially occluded
+views, without relying on 2D amodal completion models.
+• We introduce a mask-weighted cross-attention mecha-
+nism and an occlusion-aware layer to inject occlusion
+awareness into an existing 3D reconstruction model, im-
+proving both the geometry and appearance of the recon-
+structed objects when they are partially occluded.
+• We demonstrate via experiments on the 3D scene dataset
+Replica and real-world images that our one-stage pipeline
+significantly outperforms existing two-stage ones, estab-
+lishing a new benchmark for amodal 3D reconstruction.
+2. Background
+2D Amodal Completion. Recent advances in 2D amodal
+completion [2, 56, 83, 85, 86, 91] have achieved signifi-
+cant success in reconstructing occluded regions of objects
+in 2D images. While these methods show promise for
+3D generation pipelines [2, 56], they still have limitations.
+First, 2D amodal completion models have limited 3D ge-
+ometric understanding as they interpret images as 2D pat-
+terns. While excelling at completing textures, they may
+generate physically implausible geometries when handling
+complex occlusions. This stems from their lack of ex-
+plicit 3D reasoning and reliance on 2D appearance priors,
+without true volumetric understanding. Second, for mod-
+els that use multi-view images as input, the results of the
+2D amodal completion are often inconsistent across views.
+Inconsistent views need to be corrected by the 3D recon-
+structor, which cause confusion (see Sec. 4). Although there
+has been significant work on multi-view consistent genera-
+tion [7, 64, 72, 74, 82, 94], multi-view consistent comple-
+tion is less explored. RenderDiffusion [1] contains an ex-
+ample, but the results are often blurry or lack details. This
+motivates our 3D-centric reconstruction framework.
+3D Shape Completion. Several methods [12, 14, 71, 95]
+start from a partial 3D reconstruction, then complete it in
+3D. They use encoder-decoder architectures [25] or volu-
+metric representations [10, 30] to robustly recover 3D shape
+but not texture, which is necessary in many applications.
+They also still require recovering the partial 3D geometry
+from an occluded image, a challenge in itself. Furthermore,
+they ignore the input image when completing the object in
+3D, disregarding the occlusion pattern that caused the 3D
+geometry to be recovered only partially. Recent work [11]
+utilizes the partially visible object as input specifically for
+3D shape completion. However, it focuses solely on geom-
+etry reconstruction, without recovering the object’s texture
+and appearance. In contrast, our approach is end-to-end,
+recovering the complete 3D shape and appearance of the
+object from the occluded image.
+3D Generative Models. Early advancements in 3D gener-
+ation are based on GANs [19], exploring various 3D repre-
+sentations such as point clouds [26, 40], voxel grids [84,
+96], view sets [50, 57], NeRF [4, 5, 52, 62], SDF [18],
+and 3D Gaussian mixtures [79]. While GANs can capture
+complex 3D structures, they struggle with stability, scala-
+bility, and data diversity. The focus then shifted to diffusion
+models [23, 61, 68], which were more capable and versa-
+tile. They were first applied to novel view synthesis [77]
+in image space, before expanding to model a variety of 3D
+representations, including point clouds [46, 47, 51, 80, 93],
+voxel grids [38, 48], triplanes [66, 97], meshes [20, 44], and
+3D Gaussian mixtures [9, 36, 39, 87]. Autoregressive mod-
+els [8, 49, 67] have also been explored for mesh generation,
+focusing on improving the topology of the final 3D mesh.
+2
+
+PAGE 3
+Sparse Structure Transformer SLAT Transformer
+Sparse
+V AE
+Decoder
+DINOv2
+Occluded Image
+Occluded Mask
+Visibility Mask
+Occlusion Mask
+Patch
+Average
+MHA
+MHA
+··· ···
+MHA
+MHA
+··· ···
+◊N ◊N
+Dec.
+3D Asset
+Input Image + Prompt
+𝒄𝒅𝒊𝒏𝒐
+𝒄𝒗𝒊𝒔
+𝒄𝒐𝒄𝒄
+Occlusion Preprocessing
+𝒄𝒅𝒊𝒏𝒐
+𝒄𝒗𝒊𝒔 𝒄𝒐𝒄𝒄
+𝒄𝒅𝒊𝒏𝒐
+𝒄𝒗𝒊𝒔 𝒄𝒐𝒄𝒄
+Patchify
+2D Segmenter
+Figure 2. Overview of Amodal3R. Given an image as input and the regions of interest, Amodal3R first extracts the partially visible target
+object, along with the visibility and occlusion masks using an off-the-shelf 2D segmenter. It then applies DINOv2 [55] to extract features
+cdino as additional conditioning for the 3D reconstructor. To enhance occlusion reasoning, each transformer block incorporates a mask-
+weighted cross-attention (via cvis) and occlusion-aware attention layer (via cocc), ensuring the 3D reconstructor accurately perceives
+visible information while effectively inferring occluded parts. For conditioning details, see Sec. 3.2.
+Authors have also shifted from performing diffusion in
+2D image space [64, 72, 89] to 3D latent spaces [29, 53, 60,
+65, 75, 81]. Such methods typically consist of two stages:
+the first for generating geometry and the second for gen-
+erating appearance, and are capable of high-quality image-
+to-3D generation. However, they assume that input objects
+are fully visible, which limits their application to real-world
+scenes, where occlusions are frequent. Here, we extend
+such approaches to generate high-quality 3D assets from
+occluded input images — a challenging task that requires
+inferring complete 3D objects from partial information.
+3. Method
+Consider an image x containing a partially occluded view
+of an object of interest oi, we wish to reconstruct the com-
+plete 3D shape and appearance y of the object oi. This task
+is thus conceptually similar to existing image-to-3D recon-
+struction, except that here the object is partially occluded
+instead of being fully visible in x. We call this problem
+amodal 3D reconstruction.
+Here, we elaborate on Amodal3R (Fig. 2), a new method
+for amodal 3D reconstruction. Unlike recent two-stage
+methods [7, 56] that first perform 2D amodal completion
+followed by 3D reconstruction, Amodal3R is an end-to-end
+occlusion-aware 3D reconstruction model that generates
+complete shapes and multi-view geometry directly within
+the 3D space. Formally, Amodal3R is a conditional gen-
+erator υθ(y|oi, Mvis, Mocc) that takes as input the image x,
+centered on the partially visible object oi, as well as the
+visibility mask Mvis and occlusion mask Mocc. The visibil-
+ity mask Mvis marks the pixels of image x containing the
+object oi, while Mocc marks the pixels containing the oc-
+cluders, i.e., all other objects that potentially obscure oi.
+For real images, these masks can be efficiently obtained us-
+ing pre-trained 2D segmentation models like Segment Any-
+thing [35]. By providing point coordinate prompts for the
+interest object oi and its occluders respectively, the seg-
+mentation model can generate the corresponding masks. In
+cases where multiple occluders are present or when occlud-
+ers fragment the visible area of the target object, a sequen-
+tial process is employed. Specifically, point prompts for
+each visible/occluding region are provided to the 2D seg-
+menter one at a time, with the model generating an individ-
+ual mask for each region. These masks are then aggregated
+to form a comprehensive visibility/occlusion mask.
+The challenges for Amodal3R are how to: (1) produce a
+plausible and complete 3D shape and appearance from par-
+tial observations, even in the absence of multi-view infor-
+mation; and (2) ensure 3D consistency in terms of geometry
+and photometry, maintaining seamless visual coherence be-
+tween visible and generated regions.
+3.1. Preliminaries: TRELLIS
+We begin by briefly reviewing the TRELLIS [81] model on
+which our model is based. TRELLIS is a conditional 3D
+diffusion model that performs denoising in a sparse 3D la-
+tent space. First, it introduces a transformer-based varia-
+tional autoencoder (V AE) (E, D), where the encoderE maps
+3
+
+PAGE 4
+sparse voxel features to structured latentsz, and the decoder
+D converts them into desired output representations, includ-
+ing 3D Gaussians [31], radiance fields, and meshes. In par-
+ticular, a 3D object oi is encoded using its structured la-
+tent variables (SLAT) defined as z = {(zi, pi)}L
+i=1, where
+zi ∈ RC is a local latent feature attached to the voxel at po-
+sition pi ∈ { 0, 1, . . . , N − 1}3, N is the spatial resolution
+of the grid, and L ≪ N 3 is the number of active voxels in-
+tersecting the object’s surface. This representation encodes
+both coarse geometric structures and fine appearance details
+by associating local latents with active voxels.
+TRELLIS comprises two diffusion models, one to pre-
+dict the active voxel centers {pi}L
+i=1 (stage 1) and the
+other to recover the corresponding latents {zi}L
+i=1 (stage
+2). Each model can be viewed as a denoising neural net-
+work υθ operating in a latent space ℓ, and trained to re-
+move Gaussian noise ϵ ∼ N (0, I) added to the latent code,
+i.e., ℓ(t) = (1 − t)ℓ(0) + tϵ, where t ∈ [0, 1] is the noise
+level [43]. The denoising network υθ is trained to minimize
+the flow loss:
+min
+θ
+E(ℓ(0),x),t,ϵ∥υθ(ℓ(t), x, t) − (ϵ − ℓ(0))∥2
+2, (1)
+where x is the image prompt. In stage 1, the latent code is
+a compressed version of the N × N × N occupancy vol-
+ume, where the spatial resolution is reduced from N = 64
+to r = 16. Hence, in this case the latent vector is a matrix
+ℓ ∈ RL′×C′
+of L′ = r3 = 4096 C ′-dimensional tokens. In
+stage 2, the latent code ℓ = {zi}L
+i=1 ∈ RL×C is a matrix
+of L C -dimensional tokens, where L is now the number of
+active voxels. Similar transformers are implemented to the
+corresponding denoising networks υθ (Fig. 3). The condi-
+tioning image x is read via cross-attention layers that pool
+information from the tokens cdino extracted by DINO [55]
+from the image x.
+3.2. Mask-Conditional Generative Models
+The key change needed to fine-tune the generator to work
+with partially occluded images is to condition the trans-
+formers υθ not only on the image x, but also on the masks
+Mvis and Mocc. A naive approach is to downsample or
+embed the masks to obtain tokens (cvis, cocc) that can be
+concatenated to the image tokens cdino, to be processed by
+cross-attention by the transformer as before. However, the
+image x contains significantly more information than the
+binary masks Mvis and Mocc, so the transformer, which is
+initially trained to consider x only, may simply ignore this
+information. This is compounded by the fact that learning
+to use this new information, which involves a new type of
+tokens that are incompatible with image ones, may require
+aggressive fine-tuning of the transformer.
+To sidestep this problem, inspired by masked attention
+approaches in 2D completion [92], we introduce mask-
+weighted cross-attention and an occlusion-aware attention
+Patchify
+Linear
+Pos.
+Emb.
+Linear
+Unpatchify
+Output
+Noised Feat. Cond. T
+◊N
+MHA
+MHA
+FFN
+DiT Block
+Emb.DINOv2 Patchify
+Linear
+Pos.
+Emb.
+Linear
+Unpatchify
+Output
+Noised Feat. Occ Cond. T
+◊N
+MHA
+MHA
+FFN
+DiT Block
+Emb.DINOv2
+TRELLIS
+Amodal3R
+KV
+Mod.
+Vis Occ
+KV
+Mod.
+MHA
+Weight
+Patchify 
+& 
+Weight
+KV
+Mod.Mod.
+(a) TRELLIS [81] (b) Amodal3R (Ours)
+Figure 3. The transformer structure of Amodal3R. Compared
+with the original TRELLIS [81] design, we further introduce the
+mask-weighted cross-attention and occlusion-aware layer. It ap-
+plies to both sparse structure and SLAT diffusion models.
+layer to better utilize the visibility mask Mvis and the oc-
+clusion mask Mocc without disrupting the pre-trained 3D
+generator too much. These are described next.
+Mask-weighted Cross-Attention. A key novel component
+of our model is mask-weighted cross-attention, which al-
+lows the model to focus its attention on the visible parts of
+the object. We implement this mechanism in each attention
+block in the transformers υθ of Sec. 3.1. Given the latent
+tokens ℓ ∈ RL×C input to a cross-attention layer as well
+as the image features cdino ∈ RK×C′
+of the partially visible
+object, cross-attention computes the similarity score matrix
+q = Wqℓ, [k, v] = Wkvcdino, S = qk⊤/
+√
+D, (2)
+where Wq and Wkv are learnable projections that map the
+latents ℓ to the query q and the conditioning image feature
+cdino to the key k and the value v, respectively, and D is the
+dimension of the query and key vectors.
+We wish to bias the token similarity matrix S ∈ RL×K
+towards the visible parts of the object. Recall that K
+is the number of tokens cdino extracted by DINOv2 [54]
+from the occluded image x · Mvis. Each token thus cor-
+responds to a P × P patch in the input image (where
+P = 14 ). We extract analogous flatten 1-D tokens cvis =
+[ρ(Mvis,1), . . . , ρ(Mvis,K)] from the visibility mask by cal-
+culating the fraction of P × P pixels that are visible in the
+j-th image patch Mvis,j. cvis,j = ρ(Mvis,j) ∈ [0, 1]. We
+then use these quantities to bias the computation of the at-
+tention matrix A = softmax(S + log cvis) ∈ [0, 1]L×M via
+broadcasting. Hence:
+Aij = cvis,j exp(Sij)PK
+k=1 cvis,k exp(Sik)
+. (3)
+4
+
+PAGE 5
+Figure 4. 3D-consistent mask example. Given a 3D mesh, we
+render selected triangles in a distinct color from the others to
+generate multi-view consistent masks. It allows the evaluation of
+multi-view methods in handling contact occlusion. (The occluded
+regions are shown in red.)
+In this manner, the visibility flag modulates the attention
+matrix A smoothly. If there are no visible pixels in a patch
+j, then Aij = 0 , so the corresponding image tokens are
+skipped in cross attention. While we have illustrated how
+this works for a single head, in practice Amodal3R uses a
+multiple-head transformer, to which Eq. (3) extends triv-
+ially. Please see the supplementary materials for details.
+Occlusion-aware Attention Layer . In addition to encour-
+aging the network to focus its attention on the visible part
+of the object, we also introduce an occlusion-aware atten-
+tion layer. For amodal completion, it is not enough to spec-
+ify the visible information; instead, we must also differen-
+tiate foreground occluders from the background, as this ex-
+plicitly identifies the potential regions requiring completion.
+Namely, if a pixel is denoted as invisible in the mask Mvis,
+this might be because there is an occluder in front of that
+pixel (so the pixel could have contained the object except
+due to occlusion), or because the pixel is entirely off the
+object. This information is encoded by the mask Mocc.
+To allow the model to distinguish between visible, oc-
+cluded and background areas, we add one more cross-
+attention layer placed immediately after the mask-weighted
+cross-attention layer, and pooling solely the occlusion
+mask Mocc. In order to do so, we encode the occlu-
+sions mask Mvis as a set of flatten 1-D tokens cocc =
+[ρ(Mocc,1), . . . , ρ(Mocc,M)], as before and then simply pool
+cocc using a cross-attention layer.
+3.3. Simulating Occluded 3D Data
+To train and evaluate our model, we require a dataset of 3D
+assets imaged in scenarios with clutter and occlusions. It
+is challenging to obtain such data in the real world, so we
+resorted to synthetic data and simulation to train our model.
+Random 2D Occlusions. In order to train our model, each
+training sample (o, x, Mvis, Mocc) consists of a 3D object
+o (from which ground truth latents can be obtained by us-
+ing the encoders of Sec. 3.1), an image x with partial oc-
+clusions, and corresponding visibility and occlusion masks
+Mvis and Mocc. In a real scenario, occlusions arise from
+other objects in the scene. In a multi-view setting, like the
+one discussed below, these occlusions need to be consis-
+tent across views, reflecting the underlying scene geome-
+try. However, because our model is trained for single-view
+reconstruction, we can simulate occlusions by randomly
+masking parts of the object after rendering it in 2D. This is
+simpler and allows us to generate fresh occlusion patterns
+each time a view is sampled for training.
+Thus, given o and an image x rendered from a random
+viewpoint, we generate random occlusion masks as follows.
+Inspired by work on 2D completion [27, 41, 58, 90], we ran-
+domly place lines, ellipses, and rectangles, simulating di-
+verse masking patterns. The union of these random shapes
+gives us the occlusion mask Mocc. Then, if Mobj is the
+mask of the unoccluded object, the visible mask is given
+by Mvis = Mobj ⊙ (1 − Mocc). Examples of such patterns
+are given in the supplementary material.
+3D-consistent occlusions. In a real scene imaged from
+multiple viewpoints, occlusions are not random but consis-
+tent across views as they are caused by other objects. This
+is particularly true for contact occlusions, where part of an
+object remains occluded by another fromall viewpoints. To
+evaluate the model’s performance under such challenging
+conditions, 3D-consistent masks are required.
+To efficiently generate such contact occlusion masks, we
+leverage 3D meshes during rendering. Starting from a ran-
+domly chosen triangle, we apply a random-walk strategy
+to iteratively select neighboring triangles, forming continu-
+ous occluded regions until the predefined mask ratio is met.
+By rendering these masked meshes using the same camera
+parameters as the RGB images, we ensure multi-view con-
+sistency in the generated occlusion masks (see Fig. 4).
+3.4. Reconstruction with Multi-view Input
+Since our flow-based model performs multiple denoising
+steps and does not require known camera poses for input
+views, Amodal3R can accept multi-view reference images
+X = {xi}N
+i=1 as conditioning inputs at different steps of the
+denoising process. While multi-view conditioning naturally
+improves reconstruction performance, a potential issue with
+such multi-view conditioning is that an image used earlier
+in the denoising process has a stronger influence on the final
+3D geometry. This is because early denoising steps estab-
+lish the coarse geometry, whereas later steps refine higher-
+frequency details [33, 34]. Therefore, we prioritize input
+images based on their visibility. Specifically, when experi-
+menting with multi-view inputs, we sort the images in pro-
+portion to the object visibility |Mvis|, ensuring that images
+with higher visibility are used as primary inputs.
+4. Experiments
+4.1. Experiment Settings
+Datasets. Amodal3R is trained on a combination of 3D
+synthetic dataset: 3D-FUTURE (9,472 objects [17]), ABO
+(4,485 objects [13]), and HSSD (6,670 objects [32]). Once
+5
+
+PAGE 6
+Method V-num 2D-Comp FID ↓ KID(%) ↓ CLIP↑ P-FID↓ COV(%) ↑ MMD(‰ ) ↓
+GaussianAnything [37] 1 pix2gestalt [56] 92.26 1.30 0.74 34.69 35.92 5.03
+Real3D [28] 1 pix2gestalt [56] 91.21 2.02 0.75 23.92 19.61 9.21
+TRELLIS [81] 1 pix2gestalt [56] 58.82 5.87 0.76 26.43 31.65 4.17
+Amodal3R (Ours) 1 - 30.64 0.35 0.81 7.69 39.61 3.62
+LaRa [6] 4 pix2gestalt [56] 172.84 4.54 0.70 66.34 24.56 8.11
+LaRa [6] 4 pix2gestalt [56]+MV 97.53 2.63 0.75 21.80 26.21 8.61
+TRELLIS [81] 4 pix2gestalt [56] 65.69 6.92 0.78 24.64 32.33 4.26
+TRELLIS [81] 4 pix2gestalt [56]+MV 60.37 1.85 0.83 19.68 31.75 4.21
+Amodal3R (Ours) 4 - 26.27 0.22 0.84 5.03 38.74 3.61
+Table 1. Amodal 3D reconstruction results on GSO [16]. Here, V-num denotes the number of input views, and 2D-Comp refers to the
+2D completion method. For single-view image-to-3D, we first complete occluded objects using pix2gestalt [56] before passing them to
+various 3D models. For multi-view image-to-3D, we adopt two variants: 1) pix2gestalt [56] is applied independently on each view; 2)
+pix2gestalt [56] + MV: a single-view completion is generated first, followed by multi-view diffusion [63] to synthesize 4 views as inputs.
+Without bells and whistles, Amodal3R consistently outperforms state-of-the-art models across all evaluation metrics.
+Method V-num 2D-Comp FID ↓ KID(%) ↓ CLIP↑ P-FID↓ COV(%) ↑ MMD(‰ ) ↓
+GaussianAnything [37] 1 pix2gestalt [56] 57.17 1.22 0.80 21.97 33.56 7.23
+Real3D [28] 1 pix2gestalt [56] 59.92 1.63 0.79 23.31 24.35 9.53
+TRELLIS [81] 1 pix2gestalt [56] 43.05 6.83 0.80 26.04 26.28 6.87
+Amodal3R (Ours) 1 - 23.45 0.42 0.83 5.00 37.09 5.89
+LaRa [6] 4 pix2gestalt [56] 123.52 3.61 0.75 45.91 27.89 9.67
+LaRa [6] 4 pix2gestalt [56]+MV 75.33 4.14 0.80 13.00 24.82 10.93
+TRELLIS [81] 4 pix2gestalt [56] 46.34 8.77 0.81 28.76 25.35 7.13
+TRELLIS [81] 4 pix2gestalt [56]+MV 43.00 7.53 0.81 24.41 26.55 7.05
+Amodal3R (Ours) 4 - 20.93 0.50 0.85 3.78 39.03 5.75
+Table 2. Amodal 3D reconstruction results on Toys4K [69]. The experimental setting is the same to Tab. 1, except for the dataset.
+Amodal3R is trained, we first assess its effectiveness
+on Toys4K (randomly sampling 1,500 objects [69]) and
+Google Scanned Objects (GSO) (1,030 objects [16]), which
+are excluded from our training data for our and the baseline
+model. During inference, a 3D-consistent mask occludes
+each input object, and each view is augmented with addi-
+tional randomly generated occlusion areas. This ensures
+that the model cannot directly extract the region required
+to be completed from the occlusion regions. To further as-
+sess the out-of-distribution generalization ability in prac-
+tical applications, we also evaluate all models on the 3D
+scene dataset Replica [70] as well as on in-the-wild images.
+The training and evaluation dataset will be released.
+Metrics. To measure the quality of the rendered images,
+we use the Fr ´echet Inception Distance (FID) [21] and the
+Kernel Inception Distance (KID) [3]. To measure the qual-
+ity of the reconstructed 3D geometry, we use the Coverage
+Score (COV), the Point cloud FID (P-FID) [51], and the
+Minimum Matching Distance (MMD) using the Chamfer
+Distance (CD). COV measures the diversity of the results
+and P-FID and MMD the quality of the 3D reconstruction.
+We also use the CLIP score [59] to evaluate the consistency
+between each pair generated and ground-truth objects.
+Baselines. Most 3D generative models are trained on com-
+plete object inputs. To ensure fair comparisons, we com-
+plete the partially visible 2D objects before passing them
+to 3D generators. Sepecifically, we use pix2gestalt [56], a
+state-of-the-art 2D amodal completion network. Using this
+protocol, we compare Amodal3R to state-of-the-art meth-
+ods such as TRELLIS [81], Real3D [28], GaussianAny-
+thing [37]ICLR’25, and LaRa [6]ECCV’24.
+Implementation Details. Amodal3R is trained on 4 A100
+GPUs (40G) for 20K steps with a batch size of 16, taking
+approximately a day. Following TRELLIS [81], we imple-
+ment classifier-free guidance (CFG [22]) with a drop rate of
+0.1 and AdamW [45] optimizer with a learning rate of 1e-4.
+More details are provided in the supplementary material.
+4.2. Main Results
+Quantitative Results. We compare Amodal3R to the state-
+of-the-art for amodal 3D reconstruction in Tabs. 1 and 2.
+Amodal3R significantly outperforms the baselines across
+all metrics in both single- and multi-view 3D recon-
+struction, demonstrating its effectiveness. Interestingly,
+baselines that use multiple but potentially inconsistently-
+completed views (“4 V-num + pix2gestalt”) are worse than
+6
+
+PAGE 7
+Input pix2gestalt [56] GaussianAnything [37] Real3D [28] TRELLIS [81] Amodal3R (Ours)
+Figure 5. Single-view amodal 3D reconstruction. The occlusion regions are shown in black and the visible regions are highlighted with
+red outlines. More examples are provided in supplementary material Fig. C.4.
+Input pix2gestalt [56] LaRa [6] TRELLIS [81] Amodal3R (Ours)
+Figure 6. Multi-view amodal 3D reconstruction. The above results are reconstructed using 4 occluded input views. Due to limited space,
+we present only the best results for LaRa and TRELLIS under the ”pix2gestalt+MV” setting. We apply 3d-consistent mask and random
+extended occlusion areas. More examples are provided in supplementary material Fig. C.5.
+Input Naive
+concatenation
+w/ only Mvis
+attention
+w/ only Mocc
+attention
+Full
+model
+Figure 7. Ablation examples. Naive concatenation fails to recon-
+struct complete shape and appearance. Mask-weighted attention
+alone extends geometry into background regions, while occlusion-
+aware attention alone cannot guarantee photorealistic appearance.
+using a single completed view (“1 V-num + pix2gestalt”).
+This shows that inconsistent 2D completion does confuse
+reconstruction models to the point that using a single view
+is preferable (Sec. 2). This issue does not affect Amodal3R
+as it does not rely on 2D completion; in our case, utilizing
+more occluded views does improve the results as expected.
+Qualitative Results. The qualitative results are shown
+in Figs. 5 and 6 and in supplementary material Figs. C.4
+and C.5. For all baselines, pix2gestalt is first applied for
+2D amodal completion (second column), and the completed
+images are passed to each baseline image-to-3D model.
+Amodal3R produces high-quality 3D assets even under
+challenging conditions in both single-view and multi-view
+Method FID ↓ KID(%)↓ COV(%)↑ MMD(‰ ) ↓
+naive conditioning 31.96 0.49 37.96 3.61
+w/ only mask-weighted attention30.53 0.38 36.90 3.69
+w/ only occlusion-aware layer 31.77 0.57 40.19 3.51
+full model (Ours) 30.64 0.35 39.61 3.62
+Table 3. Ablations on different mask conditioning designs. The
+Best and the second best results are highlighted.
+image-to-3D tasks. In contrast, 2D amodal completions in-
+consistencies accumulate as more views are added, particu-
+larly when pix2gestalt is more uncertain, confusing the re-
+constructor models downstream. For instance, in the giraffe
+example in Fig. 5, the pix2gestalt completion fails to cap-
+ture the overall structure of the 3D object correctly, which
+in turn leads the 3D generator models to misinterpret it as a
+woodstick-like shape. In contrast, Amodal3R reconstructs
+the 3D geometry and appearance well, with good alignment
+to the occluded inputs. These findings highlight not only the
+effectiveness of Amodal3R but also the advantage of com-
+pleting objects while reconstructing them, which avoids re-
+lying on monocular 2D completion models that may intro-
+duce inconsistencies.
+4.3. Ablation Study
+We conducted several ablations to study the impact of the
+different components of Amodal3R and report the results
+in Tab. 3 and Fig. 7. For these experiments, we test single-
+view image-to-3D reconstruction on the GSO dataset.
+Naive Conditioning. We first evaluated a version of the
+model that still conditions the reconstruction on the visi-
+7
+
+PAGE 8
+Occluded input pix2gestalt [56] GaussianAnything [37] Real3D [28] TRELLIS [81] Amodal3R (Ours)
+Occluded input Novel views Normal maps
+Figure 8. Examples on Replica [70] and in-the-wild images. The target objects and the occluders are shown in red and green outlines.
+bility and occlusion masks, but without using the modules
+of Sec. 3.2. Instead, we directly concatenate the tokens cvis
+to cdino to form the condition for the cross-attention layer.
+The results (first row in Tab. 3 and second column in Fig. 7)
+show that, while the resulting model can still perform basic
+completion, the textures in the occluded regions are incon-
+sistent with those in the visible ones, and the reconstructed
+geometry is inaccurate, e.g. the hole in the shoe.
+Mask-weighted Attention. To evaluate the effectiveness
+of our proposed mask-weighted attention mechanism, we
+integrate it into the training while omitting the occlusion-
+aware layer. The results demonstrate improved rendering
+quality — especially in capturing texture details in the vis-
+ible areas — and significantly enhanced appearance con-
+sistency. However, the geometries exhibit deficiencies, as
+seen in the problematic shoe in Fig. 7 (first row), and the
+toy monster with a broken back (third row).
+Occlusion-aware Layer . The integration of the occlusion-
+aware layer improves the geometry both quantitatively and
+qualitatively. This aligns with our motivation for introduc-
+ing an additional cross-attention layer, aimed at reconstruct-
+ing the visible areas via the image-conditioned layer and oc-
+cluded areas via the subsequent layer. However, occlusion-
+aware layer alone still results in unsatisfactory appearances,
+which again indirectly attests to the effectiveness of mask-
+weighted attention mechanism.
+Full Model. Consequently, the full model integrating both
+modules achieves optimal 3D generation results character-
+ized by complete geometry and consistent textures.
+4.4. Real-World Generation / Completion
+Amodal3R is inherently superior in generalizing to out-of-
+distribution amodal 3D reconstruction, primarily due to the
+fact that we build upon the model on a “foundation” 3D gen-
+erator, and fine-tune it with diverse categories. To demon-
+strate this advantage, we conduct scene-level dataset evalu-
+ations: Replica [70] (first two rows) and on in-the-wild im-
+ages (3rd-5th rows) in Fig. 8. Here we adopt Segment Any-
+thing [35] to get the visibility and occlusion masks. The re-
+sults show that Amodal3R generates reasonable 3D assets,
+whereas pix2gestalt fails to infer complete shapes from the
+same inputs, leading to unsatisfactory results from subse-
+quent image-to-3D models. We also visualize the colored
+normal maps, which show that the results of Amodal3R are
+simultaneously rich in geometric and textural detail.
+5. Conclusion
+We have introduced Amodal3R, a novel approach to recon-
+struct complete 3D shape and appearance from partially vis-
+ible 2D images. The key to our success is that we construct
+mask-weighted cross-attention mechanism and occlusion-
+aware layer to effectively exploit visible and occluded infor-
+mation. Compared to the state-of-the-art methods that rely
+8
+
+PAGE 9
+on sequential 2D completion followed by 3D generation,
+our Amodal3R achieves remarkably better performance by
+operating directly in 3D space. Furthermore, results on in-
+the-wild images indicate its potential for subsequent ap-
+plications in 3D decomposition and scene understanding,
+marking a step towards robust 3D asset reconstruction in
+real-world environments with complex occlusion.
+References
+[1] Titas Anciukevi ˇcius, Zexiang Xu, Matthew Fisher, Paul Hen-
+derson, Hakan Bilen, Niloy J Mitra, and Paul Guerrero. Ren-
+derdiffusion: Image diffusion for 3d reconstruction, inpaint-
+ing and generation. In Proceedings of the IEEE/CVF con-
+ference on computer vision and pattern recognition , pages
+12608–12618, 2023. 2
+[2] Jiayang Ao, Yanbei Jiang, Qiuhong Ke, and Krista A
+Ehinger. Open-world amodal appearance completion. arXiv
+preprint arXiv:2411.13019, 2024. 2
+[3] Mikołaj Bi´nkowski, Danica J Sutherland, Michael Arbel, and
+Arthur Gretton. Demystifying mmd gans. arXiv preprint
+arXiv:1801.01401, 2018. 6, 2
+[4] Eric R Chan, Marco Monteiro, Petr Kellnhofer, Jiajun Wu,
+and Gordon Wetzstein. pi-gan: Periodic implicit generative
+adversarial networks for 3d-aware image synthesis. In Pro-
+ceedings of the IEEE/CVF conference on computer vision
+and pattern recognition (CVPR), pages 5799–5809, 2021. 2
+[5] Eric R Chan, Connor Z Lin, Matthew A Chan, Koki Nagano,
+Boxiao Pan, Shalini De Mello, Orazio Gallo, Leonidas J
+Guibas, Jonathan Tremblay, Sameh Khamis, et al. Effi-
+cient geometry-aware 3d generative adversarial networks. In
+CVPR, 2022. 1, 2
+[6] Anpei Chen, Haofei Xu, Stefano Esposito, Siyu Tang, and
+Andreas Geiger. Lara: Efficient large-baseline radiance
+fields. In European Conference on Computer Vision, pages
+338–355. Springer, 2024. 1, 6, 7, 5
+[7] Minghao Chen, Roman Shapovalov, Iro Laina, Tom Mon-
+nier, Jianyuan Wang, David Novotny, and Andrea Vedaldi.
+Partgen: Part-level 3d generation and reconstruction with
+multi-view diffusion models. In Proceedings of the
+IEEE/CVF Conference on Computer Vision and Pattern
+Recognition (CVPR), 2025. 2, 3
+[8] Yiwen Chen, Tong He, Di Huang, Weicai Ye, Sijin Chen, Ji-
+axiang Tang, Xin Chen, Zhongang Cai, Lei Yang, Gang Yu,
+et al. Meshanything: Artist-created mesh generation with au-
+toregressive transformers. arXiv preprint arXiv:2406.10163,
+2024. 2
+[9] Yuedong Chen, Chuanxia Zheng, Haofei Xu, Bohan Zhuang,
+Andrea Vedaldi, Tat-Jen Cham, and Jianfei Cai. Mvsplat360:
+Feed-forward 360 scene synthesis from sparse views. In
+Neural Information Processing Systems (NeurIPS), 2024. 2
+[10] Yen-Chi Cheng, Hsin-Ying Lee, Sergey Tulyakov, Alexan-
+der G Schwing, and Liang-Yan Gui. Sdfusion: Multimodal
+3d shape completion, reconstruction, and generation. InPro-
+ceedings of the IEEE/CVF Conference on Computer Vision
+and Pattern Recognition, pages 4456–4465, 2023. 2
+[11] Junhyeong Cho, Kim Youwang, Hunmin Yang, and Tae-
+Hyun Oh. Robust 3d shape reconstruction in zero-shot from
+a single image in the wild. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition
+(CVPR), 2025. 2
+[12] Ruihang Chu, Enze Xie, Shentong Mo, Zhenguo Li,
+Matthias Nießner, Chi-Wing Fu, and Jiaya Jia. Diffcomplete:
+Diffusion-based generative 3d shape completion. Advances
+in Neural Information Processing Systems, 36, 2024. 2
+[13] Jasmine Collins, Shubham Goel, Kenan Deng, Achlesh-
+war Luthra, Leon Xu, Erhan Gundogdu, Xi Zhang, Tomas
+F Yago Vicente, Thomas Dideriksen, Himanshu Arora, et al.
+Abo: Dataset and benchmarks for real-world 3d object un-
+derstanding. In Proceedings of the IEEE/CVF conference
+on computer vision and pattern recognition , pages 21126–
+21136, 2022. 5
+[14] Ruikai Cui, Weizhe Liu, Weixuan Sun, Senbo Wang,
+Taizhang Shang, Yang Li, Xibin Song, Han Yan, Zhennan
+Wu, Shenzhou Chen, et al. Neusdfusion: A spatial-aware
+generative model for 3d shape completion, reconstruction,
+and generation. In European Conference on Computer Vi-
+sion, pages 1–18. Springer, 2024. 2
+[15] Matt Deitke, Ruoshi Liu, Matthew Wallingford, Huong Ngo,
+Oscar Michel, Aditya Kusupati, Alan Fan, Christian Laforte,
+Vikram V oleti, Samir Yitzhak Gadre, et al. Objaverse-xl: A
+universe of 10m+ 3d objects. Advances in Neural Informa-
+tion Processing Systems, 36, 2024. 3
+[16] Laura Downs, Anthony Francis, Nate Koenig, Brandon Kin-
+man, Ryan Hickman, Krista Reymann, Thomas B McHugh,
+and Vincent Vanhoucke. Google scanned objects: A high-
+quality dataset of 3d scanned household items. In 2022 In-
+ternational Conference on Robotics and Automation (ICRA),
+pages 2553–2560. IEEE, 2022. 2, 6
+[17] Huan Fu, Rongfei Jia, Lin Gao, Mingming Gong, Binqiang
+Zhao, Steve Maybank, and Dacheng Tao. 3d-future: 3d fur-
+niture shape with texture. International Journal of Computer
+Vision, 129:3313–3337, 2021. 5
+[18] Jun Gao, Tianchang Shen, Zian Wang, Wenzheng Chen,
+Kangxue Yin, Daiqing Li, Or Litany, Zan Gojcic, and Sanja
+Fidler. Get3d: A generative model of high quality 3d tex-
+tured shapes learned from images. Advances In Neural In-
+formation Processing Systems, 35:31841–31854, 2022. 2
+[19] Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing
+Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and
+Yoshua Bengio. Generative adversarial networks. Commu-
+nications of the ACM, 63(11):139–144, 2020. 2
+[20] Anchit Gupta, Wenhan Xiong, Yixin Nie, Ian Jones, and Bar-
+las O˘guz. 3dgen: Triplane latent diffusion for textured mesh
+generation. arXiv preprint arXiv:2303.05371, 2023. 2
+[21] Martin Heusel, Hubert Ramsauer, Thomas Unterthiner,
+Bernhard Nessler, and Sepp Hochreiter. Gans trained by a
+two time-scale update rule converge to a local nash equilib-
+rium. Advances in neural information processing systems ,
+30, 2017. 6, 2
+[22] Jonathan Ho and Tim Salimans. Classifier-free diffusion
+guidance. arXiv preprint arXiv:2207.12598, 2022. 6
+[23] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising dif-
+fusion probabilistic models. In Advances in Neural Informa-
+tion Processing Systems (NeurIPS), pages 6840–6851, 2020.
+2
+9
+
+PAGE 10
+[24] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou,
+Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao
+Tan. Lrm: Large reconstruction model for single image to
+3d. In International Conference on Learning Representa-
+tions (ICLR), 2024. 1
+[25] Tao Hu, Zhizhong Han, and Matthias Zwicker. 3d shape
+completion with multi-view consistent inference. In Pro-
+ceedings of the AAAI conference on artificial intelligence ,
+pages 10997–11004, 2020. 2
+[26] Zitian Huang, Yikuan Yu, Jiawen Xu, Feng Ni, and Xinyi
+Le. Pf-net: Point fractal network for 3d point cloud comple-
+tion. In Proceedings of the IEEE/CVF conference on com-
+puter vision and pattern recognition (CVPR) , pages 7662–
+7670, 2020. 2
+[27] Satoshi Iizuka, Edgar Simo-Serra, and Hiroshi Ishikawa.
+Globally and locally consistent image completion. ACM
+Transactions on Graphics (TOG), 36(4):107, 2017. 5
+[28] Hanwen Jiang, Qixing Huang, and Georgios Pavlakos.
+Real3d: Scaling up large reconstruction models with real-
+world images. arXiv preprint arXiv:2406.08479, 2024. 6, 7,
+8, 2, 4
+[29] Heewoo Jun and Alex Nichol. Shap-e: Generat-
+ing conditional 3d implicit functions. arXiv preprint
+arXiv:2305.02463, 2023. 3
+[30] Yoni Kasten, Ohad Rahamim, and Gal Chechik. Point cloud
+completion with pretrained text-to-image diffusion models.
+Advances in Neural Information Processing Systems , 36,
+2024. 2
+[31] Bernhard Kerbl, Georgios Kopanas, Thomas Leimk ¨uhler,
+and George Drettakis. 3d gaussian splatting for real-time
+radiance field rendering. ACM Trans. Graph., 42(4):139–1,
+2023. 4
+[32] Mukul Khanna, Yongsen Mao, Hanxiao Jiang, Sanjay
+Haresh, Brennan Shacklett, Dhruv Batra, Alexander Clegg,
+Eric Undersander, Angel X Chang, and Manolis Savva.
+Habitat synthetic scenes dataset (hssd-200): An analysis of
+3d scene scale and realism tradeoffs for objectgoal naviga-
+tion. In Proceedings of the IEEE/CVF Conference on Com-
+puter Vision and Pattern Recognition , pages 16384–16393,
+2024. 5
+[33] Gwanghyun Kim, Taesung Kwon, and Jong Chul Ye. Diffu-
+sionclip: Text-guided diffusion models for robust image ma-
+nipulation. In Proceedings of the IEEE/CVF conference on
+computer vision and pattern recognition, pages 2426–2435,
+2022. 5
+[34] Yulhwa Kim, Dongwon Jo, Hyesung Jeon, Taesu Kim, Dae-
+hyun Ahn, Hyungjun Kim, et al. Leveraging early-stage ro-
+bustness in diffusion models for efficient and high-quality
+image synthesis. Advances in Neural Information Process-
+ing Systems, 36:1229–1244, 2023. 5
+[35] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao,
+Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer White-
+head, Alexander C Berg, Wan-Yen Lo, et al. Segment any-
+thing. In Proceedings of the IEEE/CVF international confer-
+ence on computer vision, pages 4015–4026, 2023. 3, 8
+[36] Yushi Lan, Feitong Tan, Di Qiu, Qiangeng Xu, Kyle Gen-
+ova, Zeng Huang, Sean Fanello, Rohit Pandey, Thomas
+Funkhouser, Chen Change Loy, et al. Gaussian3diff: 3d
+gaussian diffusion for 3d full head synthesis and editing.
+arXiv preprint arXiv:2312.03763, 2023. 2
+[37] Yushi Lan, Shangchen Zhou, Zhaoyang Lyu, Fangzhou
+Hong, Shuai Yang, Bo Dai, Xingang Pan, and Chen Change
+Loy. Gaussiananything: Interactive point cloud latent dif-
+fusion for 3d generation. arXiv preprint arXiv:2411.08033,
+2024. 6, 7, 8, 2, 4
+[38] Muheng Li, Yueqi Duan, Jie Zhou, and Jiwen Lu. Diffusion-
+sdf: Text-to-shape via voxelized diffusion. In Proceedings
+of the IEEE/CVF conference on computer vision and pattern
+recognition, pages 12642–12651, 2023. 2
+[39] Xinhai Li, Huaibin Wang, and Kuo-Kun Tseng. Gaus-
+siandiffusion: 3d gaussian splatting for denoising diffusion
+probabilistic models with structured noise. arXiv preprint
+arXiv:2311.11221, 2023. 2
+[40] Chen-Hsuan Lin, Chen Kong, and Simon Lucey. Learning
+efficient point cloud generation for dense 3d object recon-
+struction. In proceedings of the AAAI Conference on Artifi-
+cial Intelligence (AAAI), 2018. 2
+[41] Guilin Liu, Fitsum A. Reda, Kevin J. Shih, Ting-Chun Wang,
+Andrew Tao, and Bryan Catanzaro. Image inpainting for
+irregular holes using partial convolutions. In Proceedings
+of the European Conference on Computer Vision (ECCV) ,
+2018. 5
+[42] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-
+makov, Sergey Zakharov, and Carl V ondrick. Zero-1-to-
+3: Zero-shot one image to 3d object. In Proceedings of
+the IEEE/CVF international conference on computer vision
+(ICCV), pages 9298–9309, 2023. 1, 2
+[43] Xingchao Liu, Chengyue Gong, and Qiang Liu. Flow
+straight and fast: Learning to generate and transfer data with
+rectified flow. arXiv preprint arXiv:2209.03003, 2022. 4
+[44] Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin, Yuan Liu,
+Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai Zhang,
+Marc Habermann, Christian Theobalt, et al. Wonder3d: Sin-
+gle image to 3d using cross-domain diffusion. In Proceed-
+ings of the IEEE/CVF conference on computer vision and
+pattern recognition (CVPR), pages 9970–9980, 2024. 2
+[45] I Loshchilov. Decoupled weight decay regularization. arXiv
+preprint arXiv:1711.05101, 2017. 6
+[46] Shitong Luo and Wei Hu. Diffusion probabilistic mod-
+els for 3d point cloud generation. In Proceedings of
+the IEEE/CVF conference on computer vision and pattern
+recognition (CVPR), pages 2837–2845, 2021. 2
+[47] Luke Melas-Kyriazi, Christian Rupprecht, and Andrea
+Vedaldi. Pc2: Projection-conditioned point cloud diffu-
+sion for single-image 3d reconstruction. In Proceedings of
+the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 12923–12932, 2023. 2
+[48] Norman M ¨uller, Yawar Siddiqui, Lorenzo Porzi,
+Samuel Rota Bulo, Peter Kontschieder, and Matthias
+Nießner. Diffrf: Rendering-guided 3d radiance field dif-
+fusion. In Proceedings of the IEEE/CVF Conference on
+Computer Vision and Pattern Recognition (CVPR) , pages
+4328–4338, 2023. 2
+[49] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter
+Battaglia. Polygen: An autoregressive generative model of
+10
+
+PAGE 11
+3d meshes. In International Conference on Machine Learn-
+ing (ICML), pages 7220–7229. PMLR, 2020. 1, 2
+[50] Thu Nguyen-Phuoc, Chuan Li, Lucas Theis, Christian
+Richardt, and Yong-Liang Yang. Hologan: Unsupervised
+learning of 3d representations from natural images. In Pro-
+ceedings of the IEEE/CVF international conference on com-
+puter vision (ICCV), pages 7588–7597, 2019. 1, 2
+[51] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela
+Mishkin, and Mark Chen. Point-e: A system for generat-
+ing 3d point clouds from complex prompts. arXiv preprint
+arXiv:2212.08751, 2022. 2, 6
+[52] Michael Niemeyer and Andreas Geiger. Giraffe: Represent-
+ing scenes as compositional generative neural feature fields.
+In Proceedings of the IEEE/CVF conference on computer vi-
+sion and pattern recognition (CVPR) , pages 11453–11464,
+2021. 2
+[53] Evangelos Ntavelis, Aliaksandr Siarohin, Kyle Olszewski,
+Chaoyang Wang, Luc V Gool, and Sergey Tulyakov. Au-
+todecoding latent 3d diffusion models. Advances in Neural
+Information Processing Systems, 36:67021–67047, 2023. 3
+[54] Maxime Oquab, Timoth ´ee Darcet, Th ´eo Moutakanni, Huy
+V o, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez,
+Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby, et al.
+Dinov2: Learning robust visual features without supervision.
+arXiv preprint arXiv:2304.07193, 2023. 4, 1
+[55] Maxime Oquab, Timoth ´ee Darcet, Th´eo Moutakanni, Huy V
+V o, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez,
+Daniel HAZIZA, Francisco Massa, Alaaeldin El-Nouby,
+et al. Dinov2: Learning robust visual features without super-
+vision. Transactions on Machine Learning Research, 2023.
+3, 4
+[56] Ege Ozguroglu, Ruoshi Liu, D ´ıdac Sur´ıs, Dian Chen, Achal
+Dave, Pavel Tokmakov, and Carl V ondrick. pix2gestalt:
+Amodal segmentation by synthesizing wholes. In 2024
+IEEE/CVF Conference on Computer Vision and Pattern
+Recognition (CVPR), pages 3931–3940. IEEE Computer So-
+ciety, 2024. 2, 3, 6, 7, 8, 4, 5
+[57] Eunbyung Park, Jimei Yang, Ersin Yumer, Duygu Ceylan,
+and Alexander C Berg. Transformation-grounded image
+generation network for novel 3d view synthesis. In Proceed-
+ings of the ieee conference on computer vision and pattern
+recognition (CVPR), pages 3500–3509, 2017. 2
+[58] Deepak Pathak, Philipp Krahenbuhl, Jeff Donahue, Trevor
+Darrell, and Alexei A Efros. Context encoders: Feature
+learning by inpainting. In Proceedings of the IEEE Confer-
+ence on Computer Vision and Pattern Recognition (CVPR) ,
+pages 2536–2544. IEEE, 2016. 5
+[59] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya
+Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,
+Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learn-
+ing transferable visual models from natural language super-
+vision. In International conference on machine learning
+(ICML), pages 8748–8763. PmLR, 2021. 6, 2
+[60] Barbara Roessle, Norman M ¨uller, Lorenzo Porzi, Samuel
+Rota Bul `o, Peter Kontschieder, Angela Dai, and Matthias
+Nießner. L3dg: Latent 3d gaussian diffusion. In SIGGRAPH
+Asia 2024 Conference Papers, pages 1–11, 2024. 3
+[61] Robin Rombach, Andreas Blattmann, Dominik Lorenz,
+Patrick Esser, and Bj ¨orn Ommer. High-resolution image
+synthesis with latent diffusion models. In Proceedings of
+the IEEE/CVF conference on computer vision and pattern
+recognition (CVPR), pages 10684–10695, 2022. 2
+[62] Katja Schwarz, Yiyi Liao, Michael Niemeyer, and Andreas
+Geiger. Graf: Generative radiance fields for 3d-aware im-
+age synthesis. Advances in Neural Information Processing
+Systems (NeurIPS), 33:20154–20166, 2020. 2
+[63] Ruoxi Shi, Hansheng Chen, Zhuoyang Zhang, Minghua Liu,
+Chao Xu, Xinyue Wei, Linghao Chen, Chong Zeng, and Hao
+Su. Zero123++: a single image to consistent multi-view dif-
+fusion base model. arXiv preprint arXiv:2310.15110, 2023.
+6, 2
+[64] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long, Kejie Li,
+and Xiao Yang. Mvdream: Multi-view diffusion for 3d gen-
+eration. arXiv preprint arXiv:2308.16512, 2023. 2, 3
+[65] Wu Shuang, Youtian Lin, Yifei Zeng, Feihu Zhang, Jingxi
+Xu, Philip Torr, Xun Cao, and Yao Yao. Direct3d: Scal-
+able image-to-3d generation via 3d latent diffusion trans-
+former. Advances in Neural Information Processing Systems,
+37:121859–121881, 2025. 3
+[66] J Ryan Shue, Eric Ryan Chan, Ryan Po, Zachary Ankner,
+Jiajun Wu, and Gordon Wetzstein. 3d neural field generation
+using triplane diffusion. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition
+(CVPR), pages 20875–20886, 2023. 2
+[67] Yawar Siddiqui, Antonio Alliegro, Alexey Artemov, Ta-
+tiana Tommasi, Daniele Sirigatti, Vladislav Rosov, Angela
+Dai, and Matthias Nießner. Meshgpt: Generating triangle
+meshes with decoder-only transformers. In Proceedings of
+the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition (CVPR), pages 19615–19625, 2024. 1, 2
+[68] Jascha Sohl-Dickstein, Eric Weiss, Niru Maheswaranathan,
+and Surya Ganguli. Deep unsupervised learning using
+nonequilibrium thermodynamics. In International confer-
+ence on machine learning (ICML) , pages 2256–2265. pmlr,
+2015. 2
+[69] Stefan Stojanov, Anh Thai, and James M Rehg. Using shape
+to categorize: Low-shot learning with an explicit shape bias.
+In Proceedings of the IEEE/CVF conference on computer vi-
+sion and pattern recognition, pages 1798–1808, 2021. 2, 6
+[70] Julian Straub, Thomas Whelan, Lingni Ma, Yufan Chen, Erik
+Wijmans, Simon Green, Jakob J Engel, Raul Mur-Artal, Carl
+Ren, Shobhit Verma, et al. The replica dataset: A digital
+replica of indoor spaces. arXiv preprint arXiv:1906.05797,
+2019. 2, 6, 8
+[71] David Stutz and Andreas Geiger. Learning 3d shape comple-
+tion from laser scan data with weak supervision. InProceed-
+ings of the IEEE conference on computer vision and pattern
+recognition, pages 1955–1964, 2018. 2
+[72] Stanislaw Szymanowicz, Christian Rupprecht, and Andrea
+Vedaldi. Viewset diffusion: (0-)image-conditioned 3d gener-
+ative models from 2d data. In Proceedings of the IEEE/CVF
+International Conference on Computer Vision (ICCV), pages
+8863–8873, 2023. 1, 2, 3
+[73] Stanislaw Szymanowicz, Chrisitian Rupprecht, and Andrea
+Vedaldi. Splatter image: Ultra-fast single-view 3d recon-
+11
+
+PAGE 12
+struction. In Proceedings of the IEEE/CVF Conference on
+Computer Vision and Pattern Recognition (CVPR) , pages
+10208–10217, 2024. 1
+[74] Shitao Tang, Jiacheng Chen, Dilin Wang, Chengzhou Tang,
+Fuyang Zhang, Yuchen Fan, Vikas Chandra, Yasutaka Fu-
+rukawa, and Rakesh Ranjan. Mvdiffusion++: A dense high-
+resolution multi-view diffusion model for single or sparse-
+view 3d object reconstruction. In European Conference on
+Computer Vision, pages 175–191. Springer, 2024. 2
+[75] Arash Vahdat, Francis Williams, Zan Gojcic, Or Litany,
+Sanja Fidler, Karsten Kreis, et al. Lion: Latent point dif-
+fusion models for 3d shape generation. Advances in Neural
+Information Processing Systems, 35:10021–10039, 2022. 3
+[76] Vikram V oleti, Chun-Han Yao, Mark Boss, Adam Letts,
+David Pankratz, Dmitry Tochilkin, Christian Laforte, Robin
+Rombach, and Varun Jampani. Sv3d: Novel multi-view syn-
+thesis and 3d generation from a single image using latent
+video diffusion. In European Conference on Computer Vi-
+sion (ECCV), pages 439–457. Springer, 2024. 1, 2
+[77] Daniel Watson, William Chan, Ricardo Martin-Brualla,
+Jonathan Ho, Andrea Tagliasacchi, and Mohammad
+Norouzi. Novel view synthesis with diffusion models. arXiv
+preprint arXiv:2210.04628, 2022. 2
+[78] Daniel Watson, William Chan, Ricardo Martin Bru-
+alla, Jonathan Ho, Andrea Tagliasacchi, and Mohammad
+Norouzi. Novel view synthesis with diffusion models. In
+The Eleventh International Conference on Learning Repre-
+sentations (ICLR), 2023. 1
+[79] Christopher Wewer, Kevin Raj, Eddy Ilg, Bernt Schiele,
+and Jan Eric Lenssen. latentsplat: Autoencoding variational
+gaussians for fast generalizable 3d reconstruction. In Euro-
+pean Conference on Computer Vision (ECCV) , pages 456–
+473. Springer, 2024. 2
+[80] Zijie Wu, Yaonan Wang, Mingtao Feng, He Xie, and Ajmal
+Mian. Sketch and text guided diffusion model for colored
+point cloud generation. In Proceedings of the IEEE/CVF
+International Conference on Computer Vision, pages 8929–
+8939, 2023. 2
+[81] Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng
+Wang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong
+Yang. Structured 3d latents for scalable and versatile 3d gen-
+eration. arXiv preprint arXiv:2412.01506, 2024. 1, 2, 3, 4,
+6, 7, 8, 5
+[82] Desai Xie, Jiahao Li, Hao Tan, Xin Sun, Zhixin Shu, Yi
+Zhou, Sai Bi, S¨oren Pirk, and Arie E Kaufman. Carve3d: Im-
+proving multi-view reconstruction consistency for diffusion
+models with rl finetuning. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition ,
+pages 6369–6379, 2024. 2
+[83] Katherine Xu, Lingzhi Zhang, and Jianbo Shi. Amodal com-
+pletion via progressive mixed context diffusion. In Proceed-
+ings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition, pages 9099–9109, 2024. 2
+[84] Bo Yang, Hongkai Wen, Sen Wang, Ronald Clark, Andrew
+Markham, and Niki Trigoni. 3d object reconstruction from
+a single depth view with adversarial learning. In Proceed-
+ings of the IEEE international conference on computer vision
+workshops (ICCVW), pages 679–688, 2017. 2
+[85] Guanqi Zhan, Chuanxia Zheng, Weidi Xie, and Andrew Zis-
+serman. Amodal ground truth and completion in the wild. In
+Proceedings of the IEEE/CVF Conference on Computer Vi-
+sion and Pattern Recognition (CVPR), pages 28003–28013,
+2024. 2
+[86] Xiaohang Zhan, Xingang Pan, Bo Dai, Ziwei Liu, Dahua
+Lin, and Chen Change Loy. Self-supervised scene de-
+occlusion. In Proceedings of the IEEE/CVF conference
+on computer vision and pattern recognition (CVPR) , pages
+3784–3792, 2020. 2
+[87] Bowen Zhang, Yiji Cheng, Jiaolong Yang, Chunyu Wang,
+Feng Zhao, Yansong Tang, Dong Chen, and Baining Guo.
+Gaussiancube: Structuring gaussian splatting using opti-
+mal transport for 3d generative modeling. arXiv preprint
+arXiv:2403.19655, 2024. 2
+[88] Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu,
+Anqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi Yu.
+Clay: A controllable large-scale generative model for creat-
+ing high-quality 3d assets. ACM Transactions on Graphics
+(TOG), 43(4):1–20, 2024. 1
+[89] Chuanxia Zheng and Andrea Vedaldi. Free3d: Consistent
+novel view synthesis without 3d representation. In Proceed-
+ings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition (CVPR), pages 9720–9731, 2024. 1, 2,
+3
+[90] Chuanxia Zheng, Tat-Jen Cham, and Jianfei Cai. Pluralistic
+image completion. In Proceedings of the IEEE/CVF Confer-
+ence on Computer Vision and Pattern Recognition (CVPR) ,
+pages 1438–1447, 2019. 5
+[91] Chuanxia Zheng, Duy-Son Dao, Guoxian Song, Tat-Jen
+Cham, and Jianfei Cai. Visiting the invisible: Layer-by-
+layer completed scene decomposition. International Journal
+of Computer Vision (IJCV), 129:3195–3215, 2021. 2
+[92] Chuanxia Zheng, Tat-Jen Cham, Jianfei Cai, and Dinh
+Phung. Bridging global context interactions for high-fidelity
+image completion. In Proceedings of the IEEE/CVF con-
+ference on computer vision and pattern recognition (CVPR),
+pages 11512–11522, 2022. 4
+[93] Xiao Zheng, Xiaoshui Huang, Guofeng Mei, Yuenan Hou,
+Zhaoyang Lyu, Bo Dai, Wanli Ouyang, and Yongshun Gong.
+Point cloud pre-training with diffusion models. In Proceed-
+ings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition, pages 22935–22945, 2024. 2
+[94] Xin-Yang Zheng, Hao Pan, Yu-Xiao Guo, Xin Tong, and
+Yang Liu. Mvdˆ 2: Efficient multiview 3d reconstruction for
+multiview diffusion. In ACM SIGGRAPH 2024 Conference
+Papers, pages 1–11, 2024. 2
+[95] Linqi Zhou, Yilun Du, and Jiajun Wu. 3d shape generation
+and completion through point-voxel diffusion. In Proceed-
+ings of the IEEE/CVF international conference on computer
+vision, pages 5826–5835, 2021. 2
+[96] Jun-Yan Zhu, Zhoutong Zhang, Chengkai Zhang, Jiajun Wu,
+Antonio Torralba, Josh Tenenbaum, and Bill Freeman. Vi-
+sual object networks: Image generation with disentangled 3d
+representations. Advances in neural information processing
+systems (NeurIPS), 31, 2018. 2
+[97] Zi-Xin Zou, Zhipeng Yu, Yuan-Chen Guo, Yangguang Li,
+Ding Liang, Yan-Pei Cao, and Song-Hai Zhang. Triplane
+12
+
+PAGE 13
+meets gaussian splatting: Fast and generalizable single-view
+3d reconstruction with transformers. In Proceedings of
+the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 10324–10335, 2024. 2
+13
+
+PAGE 14
+Amodal3R: Amodal 3D Reconstruction from Occluded 2D Images
+Supplementary Material
+A. Implementation Details
+A.1. Network Design
+We adopt the network design in TRELLIS [81] to load the
+pre-trained image-to-3D weights and integrate the mask-
+weighted cross-attention mechanism to each DiT block
+(24 blocks in total). And each image-conditioned cross-
+attention layer is immediately followed by an occlusion-
+aware cross-attention layer.
+(a) Patchify and weight of visibility/occlusion mask The
+input condition image has a resolution of 512 ×512, which
+is resized to 518 ×518 to facilitate splitting into patches of
+size 14 ×14, as required by DINOv2 [54]. The resulting
+condition is then flattened into a tensorcdino ∈ R1374×1024,
+where the sequence length corresponds to 37 ×37 patches
+plus 1 CLS token and 4 register tokens. To better align the
+visibility and occlusion masks with the DINOv2 features,
+we first split the masks into patches of the same size, then
+calculate the weight score for each patch using Eq. 4 and
+Eq. 5. The final cvis ∈ R1374×1 and cocc ∈ R1374×1 are
+obtained by flattening the weight scores, with a value of 1
+assigned to the CLS and register token positions.
+(b) Occlusion-aware cross-attention layer .We set the fea-
+ture dimension of the occlusion-aware cross-attention lay-
+ers to 1024, matching that of the image-conditioned cross-
+attention layers. To maintain consistent dimensions, we
+replicate the flattened occlusion masks to form a tensor
+cocc stack ∈ R1374×1024.
+(c) Multi-head Cross-Attention. Our mask-weighted
+multi-head cross-attention (MHA) layer, which is imple-
+mented to encourage the model to focus its attention on
+the visible parts of the object, is an extension of the cross-
+attention described in the main paper. Specifically,H heads
+are run in parallel, resulting in H attention scores. For
+mask-weighted attention mechanism, we imposecvis simul-
+taneously to each head:
+Ah = softmax(Sh + log cvis), (A.1)
+MHA = [A1v; A2v; . . .; AH v] (A.2)
+A.2. Training Details
+(a) Pre-trained model loading. While TRELLIS is split
+into multiple modules, in our work we only train the
+sparse structure flow transformer and the structured la-
+tent flow transformer (see the overview figure where the
+”fire” symbols indicate the parts that are fine-tuned, and
+”snowflake” symbols indicate that we directly use the pre-
+trained weights).
+(b) Data Augmentation. As described in Sec. 3.3, we gen-
+erate random masks during training for data augmentation.
+Specifically, we begin by randomly drawing 1 to 3 lines, cir-
+cles, and ellipses in the mask image. Next, to ensure these
+regions connect — thereby better simulating real-world oc-
+clusions, where mask regions are typically not highly frag-
+mented — we randomly add 3 to 7 rectangular regions that
+have undergone an expansion operation. This results in a
+stable masking of the objects in the training data. Example
+inputs are presented in Fig. A.1.
+Original image Masked image Occlusion mask
+Figure A.1. Examples of random mask generation. The visible
+areas are shown in white, occluded areas in gray and background
+in black.
+A.3. Inference Details
+(a) 3D-consistent mask ratio. For the multi-view 3D-
+consistent masks described in Sec. 3.3, we set the mask ra-
+tio to a random number between 0.4 and 0.6 for each object,
+which results in a variety of reasonable mask areas.
+(b) Time consumption. Despite the introduction of ad-
+ditional cross-attention layers, our inference time remains
+comparable to that of the baselines. Amodal3R can gener-
+ate and render each object in under 10 seconds.
+1
+
+PAGE 15
+Occluded input GaussianAnything [37] Real3D [28] TRELLIS [81] Amodal3R (Ours)
+Figure A.2. Examples using occluded images directly as the input of baseline models.
+B. Experimental Details
+B.1. Evaluation Protocol
+We evaluate the results using Google Scanned Objects
+(GSO) (1,030 objects) [16] and a randomly sampled subset
+of Toys4K [69] containing 1,500 objects. Here, we provide
+additional details regarding the computation of our evalua-
+tion metrics.
+(a) Rendering quality and semantic consistency align-
+ment To assess overall rendering quality, we compute the
+Fr´echet Inception Distance (FID) [21] and Kernel Inception
+Distance (KID) [3]. Moreover, we evaluate semantic con-
+sistency using the CLIP score [59] by measuring the cosine
+similarity between the CLIP features of each generated im-
+age and its corresponding ground truth. For each object, we
+render 4 views using cameras with yaw angles of {0°, 90°,
+180°, 270° } and a pitch angle of 30°. The camera is po-
+sitioned with a radius of 2.0 and looks at the origin with a
+FoV of 40°, consistent with TRELLIS [81]. While FID and
+KID are calculated between the ground truth and generated
+sets (6,000 images for Toys4K and 4,120 images for GSO),
+the CLIP score is calculated in a pair-wise manner, and we
+report the mean value to evaluate semantic consistency.
+(b) Geometry quality For 3D geometry evaluation, we
+adopt Point cloud FID (P-FID) [51], Coverage Score
+(COV), and Minimum Matching Distance (MMD) using
+Chamfer Distance (CD). Following previous work [37, 51,
+81], we sampled 4096 points from each GT/generated point
+cloud, which are obtained from the unprojected multi-view
+depth maps using the farthest point sampling.
+C. More Results
+In this section, we provide additional qualitative examples
+and comparison results to further demonstrate the perfor-
+mance of our Amodal3R.
+C.1. Baselines using occluded input
+We have stated in the main paper that ”occluded images
+will lead to incomplete or broken structures” in current
+3D generative models. Here, we provide examples where
+pix2gestalt is omitted and the occluded images are directly
+used as the input. As shown in Fig. A.2, when baseline
+models receive images of partially visible objects as input,
+they often fail to recover complete and intact 3D assets.
+C.2. More single-view to 3D examples
+Due to the page restriction, we only provide limited exam-
+ples in the main paper. Here we visualize more examples of
+single-view to 3D to further demonstrate the effectiveness
+of our method in Fig. C.4. The results show that compared
+with the 2D amodal completion + 3D generation baselines,
+our Amodal3R yields higher quality 3D assets across mul-
+tiple categories.
+C.3. More multi-view to 3D examples
+Multi-view Occluded input
+pix2gestalt [56]
+pix2gestalt [56] + Zero123++ [63]
+Figure C.3. Example of “pix2gestalt” and “pix2gestalt + MV”
+input of multi-view to 3D evaluation.
+2
+
+PAGE 16
+We first provide visualized examples to explicitly
+explain the difference between the “pix2gestalt” and
+“pix2gestalt + MV” settings in the multi-view to 3D gener-
+ation in Fig. C.3. For the “pix2gestalt” setting, we directly
+implement pix2gestalt for the amodal completion indepen-
+dently under each view. For the “pix2gestalt + MV” setting,
+we first choose the view with the greatest visibility from the
+4 occluded views, then use pix2gestalt to complete the ob-
+ject (which is shown in the pix2gestalt column in the quali-
+tative result), and subsequently use Zero123++ to get the 4
+consistent views as the input of LaRa and TRELLIS. It can
+be observed that pix2gestalt alone results in obvious multi-
+view inconsistency, while with Zero123++ the consistency
+is significantly improved, thus leading to better 3D genera-
+tion quality.
+More multi-view to 3D examples are provided in
+Fig. C.5, where our Amodal3R again generates 3D assets
+with better quality than the baselines.
+C.4. More diverse 3D reconstruction results
+In Fig. C.6, we show more examples to demonstrate that
+Amodal3R is able to generate diverse reasonable results
+from the occluded input with multiple stochastic samplings.
+C.5. More in-the-wild results
+We provide more examples where we compare Amodal3R
+with “pix2gestalt + TRELLIS” pipeline in Fig. C.7. The re-
+sults further demonstrate that 2D amodal method lacks 3D
+geometric understanding, often resulting in improper com-
+pletion, such as completing the armrest of the chair as the
+backrest. In contrast, Amodal3R generates more plausible
+results with reasonable geometry and rich textural details.
+In Fig. C.8 and Fig. C.9 we provide more visualization
+results on the in-the-wild images and the corresponding col-
+ored normal maps to show the geometry details. We im-
+plement Segment Anything [35] to obtain the segmentation
+masks.
+C.6. Discussion, Limitation and Future Work
+While Amodal3R achieves impressive 3D amodal comple-
+tion, it comes with several limitations we hope to solve in
+the future. 1) Dataset expansion. Due to the computational
+resources limitation, Amodal3R is trained on very limited
+data, consisting of only 20,627 synthetic 3D assets, predom-
+inantly confined to the furniture category. Consequently,
+completions on some complex or out-of-distribution ob-
+jects may fail or lead to unrealistic structures. We believe
+that training on larger datasets, e.g. Objaverse-XL [15],
+could mitigate these issues. 2) Real-World data adapta-
+tion. Different from pix2gestalt, Amodal3R is trained ex-
+clusively on synthetic data. As a result, it cannot leverage
+environmental cues and must rely solely on the visible por-
+tions of occluded objects for reconstruction. Creating real-
+world 3D modal datasets will further enhance the ability to
+apply models to real scenes. 3) Controllable completion .
+Currently, how objects are completed is entirely up to the
+model itself and lacks control. Therefore, to further enhance
+the model to accept additional conditions, such as text, and
+allow users to edit and control the style of the completion
+process will be an important research direction for us in the
+future.
+3
+
+PAGE 17
+Occluded input pix2gestalt [56] GaussianAnything [37] Real3D [28] TRELLIS [81] Amodal3R (Ours)
+Figure C.4. Additional single-view to 3D comparison examples. The occluders are shown in black and the visible regions are highlighted
+with red outlines.
+4
+
+PAGE 18
+Occluded input pix2gestalt [56] LaRa [6] LaRa [6] (+MV) TRELLIS [81] TRELLIS [81] (+MV) Amodal3R (Ours)
+Figure C.5. Additional multi-view to 3D comparison examples. The occluders are shown in black and the visible regions are highlighted
+with red outlines.
+5
+
+PAGE 19
+Occluded input Sample result 1 Sample result 2
+Figure C.6. Additional diverse examples. The occluders are shown in black and the visible regions are highlighted with red outlines.
+6
+
+PAGE 20
+Input image pix2gestalt [56] TRELLIS [81] Amodal3R (Ours)
+Figure C.7. Additional in-the-wild examples compared with pix2gestalt + TRELLIS. The target objects and occluders are marked with
+the red and green outlines.
+7
+
+PAGE 21
+Input image Reconstruction result
+Figure C.8. Additional in-the-wild examples. The target objects and occluders are marked with the red and green outlines.
+8
+
+PAGE 22
+Input image Reconstruction result
+Figure C.9. Additional in-the-wild examples. The target objects and occluders are marked with the red and green outlines.
+9

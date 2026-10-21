@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "created_on": "2026-10-19",
+  "purpose": "evidence_snapshot_for_research_line_registration_not_a_new_model_result",
+  "local_sources": [
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/REPORT.md",
+      "sha256": "c9a3f147d1be8befcef1f7cf3e3b910b688e002dc40f4f28fbb5389c7748c7a8",
+      "bytes": 8071,
+      "supports": "旧实验结果与11段历史留出的效用和机制边界"
+    },
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/MODEL_AND_NOVELTY.md",
+      "sha256": "ea3245339134f8eae5f29fcf69bd8ffee45f601104544c900079ba974096dcc8",
+      "bytes": 4493,
+      "supports": "旧模型冻结视觉和身份编码器，训练状态与权重的范围"
+    },
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/study.json",
+      "sha256": "148da9ff844dce15ed9fba89f7958ce3262cb11f09a1e67d5173089dedb9802a",
+      "bytes": 4889,
+      "supports": "既有真实Run和结案状态，保持原协议"
+    },
+    {
+      "path": "experiments/dense_video_occlusion_transfer_20261019/PROTOCOL.md",
+      "sha256": "7e8408ccffbacc9466423e39108c7a6266b25d7d224efbbc4f69fc32fd604035",
+      "bytes": 7583,
+      "supports": "旧冻结协议，仅作历史来源，不转移Gate"
+    },
+    {
+      "path": "shared/dense_video_occlusion/generate.py",
+      "sha256": "9c5f3a3b9f594f6abf89bb9bf3278ce8062d4379af9b87b71d70d0d2148f1622",
+      "bytes": 12581,
+      "supports": "现有几何监督写出字段、共用遮挡物ID与表面对应导出缺项"
+    },
+    {
+      "path": "literature_search/occlusion-pretraining_2026-10-19/summary.md",
+      "sha256": "115385c577d867d5f55d02cbe6ca89e70c468c2c2b1a8d37afe3b73bc138522b",
+      "bytes": 25664,
+      "supports": "已有文献证据；其中未执行的模型与训练顺序建议由本线新设计取代"
+    }
+  ],
+  "observed_prior_results": {
+    "study_id": "STUDY_DENSE_VIDEO_OCCLUSION_TRANSFER_20261019",
+    "train_run": "RUN_OCC_TRAIN_20261019T103219_d68f927f",
+    "evaluation_run": "RUN_OCC_EVALUATE_20261019T103747_e09ab314",
+    "synthetic_macro_f1": 0.904537,
+    "synthetic_scope": "heldout assets under the same renderer and scene template family",
+    "real_videos": 11,
+    "full_minus_C_IDF1_points": 0.26292640015637403,
+    "full_minus_C_paired_video_bootstrap95": [
+      0.0,
+      0.4999871849349101
+    ],
+    "full_minus_SHUFFLE_IDF1_points": -0.10751637181117246,
+    "interpretation": "synthetic state learning established within scope; stable downstream increment and object-specific weighting mechanism not established; the old experiment does not isolate the cause"
+  },
+  "primary_literature": [
+    {
+      "title": "DINOv3 official repository",
+      "url": "https://github.com/facebookresearch/dinov3",
+      "role": "candidate general visual encoder; weights, scale and runtime not yet selected for this study"
+    },
+    {
+      "title": "Supervised Contrastive Learning",
+      "url": "https://arxiv.org/abs/2004.11362",
+      "role": "existing contrastive representation learning; not novelty attributable to this project"
+    },
+    {
+      "title": "VICReg: Variance-Invariance-Covariance Regularization for Self-Supervised Learning",
+      "url": "https://arxiv.org/abs/2105.04906",
+      "role": "collapse warning and existing representation regularization; not an additional loss adopted by v0.1"
+    },
+    {
+      "title": "Φeat: Physically Grounded Material Feature Representation",
+      "url": "https://arxiv.org/abs/2511.11270",
+      "role": "prior art for shaping representations through controlled physical variation; material perception scope"
+    },
+    {
+      "title": "Tracking through Containers and Occluders in the Wild",
+      "url": "https://tcow.cs.columbia.edu/",
+      "role": "synthetic occlusion supervision and real-video transfer prior art; limited generalization remains"
+    },
+    {
+      "title": "Segment Anything, Even Occluded",
+      "url": "https://arxiv.org/abs/2503.06261",
+      "role": "existing amodal segmentation and detector-compatible decoder prior art; not an experiment completed in this new line"
+    }
+  ],
+  "novelty_status": "candidate_design_only_no_first_claim_no_mechanism_result",
+  "new_runs_created": false,
+  "new_training_steps": 0
+}

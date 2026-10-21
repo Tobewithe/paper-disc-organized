@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#596B80" stroke-width="1.5" /></marker></defs>
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF" />
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#007F82">01 研究背景</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">密集场景的输出失效与应用后果</text></g>
+<g id="column-labels" data-pptx-bounds="64 175 1152 40" fill="#596B80" font-size="22"><text x="64" y="202">场景条件</text><text x="486" y="202">输出错误</text><text x="917" y="202">应用后果</text></g>
+<g id="partial-occlusion" data-pptx-bounds="64 230 1152 104">
+<ellipse cx="110" cy="280" rx="43" ry="26" fill="#315E9D" fill-opacity="0.18" stroke="#315E9D" stroke-width="2" /><rect x="121" y="247" width="57" height="70" fill="#D4DEE7" />
+<text x="205" y="286" font-weight="bold" fill="#172B46">局部遮挡</text>
+<line x1="418" y1="281" x2="455" y2="281" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)" />
+<text x="486" y="266" fill="#315E9D">分数下降、间歇漏检<tspan x="486" dy="40" font-size="22" fill="#596B80">可见个体未持续被检出</tspan></text>
+<line x1="842" y1="281" x2="886" y2="281" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)" />
+<text x="917" y="266" fill="#25374C">可见计数偏差<tspan x="917" dy="40">轨迹中断</tspan></text>
+</g>
+<g id="contact-boundaries" data-pptx-bounds="64 353 1152 104">
+<line x1="64" y1="350" x2="1216" y2="350" stroke="#D4DEE7" /><ellipse cx="102" cy="402" rx="37" ry="29" fill="#007F82" fill-opacity="0.18" stroke="#007F82" stroke-width="2" /><ellipse cx="144" cy="402" rx="37" ry="29" fill="#007F82" fill-opacity="0.18" stroke="#007F82" stroke-width="2" /><line x1="123" y1="378" x2="123" y2="426" stroke="#C36D37" stroke-width="3" stroke-dasharray="6 5" />
+<text x="205" y="408" font-weight="bold" fill="#172B46">相邻个体接触</text>
+<line x1="418" y1="403" x2="455" y2="403" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)" />
+<text x="486" y="388" fill="#007F82">掩码粘连、边界错归<tspan x="486" dy="40" font-size="22" fill="#596B80">区域难以准确分配到个体</tspan></text>
+<line x1="842" y1="403" x2="886" y2="403" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)" />
+<text x="917" y="388" fill="#25374C">个体面积偏差<tspan x="917" dy="40">区域分析失真</tspan></text>
+</g>
+<g id="identity-confusion" data-pptx-bounds="64 475 1152 104">
+<line x1="64" y1="472" x2="1216" y2="472" stroke="#D4DEE7" /><ellipse cx="97" cy="512" rx="29" ry="18" fill="#315E9D" fill-opacity="0.18" stroke="#315E9D" stroke-width="2" /><ellipse cx="151" cy="550" rx="29" ry="18" fill="#315E9D" fill-opacity="0.18" stroke="#315E9D" stroke-width="2" /><path d="M 91 546 L 157 501 M 95 500 L 155 549" fill="none" stroke="#C36D37" stroke-width="2" stroke-dasharray="5 4" />
+<text x="205" y="511" font-weight="bold" fill="#172B46">相似个体<tspan x="205" dy="38">交叉或重现</tspan></text>
+<line x1="418" y1="527" x2="455" y2="527" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)" />
+<text x="486" y="512" fill="#C36D37">跨帧错配、重新编号<tspan x="486" dy="40" font-size="22" fill="#596B80">重现目标未接回原有身份</tspan></text>
+<line x1="842" y1="527" x2="886" y2="527" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)" />
+<text x="917" y="512" fill="#25374C">身份切换<tspan x="917" dy="40">停留记录断裂</tspan></text>
+</g>
+<g id="application-requirement" data-pptx-bounds="64 601 1152 43"><text x="64" y="633" font-weight="bold" fill="#172B46">连续个体分析需要同时检验：帧内观测、区域质量与跨帧身份。</text></g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="64 665 1152 35" fill="#596B80" font-size="16"><text x="64" y="689">机制示意；参考：ByteTrack（2022）、DanceTrack（2022）、OC-SORT（2023）</text><text x="1216" y="689" text-anchor="end">02 / 15</text></g>
+</svg>

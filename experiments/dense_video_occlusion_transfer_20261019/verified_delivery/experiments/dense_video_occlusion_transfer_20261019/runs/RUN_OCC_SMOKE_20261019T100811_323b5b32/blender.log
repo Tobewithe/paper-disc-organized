@@ -1,0 +1,19 @@
+Blender 4.2.1 LTS (hash 396f546c9d82 built 2024-08-19 23:32:23)
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/generate.py", line 166, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/generate.py", line 159, in main
+    s,roots,assets,devices=setup(cfg);pose(s,roots,cfg,0);rays,focal,origin=raygrid(s);allrows=[]
+                           ^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/generate.py", line 95, in setup
+    o,angle,info=load_animal(cfg['asset'],k,rng);roots.append((o,angle));assets.append(info)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/generate.py", line 38, in load_animal
+    color=list(m.diffuse_color);m.use_nodes=True;m.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value=color
+                                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'bpy_prop_collection[key]: key "Principled BSDF" not found'
+
+Error: script failed, file: '/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/generate.py', exiting.
+
+Blender quit

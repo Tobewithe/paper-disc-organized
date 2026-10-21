@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF"/>
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#315E9D">02 研究方法 · 模块一 · 已完成探索</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">探索实验逐项检验修正条件</text></g>
+<g id="common-budget" data-pptx-bounds="64 169 1152 49"><text x="64" y="201" font-size="22" fill="#596B80">三个训练配置均用 2,000 张图、3 轮、1,500 步；以冻结的原生输出为共同基线。</text></g>
+<g id="experiment-comparison" data-pptx-bounds="64 235 1152 314" fill="#25374C"><line x1="64" y1="281" x2="1216" y2="281" stroke="#D4DEE7" stroke-width="2"/><text x="64" y="265" font-weight="bold" fill="#172B46">实验配置</text><text x="325" y="265" font-weight="bold" fill="#172B46">改变的条件</text><text x="821" y="265" font-weight="bold" fill="#172B46">检验的问题</text>
+<text x="64" y="327">空间打乱对照</text><text x="325" y="327">联合打乱 P / z₀ 的空间排列</text><text x="821" y="327">空间组织是否有帮助</text><line x1="64" y1="350" x2="1216" y2="350" stroke="#D4DEE7"/>
+<text x="64" y="396">正常空间 + BCE</text><text x="325" y="396">保留空间，使用像素分类损失</text><text x="821" y="396">能否自动改善轮廓</text><line x1="64" y1="419" x2="1216" y2="419" stroke="#D4DEE7"/>
+<text x="64" y="465">正常空间 + IoU</text><text x="325" y="465">仅把 GT 项换为 soft-IoU</text><text x="821" y="465">换损失是否更有效</text><line x1="64" y1="488" x2="1216" y2="488" stroke="#D4DEE7"/>
+<text x="64" y="534" font-weight="bold" fill="#007F82">固定面积选择</text><text x="325" y="534">同 checkpoint，仅大掩码应用</text><text x="821" y="534">能否减少修正损伤</text></g>
+<g id="training-details" data-pptx-bounds="64 578 1152 68" font-size="22" fill="#596B80"><text x="64" y="602">训练：AdamW，学习率 0.001，有效 batch=4，固定最后一轮；基线保持项权重 0.1。</text><text x="64" y="638">面积选择使用修正前原图掩码面积 ≥ 96²，新增训练为 0；保留完整输出和原评价分母。</text></g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="64 665 1152 35" font-size="16" fill="#596B80"><text x="64" y="689">[E2/E3/E5] 开发目标 T=655；整体固定配对=2,925；面积策略由已观察开发结果选定。</text><text x="1216" y="689" text-anchor="end">14 / 25</text></g>
+</svg>

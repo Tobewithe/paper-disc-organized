@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "run_id": "RUN_E0_STATUS_AUDIT_20261012",
+  "study_id": "STUDY_ALIGNMENT_20261011",
+  "source_kind": "local_read_only_audit",
+  "host": "laptop_28358lan (read-only status checks) + local repository copies",
+  "status": "completed",
+  "audited_at_utc": "2026-10-12",
+  "scope": "Read-only audit of the existing cross-objective audit queue RUN_CROSS_QUEUE_20261011_053905_129 and its member runs; no task was restarted, no artifact was modified.",
+  "findings": {
+    "queue_state": {
+      "status": "running (frozen; worker no longer alive; no python processes on the laptop)",
+      "phase": "solvers_running",
+      "worker_pid": 12128,
+      "old_pid": 10792,
+      "official_pid": 18312,
+      "last_status_utc": "2026-10-11T05:39:05.9078384Z",
+      "evaluator_started": false
+    },
+    "old160": {
+      "run": "RUN_CROSS_OLD160_20261011_053905_129",
+      "status": "completed",
+      "converged": true,
+      "gradient_inf": 9.91355886765469e-07,
+      "fit_images": 796,
+      "model_sha256": "45a2c5a8a89180b7c3da9de220a53c1e3cdb392ef92c543677a2bfad56bdca96",
+      "cache_index_sha256": "c8c528b115781153dd33ca94d2084a9795d04006417bf966147fb60a27ffb4b7",
+      "artifacts": ["run.json", "SUMMARY.json", "SHARED_old160.pt", "stdout.log"]
+    },
+    "official640": {
+      "queued_run": "RUN_CROSS_OFFICIAL640_20261011_053905_129",
+      "status": "interrupted; no SUMMARY/run.json/model",
+      "last_recorded_progress": {"stage": "after_block_1", "gradient_inf": 0.0015441228101296075, "elapsed_s": 10406.83},
+      "convergence_gate_1e-6": "not met",
+      "retry_runs": {
+        "RUN_CROSS_OFFICIAL640_FULL_20261011": "logs only, no model; silent stop after index creation",
+        "RUN_CROSS_OLD160_FULL_20261011": "logs only; crashed in _old_gt_and_support with invalid letterbox padding (0,-1,106,107); not used for any decision"
+      }
+    },
+    "evaluator": {
+      "run_expected": "RUN_CROSS_EVAL_20261011_053905_129",
+      "exists": false,
+      "note": "evaluate_cross.py is present in scripts; no evaluation output exists for either map"
+    },
+    "identity_checks": {
+      "laptop_scripts_match_repository": true,
+      "script_sha256_16": {"cross_objectives.py": "7209138815c02bda", "evaluate_cross.py": "38982969f3f9de38", "solve_cross.py": "a77205ce96c19fe1"},
+      "cache_index_matches_old160_record": true,
+      "note": "The queued runs carry no source-script hash; identity was established by comparing the current laptop scripts (which produced/attempted these runs) with the repository copies at the frozen commit."
+    }
+  },
+  "decision_route": "DECISION_ADDENDUM_20261011.md: one map (official640) lacks convergence and complete outputs -> inputs not in decision state -> BLOCKED_INPUT; the only permitted action is to complete the existing cross audit; no scientific conclusion is drawn.",
+  "routing_consequence": "New study mask_readout_mechanism_v2_20261012 remains NOT_AUTHORIZED_BY_GATE for real G0 until E0 resolves.",
+  "completion_plan": {
+    "action": "Run the interrupted official640 solver instance with the exact queued arguments (same scripts, cache INDEX c8c528b1..., seed 20261011) into a new run directory, then run evaluate_cross.py over the existing old160 map and the new official640 map into a new evaluator run directory.",
+    "new_run_ids": ["RUN_CROSS_OFFICIAL640_COMPLETE_20261012", "RUN_CROSS_EVAL_COMPLETE_20261012"],
+    "historical_runs_untouched": true
+  }
+}

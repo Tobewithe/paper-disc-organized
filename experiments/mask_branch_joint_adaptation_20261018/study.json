@@ -1,0 +1,92 @@
+{
+  "study_id": "STUDY_MASK_BRANCH_JOINT_ADAPTATION_20261018",
+  "research_line": "neighbor_sensitive_p3",
+  "display_name": "原型—系数链路：原生掩码分支联合适配",
+  "plan_status": "frozen_authorized",
+  "execution_status": "engineering_recovery_continued_in_child_study",
+  "scientific_status": "not_evaluated_pretraining_engineering_failure",
+  "artifact_status": "preflight_prepare_and_failed_native_evidence_preserved",
+  "transfer_status": "130_server_snapshot_files_sha256_verified",
+  "protocol": "PROTOCOL.md",
+  "authorization": "AUTHORIZATION.json",
+  "executor": "a25023104@192.168.71.10",
+  "primary_candidate": "PC_native",
+  "planned_training_arms": [
+    "G_budget",
+    "C_native",
+    "PC_native"
+  ],
+  "planned_training_images": 20000,
+  "planned_epochs": 3,
+  "planned_steps_per_arm": 15000,
+  "planned_total_steps": 45000,
+  "actual_formal_training_steps_verified": 0,
+  "historical_proposal": "../../project/research_notes/MASK_BRANCH_JOINT_ADAPTATION_PROPOSAL_20261017.md",
+  "prior_RFC_closed": true,
+  "old_S4_authorized": false,
+  "runs": [
+    {
+      "run_id": "RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7",
+      "stage": "preflight",
+      "execution_status": "completed",
+      "local_evidence": "audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREFLIGHT_406842e17ffb455e8f3e543bcde98bc7"
+    },
+    {
+      "run_id": "RUN_JOINT_PREPARE_d3a8938b18be497a910502bcbf3f6b98",
+      "stage": "prepare",
+      "execution_status": "completed",
+      "local_evidence": "audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_PREPARE_d3a8938b18be497a910502bcbf3f6b98"
+    },
+    {
+      "run_id": "RUN_JOINT_NATIVE_e284935425c048e9a7f02875bef9916b",
+      "stage": "native",
+      "execution_status": "failed",
+      "local_evidence": "audits/status_20261018/remote_snapshot/study/runs/RUN_JOINT_NATIVE_e284935425c048e9a7f02875bef9916b"
+    }
+  ],
+  "data_preparation_run_receipts": "data_environment_submission.json",
+  "protocol_sha256": "4d7c983e70f6d9c62266f768b2738cd4acf0d0e0249bd5ac746c5dd65a9f9f97",
+  "configuration_sha256": "3386fee552835e1fbdde782cb927ac70dfe4f4416433092358132ba671274437",
+  "engineering_verification": {
+    "tests_passed": 16,
+    "scope": "CPU_component_tests_only_not_real_model_experiment",
+    "python": "3.10.19",
+    "torch": "2.9.1+cu128",
+    "device": "cpu",
+    "initial_default_python_attempt": "torch_not_installed_recorded_then_used_existing_pytorch_environment",
+    "scientific_runtime": "separate_server_Python3.12.3_torch2.5.1+cu124"
+  },
+  "bundle_sha256": "34b600747ca9741ce55ec941119e96342a5de051e8d0dfe09fa38bd455361b26",
+  "slurm_jobs": {
+    "final_input_verifier": 101,
+    "integration_preflight": 102,
+    "prepare_native_smoke": 103,
+    "train_G_budget": 104,
+    "train_C_native": 105,
+    "train_PC_native": 106,
+    "full_evaluation_statistics": 107
+  },
+  "formal_training_state": "all_three_cancelled_before_start_dependency_failure",
+  "last_verified_utc": "2026-10-18T03:09:45.702138+00:00",
+  "status_report": "STATUS_REPORT_20261018.md",
+  "configuration_review": "CONFIGURATION_REVIEW_20261018.md",
+  "audit_root": "audits/status_20261018",
+  "active_jobs": [],
+  "stage_lock_exists": false,
+  "slurm_outcomes": {
+    "101": "COMPLETED",
+    "102": "COMPLETED",
+    "103": "FAILED",
+    "104": "CANCELLED_BEFORE_START",
+    "105": "CANCELLED_BEFORE_START",
+    "106": "CANCELLED_BEFORE_START",
+    "107": "CANCELLED_BEFORE_START"
+  },
+  "next_action": {
+    "action": "versioned_exact_historical_val_batch_replay_then_original_zero_training_migration_and_smoke",
+    "status": "authorized_and_started_in_recovery_container",
+    "preserve_protocol_gates": true,
+    "training_restarted_this_audit": false
+  },
+  "continued_by": "../mask_branch_joint_replay_20261018/study.json"
+}

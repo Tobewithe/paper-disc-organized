@@ -1,0 +1,32 @@
+{
+  "study_id": "STUDY_MASK_LOCAL_RESIDUAL_PILOT_20261017",
+  "seed": 0,
+  "epochs": 3,
+  "fit_images": 1600,
+  "heldout_images": 400,
+  "steps_per_arm": 1200,
+  "microbatch": 1,
+  "accumulation": 4,
+  "tau": 1.5,
+  "area_gate": 9216,
+  "max_training_pixels": 512,
+  "parameters": 3297,
+  "optimizer": {
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "amsgrad": false,
+    "foreach": false,
+    "maximize": false,
+    "capturable": false,
+    "differentiable": false,
+    "fused": false
+  },
+  "amp": false,
+  "bootstrap": 2000,
+  "bootstrap_seed": 1729
+}

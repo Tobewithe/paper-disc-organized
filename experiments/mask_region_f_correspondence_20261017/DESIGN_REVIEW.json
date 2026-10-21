@@ -1,0 +1,130 @@
+{
+  "review_date": "2026-10-17",
+  "scope": "Standard-library document and existing-source inspection only; not a scientific Run or model validation",
+  "status": "passed",
+  "checks": {
+    "all_33_existing_source_hashes_unchanged": true,
+    "no_Run_no_execution_authorization": true,
+    "no_model_cache_or_run_files_created": true,
+    "parameter_arithmetic": true,
+    "training_contract_fields_match_G": true,
+    "numeric_environment_matches_G": true,
+    "budget_arithmetic": true,
+    "original_split_and_orders": true,
+    "training_inputs_are_not_gate_restricted": true,
+    "fresh_damage_panel_after_checkpoint_freeze": true,
+    "primary_increment_and_original_guards": true,
+    "mechanism_and_amplitude_controls_prespecified": true,
+    "F_cache_raw_upper_bound_arithmetic": true,
+    "protocol_local_links": true,
+    "five_row_whole_experiment_paradigm": true,
+    "explicit_unrun_and_hypothesis_status": true
+  },
+  "existing_source_files_checked": 33,
+  "protocol_links_checked": 12,
+  "links": [
+    {
+      "destination": "../../project/audits/repair_information_20261017/REPORT.md",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "../mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "../mask_gate_s3r_20261015/REPORT.md",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "../mask_readout_fit_diagnostic_20261014/REPORT.md",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "../mask_readout_proto_consistency_20261014/REPORT.md",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "../mask_local_residual_pilot_20261017/REPORT.md",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "../../paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "../../shared/evaluation/DAMAGE_ACCEPTANCE.md",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "INPUT_REFERENCES.json",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "DESIGN_SPEC.json",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "study.json",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    },
+    {
+      "destination": "DESIGN_REVIEW.json",
+      "exists_or_this_receipt": true,
+      "inside_repo": true
+    }
+  ],
+  "design_document_hashes": [
+    {
+      "path": "experiments/mask_region_f_correspondence_20261017/PROTOCOL_DRAFT.md",
+      "sha256": "165abfc107f3fdd333a5fe701e57862a859ccf36a6f24910e1d703990b2a87ee"
+    },
+    {
+      "path": "experiments/mask_region_f_correspondence_20261017/DESIGN_SPEC.json",
+      "sha256": "6339695b0a1015db25de770cc246e16b6b966d32077870eeb3feab88e4942dbc"
+    },
+    {
+      "path": "experiments/mask_region_f_correspondence_20261017/INPUT_REFERENCES.json",
+      "sha256": "97f99d5912a969b3f6c68a6a324029365a8056156d974a5314f0ba51f034ef09"
+    },
+    {
+      "path": "experiments/mask_region_f_correspondence_20261017/study.json",
+      "sha256": "73ebd82f27c1bda27d50a471bdf104128b361c04e9c63891f70d33782083f667"
+    }
+  ],
+  "not_performed": [
+    "new F extraction",
+    "new cache serialization",
+    "model forward",
+    "torch import",
+    "training",
+    "scientific evaluation",
+    "remote connection",
+    "new automation",
+    "new goal",
+    "git commit",
+    "git push"
+  ],
+  "runtime_readiness": "unverified; implementation, new F tensors, smoke, resource state and execution source freeze remain outstanding",
+  "governance_check": {
+    "command": "python -B project/check_active_plan.py",
+    "status": "passed",
+    "output": "PASS: 18 active docs, 213 local links, 5 archived-plan warnings, Study routing"
+  },
+  "source_protection": "All 33 pinned existing sources rehashed unchanged",
+  "git_diff_check": {
+    "command": "git diff --check",
+    "status": "passed",
+    "note": "Existing LF-to-CRLF informational warnings; no whitespace error."
+  }
+}

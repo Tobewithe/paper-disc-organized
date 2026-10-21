@@ -1,0 +1,22 @@
+{
+  "config": {
+    "hidden": 32,
+    "steps": 200,
+    "lr": 0.001,
+    "future_horizon": 12,
+    "write_weight": 0.1,
+    "threshold": 0.0
+  },
+  "seed": 20261018,
+  "sequences": [
+    "pig_3",
+    "pig_5",
+    "horse_4",
+    "horse_6"
+  ],
+  "identity_sha256": "0e74863d8d417eaa91a34c2623e7163ce21c37a497cf2203e2af06279e8d0f0e",
+  "label": "future same-ID vs competitor margin change from a hypothetical normal confidence-EMA write",
+  "future_permissions": "train label only; never gate input",
+  "checkpoint_selection": "last_step_200",
+  "actual_baseline_associations": true
+}

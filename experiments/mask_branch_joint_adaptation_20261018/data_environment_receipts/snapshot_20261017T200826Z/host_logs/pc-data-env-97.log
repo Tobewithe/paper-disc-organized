@@ -1,0 +1,42 @@
+2026-10-17T19:27:49Z python-install ['uv', 'python', 'install', '3.12.3', '--no-bin']
+2026-10-17T19:27:49Z2026-10-17T19:27:49Z val2017.zip-download  train2017.zip-download['curl', '--fail', '--location', '--retry', '5', '--retry-delay', '5', '--connect-timeout', '30', '--speed-time', '180', '--speed-limit', '1024', '--continue-at', '-', '--output', '/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/val2017.zip', 'http://images.cocodataset.org/zips/val2017.zip'] 
+2026-10-17T19:27:49Z annotations_trainval2017.zip-download ['curl', '--fail', '--location', '--retry', '5', '--retry-delay', '5', '--connect-timeout', '30', '--speed-time', '180', '--speed-limit', '1024', '--continue-at', '-', '--output', '/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/annotations_trainval2017.zip', 'http://images.cocodataset.org/annotations/annotations_trainval2017.zip']['curl', '--fail', '--location', '--retry', '5', '--retry-delay', '5', '--connect-timeout', '30', '--speed-time', '180', '--speed-limit', '1024', '--continue-at', '-', '--output', '/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/train2017.zip', 'http://images.cocodataset.org/zips/train2017.zip']
+
+2026-10-17T19:30:36Z ERROR train2017.zip Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 125, in main
+    results[name] = f.result()
+                    ^^^^^^^^^^
+  File "/usr/lib64/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib64/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 73, in prepare_archive
+    command(['curl', '--fail', '--location', '--retry', '5', '--retry-delay', '5', '--connect-timeout', '30', '--speed-time', '180', '--speed-limit', '1024', '--continue-at', '-', '--output', str(archive), url], filename + '-download')
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 49, in command
+    raise RuntimeError(f'{name} exited {result.returncode}; see {RUN / (name + ".log")}')
+RuntimeError: train2017.zip-download exited -15; see /srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_8394c214fcc14e9cb8a4698e4b2598ee/train2017.zip-download.log
+
+2026-10-17T19:30:38Z COMPLETE annotations_trainval2017.zip
+2026-10-17T19:38:48Z ERROR environment Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 125, in main
+    results[name] = f.result()
+                    ^^^^^^^^^^
+  File "/usr/lib64/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib64/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 52, in prepare_environment
+    command(['uv', 'python', 'install', '3.12.3', '--no-bin'], 'python-install')
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/prepare_server.py", line 49, in command
+    raise RuntimeError(f'{name} exited {result.returncode}; see {RUN / (name + ".log")}')
+RuntimeError: python-install exited -15; see /srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_8394c214fcc14e9cb8a4698e4b2598ee/python-install.log
+
+2026-10-17T19:40:21Z COMPLETE val2017.zip

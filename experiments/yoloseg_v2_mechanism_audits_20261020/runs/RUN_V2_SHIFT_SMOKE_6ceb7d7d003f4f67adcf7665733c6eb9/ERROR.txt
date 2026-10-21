@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/yoloseg-v2-mechanism-audits-20261020/scripts/runner.py", line 59, in main
+    execute(run,stage=="smoke")
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/yoloseg-v2-mechanism-audits-20261020/scripts/shift.py", line 22, in execute
+    append(run / "ZERO_IDENTITY.jsonl", inp.check_base(bi,caches,rows,features))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/yoloseg-v2-mechanism-audits-20261020/scripts/common.py", line 131, in check_base
+    assert got == self.identity[bi], ("V2_tensor_identity", bi)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('V2_tensor_identity', 0)

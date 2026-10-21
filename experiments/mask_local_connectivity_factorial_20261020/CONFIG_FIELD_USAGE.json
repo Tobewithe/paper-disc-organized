@@ -1,0 +1,30 @@
+{
+  "frozen_config_sha256": "46c15235154f726f4ac60767154feb04dc7018786f54d505b1fef37d1088f939",
+  "authority": "Protocol V2 and frozen code; this file explains existing behavior and changes no runtime value",
+  "actual_initialization": {
+    "model_seed": 0,
+    "parameters_per_arm": 71361,
+    "initial_state": "fresh identical tensors, zero output head",
+    "historical_adapter_initial_loaded": false
+  },
+  "inactive_inherited_fields": {
+    "adapter_initial": "historical reference only; never loaded for LCF model initialization",
+    "gates": "legacy SSR IoU/AP thresholds; not read by LCF statistics and not used to judge this Study",
+    "training_seed": "redundant historical value 0; actual constructor seed is model.seed=0"
+  },
+  "active_verdict": "Protocol V2 section 5; topology_gates values match frozen statistics code; no old +0.30AP requirement",
+  "fixed_implementation_descriptors": {
+    "model.feature_channels": 16,
+    "model.hidden_channels": 32,
+    "model.chunk_rows": 4,
+    "loss_output_chunk_rows": 8,
+    "policy.AMP": false,
+    "policy.activation_recompute": true,
+    "model.residual_limit": null
+  },
+  "decoding_gate": {
+    "LCF_methods": "all final outputs, no area gate",
+    "G_old_reference": "historical native area>=9216; unchanged"
+  },
+  "GT_topology_scope": "training anchors use GT components in fixed input ROI; evaluation uses full original GT; box clipping and rasterization are not evidence of prototype-only impossibility"
+}

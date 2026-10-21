@@ -1,0 +1,127 @@
+{
+  "study_id": "STUDY_MASK_LOCAL_CONNECTIVITY_FACTORIAL_20261020",
+  "study_root": "D:/coco_wire/baseline_native_20261013/experiments/mask_local_connectivity_factorial_20261020",
+  "weights": "D:/coco_wire/baseline_native_20261013/assets/models/coco_clean_20260911/yolo26m-seg.pt",
+  "profile": "D:/coco_wire/baseline_native_20261013/paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json",
+  "adapter_initial": "D:/coco_wire/baseline_native_20261013/experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S2_TRAIN_B_6c7bc7e8c0dc48509a733d11e60f0ee2/initial.pt",
+  "existing_G": "D:/coco_wire/baseline_native_20261013/experiments/mask_readout_soft_iou_pilot_20261014/runs/RUN_SOFT_IOU_TRAIN_53afd0bb8aba428482159f5e426878eb/last.pt",
+  "historical_native_trace": "D:/coco_wire/baseline_native_20261013/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/trace/TRACE_MANIFEST.json",
+  "historical_native_ledger": "D:/coco_wire/baseline_native_20261013/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/ledger/PER_GT_FAILURE.jsonl",
+  "existing_G_predictions": "D:/coco_wire/baseline_native_20261013/experiments/mask_gate_s3r_20261015/runs/RUN_S3_FULL_670fffd010664a648e096572fc7c476d/predictions_mixed.json",
+  "train_annotations": "D:/coco_wire/baseline_native_20261013/experiments/mask_local_connectivity_factorial_20261020/data/annotations/instances_train2017.json",
+  "val_annotations": "D:/coco_wire/data/annotations/instances_val2017.json",
+  "arms": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "training_seed": 0,
+  "fit_images": 20000,
+  "epochs": 3,
+  "source_batch": 16,
+  "effective_batch": 4,
+  "steps_per_arm": 15000,
+  "optimizer": {
+    "lr": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "amsgrad": false,
+    "foreach": false,
+    "maximize": false,
+    "capturable": false,
+    "differentiable": false,
+    "fused": false
+  },
+  "hours": {
+    "smoke": 2,
+    "train": 96,
+    "evaluate": 48,
+    "statistics": 24
+  },
+  "area_gate": null,
+  "runtime_policy": {
+    "matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8"
+  },
+  "policy": {
+    "AMP": false,
+    "EMA": false,
+    "scheduler": null,
+    "augmentation": false,
+    "gradient_clip": null,
+    "checkpoint": "last",
+    "chunk_rows": 4,
+    "activation_recompute": true
+  },
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 1729,
+    "unit": "paired_whole_image",
+    "percentiles": [
+      2.5,
+      97.5
+    ]
+  },
+  "gates": {
+    "minimum_target_IoU_gain": 0.005,
+    "ci_lower_gt": 0,
+    "minimum_full_AP_gain_vs_native": 0.3,
+    "maximum_success_damage_fraction": 0.01,
+    "overall_IoU_floor": -0.001
+  },
+  "authorization": {
+    "user": "试试（承接四臂局部解码/连接监督方案）",
+    "device": "laptop 28358lan",
+    "no_schedules": true,
+    "no_goal": true,
+    "no_auto_commit_or_push": true
+  },
+  "model": {
+    "feature_channels": 16,
+    "hidden_channels": 32,
+    "context_padding_proto_pixels": 2,
+    "ridge_relative": 0.0001,
+    "ridge_absolute_floor": 1e-12,
+    "residual_limit": 2.0,
+    "chunk_rows": 4,
+    "seed": 0
+  },
+  "loss": {
+    "GT_soft_IoU": 1.0,
+    "GT_BCE": 0.25,
+    "preservation_BCE": 0.1,
+    "connection_pixel_BCE": 0.25,
+    "max_positive_pairs": 8,
+    "max_negative_pairs": 8,
+    "connectivity": 8,
+    "difficulty_bins": [
+      -4.0,
+      -2.0,
+      -1.0,
+      0.0,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "epsilon": 1e-06
+  },
+  "topology_gates": {
+    "relative_material_error_reduction_vs_N": 0.2,
+    "relative_material_error_reduction_D_vs_C": 0.1,
+    "ci_lower_gt": 0.0,
+    "non_topological_hardness_match_fraction_min": 0.9,
+    "max_IoU_noninferiority_loss": 0.001,
+    "max_native_success_damage_fraction": 0.01
+  }
+}

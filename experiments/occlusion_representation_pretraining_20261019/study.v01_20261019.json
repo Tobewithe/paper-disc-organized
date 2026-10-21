@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "study_id": "STUDY_OCCLUSION_REPRESENTATION_PRETRAINING_20261019",
+  "line_id": "LINE_01701394050a46a3835bc63fb0d95f86",
+  "line_key": "occlusion_representation_pretraining",
+  "title": "通用遮挡表征预训练",
+  "created_on": "2026-10-19",
+  "plan_status": "draft",
+  "execution_status": "not_started",
+  "scientific_status": "hypothesis_only",
+  "artifact_status": "registration_and_design_documents_created",
+  "transfer_status": "not_applicable_local_documents_only",
+  "entrypoint": "../../paper/manuscripts/occlusion_representation_pretraining/README.md",
+  "canonical_route": "../../project/ACTIVE_PLAN.md",
+  "protocol": "PROTOCOL_DRAFT.md",
+  "protocol_frozen": false,
+  "data_contract": "DATA_CONTRACT_DRAFT.md",
+  "source_evidence": "SOURCE_EVIDENCE.json",
+  "current_stage": "design_registration",
+  "hypothesis": "物理可见性约束的反事实对应与遮挡关系监督能改善跨场景表征及跨任务迁移",
+  "authorization": {
+    "request": "在项目把这个开个主线？",
+    "scope": "register_independent_research_line_and_design_documents",
+    "new_training_launched_by_this_request": false
+  },
+  "scope_transition": {
+    "predecessor_line_key": "dense_video_identity",
+    "relationship": "new_independent_core_method_line_with_tracking_as_downstream_application",
+    "superseded_by": "paper/manuscripts/occlusion_representation_pretraining/README.md",
+    "supersedes_scope": "毕业论文后续核心研究定位，以及旧模型方案和文献建议中未执行的 SAM 优先、先状态分类再叠加任务损失安排",
+    "supersedes_draft_sources": [
+      "paper/毕业论文模型方案_密集视频身份保持与遮挡恢复_20261018.md",
+      "literature_search/occlusion-pretraining_2026-10-19/summary.md"
+    ],
+    "frozen_predecessor_runs_and_protocols_changed": false
+  },
+  "candidate_backbone": "DINOv3; exact scale, weights, dependency compatibility and trainable adapter remain unfrozen",
+  "loss_terms": [
+    "physical_correspondence_on_reliable_jointly_visible_regions",
+    "directed_occlusion_relation_supervision"
+  ],
+  "planned_transfer_tasks": [
+    "static_instance_segmentation",
+    "video_correspondence"
+  ],
+  "optional_later_tasks": [
+    "YOLO_detection_segmentation_adaptation_or_distillation",
+    "identity_recovery_and_system_visualization"
+  ],
+  "formal_budget": null,
+  "executor": null,
+  "jobs": [],
+  "runs": [],
+  "training_steps_completed": 0,
+  "pending_execution_freeze": [
+    "paired_data_export_validation_manifest_hashes_and_independent_splits",
+    "backbone_checkpoint_dependencies_and_effective_trainable_parameters",
+    "loss_weights_sampling_and_valid_correspondence_support",
+    "primary_metric_effect_thresholds_uncertainty_and_guardrails",
+    "matched_baselines_directed_interventions_and_real_transfer_tasks",
+    "smoke_formal_resource_budget_environment_and_stop_rules"
+  ],
+  "record_paths": [
+    "study.json",
+    "PROTOCOL_DRAFT.md",
+    "DATA_CONTRACT_DRAFT.md",
+    "SOURCE_EVIDENCE.json"
+  ]
+}

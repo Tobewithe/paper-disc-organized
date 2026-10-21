@@ -1,0 +1,37 @@
+{
+  "gates": {
+    "CGS_T_development": {
+      "delta_IDF1_native": 0.045838439969237754,
+      "delta_IDF1_all_appearance": 2.4353939910893416,
+      "delta_HOTA_native": 0.07486750745864867,
+      "passed": false
+    },
+    "CGS_T_independent_zebra12": {
+      "delta_IDF1_native": 7.218138043828787,
+      "delta_IDF1_all_appearance": 1.6205955057702042,
+      "delta_HOTA_native": 3.3149283971630155,
+      "passed": true
+    },
+    "PEA_development": {
+      "delta_IDF1_native": -0.28101146604248584,
+      "delta_IDF1_all_appearance": 2.108544085077618,
+      "delta_HOTA_native": -0.07198855525613368,
+      "passed": false
+    },
+    "PEA_independent_zebra34": {
+      "delta_IDF1_native": -1.461422848823858,
+      "delta_IDF1_all_appearance": 4.487102591375319,
+      "delta_HOTA_native": -0.21886691219366128,
+      "passed": false
+    }
+  },
+  "per_video_damage_over3": [
+    {
+      "sequence": "zebra_4",
+      "delta_IDF1": -3.1153834710842148
+    }
+  ],
+  "primary_claim": "Measured local and zebra12 gains; general superiority and new supervision mechanism not established",
+  "next_action": "Keep reproducible local gains, close current CGS/CGS-T/PEA fixed configurations to further tuning. Prioritize verification and rollback of false reattachment without changing the motion tracker state; no new training launched.",
+  "new_training_started": false
+}

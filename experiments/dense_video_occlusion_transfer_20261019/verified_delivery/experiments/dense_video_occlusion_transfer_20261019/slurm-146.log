@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/runner.py", line 44, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/runner.py", line 42, in main
+    from .evaluate import main as f
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/evaluate.py", line 5, in <module>
+    from scipy.optimize import linear_sum_assignment
+ModuleNotFoundError: No module named 'scipy'

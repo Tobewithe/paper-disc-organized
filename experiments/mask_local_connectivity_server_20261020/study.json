@@ -1,0 +1,52 @@
+{
+  "study_id": "STUDY_MASK_LOCAL_CONNECTIVITY_SERVER_20261020",
+  "research_line": "neighbor_sensitive_p3",
+  "title": "LCF四臂服务器迁移与独立并行训练",
+  "protocol": "MIGRATION_PROTOCOL.md",
+  "plan_status": "frozen",
+  "execution_status": "running",
+  "scientific_status": "hypothesis_only",
+  "artifact_status": "startup_verified",
+  "transfer_status": "startup_157_files_verified",
+  "executor": "a25023104@192.168.71.10 / Slurm",
+  "parent_study": "../mask_local_connectivity_factorial_20261020/study.json",
+  "retry_of": "RUN_LCF_TRAIN_ced92f98a1aa4d8898fe5a24c0b13a39",
+  "budget": {
+    "server_steps_per_arm": 15000,
+    "server_total_formal_steps": 60000,
+    "laptop_failed_steps_by_arm": {
+      "A": 542,
+      "B": 541,
+      "C": 541,
+      "D": 541
+    },
+    "laptop_failed_steps": 2165,
+    "cumulative_formal_attempt_steps_cap": 62165,
+    "server_smoke_steps_per_arm_discarded": 4,
+    "parallel_GPUs": 4,
+    "server_smoke_steps_cumulative_cap": 32
+  },
+  "scheduled_tasks": false,
+  "goal_mode": false,
+  "authorization": {
+    "user": "迁到算力服务器，先冻结迁移协议，保留笔记本失败记录，明确从头重启的预算记账，保持四臂科学配置不变，通过smoke后用Slurm启动正式训练。可以使用四块显卡同时跑",
+    "no_auto_commit_or_push": true
+  },
+  "current_phase": "server_four_arm_formal_training",
+  "slurm_smoke_job_id": 153,
+  "server_freeze_sha256": "bbf44febb59ffb051d105ca2a816d88765e30eaa3d013092d59d37d23344feb4",
+  "initialization_recovery": "INITIALIZATION_RECOVERY.md",
+  "slurm_training_job_id": 154,
+  "active_run_ids": {
+    "A": "RUN_LCFS_A_TRAIN_e99ac7f8bacf469cbbaab7babc4a3c1c",
+    "B": "RUN_LCFS_B_TRAIN_6428b48d81774d72b6a121369f221b0c",
+    "C": "RUN_LCFS_C_TRAIN_0ea3b01d9ddb4c96abf722794def9b2b",
+    "D": "RUN_LCFS_D_TRAIN_909459171de84d8bb1a8a4f39c82f066"
+  },
+  "startup_logged_steps": {
+    "A": 12,
+    "B": 13,
+    "C": 15,
+    "D": 14
+  }
+}

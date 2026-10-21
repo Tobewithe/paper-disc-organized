@@ -1,0 +1,158 @@
+{
+  "run_id": "RUN_LEA_SMOKE_RECOVERY_1e9fcd1acb274521b4a12cd0ba635e02",
+  "pairs": 4,
+  "images": 4,
+  "unit": "IoU_0_to_1",
+  "reduction": "within-image then image-equal",
+  "absolute": {
+    "N": 0.6665336354267395,
+    "G": 0.6665336354267395,
+    "C": 0.711050341377762,
+    "O_B": 0.8603284061952263,
+    "C_B": 0.7066207390709995,
+    "G_B": 0.6665336354267395,
+    "O_R": 0.7475067408135401
+  },
+  "mask75": {
+    "N": 0,
+    "G": 0,
+    "C": 2,
+    "O_B": 4,
+    "C_B": 1,
+    "G_B": 0
+  },
+  "comparisons": {
+    "G-N": {
+      "mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "C-N": {
+      "mean": 0.044516705951022556,
+      "ci95": [
+        -0.023826533492191215,
+        0.12870266816802292
+      ]
+    },
+    "C-G": {
+      "mean": 0.044516705951022556,
+      "ci95": [
+        -0.023826533492191215,
+        0.12870266816802292
+      ]
+    },
+    "O_B-N": {
+      "mean": 0.19379477076848683,
+      "ci95": [
+        0.10947721092648627,
+        0.2781123306104874
+      ]
+    },
+    "O_B-G": {
+      "mean": 0.19379477076848683,
+      "ci95": [
+        0.10947721092648627,
+        0.2781123306104874
+      ]
+    },
+    "C_B-N": {
+      "mean": 0.040087103644260075,
+      "ci95": [
+        -0.024675021881113923,
+        0.12366430392414904
+      ]
+    },
+    "C_B-G": {
+      "mean": 0.040087103644260075,
+      "ci95": [
+        -0.024675021881113923,
+        0.12366430392414904
+      ]
+    },
+    "G_B-N": {
+      "mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "G_B-G": {
+      "mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "O_R-N": {
+      "mean": 0.08097310538680047,
+      "ci95": [
+        0.05020824309565933,
+        0.09991205902236336
+      ]
+    },
+    "O_R-G": {
+      "mean": 0.08097310538680047,
+      "ci95": [
+        0.05020824309565933,
+        0.09991205902236336
+      ]
+    },
+    "O_B-O_R": {
+      "mean": 0.11282166538168636,
+      "ci95": [
+        0.04428787766051656,
+        0.18135545310285617
+      ]
+    },
+    "C_B-C": {
+      "mean": -0.004429602306762481,
+      "ci95": [
+        -0.010860138795540403,
+        0.0015779356556206436
+      ]
+    }
+  },
+  "support": {
+    "C_witnesses": 2,
+    "C_witness_retained_by_O_B": 2,
+    "C_witness_retained_by_C_B": 1,
+    "editable_fraction_image_macro": 0.37279719235364395,
+    "empty_rois": 0
+  },
+  "task_damage": {
+    "G": {
+      "damaged": 0,
+      "population": 20,
+      "rate": 0.0,
+      "damaged_annotation_ids": [],
+      "recovered": 0
+    },
+    "G_B": {
+      "damaged": 0,
+      "population": 20,
+      "rate": 0.0,
+      "damaged_annotation_ids": [],
+      "recovered": 0
+    }
+  },
+  "gates": {
+    "witness_retention": true,
+    "locality": false,
+    "real_damage": true,
+    "no_more_damage_than_G": true,
+    "O_B-G": true,
+    "O_B-O_R": true
+  },
+  "decision": "ENGINEERING_SMOKE_ONLY",
+  "zero_delta_exact_rows": 706,
+  "teacher_replays": 4,
+  "complete_predictions": 706,
+  "changed_G_B_outputs": 12,
+  "native_success_fixed_match_exposed": 20,
+  "native_success_fixed_match_worst_below75": 11,
+  "support_identity_pixels_outside_changed": 0,
+  "no_new_AP": true,
+  "elapsed_before_verify_seconds": 3.562999999994645
+}

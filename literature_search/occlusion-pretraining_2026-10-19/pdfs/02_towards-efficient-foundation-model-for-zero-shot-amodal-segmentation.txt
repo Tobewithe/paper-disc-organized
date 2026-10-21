@@ -1,0 +1,1111 @@
+
+
+PAGE 1
+Towards Efficient Foundation Model for Zero-shot Amodal Segmentation
+Zhaochen Liu1,2, Limeng Qiao3, Xiangxiang Chu3, Lin Ma3, Tingting Jiang1,4*
+1National Engineering Research Center of Visual Technology, National Key Laboratory
+for Multimedia Information Processing, School of Computer Science, Peking University
+2AI Innovation Center, School of Computer Science, Peking University
+3Meituan Inc. 4National Biomedical Imaging Center, Peking University
+{dreamerliu, qiaolm, ttjiang }@pku.edu.cn, {cxxgtxy, forest.linma }@gmail.com
+Abstract
+Aiming to predict the complete shape of partially occluded
+objects, amodal segmentation is an important capacity to-
+wards visual intelligence. In order to promote the practi-
+cability, zero-shot foundation model competent for the open
+world gains growing attention in this field. Nevertheless,
+prior models exhibit deficiencies in efficiency and stability.
+To address this problem, utilizing the implicit prior knowl-
+edge, we propose the first SAM-based amodal segmenta-
+tion foundation model, SAMBA. Methodologically, a novel
+framework with multilevel facilitation is designed to better
+adapt the task characteristics and unleash the potential ca-
+pabilities of SAM. In the modality level, a separation-to-
+fusion structure is employed that jointly learns modal and
+amodal segmentation to enhance mutual coordination. In
+the instance level, to ease the complexity of amodal feature
+extraction, we introduce a principal focusing mechanism to
+indicate objects of interest. In the pixel level, mixture-of-
+experts is incorporated with a specialized distribution loss,
+by which distinct occlusion rates correspond to different ex-
+perts to improve the accuracy. Experiments are conducted
+on several eminent datasets, and the results show that the
+performance of SAMBA is superior to existing zero-shot and
+even supervised approaches. Furthermore, our proposed
+model has notable advantages in terms of speed and size.
+1. Introduction
+Due to the commonness of occlusion phenomenon in the
+real world, comprehending occlusion is one of the vital ca-
+pabilities of visual intelligence [36]. For this goal, amodal
+segmentation was proposed to predict the complete shape
+of an object containing both the visible portion and the oc-
+cluded portion [27]. Since then, diverse approaches [2] have
+been widely explored to empower various applications such
+*Corresponding author.
+Figure 1. The predicted amodal masks by SAMBA. SAMBA is
+an efficient foundation model for zero-shot amodal segmentation.
+as self-driving [4, 40], image augmentation [12, 28, 38] and
+robotic gripping systems [17, 48, 49].
+Despite the significant advance, these previous related
+work is limited to the closed-world setting, only effectively
+supporting certain specific datasets, which obviously cannot
+meet the practical requirements [2]. To tackle this prob-
+lem, pix2gestalt [35], a framework for zero-shot amodal
+segmentation is proposed. However, utilizing the denois-
+ing diffusion model to reconstruct the complete appearance,
+pix2gestalt is deficient in efficiency and stability for the
+segmentation-only tasks, thus being restricted as a founda-
+tional model. In light of this situation, a natural question
+arises: How to build a compact but efficacious foundation
+model for zero-shot amodal segmentation?
+Recently, many foundation models for general modal
+segmentation have been developed [21, 24, 50, 61], among
+which SAM [21] is prime to be widely adopted. Pre-trained
+This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+Except for this watermark, it is identical to the accepted version;
+the final published version of the proceedings is available on IEEE Xplore.
+20254
+
+
+PAGE 2
+on massive data, SAM implicitly contains rich prior knowl-
+edge to perform various segmentation tasks in the open
+world, which is also vital for theamodal segmentation task.
+Accordingly, we expect to sufficiently leverage the prior
+knowledge in SAM to facilitate amodal segmentation.
+To this end, the distinctive task characteristics of amodal
+segmentation should be addressed. In the modality level,
+the predictions of modal and amodal masks are actually re-
+lated. Since amodal segmentation requires reasonable in-
+ference based on clues from the visible region, the accuracy
+of modal segmentation can also affect relevant amodal seg-
+mentation. In the instance level, modal segmentation is de-
+faulted to focusing on the visible portions, hence each pixel
+corresponds to a single visible instance. Yet amodal seg-
+mentation does not possess this premise, as each pixel may
+correspond to multiple overlapping objects, which causes
+amodal feature extraction suffers high complexity. In the
+pixel level, the degree of occlusion plays a pivotal role in
+amodal segmentation [29]. We notice that directly employ-
+ing training data with different occlusion rates may result in
+mutual disturbance and even performance degradation.
+In response to the above issues, we propose SAMBA,
+a SAM-Based Amodal segmentation foundation model.
+Firstly, we introduce a separation-to-fusion (S2F) structure
+to jointly train modal and amodal segmentation tasks for
+more stable performance. S2F structure involves two in-
+dependent branches for modal and amodal segmentation
+to ensure modality interference is avoided and a subse-
+quent modal fusion module to retain the close collabora-
+tion. Secondly, to reduce the burden of feature extraction,
+a simple-yet-effective principal focusing (PF) mechanism
+is developed in our model. By indicating the segmentation
+target as the principal object , PF mechanism relieves the
+model from integrating whole semantics of objects at all
+depths. Thirdly, inspired by Conv-LoRA [58], we exploit
+the mixture-of-experts (MoE) paradigm and design a novel
+distribution loss based on the occlusion rate. During train-
+ing, each sample is encouraged to activate corresponding
+experts according to the occlusion rate, so that each expert
+can excel in a specific occlusion level.
+To evaluate the performance of our proposed approach,
+we conduct experiments on three prominent datasets, in-
+cluding COCOA-cls [9, 60], KINS [40], and D2SA [9]. The
+results show that compared to the pretrained SAM, SAMBA
+attains a remarkable enhancement in amodal segmentation.
+In fact, SAMBA outperforms applicable zero-shot models
+and even supervised models for this task, achieving state-of-
+the-art performance. Moreover, SAMBA exhibits high effi-
+ciency in terms of trainable parameters and inference speed.
+Our contributions can be summarized as follows:
+• We propose SAMBA, the first SAM-based foundation
+model for zero-shot amodal segmentation to alleviate the
+efficiency and stability issues in prior models.
+• In view of the task characteristics of amodal segmenta-
+tion, an appropriate framework with separation-to-fusion
+structure, principal focusing mechanism and occlusion-
+aware mixture-of-experts is elaborately designed to un-
+leash the potential amodal capabilities of SAM.
+• Our proposed model surpasses existing zero-shot ap-
+proaches along with supervised learning approaches,
+reaching state-of-the-art performance while retaining
+compact size and fast inference.
+2. Related Work
+Amodal Segmentation. The goal of amodal segmenta-
+tion is to predict the complete shape of the partially oc-
+cluded objects. In the prior work, besides direct ap-
+proaches [27, 40, 60], many fully supervised methods have
+been proposed involving various auxiliary means, such as
+depth relationship [57], region correlation [9, 20, 46], shape
+priors [5, 10, 28, 52], and generative models [53, 54].
+Considering that amodal annotating is time-consuming and
+labor-intensive, weakly supervised settings using the super-
+vision of simpler annotations such as bounding boxes and
+categories are also concerned [22, 23, 32, 34, 45, 55]. The
+applications of amodal segmentation are diverse [2]. For in-
+stance, amodal segmentation is instrumental in guarantee-
+ing operational safety and reliability of visual intelligence
+systems [4, 17, 40, 48, 49], and inspires novel algorithm de-
+sign in virtual reality [12, 38], 3D reconstruction and novel
+view synthesis [28, 35]. However, some problems still ex-
+ist in this field. The aforementioned models are limited to
+the closed-world setting, therefore they can hardly general-
+ize beyond the training data. To mitigate the challenge of
+universality, pix2gestalt [35] introduces a conditional diffu-
+sion model for reconstructing whole objects. Though bet-
+ter zero-shot capability achieved, the model brings issues of
+efficiency and stability, which is not sufficiently friendly to
+practical use. To tackle these issues, a novel segmentation-
+model-based architecture is designed leveraging inherent
+characteristics of the amodal segmentation task. Our pro-
+posed model achieves leading zero-shot performance with
+fewer parameters and faster speed.
+Visual Foundation Models. Foundation models emerge
+and develop rapidly in computer vision [3]. Trained on
+large-scale data, these models [21, 26, 31, 41, 50] demon-
+strate prominent generalization capabilities on related tasks.
+Representatively, the Segment Anything Model [21], SAM
+is trained on a model-in-the-loop dataset of 11 million im-
+ages and 1.1 billion masks to perform class-agnostic im-
+age segmentation, which significantly boosts the zero-shot
+performance on various segmentation tasks [56]. Due to
+the scaling up of model size, finetuning current foundation
+models is computation-intensive and storage-consuming.
+Parameter-efficient fine-tuning (PEFT) aims to finetune
+only a small set of parameters rather than the entire model
+20255
+
+
+PAGE 3
+without sacrificing performance. To achieve this, diver-
+sified approaches have been proposed [16]. Prompt tun-
+ing [18, 25, 44] introduces the trainable tensor as prefix
+of the input embeddings. Series adapters [14, 19, 51] in-
+volves additional learnable modules in a sequential man-
+ner. Reparametrization-based methods [1, 7, 15] transform
+model weights by low-rank techniques, among which low-
+rank adaptation (LoRA) is widely used utilizing rank de-
+composition matrices to reduces trainable parameters for
+specific tasks [15]. Foundation models inspire ground-
+breaking research in many fields. Nevertheless, in the field
+of amodal segmentation, the exploration of unleashing the
+potential of these foundation models is still scarce.
+Mixture of Experts. Mixture-of-Experts (MoE) is an ef-
+fective method for substantially scaling up model capacity
+with minimal computation overhead [42, 43, 59, 62]. Each
+MoE layer typically consists of multiple independent ex-
+pert networks alongside a gating function. The gating func-
+tion directs the input to appropriate experts, thus regulat-
+ing sparsity for computational savings. Well balancing the
+performance and efficiency, MoE techniques are also appli-
+cable to segmentation models. Conv-LoRA [58] combines
+lightweight convolutional experts with LoRA to better adapt
+SAM to real-world semantic segmentation tasks. In our ap-
+proach, since occlusion rates count in amodal segmentation,
+we incorporate an alternative distribution loss for the gating
+units to select experts based on the occlusion rates.
+3. Method
+3.1. Motivating Observations
+Observation #1: Amodal segmentation is related to corre-
+sponding modal segmentation.
+The amodal segmentation model seeks clues from the
+visible portion of an object to infer its complete shape.
+Therefore, the correlation between amodal segmentation
+and modal segmentation is evident. Many amodal segmen-
+tation approaches take the modal mask as input and em-
+(a) (b)
+Depth
+ Depth
+Figure 2. The illustration of Observation #2. (a) Modal segmen-
+tation cares only the front object at each pixel. (b) Amodal seg-
+mentation may focus on any object at all depths (refer to Sec. 3.1).
+ploy ground truth modal masks during training, which con-
+sequently leads to deficient robustness. When an inaccurate
+modal mask is taken as input, the performance of amodal
+segmentation will also face a notable decrease. To verify the
+observation, we experiment on the pix2gestalt [35] model.
+Using ground truth bounding boxes as the prompt, we ob-
+tain the predicted modal masks by SAM [21]. Compared
+to inputting ground truth modal masks, inputting these pre-
+dicted masks results in a drop of more than 3% in mean IoU
+on the COCOA-cls [9, 60] testset (refer to Table 1). This
+observation suggests a combined approach to predict modal
+and amodal masks by a single model. Through joint train-
+ing, modal and amodal segmentation can better enhance and
+collaborate with each other.
+Observation #2: Failure to identify principal object in-
+creases the complexity of feature extraction.
+As shown in Fig. 2, by default, modal segmentation only
+cares the object with minimal depth at each pixel. In con-
+trast, amodal segmentation is not in accordance with this
+prior condition since all objects may be focused on. For
+covering all depths in the scene, the complexity of feature
+extraction increases inevitably. Consider a simple closed-
+world classifier. If there are N types of objects in the
+dataset, each pixel in an image will have N possibilities
+in modal segmentation. But in amodal segmentation, taking
+only the existence of each category into account without the
+quantity and occlusion relationships, there are 2N possibil-
+ities for each pixel. Due to the exponential growth of the
+number of possibilities, it is extremely hard to achieve this
+classifier when N is large. But if the principal object can be
+specified, we can simplify the task asN-classification at rel-
+evant depth, or even binary classification to predict whether
+each pixel belongs to the object. This observation inspires
+that we can facilitate the feature extraction by indicating the
+segmentation target as the principal object.
+Observation #3: Samples with different occlusion rates
+have some conflicting characteristics.
+The degree of occlusion has a significant impact on
+amodal segmentation [29]. Characteristics vary in some as-
+pects for different occlusion rates. From a modal mask to
+corresponding amodal mask, samples with low occlusion
+rates only need very restrained modification, while sam-
+ples with high occlusion rates require extensive completion.
+When we directly use training data with mixed occlusion
+rates, the resulting model tends to stuck in a compromise
+state and lose performance. For each occlusion level in the
+COCOA-cls [9, 60] testset, we train a model on the partial
+data [35] that matches the occlusion rate. Compared to the
+model trained on the entire data, these specific models ac-
+tually perform better on respective levels (refer to Table 5).
+This observation motivates us to design a mechanism that
+enables the divergent characteristics of samples with dis-
+tinct occlusion rates to be well represented.
+20256
+
+
+PAGE 4
+(b) Attention Module
+! 
+Modal 
+Decoder
+! 
+Amodal 
+Decoder
+! 
+Modal Fusion 
+Module
+Principal Focusing Units
+Image Encoder
+!
+❄
+Prompt Encoder
+ !
+Separated Adapters
+ !
+I
+˜mm
+i
+˜ma
+i
+˜Ma
+i
+Modal Box
+!Trainable
+❄Frozen
+! 
+SA
+❄ 
+Wq
+! 
+SA
+❄ 
+Wk
+! 
+SA
+❄ 
+Wv
+Attention Op.
+Wproj
+Principal Focusing
+Input 
+Amodal Feature
+Input 
+Modal Feature
+Prompt  
+Embeddings
+SA
+ Output Amodal Feature
+ Output Modal Feature
+!
+❄
+! Wm
+a
+W0
+xaxm
+Wm
+b
+Wa
+a
+Wa
+b
+hm ha
+MoE
+(a) Model Architecture (c) Separated Adapter
+Figure 3. (a) The overall architecture of SAMBA. In SAMBA, we introduce a separation-to-fusion structure (refer to Sec. 3.3). By
+separated adapters and decoders, two parallel branches are constructed to process modal and amodal predictions, respectively. A subsequent
+modal fusion module then combines the two modalities and provides a more moderate amodal mask. Furthermore, a principal focusing
+mechanism is designed (refer to Sec. 3.4) to utilize the prompt embeddings to indicate the principal object and mitigate the challenge of
+amodal feature extraction. (b) The modified attention module. Specifically, separated adapters (SA) and principal focusing units are
+applied to the attention modules of the image encoder. (c) The forward pass of the separated adapter. In each separated adapter, the
+forward pass is separated to the amodal pass and the modal pass (refer to Sec. 3.3). In the amodal pass,occlusion-aware MoE (mixture-of-
+experts) is developed to enhance the capability to represent different occlusion levels (refer to Sec. 3.5).
+3.2. Task Definition
+For a partially occluded object, general modal segmentation
+only provides the visible area, while amodal segmentation
+is to segment its complete shape [27]. Zero-shot amodal
+segmentation means that when applied to new datasets, the
+model does not require additional fine-tuning [35]. Unlike
+some other methods [10, 35, 54], our SAMBA do not re-
+quire the modal mask as input. For each instance i, we
+take only the original image I and the bounding box Bm
+i
+of the visible portion that indicates the region of interest as
+the input. Finally, the output is the predicted binary amodal
+mask ˜Ma
+i . During training, we adopt the ground-truth bi-
+nary modal mask Mm
+i and binary amodal mask Ma
+i as the
+supervision signal. Category labels are not required.
+3.3. Separation to Fusion
+In SAMBA, we follow the parameter-efficient fine-tuning
+paradigm and apply the low-rank adaptation [15] to limit the
+number of trainable parameters. In order to effectively inte-
+grate modal and amodal segmentation into one model (refer
+to Observation #1 in Sec. 3.1), we introduce a separation-
+to-fusion (S2F) structure. Specifically, as shown in Fig. 3,
+the modal mask ˜mm
+i and coarse amodal mask ˜ma
+i are first
+predicted by two parallel branches, and then rectified into
+a more accurate amodal mask ˜Ma
+i through a modal fusion
+module. S2F structure takes advantage of the correlation of
+the two modalities while avoiding mutual disturbance.
+Separation. For the image encoder, separated adapters
+are developed to extract modal and amodal features, re-
+spectively. Given a pretrained weight matrix W0 ∈
+Rb×a, we freezes the original weights and exploits dou-
+ble pairs of trainable rank decomposition matrices Wa
+a ∈
+Rra×a, Wa
+b ∈ Rb×ra
+and Wm
+a ∈ Rrm×a, Wm
+b ∈ Rb×rm
+where ra, rm ≪ min(a, b). For input x, the initial forward
+pass h = W0x is separated to the amodal pass
+ha = W0xa + Wa
+b Wa
+axa, (1)
+and the modal pass
+hm = W0xm + Wm
+b Wm
+a xm. (2)
+Subsequently, two independent mask decoders are equipped
+to obtain the modal mask and the coarse amodal mask.
+Modal decoder Dm processes modal image embeddings
+and prompt embeddings, while amodal decoder Da pro-
+cesses amodal image embeddings and prompt embeddings:
+˜mm
+i = Dm(Em, Ep), ˜ma
+i = Da(Ea, Ep). (3)
+Both decoders are initialized with the same parameters as
+the mask decoder in the pretrained SAM.
+Fusion. Based on the results of the previous two branches,
+a modal fusion module is employed. Utilizing the predicted
+modal mask, the yielded amodal mask can be verified and
+rectified to determine a confident shape and promote the
+precision. Furthermore, this module combines modal and
+amodal branches to achieve simultaneous adjustment in the
+training, which can help enhance the synergy of these two
+branches. In practice, the modal fusion module takes as
+input the concatenation of the original image I, the modal
+prediction ˜mm
+i and the amodal prediction ˜ma
+i . To limit
+the scale, we select a simple-yet-effective convolutional net-
+work that contains only a residual block [13]
+˜Ma
+i = ˜ma
+i + Convs K(I, ˜mm
+i , ˜ma
+i ), (4)
+20257
+
+
+PAGE 5
+where Convs K(·) means multiple convolution layers, and
+K is the kernel size.
+3.4. Principal Focusing
+Aiming to clarity the principal instance and ease the com-
+plexity of feature extraction for amodal segmentation (refer
+to Observation #2 in Sec. 3.1), we incorporate a novel prin-
+cipal focusing (PF) unit. The principal focusing unit is ap-
+plied to each transformer blocks without window partition
+in the image encoder. To maintain a compact size, several
+linear layers are first conducted to regulate the number of
+channels. Concretely, for the input image featurexa with ca
+channels and the prompt embeddings Ep with cp channels,
+trainable matrices Wq ∈ Rra×ca
+and Wk, Wv ∈ Rra×cp
+are introduced to compute
+Q = Wqxa, K = WkEp, V = WvEp. (5)
+Then, the cross attention [47] operation is performed:
+da = softmax ( QKT
+√
+ra )V. (6)
+And next, employing another trainable matrix Wout ∈
+Rca×ra
+, the revised image feature xa is obtained through
+an incremental pattern
+xa = Norm(xa + Woutda), (7)
+where Norm(·) represents layer normalization. The prin-
+cipal focusing unit is placed at the beginning of the trans-
+former block, so that following operations can base on the
+revised image feature xa instead of the original xa. In ad-
+dition, to better adapt to these principal focusing units, the
+prompt encoder is also set to be trainable.
+3.5. Occlusion-Aware MoE
+MoE. As mentioned in Observation #3 (refer to Sec. 3.1),
+we seek to introduce some mechanism to represent the dis-
+tinct characteristics of diverse occlusion rates. Mixture-of-
+experts (MoE) exactly meets this requirement. Containing
+di
+R0
+γ
+Ri−1
+… …
+Ri
+Occlusion 
+Rate
+RN
+Figure 4. The illustration of occlusion levels. The occlusion rate
+is divided into N levels for the convenience of corresponding with
+MoE modules. For a sample with occlusion rateγ, the ideal gating
+score decreases with increasing distance di (refer to Sec. 3.5).
+multiple expert networks and an accompanying gating mod-
+ule, MoE can dynamically activate relevant experts in the
+forward pass [43]. In SAMBA, MoE is leveraged in the
+amodal branch of the image encoder. For our target, these
+different experts can correspond to different levels of oc-
+clusion rates. Inspired by Conv-LoRA [58], we incorporate
+parallel convolution layers as the experts between the train-
+able matrices of LoRA. That is, Eq. 1 changes to
+ha = W0xa + Wa
+b (
+NX
+i=1
+G(Wa
+axa)iEi(Wa
+axa)), (8)
+where G(·) is the gating network to select experts with top-
+k scores and assign appropriate weights,Ei(·) = Conv K
+i (·)
+is the i-th expert, and N, K are constant parameters of the
+number of experts and the kernel size.
+Distribution Loss. Although maintaining the common
+composition, we realize that an alternative loss function
+consistent with our expected allocation mode is required.
+We expect to differentiate experts according to the occlu-
+sion rate, so that each expert has a certain specialized oc-
+clusion rate range. The gating network should be capable
+of activating proper experts, while the original loss function
+focuses on the balancing of importance and load of experts.
+Therefore, we design a tailored distribution loss.
+As shown in Fig. 4, the occlusion rate is divided into
+N levels [R0, R1), [R1, R2), ..., [RN −1, RN ). Consider an
+instance with occlusion rateγ, its distance to each occlusion
+level is defined as
+di = |γ − Ri−1 + Ri
+2 |. (9)
+Obviously, γ belongs to the level with minimal di. But to
+prevent overfitting, we do not intend to completely ignore
+other experts. Instead, we set the ideal score for the i-th
+expert as
+Si = log(1/di)PN
+j=1 log(1/dj)
+, (10)
+which is not one-hot but decreases significantly with dis-
+tance di. To further enhance robustness, the distribution
+loss acts at a global level. We group the experts in all MoE
+modules according to the serial number to match the num-
+ber of occlusion levels and obtain N expert groups. For
+each group of experts, we calculate the total Ti of corre-
+sponding scores provided by involved gating networks to
+get the predicted group score ˜Si:
+Ti =
+X
+m∈M
+Gm(Wa
+axa)i, ˜Si = Ti/
+NX
+j=1
+Tj, (11)
+where M is the set of all MoE modules in the model, Gm
+is the gating network of MoE module m ∈ M, and Wa
+axa
+20258
+
+
+PAGE 6
+is the input of m. To measure the discrepancy of the ex-
+pected distribution S = [S1, ..., SN ] and the actual distribu-
+tion ˜S = [ ˜S1, ..., ˜SN ], the distribution loss is finally imple-
+mented through a KL loss:
+Ldist = KLloss(˜S, S). (12)
+4. Experiments
+4.1. Training Details
+Model. Our SAMBA utilizes the ViT-H version of pre-
+trained SAM [6, 21] as the foundation. Considering the
+balance of cost and effectiveness, we set the rank of modal
+and amodal adapters to rm = 32 , ra = 64 . And since
+the occlusion rate of most objects is less than 0.5 while
+plenty unobstructed objects exist, we arrange the number
+of occlusion levels to N = 8 and select [R0, ..., RN ] =
+[0, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0.75, 1.0] for the
+occlusion-aware MoE. For the kernel size of incorporated
+convolution layers, we select K = 3.
+Data. To achieve sufficient training, the large-scale and
+high-quality dataset is a requisite. Therefore, we em-
+ploy the pix2gestalt dataset [35] for training, which is a
+class-agnostic dataset comprising837K images constructed
+by producing synthetic occlusion based on the SA-1B
+dataset [21]. Like related work [10], we use double mag-
+nified visible bounding boxes to crop images. All input im-
+ages are resized to 512 × 512 and then processed.
+Loss. We adopt the binary cross entropy loss Lbce and the
+dice loss Ldice to reflect the segmentation errors. The seg-
+mentation loss Lseg = Lbce + Ldice is applied to the pre-
+dictions of the modal decoder, the amodal decoder and the
+modal fusion module. And for the mixture-of-experts in the
+image encoder, our proposed distribution loss Ldist is used.
+Implementation. In practice, SAMBA is implemented
+based on the Pytorch framework [37]. We utilize AdamW
+optimizer [33] and a dynamic learning rate, which reaches
+1e−4 after a quick 250-iteration warmup and then gradually
+decreases to 0. The β1, β2 and the weight decay of AdamW
+optimizer are set to 0.9, 0.999, 0.1. The whole training con-
+tains 10 epochs on 8 NVIDIA A100 Tensor Core GPUs.
+4.2. Evaluation Datasets and Metrics
+Datasets. For comprehensive results, we conduct ex-
+periments on three eminent datasets including COCOA-
+cls [9, 60], KINS [40], and D2SA [9], which are commonly
+adopted in the field of amodal segmentation. Different from
+the pix2gestalt dataset used for training, these datasets are
+all based on real-world images with real occlusion. The
+COCOA-cls dataset complements amodal annotations for
+a subset of the COCO dataset [30], containing 80 cate-
+gories and 3699 images in total. For the convenience of
+test, it is divided into 4 occlusion levels FG-0, FG-1, FG-2,
+FG-3 that correspond to occlusion rates of 0%, 1-20%, 20-
+40%, 40-70% [45]. The KINS dataset is built on the KITTI
+dataset [11]. KINS is the largest amodal street scene dataset
+that consists of 2 super-classes and 7 sub-classes with 14991
+images in total. The D2SA dataset provides amodal annota-
+tions for 5600 images in the checkout scenario based on the
+D2S [8] dataset, including diverse objects of 60 categories.
+Metrics. As in related work [35, 54], we choose mean
+intersection-over-union (IoU) as a metric. IoU is the ra-
+tio of intersecting pixels of the predicted mask and ground
+truth mask to their union. Accordingly, mean IoU reflects
+the overall capabilities of amodal segmentation. To mea-
+sure the efficiency of each model, the size and speed are
+introduced as another two metrics. For a model, the number
+of relevant trainable parameters indicates the size, while the
+average inference time per instance indicates the speed.
+4.3. Comparison with Existing Methods
+Baselines. In order to better evaluate our proposed
+method, we choose several typical and recent approaches
+for comparison, which are C2F-Seg [10], SDAmodal [54],
+SAM [21], SDXL-Inpainting [39], and pix2gestalt [35].
+C2F-Seg and SDAmodal are two leading supervised ap-
+proaches for amodal segmentation. The rest three are zero-
+shot methods, among which SAM and SDXL-Inpainting
+are trained for general segmentation and generation tasks,
+while pix2gestalt is the state-of-the-art zero-shot model spe-
+cially developed for amodal completion tasks. For zero-shot
+methods, we use the pretrained models for testing without
+finetuning. And for supervised methods, we adopt the offi-
+cially released models on specific datasets.
+It should be noted that our model needs only the modal
+bounding boxes as input, but some baselines input the
+ground truth modal masks in the original experiments.
+Hence we realize that direct comparison is unfair. Exper-
+imentally, we input the modal bounding boxes to SAM and
+replace the input of pix2gestalt model with the masks pre-
+dicted by SAM. As shown in Table 1, the resulting per-
+formance degradation on the COCOA-cls dataset is obvi-
+ous. Therefore, for fair comparison, all involving models
+take the predicted modal masks instead of the ground truth
+modal masks as input. Due to the inaccessibility of the
+ground truth modal mask in actual applications, such a set-
+ting also has more practical significance.
+Input Mask FG-0 FG-1 FG-2 FG-3 Mean
+GT 85.5 84.0 77.2 66.8 82.41
+Pred 83.0 80.6 72.4 61.1 79.08
+Table 1. The performance comparison of pix2gestalt [35] with
+different input on COCOA-cls dataset. “GT”, “Pred” mean ground
+truth and predicted modal masks, respectively.
+20259
+
+
+PAGE 7
+Figure 5. Qualitative results. The qualitative comparison of predicted amodal masks by SAM, SDXL-Inpainting, pix2gestalt and our
+SAMBA. The 1-2 rows are from COCOA-cls, the 3-4 rows are from KINS, and the last row is from D2SA. Zoom in for a better view.
+Method Venue Zero-shot Params Time COCOA-cls KINS D2SA
+C2F-Seg [10] ICCV′23 - 325M 0.2s 80.28 82.22 89.10
+SDAmodal [54] CVPR′24 - 16M 4.8s 80.01 - -
+SAM [21] ICCV′23 ✓ - 0.3s 73.10 75.88 84.65
+SDXL-Inpainting [39] ICLR′24 ✓ - 9.7s 73.65 76.19 80.53
+Pix2gestalt [35] CVPR′24 ✓ 860M 100.1s 79.08 81.45 81.82
+Ours - ✓ 72M 0.3s 81.82 88.47 90.87
+Table 2. The comparison with existing methods on the efficiency and performance. In the table, “Params” and “Time” represent the number
+of relevant trainable parameters and the average inference time per instance, respectively. The performance is reported by mean IoU (%).
+Results. As shown in Table 2, our SAMBA significantly
+outperforms existing methods. On the one hand, our pro-
+posed approach reaches the state-of-the-art performance on
+all three datasets. On the challenging COCOA-cls dataset,
+SAMBA attains outstanding 81.82% on mean IoU. On the
+KINS and D2SA datasets, SAMBA also achieves remark-
+able lead. On the other hand, our model also has advan-
+tages in efficiency, possessing relatively lightweight size
+and swift inference speed. In terms of the number of train-
+able parameters, SAMBA (72M) is less than one-tenth of
+pix2gestalt (860M). And when facing diverse datasets, such
+zero-shot model does not require corresponding multiple
+models. As for the inference time, the average values on
+the COCOA-cls dataset are recorded. In terms of the orders
+of magnitude, the time cost of SAMBA is similar to that of
+SAM. Several qualitative results are also shown in Fig. 5
+to intuitively display our superiority in performance. Com-
+pared to other zero-shot models, SAMBA can provide more
+accurate and complete shapes.
+4.4. Ablation Study
+To validate the effectiveness of our proposed method, we
+conduct ablation study in this section. All the experi-
+ments are performed in a zero-shot mode, finetuning on the
+pix2gestalt dataset while testing on the COCOA-cls dataset.
+As shown in Table 3, the pretrained SAM (the 1st setting)
+as the basis can hardly provide satisfactory amodal masks.
+After the finetuning by only the plain LoRA (the 2nd set-
+ting), the performance acquires a substantial improvement.
+On this basis, our proposed design brings more progress.
+The Effect of S2F Structure. To verify the benefit of the
+separation-to-fusion structure, we can compare the 2nd and
+3rd settings in Table 3. By leveraging this structure, the
+performance shows a significant promotion of 2.46%. The
+20260
+
+
+PAGE 8
+Index FT S2F PF FG-0 FG-1 FG-2 FG-3 Mean
+1 80.5 75.6 58.6 42.7 73.10
+2 ✓ 81.5 79.3 72.2 62.8 78.08
+3 ✓ ✓ 83.4 81.7 75.1 67.9 80.54
+4 ✓ ✓ ✓ 83.7 82.3 76.4 70.8 81.28
+Table 3. The ablation study about S2F and PF on the COCOA-cls
+datasets. FT, S2F, PF represent the fine-tuning on pix2gestalt [35]
+dataset, the seperation-to-fusion structure (refer to Sec. 3.3), and
+the principal focusing mechanism (refer to Sec. 3.4).
+Index MoE DL FG-0 FG-1 FG-2 FG-3 Mean
+4 83.7 82.3 76.4 70.8 81.28
+5 ✓ 84.1 82.7 76.4 69.9 81.52
+6 ✓ ✓ 84.4 82.8 76.8 70.8 81.82
+Table 4. The ablation study about MoE and DL on the COCOA-
+cls datasets. MoE and DL represent the mixture-of-experts and the
+distribution loss (refer to Sec. 3.5). Here we adopt N = 8.
+Figure 6. Typical failure cases: one is a relatively complex and
+uncertain human posture, and the other is a blurred object.
+coordination of modal and amodal segmentation has a pos-
+itive effect on all occlusion levels.
+The Effect of PF Mechanism. To demonstrate the impor-
+tance of principal focusing, we can compare the 3rd and
+4th settings in Table 3. The outcome shows that the latter
+notably beats the former by 0.74%. The improvement is
+particularly apparent when the occlusion rate is large. For
+example, the FG-3 level gains an increase of around 3%.
+The Effect of Occlusion-Aware MoE. First, as mentioned
+in Sec. 3.1, we attempt to evaluate the performance of spe-
+cialized models on different occlusion levels. Using the
+same architecture as the 4th setting in Table 3, we train a
+model for each level on the partial training set that matches
+corresponding occlusion rates. As shown in Table 5, these
+specific models perform even better than the model that
+learns all training data. This indicates that the latter model
+indeed lie on a state of balance but compromise.
+Then, we continue to observe the effect of the mixture-
+of-experts and the distribution loss. As shown in Table 4,
+when the MoE modules are incorporated (the 5th setting)
+on the basis of the 4th setting, the performance obtain a
+certain enhancement. If the distribution loss is adopted si-
+multaneously (the 6th setting), more evident improvement
+Training DataFG-0 FG-1 FG-2 FG-3 Mean
+FG-1 83.6 82.9 75.7 60.1 80.37
+FG-2 81.0 79.5 77.5 71.0 79.23
+FG-3 78.2 75.4 72.0 72.7 76.14
+All 83.7 82.3 76.4 70.8 81.28
+Table 5. The performance on the COCOA-cls dataset of specific
+models trained by partial data on certain occlusion rates.
+ra rm FG-0 FG-1 FG-2 FG-3 Mean
+32 16 84.2 82.5 76.2 69.8 81.47
+64 32 84.4 82.8 76.8 70.8 81.82
+128 64 83.4 82.3 77.2 71.2 81.26
+Table 6. The results of multiple attempts at the adapter ranks on
+the COCOA-cls dataset. ra, rm correspond to the ranks of amodal
+and modal adapters, respectively.
+can be achieved (0.54% compared to the 4th setting).
+The Effect of Adapter Ranks. Due to the rank of LoRA
+adapters possesses a direct correlation with parameter quan-
+tity and final performance [15], we make a careful choice
+based on experimental results. For economical cost, we
+shrink the rank of the modal adapters and set rm = ra/2.
+As shown in Table 6, our selected ranks ra = 64 , rm = 32
+can yield a compact but high-performance model compared
+to other attempts. It is worth mentioning that when the ranks
+increase to ra = 128 , rm = 64 , the performance actually
+decreases. This may be attributed to the difficulty in achiev-
+ing sufficient training with the current training data.
+The Effect of the quality of input boxes. We multiply the
+input box [x, y, w, h] by a random perturbation (1 +ϵ). The
+performance of our model is relatively stable. When ϵ ∈
+[−5%, 5%], the mean IoU on COCOA decreased slightly
+from 81.82 to 81.65 (−0.17). When ϵ ∈ [−10%, 10%], the
+mean IoU on COCOA can still reach 81.12 (−0.70).
+5. Conclusion
+In this work, we revisit the amodal segmentation task and
+propose a novel SAM-based foundation model SAMBA for
+zero-shot amodal segmentation. Introducing the seperation-
+to-fusion structure to enhance coordination while avoiding
+mutual disturbance, the principal focusing mechanism to
+ease the burden of feature extraction, and the occlusion-
+aware mixture-of-experts to represent the distinct character-
+istics of different occlusion levels, SAMBA well leverages
+the implicit prior knowledge of SAM for amodal segmenta-
+tion. Experimental results demonstrate that SAMBA signif-
+icantly outperforms existing zero-shot and even supervised
+models to achieve state-of-the-art performance. Moreover,
+SAMBA is efficient and economic, possessing remarkable
+advantages in the size and inference speed.
+20261
+
+
+PAGE 9
+Acknowledgments
+This work was partially supported by the Natural Sci-
+ence Foundation of China under contract 62088102. This
+work was also partially supported by PKU Kunpeng & As-
+cend Center of Excellence. We also acknowledge High-
+Performance Computing Platform of Peking University for
+providing computational resources.
+References
+[1] Armen Aghajanyan, Sonal Gupta, and Luke Zettlemoyer.
+Intrinsic dimensionality explains the effectiveness of lan-
+guage model fine-tuning. In Proceedings of the 59th An-
+nual Meeting of the Association for Computational Linguis-
+tics and the 11th International Joint Conference on Natu-
+ral Language Processing (Volume 1: Long Papers) , page
+7319–7328, 2021. 3
+[2] Jiayang Ao, Qiuhong Ke, and Krista A Ehinger. Image
+amodal completion: A survey. Computer Vision and Image
+Understanding, page 103661, 2023. 1, 2
+[3] Muhammad Awais, Muzammal Naseer, Salman Khan,
+Rao Muhammad Anwer, Hisham Cholakkal, Mubarak Shah,
+Ming-Hsuan Yang, and Fahad Shahbaz Khan. Foundation
+models defining a new era in vision: A survey and outlook.
+IEEE Transactions on Pattern Analysis and Machine Intelli-
+gence, 47(4):2245–2264, 2025. 2
+[4] Jasmin Breitenstein and Tim Fingscheidt. Amodal
+cityscapes: a new dataset, its generation, and an amodal se-
+mantic segmentation challenge baseline. In IEEE Intelligent
+Vehicles Symposium, pages 1018–1025, 2022. 1, 2
+[5] Junjie Chen, Li Niu, Jianfu Zhang, Jianlou Si, Chen Qian,
+and Liqing Zhang. Amodal instance segmentation via prior-
+guided expansion. In Proceedings of the 37th AAAI Confer-
+ence on Artificial Intelligence, pages 313–321, 2023. 2
+[6] Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov,
+Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner,
+Mostafa Dehghani, Matthias Minderer, Georg Heigold, Syl-
+vain Gelly, Jakob Uszkoreit, and Neil Houlsby. An image is
+worth 16x16 words: Transformers for image recognition at
+scale. In International Conference on Learning Representa-
+tions, 2021. 6
+[7] Ali Edalati, Marzieh Tahaei, Ivan Kobyzev, Vahid Partovi
+Nia, James J Clark, and Mehdi Rezagholizadeh. Krona: Pa-
+rameter efficient tuning with kronecker adapter. InAdvances
+in Neural Information Processing Systems, 2023. 3
+[8] Patrick Follmann, Tobias Bottger, Philipp Hartinger, Re-
+becca Konig, and Markus Ulrich. MVTec D2S: densely seg-
+mented supermarket dataset. In Proceedings of the European
+Conference on Computer Vision, pages 569–585, 2018. 6
+[9] Patrick Follmann, Rebecca K ¨onig, Philipp H ¨artinger,
+Michael Klostermann, and Tobias B ¨ottger. Learning to see
+the invisible: End-to-end trainable amodal instance segmen-
+tation. In Proceedings of the IEEE Winter Conference on
+Applications of Computer Vision , pages 1328–1336, 2019.
+2, 3, 6
+[10] Jianxiong Gao, Xuelin Qian, Yikai Wang, Tianjun Xiao,
+Tong He, Zheng Zhang, and Yanwei Fu. Coarse-to-fine
+amodal segmentation with shape prior. In Proceedings of
+the IEEE/CVF International Conference on Computer Vi-
+sion, pages 1262–1271, 2023. 2, 4, 6, 7
+[11] Andreas Geiger, Philip Lenz, and Raquel Urtasun. Are we
+ready for autonomous driving? the KITTI vision benchmark
+suite. In Proceedings of the IEEE Conference on Computer
+Vision and Pattern Recognition, pages 3354–3361, 2012. 6
+[12] Vasileios Gkitsas, Vladimiros Sterzentsenko, Nikolaos
+Zioulis, Georgios Albanis, and Dimitrios Zarpalas. Panodr:
+Spherical panorama diminished reality for indoor scenes. In
+Proceedings of the IEEE/CVF Conference on Computer Vi-
+sion and Pattern Recognition , pages 3716–3726, 2021. 1,
+2
+[13] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+Deep residual learning for image recognition. In Proceed-
+ings of the IEEE Conference on Computer Vision and Pattern
+Recognition, pages 770–778, 2016. 4
+[14] Neil Houlsby, Andrei Giurgiu, Stanislaw Jastrzebski, Bruna
+Morrone, Quentin De Laroussilhe, Andrea Gesmundo, Mona
+Attariyan, and Sylvain Gelly. Parameter-efficient transfer
+learning for NLP. In Proceedings of the 36th International
+Conference on Machine Learning, pages 2790–2799, 2019.
+3
+[15] Edward J Hu, yelong shen, Phillip Wallis, Zeyuan Allen-
+Zhu, Yuanzhi Li, Shean Wang, Lu Wang, and Weizhu Chen.
+LoRA: Low-rank adaptation of large language models. InIn-
+ternational Conference on Learning Representations , 2022.
+3, 4, 8
+[16] Zhiqiang Hu, Lei Wang, Yihuai Lan, Wanyu Xu, Ee-Peng
+Lim, Lidong Bing, Xing Xu, Soujanya Poria, and Roy Lee.
+LLM-Adapters: An adapter family for parameter-efficient
+fine-tuning of large language models. In Proceedings of
+the 2023 Conference on Empirical Methods in Natural Lan-
+guage Processing, page 5254–5276, 2023. 3
+[17] Yusuke Inagaki, Ryosuke Araki, Takayoshi Yamashita, and
+Hironobu Fujiyoshi. Detecting layered structures of par-
+tially occluded objects for bin picking. In Proceedings of
+the IEEE/RSJ International Conference on Intelligent Robots
+and Systems, pages 5786–5791, 2019. 1, 2
+[18] Menglin Jia, Luming Tang, Bor-Chun Chen, Claire Cardie,
+Serge Belongie, Bharath Hariharan, and Ser-Nam Lim. Vi-
+sual prompt tuning. In Proceedings of the European Confer-
+ence on Computer Vision, pages 709–727, 2022. 3
+[19] Rabeeh Karimi Mahabadi, James Henderson, and Sebastian
+Ruder. Compacter: Efficient low-rank hypercomplex adapter
+layers. In Advances in Neural Information Processing Sys-
+tems, pages 1022–1035, 2021. 3
+[20] Lei Ke, Yu-Wing Tai, and Chi-Keung Tang. Deep occlusion-
+aware instance segmentation with overlapping bilayers. In
+Proceedings of the IEEE/CVF Conference on Computer Vi-
+sion and Pattern Recognition, pages 4019–4028, 2021. 2
+[21] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao,
+Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer White-
+head, Alexander C. Berg, Wan-Yen Lo, Piotr Dollar, and
+Ross Girshick. Segment anything. In Proceedings of the
+IEEE/CVF International Conference on Computer Vision ,
+pages 4015–4026, 2023. 1, 2, 3, 6, 7
+20262
+
+
+PAGE 10
+[22] Adam Kortylewski, Ju He, Qing Liu, and Alan L Yuille.
+Compositional convolutional neural networks: A deep archi-
+tecture with innate robustness to partial occlusion. In Pro-
+ceedings of the IEEE/CVF Conference on Computer Vision
+and Pattern Recognition, pages 8940–8949, 2020. 2
+[23] Adam Kortylewski, Qing Liu, Angtian Wang, Yihong Sun,
+and Alan Yuille. Compositional convolutional neural net-
+works: A robust and interpretable model for object recog-
+nition under occlusion. International Journal of Computer
+Vision, 129:736–760, 2021. 2
+[24] Xin Lai, Zhuotao Tian, Yukang Chen, Yanwei Li, Yuhui
+Yuan, Shu Liu, and Jiaya Jia. LISA: Reasoning segmentation
+via large language model. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition ,
+pages 9579–9589, 2024. 1
+[25] Brian Lester, Rami Al-Rfou, and Noah Constant. The power
+of scale for parameter-efficient prompt tuning. In Proceed-
+ings of the 2021 Conference on Empirical Methods in Natu-
+ral Language Processing, page 3045–3059, 2021. 3
+[26] Junnan Li, Dongxu Li, Caiming Xiong, and Steven Hoi.
+BLIP: Bootstrapping language-image pre-training for unified
+vision-language understanding and generation. In Proceed-
+ings of the 39th International Conference on Machine Learn-
+ing, pages 12888–12900, 2022. 2
+[27] Ke Li and Jitendra Malik. Amodal instance segmentation. In
+Proceedings of the European Conference on Computer Vi-
+sion, pages 677–693, 2016. 1, 2, 4
+[28] Zhixuan Li, Weining Ye, Tingting Jiang, and Tiejun Huang.
+2D amodal instance segmentation guided by 3D shape prior.
+In Proceedings of the European Conference on Computer Vi-
+sion, pages 165–181, 2022. 1, 2
+[29] Zhixuan Li, Ruohua Shi, Tiejun Huang, and Tingting Jiang.
+OAFormer: Learning occlusion distinguishable feature for
+amodal instance segmentation. In Proceedings of the IEEE
+International Conference on Acoustics, Speech and Signal
+Processing, pages 1–5, 2023. 2, 3
+[30] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays,
+Pietro Perona, Deva Ramanan, Piotr Doll´ar, and C Lawrence
+Zitnick. Microsoft COCO: Common objects in context. In
+Proceedings of the European Conference on Computer Vi-
+sion, pages 740–755, 2014. 6
+[31] Shilong Liu, Zhaoyang Zeng, Tianhe Ren, Feng Li, Hao
+Zhang, Jie Yang, Qing Jiang, Chunyuan Li, Jianwei Yang,
+Hang Su, Jun Zhu, and Lei Zhang. Grounding DINO: Mar-
+rying DINO with grounded pre-training for open-set object
+detection. In Proceedings of the European Conference on
+Computer Vision, pages 38–55, 2024. 2
+[32] Zhaochen Liu, Zhixuan Li, and Tingting Jiang. BLADE:
+Box-level supervised amodal segmentation through directed
+expansion. In Proceedings of the 38th AAAI Conference on
+Artificial Intelligence, pages 3846–3854, 2024. 2
+[33] Ilya Loshchilov and Frank Hutter. Decoupled weight de-
+cay regularization. In International Conference on Learning
+Representations, 2018. 6
+[34] Khoi Nguyen and Sinisa Todorovic. A weakly supervised
+amodal segmenter with boundary uncertainty estimation. In
+Proceedings of the IEEE/CVF International Conference on
+Computer Vision, pages 7396–7405, 2021. 2
+[35] Ege Ozguroglu, Ruoshi Liu, D ´ıdac Sur´ıs, Dian Chen, Achal
+Dave, Pavel Tokmakov, and Carl V ondrick. pix2gestalt:
+Amodal segmentation by synthesizing wholes. In Proceed-
+ings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition, pages 3931–3940, 2024. 1, 2, 3, 4, 6,
+7, 8
+[36] Stephen E Palmer. Vision science: Photons to phenomenol-
+ogy. MIT press, 1999. 1
+[37] Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer,
+James Bradbury, Gregory Chanan, Trevor Killeen, Zeming
+Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison,
+Andreas Kopf, Edward Yang, Zachary DeVito, Martin Rai-
+son, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner,
+Lu Fang, Junjie Bai, and Soumith Chintala. PyTorch: An
+imperative style, high-performance deep learning library. In
+Advances in Neural Information Processing Systems , pages
+8026–8037, 2019. 6
+[38] Giovanni Pintore, Marco Agus, Eva Almansa, and Enrico
+Gobbetti. Instant automatic emptying of panoramic indoor
+scenes. IEEE Transactions on Visualization and Computer
+Graphics, 28(11):3629–3639, 2022. 1, 2
+[39] Dustin Podell, Zion English, Kyle Lacey, Andreas
+Blattmann, Tim Dockhorn, Jonas M ¨uller, Joe Penna, and
+Robin Rombach. SDXL: Improving latent diffusion models
+for high-resolution image synthesis. In International Con-
+ference on Learning Representations, 2024. 6, 7
+[40] Lu Qi, Li Jiang, Shu Liu, Xiaoyong Shen, and Jiaya Jia.
+Amodal instance segmentation with KINS dataset. In Pro-
+ceedings of the IEEE/CVF Conference on Computer Vision
+and Pattern Recognition, pages 3014–3023, 2019. 1, 2, 6
+[41] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya
+Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,
+Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen
+Krueger, and Ilya Sutskever. Learning transferable visual
+models from natural language supervision. In Proceedings
+of the 38th International Conference on Machine Learning ,
+pages 8748–8763, 2021. 2
+[42] Carlos Riquelme, Joan Puigcerver, Basil Mustafa, Maxim
+Neumann, Rodolphe Jenatton, Andr ´e Susano Pinto, Daniel
+Keysers, and Neil Houlsby. Scaling vision with sparse mix-
+ture of experts. In Advances in Neural Information Process-
+ing Systems, pages 8583–8595, 2021. 3
+[43] Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy
+Davis, Quoc Le, Geoffrey Hinton, and Jeff Dean. Outra-
+geously large neural networks: The sparsely-gated mixture-
+of-experts layer. In International Conference on Learning
+Representations, 2017. 3, 5
+[44] Sheng Shen, Shijia Yang, Tianjun Zhang, Bohan Zhai,
+Joseph E. Gonzalez, Kurt Keutzer, and Trevor Darrell. Mul-
+titask vision-language prompt tuning. In Proceedings of the
+IEEE/CVF Winter Conference on Applications of Computer
+Vision, pages 5656–5667, 2024. 3
+[45] Yihong Sun, Adam Kortylewski, and Alan Yuille. Amodal
+segmentation through out-of-task and out-of-distribution
+generalization with a Bayesian model. In Proceedings of
+the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 1215–1224, 2022. 2, 6
+20263
+
+
+PAGE 11
+[46] Minh Tran, Khoa V o, Kashu Yamazaki, Arthur Fernandes,
+Michael Kidd, and Ngan Le. AISFormer: Amodal instance
+segmentation with transformer. In Proceedings of the 33rd
+British Machine Vision Conference, 2022. 2
+[47] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszko-
+reit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia
+Polosukhin. Attention is all you need. In Advances in Neural
+Information Processing Systems, pages 5998–6008, 2017. 5
+[48] Kentaro Wada, Shingo Kitagawa, Kei Okada, and Masayuki
+Inaba. Instance segmentation of visible and occluded regions
+for finding and picking target from a pile of objects. In Pro-
+ceedings of the IEEE/RSJ International Conference on Intel-
+ligent Robots and Systems, pages 2048–2055, 2018. 1, 2
+[49] Kentaro Wada, Kei Okada, and Masayuki Inaba. Joint learn-
+ing of instance and semantic segmentation for robotic pick-
+and-place with heavy occlusions in clutter. InProceedings of
+the International Conference on Robotics and Automation ,
+pages 9558–9564, 2019. 1, 2
+[50] Xinlong Wang, Xiaosong Zhang, Yue Cao, Wen Wang,
+Chunhua Shen, and Tiejun Huang. SegGPT: Towards
+segmenting everything in context. In Proceedings of the
+IEEE/CVF International Conference on Computer Vision ,
+pages 1130–1140, 2023. 1, 2
+[51] Yaqing Wang, Sahaj Agarwal, Subhabrata Mukherjee, Xi-
+aodong Liu, Jing Gao, Ahmed Hassan Awadallah, and Jian-
+feng Gao. AdaMix: Mixture-of-adapter for parameter-
+efficient tuning of large language models. In Proceedings of
+the 2022 Conference on Empirical Methods in Natural Lan-
+guage Processing, page 5744–5760, 2022. 3
+[52] Yuting Xiao, Yanyu Xu, Ziming Zhong, Weixin Luo, Jiawei
+Li, and Shenghua Gao. Amodal segmentation based on vis-
+ible region segmentation and shape prior. In Proceedings of
+the 35th AAAI Conference on Artificial Intelligence , pages
+2995–3003, 2021. 2
+[53] Katherine Xu, Lingzhi Zhang, and Jianbo Shi. Amodal com-
+pletion via progressive mixed context diffusion. In Proceed-
+ings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition, pages 9099–9109, 2024. 2
+[54] Guanqi Zhan, Chuanxia Zheng, Weidi Xie, and Andrew Zis-
+serman. Amodal ground truth and completion in the wild.
+In Proceedings of the IEEE/CVF Conference on Computer
+Vision and Pattern Recognition, pages 28003–28013, 2024.
+2, 4, 6, 7
+[55] Xiaohang Zhan, Xingang Pan, Bo Dai, Ziwei Liu, Dahua
+Lin, and Chen Change Loy. Self-supervised scene de-
+occlusion. In Proceedings of the IEEE/CVF Conference
+on Computer Vision and Pattern Recognition , pages 3784–
+3792, 2020. 2
+[56] Chunhui Zhang, Li Liu, Yawen Cui, Guanjie Huang, Weilin
+Lin, Yiqian Yang, and Yuehong Hu. A comprehensive survey
+on segment anything model for vision and beyond. arXiv
+preprint arXiv:2305.08196, 2023. 2
+[57] Ziheng Zhang, Anpei Chen, Ling Xie, Jingyi Yu, and
+Shenghua Gao. Learning semantics-aware distance map with
+semantics layering network for amodal instance segmenta-
+tion. In Proceedings of the 27th ACM International Confer-
+ence on Multimedia, pages 2124–2132, 2019. 2
+[58] Zihan Zhong, Zhiqiang Tang, Tong He, Haoyang Fang, and
+Chun Yuan. Convolution meets LoRA: Parameter efficient
+finetuning for segment anything model. In International
+Conference on Learning Representations, 2024. 2, 3, 5
+[59] Yanqi Zhou, Tao Lei, Hanxiao Liu, Nan Du, Yanping Huang,
+Vincent Zhao, Andrew M Dai, Zhifeng Chen, Quoc V Le,
+and James Laudon. Mixture-of-experts with expert choice
+routing. In Advances in Neural Information Processing Sys-
+tems, pages 7103–7114, 2022. 3
+[60] Yan Zhu, Yuandong Tian, Dimitris Metaxas, and Piotr
+Doll´ar. Semantic amodal segmentation. In Proceedings
+of the IEEE Conference on Computer Vision and Pattern
+Recognition, pages 1464–1472, 2017. 2, 3, 6
+[61] Xueyan Zou, Jianwei Yang, Hao Zhang, Feng Li, Linjie Li,
+Jianfeng Wang, Lijuan Wang, Jianfeng Gao, and Yong Jae
+Lee. Segment everything everywhere all at once. In Ad-
+vances in Neural Information Processing Systems , pages
+19769–19782, 2023. 1
+[62] Simiao Zuo, Xiaodong Liu, Jian Jiao, Young Jin Kim, Hany
+Hassan, Ruofei Zhang, Tuo Zhao, and Jianfeng Gao. Taming
+sparsely activated transformer with stochastic experts. In In-
+ternational Conference on Learning Representations , 2022.
+3
+20264

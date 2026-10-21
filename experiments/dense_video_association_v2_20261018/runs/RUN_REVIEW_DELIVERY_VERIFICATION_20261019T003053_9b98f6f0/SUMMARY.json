@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "videos": [
+    {
+      "path": "videos/zebra_1.mp4",
+      "frames": 152,
+      "decoded_first_mid_last": true
+    },
+    {
+      "path": "videos/zebra_2.mp4",
+      "frames": 162,
+      "decoded_first_mid_last": true
+    },
+    {
+      "path": "videos/horse_3.mp4",
+      "frames": 717,
+      "decoded_first_mid_last": true
+    },
+    {
+      "path": "videos/zebra_4.mp4",
+      "frames": 121,
+      "decoded_first_mid_last": true
+    }
+  ],
+  "routes": {
+    "/": 200,
+    "/results.json": 200,
+    "/architecture.svg": 200,
+    "/api/import/52ae31fa857f4d40a424fd9d5a84dbfa": 200,
+    "/api/import/52ae31fa857f4d40a424fd9d5a84dbfa/video": 200
+  },
+  "network_listener": false,
+  "model_hashes_passed": true,
+  "annotation_records": 144,
+  "usable_annotations": 143,
+  "import_job": {
+    "status": "completed",
+    "phase": "分析完成",
+    "frames": 15,
+    "seconds": 1.0,
+    "kind": "zebra",
+    "arm": "trajectory",
+    "video": "/api/import/52ae31fa857f4d40a424fd9d5a84dbfa/video",
+    "ended_at": "2026-10-18T16:29:45.480065+00:00",
+    "run_id": "RUN_IMPORT_TRACKING_20261019T002944_52848bbd"
+  },
+  "detection_ceiling": {
+    "sequence": "pig_1",
+    "gt_observations": 2623,
+    "raw_detected_matches": 742,
+    "definition": "fixed raw detections >=.1; one-to-one GT IoU>=.5; posthoc diagnostic"
+  },
+  "UI_browser_verification": "blocked: file URL policy and background server startup review",
+  "live_review_service_started": false
+}

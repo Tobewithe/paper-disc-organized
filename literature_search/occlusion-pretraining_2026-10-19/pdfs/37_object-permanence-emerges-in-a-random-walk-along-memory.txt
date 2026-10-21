@@ -1,0 +1,1263 @@
+
+
+PAGE 1
+Object Permanence Emerges in a Random Walk along Memory
+Pavel Tokmakov1 Allan Jabri 2 Jie Li 1 Adrien Gaidon 1
+Abstract
+This paper proposes a self-supervised objective
+for learning representations that localize objects
+under occlusion - a property known as object per-
+manence. A central question is the choice of learn-
+ing signal in cases of total occlusion. Rather than
+directly supervising the locations of invisible ob-
+jects, we propose a self-supervised objective that
+requires neither human annotation, nor assump-
+tions about object dynamics. We show that object
+permanence can emerge by optimizing for tempo-
+ral coherence of memory: we ﬁt a Markov walk
+along a space-time graph of memories, where the
+states in each time step are non-Markovian fea-
+tures from a sequence encoder. This leads to a
+memory representation that stores occluded ob-
+jects and predicts their motion, to better localize
+them. The resulting model outperforms existing
+approaches on several datasets of increasing com-
+plexity and realism, despite requiring minimal
+supervision, and hence being broadly applicable.
+1. Introduction
+Object permanence – the notion that objects, such as the
+person in Figure 1, continue to exist even when occluded –
+is a crucial component of perception. It is fundamental in
+development (Baillargeon et al., 1985; Spelke, 1990), and
+critical for perception and control in partially observable
+environments like the physical world (Kaelbling et al., 1998;
+Grabner et al., 2010; Schmidt et al., 2014; Garg et al., 2020;
+Tokmakov et al., 2021). Yet, modern machine learning
+models for object recognition are mostly limited by instan-
+taneous observations and struggle with occlusions (He et al.,
+2017; Zhou et al., 2019). Recent video-based methods (Xiao
+& Jae Lee, 2018; Shamsian et al., 2020; Tokmakov et al.,
+2021) have the capacity to localize fully invisible instances
+by modeling sequential structure. For example, Tokmakov
+1Toyota Research Institute 2UC Berkeley. Correspondence to:
+Pavel Tokmakov<pavel.tokmakov@tri.global>.
+Proceedings of the 39 th International Conference on Machine
+Learning, Baltimore, Maryland, USA, PMLR 162, 2022. Copy-
+right 2022 by the author(s).
+Figure 1. An example from the KITTI dataset with outputs of our
+method (object detection on the left and belief state on the right).
+We demonstrate that by ﬁtting a Markov walk along an evolving
+spatial memory, a spatial belief state that codes object permanence
+emerges without explicit supervision.
+et al. (2021) use a spatial recurrent network (Ballas et al.,
+2016) to accumulate a representation of a scene and localize
+instances – both visible and invisible – using this representa-
+tion. Nevertheless, a key question that remains is the choice
+of learning signal in cases of total occlusion.
+While Shamsian et al. (2020) propose to supervise the model
+with the ground truth locations of invisible instances, such
+labels are hard to obtain in the real world and often sub-
+optimal (Tokmakov et al., 2021). For example, consider
+the sequence in Figure 1, in which a person walks behind a
+street sign. Without additional observations, it is impossible
+to predict their exact location, even for a human, let alone
+for a machine learning model, only that they are somewhere
+behind that sign.
+Rather than directly supervising the locations of invisible
+objects, in this work we propose a self-supervised objec-
+tive that encourages object permanence to naturally emerge
+from data (see Figure 2). To this end, we leverage the recent
+Contrastive Random Walk objective of Jabri et al. (2020),
+which models space-time correspondence as a Markov walk
+on a spatio-temporal graph of patches (i.e. from a video). In-
+stead of supervising the walker at each step, which requires
+temporally dense annotation, they supervise everyk steps,
+providing implicit supervision for the trajectory. Our key
+insight is that object permanence emerges by ﬁtting such a
+Markov walker along an evolving spatial memory, provided
+that the states in each time step are features produced by a
+sequence encoder, so as to overcome partial observability.
+We propose a self-supervised loss function that can be ap-
+plied to any video object detection model that maintains
+arXiv:2204.01784v2  [cs.CV]  13 Jun 2022
+
+PAGE 2
+Object Permanence Emerges in a Random Walk along Memory
+.) P(Ot+1/uni007COt=/uni2219)Ot+1
+Ot+1=/uni2219
+t
+<latexit sha1_base64="a53qM8efDXRnRa3R0ElYfH57B5A=">AAAB6HicbVBNS8NAEN3Ur1q/qh69LBbBU0lEqMeiF48t2A9oQ9lsJ+3azSbsToQS+gu8eFDEqz/Jm//GbZuDtj4YeLw3w8y8IJHCoOt+O4WNza3tneJuaW//4PCofHzSNnGqObR4LGPdDZgBKRS0UKCEbqKBRYGETjC5m/udJ9BGxOoBpwn4ERspEQrO0EpNHJQrbtVdgK4TLycVkqMxKH/1hzFPI1DIJTOm57kJ+hnTKLiEWamfGkgYn7AR9CxVLALjZ4tDZ/TCKkMaxtqWQrpQf09kLDJmGgW2M2I4NqveXPzP66UY3viZUEmKoPhyUZhKijGdf02HQgNHObWEcS3srZSPmWYcbTYlG4K3+vI6aV9VvetqrXldqd/mcRTJGTknl8QjNVIn96RBWoQTIM/klbw5j86L8+58LFsLTj5zSv7A+fwB42WNAg==</latexit>
+t+1
+<latexit sha1_base64="pCAd5OZXQTlkXkcJP+fbO1c5Qoc=">AAAB6nicbVBNS8NAEJ3Ur1q/qh69LBZBEEoihXosevFY0dpCG8pmu2mXbjZhdyKU0J/gxYMiXv1F3vw3btsctPXBwOO9GWbmBYkUBl332ymsrW9sbhW3Szu7e/sH5cOjRxOnmvEWi2WsOwE1XArFWyhQ8k6iOY0CydvB+Gbmt5+4NiJWDzhJuB/RoRKhYBStdI8XXr9ccavuHGSVeDmpQI5mv/zVG8QsjbhCJqkxXc9N0M+oRsEkn5Z6qeEJZWM65F1LFY248bP5qVNyZpUBCWNtSyGZq78nMhoZM4kC2xlRHJllbyb+53VTDK/8TKgkRa7YYlGYSoIxmf1NBkJzhnJiCWVa2FsJG1FNGdp0SjYEb/nlVfJ4WfVq1fpdrdK4zuMowgmcwjl4UIcG3EITWsBgCM/wCm+OdF6cd+dj0Vpw8plj+APn8we5wY1y</latexit>
+t+2
+<latexit sha1_base64="r7KWOptwsR53Xfj6xdmlyrNtO2Q=">AAAB6nicbVDLSgNBEOyNrxhfUY9eBoMgCGE3BOIx6MVjRPOAZAmzk0kyZHZ2mekVwpJP8OJBEa9+kTf/xkmyB00saCiquunuCmIpDLrut5Pb2Nza3snvFvb2Dw6PiscnLRMlmvEmi2SkOwE1XArFmyhQ8k6sOQ0DydvB5Hbut5+4NiJSjziNuR/SkRJDwSha6QGvKv1iyS27C5B14mWkBBka/eJXbxCxJOQKmaTGdD03Rj+lGgWTfFboJYbHlE3oiHctVTTkxk8Xp87IhVUGZBhpWwrJQv09kdLQmGkY2M6Q4tisenPxP6+b4PDaT4WKE+SKLRcNE0kwIvO/yUBozlBOLaFMC3srYWOqKUObTsGG4K2+vE5albJXLdfuq6X6TRZHHs7gHC7BgxrU4Q4a0AQGI3iGV3hzpPPivDsfy9ack82cwh84nz+7RY1z</latexit>
+dynamics priorpermanence assumption
+max/uni03D5P(˜Xt+1/uni007CXt)
+max/uni03D5P(Xt+2/uni007CXt+1)P(Xt+1/uni007CXt)
+heuristic 
+learned ours
+P(prior work
+  constant velocity pseudo-target
+(ours)
+/uni007COt=/uni2219)
+Xt+1Xt+1
+implicit supervisionﬁt
+ﬁt
+P(Ot+2=/uni22C6/uni007COt+1
+t
+<latexit sha1_base64="a53qM8efDXRnRa3R0ElYfH57B5A=">AAAB6HicbVBNS8NAEN3Ur1q/qh69LBbBU0lEqMeiF48t2A9oQ9lsJ+3azSbsToQS+gu8eFDEqz/Jm//GbZuDtj4YeLw3w8y8IJHCoOt+O4WNza3tneJuaW//4PCofHzSNnGqObR4LGPdDZgBKRS0UKCEbqKBRYGETjC5m/udJ9BGxOoBpwn4ERspEQrO0EpNHJQrbtVdgK4TLycVkqMxKH/1hzFPI1DIJTOm57kJ+hnTKLiEWamfGkgYn7AR9CxVLALjZ4tDZ/TCKkMaxtqWQrpQf09kLDJmGgW2M2I4NqveXPzP66UY3viZUEmKoPhyUZhKijGdf02HQgNHObWEcS3srZSPmWYcbTYlG4K3+vI6aV9VvetqrXldqd/mcRTJGTknl8QjNVIn96RBWoQTIM/klbw5j86L8+58LFsLTj5zSv7A+fwB42WNAg==</latexit>
+t+1
+<latexit sha1_base64="pCAd5OZXQTlkXkcJP+fbO1c5Qoc=">AAAB6nicbVBNS8NAEJ3Ur1q/qh69LBZBEEoihXosevFY0dpCG8pmu2mXbjZhdyKU0J/gxYMiXv1F3vw3btsctPXBwOO9GWbmBYkUBl332ymsrW9sbhW3Szu7e/sH5cOjRxOnmvEWi2WsOwE1XArFWyhQ8k6iOY0CydvB+Gbmt5+4NiJWDzhJuB/RoRKhYBStdI8XXr9ccavuHGSVeDmpQI5mv/zVG8QsjbhCJqkxXc9N0M+oRsEkn5Z6qeEJZWM65F1LFY248bP5qVNyZpUBCWNtSyGZq78nMhoZM4kC2xlRHJllbyb+53VTDK/8TKgkRa7YYlGYSoIxmf1NBkJzhnJiCWVa2FsJG1FNGdp0SjYEb/nlVfJ4WfVq1fpdrdK4zuMowgmcwjl4UIcG3EITWsBgCM/wCm+OdF6cd+dj0Vpw8plj+APn8we5wY1y</latexit>
+t+2
+<latexit sha1_base64="r7KWOptwsR53Xfj6xdmlyrNtO2Q=">AAAB6nicbVDLSgNBEOyNrxhfUY9eBoMgCGE3BOIx6MVjRPOAZAmzk0kyZHZ2mekVwpJP8OJBEa9+kTf/xkmyB00saCiquunuCmIpDLrut5Pb2Nza3snvFvb2Dw6PiscnLRMlmvEmi2SkOwE1XArFmyhQ8k6sOQ0DydvB5Hbut5+4NiJSjziNuR/SkRJDwSha6QGvKv1iyS27C5B14mWkBBka/eJXbxCxJOQKmaTGdD03Rj+lGgWTfFboJYbHlE3oiHctVTTkxk8Xp87IhVUGZBhpWwrJQv09kdLQmGkY2M6Q4tisenPxP6+b4PDaT4WKE+SKLRcNE0kwIvO/yUBozlBOLaFMC3srYWOqKUObTsGG4K2+vE5albJXLdfuq6X6TRZHHs7gHC7BgxrU4Q4a0AQGI3iGV3hzpPPivDsfy9ack82cwh84nz+7RY1z</latexit>
+total occlusionspatial  memory
+Figure 2. How to model object location under total occlusion?
+While prior work considers heuristic dynamics priors such as con-
+stant velocity, we propose to learn priors from data. Instead of
+relying on pseudo-targets, we enforce a Markov assumption on
+the spatial memory representation, implicitly supervising multiple
+hypotheses about the occluded object location.
+a spatial memory (i.e. a sequence of 2D latents). Con-
+cretely, we consider the spatio-temporal graph of memory
+states, where nodes correspond to potential object locations
+(Figure 3). For visible instances, transition probability is
+supervised directly (i.e. we assume labels for visible ob-
+jects during training). During occlusions, we employ the
+objective of Jabri et al. (2020), supervising the walk with
+ground truth object locations before and after the occlusion
+(see Figure 4). By optimizing for correspondence on the
+resulting graph of memories, we learn a representation that
+stores object-centric information in a spatially-grounded
+manner even for unlabeled, invisible objects.
+We demonstrate that object permanence naturally emerges
+in this process, evaluating our approach on several dataset
+of increasing complexity and realism (see Figures 5, 6). We
+begin with the synthetic LA-CATER benchmark (Sham-
+sian et al., 2020) for invisible object localization on which
+our self-supervised objective is able to discover object per-
+manence patterns from the data, outperforming a fully-
+supervised baseline. We then evaluate our method on
+a synthetic multi-object tracking benchmark introduced
+in (Tokmakov et al., 2021), and demonstrate that it is ef-
+fective at handling occlusions despite requiring less super-
+vision. Finally, we show that our method generalizes to
+real world videos in the KITTI multi-object tracking bench-
+mark (Geiger et al., 2012), and provide a detailed ablation
+analysis. Source code, models, and data are publicly avail-
+able at https://tri-ml.github.io/RAM.
+2. Related Work
+Our work addresses the problem of localizing and asso-
+ciating occluded objects (commonly referred to as object
+permanence) in a spatio-temporal video representation via
+self-supervised learning of correspondence. Below, we re-
+view the most relevant approaches in each of these ﬁelds.
+Object permanence has been mostly studied in the con-
+text of multi-object tracking (Luo et al., 2020), where local-
+izing invisible objects is crucial for re-associating them after
+the occlusion. The majority of the modern trackers operate
+in the tracking-by-detection paradigm (Bewley et al., 2016;
+Wojke et al., 2017), where objects are ﬁrst localized with a
+frame-level detector, and the resulting detections are then
+associated based on bounding box overlap (Bewley et al.,
+2016), or feature similarity (Wojke et al., 2017; Tang et al.,
+2017; Xu et al., 2019).
+A key limitation of these approaches is that a frame-level
+detector can only localize visible instances, thus most of
+them had to resort to heuristics to model object permanence.
+Some of the early methods include (Huang & Essa, 2005;
+Papadourakis & Argyros, 2010), which attempted to localize
+occluded objects by modeling inter-occlusion relationships,
+and the approach of Grabner et al. (2010), which captured
+the correlation between the motion of visible and invisible
+instances. However, in practice most methods relied on a
+more robust constant velocity heuristic (Yu et al., 2007; Bre-
+itenstein et al., 2009; Mitzel et al., 2010), which propagates
+the last observed object location with a linear motion model
+in the frame coordinates.
+Recently, Shamsian et al. (2020) proposed a learning-based
+method which takes bounding boxes for visible objects in
+a video as input, and passes them through a sequence of
+LSTMs (Hochreiter & Schmidhuber, 1997) that are trained
+to localize the occluded object. This approach successfully
+learns to capture complex relationship between visible and
+occluded instances. However, it requires ground truth labels
+for invisible objects for training and relies on the assumption
+that the location of an occluded object is fully determined by
+the bounding box of the occluder. In contrast, our method
+does not require any labels for invisible objects, does not
+make assumptions about their dynamics, and still outper-
+forms the approach of Shamsian et al. (2020). The method
+of Tokmakov et al. (2021) also learns to localize occluded
+objects, but uses a spatio-temporal representation.
+Spatio-temporal video representation learning allows
+to jointly model visible and occluded instances by capturing
+temporal context. Several methods (Feichtenhofer et al.,
+2017; Bergmann et al., 2019; Zhou et al., 2020) operate on
+frame pairs to improve robustness, but are neither capable
+of, nor trained for handling full occlusions. Some video
+object detection (Kang et al., 2017; Xiao & Jae Lee, 2018)
+and segmentation (Bertasius & Torresani, 2020; Wang et al.,
+2021) methods take longer sequences as input, but are also
+not trained to localize invisible objects.
+Very recently, Tokmakov et al. (2021) extended the model
+of Zhou et al. (2020) to videos of arbitrary length. In par-
+ticular, they used a Convolutional Gated Recurrent Unit
+
+PAGE 3
+Object Permanence Emerges in a Random Walk along Memory
+(ConvGRU) (Ballas et al., 2016) to aggregate a spatial mem-
+ory representation that is capable of encoding both visible
+and invisible objects. Following (Zhou et al., 2020), they
+then represented objects with their centers in the frame coor-
+dinates and trained the model to localize and associate them
+using the memory state regardless of visibility.
+The key question is the choice of the learning signal for
+fully occluded instances. The authors of (Tokmakov et al.,
+2021) trained their model on synthetic videos, where ground
+truth labels for invisible objects are available, but found that
+this form of supervision is sub-optimal as the exact location
+of an invisible object is often impossible to predict. In-
+stead, they used deterministic pseudo-groundtruth obtained
+by propagating object location in the 3D world with a con-
+stant velocity and projecting it to the camera frame. While
+this approach simpliﬁes convergence, the resulting model
+often fails at test time when object behaviour deviates sig-
+niﬁcantly from the constant velocity. In this work, we adopt
+the architecture proposed in (Tokmakov et al., 2021), but
+demonstrate that occluded object localization can be learned
+without direct supervision by optimizing for a Markov walk
+along an evolving spatial memory state. Our self-supervised
+objective outperforms the method of Tokmakov et al. (2021)
+on both synthetics and real-world videos.
+Self-supervised learning of motion correspondence
+has emerged recently as a way to capitalize on temporal
+consistency in videos for representation learning (Wang
+et al., 2019b;a; Jabri et al., 2020). The key idea is to uti-
+lize cycle-consistency in time (Zhou et al., 2016; Dwibedi
+et al., 2019) to learn to establish correspondences between
+patches in consecutive frames. In particular, given a ran-
+domly selected patch in the ﬁrst frame, these methods ﬁrst
+track forward in time, then backward, with the aim of end-
+ing up where they started. Earlier approaches (Wang et al.,
+2019b;a) relied on hard attention, limiting them to sam-
+pling and learning from one path at a time. Recently (Jabri
+et al., 2020) have proposed the Contrastive Random Walk
+objective which computes soft-attention at every time step,
+considering many paths to obtain a dense learning signal.
+While these objectives are beneﬁcial for general representa-
+tion learning, they have found wider success in video object
+segmentation (Pont-Tuset et al., 2017), where a region in
+the ﬁrst frame needs to be propagated through the video.
+However, since these methods operate on individual image
+encodings, they can only establish correspondences based
+on appearance. Thus, similarly to tracking-by-detection ap-
+proaches described above, they can not handle occlusions.
+In this work, we adapt the objective of Jabri et al. (2020) to
+learn to localize occluded objects in a self-supervised way.
+We apply it to sequence-level representations (Tokmakov
+et al., 2021) in order to enforce temporal coherence of spa-
+tial memory, even during occlusion, and show that object
+permanence naturally emerges in this process.
+3. Approach
+3.1. Preliminaries
+We study the problem of localizing entities as they transform
+in space and time, both when they are visible and after
+they become fully occluded. Given a sequence of frames
+{I 1,I 2,...,I n}, we follow the formalism recently proposed
+in (Zhou et al., 2019; 2020) and model objectsot
+i with their
+centers in image coordinates pt
+i∈ R2.
+We consider models that maintain a spatial memoryM t∈
+RD×H ′×W ′
+. Typically, imagesI t∈ R3×H×W are mapped
+by an encoder f to feature maps F t = f (I t). These
+instantaneous observations are then aggregated using a
+sequence model. While this can be achieved in a va-
+riety of manners, including encoders with global self-
+attention (Vaswani et al., 2017; Bertasius et al., 2021), we
+consider the ConvGRU (Ballas et al., 2016), a spatial re-
+current network that is efﬁcient, performant, and online:
+M t = ConvGRU(F t,M t−1), where M t,M t−1 represent
+the current and the previous spatial memory states respec-
+tively. The state M t is thus informed by prior context of
+extant objects when integrating updatesF t from the current
+frame, and can encode the locations of both visible and
+invisible objects.
+However, the choice of the learning signal for the cases of
+total occlusion remains a central question. In (Tokmakov
+et al., 2021) the authors propose to treat visible and invis-
+ible instances uniformly, directly supervising their center
+locations{pt
+1, pt
+2,..., pt
+N} on the learned projection of the
+spatial memory P t = fp(M t)∈ [0, 1]H ′×W ′
+. We adopt
+this approach for visible object, but propose a novel self-
+supervised framework for learning to localize the invisible
+ones in the next section. It is based on a Contrastive Random
+Walk (Jabri et al., 2020) along the memory state M t and
+learns to estimate the locations of occluded object centers
+without explicit supervision.
+3.2. Walking along Memory
+The main idea is to learn object permanence by ﬁtting
+a random walk along memory (RAM). We construct a
+spatio-temporal graph over the memory state, shown in
+Figure 3, with pixels on the feature mapQt =fq(M t) as
+nodes{qt
+1, qt
+2,..., qt
+m}. Only nodes in consecutive frames
+Qt,Q t+1 are sharing an edge. The strength of an edge
+is determined by the similarity of the node embeddings
+d(qt
+i, qt+1
+j ) = ⟨qt
+i, qt+1
+j ⟩, which is converted into non-
+negative afﬁnities by applying a softmax over edges origi-
+nating from each node:
+At+1
+t (i,j ) = softmax(Qt,Q t+1)ij
+=
+exp(d(qt
+i, qt+1
+j )/τ )
+∑N
+l=1 exp(d(qt
+i, qt+1
+l )/τ )
+(1)
+
+PAGE 4
+Object Permanence Emerges in a Random Walk along Memory
+Spatial Memory
+ Mt+1
+<latexit sha1_base64="PgLHCOE1DDpMc5h6FVJSwmsX1mY=">AAAB7nicbVDLSgNBEOyNrxhfUY9eBoMgCGFXAvEY9OJFiGAekMQwO5lNhszOLjO9QljyEV48KOLV7/Hm3zhJ9qCJBQ1FVTfdXX4shUHX/XZya+sbm1v57cLO7t7+QfHwqGmiRDPeYJGMdNunhkuheAMFSt6ONaehL3nLH9/M/NYT10ZE6gEnMe+FdKhEIBhFK7XuHlO88Kb9Ysktu3OQVeJlpAQZ6v3iV3cQsSTkCpmkxnQ8N8ZeSjUKJvm00E0Mjykb0yHvWKpoyE0vnZ87JWdWGZAg0rYUkrn6eyKloTGT0LedIcWRWfZm4n9eJ8HgqpcKFSfIFVssChJJMCKz38lAaM5QTiyhTAt7K2EjqilDm1DBhuAtv7xKmpdlr1Ku3ldKtessjjycwCmcgwdVqMEt1KEBDMbwDK/w5sTOi/PufCxac042cwx/4Hz+AM8Gjz0=</latexit>
+Spatial Memory
+Input
+Feats
+At+1t
+<latexit sha1_base64="zk5JGYzOI3hdqfy/grGkEDwkh0k=">AAAB8HicbVDLSgNBEOz1GeMr6tHLYhAEIexKIB6jXjxGMA9JYpidzCZDZmaXmV4hLPkKLx4U8ernePNvnCR70MSChqKqm+6uIBbcoOd9Oyura+sbm7mt/PbO7t5+4eCwYaJEU1ankYh0KyCGCa5YHTkK1oo1IzIQrBmMbqZ+84lpwyN1j+OYdSUZKB5yStBKD1c9fEzx3J/0CkWv5M3gLhM/I0XIUOsVvjr9iCaSKaSCGNP2vRi7KdHIqWCTfCcxLCZ0RAasbakikpluOjt44p5ape+Gkbal0J2pvydSIo0Zy8B2SoJDs+hNxf+8doLhZTflKk6QKTpfFCbCxcidfu/2uWYUxdgSQjW3t7p0SDShaDPK2xD8xZeXSeOi5JdLlbtysXqdxZGDYziBM/ChAlW4hRrUgYKEZ3iFN0c7L8678zFvXXGymSP4A+fzB0wtkBg=</latexit>
+Figure 3. We consider the spatio-temporal graph of an evolving
+spatial memory; here, we show one transition in time. To over-
+come partial observability, statesQt are computed with a sequence
+encoder, allowing for transition probability At+1
+t to model object
+permanence. Only a subset of the edges is shown for readability.
+whereτ is the temperature parameter. In contrast to (Jabri
+et al., 2020), in this work we build the graph over the evolv-
+ing memoryM t, not over independently encoded features
+F t. As a result, the nodes can represent invisible objects
+and the transition probability is not solely determined by
+similarity of instantaneous appearance.
+Fitting the walk. For each training sequence, the model
+receives a set of objects annotations{O1,O 2,...,O N} as in-
+put, where an object is represented with its visible bounding
+box centersOi ={p0
+i, p1
+i,∅,∅,..., pt
+i,..., pT
+i}, and empty
+annotations∅ correspond to frames in which the object is
+occluded. For each objectOi we consider the random walk
+originating from the ﬁrst visible object centerp0
+i (shown in
+Figure 4; we assume the object is visible in the ﬁrst frame
+of the sequence). In particular, we initialize the walker state
+matrixX 0
+i with 1 at p0
+i and 0 everywhere else, and compute
+the distribution of the object location at timet as
+X t
+i =X 0
+i
+t−1∏
+j=0
+Aj+1
+j . (2)
+That is,X t
+i is a conditional probability matrix withX t
+i (p) =
+P(Ot
+i = p|O0
+i ) representing the probability that objecti is
+at position p at timet, given its initial position p0
+i . Ground
+truth boxes of visible objects supervise the walker via loss
+LN LL(X t
+i, pt
+i) =− logX t
+i (pt
+i), (3)
+whereLN LL is the negative log likelihood of the correct
+position. The total loss for the objectOi is deﬁned as
+LRAM (Oi) =
+T∑
+t=1
+1 (pt
+i)LN LL(X t
+i, pt
+i), (4)
+where 1 (pt
+i) is the indicator function which is equal to 1 for
+non-empty object center labels pt
+i and is 0 otherwise. The
+ﬁnal objective is averaged over all the instances in the scene:
+LRAM = 1
+N
+∑N
+i=1LRAM (Oi).
+The loss above directly supervises the object centers in
+frames in which the object is visible (as in (Tokmakov et al.,
+2021)). In cases of occlusion, there are many potential paths
+through the graph that link the object’s locations before and
+after occlusion. Minimizing the RAM objective in Equa-
+tion 4 shifts the probabilities towards the paths which are
+most likely to result in correctly localizing the object when
+it re-appears (shown in blue and red in Figure 4). The lo-
+cations of invisible objects are thus implicitly supervised
+without the need for any labels and with minimal assump-
+tions about dynamics. The resulting encoder learns to store
+the spatially-grounded object-centric information in mem-
+oryM t to guide the walker along typical trajectories. Next,
+we discuss a more efﬁcient variant of this approach that
+exploits smoothness and locality.
+3.3. Local Attention on Memory
+Notice that computing the edge weights matrix At+1
+t ∈
+RH ′W ′×H ′W ′
+is the most computationally and memory
+intensive operation in the RAM objective. It requires
+D×H′W′×H′W′ multiplications and the size of the ma-
+trix can get prohibitively large for large resolution frames.
+To mitigate this constraint, we exploit smoothness in videos
+and assume that between any pair of consecutive frames
+It,I t+1 the pixels can only shift by a limited distancer.
+Given a node qt
+i with coordinates pt
+i, its corresponding row
+in the (now sparse) matrixA∗t+1
+t (i, :) is:
+A∗t+1
+t (i,j ) =
+{
+At+1
+t (i,j ), if||pt
+i− pt+1
+j ||1 <r
+∅, otherwise, (5)
+where At+1
+t (i,j ) is deﬁned in Equation 1, with softmax
+applied over non-zero edges only. That is, we only compute
+local attention between qt
+i and the nodes in its neighbour-
+hood inQt+1, which can be efﬁciently implemented with
+local correlation operations (Dosovitskiy et al., 2015). As
+we will see, with a sufﬁciently larger this modiﬁcation does
+not limit the performance of the approach, while reducing its
+computational complexity. In the next section, we conclude
+by discussing the ﬁnal details of our objective.
+3.4. Optimization and Objective
+So far, for any given walker state Xi we have only con-
+strained it at frames in which the corresponding object is
+visible. We now demonstrate how additional information
+about the problem can be incorporated into the state to sim-
+plify convergence and improve tracking performance.
+
+PAGE 5
+Object Permanence Emerges in a Random Walk along Memory
+Initial state Target state
+Figure 4. Illustration of our objective on a sequence from LA-CATER. We initiate a random walk on the graph originating from a visible
+object center. While the object remains visible the walker state is supervised directly. During occlusions the walker is free to take any path
+as long as it terminates at the object center at the time of disoclusion (shown with a star in the last frame). Multiple hypothesis about the
+object trajectory (shown in blue and red) are thus implicitly supervised.
+Label smoothing. Node features qt
+i are extracted from a
+spatial memory state computed with a convolutional back-
+bone, and nodes that are spatially close to each other have
+highly correlated representations. Yet, minimizing the con-
+trastive objective in Equation 4 encourages the transition
+matrixAt
+t−1(i, :) to have low entropy, such that nodes in
+the direct vicinity of the ground truth node qt
+i are very hard
+negatives that may hinder optimization.
+To mitigate this issue, we relax the objective by scaling
+the loss applied on state matrixX t
+i to ignore transitions to
+nodes around the ground-truth object center. Concretely, we
+multiplyX t
+i by a maskH t
+i∈ [0, 1]H ′×W ′
+before passing it
+to the loss in Equation 4. The mask is computed according
+to (Zhou et al., 2019) and decreases the walker probability
+for the nodes within the immediate vicinity of qt
+i. This
+amounts to reducing their effect as negatives, akin to label
+smoothing around the center.
+Avoiding overlap. At inference time, we follow (Zhou
+et al., 2020) and associate objects based on distances be-
+tween their centers in consecutive frames. For an occluded
+objectOi we estimate its object center at timet +k as
+ˆpt+k
+i = arg max
+p
+X t+k
+i (p) (6)
+and match it to the centers of the detected boxes in that frame
+(see Section 3.5 for details). If a match is found, we assume
+the object has re-appeared and terminate the walk. However,
+in practice the estimated center ˆpt+k
+i might overlap with the
+center of the occluder, leading to an incorrect association.
+To avoid this, during training we penalize the walker state
+of an occluded object if it overlaps with visible centers:
+Lover(X t
+i, pt
+: ) =
+∑
+j̸=i
+X t
+i (pt
+j), (7)
+whereX t
+i (pt
+j) is the value of the walker state at the location
+corresponding to the ground truth center of the visible object
+j. Note that pt
+j might in fact be the correct location for the
+center of the occluded objecti, but avoiding this point in the
+frame space allows us to prevent an incorrect association. To
+fully address the center overlap issue frame representations
+would have to be mapped to the BEV space, which is a
+major challenge. Our approach allows for a simple and
+effective (even if not principled) way to avoid overlaps,
+while remaining in the image plane.
+Objective. The overall training objective is then deﬁned
+as follows:
+L =LP T +λ1LRAM +λ2Lover, (8)
+where LP T represents the losses adopted from Perma-
+Track (Tokmakov et al., 2021) for localization and associa-
+tion of the visible objects, andλ1,λ 2 are hyper-parameters
+that balance the contribution of the corresponding losses in
+the overall objective.
+3.5. Inference Algorithm
+To conclude, we describe the algorithm used in our work to
+localize occluded object at test time. Overall, we follow the
+greedy association strategy proposed in (Zhou et al., 2020),
+which maintains a history of the locations of previously
+seen objects and matches them with the new detections
+in frame t based on center distances. Unmatched tracks
+then corresponds to objects for which no detection could be
+associated, usually due to an occlusion. We summarize our
+approach for handling such trajectories in Algorithm 1.
+We begin by initializing a walker stateX t−1
+i with the last
+observed object center ˆpt−1
+i for each occluded object indi-
+vidually. We then update the walker states with the tran-
+sition probability matrix At
+t−1 and obtain the maximum
+likelihood hypothesis of each occluded object location by
+taking argmax of the resulting distribution X t
+i . Note that
+the transition matrix is shared between the walkers, and
+only individual states need to be maintained, improving
+scalability of the approach. Center location hypotheses are
+used to match the trajectories to the detections in the current
+
+PAGE 6
+Object Permanence Emerges in a Random Walk along Memory
+frame with a greedy strategy similar to (Zhou et al., 2020).
+If no match is found, the walker continues forward in the
+same way, and is terminated if its conﬁdence falls below a
+threshold conf th or the trajectory goes out of frame.
+Algorithm 1 A step of the inference algorithm in Python style.
+for t in unmatched_tracks: # t: track hypothesis
+if "walk" not in t:
+#occlusion start, initialize the walker state
+t["walk"] = init_walk(t["center"])
+#update the walker with transition probabilities A
+t["walk"] = t["walk"] * A
+#Maximum likelihood confidence and location
+conf, ind = t["walk"].max()
+#drop unreliable hypotheses
+if conf < conf_th or at_boundary(ind):
+continue
+#greedy matching with detections
+is_matched, det = match(ind, detections)
+if is_matched:
+#use visible object location if a match is found
+t["center"] = det["center"]
+else:
+#otherwise store walker hypothesis
+t["center"] = ind
+#add track to the active pool
+tracks += t
+4. Experimental Evaluation
+4.1. Datasets and Evaluation
+We use three datasets of increasing complexity and real-
+ism: a synthetic LA-CATER benchmark (Shamsian et al.,
+2020), a photo-realistic synthetics PD dataset (Tokmakov
+et al., 2021), and a real-world, multi-object tracking KITTI
+dataset (Geiger et al., 2012). Below, we describe each of
+these benchmarks in more detail together with their metrics.
+LA-CATER is based on the CATER dataset (Girdhar &
+Ramanan, 2020) which is procedurally generated using the
+Blender 3D engine (Bacone, 2012). The generated scenes
+consist of a random number of geometric shapes (cube,
+sphere, cylinder, or cone) placed on a plain background. An
+additional golden sphere is added to every scene. All the
+objects are set to move randomly, occluding each other and
+the sphere (see Figure 5). A special form of occlusion -
+containment, is introduced by cones covering the sphere.
+In (Shamsian et al., 2020), the authors converted CATER to
+an object permanence benchmark by generating ground truth
+boxes for all the objects and labeling each frame with the
+state of the golden sphere (visible, occluded, contained, or
+carried). Containment corresponds to it being fully covered
+by another object, and carried frames are those in which the
+container is moving with the sphere underneath. The task
+is then to localize the golden sphere in every frame. Each
+video is 10-seconds long. There are 9300 training, 3327
+validation and 1371 test videos respectively. Performance
+is measured with intersection over union (IoU) between
+ground-truth and predicted boxes (Everingham et al., 2010).
+In LA-CATER, the camera position is ﬁxed for all the videos,
+making the problem less challenging. In this work, we
+generated a variant of the dataset with randomized camera
+motion, which we refer to as LA-CATER-Moving. This
+benchmark has the same statistics and annotations as the
+original LA-CATER, allowing us to re-train the baselines
+from (Shamsian et al., 2020) and compare to their method
+in a more realistic environment.
+PD dataset is collected by Tokmakov et al. (2021) using
+a state-of-the-art ParallelDomain synthetic data generation
+service (par, 2021). The dataset contains 210 photo-realistic,
+10-seconds long videos with driving scenarios in city envi-
+ronments captured at 20 FPS. Each scene contains dozens
+of objects, including pedestrians, cars, bicycles, etc., and
+features lots of occlusion and disocclusion scenarios (only
+people and cars are used for evaluation). The videos are
+captured by three independent cameras, effectively increas-
+ing the dataset size to 630. Following (Tokmakov et al.,
+2021), we use 583 videos for training and 48 for evaluation,
+and employ the Track AP metric (Russakovsky et al., 2015;
+Yang et al., 2019; Dave et al., 2020) as a proxy measure of
+the model’s ability to capture object permanence.
+KITTI is a real-world, multi-object tracking benchmark
+with city-driving scenarios (Geiger et al., 2012). The videos
+are captured at 10 FPS and vary in length. Bounding box
+annotations are provided for visible parts of the trajectories
+of people, cars, and a few other categories, but only people
+and cars are used for evaluation. Following (Tokmakov
+et al., 2021), we split the 21 labeled videos in half to obtain
+a validation set and use the Track AP metric for evaluation.
+For completeness, we report test set results with the standard
+metrics used in this dataset in Appendix D.
+4.2. Implementation Details
+Our implementation builds on top of the architecture of (Tok-
+makov et al., 2021) and we leave all the components and the
+hyper-parameters of their model unchanged. Here we only
+provide the values of the new hyper-parameters. Details of
+our training and the inference procedures are reported in
+Appendix A.
+The node embedding head fq is implemented with a max
+pooling layer followed by two 1× 1 convolutional layers
+with with ReLU non-linearities and an L2-normalization
+layer. We use max pooling layer with kernel 3 on PD and
+KITTI and omit pooling on LA-CATER due to low res-
+olution of the frames. The temperature parameter τ in
+Equation 1 is set to 0.1. We use focal loss (Lin et al.,
+2017) when computing the cross entropy in Equation 3.
+Radiusr in Equation 5 is set to 0.2·H′ to balance the rep-
+resentational power of the resulting spatio-temporal graph
+
+PAGE 7
+Object Permanence Emerges in a Random Walk along Memory
+Table 1. Comparison of occluded object localization methods on the test set of LA-CATER using mean IoU. We evaluate on the original
+version of the benchmark (left) and on the variant with a moving camera (right). Our self-supervised approach outperforms both self- and
+fully-supervised baselines in almost all scenarios, the gap being especially large on the most challenging Carried task.
+LA-CATER Static LA-CATER Moving
+Visible Occluded Contained Carried Visible Occluded Contained Carried
+OPNet 88.9 78.9 76.8 56.0 87.0 69.3 40.0 30.8
+OPNet Self. Sup. 89.0 81.8 69.0 27.5 88.0 58.0 25.8 8.5
+Heuristic 90.1 47.0 55.4 55.9 86.7 28.6 25.4 23.3
+RAM (Ours) 91.7 79.3 82.2 63.3 90.0 62.5 55.1 51.8
+Figure 5. Qualitative results on sequences from the test set of LA-CATER-Moving (see link for full results). The model’s belief about
+the location of the invisible object is visualized with a heatmap overlaid on the frames. Our approach successfully handles examples of
+occlusion (top), containment (middle), and carrying (bottom) without using any invisible object labels for training.
+with computational efﬁciency. Finally, the individual loss
+weightsλRAM,λ over in Equation 8 are set to 0.5 and 50
+respectively using the validation set of PD.
+4.3. Analysis of Emerging Object Permanence
+In this section, we explore the object permanence hypothe-
+ses discovered by our algorithm on LA-CATER. We com-
+pare to OPNet - a fully-supervised approach proposed
+in (Shamsian et al., 2020), as well as to their self-supervised
+variant (referred to as OPNet Self. Sup.) and a heuristic-
+based algorithm from the same paper. The self-supervised
+baseline is trained to memorize the last visible location of
+the occluded object, and, the heuristic is designed to predict
+the target at the center of the closest visible object (pre-
+sumably, the occluder). Note that, unlike RAM, all these
+methods operate on pre-computed bounding boxes, and thus
+detach object permanence reasoning from perception. Ex-
+perimental results are reported in Table 1.
+Firstly, we observe that on the original version of the bench-
+mark (left half of Table 1) our method achieves top results
+in almost all scenarios. In particular, we outperform the
+self-supervised variant by 35.8 mIoU points in the most
+challenging Carried category. Their objective assumes that
+the target remains static once it is not visible. This assump-
+tion is very effective for the short-term Occluded scenario,
+but does not generalize. In contrast, by optimizing for our
+RAM objective, generic object permanence patterns emerge
+from the data. For example, our method discovers that once
+an object becomes a part of another object their locations
+are tied (see Figure 5). Without explicit supervision it out-
+performs both the fully-supervised OPNet and the Heuristic
+which manually encodes this rule by 7 mIoU points.
+On the more more challenging version of the dataset with
+a moving camera (right half of Table 1) the performance
+of all the methods decreases. However, the margins of our
+approach increase. The variants that do not use labels for
+invisible objects (OPNet Self. Sup. and Heuristic) encode
+the ﬁxed camera assumption, which hinders their general-
+ization abilities. In contrast, our method does not make such
+
+PAGE 8
+Object Permanence Emerges in a Random Walk along Memory
+Table 2. Comparison to the state-of-the-art on the validation sets of PD and KITTI using Track AP. All the methods share a detector,
+tracking algorithm and training data, thus the differences are mainly due to better handling of occlusions. Results for CenterTrack with
+constant velocity post-processing on KITTI are not reported in prior literature. Our method outperforms both heuristic and learning-based
+methods in synthetic and real environments despite requiring less supervision.
+Parallel Domain KITTI
+Car AP Person AP mAP Car AP Person AP mAP
+CenterTrack 66.2 54.4 60.3 77.2 51.6 64.4
+CenterTrack + Const. v. 67.6 54.9 61.2 - - -
+PermaTrack 71.0 63.0 67.0 84.7 56.3 70.5
+RAM (Ours) 74.2 69.7 72.0 87.5 64.0 75.7
+Figure 6. Qualitative results on sequences from the validation sets of PD and KITTI (see link for full results). The model’s belief about
+the location of the invisible objects is visualized with a heatmap overlaid on the frames. Our method forms accurate hypotheses about the
+locations of occluded objects, resulting in a correct re-identiﬁcation at the time of disocclusion.
+assumptions and is entirely learned from the data. While the
+fully-supervised OPNet shows better results, our approach
+still outperforms it on the most challenging Contained and
+Carried categories by 15.1 and 21.0 mIoU respectively.
+Finally, we qualitatively analyze object permanence repre-
+sentation learned by our model on the test set of LA-CATER-
+Moving in Figure 5. First we show a challenging example
+of occlusion, where the golden sphere, the red cube and the
+camera are all in motion. Our model’s uncertainty increases,
+as the scene unfolds. In the end a small part of the object
+becomes visible, collapsing the walker hypothesis. Next,
+we show an example of containment, where the target object
+is consequently covered by brown and blue cones. Despite
+strong camera motion our model correctly estimates that
+the sphere remains under the cones. In the last row we can
+observe another example of double containment followed
+by carrying. Our approach correctly estimates that as the
+two cones move the golden sphere moves with them.
+4.4. Capturing Object Permanence in the Real World
+We now demonstrate that our approach is able to discover
+object permanence patterns in complex, street driving scenes
+of synthetic PD and real-world KITTI datasets. We compare
+to CenterTrack (Zhou et al., 2020) and PermaTrack (Tok-
+makov et al., 2021) which share the same detector architec-
+ture, tracking algorithm and training data with our model.
+Thus, the observed differences reported in Table 2 are mostly
+due to the ability of these methods to handle occlusions. In
+particular, CenterTrack is only trained on visible instances,
+and has to rely on heuristic post-processing. PermaTrack is
+a video-based model, which is trained to detect and track
+invisible objects using explicit supervision in synthetic PD.
+We begin our analysis on the PD dataset. CenterTrack is
+not capable of handling full occlusions and thus serves as a
+natural baseline. Applying the standard 2D constant veloc-
+ity heuristic (denoted with ’CenterTrack + Const. v.’ in the
+table) does result in minor improvements, but overall it is
+not adequate for driving videos due to strong ego-motion.
+PermaTrack learns to propagate occluded objects with a con-
+stant velocity in the 3D world, compensating for ego-motion
+changes and thus achieves superior results. Our method out-
+performs PermaTrack by a signiﬁcant margin, with improve-
+ments being especially noticeable on the more challenging
+Person category. On the real-world KITTI benchmark the
+
+PAGE 9
+Object Permanence Emerges in a Random Walk along Memory
+Table 3. Analysis of the components of our objective using Track
+AP on the validation set of PD. We ablate graph connectivity,
+pooling kernel, label smoothing and avoiding center overlaps.
+Edges Pool Smooth Over. Car Person mAP
+Global 5× 5   68.9 63.5 66.2
+Local 5× 5   68.8 65.7 67.2
+Local 3× 3   70.1 64.8 67.9
+Local 3× 3 ✓  72.7 67.8 70.2
+Local 3× 3 ✓ ✓ 74.2 69.7 72.0
+observations are similar, conﬁrming that our approach is
+able to effectively discover object permanence patterns in
+both synthetic and real environments without explicit super-
+vision or assumptions about object dynamics.
+We illustrate the hypotheses about the location of occluded
+objects discovered by our model on PD and KITTI in Fig-
+ure 6. In the ﬁrst sequence from the validation set of PD,
+our model learns to accurately estimate the location of the
+person occluded by the moving car, resulting in a correct
+re-identiﬁcation. In the second sequence, the yellow car
+starts to turn right before it gets occluded by the ambulance.
+As the behaviour of the invisible object is unknown to the
+model, it maintains two distinct hypotheses - one that the car
+kept moving forward, and another that it continued with the
+turn. This probabilistic approach allows it to correctly com-
+plete the trajectory once the yellow car is revealed. Finally,
+in the last sequence from the real world KITTI benchmark
+we illustrate that our model can successfully reason about
+several occluded objects at a time.
+4.5. Ablation Analysis
+We conclude by analyzing the importance of various com-
+ponents of our objective on the validation set of PD dataset
+in Table 3. We use PD for this study due to its balance of
+scale and realism. Firstly, we observe that the global variant
+of RAM already achieves comparable results to PermaTrack
+(row 3 in Table 2) without requiring explicit supervision for
+invisible objects. Using a more computationally efﬁcient
+form of the objective described in Section 3.3 (row 2 in the
+table) does not decrease the performance, conﬁrming our
+intuition that object motion between consecutive frames is
+bounded in practice.
+Only considering a local node neighborhood during the
+random walk allows us to decrease the size of the pooling
+kernel in the node embedding headfq, increasing the fea-
+ture resolution and thus improving the accuracy of invisible
+object localization. As we demonstrate in row 3 of Table 3,
+this translates into higher tracking accuracy due to fewer
+mistakes during re-identiﬁcation.
+Next, we evaluate the effect of the label smoothing in the
+RAM objective (see Section 3.4 for details) in row 4 of the
+table. The relaxed objective is indeed easier to optimize,
+resulting in a signiﬁcant performance improvement for both
+categories. Finally, in the last row of Table 3 we demonstrate
+that overlaps between centers of an occluded object and an
+occluder are indeed a signiﬁcant issue and introducing a
+simple constraint into the objective allows our model to
+learn to avoid them at inference time, achieving top results.
+For completeness, we have also trained a variant of our
+model supervising the RAM objective with ground truth
+locations of invisible instances. It achieves 71.1 mAP points
+(compared to 72.0 for our best self-supervised variant). Note
+that the exact location of an invisible object is impossible
+for a network to predict if the agents’ behaviour is non-
+deterministic. Thus, such labels are noisy from the model’s
+perspective. This result highlights the main advantage of our
+objective, which implicitly supervises multiple hypothesis
+about the occluded object location, effectively capturing the
+non-deterministic nature of the problem.
+5. Conclusion
+Localizing invisible objects is an inherently ambiguous task,
+making the choice of a learning signal a major challenge. In
+this work, we proposed a self-supervised objective based on
+a contrastive random walk along an evolving spatial memory.
+It is supervised with the ground-truth object centers before
+and after the occlusion, encouraging the model to store
+object-centric representations in the memory state, in order
+to be temporally consistent. We demonstrated that, without
+additional constraints nor assumptions of dynamics, object
+permanence patterns emerge in this process.
+Acknowledgements. We thank Dian Chen for detailed feed-
+back on the manuscript, and Aviv Shamsian for his help with
+reproducing OPNet results. AJ was supported by Toyota
+Research Institute and DARPA MCS.
+References
+Parallel domain. https://paralleldomain.com/,
+March 2021.
+Bacone, V . K. Blender Game Engine: Beginner’s Guide .
+Packt Publishing Ltd, 2012.
+Baillargeon, R., Spelke, E. S., and Wasserman, S. Object
+permanence in ﬁve-month-old infants.Cognition, 20(3):
+191–208, 1985.
+Ballas, N., Yao, L., Pal, C., and Courville, A. Delving
+deeper into convolutional networks for learning video
+representations. In ICLR, 2016.
+Bergmann, P., Meinhardt, T., and Leal-Taixe, L. Tracking
+without bells and whistles. In ICCV, 2019.
+
+PAGE 10
+Object Permanence Emerges in a Random Walk along Memory
+Bernardin, K. and Stiefelhagen, R. Evaluating multi-
+ple object tracking performance: the clear mot metrics.
+EURASIP Journal on Image and Video Processing, 2008:
+1–10, 2008.
+Bertasius, G. and Torresani, L. Classifying, segmenting, and
+tracking object instances in video with mask propagation.
+In CVPR, 2020.
+Bertasius, G., Wang, H., and Torresani, L. Is space-time
+attention all you need for video understanding? In ICML,
+2021.
+Bewley, A., Ge, Z., Ott, L., Ramos, F., and Upcroft, B.
+Simple online and realtime tracking. In ICIP, 2016.
+Breitenstein, M. D., Reichlin, F., Leibe, B., Koller-Meier,
+E., and Van Gool, L. Robust tracking-by-detection using
+a detector conﬁdence particle ﬁlter. InICCV, 2009.
+Caesar, H., Bankiti, V ., Lang, A. H., V ora, S., Liong, V . E.,
+Xu, Q., Krishnan, A., Pan, Y ., Baldan, G., and Beijbom,
+O. nuScenes: A multimodal dataset for autonomous
+driving. In CVPR, 2020.
+Chaabane, M., Zhang, P., Beveridge, R., and O’Hara, S.
+DEFT: Detection embeddings for tracking. In CVPR
+Workshops, 2021.
+Choi, W. Near-online multi-target tracking with aggregated
+local ﬂow descriptor. In ICCV, 2015.
+Dave, A., Khurana, T., Tokmakov, P., Schmid, C., and Ra-
+manan, D. TAO: A large-scale benchmark for tracking
+any object. In ECCV, 2020.
+Dosovitskiy, A., Fischer, P., Ilg, E., Hausser, P., Hazirbas,
+C., Golkov, V ., Van Der Smagt, P., Cremers, D., and Brox,
+T. FlowNet: Learning optical ﬂow with convolutional
+networks. In ICCV, 2015.
+Dwibedi, D., Aytar, Y ., Tompson, J., Sermanet, P., and
+Zisserman, A. Temporal cycle-consistency learning. In
+CVPR, 2019.
+Everingham, M., Van Gool, L., Williams, C. K., Winn, J.,
+and Zisserman, A. The pascal visual object classes (VOC)
+challenge. International journal of computer vision, 88
+(2):303–338, 2010.
+Feichtenhofer, C., Pinz, A., and Zisserman, A. Detect to
+track and track to detect. In ICCV, 2017.
+Garg, S., S¨underhauf, N., Dayoub, F., Morrison, D., Cosgun,
+A., Carneiro, G., Wu, Q., Chin, T.-J., Reid, I., Gould, S.,
+et al. Semantics for robotic mapping, perception and
+interaction: A survey. 2020.
+Geiger, A., Lenz, P., and Urtasun, R. Are we ready for
+autonomous driving? The KITTI vision benchmark suite.
+In CVPR, 2012.
+Girdhar, R. and Ramanan, D. CATER: A diagnostic dataset
+for compositional actions and temporal reasoning. In
+ICLR, 2020.
+Gonzalez, N. F., Ospina, A., and Calvez, P. SMAT: Smart
+multiple afﬁnity metrics for multiple object tracking. In
+ICIAR, 2020.
+Grabner, H., Matas, J., Van Gool, L., and Cattin, P. Tracking
+the invisible: Learning where the object might be. In
+CVPR, 2010.
+He, K., Gkioxari, G., Doll ´ar, P., and Girshick, R. Mask
+R-CNN. In ICCV, 2017.
+Hochreiter, S. and Schmidhuber, J. Long short-term memory.
+Neural computation, 9(8):1735–1780, 1997.
+Huang, Y . and Essa, I. Tracking multiple objects through
+occlusions. In CVPR, 2005.
+Jabri, A., Owens, A., and Efros, A. A. Space-time corre-
+spondence as a contrastive random walk. In NeurIPS,
+2020.
+Kaelbling, L. P., Littman, M. L., and Cassandra, A. R. Plan-
+ning and acting in partially observable stochastic domains.
+Artiﬁcial intelligence, 101(1-2):99–134, 1998.
+Kang, K., Li, H., Xiao, T., Ouyang, W., Yan, J., Liu, X.,
+and Wang, X. Object detection in videos with tubelet
+proposal networks. In CVPR, 2017.
+Li, Y ., Huang, C., and Nevatia, R. Learning to associate:
+Hybridboosted multi-target tracker for crowded scene. In
+CVPR. IEEE, 2009.
+Lin, T.-Y ., Goyal, P., Girshick, R., He, K., and Doll ´ar, P.
+Focal loss for dense object detection. In ICCV, 2017.
+Luiten, J., Osep, A., Dendorfer, P., Torr, P., Geiger, A., Leal-
+Taix´e, L., and Leibe, B. HOTA: A higher order metric for
+evaluating multi-object tracking. International Journal
+of Computer Vision, pp. 1–31, 2020.
+Luo, W., Xing, J., Milan, A., Zhang, X., Liu, W., and Kim,
+T.-K. Multiple object tracking: A literature review. Artiﬁ-
+cial Intelligence, pp. 103448, 2020.
+Mitzel, D., Horbert, E., Ess, A., and Leibe, B. Multi-person
+tracking with sparse detection and continuous segmenta-
+tion. In ECCV, 2010.
+Mykheievskyi, D., Borysenko, D., and Porokhonskyy, V .
+Learning local feature descriptors for multiple object
+tracking. In ACCV, 2020.
+
+PAGE 11
+Object Permanence Emerges in a Random Walk along Memory
+Papadourakis, V . and Argyros, A. Multiple objects tracking
+in the presence of long-term occlusions. Computer Vision
+and Image Understanding, 114(7):835–846, 2010.
+Pont-Tuset, J., Perazzi, F., Caelles, S., Arbel´aez, P., Sorkine-
+Hornung, A., and Van Gool, L. The 2017 DA VIS chal-
+lenge on video object segmentation. arXiv preprint
+arXiv:1704.00675, 2017.
+Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S.,
+Ma, S., Huang, Z., Karpathy, A., Khosla, A., Bernstein,
+M., et al. ImageNet large scale visual recognition chal-
+lenge. International Journal of Computer Vision, 115(3):
+211–252, 2015.
+Schmidt, T., Newcombe, R. A., and Fox, D. DART: Dense
+articulated real-time tracking. In Robotics: Science and
+Systems, volume 2. Berkeley, CA, 2014.
+Shamsian, A., Kleinfeld, O., Globerson, A., and Chechik,
+G. Learning object permanence from video. In ECCV,
+2020.
+Spelke, E. S. Principles of object perception. Cognitive
+science, 14(1):29–56, 1990.
+Tang, S., Andriluka, M., Andres, B., and Schiele, B. Mul-
+tiple people tracking by lifted multicut and person re-
+identiﬁcation. In CVPR, 2017.
+Tokmakov, P., Li, J., Burgard, W., and Gaidon, A. Learning
+to track with object permanence. In ICCV, 2021.
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,
+L., Gomez, A. N., Kaiser,Ł., and Polosukhin, I. Attention
+is all you need. In NeurIPS, 2017.
+Wang, N., Song, Y ., Ma, C., Zhou, W., Liu, W., and Li, H.
+Unsupervised deep tracking. In CVPR, 2019a.
+Wang, X., Jabri, A., and Efros, A. A. Learning correspon-
+dence from the cycle-consistency of time. In CVPR,
+2019b.
+Wang, Y ., Xu, Z., Wang, X., Shen, C., Cheng, B., Shen, H.,
+and Xia, H. End-to-end video instance segmentation with
+transformers. In CVPR, 2021.
+Weng, X. and Kitani, K. 3D multi-object tracking: A base-
+line and new evaluation metrics. In IROS, 2020.
+Wojke, N., Bewley, A., and Paulus, D. Simple online and
+realtime tracking with a deep association metric. In ICIP,
+2017.
+Xiao, F. and Jae Lee, Y . Video object detection with an
+aligned spatial-temporal memory. In ECCV, 2018.
+Xu, J., Cao, Y ., Zhang, Z., and Hu, H. Spatial-temporal
+relation networks for multi-object tracking. In ICCV,
+2019.
+Yang, L., Fan, Y ., and Xu, N. Video instance segmentation.
+In ICCV, 2019.
+Yu, Q., Medioni, G., and Cohen, I. Multiple target tracking
+using spatio-temporal markov chain monte carlo data
+association. In CVPR, 2007.
+Zhou, T., Krahenbuhl, P., Aubry, M., Huang, Q., and Efros,
+A. A. Learning dense correspondence via 3D-guided
+cycle consistency. In CVPR, 2016.
+Zhou, X., Wang, D., and Kr¨ahenb¨uhl, P. Objects as points.
+arXiv preprint arXiv:1904.07850, 2019.
+Zhou, X., Koltun, V ., and Kr¨ahenb¨uhl, P. Tracking objects
+as points. In ECCV, 2020.
+
+PAGE 12
+Object Permanence Emerges in a Random Walk along Memory
+In this appendix, we provide additional details about our
+method which were not included into the main paper due
+to space limitations. We begin by reporting the details of
+our training and inference procedures in Section A, further
+elaborating on the heuristic box reﬁnement strategy used
+on LA-CATER in Section B. We then discuss the failure
+modes of our approach is Section C. Finally, we conclude
+by reporting the results of our method on the test set KITTI
+in Section D.
+A. Training and Inference Details
+Our model is ﬁrst trained on PD for 28 epochs with with
+sequences of length 16, exactly following the optimiza-
+tion procedure described in (Tokmakov et al., 2021), but
+only using visible object labels. Note that although Tok-
+makov et al. (2021) start from a CenterTrack (Zhou et al.,
+2020) checkpoint pre-trained for 3D object detection on
+NuScenes (Caesar et al., 2020), we have found that start-
+ing from an ImageNet or even a self-supervised pre-trained
+backbone works just as well. We then ﬁne-tune the resulting
+network on KITTI and LA-CATER. Following (Tokmakov
+et al., 2021), on KITTI we ﬁne-tune the model jointly with
+PD, but, since both datasets include only visible object la-
+bels now, we use KITTI sequences of length 12 during
+training, in contrast to frame pairs used by (Tokmakov et al.,
+2021). We also ﬁnd that due to larger resulting batches it is
+sufﬁcient to ﬁne-tune the model for 3 epochs.
+On LA-CATER we are able to use sequences of length 70
+due to the lower resolution of the frames. We only sample
+sequences that contain occlusion scenarios to speed up con-
+vergence. We train the model for 8 epochs with a periodic
+schedule with step 4, where an epoch is deﬁned as 1000
+iterations. Since many occlusion episodes are longer than
+70 frames we further ﬁne-tune the model for 2 epochs with
+a frozen backbone and sequences of length 120. We ob-
+serve that the objective is harder to optimize on LA-CATER-
+Moving, thus we double the number of iterations per epoch
+on that dataset. Finally, we set r to 0.1∗H′ andλover to
+0 on LA-CATER as we notice that this forces the model to
+more precisely localize the occluded object centers, which
+is important on this benchmark.
+At inference we set the conﬁdence threshold to 0.05 for
+PD and KITTI and to 0.005 for LA-CATER due to much
+longer occlusions in that dataset. Following (Zhou et al.,
+2020) we also use a maximum age threshold for an occluded
+trajectory after which it is terminated. It set to 16 frames
+for PD and KITTI and to 300 frames for LA-CATER for the
+same reasons. These values are selected on the validation
+sets of PD and LA-CATER respectively. On LA-CATER
+a model is expected to predict precise bounding boxes of
+invisible objects, however, our approach only estimates an
+approximate location of the object center. To evaluate on this
+Table 4. Comparison to the variant of our method without box re-
+ﬁnement on the test set of LA-CATER-Moving using mAP@0.1.
+Our approach outperforms both supervised and unsupervised base-
+lines at approximately localizing invisible objects without post-
+processing.
+Occluded Contained Carried
+OPNet 90.1 59.3 48.0
+OPNet Self. Sup 83.8 41.7 18.7
+Heuristic 68.7 59.7 57.3
+RAM (Ours) 90.2 79.8 76.7
+benchmark we designed a simple, heuristic box reﬁnement
+algorithm which is described in Appendix B.
+B. Box Reﬁnement
+Recall that on LA-CATER the methods are expected to
+exactly localize invisible objects with a bounding box. How-
+ever, our algorithm only estimates an approximate location
+of invisible object centers on a down-sampled feature map
+Q∈ RD×H ′×W ′
+. A naive approach to converting these
+centers to boxes is to memorize the size of the object before
+it was occluded and output a box of the same size around
+the predicted center.
+In Table 4 we compare our method with this naive box pre-
+diction strategy to the baselines from (Shamsian et al., 2020)
+on LA-CATER-Moving using a rough mAP@0.1 localiza-
+tion metric. We can observe that without any reﬁnement
+our approach outperforms all the methods at approximately
+localizing the invisible objects, with only fully-supervised
+OPNet being comparable to our approach on the easiest Oc-
+cluded category. However, our method is not optimized for
+exactly localizing invisible objects. Firstly, it only provides
+an approximate location of the object center, as the loca-
+tion of invisible objects is ambiguous beyond the simplest
+scenarios. Secondly, even this approximate localization is
+estimated on a down-sampled feature map, which can sig-
+niﬁcantly affect precise localization metrics. To address
+these issues, we propose a simple, heuristic box reﬁnement
+strategy.
+Our box prediction approach is summarized in Algorithm 2.
+It takes the estimated object track as input, and processes the
+predictions sequentially. For the frames in which the object
+is visible, its bounding box is returned without changes.
+For invisible objects the method uses the center location
+estimated with our method to infer the box. To this end, we
+use two ﬂags was moving and is static. The former
+captures whether the object was moving before occlusion
+and the latter whether it is moving in the current frame.
+Both are computed based on the changes in the predicted
+center coordinates between consecutive frames, and do not
+
+PAGE 13
+Object Permanence Emerges in a Random Walk along Memory
+take camera motion into account. If the object was moving
+before the occlusion we simply use the naive box estimation
+strategy discussed above. For the special case of static
+objects we directly output the last observed bounding box
+for a more precise localization. Finally, for objects which
+were static, but are moving in the current frame we reﬁne
+the bounding box using our proposed heuristic.
+Algorithm 2 Bounding box prediction algorithm in Python style.
+for p in track: # p: model prediction in current frame
+if p["is_visible"]:
+# directly output visible object detections
+out += p["box"]
+last_visible = p["box"]
+continue
+# object was moving before occlusion
+if p.was_moving:
+# adjust box to predicted center
+out += get_box(p["center"], last_visible)
+# object was and remains static
+elif p.is_static:
+# output last visible bounding box
+out += last_visible
+# object was static but is moving now
+else:
+# refine box around predicted center
+out += refine(p["center"], last_visible, others)
+The box reﬁnement heuristic (summarized in Algorithm 3)
+takes the estimated object center, together with the bounding
+box of the target object before occlusion and the predicted
+boxes of the other objects in the current frame (marked
+with others) as input. It makes the assumption that if
+the center of an invisible object starts moving that must be
+because it is moving together with the container. To reﬁne
+the box location it then ﬁnds the center of the closest visible
+box and adjusts the estimated center to be directly below
+that of the container. Finally, we use the known object size
+to compute the box around the adjusted center.
+Algorithm 3 Bounding box reﬁnement function in Python style.
+def refine(center, last_visible, others):
+# find the center of the nearest visible object
+closest_center = get_closest(center, others)
+# place the target center under occluder center
+adjusted_center = adjust(center, closest_center)
+# compute the box around adjusted center
+return get_box(adjusted_center, last_visible)
+We now demonstrate that this simple heuristic is sufﬁcient
+to improve the precise localization results of our method on
+LA-CATER-Moving in Table 5, reporting the strict mean
+IoU metric. Firstly, we observe that that the proposed algo-
+rithm indeed improves our method’s localization accuracy
+on all categories by a signiﬁcant margin. Secondly, applying
+the same post-processing step to the fully-supervised OP-
+Net which is trained for precise object localization actually
+decreases its performance on the Occluded category. On
+Table 5. Evaluation of our box reﬁnement strategy on the test set
+of LA-CATER-Moving using mean IoU. The simple, heuristic
+algorithm improves the performance of our method, but has mixed
+results when applied to the fully-supervised OPNet. Overall, the
+conclusions from the main paper remain unchanged.
+Occluded Contained Carried
+RAM (Ours) 55.5 40.1 34.4
+RAM (Ours) + reﬁne 62.5 55.1 51.8
+OPNet 69.3 40.0 30.8
+OPNet + reﬁne 64.4 46.9 41.6
+the other two categories OPNet’s accuracy improves some-
+what, but the margins are smaller and it remains below our
+self-supervised approach.
+C. Failure Modes
+In this section, we discuss the failure modes of our approach,
+which are shown in Figure 7. In the ﬁrst example from the
+validation set of KITTI the centers of the bounding boxes of
+the three pedestrians overlap in the image plain. As a result,
+the identities of the three trajectories (shown with num-
+bers in the center of the bounding boxes) switch. Although
+our overlap avoidance objective improves the method’s per-
+formance by preventing such mix-ups, it does not always
+succeed, especially in such challenging cases.
+In the second example from LA-CATER-Moving the green
+sphere is ﬁrst covered by the golden cone. Later in the
+video a different cone covers the golden sphere. At ﬁrst our
+method correctly estimates which cone contains the target
+object, but gets confused over time.
+D. Evaluation on KITTI Test
+Although in this work we did not focus on the problem of
+multi-object tracking, for completeness we evaluate our ap-
+proach on the held-out test of the KITTI benchmark, report-
+ing the results in Table 6. We compare to published, vision-
+based methods using the default metrics for this dataset.
+We observe that on the main HOTA metric (Luiten et al.,
+2020) our approach outperforms the state-of-the-art by a
+signiﬁcant margin on both categories, despite this metric
+being less sensitive to accurate object association over oc-
+clusions than the Track AP used in the main paper. We
+note that the MOTA (Bernardin & Stiefelhagen, 2008) and
+MT/PT/ML (Li et al., 2009) metrics mostly capture object
+detection accuracy and recall respectively (see (Luiten et al.,
+2020) for analysis), and are loosely affected by association
+accuracy.
+
+PAGE 14
+Object Permanence Emerges in a Random Walk along Memory
+Figure 7. Failure modes of our approach on KITTI and LA-CATER-Moving (see link for full results). Model’s belief about the location of
+the invisible objects is visualized with a heatmap overlaid on the frames. Our method suffers from center overlap in the complex, three
+person occlusion and gets confused when two cones cover two spheres in the direct vicinity from each other.
+Car Person
+HOTA↑ MOTA↑ MT↑ PT↓ ML↓ HOTA↑ MOTA↑ MT↑ PT↓ ML↓
+SRK (Mykheievskyi et al., 2020) - - - - - 50.9 68.0 46.4 44.7 8.9
+AB3D (Weng & Kitani, 2020) 69.8 83.5 67.1 21.5 11.4 35.6 38.9 17.2 41.6 41.2
+TuSimple (Choi, 2015) 71.6 86.3 71.1 22.0 6.9 45.9 57.6 30.6 44.3 25.1
+SMAT (Gonzalez et al., 2020) 71.9 83.6 62.8 31.2 6.0 - - - - -
+CenterTrack (Zhou et al., 2020) 73.0 88.8 82.2 15.4 2.5 40.4 53.8 35.4 43.3 21.3
+DEFT (Chaabane et al., 2021) 74.2 88.4 84.3 13.5 2.2 - - - - -
+PermaTrack (Tokmakov et al., 2021) 78.0 91.3 85.7 11.7 2.6 48.6 66.0 48.8 35.4 15.8
+RAM (Ours) 79.5 91.6 86.3 11.2 2.5 52.7 68.4 51.6 34.7 13.8
+Table 6. Comparison to the vision-based state of the art on the test set of the KITTI benchmark using aggregate metrics. Some methods
+specialize on a single category. Our generic approach outperforms the state-of-the-art on all metrics except for ML (Mostly Lost) which
+captures detection recall.

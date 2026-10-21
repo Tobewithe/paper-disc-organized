@@ -1,0 +1,106 @@
+{
+  "weights": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/assets/models/coco_clean_20260911/yolo26m-seg.pt",
+  "profile": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/paper/manuscripts/neighbor_sensitive_p3/baseline_profile.json",
+  "original_split": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S2_CACHE_FULL_61ce0f1ca0e6479ca6704fb2fcceabec/SPLIT_CONTRACT.json",
+  "adapter_initial": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_readout_mechanism_v2_20261012/runs/RUN_S2_TRAIN_B_6c7bc7e8c0dc48509a733d11e60f0ee2/initial.pt",
+  "existing_G": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_readout_soft_iou_pilot_20261014/runs/RUN_SOFT_IOU_TRAIN_53afd0bb8aba428482159f5e426878eb/last.pt",
+  "historical_native_summary": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/SUMMARY.json",
+  "historical_native_trace": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/trace/TRACE_MANIFEST.json",
+  "historical_native_ledger": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/ledger/PER_GT_FAILURE.jsonl",
+  "historical_image_ids": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/official_gt_failure_rebaseline_20261013/runs/RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170/image_ids.json",
+  "study_id": "STUDY_MASK_BRANCH_JOINT_ADAPTATION_20261018",
+  "study_root": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018",
+  "train_annotations": "/srv/gpu-lab/users/a25023104/datasets/coco2017/annotations/instances_train2017.json",
+  "val_annotations": "/srv/gpu-lab/users/a25023104/datasets/coco2017/annotations/instances_val2017.json",
+  "train_images": "/srv/gpu-lab/users/a25023104/datasets/coco2017/train2017",
+  "val_images": "/srv/gpu-lab/users/a25023104/datasets/coco2017/val2017",
+  "expected_python": "3.12.3",
+  "expected_packages": {
+    "torch": "2.5.1+cu124",
+    "torchvision": "0.20.1+cu124",
+    "ultralytics": "8.4.100",
+    "numpy": "2.4.3",
+    "pycocotools": "2.0.11",
+    "faster-coco-eval": "1.8.0",
+    "opencv-python": "4.13.0.92",
+    "Pillow": "11.1.0",
+    "PyYAML": "6.0.2"
+  },
+  "expected_annotations": {
+    "train": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+    "val": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f"
+  },
+  "seed": 20261018,
+  "training_seed": 0,
+  "fit_images": 20000,
+  "epochs": 3,
+  "source_batch": 16,
+  "effective_batch": 4,
+  "steps_per_arm": 15000,
+  "training_hours": 8,
+  "statistics_hours": 12,
+  "gpu_memory_limit_gib": 44,
+  "area_gate": 9216,
+  "optimizer": {
+    "name": "AdamW",
+    "lr": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "foreach": false,
+    "fused": false
+  },
+  "training_policy": {
+    "amp": false,
+    "ema": false,
+    "scheduler": null,
+    "gradient_clip": null,
+    "augmentation": false,
+    "early_stopping": false,
+    "checkpoint_selection": "last"
+  },
+  "runtime_policy": {
+    "matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": ":4096:8"
+  },
+  "smoke_max_images": 32,
+  "smoke_steps_per_arm": 2,
+  "migration_guard": {
+    "historical_bbox_ap": 52.35143015406392,
+    "historical_segm_ap": 44.01417484774351,
+    "historical_G_segm_ap": 44.1557477428,
+    "max_absolute_ap_drift": 0.02,
+    "max_G_gain_drift": 0.02
+  },
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20261018,
+    "percentiles": [
+      2.5,
+      97.5
+    ],
+    "unit": "paired_whole_images",
+    "shared_draws": true
+  },
+  "gates": {
+    "PC_minus_N": 0.5,
+    "PC_minus_G_old": 0.3,
+    "PC_minus_G_budget": 0.2,
+    "PC_minus_C_native": 0.2,
+    "all_ci_lower_gt": 0,
+    "native_success_damage_max": 0.01,
+    "PC_native_inference_median_ratio_max": 4.0,
+    "unchanged_detection_identity": true
+  },
+  "protocol": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/PROTOCOL.md",
+  "frozen_manifest": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/FROZEN_MANIFEST.json"
+}

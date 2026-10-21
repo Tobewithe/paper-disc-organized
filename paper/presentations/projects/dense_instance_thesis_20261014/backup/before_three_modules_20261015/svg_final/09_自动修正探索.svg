@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF" />
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#007F82">02 研究方法 · 模块二</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">自动修正尚未兼顾目标收益与整体保护</text></g>
+<g id="training-setup" data-pptx-bounds="64 163 1152 46"><text x="64" y="195" font-size="22" fill="#596B80">冻结基础模型，只训练轻量系数修正器；同 2,000 张训练图、3 轮，比较空间信息与损失函数。</text></g>
+<g id="pilot-effects" data-pptx-bounds="64 220 1152 303">
+ <g id="pilot-effects-chartArea">
+  <line x1="913.333" y1="237" x2="913.333" y2="455" stroke="#596B80" stroke-dasharray="5,5" /><line x1="420" y1="455" x2="1160" y2="455" stroke="#596B80" />
+  <!-- chart-plot-area: object=pilot-effects | 420,224,1160,464 -->
+  <g fill="none" stroke-width="4"><path d="M539.206 264 H803.582 M539.206 256 V272 M803.582 256 V272" stroke="#596B80" /><path d="M665.317 344 H914.745 M665.317 336 V352 M914.745 336 V352" stroke="#315E9D" /><path d="M897.712 424 H1115.510 M897.712 416 V432 M1115.510 416 V432" stroke="#007F82" /></g>
+  <circle cx="675.322" cy="264" r="7" fill="#596B80" /><circle cx="790.539" cy="344" r="7" fill="#315E9D" /><circle cx="997.187" cy="424" r="7" fill="#007F82" />
+ </g>
+ <g fill="#25374C"><text x="64" y="273">空间打乱（BCE）</text><text x="64" y="353">保留空间（BCE）</text><text x="64" y="433">保留空间（soft-IoU）</text></g>
+ <g font-size="22" font-weight="bold" text-anchor="middle"><text x="675.322" y="244" fill="#596B80">−1.930</text><text x="790.539" y="324" fill="#315E9D">−0.996</text><text x="997.187" y="404" fill="#007F82">+0.680</text></g>
+ <g font-size="16" fill="#596B80" text-anchor="middle"><text x="420" y="480">−4</text><text x="543.333" y="480">−3</text><text x="666.667" y="480">−2</text><text x="790" y="480">−1</text><text x="913.333" y="480">0</text><text x="1036.667" y="480">1</text><text x="1160" y="480">2</text></g>
+ <text x="420" y="513" font-size="22" fill="#596B80">目标组 ΔMaskIoU（百分点），横线为 95% 区间</text>
+</g>
+<g id="acceptance-finding" data-pptx-bounds="64 551 1152 97"><text x="64" y="583" font-weight="bold" fill="#172B46">soft-IoU：目标均值 +0.680 pp，但总体仍下降 0.262 pp。</text><text x="64" y="630" fill="#C36D37">原成功实例损伤 53 / 1,024，损伤上界 6.43%（要求 ≤1%）。</text></g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="64 665 1152 35" font-size="16" fill="#596B80"><text x="64" y="689">[E2/E3] 同 512 张开发图，目标 T=655；按图平均；三种配置均未通过全部验收门槛。</text><text x="1216" y="689" text-anchor="end">09 / 15</text></g>
+</svg>

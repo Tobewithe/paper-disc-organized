@@ -1,0 +1,779 @@
+
+
+PAGE 1
+PLUG: Revisiting Amodal Segmentation with
+Foundation Model and Hierarchical Focus
+Zhaochen Liu1,2, Limeng Qiao3, Xiangxiang Chu3, Tingting Jiang1,4∗
+1National Engineering Research Center of Visual Technology,
+National Key Laboratory for Multimedia Information Processing,
+School of Computer Science, Peking University
+2AI Innovation Center, School of Computer Science, Peking University
+3Meituan Inc.
+4National Biomedical Imaging Center, Peking University
+{dreamerliu, qiaolm, ttjiang}@pku.edu.cn, cxxgtxy@gmail.com
+Abstract
+Aiming to predict the complete shapes of partially occluded objects, amodal seg-
+mentation is an important step towards visual intelligence. With crucial significance,
+practical prior knowledge derives from sufficient training, while limited amodal
+annotations pose challenges to achieve better performance. To tackle this problem,
+utilizing the mighty priors accumulated in the foundation model, we propose the
+first SAM-based amodal segmentation approach, PLUG. Methodologically, a novel
+framework with hierarchical focus is presented to better adapt the task characteris-
+tics and unleash the potential capabilities of SAM. In the region level, due to the
+association and division in visible and occluded areas, inmodal and amodal regions
+are assigned as the focuses of distinct branches to avoid mutual disturbance. In the
+point level, we introduce the concept of uncertainty to explicitly assist the model in
+identifying and focusing on ambiguous points. Guided by the uncertainty map, a
+computation-economic point loss is applied to improve the accuracy of predicted
+boundaries. Experiments are conducted on several prominent datasets, and the
+results show that our proposed method outperforms existing methods with large
+margins. Even with fewer total parameters, our method still exhibits remarkable
+advantages. The code and models will be publicly available.
+1 Introduction
+Occlusion is a common phenomenon in the real world, thus comprehending occlusion is a vital
+capability of visual intelligence [ 36]. In computer vision, amodal segmentation was proposed in
+2016 [27] to predict the complete shape of an object containing both the visible portion and the
+occluded portion. Amodal segmentation has been widely studied since then. Researchers explored
+fully supervised approaches [27, 55, 39, 45, 49, 29, 11], weakly supervised approaches [51, 35, 41,
+32], and diverse applications including self-driving [ 39, 4], image augmentation [ 13, 29, 38] and
+robotic gripping systems [43, 44, 18].
+Amodal segmentation performance is closely related to the implicit prior knowledge of the model [2].
+Despite the achieved progress, the pursuit of high quality priors raises a demand for sufficient training,
+while large-scale amodal annotations are time-consuming and labor-intensive [32]. Encouragingly,
+foundation models emerge and develop rapidly in recent years [54, 3]. Pre-training through massive
+data brings a broad and effective cognition to these foundation models, thereby inspiring a foundation-
+model-based paradigm of algorithm design. The Segment Anything Model, SAM [21], is a typical
+∗Corresponding author.
+Preprint. Under review.
+arXiv:2405.16094v2  [cs.CV]  3 Jun 2024
+
+PAGE 2
+!"#$$%%
+!"#$!"## !"#$!"##
+!"#$$%%
+Pretrained SAM( 63.42, 18.57 )
+VRSP( 80.70, 47.33 )PCNet( 78.02, 38.14 )
+AISFormer( 81.53, 48.54 )
+C2F-Seg( 82.22, 53.60 )
+★ PLUG( 88.85, 62.66 )
+Pretrained SAM(74.15, 14.36)
+PCNet( 76.91, 20.34 )
+VRSP( 78.98, 22.92 )
+AISFormer( 72.69, 13.75 )
+C2F-Seg( 80.28, 27.71 )
+★ PLUG( 83.71, 34.12 )
+(a) KINSDataset (b) COCOADataset
+Figure 1: The visualization of performance comparison. mIoUf ull, mIoUocc represent the mean
+IoU for the complete mask and the occluded region of each object, respectively.
+and influential foundation model for segmentation. Is it feasible to utilize the potential of SAM to
+further improve the amodal segmentation performance without introducing extra data?
+To reach this goal, we propose PLUG, the first SAM-based amodal segmentation approach. Naturally,
+limited accessable data leads us towards parameter-efficient finetuning, while achieving competent
+training is still challenging due to the complexity of amodal segmentation. Observing the positive
+impact of emphasizing highlights in human learning process, we expect to facilitate the model training
+by establishing analogous focused learning. Therefore, an elaborately-designed framework with
+hierarchical focus appropriate to the task characteristics is applied to better deliver the advantages of
+SAM, in which focused regions and points are designated explicitly.
+In the region level, we realize that though related to each other, visible area segmentation and occluded
+area segmentation actually belong to different tasks. The former mainly focuses on the information
+within the region, while the latter requires reasonable inference considering the entire object region.
+However, the principle of parameter-efficient finetuning is to ingeniously decrease desired trainable
+parameters through targeting one specific task [1, 16]. Therefore, there is a contradiction when
+applying existing methods directly on amodal segmentation. To address this issue, we introduce a
+foundation-model-applicable parallel structure to separately focus on the inmodal and amodal regions,
+which involves two independent branches with different adapters to ensure mutual disturbance is
+avoided. Subsequently, the predictions from these two branches are fused and rectified in a simple
+yet effective refine module, thus retaining the relevance and close collaboration.
+In the point level, we notice the significance of different points is not uniform for the shape of some
+object, among which points near the edge reveal more impact. Since the boundary prediction counts,
+we conceive a design to particularly focus on pertinent points thereby supporting promoted accuracy.
+Specifically, we introduce the concept of uncertainty based on the cross-entropy that originally
+possesses relevant meanings. Guided by the uncertainty map, a supplemental point loss is employed
+in the training. Inspired by PointRend [22], we combine random sampling and sorted selection to
+find points with high uncertainty without excessive additional computation. Intuitively, points near
+the boundary will exactly be picked due to ambiguous prediction. These points obtain enhanced
+penalty by the point loss. Moreover, to further prompt the focus on these points, the uncertainty is
+also explicitly involved in the refine module to provide practical clues for the fusion process.
+To evaluate the performance of our proposed method, we conduct experiments on the prominent
+KINS dataset [39] and COCOA dataset [10]. Our proposed method is implemented grounded on the
+advanced LoRA [16], low-rank adaptation structure that exhibits wide applicability in parameter-
+efficient finetuning. As shown in Fig. 1, PLUG attains a remarkable upgradation in amodal segmenta-
+tion compared to the pretrained SAM, and outperforms all existing approaches with large margins
+achieving state-of-the-art performance on both datasets. Even with fewer total parameters, PLUG
+still displays notable advantages. Our contributions can be summarized as follows:
+• We exploit the foundation model to surmount the data-deficient issue in amodal segmentation
+task, and propose the first SAM-based amodal segmentation approach.
+• According to the task characteristics, a novel framework with hierarchical focus is finely
+designed containing Parallel LoRA and Uncertainty Guidance (PLUG), with which the
+2
+
+PAGE 3
+model can efficiently focus on specific regions and ambiguous points thus improving the
+training effectiveness and unleashing the distinguished capabilities of the foundation model.
+• Our proposed method significantly outperforms existing approaches with large margins,
+reaching state-of-the-art performance.
+2 Related Work
+Amodal Segmentation. The goal of amodal segmentation is to predict the complete shape of the
+occluded object through the deep model, which is essential to achieve visual intelligence. In the early
+stages of research, besides direct approach [27, 55, 39], many fully supervised methods have been
+proposed with various concepts involved, such as depth relationship [53], region correlation [10, 20],
+and shape priors [49, 29, 5, 11]. Immediately afterward, a series of weakly supervised methods [51,
+35, 23, 24, 41, 32] begin to appear with the supervision of simpler annotations, such as bounding boxes
+and categories. Exploiting the capabilities of amodal segmentation, researchers are concerned with its
+diverse applications. Amodal segmentation is critical to guarantee operational safety and reliability
+of various intelligent systems, such as autonomous driving [39, 4] and robotic grasping [43, 44, 18],
+while also forwarding image augmentation [13, 29, 38]. Though numerous related work is delivered,
+some issues still exist in this field. The aforementioned models exhibit a tendency towards complexity
+and face the challenge of universality, which is not friendly to practical use. Benefiting from the
+versatile feature extraction capabilities provided by large-scale vision foundational models, our
+method introduces a brand-new foundation-model-based architecture to tackle these problems.
+Foundation Models. Recently, remarkable progress has been made in developing visual foundation
+models (VFMs). Trained on large-scale data to acquire foundational capabilities, these models can be
+adapted to a wide range of related downstream vision tasks. Vision-language models like CLIP [40]
+are first studied, which demonstrate promising zero-shot generalization performance on different
+tasks. Following this paradigm, a series of models are proposed to gradually improve generalization
+and versatility [9, 50, 26, 28, 6, 31] and to expand applicable fields [34, 47, 21, 56, 52, 46]. Among
+them, the Segment Anything Model, SAM [21], is a classic work, which performs a class-agnostic
+segmentation given an image and a visual prompt such as box, point, or mask. By training on
+a model-in-the-loop dataset with billions of object masks, SAM shows excellent performance on
+various segmentation tasks [3]. While the recent surge of the visual foundation models, in the field of
+amodal segmentation research, the practical exploration of using these universal VLMs is still few.
+Parameter-efficient Fine-tuning. Due to the massively scaling up of both data and model size, the
+training of almost all current VFMs is computation-intensive and storage-consuming. A compelling
+solution for this challenge is parameter-efficient fine-tuning, which is to finetune only a small
+set of external parameters rather than the entire model while still capitalizing on the outstanding
+capabilities of foundation models [17]. To achieve this, diversified approaches have been proposed.
+In the prompt tuning [25], a trainable tensor is added as a prefix to the input embeddings. The Series
+Adapter [48, 15, 19] proposes the insight of incorporating additional learnable modules in a sequential
+manner within a specific sub-layer. The reparametrization-based methods[1, 16, 8] transform network
+weights using low-rank techniques. Currently, LoRA[ 16] is widely used, which introduces rank
+decomposition matrices for specific tasks. Although LoRA effectively reduces the number of trainable
+parameters while retaining the performance, the original design is still not satisfactory enough for
+amodal segmentation. To address this problem, we propose a novel PLUG framework in this paper.
+3 Method
+3.1 Task Definition
+For a partially occluded object, amodal segmentation is to segment its complete shape containing
+both visible and occluded areas. Unlike some other methods [51, 11], our PLUG do not require the
+visible mask as input. For each object i, we take only the original image I and the bounding box Bi
+v
+of the visible portion that indicates the region of interest as the input. The final output is the predicted
+binary amodal mask ˜Mi
+a. As for the supervision signal, we adopt the ground-truth binary visible
+mask Mi
+v and amodal mask Mi
+a. Category labels are not utilized in the training.
+3
+
+PAGE 4
+(b) Mask Decoder w/ Reﬁne Module(a) Image Encoder w/ Parallel LoRA
+Adapter 1
+Adapter 1
+Adapter N
+Adapter N
+Transformer 
+Block 1
+Transformer 
+Block N
+…
+…
+…
+Amodal LoRA 
+!
+Inmodal LoRA 
+!
+❄
+Amodal  
+Decoder
+Inmodal  
+Decoder
+Prompt 
+Encoder Refine Block
+!
+u˜miv
+u˜mia
+I
+˜mi
+a
+˜mi
+v
+/uni2295Bi
+v
+˜Mi
+a
+(c) The Attention Module w/ Parallel LoRA
+Ai
+Q,v
+Bi
+Q,v
+Wi
+Q
+Ai
+Q,a
+Bi
+Q,a
+Ii
+v Ii
+a
+Qi
+v Qi
+a
+Ii
+v Ii
+a
+Ai
+V,v
+Bi
+V,v
+Wi
+V
+Ai
+V,a
+Bi
+V,a
+Vi
+v Vi
+a
+Ii
+vIi
+a
+Wi
+K
+Ki
+vKi
+a
+!Trainable 
+Frozen 
+Concatenation 
+❄
+/uni2295
+I
+Figure 2: The architecture of PLUG. (a,b) On the basis of SAM, two parallel sets of LoRA
+adapters (Inmodal LoRA, Amodal LoRA) and corresponding two mask decoders (Inmodal Decoder,
+Amodal Decoder) are introduced to separately process diverse regions and avoid mutual disturbance.
+Guided by uncertainty maps (defined in Sec. 3.4), a simple yet effective refine module is added
+afterwards to rectify ambiguous points near the boundary. The refine module takes the original image,
+the coarse predictions and the uncertainty maps as input. (c) In each transformer block of the image
+encoder, low-rank adaptation matrices are applied to the attention module. The calculation of Q, V
+passes two parallel side roads focusing on inmodal and amodal regions respectively (refer to Sec. 3.3).
+3.2 Overall Architecture
+As shown in Fig. 2, our proposed approach is developed on the foundation segmentation model
+SAM [21]. The architecture can be divided into four parts: image encoder, prompt encoder, mask
+decoder, and refine module. (1) Image Encoder. We freeze the image encoder in SAM that contains
+most parameters of the pretrained model (632M/636M for the ViT-H [7] version), and utilize low-rank
+adaptation [16] to finetune the encoder. Introducing trainable rank decomposition matrices into each
+layer of the transformer architecture, LoRA can substantially limit the number of trainable parameters.
+Here we inject two parallel branches of LoRA, namely Inmodal LoRA and Amodal LoRA. Through
+the modified image encoder, inmodal image embeddings Ev and amodal image embeddings Ea are
+extracted from the original image I. (2) Prompt Encoder. The trainable prompt encoder is used to
+convert the input bounding box Bi
+v into corresponding prompt embeddings Ei
+p. (3) Mask Decoder.
+We employ two trainable mask decoders, namely Inmodal Decoder and Amodal Decoder, for the two
+branches. The embeddings Ev, Ei
+p and Ea, Ei
+p are exploited respectively to produce coarse inmodal
+prediction ˜mi
+v and coarse amodal prediction ˜mi
+a by these mask decoders. (4) Refine Module. Coarse
+predictions ˜mi
+v, ˜mi
+a from the two separate branches are integrated and refined in the subsequent
+refine module. The refined amodal mask ˜Mi
+a is adopted as the final output. In summary, the trainable
+components in the network are the parallel LoRAs, the prompt encoder, the mask decoders, and the
+refine module. Therefore, the overall number of trainable parameters is effectively limited.
+3.3 Region-level Focus: Parallel LoRA
+In experiments, we find that the prediction quality is not satisfactory enough when we directly use
+LoRA to finetune the SAM model and predict the amodal mask ˜Mi
+a. We realize this plain approach
+4
+
+PAGE 5
+may contradict LoRA’s original intention. Obviously, for some objecti, the complete mask of Mi
+a
+can be divided into the visible segment Mi
+v and the occluded segment Mi
+o:
+Mi
+a = Mi
+v + Mi
+o. (1)
+The insight of LoRA is that for a specific task, the updates to the weights of pretrained model have a
+low intrinsic rank [16], while the segmentation of visible areas and occluded areas can be regarded as
+two distinct tasks. Though related, visible portion segmentation and occluded portion segmentation
+are diverse in characteristics. Firstly, the segmentation of Mi
+v mainly focuses on the information
+within the region Bi
+v, while the segmentation of the Mi
+o requires information from the entire object
+region. Secondly, the segmentation of the Mi
+o involves moderate inference utilizing the implicit
+shape priors in the model. Therefore, Mi
+v and Mi
+o should be processed separately to avoid mutual
+disturbance. Observing this, we introduce the parallel LoRA structure. Lacking sufficient semantics
+while completely differing from regular modal segmentation, it is not suitable to directly build a
+branch for the occluded part Mi
+o. Thus, we rewrite Eq. 1 as
+Mi
+a = Mi
+v + (Mi
+a − Mi
+v), (2)
+where only Mi
+v and Mi
+a are involved. Guided by Eq. 2, we alternatively adopt a coarse visible branch
+and a coarse amodal branch to predict the coarse visible mask ˜mi
+v and the coarse amodal mask ˜mi
+a,
+respectively. ˜mi
+v, ˜mi
+a are fused by a subsequent refine module to obtain the final output ˜Mi
+a.
+Specifically, we adopt two parallel sets of adapters (Inmodal LoRALv, Amodal LoRA La) for the
+image encoder and corresponding two mask decoders (Inmodal Decoder Dv, Amodal Decoder Da)
+as shown in Fig. 2. The LoRA adapters are added to each transformer block in the image encoder and
+initialized randomly. With parallel LoRA, each transformer block has two side roads in the attention
+module as shown in Fig. 2. More detailed, in the i-th transformer block, LoRA is applied to the
+attention weight matrices W i
+Q, W i
+V . For W i
+Q, we have inmodal adaptation matrices Ai
+Q,v, Bi
+Q,v and
+amodal adaptation matrices Ai
+Q,a, Bi
+Q,a:
+Qi
+{v,a} = W i
+QI i
+{v,a} + Bi
+Q,{v,a}Ai
+Q,{v,a}I i
+{v,a}. (3)
+Similarly, for W i
+V we have Ai
+V,v , Bi
+V,v , Ai
+V,a, Bi
+V,a:
+V i
+{v,a} = W i
+V I i
+{v,a} + Bi
+V,{v,a}Ai
+V,{v,a}I i
+{v,a}. (4)
+In the above expressions, v, a represent “visible” and “amodal”, respectively.I i
+v, Ii
+a are the input of
+this attention module from the inmodal branch and the amodal branch before.
+As for the mask decoders, Inmodal Decoder processes inmodal image embeddings and prompt
+embeddings, while Amodal Decoder processes amodal image embeddings and prompt embeddings:
+˜mi
+v = Dv(Ev, Ei
+p), ˜mi
+a = Da(Ea, Ei
+p). (5)
+Both decoders are initialized with the same parameters as the mask decoder in the pretrained SAM.
+All trainable components in the architecture are trained concurrently to ensure close collaboration.
+3.4 Point-level Focus: Uncertainty Guidance
+In the segmentation task, we actually focus on the points near the boundary of the object, which
+determine the shape to some extent. That is, the significance of different points is diverse, among
+which points near the edge usually possess more importance. Accordingly, these points are also more
+challenging in the prediction. We hope to reflect the imbalanced importance in our method and help
+identify these key points more quickly. For this reason, we introduce the concept of uncertainty. As
+shown in Fig. 3, we define the uncertainty of some pixel as the average cross-entropy within the
+neighborhood. For point x = (x1, x2) in predicted logits m, the uncertainty is
+um(x) =
+P
+(i,j)∈N (x,ϵ) (2ϵ − 1)−2 CE(m(i, j)), (6)
+where ϵ is a constant parameter indicates the neighborhood size. Any point (i, j) in N (x, ϵ) satisfies
+|i − x1| < ϵ ∧ |j − x2| < ϵ. (7)
+5
+
+PAGE 6
+BCE
+˜mi
+u˜mi
+Average
+ Select
+(a) (b)
+Figure 3: An illustration of the uncertainty guidance. (a) The uncertainty of each pixel is defined
+as the average cross entropy of its neighborhood. (b) We select cK points with high uncertainty (top
+cK) and stochastic (1 − c)K points from randomly chosen nK points to apply the point loss.
+Cross-entropy succinctly measures the chaos degree of predicted logits. If a point is located in a
+neighborhood with relatively chaotic predictions, we can assert that its uncertainty is high. For our
+issue, the cross entropy in the formula is actually binary cross entropy:
+CE(m(i, j)) = −[m(i, j) log m(i, j) + (1 − m(i, j)) log(1 − m(i, j))]. (8)
+By sequentially calculating the uncertainty of each point, we obtain an uncertainty map um of
+prediction m. Based on the uncertainty map, we inject point loss Lp as a supplement to the common
+BCE loss Lb, so the total loss of each decoder (Inmodal Decoder, Amodal Decoder) is
+L = Lb + Lp. (9)
+Inspired by PointRend [22], we select only a certain number of points to exert point loss as shown
+in Fig. 3. First, nK (n > 1) points are randomly chosen. By comparison, cK (0 < c < 1) points
+with relatively high uncertainty among these nK points are adopted, and (1 − c)K points are picked
+stochastically. Consequently, a total of K points will apply the point loss. The above n, c, K are all
+constant parameters. For each selected point x in prediction m, the point loss contains two terms:
+Lp(x) = αle(x) + βum(x). (10)
+le(x) is an extra BCE loss at full resolution aiming to increase the weights of these points in the
+original BCE loss. α is a constant coefficient to control the promotion level. um(x) is the uncertainty.
+High uncertainty means the predicted value is ambiguous, which makes it hard to select a threshold for
+ultimate binary classification. Therefore, a certain degree of punishment is imposed. β is a constant
+coefficient to limit the penalty. Through the point loss, challenging points with high uncertainty
+are given more attention and improved towards clearer predicted values, which is significant for the
+segmentation of the boundaries. On the other hand, the point sampling method enables the overall
+computation and memory to have only a slight increase.
+Though elaborately designed, the previous modules are ineluctable to be puzzled at some details of
+the mask, thus we introduce a coarse-to-fine structure to enhance the quality. In previous modules,
+We have separately obtained the coarse inmodal prediction ˜mi
+v and the coarse amodal prediction
+˜mi
+a, which can fitly provide clues to each other. Therefore, we employ a refine module to fuse them
+and produce a more accurate amodal mask ˜Mi
+a. To explicitly indicate confusing points, we also
+inject the uncertainty map generated before into the module. That is, the refine module takes as input
+the concatenation of the original image I, the coarse inmodal predictions ˜mi
+v, the coarse amodal
+predictions ˜mi
+a, and two corresponding uncertainty maps u ˜miv , u ˜mia. In practice, we select a simple
+yet effective convolutional network for the refine module contains only a ResNet block [14]:
+˜Mi
+a = Conv(I, ˜mi
+v, ˜mi
+a, u ˜miv , u ˜mia ). (11)
+When facing more complex datasets, this network can flexibly adjust to multiple blocks.
+6
+
+PAGE 7
+4 Experiments
+4.1 Datasets and Metrics
+Datasets. In order to evaluate our proposed method, we conduct experiments on prominent datasets
+including KINS [39] and COCOA [10]. KINS and COCOA are commonly used datasets in the field
+of amodal segmentation, which are both based on real-world images with real occlusion.
+The KINS dataset is built on the KITTI dataset [12] with supplemental amodal annotations. KINS
+consists of 2 super-classes (vehicle, person) and 7 sub-classes (car, truck, pedestrian, etc.) with 14991
+images in total (7474 images for training, 7517 images for testing). Covering objects with various
+occlusion ratios, KINS is the largest amodal street scene dataset.
+The COCOA dataset is an extension of the Amodal COCO dataset [55]. COCOA complements amodal
+annotations for a subset of the renowned COCO dataset [30]. COCOA contains 80 categories (dog,
+cat, apple, etc.) and 3699 images (2476 images for training, 1223 images for testing) in total.
+Metrics. For we formulate the problem as a segmentation-only task, we choose mean intersection-
+over-union (IoU) as the metric, which is the ratio of intersecting pixels of the predicted mask and
+ground truth mask to their union. As in related work [ 11], we adopt not only mean-IoU of the
+complete mask (mIoUf ull), but also of the occluded region (mIoUocc). mIoUf ull reflects the overall
+performance, while mIoUocc indicates the segmentation capability in our concerned occluded areas.
+4.2 Implementation Details
+PLUG is implemented based on the Pytorch framework [ 37]. Considering a balance of cost and
+effectiveness, we adopt the ViT-H version of pretrained SAM [21, 7] with 636M parameters as the
+foundation and choose rank-16 LoRA adapters. Like related work [ 11], we use double magnified
+visible bounding boxes to crop images. All input images are resized to 512 × 512 and then processed.
+For constant parameters in the point loss, we select ϵ = 3, n = 4, c = 0.75, K = 256, α = 0.1, β =
+0.1 in practice. In the training, we utilize AdamW optimizer [33] and a dynamic learning rate, which
+reaches 0.001 after a quick 250-iteration warmup and then gradually decreases to 0. The β1, β2
+and the weight decay of AdamW optimizer are set to 0.9, 0.999, 0.1. A whole training contains 50
+epochs and is completed on 8 NVIDIA A100 Tensor Core GPUs taking about 5 hours for the COCOA
+dataset and 20 hours for the KINS dataset. In the testing, we set the threshold of logits to 0.3. Pixels
+exceeding the threshold are considered foreground, while other pixels are considered background.
+4.3 Comparison with Existing Methods
+Baselines. For better evaluation of our proposed method, we choose several typical and recent
+approaches for comparison, which are PCNet [51], VRSP [49], AISFormer [42], and C2F-Seg [11].
+These baselines are all designed for the amodal segmentation task, among which C2F-Seg is the
+state-of-the-art method now. It should be noted that the amodal segmentation task is different from the
+amodal completion task. The latter takes the ground truth visible masks of all objects as input, which
+Table 1: The comparison of amodal segmentation performance on the KINS and COCOA datasets.
+The results of existing method are reported in C2F-Seg.
+Methods Venue KINS COCOA
+mIoUf ull mIoUocc mIoUf ull mIoUocc
+PCNet [51] CVPR’20 78.02 38.14 76.91 20.34
+VRSP [49] AAAI’21 80.70 47.33 78.98 22.92
+AISFormer [42] BMCV’22 81.53 48.54 72.69 13.75
+C2F-Seg [11] ICCV’23 82.22 53.60 80.28 27.71
+SAM (ViT-H) ICCV’23 63.42 18.57 74.15 14.36
+Ours (ViT-B) - 86.91 59.74 81.43 29.67
+Ours (ViT-L) - 88.10 61.42 83.23 32.88
+Ours (ViT-H) - 88.85 62.66 83.71 34.12
+7
+
+PAGE 8
+Image VRSP AISFormer C2F-Seg Ours GT
+Figure 4: Qualitative results. The qualitative comparison of predicted amodal masks from VRSP,
+AISFormer, C2F-Seg and our proposed PLUG approach. The first two rows are from the KINS
+dataset, while the last three rows are from the COCOA dataset. Zoom in for a better view.
+provide a lot more information. In the amodal segmentation task, visible masks are also obtained
+by prediction. Therefore, our comparative experiments are conducted within the scope of amodal
+segmentation. For fair comparison, we use pre-detected visible masks in accordance with related
+work [11] (by AISFormer on KINS, by VRSP on COCOA) to calculate corresponding bounding
+boxes, which will be taken as input of the model.
+Results. As shown in Table 1, our PLUG approach significantly outperforms existing methods
+with large margins on both KINS and COCOA datasets, reaching state-of-the-art performance. On
+the KINS dataset, PLUG achieves prime performance 6.63/9.06 higher than C2F-Seg. On the more
+challenging COCOA dataset, PLUG still performs well and attains 83.71/34.12 on mean IoU, which
+beats C2F-Seg by 2.51/4.31. For better performance, the largest ViT-H version (645M parameters in
+total) of PLUG is recommended. Without changing other settings, replacing foundation SAM with
+a smaller version will result in some performance degradation. Even so, the ViT-L version (316M
+parameters in total) and the ViT-B version (96M parameters in total) of PLUG, which are smaller in
+size than C2F-Seg (382M parameters in total), can still surpass the performance of C2F-Seg. Fur-
+thermore, we can view the foundation models as infrastructure due to their numerous functionalities.
+In this perspective, our PLUG model possesses a very lightweight size. The incremental trainable
+model contains only 12.7M parameters. When multiple incremental models are built together on the
+foundation model, it will actually save costs compared to specific models.
+Several qualitative results are also shown in Fig. 4, which intuitively display our superiority in
+performance. In contrast with other approaches, PLUG can provide more accurate and complete
+shapes. For the car in the first row, the tires and the curved rear can be identified in our prediction,
+while other methods only provide a rough range. For the sheep in the third row, our prediction
+includes its hind leg, which is not covered by other approaches.
+4.4 Ablation Study
+As shown in Table 2, we conduct ablation study on both KINS and COCOA datasets, in which we
+compare pretrained SAM with models that sequentially add fine-tuning, point loss, refine module,
+and parallel LoRA on it. Although we input amodal bounding boxes, the pretrained SAM (at the 1st
+row) can hardly provide valid predictions in the occluded regions. The 2nd row utilizes plain LoRA
+to finetune SAM. Consequently, the performance acquires a dramatic improvement and almost equals
+the state-of-the-art C2F-Seg approach. On this basis, our proposed method brings more advance.
+8
+
+PAGE 9
+Table 2: The ablation study on the KINS and COCOA datasets. FT, PT, RM, PL represent fine-tuning,
+point loss, refine module, and parallel LoRA. I, Bv, Ba represent the original image, visible and
+amodal bounding box, respectively. All experiments are based on the ViT-H version of SAM.
+Settings KINS COCOA
+FT PT RM PL Input mIoUf ull mIoUocc mIoUf ull mIoUocc
+1 I, Ba 63.42 18.57 74.15 14.36
+2 ✓ I, Bv 82.47 50.10 80.16 27.07
+3 ✓ ✓ I, Bv 84.73 53.45 81.88 29.35
+4 ✓ ✓ ✓ I, Bv 85.48 55.12 82.56 31.28
+5 ✓ ✓ ✓ ✓ I, Bv 88.85 62.66 83.71 34.12
+Table 3: The comparison of different ranks of LoRA. “Params” means the parameter quantities of
+incremental trainable models. All experiments are based on the ViT-H version of SAM.
+Rank Params KINS COCOA
+mIoUf ull mIoUocc mIoUf ull mIoUocc
+4 8.8 M 88.01 61.23 83.44 33.25
+8 10.0 M 88.32 61.87 83.60 33.81
+16 12.7 M 88.85 62.66 83.71 34.12
+32 17.9 M 88.54 62.08 83.54 33.78
+The Effect of Point Loss. To verify the benefit of the point loss, we can compare the 2nd and 3rd
+rows in Table 2. By adding the point loss, the performance shows a significant promotion of 2.26/3.35
+on KINS and 1.72/2.28 on COCOA. To confirm the point loss does not incur excessive computation,
+we also record the training speed on the KINS dataset. It takes about 4.3 seconds per iteration for the
+final version, while it takes about 3.9 seconds per iteration if the point loss is removed. The results
+reflect that the impact of point loss on training duration is limited (10% or so).
+The Effect of Refine Module. To demonstrate the importance of the refine module, we can compare
+the 3rd and 4th rows in Table 2. The outcome shows that the latter notably beats the former by
+0.75/1.67 on the KINS dataset and 0.68/1.93 on the COCOA dataset.
+The Effect of Parallel LoRA. In Table 2, we employ only a plain single-branch LoRA at the 2nd
+to 4th rows, while applying the two-branch parallel LoRA structure at the 5th row. To evaluate the
+effectiveness of parallel LoRA, we can compare the 4th and 5th rows that vary only in the LoRA
+structure. The latter wins a remarkable advantage of 3.37/7.54 on KINS and 1.15/2.84 on COCOA.
+The Effect of The Rank of LoRA Adapters. Due to the rank r of LoRA adapters possesses a
+direct correlation with parameter quantity and final performance [16], we make a careful choice based
+on experimental results. As shown in Table 3, our selected r = 16 has a compact size and achieves
+better performance compared to other attempts.
+5 Limitation
+As shown in Fig. 5, we find that our model is not competent to give valid predictions for some
+non-rigid instances like people in special poses, which actually reflects a common problem in existing
+Image GT Ours
+Figure 5: An example of the limitation. In this image, the man’s occluded arm is not well segmented.
+9
+
+PAGE 10
+amodal segmentation methods that the diversity interpretations of hidden parts are not effectively
+addressed. Is it practicable to introduce prompts of more efficacious modalities or directly provide
+multiple reasonable predictions? We leave this challenge to future work.
+6 Conclusion
+In this work, we revisit the amodal segmentation task and propose a brand-new SAM-based frame-
+work, PLUG. Introducing the parallel LoRA structure to avoid mutual disturbance of different regions
+and the concept of uncertainty to identify ambiguous points, PLUG establishes a novel hierarchical
+focus mechanism to well utilize the superb capabilities of the foundation model SAM and serve the
+amodal segmentation task. Experimental results demonstrate PLUG significantly outperforms all
+existing methods and achieves state-of-the-art performance.
+References
+[1] Armen Aghajanyan, Luke Zettlemoyer, and Sonal Gupta. Intrinsic dimensionality explains
+the effectiveness of language model fine-tuning. In Proceedings of the Annual Meeting of the
+Association for Computational Linguistics and the International Joint Conference on Natural
+Language Processing, page 7319–7328, 2021.
+[2] Jiayang Ao, Qiuhong Ke, and Krista A Ehinger. Image amodal completion: A survey.Computer
+Vision and Image Understanding, page 103661, 2023.
+[3] Muhammad Awais, Muzammal Naseer, Salman Khan, Rao Muhammad Anwer, Hisham
+Cholakkal, Mubarak Shah, Ming-Hsuan Yang, and Fahad Shahbaz Khan. Foundational models
+defining a new era in vision: A survey and outlook. arXiv preprint arXiv:2307.13721, 2023.
+[4] Jasmin Breitenstein and Tim Fingscheidt. Amodal cityscapes: a new dataset, its generation, and
+an amodal semantic segmentation challenge baseline. In IEEE Intelligent Vehicles Symposium,
+pages 1018–1025, 2022.
+[5] Junjie Chen, Li Niu, Jianfu Zhang, Jianlou Si, Chen Qian, and Liqing Zhang. Amodal instance
+segmentation via prior-guided expansion. In Proceedings of the AAAI Conference on Artificial
+Intelligence, volume 37, pages 313–321, 2023.
+[6] Mehdi Cherti, Romain Beaumont, Ross Wightman, Mitchell Wortsman, Gabriel Ilharco, Cade
+Gordon, Christoph Schuhmann, Ludwig Schmidt, and Jenia Jitsev. Reproducible scaling laws
+for contrastive language-image learning. In Proceedings of the IEEE/CVF Conference on
+Computer Vision and Pattern Recognition, pages 2818–2829, 2023.
+[7] Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai,
+Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly,
+Jakob Uszkoreit, and Neil Houlsby. An image is worth 16x16 words: Transformers for
+image recognition at scale. In Proceedings of the International Conference on Learning
+Representations, 2021.
+[8] Ali Edalati, Marzieh Tahaei, Ivan Kobyzev, Vahid Partovi Nia, James J Clark, and Mehdi
+Rezagholizadeh. Krona: Parameter efficient tuning with kronecker adapter. In Advances in
+Neural Information Processing Systems, The Third Workshop on Efficient Natural Language
+and Speech Processing, 2023.
+[9] Yuxin Fang, Wen Wang, Binhui Xie, Quan Sun, Ledell Wu, Xinggang Wang, Tiejun Huang,
+Xinlong Wang, and Yue Cao. Eva: Exploring the limits of masked visual representation
+learning at scale. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 19358–19369, 2023.
+[10] Patrick Follmann, Rebecca König, Philipp Härtinger, Michael Klostermann, and Tobias Böttger.
+Learning to see the invisible: End-to-end trainable amodal instance segmentation. In Proceed-
+ings of the IEEE Winter Conference on Applications of Computer Vision, pages 1328–1336,
+2019.
+10
+
+PAGE 11
+[11] Jianxiong Gao, Xuelin Qian, Yikai Wang, Tianjun Xiao, Tong He, Zheng Zhang, and Yanwei
+Fu. Coarse-to-fine amodal segmentation with shape prior. In Proceedings of the IEEE/CVF
+International Conference on Computer Vision, pages 1262–1271, 2023.
+[12] Andreas Geiger, Philip Lenz, and Raquel Urtasun. Are we ready for autonomous driving? the
+kitti vision benchmark suite. In Proceedings of the IEEE/CVF Conference on Computer Vision
+and Pattern Recognition, pages 3354–3361, 2012.
+[13] Vasileios Gkitsas, Vladimiros Sterzentsenko, Nikolaos Zioulis, Georgios Albanis, and Dimitrios
+Zarpalas. Panodr: Spherical panorama diminished reality for indoor scenes. In Proceedings
+of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 3716–3726,
+2021.
+[14] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image
+recognition. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 770–778, 2016.
+[15] Neil Houlsby, Andrei Giurgiu, Stanislaw Jastrzebski, Bruna Morrone, Quentin De Laroussilhe,
+Andrea Gesmundo, Mona Attariyan, and Sylvain Gelly. Parameter-efficient transfer learning for
+nlp. In Proceedings of the International Conference on Machine Learning, pages 2790–2799,
+2019.
+[16] Edward J Hu, yelong shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang,
+Lu Wang, and Weizhu Chen. LoRA: Low-rank adaptation of large language models. In
+Proceedings of the International Conference on Learning Representations, 2022.
+[17] Zhiqiang Hu, Yihuai Lan, Lei Wang, Wanyu Xu, Ee-Peng Lim, Roy Ka-Wei Lee, Lidong Bing,
+and Soujanya Poria. LLM-adapters: An adapter family for parameter-efficient fine-tuning of
+large language models. In Proceedings of the Conference on Empirical Methods in Natural
+Language Processing, page 5254–5276, 2023.
+[18] Yusuke Inagaki, Ryosuke Araki, Takayoshi Yamashita, and Hironobu Fujiyoshi. Detecting
+layered structures of partially occluded objects for bin picking. In Proceedings of the IEEE/RSJ
+International Conference on Intelligent Robots and Systems, pages 5786–5791, 2019.
+[19] Rabeeh Karimi Mahabadi, James Henderson, and Sebastian Ruder. Compacter: Efficient
+low-rank hypercomplex adapter layers. In Advances in Neural Information Processing Systems,
+volume 34, pages 1022–1035, 2021.
+[20] Lei Ke, Yu-Wing Tai, and Chi-Keung Tang. Deep occlusion-aware instance segmentation with
+overlapping bilayers. In Proceedings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition, pages 4019–4028, 2021.
+[21] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson,
+Tete Xiao, Spencer Whitehead, Alexander C. Berg, Wan-Yen Lo, Piotr Dollar, and Ross Girshick.
+Segment anything. In Proceedings of the IEEE/CVF International Conference on Computer
+Vision, pages 4015–4026, 2023.
+[22] Alexander Kirillov, Yuxin Wu, Kaiming He, and Ross Girshick. Pointrend: Image segmentation
+as rendering. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 9799–9808, 2020.
+[23] Adam Kortylewski, Ju He, Qing Liu, and Alan L Yuille. Compositional convolutional neural
+networks: A deep architecture with innate robustness to partial occlusion. In Proceedings of the
+IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 8940–8949, 2020.
+[24] Adam Kortylewski, Qing Liu, Angtian Wang, Yihong Sun, and Alan Yuille. Compositional
+convolutional neural networks: A robust and interpretable model for object recognition under
+occlusion. International Journal of Computer Vision, 129:736–760, 2021.
+[25] Brian Lester, Rami Al-Rfou, and Noah Constant. The power of scale for parameter-efficient
+prompt tuning. In Proceedings of the Conference on Empirical Methods in Natural Language
+Processing, page 3045–3059, 2021.
+11
+
+PAGE 12
+[26] Junnan Li, Dongxu Li, Caiming Xiong, and Steven Hoi. Blip: Bootstrapping language-image
+pre-training for unified vision-language understanding and generation. In Proceedings of the
+International Conference on Machine Learning, pages 12888–12900, 2022.
+[27] Ke Li and Jitendra Malik. Amodal instance segmentation. In Proceedings of the European
+Conference on Computer Vision, pages 677–693, 2016.
+[28] Liunian Harold Li, Pengchuan Zhang, Haotian Zhang, Jianwei Yang, Chunyuan Li, Yiwu
+Zhong, Lijuan Wang, Lu Yuan, Lei Zhang, Jenq-Neng Hwang, et al. Grounded language-image
+pre-training. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 10965–10975, 2022.
+[29] Zhixuan Li, Weining Ye, Tingting Jiang, and Tiejun Huang. 2d amodal instance segmentation
+guided by 3d shape prior. In Proceedings of the European Conference on Computer Vision,
+pages 165–181, 2022.
+[30] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays, Pietro Perona, Deva Ramanan, Piotr
+Dollár, and C Lawrence Zitnick. Microsoft coco: Common objects in context. In Proceedings
+of the European Conference on Computer Vision, pages 740–755, 2014.
+[31] Shilong Liu, Zhaoyang Zeng, Tianhe Ren, Feng Li, Hao Zhang, Jie Yang, Chunyuan Li, Jianwei
+Yang, Hang Su, Jun Zhu, et al. Grounding dino: Marrying dino with grounded pre-training for
+open-set object detection. arXiv preprint arXiv:2303.05499, 2023.
+[32] Zhaochen Liu, Zhixuan Li, and Tingting Jiang. BLADE: Box-level supervised amodal seg-
+mentation through directed expansion. In Proceedings of the AAAI Conference on Artificial
+Intelligence, volume 38, pages 3846–3854, 2024.
+[33] Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In Proceedings of
+the International Conference on Learning Representations, 2018.
+[34] Timo Lüddecke and Alexander Ecker. Image segmentation using text and image prompts. In
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages
+7086–7096, 2022.
+[35] Khoi Nguyen and Sinisa Todorovic. A weakly supervised amodal segmenter with boundary
+uncertainty estimation. In Proceedings of the IEEE/CVF International Conference on Computer
+Vision, pages 7396–7405, 2021.
+[36] Stephen E Palmer. Vision science: Photons to phenomenology. MIT press, 1999.
+[37] Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan,
+Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, et al. Pytorch: An imperative
+style, high-performance deep learning library. In Advances in Neural Information Processing
+Systems, volume 32, pages 8026–8037, 2019.
+[38] Giovanni Pintore, Marco Agus, Eva Almansa, and Enrico Gobbetti. Instant automatic emptying
+of panoramic indoor scenes. IEEE Transactions on Visualization and Computer Graphics ,
+28(11):3629–3639, 2022.
+[39] Lu Qi, Li Jiang, Shu Liu, Xiaoyong Shen, and Jiaya Jia. Amodal instance segmentation with
+kins dataset. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition, pages 3014–3023, 2019.
+[40] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal,
+Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual
+models from natural language supervision. In Proceedings of the International Conference on
+Machine Learning, pages 8748–8763, 2021.
+[41] Yihong Sun, Adam Kortylewski, and Alan Yuille. Amodal segmentation through out-of-task
+and out-of-distribution generalization with a bayesian model. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition, pages 1215–1224, 2022.
+12
+
+PAGE 13
+[42] Minh Tran, Khoa V o, Kashu Yamazaki, Arthur Fernandes, Michael Kidd, and Ngan Le. Ais-
+former: Amodal instance segmentation with transformer. In Proceedings of the British Machine
+Vision Conference, 2022.
+[43] Kentaro Wada, Shingo Kitagawa, Kei Okada, and Masayuki Inaba. Instance segmentation of
+visible and occluded regions for finding and picking target from a pile of objects. InProceedings
+of the IEEE/RSJ International Conference on Intelligent Robots and Systems, pages 2048–2055,
+2018.
+[44] Kentaro Wada, Kei Okada, and Masayuki Inaba. Joint learning of instance and semantic
+segmentation for robotic pick-and-place with heavy occlusions in clutter. In Proceedings of the
+International Conference on Robotics and Automation, pages 9558–9564, 2019.
+[45] Angtian Wang, Yihong Sun, Adam Kortylewski, and Alan L Yuille. Robust object detection
+under occlusion with context-aware compositionalnets. In Proceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recognition, pages 12645–12654, 2020.
+[46] Teng Wang, Jinrui Zhang, Junjie Fei, Yixiao Ge, Hao Zheng, Yunlong Tang, Zhe Li, Mingqi
+Gao, Shanshan Zhao, Ying Shan, et al. Caption anything: Interactive image description with
+diverse multimodal controls. arXiv preprint arXiv:2305.02677, 2023.
+[47] Xinlong Wang, Xiaosong Zhang, Yue Cao, Wen Wang, Chunhua Shen, and Tiejun Huang. Seg-
+gpt: Towards segmenting everything in context. In Proceedings of the IEEE/CVF International
+Conference on Computer Vision, pages 1130–1140, 2023.
+[48] Yaqing Wang, Subhabrata Mukherjee, Xiaodong Liu, Jing Gao, Ahmed Hassan Awadallah,
+and Jianfeng Gao. Adamix: Mixture-of-adapter for parameter-efficient tuning of large lan-
+guage models. In Proceedings of the Conference on Empirical Methods in Natural Language
+Processing, page 5744–5760, 2022.
+[49] Yuting Xiao, Yanyu Xu, Ziming Zhong, Weixin Luo, Jiawei Li, and Shenghua Gao. Amodal
+segmentation based on visible region segmentation and shape prior. In Proceedings of the AAAI
+Conference on Artificial Intelligence, volume 35, pages 2995–3003, 2021.
+[50] Lewei Yao, Runhui Huang, Lu Hou, Guansong Lu, Minzhe Niu, Hang Xu, Xiaodan Liang,
+Zhenguo Li, Xin Jiang, and Chunjing Xu. Filip: Fine-grained interactive language-image
+pre-training. In Proceedings of the International Conference on Learning Representations ,
+2022.
+[51] Xiaohang Zhan, Xingang Pan, Bo Dai, Ziwei Liu, Dahua Lin, and Chen Change Loy. Self-
+supervised scene de-occlusion. In Proceedings of the IEEE/CVF Conference on Computer
+Vision and Pattern Recognition, pages 3784–3792, 2020.
+[52] Chaoning Zhang, Dongshen Han, Yu Qiao, Jung Uk Kim, Sung-Ho Bae, Seungkyu Lee, and
+Choong Seon Hong. Faster segment anything: Towards lightweight sam for mobile applications.
+arXiv preprint arXiv:2306.14289, 2023.
+[53] Ziheng Zhang, Anpei Chen, Ling Xie, Jingyi Yu, and Shenghua Gao. Learning semantics-
+aware distance map with semantics layering network for amodal instance segmentation. In
+Proceedings of the 27th ACM International Conference on Multimedia, pages 2124–2132, 2019.
+[54] Ce Zhou, Qian Li, Chen Li, Jun Yu, Yixin Liu, Guangjing Wang, Kai Zhang, Cheng Ji, Qiben
+Yan, Lifang He, et al. A comprehensive survey on pretrained foundation models: A history
+from bert to chatgpt. arXiv preprint arXiv:2302.09419, 2023.
+[55] Yan Zhu, Yuandong Tian, Dimitris Metaxas, and Piotr Dollár. Semantic amodal segmentation.
+In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition ,
+pages 1464–1472, 2017.
+[56] Xueyan Zou, Jianwei Yang, Hao Zhang, Feng Li, Linjie Li, Jianfeng Wang, Lijuan Wang,
+Jianfeng Gao, and Yong Jae Lee. Segment everything everywhere all at once. In Advances in
+Neural Information Processing Systems, volume 36, pages 19769–19782, 2023.
+13

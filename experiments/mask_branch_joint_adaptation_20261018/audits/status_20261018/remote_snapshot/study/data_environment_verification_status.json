@@ -1,0 +1,83 @@
+{
+  "run_id": "RUN_DATA_ENV_VERIFY_9c0c1c8e1491479198bcbcc3ec1a4f76",
+  "job_id": "101",
+  "execution_status": "completed",
+  "scientific_status": "not_applicable_independent_input_verification",
+  "started_at": "2026-10-17T20:47:46Z",
+  "training_steps": 0,
+  "model_forwards": 0,
+  "dependencies": [
+    99,
+    100
+  ],
+  "finite_single_execution": true,
+  "completed_at": "2026-10-17T20:48:38Z",
+  "all_required_inputs_ready": true,
+  "environment": {
+    "python": "3.12.3 (main, Oct 18 2026, 03:38:24) [GCC 12.3.1 (openEuler 12.3.1-62.oe2403sp1)]",
+    "versions": {
+      "ultralytics": "8.4.100",
+      "torch": "2.5.1+cu124",
+      "torchvision": "0.20.1+cu124",
+      "numpy": "2.4.3",
+      "pycocotools": "2.0.11",
+      "faster-coco-eval": "1.8.0",
+      "opencv-python": "4.13.0.92",
+      "Pillow": "11.1.0",
+      "PyYAML": "6.0.2"
+    },
+    "cuda_build": "12.4",
+    "imports": "passed"
+  },
+  "runtime_receipts": [
+    {
+      "path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_WHEEL_RECOVERY_de188f6c52d645eda5490c27e4d2cc2c/ENVIRONMENT.json",
+      "sha256": "4d65d123a693b79be0304e7c8405b077a6f83a7e467d16c6926fa4c23e1668ef"
+    }
+  ],
+  "components": {
+    "train2017.zip": {
+      "path": "/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/train2017.zip",
+      "bytes": 19336861798,
+      "sha256": "69a8bb58ea5f8f99d24875f21416de2e9ded3178e903f1f7603e283b9e06d929",
+      "matches_verified_component": true
+    },
+    "val2017.zip": {
+      "path": "/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/val2017.zip",
+      "bytes": 815585330,
+      "sha256": "4f7e2ccb2866ec5041993c9cf2a952bbed69647b115d0f74da7ce8f4bef82f05",
+      "matches_verified_component": true
+    },
+    "annotations_trainval2017.zip": {
+      "path": "/srv/gpu-lab/users/a25023104/datasets/coco2017/archives/annotations_trainval2017.zip",
+      "bytes": 252907541,
+      "sha256": "113a836d90195ee1f884e704da6304dfaaecff1f023f49b6ca93c4aaae470268",
+      "matches_verified_component": true
+    }
+  },
+  "splits": {
+    "train2017": {
+      "images": 118287,
+      "annotations": 860001,
+      "categories": 80,
+      "annotation_sha256": "610fce4944abdeb15354cc765333805529359d12d88f2f711393ca586901d01d",
+      "directory": "/srv/gpu-lab/users/a25023104/datasets/coco2017/train2017",
+      "all_filenames_match_gt": true,
+      "all_files_nonempty": true
+    },
+    "val2017": {
+      "images": 5000,
+      "annotations": 36781,
+      "categories": 80,
+      "annotation_sha256": "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+      "directory": "/srv/gpu-lab/users/a25023104/datasets/coco2017/val2017",
+      "all_filenames_match_gt": true,
+      "all_files_nonempty": true
+    }
+  },
+  "aggregate_status_path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/data_environment_status.json",
+  "aggregate_status_sha256": "f507069381ef65ea99e71510d657859307a81025e49d3a918172e577cd4d5857",
+  "source_sha256": "7d2696a908977892be37dff6fb3e25ac774021771c3463694e58c3872099a57d",
+  "source_runtime": "python3 system standard library plus fresh imports from private Python only",
+  "run_path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/runs/RUN_DATA_ENV_VERIFY_9c0c1c8e1491479198bcbcc3ec1a4f76"
+}

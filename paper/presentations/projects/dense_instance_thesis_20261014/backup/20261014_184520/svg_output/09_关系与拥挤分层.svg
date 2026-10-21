@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF"/>
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#315E9D">02 研究方法 · 模块一</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">把拥挤条件单独记录，才能解释密集场景的收益</text></g>
+<g id="crowding-geometry" data-pptx-bounds="64 185 552 338">
+ <text x="64" y="220" font-weight="bold" fill="#315E9D">ICI：框的累计交叠</text>
+ <text x="64" y="263" font-size="22" fill="#25374C">同类标注框累计交叠面积 ÷ 目标框面积</text>
+ <text x="64" y="303" font-size="22" fill="#596B80">看框是否挤在一起；累计值可以超过 1。</text>
+ <line x1="64" y1="328" x2="608" y2="328" stroke="#D4DEE7"/>
+ <text x="64" y="374" font-weight="bold" fill="#007F82">E(4)：真实轮廓的接近程度</text>
+ <text x="64" y="416" font-size="22" fill="#25374C">有效边界中，距同类邻居区域不超过<tspan x="64" dy="35">4 个模型输入等效像素的比例。</tspan></text>
+ <text x="64" y="497" font-size="22" fill="#596B80">看轮廓边缘是否靠近其他个体。</text>
+</g>
+<g id="candidate-relations" data-pptx-bounds="664 185 552 338">
+ <text x="664" y="220" font-weight="bold" fill="#315E9D">GT—预测关系分类</text>
+ <text x="664" y="263" fill="#25374C">1 对 1：C / I / L / S</text>
+ <text x="664" y="301" font-size="22" fill="#596B80">覆盖 / 纯度：均足 / 仅覆盖不足 /<tspan x="664" dy="34">仅纯度不足 / 均不足（阈值 0.75）</tspan></text>
+ <g id="relation-o"><text x="664" y="380" font-size="22" fill="#25374C">O：1 个 GT 对多个预测</text></g>
+ <g id="relation-m"><text x="664" y="419" font-size="22" fill="#25374C">M：多个 GT 对 1 个预测</text></g>
+ <g id="relation-x"><text x="664" y="458" font-size="22" fill="#25374C">X：多个 GT 对多个预测</text></g>
+ <g id="relation-miss"><text x="664" y="497" font-size="22" fill="#25374C">MISS：没有同类核心关联</text></g>
+</g>
+<g id="conditional-analysis" data-pptx-bounds="64 547 1152 102"><text x="64" y="580" font-weight="bold" fill="#172B46">按类别、大小与拥挤条件看修复和损伤，检验收益是否集中于密集实例。</text><text x="64" y="629" font-size="22" fill="#596B80">关系复杂不等于失败；C 也不等于 Mask75，仍需核对完整任务匹配。</text></g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="64 665 1152 35" font-size="16" fill="#596B80"><text x="64" y="689">[D3] 历史同类核心边：IoU≥0.50 或覆盖≥0.50，候选范围固定；E(4) 按模型输入尺度换算。</text><text x="1216" y="689" text-anchor="end">09 / 25</text></g>
+</svg>

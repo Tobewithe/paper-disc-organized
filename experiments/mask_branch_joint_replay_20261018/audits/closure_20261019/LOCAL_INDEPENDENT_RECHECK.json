@@ -1,0 +1,293 @@
+{
+  "status": "passed",
+  "verified_at_utc": "2026-10-19T05:53:22.716140+00:00",
+  "scope": "independent standard-library recomputation from saved AP draws, GT ledgers, timings, and training records; no COCO/model rerun",
+  "additional_training_steps": 0,
+  "new_model_forwards": 0,
+  "new_bootstrap_replicates": 0,
+  "python": "3.14.6 | packaged by Anaconda, Inc. | (main, Jul  9 2026, 14:29:05) [MSC v.1942 64 bit (AMD64)]",
+  "script_sha256": "d60e4ceb602b7d652f22bb6f6b964ae52bb3799c3018c28bb7470e76f59bd494",
+  "frozen_files_sha_verified_locally": 438,
+  "transferred_files_sha_verified": 291,
+  "original_manifest_artifacts_reconciled_with_fresh_remote_sha": 291,
+  "remote_inventory_files": 301,
+  "large_files_retained_on_server": 27,
+  "runtime_environment_records_checked": 8,
+  "runs": {
+    "PREPARE": "RUN_JOINT_PREPARE_56fa3ba7fe974a9ab6df42599788ef75",
+    "NATIVE": "RUN_JOINT_NATIVE_299731c6c64d4cc0acf3b0915401e1e6",
+    "SMOKE": "RUN_JOINT_SMOKE_8c70c8df51504bdabbc3813a7ac7af9d",
+    "TRAIN_G_budget": "RUN_JOINT_TRAIN_G_budget_73cca72b692e4097a974426de2a5b226",
+    "TRAIN_C_native": "RUN_JOINT_TRAIN_C_native_8544ae971c9644a5afbad4ad9bb59ed1",
+    "TRAIN_PC_native": "RUN_JOINT_TRAIN_PC_native_27a3311439904036bf09225118f81233",
+    "EVAL_G_budget": "RUN_JOINT_EVAL_G_budget_b079a976da574ad8a65db95132583da8",
+    "EVAL_C_native": "RUN_JOINT_EVAL_C_native_0cd8bfef737b47f08a7870202b718b8a",
+    "EVAL_PC_native": "RUN_JOINT_EVAL_PC_native_c00834e276ef476681793cfaab9dcdd9",
+    "STATISTICS": "RUN_JOINT_STATISTICS_6bf82147bf394da69fd4d6d4bc243e61"
+  },
+  "formal_training": {
+    "G_budget": {
+      "run_id": "RUN_JOINT_TRAIN_G_budget_73cca72b692e4097a974426de2a5b226",
+      "optimizer_steps": 15000,
+      "logged_images": 60000,
+      "parameters": 167872,
+      "checkpoint_sha256": "cff530a9c38f4b70c4e54c93326307aa4264ab1b7928680c8b80daf2a8be67bc",
+      "parameter_update_counts": {
+        "adapter.spatial.0.weight": 15000,
+        "adapter.spatial.0.bias": 15000,
+        "adapter.spatial.2.weight": 15000,
+        "adapter.spatial.2.bias": 15000,
+        "adapter.feature.0.weight": 14996,
+        "adapter.feature.0.bias": 14996,
+        "adapter.feature.1.weight": 14999,
+        "adapter.feature.1.bias": 14999,
+        "adapter.feature.2.weight": 15000,
+        "adapter.feature.2.bias": 15000,
+        "adapter.coefficient.weight": 15000,
+        "adapter.coefficient.bias": 15000,
+        "adapter.category.weight": 15000,
+        "adapter.readout.0.weight": 15000,
+        "adapter.readout.0.bias": 15000,
+        "adapter.readout.2.weight": 15000,
+        "adapter.readout.2.bias": 15000
+      },
+      "max_reserved_GiB": 4.05859375
+    },
+    "C_native": {
+      "run_id": "RUN_JOINT_TRAIN_C_native_8544ae971c9644a5afbad4ad9bb59ed1",
+      "optimizer_steps": 15000,
+      "logged_images": 60000,
+      "parameters": 854496,
+      "checkpoint_sha256": "d1a9f3d0f1898194de359c80c7b9e90fb27ce1ecdc73b10fab51d25468224b6b",
+      "parameter_update_counts": {
+        "coefficient_head.0.0.conv.weight": 15000,
+        "coefficient_head.0.0.conv.bias": 15000,
+        "coefficient_head.0.1.conv.weight": 15000,
+        "coefficient_head.0.1.conv.bias": 15000,
+        "coefficient_head.0.2.weight": 15000,
+        "coefficient_head.0.2.bias": 15000,
+        "coefficient_head.1.0.conv.weight": 15000,
+        "coefficient_head.1.0.conv.bias": 15000,
+        "coefficient_head.1.1.conv.weight": 15000,
+        "coefficient_head.1.1.conv.bias": 15000,
+        "coefficient_head.1.2.weight": 15000,
+        "coefficient_head.1.2.bias": 15000,
+        "coefficient_head.2.0.conv.weight": 15000,
+        "coefficient_head.2.0.conv.bias": 15000,
+        "coefficient_head.2.1.conv.weight": 15000,
+        "coefficient_head.2.1.conv.bias": 15000,
+        "coefficient_head.2.2.weight": 15000,
+        "coefficient_head.2.2.bias": 15000
+      },
+      "max_reserved_GiB": 4.12109375
+    },
+    "PC_native": {
+      "run_id": "RUN_JOINT_TRAIN_PC_native_27a3311439904036bf09225118f81233",
+      "optimizer_steps": 15000,
+      "logged_images": 60000,
+      "parameters": 3158016,
+      "checkpoint_sha256": "fc26d4dbe6cd74eb76521a4a18f6452ebd07199b5c6625564a67f76f4c33ded7",
+      "parameter_update_counts": {
+        "coefficient_head.0.0.conv.weight": 15000,
+        "coefficient_head.0.0.conv.bias": 15000,
+        "coefficient_head.0.1.conv.weight": 15000,
+        "coefficient_head.0.1.conv.bias": 15000,
+        "coefficient_head.0.2.weight": 15000,
+        "coefficient_head.0.2.bias": 15000,
+        "coefficient_head.1.0.conv.weight": 15000,
+        "coefficient_head.1.0.conv.bias": 15000,
+        "coefficient_head.1.1.conv.weight": 15000,
+        "coefficient_head.1.1.conv.bias": 15000,
+        "coefficient_head.1.2.weight": 15000,
+        "coefficient_head.1.2.bias": 15000,
+        "coefficient_head.2.0.conv.weight": 15000,
+        "coefficient_head.2.0.conv.bias": 15000,
+        "coefficient_head.2.1.conv.weight": 15000,
+        "coefficient_head.2.1.conv.bias": 15000,
+        "coefficient_head.2.2.weight": 15000,
+        "coefficient_head.2.2.bias": 15000,
+        "proto.cv1.conv.weight": 15000,
+        "proto.cv1.conv.bias": 15000,
+        "proto.upsample.weight": 15000,
+        "proto.upsample.bias": 15000,
+        "proto.cv2.conv.weight": 15000,
+        "proto.cv2.conv.bias": 15000,
+        "proto.cv3.conv.weight": 15000,
+        "proto.cv3.conv.bias": 15000,
+        "proto.feat_refine.0.conv.weight": 15000,
+        "proto.feat_refine.0.conv.bias": 15000,
+        "proto.feat_refine.1.conv.weight": 15000,
+        "proto.feat_refine.1.conv.bias": 15000,
+        "proto.feat_fuse.conv.weight": 15000,
+        "proto.feat_fuse.conv.bias": 15000
+      },
+      "max_reserved_GiB": 5.37109375
+    }
+  },
+  "data": {
+    "fit_images": 20000,
+    "val_images": 5000,
+    "ordinary_gt": 36335,
+    "native_success_gt": 22958,
+    "outputs_per_method": 539125,
+    "cross_arm_training_identity_and_join_sha_equal": true
+  },
+  "bootstrap": {
+    "saved_replicates_verified": 2000,
+    "seed": 20261018,
+    "common_draws_shape": [
+      2000,
+      5000
+    ],
+    "interval_reduction": "independent linear percentile 2.5/97.5",
+    "COCO_accumulation_not_rerun_locally": true
+  },
+  "Mask_AP_points": {
+    "Ns": 44.01383582200932,
+    "G_old_s": 44.15239321081922,
+    "G_budget": 44.26517285116028,
+    "C_native": 44.253024195471745,
+    "PC_native": 44.017702724763794
+  },
+  "comparisons": {
+    "G_old_s_minus_Ns": {
+      "AP_points": 0.13855738880990032,
+      "ci95": [
+        0.08386317560029984,
+        0.19668130244609383
+      ]
+    },
+    "G_budget_minus_Ns": {
+      "AP_points": 0.25133702915096023,
+      "ci95": [
+        0.19005803791218004,
+        0.31857480321730064
+      ]
+    },
+    "G_budget_minus_G_old_s": {
+      "AP_points": 0.11277964034105992,
+      "ci95": [
+        0.0724715127099115,
+        0.15925233824059895
+      ]
+    },
+    "C_native_minus_Ns": {
+      "AP_points": 0.23918837346242583,
+      "ci95": [
+        0.17397336496825738,
+        0.3111228055063068
+      ]
+    },
+    "C_native_minus_G_old_s": {
+      "AP_points": 0.10063098465252551,
+      "ci95": [
+        0.05352381043926187,
+        0.1497513594736805
+      ]
+    },
+    "PC_native_minus_Ns": {
+      "AP_points": 0.0038669027544742107,
+      "ci95": [
+        -0.09151499999615886,
+        0.1003707954190553
+      ]
+    },
+    "PC_native_minus_G_old_s": {
+      "AP_points": -0.1346904860554261,
+      "ci95": [
+        -0.2207481234375397,
+        -0.0536303151321515
+      ]
+    },
+    "PC_native_minus_G_budget": {
+      "AP_points": -0.24747012639648602,
+      "ci95": [
+        -0.32854126729715905,
+        -0.17518584290958222
+      ]
+    },
+    "PC_native_minus_C_native": {
+      "AP_points": -0.23532147070795162,
+      "ci95": [
+        -0.3113562831836802,
+        -0.1726539899325196
+      ]
+    }
+  },
+  "damage": {
+    "Ns": {
+      "damaged": 0,
+      "repaired": 0,
+      "net_repaired": 0,
+      "damage_fraction": 0.0
+    },
+    "G_old_s": {
+      "damaged": 90,
+      "repaired": 192,
+      "net_repaired": 102,
+      "damage_fraction": 0.003920202108197578
+    },
+    "G_budget": {
+      "damaged": 81,
+      "repaired": 250,
+      "net_repaired": 169,
+      "damage_fraction": 0.0035281818973778205
+    },
+    "C_native": {
+      "damaged": 120,
+      "repaired": 268,
+      "net_repaired": 148,
+      "damage_fraction": 0.005226936144263438
+    },
+    "PC_native": {
+      "damaged": 198,
+      "repaired": 320,
+      "net_repaired": 122,
+      "damage_fraction": 0.008624444638034672
+    }
+  },
+  "success_change_vs_existing_G": {
+    "G_budget": {
+      "lost_vs_G_old": 49,
+      "gained_vs_G_old": 116,
+      "difference_in_native_damage_count": -9
+    },
+    "C_native": {
+      "lost_vs_G_old": 110,
+      "gained_vs_G_old": 156,
+      "difference_in_native_damage_count": 30
+    },
+    "PC_native": {
+      "lost_vs_G_old": 181,
+      "gained_vs_G_old": 201,
+      "difference_in_native_damage_count": 108
+    }
+  },
+  "descriptive_G_budget_minus_C_native": {
+    "AP_points": 0.012148655688534404,
+    "ci95": [
+      -0.03236305933388657,
+      0.056346972291463696
+    ],
+    "scope": "descriptive post-hoc reduction of existing paired samples; no new gate"
+  },
+  "inference_median_ratios": {
+    "G_budget": 1.361309555772846,
+    "C_native": 1.2737715317792315,
+    "PC_native": 1.313147719116204
+  },
+  "primary_gate_passed": false,
+  "guards": {
+    "native_success_damage": true,
+    "all_output_identity": true,
+    "inference_cost": true
+  },
+  "decision": "primary_joint_configuration_does_not_pass_frozen_investment_gate",
+  "published_baseline_parity": "failed",
+  "native_gt_ledger_validity": "passed",
+  "notes": [
+    "Native validator args amp=True/epochs=100/optimizer=auto are inactive trainer defaults, not this custom training loop; FP32 backend and frozen actual AdamW used.",
+    "G adapter parameter eligible-update counts 14996/14999/15000 preserve grad=None skips; global optimizer calls remain 15000.",
+    "PC primary rejection is retained; highest observed G_budget is an existing-method control result, not PC contribution or independent confirmation."
+  ]
+}

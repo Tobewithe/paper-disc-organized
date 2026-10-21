@@ -1,0 +1,83 @@
+{
+  "study_id": "STUDY_MASK_LOCAL_EDITABILITY_20261017",
+  "pid": 15240,
+  "started_at": "2026-10-16T20:08:59.892663+00:00",
+  "status": "completed_and_independently_verified",
+  "phases": [
+    {
+      "label": "IMPORT_TESTS_V2",
+      "pid": 15208,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_editability_20261017\\scripts\\test_imports_v2.py"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:09:03.711285+00:00"
+    },
+    {
+      "label": "SMOKE_RECOVERY_V2",
+      "pid": 7964,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_editability_20261017\\scripts\\recover_smoke_v2.py"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:09:16.566317+00:00"
+    },
+    {
+      "label": "SMOKE_VERIFY_V2",
+      "pid": 13220,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_editability_20261017\\scripts\\lea_verify_v2.py",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_editability_20261017\\runs\\RUN_LEA_SMOKE_RECOVERY_1e9fcd1acb274521b4a12cd0ba635e02",
+        "--replay",
+        "--output",
+        "INDEPENDENT_LAPTOP.json"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:10:40.946416+00:00"
+    },
+    {
+      "label": "FULL_V2",
+      "pid": 15476,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_editability_20261017\\scripts\\lea_run_v2.py",
+        "--scope",
+        "full",
+        "--parent-run",
+        "RUN_LEA_SMOKE_RECOVERY_1e9fcd1acb274521b4a12cd0ba635e02"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:17:27.819067+00:00"
+    },
+    {
+      "label": "FULL_VERIFY_V2",
+      "pid": 20140,
+      "command": [
+        "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+        "-B",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_editability_20261017\\scripts\\lea_verify_v2.py",
+        "D:\\coco_wire\\baseline_native_20261013\\experiments\\mask_local_editability_20261017\\runs\\RUN_LEA_FULL_b383a8db922c451cbc77f2069d385cd7",
+        "--replay",
+        "--output",
+        "INDEPENDENT_LAPTOP.json"
+      ],
+      "exit_code": 0,
+      "ended_at": "2026-10-16T20:21:50.626250+00:00"
+    }
+  ],
+  "new_training_steps": 0,
+  "current_phase": "awaiting_transfer_no_training",
+  "child_pid": null,
+  "smoke_run": "RUN_LEA_SMOKE_RECOVERY_1e9fcd1acb274521b4a12cd0ba635e02",
+  "full_run": "RUN_LEA_FULL_b383a8db922c451cbc77f2069d385cd7",
+  "scientific_decision": "NEGATIVE_CURRENT_REGION",
+  "ended_at": "2026-10-16T20:21:50.640575+00:00",
+  "disable_task_exit_code": 1
+}

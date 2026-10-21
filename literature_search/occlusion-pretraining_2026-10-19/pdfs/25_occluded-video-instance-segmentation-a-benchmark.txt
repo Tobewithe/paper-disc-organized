@@ -1,0 +1,1589 @@
+
+
+PAGE 1
+Noname manuscript No.
+(will be inserted by the editor)
+Occluded Video Instance Segmentation: A Benchmark
+Jiyang Qi 1,2* · Yan Gao 2* · Yao Hu 2 · Xinggang Wang 1 · Xiaoyu Liu 2 ·
+Xiang Bai 1 · Serge Belongie 3 · Alan Yuille 4 · Philip H.S. Torr 5 · Song Bai 2,5 
+Received: date / Accepted: date
+Abstract Can our video understanding systems perceive
+objects when a heavy occlusion exists in a scene?
+To answer this question, we collect a large-scale dataset
+called OVIS for occluded video instance segmentation, that
+is, to simultaneously detect, segment, and track instances
+in occluded scenes. OVIS consists of 296k high-quality in-
+stance masks from 25 semantic categories, where object oc-
+clusions usually occur. While our human vision systems can
+understand those occluded instances by contextual reason-
+Song Bai 2,5 
+E-mail: songbai.site@gmail.com
+Jiyang Qi 1,2 ⋆
+E-mail: jiyangqi@hust.edu.cn
+Yan Gao 2 ⋆
+E-mail: yangao0119@gmail.com
+Yao Hu 2
+E-mail: yaoohu@alibaba-inc.com
+Xinggang Wang 1
+E-mail: xgwang@hust.edu.cn
+Xiaoyu Liu 2
+E-mail: xiaoyuliu1991xyl@gmail.com
+Xiang Bai 1
+E-mail: xbai@hust.edu.cn
+Serge Belongie 3
+E-mail: s.belongie@di.ku.dk
+Alan Yuille 4
+E-mail: alan.l.yuille@gmail.com
+Philip H.S. Torr 5
+E-mail: philip.torr@eng.ox.ac.uk
+1 Huazhong University of Science and Technology, Wuhan, China
+2 Alibaba Group, Beijing, China
+3 University of Copenhagen, Copenhagen, Denmark
+4 Johns Hopkins University, Baltimore, USA
+5 University of Oxford, Oxford, UK
+⋆ indicates equal contributions.
+ Corresponding Author
+ing and association, our experiments suggest that current
+video understanding systems cannot. On the OVIS dataset,
+the highest AP achieved by state-of-the-art algorithms is
+only 16.3, which reveals that we are still at a nascent stage
+for understanding objects, instances, and videos in a real-
+world scenario. We also present a simple plug-and-play
+module that performs temporal feature calibration to com-
+plement missing object cues caused by occlusion. Built upon
+MaskTrack R-CNN and SipMask, we obtain a remarkable
+AP improvement on the OVIS dataset. The OVIS dataset
+and project code are available at http://songbai.site/ovis.
+Keywords Video instance segmentation · Occlusion
+reasoning· Dataset· Video understanding· Benchmark
+Mathematics Subject Classiﬁcation (2020) 68T07·
+68T45
+1 Introduction
+In the visual world, objects rarely occur in isolation. The
+psychophysical and computational studies [57,28] have
+demonstrated that human vision systems can perceive heav-
+ily occluded objects with contextual reasoning and associa-
+tion. The question then becomes, can our video understand-
+ing system perceive objects that are severely obscured?
+Our work aims to explore this matter in the context
+of video instance segmentation, a popular task proposed
+in [87] that targets a comprehensive understanding of ob-
+jects in videos. To this end, we explore a new and challeng-
+ing scenario called Occluded Video Instance Segmentation
+(OVIS), which requests a model to simultaneously detect,
+segment, and track object instances in occluded scenes.
+As the major contribution of this work, we collect a
+large-scale dataset called OVIS, speciﬁcally for video in-
+stance segmentation in occluded scenes. While being the
+arXiv:2102.01558v6  [cs.CV]  17 May 2022
+
+PAGE 2
+2 Jiyang Qi*, Yan Gao* et al.
+Fig. 1: Sample video clips from OVIS. Click them to watch
+the animations (best viewed with Acrobat/Foxit Reader).
+The hairs and whiskers of animals are all exhaustively an-
+notated.
+second video instance segmentation dataset after YouTube-
+VIS [87], OVIS consists of 296k high-quality instance
+masks out of 25 commonly seen semantic categories. Some
+example clips are given in Fig. 1. The most distinctive prop-
+erty of OVIS dataset is that most objects are under severe oc-
+clusions. The occlusion level of each object is also labeled
+(as shown in Fig. 2) and we also present an AP (average
+precision) based metric to measure performance under dif-
+ferent occlusion degrees. Therefore, OVIS is a useful testbed
+to evaluate video instance segmentation models for dealing
+with heavy object occlusions.
+To dissect the OVIS dataset, we conduct a thor-
+ough evaluation of 9 state-of-the-art algorithms whose
+code is publicly available, including FEELVOS [69],
+IoUTracker+ [87], MaskTrack R-CNN [87], SipMask [8],
+STEm-Seg [2], STMask [44], TraDeS [79], CrossVIS [88],
+and QueryVIS [20]. However, the experimental results sug-
+gest that current video understanding systems fall behind the
+capability of human beings in terms of occlusion perception.
+The highest AP is only 16.3 achieved by [88] and the high-
+est AP on the heavily occluded group is only 6.3 achieved
+by [44]. In this sense, we are still far from deploying those
+techniques into practical applications, especially consider-
+ing the complexity and diversity of scenes in the real visual
+world.
+To alleviate the occlusion issue, we also present a plug-
+and-play module called temporal feature calibration. For a
+given query frame in a video, we resort to a reference frame
+to complement its missing object cues. Speciﬁcally, the pro-
+posed module learns a calibration offset for the reference
+frame with the guidance of the query frame, and then the off-
+set is used to adjust the feature embedding of the reference
+frame via deformable convolution [15]. The reﬁned refer-
+ence embedding is used in turn to assist the object recog-
+nition of the query frame. Our module is a highly ﬂexible
+plug-in. While applied to MaskTrack R-CNN [87] and Sip-
+Mask [8] respectively, we obtain an AP of 15.4 and 14.3,
+signiﬁcantly outperforming the corresponding baselines by
+4.6 and 4.1 in AP respectively.
+To summarize, our contributions are three-fold:
+– We advance occlusion handling and video instance
+segmentation by releasing a new benchmark dataset
+named OVIS (short for Occluded Video Instance
+Segmentation). OVIS is designed with the philosophy
+of perceiving object occlusions in videos, which could
+reveal the complexity and the diversity of real-world
+scenes.
+– We streamline the research over the OVIS dataset by
+conducting a comprehensive evaluation of 9 state-of-the-
+art video instance segmentation algorithms, which could
+be a baseline reference for future research on OVIS.
+– As a minor contribution, we present a plug-and-play
+module called Temporal Feature Calibration to allevi-
+ate the occlusion issue. Using MaskTrack R-CNN [87]
+and SipMask [8] as baselines, the proposed module
+obtains remarkable improvements on both OVIS and
+YouTube-VIS. More importantly, its “plug-and-play”
+nature makes it widely applicable to future endeavors on
+OVIS.
+Compared with our conference version [63] that brieﬂy
+describes the OVIS dataset and challenge held in 2021, the
+improvements are concluded as follows: 1) more thorough
+experiments ( e.g., oracle experiments, error analysis, per-
+class result analysis) are conducted to dissect the OVIS
+dataset and the occlusion problem; 2) we comprehensively
+evaluate the effect of leveraging temporal context and ad-
+justing the NMS threshold adaptively on occlusion han-
+dling; 3) more baseline results ( e.g., the results that train-
+ing with augmented image sequences, the results obtained
+with larger backbone or larger input resolutions) are pro-
+vided, which can be a better reference for future work; 4)
+we further summarize remaining difﬁculties and future di-
+rections that deserve attention in OVIS.
+2 Related Work
+2.1 Video Instance Segmentation
+Our work focuses on Video Instance Segmentation in oc-
+cluded scenes. The most relevant work to ours is [87], which
+formally deﬁnes the concept of video instance segmentation
+and releases the ﬁrst dataset called YouTube-VIS. Built upon
+
+PAGE 3
+Occluded Video Instance Segmentation: A Benchmark 3
+Fig. 2: Different occlusions levels in OVIS. Unoccluded objects are colored green, slightly occluded objects are colored
+yellow, and severely occluded objects are colored red.
+the large-scale video object segmentation dataset YouTube-
+VOS [85], the 2019 version of YouTube-VIS dataset con-
+tains a total of 2,883 videos, 4,883 instances, and 131k
+masks in 40 categories. Its latest 2021 version contains a to-
+tal of 3,859 videos, 8,171 instances, and 232k masks. While
+YouTube-VIS is not designed to study the occluded video
+understanding problem, most objects in the OVIS dataset are
+under severe occlusions. Our experimental results show that
+OVIS is much more challenging.
+Since the release of the YouTube-VIS dataset, video in-
+stance segmentation has attracted great attention in the com-
+puter vision community, arising a series of algorithms re-
+cently. MaskTrack R-CNN [87] is the ﬁrst uniﬁed model for
+video instance segmentation. It fulﬁlls video instance seg-
+mentation by adding a tracking branch to the popular im-
+age instance segmentation method Mask R-CNN [26]. Lin
+et al. [49] propose a modiﬁed variational auto-encoder ar-
+chitecture built on the top of Mask R-CNN. MaskProp [3]
+is also a video extension of Mask R-CNN which adds a
+mask propagation branch to track instances by the propa-
+gated masks. SipMask [8] extends single-stage image in-
+stance segmentation to the video level by adding a fully-
+convolutional branch for tracking instances. STMask [44]
+improves feature representation by spatial feature calibra-
+tion and temporal feature fusion. Different from those
+top-down methods, STEm-Seg [2] proposes a bottom-up
+method, which performs video instance segmentation by
+clustering the pixels of the same instance. Built upon Trans-
+formers, VisTR [77] supervises and segments instances at
+the sequence level as a whole. IFC [32] further reduces the
+computations of full space-time transformers by only ex-
+ecuting attention between memory tokens. QueryVIS [20]
+follows a multi-stage paradigm and leverages the intrin-
+sic one-to-one correspondence in queries across different
+stages. Based on FCOS [67], SGNet [51] dynamically di-
+vides instances into sub-regions and performs segmentation
+on each region. CrossVIS [88] uses the instance feature
+in the current frame to localize the same instance in other
+frames. Different from the tracking-by-detection paradigm,
+TraDeS [79] integrates tracking cues to assist detection.
+2.2 Other Related Tasks
+Our work is also relevant to several other tasks, including:
+Video Object Segmentation. Video object segmentation
+(VOS) is a popular task in video analysis. According to
+whether to provide the mask for the ﬁrst frame, VOS can
+be divided into semi-supervised and unsupervised scenarios.
+Semi-supervised VOS [71,36,47,60,30,33,61,48,72] aims
+to track and segment a given object with a mask. Many
+Semi-supervised VOS methods [71,36,47] adopt an online
+learning manner which ﬁne-tunes the network on the mask
+of the ﬁrst frame during inference. Recently, some other
+works [60,30,33,61,48,72] aim to avoid online learning for
+the sake of faster inference speed. Unsupervised VOS meth-
+ods [46,74,68] aim to segment the primary objects in a
+video without the ﬁrst frame annotations.
+As the ﬁrst video object segmentation dataset,
+DA VIS [62,7] contains 150 videos and 376 densely anno-
+tated objects. [85] further proposes the larger YouTube-VOS
+dataset with 4,453 video clips and 7,755 objects based on
+the large-scale YouTube-8M [1] dataset. Different from
+video instance segmentation that needs to classify objects,
+both unsupervised and semi-supervised VOS does not
+distinguish semantic categories. In addition, only one
+or several salient objects are annotated in these VOS
+datasets, while we annotate all the objects belonging to the
+pre-deﬁned category set.
+Video Semantic Segmentation. Video semantic segmenta-
+tion requires semantic segmentation for each frame in a
+video. The popular video semantic segmentation datasets
+include Cityscapes [14], CamVid [6], etc. There are 5000
+
+PAGE 4
+4 Jiyang Qi*, Yan Gao* et al.
+video clips in the Cityscapes [14] dataset. Each clip con-
+sists of 30 frames and only the 20th frame is annotated.
+CamVid [6] dataset contains 4 videos and the authors an-
+notate one frame every 30 frames, obtaining 800 annotated
+frames ﬁnally. LSTM [21], GRU [59], and optical ﬂow [95]
+are introduced to leverage temporal contextual information
+for more accurate or faster video semantic segmentation.
+Video semantic segmentation does not require distinguish-
+ing instances and tracking objects across frames.
+Video Panoptic Segmentation. Dahun et al. [37] deﬁne a
+video extension of panoptic segmentation [38], which re-
+quires generating consistent panoptic segmentation, and in
+the meantime, associating instances across frames. They fur-
+ther reformatted the VIPER dataset with 124 videos and
+proposed the Cityscapes-VPS dataset which contains 500
+videos.
+Open-World Video Object Segmentation. Different from
+the aforementioned tasks, open-world video object segmen-
+tation [73] is taxonomy-free and requires segmenting and
+tracking all the objects class-agnostically. The proposed
+UVO dataset [73] contains 1200 videos and all the videos
+are densely annotated.
+Multi-Object Tracking. Multi-object tracking (MOT) [66]
+aims to detect the bounding boxes of objects and track
+them in a given video. Some popular datasets focus on the
+tracking of pedestrians and cars in street scenes, such as
+MOT16 [56] and KITTI [22]. Meanwhile, UA-DETRA [78]
+features vehicle tracking only.
+Multi-Object Tracking and Segmentation. Multi-object
+tracking and segmentation (MOTS) [70] extends multi-
+object tracking (MOT) [66] from a bounding box level to
+a pixel level. Paul et al. [70] release the KITTI MOTS
+and MOTSChallenge datasets, and propose Track R-CNN
+that extends Mask R-CNN by 3D convolutions to incorpo-
+rate temporal context and an extra tracking branch for ob-
+ject tracking. Xu et al. [86] release the ApolloScape dataset
+which provides more crowded scenes and proposes a new
+track-by-points paradigm. The task deﬁnition of MOTS is
+similar to video instance segmentation, which means an al-
+gorithm needs to simultaneously detect, segment, and track
+objects. While MOTS mainly focuses on pedestrians and
+cars in the streets, VIS targets more diverse scenes and more
+general objects in our daily life, such as animals.
+Video Object Detection. Video object detection (VOD) is a
+direct extension of image-level object detection. Compared
+with multi-object tracking, the video object detection task
+does not require tracking an object. Some commonly used
+datasets include the ImageNet-VID dataset [64], which con-
+tains 3862 snippets for training, 555 snippets for validation,
+and 937 snippets for evaluation.
+Our work is of course relevant to some image-level
+recognition tasks, such as semantic segmentation [55,10,
+11], instance segmentation [26,31,39], panoptic segmenta-
+tion [38,83,45], large vocabulary instance segmentation [24,
+80], etc.
+2.3 Occlusion Understanding
+There are also some works focusing on occlusion under-
+standing and handling. BCNet [35] adds a new branch to
+infer the occluders and utilizes the obtained occluder fea-
+tures to enhance the feature of occludees. OCFusion [43]
+introduces the occlusion head to indicate the occlusion re-
+lation between each pair of mask proposals. [90] proposes
+a self-supervised method that can recover the occlusion or-
+dering and complete the invisible parts of occluded objects.
+Different from the full-DNN paradigm described above,
+Some methods[40,41,42] integrate compositional models
+and deep convolutional neural networks into a uniﬁed model
+which is more robust to partial occlusions. As for pedes-
+trian detection in crowded scenes, [76,92] propose new loss
+functions to enforce predicted boxes to locate compactly to
+the corresponding ground-truth objects while far from other
+objects. [93] regresses two bounding boxes for each object
+to localize the full body and visible part of a pedestrian re-
+spectively. [53] introduces adaptive-NMS which adaptively
+increases the NMS threshold in crowd scenes. [81] aggre-
+gates the temporal context to enhance the feature represen-
+tations. [13] predicts multiple instances in one proposal. In
+Multi-Object Tracking, [12,94] utilize the attention module
+to attend to the visible parts of objects. [84,52] exploit the
+topology between objects to track the occluded objects. In
+our experiments, to test the effect of temporal aggregation
+on occlusion handling, a temporal feature calibration mod-
+ule is presented, in which the calibrated features from neigh-
+boring frames are fused with the current frame for reason-
+ing occluded objects and improving the recognition in each
+frame.
+3 OVIS Dataset
+Given an input video, video instance segmentation requires
+detecting, segmenting, and tracking object instances simul-
+taneously from a predeﬁned set of object categories. An al-
+
+PAGE 5
+Occluded Video Instance Segmentation: A Benchmark 5
+Person
+Fish
+VehicalHorseSheepZebraRabbit
+Bird
+PoultryElephant
+Motorcycle
+Dog
+Monkey
+BoatTurtle
+CatCow
+ParrotBicycleGiraffeTiger
+Giant panda
+Airplane
+BearLizard
+0
+200
+400
+600
+800Number of instances
+Fig. 3: Number of instances per category in the OVIS
+dataset.
+gorithm is supposed to output the class label, conﬁdence
+score, and a sequence of binary masks of each instance.
+The focus of this work is on collecting a large-scale
+benchmark dataset for video instance segmentation with se-
+vere object occlusions. In this section, we mainly review
+the data collection process, the annotation process, and the
+dataset statistics.
+3.1 Video Collection
+We begin with selecting 25 semantic categories, including
+Person, Bird, Cat, Dog, Horse, Sheep, Cow, Elephant, Bear,
+Zebra, Giraffe, Poultry, Giant panda, Lizard, Parrot, Mon-
+key, Rabbit, Tiger, Fish, Turtle, Bicycle, Motorcycle, Air-
+plane, Boat, and Vehicle. The categories are carefully cho-
+sen mainly for three motivations: 1) most of them are ani-
+mals, with which object occlusions extensively happen, 2)
+they are commonly seen in our life, 3) these categories have
+a high overlap with popular large-scale image instance seg-
+mentation datasets [50,24] so that models trained on those
+datasets are easier to be transferred. The number of instances
+per category is given in Fig. 3.
+As the dataset is to study the capability of our video un-
+derstanding systems to perceive occlusions, we ask the an-
+notation team to 1) exclude those videos, where only one
+single object stands in the foreground; 2) exclude those
+videos with a clean background; 3) exclude those videos,
+where the complete contour of objects is visible all the time.
+Some other objective rules include 1) video length is gener-
+ally between 5s and 60s, and 2) video resolution is generally
+1920× 1080.
+After applying the objective rules, the annotation team
+delivers 8,644 video candidates and our research team only
+accepts 901 challenging videos after a careful re-check. It
+should be mentioned that due to the stringent standard of
+video collection, the pass rate is as low as 10%.
+3.2 Annotation
+Given an accepted video, the annotation team is asked to
+exhaustively annotate all the objects belonging to the pre-
+deﬁned category set. Each object is given an instance iden-
+tity and a class label. In addition to some common rules
+(e.g., no ID switch, mask ﬁtness ≤1 pixel), the annotation
+team is trained with several criteria particularly about oc-
+clusions: 1) if an existing object disappears because of full
+occlusions and then re-appears, the instance identity should
+keep the same; 2) if a new instance appears in an in-between
+frame, a new instance identity is needed; and 3) the case
+of “object re-appears” and “new instances” should be dis-
+tinguishable by you after you watch the contextual frames
+therein. All the videos are annotated every 5 frames and the
+ﬁnal annotation granularity of most videos is 5 or 6 fps.
+To deeply analyze the inﬂuence of occlusion levels on
+model performance, OVIS provides the occlusion level an-
+notation of every object in each frame. The occlusion lev-
+els are deﬁned as follows: no occlusion, slight occlusion,
+and severe occlusion. As illustrated in Fig. 2, no occlusion
+means the object is fully visible, slight occlusion means that
+more than 50% of the object is visible, and severe occlusion
+means that more than 50% of the object area is occluded.
+After the frame-level occlusion degree is annotated, we can
+quantify the occlusion degree of each instance through the
+whole video by gathering the occlusion level in all frames of
+the instance. Speciﬁcally, We ﬁrst map the three occlusion
+levels mentioned before into numeric scores. The no occlu-
+sion, slight occlusion, and server occlusion are mapped into
+0, 0.25, and 0.75, respectively. Then, given an instance that
+appears in multiple frames, we use the averaged occlusion
+scores of top 50% frames with highest scores to represent
+the occlusion degree of instances.
+Each video is handled by one annotator to get the initial
+annotation, and the initial annotation is then passed to an-
+other annotator to check and correct if necessary. The ﬁnal
+annotations will be examined by our research team and sent
+back for revision if deemed below the required quality.
+While being designed for video instance segmentation,
+it should be noted that OVIS is also suitable for evaluating
+video object segmentation in either a semi-supervised or un-
+supervised fashion, and object tracking since the bounding-
+box annotation is also provided. The relevant experimental
+settings will be explored as part of our future work.
+3.3 Dataset Statistics
+As YouTube-VIS [87] is the only dataset that is speciﬁcally
+designed for video instance segmentation nowadays, we an-
+alyze the data statistics of OVIS with YouTube-VIS as a ref-
+erence in Table 1. We compare OVIS with two versions of
+YouTube-VIS: YouTube-VIS 2019 and YouTube-VIS 2021.
+
+PAGE 6
+6 Jiyang Qi*, Yan Gao* et al.
+0 5 10 15 20 25 30 35
+Instance duration (s)
+0
+10
+20Instances (%)
+YouTube-VIS 2019
+YouTube-VIS 2021
+OVIS
+(a)
+0.0 0.2 0.4 0.6 0.8
+BOR
+0
+20
+40
+60Frames (%)
+YouTube-VIS 2019
+YouTube-VIS 2021
+OVIS (b)
+0 5 10 15 20
+Number of instances per video
+0
+10
+20
+30
+40
+50Videos (%)
+YouTube-VIS 2019
+YouTube-VIS 2021
+OVIS
+(c)
+0 5 10 15 20
+Number of objects per frame
+0
+10
+20
+30
+40
+50Frames (%)
+YouTube-VIS 2019
+YouTube-VIS 2021
+OVIS (d)
+Fig. 4: Comparison of OVIS with YouTube-VIS, including the distribution of instance duration (a), BOR (b), the number of
+instances per video (c), and the number of objects per frame (d).
+Dataset YTVIS 19 YTVIS 21 OVIS
+Masks 131k 232k 296k
+Instances 4,883 8,171 5,223
+Categories 40 40 25
+Videos 2,883 3,859 901
+Video duration⋆ 4.61s 5.03s 12.77s
+Instance duration 4.47s 4.73s 10.05s
+mBOR⋆ 0.07 0.06 0.22
+Objects / frame⋆ 1.57 1.95 4.72
+Instances / video⋆ 1.69 2.10 5.80
+Table 1: Comparing OVIS with YouTube-VIS in terms of
+statistics. See Eq. (1) for the deﬁnition of mBOR. ⋆ means
+the value of YouTube-VIS is estimated from the training set.
+Note that some statistics, marked with ⋆, of YouTube-VIS
+are only calculated from the training set because only the
+annotation of the training set is publicly available. Neverthe-
+less, considering the training set occupies 78% of the whole
+dataset, those statistics could still reﬂect the properties of
+YouTube-VIS roughly.
+In terms of basic and high-level statistics, OVIS con-
+tains 296k masks and 5,223 instances. The number of masks
+in OVIS is larger than YouTube-VIS 2019 and YouTube-
+VIS 2021 that have 131k and 232k masks, respectively. The
+number of instances in OVIS is larger than YouTube-VIS
+2019 that has 4,883 instances, and less than YouTube-VIS
+2021 that has 8,171 instances. Note that there are fewer cat-
+egories in OVIS, so the mean instances count per category
+is larger than YouTube-VIS 2021. Nonetheless, OVIS has
+fewer videos than YouTube-VIS as our design philosophy
+favors long videos and instances so as to preserve enough
+motion and occlusion scenarios.
+As is shown, the average video duration and the average
+instance duration of OVIS are 12.77s and 10.05s respec-
+tively. Fig. 4(a) presents the distribution of instance dura-
+tion, which shows that all instances in YouTube-VIS last less
+than 10s. Long videos and instances increase the difﬁculty
+of tracking and the ability of long-term tracking is required.
+As for occlusion levels, the proportions of objects with
+no occlusion, slight occlusion, and severe occlusion in OVIS
+are 18.2%, 55.5%, and 26.3% respectively. 80.2% of in-
+stances are severely occluded in at least one frame, and only
+2% of the instances are not occluded in any frame. It sup-
+ports the focus of our work, that is, to explore the ability of
+video instance segmentation models in handling occlusion
+scenes.
+In order to compare the occlusion degree with other
+datasets, we deﬁne a metric named Bounding-box Occlusion
+
+PAGE 7
+Occluded Video Instance Segmentation: A Benchmark 7
+0.17= 0.51=
+Fig. 5: Visualization of occlusions with different BOR val-
+ues.
+Rate (BOR) to approximate the degree of occlusion. Given
+a video frame with N objects denoted by bounding boxes
+{B1,B2, . . . ,BN}, we compute the BOR for this frame as
+BOR =| ⋃
+1≤i< j≤N Bi
+⋂B j|
+| ⋃
+1≤i≤N Bi| , (1)
+where the numerator means the area sum of the intersection
+between any two or more bounding boxes. The denominator
+means the area of the union of all the bounding boxes. An
+illustration is given in Fig. 5, which shows the larger the
+BOR value is, the heavier the occlusion is.
+Then we utilize mBOR, the average value of BORs of
+all the frames in a dataset (frames that do not contain any
+objects are ignored), to characterize the dataset in terms of
+the occlusion. As shown in Table 1, the mBOR of OVIS
+is 0.22, much higher than that of YouTube-VIS 2019 and
+YouTube-VIS 2021 (0.07 and 0.06, respectively). The BOR
+distribution is further compared in Fig. 4(b). As can be seen,
+most frames in YouTube-VIS are located in the region where
+BOR≤ 0.1. In comparison, the BOR of about half frames in
+OVIS is no less than 0.2. This supports that there are more
+severe occlusions in OVIS than YouTube-VIS. However, it
+should be mentioned here that BOR can only roughly re-
+ﬂect the occlusion between objects. Therefore, mBOR could
+serve as an effective indicator for occlusion degrees, but
+only reﬂect the occlusion degree in a partial or rough way.
+In addition to long videos&instances and severe occlu-
+sions, OVIS features crowded scenes, which is a natural re-
+sult caused by heavy occlusions. OVIS has 5.80 instances
+per video and 4.72 objects per frame, while those two val-
+ues are 2.10 and 1.95 respectively in YouTube-VIS 2021.
+The comparison of the two distributions is further depicted
+in Fig. 4(c) and Fig. 4(d).
+3.4 Evaluation Metrics
+Following previous methods [87], we use average precision
+(AP) at different intersection-over-union (IoU) thresholds
+and average recall (AR) as the evaluation metrics. The mean
+value of APs is also employed.
+In addition, thanks to the occlusion level annotations in
+OVIS, we are able to analyze the performance under dif-
+ferent occlusion levels. We divide all instances into three
+groups called slightly occluded, moderately occluded, and
+heavily occluded, in which the occlusion scores of instances
+are in the range of [0,0.25], [0.25,0.5], [0.5,0.75] respec-
+tively. The proportions of the three groups are 23%, 44%,
+and 49% respectively. Then, we can get the AP of each
+group (denoted by APSO, APMO, and APHO respectively) by
+ignoring the instances of other groups.
+4 Experiments
+In this section, we comprehensively study the newly col-
+lected OVIS dataset by conducting experiments on 9 exist-
+ing video instance segmentation algorithms and propose our
+new baseline method.
+4.1 Implementation Details
+Datasets. On the newly collected OVIS dataset, the whole
+dataset is divided into 607 training videos, 140 validation
+videos, and 154 test videos. The split proportions of differ-
+ent categories are approximately the same, and there are at
+least 4 videos per category in the validation and test set. This
+split will be ﬁxed as an ofﬁcial split. If not speciﬁed, the ex-
+periments are conducted on the validation set of OVIS.
+A Temporal Feature Calibration Plug-in. One of the keys to
+tackling occlusion is to complement the missing object cues.
+In a video that has a temporal dimension, a mild assumption
+is that usually, the missing object cues in the current frame
+may have appeared in adjacent frames. Hence, it is natu-
+ral to leverage adjacent frames to alleviate occlusions. How-
+ever, caused by motions, the features of different frames are
+not aligned in the spatial dimension. Things get much worse
+because of the existence of severe occlusions. To solve this
+issue, following [4,18], we present an easy plug-in called
+temporal feature calibration as illustrated in Fig. 6.
+Denote by Fq∈ RH×W×C and Fr∈ RH×W×C the fea-
+ture tensor of the query frame (called target or current frame
+in some literature) and a reference frame, respectively. The
+feature calibration ﬁrst computes the spatial correlation [18]
+between Fq and Fr. Given a location xq in Fq and xr in Fr,
+we compute
+c(xq,xr) = ∑
+o∈[−k,k]×[−k,k]
+Fq(xq + o)Fr(xr + o)T. (2)
+The above operation will transverse the d× d area centered
+on xq, then outputs a d2-dimensional vector.
+
+PAGE 8
+8 Jiyang Qi*, Yan Gao* et al.
+Methods OVIS validation set OVIS test set
+AP AP 50 AP75 AR1 AR10 APSO APMO APHO AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+FEELVOS [69] 9.6 22.0 7.3 7.4 14.8 17.3 11.5 1.7 10.8 23.4 8.7 9.0 16.2 18.9 12.2 2.0
+IoUTracker+ [87] 7.0 16.9 5.3 5.7 14.3 11.5 7.9 1.8 8.0 18.4 7.5 5.9 15.7 12.8 9.1 2.1
+MaskTrack R-CNN [87] 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7 11.8 25.4 10.4 7.9 16.0 22.7 15.0 3.5
+SipMask [8] 10.2 24.7 7.8 7.9 15.8 19.9 10.5 2.2 11.7 23.7 10.5 8.1 16.6 21.9 13.9 3.2
+STEm-Seg [2] 13.8 32.1 11.9 9.1 20.0 22.2 16.1 3.9 14.4 30.0 13.0 10.1 20.6 22.5 16.8 4.2
+TraDeS [79] 11.4 26.5 9.4 7.0 13.8 23.0 12.8 3.0 12.0 26.4 10.8 7.8 14.6 21.6 14.1 3.6
+QueryVIS [20] 14.7 34.7 11.6 9.0 21.2 27.3 17.2 4.1 16.0 33.7 14.7 9.6 21.7 26.3 17.7 4.5
+STMask [44] 15.4 33.8 12.5 8.9 21.3 24.0 18.7 5.1 15.6 32.5 13.8 9.1 21.8 25.4 17.1 6.3
+CrossVIS* [88] 14.9 32.7 12.1 10.3 19.8 28.4 16.9 4.1 16.3 31.5 15.4 10.6 21.1 27.3 18.5 5.6
+Table 2: Overall results of state-of-the-art methods on the OVIS dataset. AP SO, APMO, and AP HO respectively denote the
+AP of “slightly occluded”, “moderately occluded”, and “heavily occluded”. * means the baseline model is additionally
+pre-trained with the YouTube-VIS dataset [87].
+Conv.
+Temporal Feature Calibration
+𝐇 × 𝐖 × 𝐝𝟐
+C
+𝐇 × 𝐖 × 𝟏𝟖
+D
+𝐇 × 𝐖 × 𝟐𝟓𝟔
+C Correlation
+D Deformable Convolution
+Element-wise Addition
+𝐐𝐮𝐞𝐫𝐲
+𝐑𝐞𝐟𝐞𝐫𝐞𝐧𝐜𝐞
+Fig. 6: The pipeline of temporal feature calibration, which
+can be inserted into different video instance segmentation
+models by changing the following prediction head.
+After enumerating all the positions in Fq, we obtain
+C∈ RH×W×d2
+and forward it into multiple stacked convolu-
+tion layers to get the spatial calibration offsetD∈ RH×W×18.
+We then obtain a calibrated version of Fr by applying de-
+formable convolutions with D as the spatial calibration off-
+set, which is denoted as Fr. At last, we fuse the calibrated
+reference feature Fr with the query feature Fq by element-
+wise addition for the localization, classiﬁcation, and seg-
+mentation of the current frame afterward.
+During training, for each query frame Fq, we randomly
+sample a reference frame Fr from the same video. As com-
+pared with the short videos in YouTube-VIS (the longest
+video in YouTube-VIS contains only 36 frames), the ﬁrst
+frame and the last frame of a long video in OVIS (the
+longest video in OVIS contains 500 frames) may be to-
+tally different. In order to ensure that the reference frame
+has a strong spatial correspondence with the query frame,
+the sampling is only done locally within εtrain = 5 frames.
+Since the temporal feature calibration is differentiable, it
+can be trained end-to-end by the original detection and seg-
+mentation loss. When inference, all frames adjacent to the
+query frame within the range εtest = 5 are taken as reference
+frames. We linearly fuse the classiﬁcation conﬁdences, re-
+gression bounding box coordinates, and segmentation masks
+obtained from each reference frame and output the ﬁnal re-
+sults for the query frame.
+In the experiments, we denote the new methods as
+CMaskTrack R-CNN and CSipMask, when Calibrating
+MaskTrack R-CNN [87] models and Calibrating Sip-
+Mask [8] models, respectively.
+Experimental Setup. For all our experiments, we adopt
+ResNet-50-FPN [27] as the backbone. The models are ini-
+tialized by Mask R-CNN which is pre-trained on MS-
+COCO [50]. All frames are resized to 640 × 360 during
+both training and inference for fair comparisons with pre-
+vious works [87,8,2]. For our new baselines (CMaskTrack
+R-CNN and CSipMask), we use three convolution layers of
+kernel size 3× 3 in the module for temporal feature calibra-
+tion. The training epoch is set to 12, and the initial learning
+rate is set to 0.005 and decays with a factor of 10 at epoch 8
+and 11.
+4.2 Main Results
+On the OVIS dataset, we ﬁrst produce the performance
+of several state-of-the-art algorithms whose code is
+publicly available, including mask propagation meth-
+ods ( e.g., FEELVOS [69]), track-by-detect methods
+(e.g., IoUTracker+ [87]), and recently proposed end-to-end
+methods ( e.g., MaskTrack R-CNN [87], SipMask [8],
+STEm-Seg [2], STMask [44], TraDeS [79], CrossVIS [88],
+and QueryVIS [20]). The standard deviation of the reported
+results below is about 0.5.
+As presented in Table 2, although most of these methods
+can obtain more than 30 AP on the YouTube-VIS dataset,
+all of them encounter a great performance degradation of at
+least 50% on OVIS compared with that on YouTube-VIS.
+Especially in the heavily occluded instance group, all meth-
+ods suffer from a signiﬁcant performance drop of more than
+80%. For example, SipMask [8], which achieves an AP of
+32.5 on YouTube-VIS, only obtains an AP of 2.2 in the heav-
+ily occluded group of OVIS validation set. It ﬁrmly suggests
+
+PAGE 9
+Occluded Video Instance Segmentation: A Benchmark 9
+that severe occlusion will greatly improve the difﬁculty of
+video instance segmentation, and further attention should be
+paid to video instance segmentation in the real world where
+occlusions extensively happen. Beneﬁting from the feature
+calibration and temporal fusion, STMask [44] obtains an
+APHO of 5.1 on the validation set and 6.3 on the test set,
+surpassing all other methods in the heavily occluded group.
+It is worth noting that, as the only bottom-up video
+instance segmentation method, STEm-Seg achieves simi-
+lar AP SO with MaskTrack R-CNN and TraDeS, but much
+higher AP HO (3.9 vs. 2.7 vs. 3.0). It demonstrates that the
+bottom-up paradigm like STEm-Seg may perform better
+than the general top-down paradigm on occlusion handling.
+Our interpretation is that the bottom-up architecture avoids
+the detection process which is difﬁcult in occluded scenes.
+In addition, as shown in Table 3, by leveraging the fea-
+ture calibration module, the performance on OVIS is signif-
+icantly improved. CMaskTrack R-CNN leads to an AP im-
+provement of 4.6 over MaskTrack R-CNN (10.8 vs. 15.4),
+and CSipMask leads to an AP improvement of 4.1 over Sip-
+Mask (10.2 vs. 14.3). Besides, the experiments also show
+that TFC can boost the performance of all occlusion lev-
+els, and the improvement of heavy occlusion and moder-
+ate occlusion is more signiﬁcant (see Fig. 11 for more de-
+tails). We also evaluate the proposed CMaskTrack R-CNN
+and CSipMask on the YouTube-VIS dataset. As shown in
+Table 3, CMaskTrack R-CNN and CSipMask surpass the
+corresponding baselines by 1.8 and 2.6 in terms of AP, re-
+spectively, which demonstrates the ﬂexibility and the gener-
+alization power of the proposed feature calibration module.
+To present the qualitative evaluation results of meth-
+ods on OVIS, some evaluation examples of CMaskTrack R-
+CNN are given in Fig. 7, including 5 successful cases (a)-(e)
+and 3 failure cases (f) and (h). In (a), the car in the yellow
+mask ﬁrst blocks the car in the red mask entirely in the 2nd
+frame, then is entirely blocked by the car in the purple mask
+in the 4th frame. It is surprising that even in this extreme
+case, all the cars are well tracked. In (b), CMaskTrack R-
+CNN successfully tracks the bear in the yellow mask, which
+is partially occluded by another object, i.e., the bear in the
+purple mask, and the background, i.e., the tree. In (d), we
+present a crowded scene where almost all the ducks are cor-
+rectly detected and tracked. In (f), two persons and two bicy-
+cles heavily overlap with each other. CMaskTrack R-CNN
+fails to track the person and segment the bicycle. In (g),
+when two cars are intersecting, severe occlusion leads to
+failure of detection and tracking. In (h), although humans
+could sense that there are two persons with hats at the bot-
+tom, CMaskTrack R-CNN cannot detect and track them be-
+cause the appeared visual cues are inadequate.
+4.3 Discussions
+Oracle Results. We conduct the image oracle and identity
+oracle experiments to explore the impact of image-level pre-
+diction and cross-frame association on the performance of
+the OVIS dataset. In order to compare with the YouTube-
+VIS dataset [87], we use MaskTrack-RCNN for experi-
+ments. Following [87], in the image oracle experiments, we
+use ground-truth bounding boxes, masks, and category la-
+bels to replace the predictions by MaskTrack R-CNN, and
+then track those ground-truth bounding boxes by the track-
+ing branch. In the identity oracle experiment, we ﬁrst assign
+each per-frame prediction to the closest ground-truth bound-
+ing box, and then aggregate the bounding boxes with the
+same identity through the video.
+The results are shown in Table 4. On the OVIS dataset,
+the image oracle experiments and identity oracle experi-
+ments obtain 58.4 and 25.5 AP, respectively. This demon-
+strates that the image level prediction is more critical for
+the performance of occluded video instance segmentation,
+which is mainly associated to object segmentation and
+classiﬁcation in frames. It can be expected that more ad-
+vanced image-based techniques could be explored further
+so as to approach this upper limit. Interestingly, both or-
+acle experiments achieve lower performance on the OVIS
+dataset than that on the YouTube-VIS dataset, which shows
+that whether for image-level prediction or cross-frame as-
+sociation, the OVIS dataset is more challenging than the
+YouTube-VIS dataset. Moreover, in identity experiments,
+the AP on YouTube-VIS achieves almost no gain (only 4%
+improvement over the result of MaskTrack R-CNN base-
+line), while the AP on OVIS is greatly improved (121% im-
+provement over MaskTrack R-CNN), which demonstrates
+that the tracking task on OVIS is much more difﬁcult than
+that on YouTube-VIS.
+Effect of Leveraging Image Datasets. Caused by the high
+cost of exhaustively annotating high-quality video seg-
+mentation masks, video inadequacy is a common problem
+among existing video segmentation datasets. The lack of
+diversity in video scenes may affect the generalization ca-
+pability of models trained on those datasets. To this end,
+we further train several models with both the video data
+in OVIS and additional augmented image sequences/pairs
+synthesized from other large-scale image instance segmen-
+tation datasets. In our experiments, the proportions of video
+data and augmented image data are 65% and 35% respec-
+tively. These pseudo image sequences are generated from
+the COCO [50] dataset by on-the-ﬂy random perspective
+and afﬁne transformation. The evaluation results are shown
+in Table 5. We can see that by leveraging the augmented im-
+age sequences, all these three baseline methods can achieve
+
+PAGE 10
+10 Jiyang Qi*, Yan Gao* et al.
+Methods OVIS validation set YouTube-VIS 2019 validation set
+AP AP 50 AP75 AR1 AR10 APSO APMO APHO AP AP 50 AP75 AR1 AR10
+SipMask [8] 10.2 24.7 7.8 7.9 15.8 19.9 10.5 2.2 32.5 53.0 33.3 33.5 38.9
+CSipMask 14.3 29.9 12.5 9.6 19.3 27.1 16.6 3.2 35.1 55.6 38.1 35.8 41.7
+MaskTrack R-CNN [87] 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7 30.3 51.1 32.6 31.0 35.5
+CMaskTrack R-CNN 15.4 33.9 13.1 9.3 20.0 28.6 18.7 4.1 32.1 52.8 34.9 33.2 37.9
+Table 3: Quantitative comparison between the new methods and their corresponding baselines on the OVIS dataset and the
+YouTube-VIS dataset.
+(a)
+(c)
+(d)
+(e)
+(f)
+(h)
+(b)
+(g)
+Fig. 7: Evaluation examples on OVIS. Each row presents the results of 5 frames in a video sequence. (a)-(e) are successful
+cases and (f) and (h) are failure cases.
+remarkable AP improvements, which can serve as a refer-
+ence for future research.
+Analysis of NMS Threshold. Non-Maximum Suppression
+(NMS) is a necessary post-processing for most detection
+methods.
+To test the impact of NMS threshold on occlusion han-
+dling, inspired by [53], we design the adaptive NMS ora-
+cle experiment. Speciﬁcally, for each ground-truth bound-
+ing box, we calculate the maximum IoUd between it and all
+other ground-truth boxes. Then, the NMS threshold of all
+the predicted boxes that correspond to this ground-truth box
+will be assigned as max (d,0.5). In this way, a larger NMS
+threshold will be applied to the predictions in dense scenes,
+which can prevent NMS from removing the true positives
+that are close to other ground-truth boxes.
+As presented in Table 6, based on MaskTrack R-CNN,
+the adaptive NMS oracle experiment improves AP MO and
+APHO by 0.2, which proves that using a higher NMS
+threshold adaptively improves the performance in occluded
+
+PAGE 11
+Occluded Video Instance Segmentation: A Benchmark 11
+Dataset OVIS YouTube-VIS [87]
+Image Oracle AP 58.4 (↑441%) 78.7 (↑160%)
+AR10 66.1 (↑460%) 83.7 (↑136%)
+Identity Oracle AP 23.9 (↑121%) 31.5 (↑ 4%)
+AR10 28.2 (↑139%) 34.6 (↑ -2%)
+Table 4: Oracle results on OVIS and YouTube-VIS. The
+number in the brackets means the performance improvement
+ratio over the corresponding baseline.
+scenes. However, even though we exactly know the real den-
+sity [53] of boxes in the adaptive NMS oracle experiment,
+APSO decreases from 23.0 to 22.8. The overall AP only im-
+proves from 10.8 to 11.2, which shows that the NMS thresh-
+old adjusting is not a bottleneck on OVIS.
+One interpretation is that adjusting the NMS threshold is
+more important for tasks that require detecting the amodal
+bounding boxes (additionally containing the occluded invis-
+ible parts), such as the full-body bounding boxes in crowded
+pedestrian detection datasets [91,65]. For two occluded ob-
+jects, the IoU of amodal bounding boxes will be much
+higher than the IoU of the bounding boxes of only the visi-
+ble parts (like the boxes in OVIS). In addition, some learn-
+able NMS methods [29,53] have also been proposed, and
+many new methods [9,20] based on set prediction even do
+not need NMS post-processing. These new methods require
+further exploration in OVIS.
+Error Analysis. To explore the detailed inﬂuence of occlu-
+sion levels on video instance segmentation, in this subsec-
+tion, we analyze the frame-level error rates of classiﬁcation,
+segmentation, and tracking under different occlusion levels.
+A segmentation error refers to that the IoU between the pre-
+dicted mask of an object and its ground-truth less than 0.5
+and the tracking error is reﬂected by ID switch rate.
+Formally, we denote the predicted masks and labels in
+all frames as M ={m1,m2, ...,mn} and Y ={y1,y2, ...,yn},
+respectively, where n is the number of predictions. The cor-
+responding matched ground-truth masks and labels asM∗ =
+{m∗
+1,m∗
+2, ...,m∗
+n} and Y∗ ={y∗
+1,y∗
+2, ...,y∗
+n}, respectively.
+Regarding classiﬁcation error rates, we consider the pre-
+dicted object whose IoU with its matched ground-truth is
+greater than 0.5, then count the proportion of classiﬁcation
+errors among them, as
+Ecls =
+|{m j|IoU(m j,m∗
+j ) > 0.5∧ y j̸= y∗
+j}|
+|{mi|IoU(mi,m∗
+i ) > 0.5}| . (3)
+For segmentation error rates, following [5], we consider
+masks whose IoU with its matched ground-truth is greater
+than 0.1. A mask mi will be counted as a segmentation error
+if its IoU with the corresponding ground-truthm∗
+i is less than
+0.5. Then the segmentation error rate is calculated as
+Eseg =
+|{m j|0.1 < IoU(m j,m∗
+j ) < 0.5}|
+|{mi|IoU(mi,m∗
+i ) > 0.1}| . (4)
+The ID switch rate refers to the ratio of ID switches in
+the tracking sequence of all instances. Following [70], the
+predicted ID of a ground-truth instance in a frame is deﬁned
+as the tracking ID of the closest predicted mask. If the ID
+of a ground-truth instance is not equal to that of its latest
+tracked predecessor, it will be considered as an ID switch.
+Based on the error rates deﬁned above, we further eval-
+uate MaskTrack and CMaskTrack. In addition, we deﬁne
+a baseline named “MaskTrack R-CNN+LSS+DCN” by ap-
+plying the local sampling strategy and applying one de-
+formable convolution layer to the query frame. As a re-
+sult, by comparing “MaskTrack R-CNN+LSS+DCN” and
+our method, we could obtain the performance gain purely
+brought by temporal feature calibration.
+As shown in Table 7, the three types of error rates all
+signiﬁcantly increase when the occlusion level increases.
+Among them, the segmentation error rate increases the
+most, from 12.1% to 34.1% for MaskTrack R-CNN, which
+demonstrates that severe occlusion will greatly increase the
+difﬁculty of the segmentation task. In this sense, accurately
+localizing the object is helpful for mitigating the impact of
+occlusions. Meanwhile, among the three error types, the er-
+ror rate of classiﬁcation is much higher than that of segmen-
+tation and tracking. So a better classiﬁcation result is impor-
+tant to improving the overall performance.
+One could also observe that (1) no matter in terms
+of classiﬁcation error rate, segmentation error rate, or ID
+switch rate, the gain of our method over “MaskTrack R-
+CNN+LSS+DCN” increases when the occlusion level in-
+creases ( e.g., CMaskTrack R-CNN decreases the classiﬁ-
+cation error rate by 2.7%, 3.9%, and 6.6% respectively);
+(2) in terms of segmentation error rate and ID switch
+rate, the gain of “MaskTrack R-CNN+LSS+DCN” over
+the baseline “MaskTrack R-CNN” does not change too
+much when the occlusion level increases ( e.g., “Mask-
+Track R-CNN+LSS+DCN” decreases the segmentation er-
+ror rate by 6.1%, 6.4%, and 6.5% respectively); (3) in
+terms of classiﬁcation error rate, the gain of “MaskTrack R-
+CNN+LSS+DCN” over the baseline “MaskTrack R-CNN”
+even decreases when the occlusion level increases (No oc-
+clusion: 11.1%, Slight occlusion: 8.1%, and Severe occlu-
+sion: 4.3%).
+By comparing Observation (1), (2), and (3), one could
+conclude that the TFC module improves more in occluded
+scenes compared with using other training strategies ( e.g.,
+the local sampling strategy) and model structure (e.g., apply-
+ing deformable convolution to the query frame). The same
+conclusion is also drawn if we compare the relative error
+decreasing rate.
+
+PAGE 12
+12 Jiyang Qi*, Yan Gao* et al.
+Methods w/ image data AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+MaskTrack R-CNN [87] 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7
+✓ 12.0 28.5 8.9 7.8 16.3 24.7 14.2 3.2
+SipMask [8] 10.2 24.7 7.8 7.9 15.8 19.9 10.5 2.2
+✓ 11.8 27.5 9.0 8.3 17,7 23.2 13.4 2.3
+STEm-Seg [2] 13.8 32.1 11.9 9.1 20.0 22.2 16.1 3.9
+✓ 15.2 34.7 12.5 10.7 23.7 25.5 17.4 4.1
+Table 5: The results of training with and without augmented image sequences. “w/ image data” means training with both
+video data and the synthesized clips.
+Methods AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+MaskTrack R-CNN 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7
++ Adaptive NMS [53] Oracle 11.2 26.5 8.6 8.3 15.6 22.8 13.0 2.9
+Table 6: Adaptive NMS oracle results of MaskTrack R-CNN on OVIS.
+Error type Methods No occlusion (%) Slight occlusion (%) Severe occlusion (%) All (%)
+Cls. error rate
+MaskTrack R-CNN 41.3 41.0 50.1 42.5
+MaskTrack R-CNN + LSS + DCN 30.2 (-11.1) 32.9 (-8.1) 45.8 (-4.3) 34.5 (-8.0)
+CMaskTrack R-CNN (ours) 27.5 (- 2.7) 29.0 (-3.9) 39.2 (-6.6) 30.2 (-4.3)
+Seg. error rate
+MaskTrack R-CNN 12.1 25.6 34.1 28.3
+MaskTrack R-CNN + LSS + DCN 13.2 (+ 0.9) 25.1 (-0.5) 33.2 (-0.9) 28.0 (-0.3)
+CMaskTrack R-CNN (ours) 13.0 (- 0.2) 22.2 (-2.9) 29.5 (-3.7) 25.3 (-2.7)
+ID switch rate
+MaskTrack R-CNN 18.6 22.5 32.6 22.9
+MaskTrack R-CNN + LSS + DCN 12.5 (- 6.1) 16.1 (-6.4) 26.1 (-6.5) 16.8 (-6.1)
+CMaskTrack R-CNN (ours) 11.2 (- 1.3) 14.0 (-2.1) 21.6 (-4.5) 14.4 (-2.4)
+Table 7: Error analysis under different occlusion levels. LSS denotes the local sampling strategy and DCN means applying
+a deformable convolutional layer on the query frame itself. For a certain row, the number in the brackets means the decrease
+of error rates over the row above.
+Effect of Better Feature Representations. To test the effect
+of better feature representations on occlusion, we further
+try Swin-T [54] and ResNeXt-101 [82] backbone on Mask-
+Track R-CNN and QueryVIS. As can be seen in Table 8,
+both Swin-T and ResNeXt-101 achieve great improvement
+(about 4 AP) on OVIS. And these larger backbones can also
+achieve obvious AP improvement at all occlusion levels.
+Effect of Larger Input Resolutions. We try to replace the
+640×360 input resolution with 1280×720 which is similar
+to the commonly used input resolution for COCO [50]. As
+shown in Table 9, when the input resolution increases, the
+performance improves slightly (0.5 AP for MaskTrack R-
+CNN [87] and 0.3 AP for SipMask [8]).
+Methods Speciﬁcally Designed for Occlusion. We also mi-
+grate three image-level detection methods to the CMask-
+Track R-CNN model, including 1) the repulsion loss [76]
+which requires the predicted boxes to keep away from other
+ground-truth boxes; 2) the compact loss [92] which enforces
+proposals to be close and locate compactly to the corre-
+sponding ground-truth; 3) the occluder branch [35] (with-
+out any extra designs like the Non-local [75] operation and
+boundary prediction) which additionally learns the feature
+of occluders with a new branch and then fuses the feature of
+occluders and occludees. In particular, the repulsion loss and
+compact loss are speciﬁcally designed for crowded pedes-
+trian detection, and the occluder branch is designed for the
+occlusion problem of common objects.
+As shown in Table 10, the compact loss and occluder
+branch improve AP HO by 0.4 and 0.3 respectively, while
+their overall AP improvements are marginal. We believe
+more gains can be achieved by developing more delicate oc-
+clusion handling algorithms and leveraging occluded data
+(see Sec. 5 for future work discussion).
+Per-class Results. The per-class AP scores of CMaskTrack
+R-CNN are shown in Fig. 8. It shows that the Top-5 chal-
+lenging categories are Bicycle, Turtle, Motorcycle, Giraffe,
+and Bird. The confusion matrix is also given in Fig. 9. As it
+shows, most categories can be correctly classiﬁed except for
+some visually similar category pairs (e.g., Poultry and Bird,
+Bicycle and Motorcycle).
+Ablation Study of the TFC Module. To verify the rationality
+of the TFC module, we ﬁrstly test the effect of the local sam-
+pling strategy of reference frames during training. As shown
+in Table 11, by only sampling the reference frames locally
+
+PAGE 13
+Occluded Video Instance Segmentation: A Benchmark 13
+Methods Backbone AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+MaskTrack R-CNN [87]
+ResNet-50 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7
+Swin-T 14.0 30.5 11.5 9.2 19.2 26.9 16.0 3.7
+ResNeXt-101 14.6 33.5 12.0 9.6 19.4 27.1 16.7 3.8
+QueryVIS [20]
+ResNet-50 12.8 28.8 11.0 8.6 19.2 25.2 15.1 2.6
+Swin-T 16.5 36.2 14.5 10.2 22.6 31.2 19.4 4.2
+ResNeXt-101 16.9 36.5 14.7 10.6 23.5 31.8 19.2 4.6
+Table 8: Effect of larger backbones. For a fair comparison, the results shown here are all trained only 12 epochs for both
+pre-training on COCO and training on OVIS.
+Methods Input size AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+MaskTrack R-CNN [87] 640×360 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7
+1280×720 11.3 25.8 9.3 7.9 15.7 23.9 12.9 2.6
+SipMask [8] 640×360 10.2 24.7 7.8 7.9 15.8 19.9 10.5 2.2
+1280×720 10.5 24.3 8.4 7.1 15.7 19.9 11.8 2.0
+Table 9: Effect of larger input resolutions.
+Methods AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+CMaskTrack R-CNN 15.4 33.9 13.1 9.3 20.0 28.6 18.7 4.1
++ Repulsion loss [76] 14.7 32.0 13.8 9.2 19.3 26.9 17.7 4.0
++ Compact loss [92] 15.4 34.1 12.7 9.4 19.4 27.9 18.3 4.5
++ Occluder branch [35] (w/o extra designs) 15.6 34.3 13.5 9.7 20.1 28.3 17.9 4.4
+Table 10: Effect of three existing occlusion handling methods that are speciﬁcally designed for image-level detection tasks.
+“w/o extra designs” means that we remove the Non-local operation [75] and boundary prediction in the occluder branch for
+a fair comparison with other methods.
+CowCat
+Airplane
+SheepPoultry
+Giant panda
+Elephant
+TigerFish
+Monkey
+ZebraLizard
+Dog
+VehicalRabbitParrotBoatBear
+PersonHorseBird
+Giraffe
+Motorcycle
+TurtleBicycle
+0
+5
+10
+15
+20
+25
+30AP
+Fig. 8: Per-class AP of CMaskTrack R-CNN on OVIS.
+within εtrain = 5 frames instead of sampling in the whole
+video, MaskTrack R-CNN, SipMask, and QueryVIS all ob-
+tain signiﬁcant AP improvements of 2.7, 2.6, and 1.7 respec-
+tively, which demonstrates that the local sampling strategy
+of reference frames during training is necessary and beneﬁ-
+cial to learn how to track objects in the long videos of OVIS.
+We further study the temporal feature calibration module
+with a few alternatives. The ﬁrst option is a naive combina-
+tion, which sums up the feature of the query frame and the
+reference frame without any feature alignment. The second
+option is to replace the correlation operation in our mod-
+ule by calculating the element-wise difference between fea-
+ture maps, which is similar to the operation used in [3].
+We denote the three options as “ + Uncalibrated Addition”
+Person
+BirdCatDogHorseSheepCow
+Elephant
+BearZebraGiraffePoultry
+Giant panda
+LizardParrotMonkeyRabbitTigerFishTurtleBicycle
+Motorcycle
+Airplane
+Boat
+Vehical
+Background
+Predicted Label
+Person
+Bird
+Cat
+Dog
+Horse
+Sheep
+Cow
+Elephant
+Bear
+Zebra
+Giraffe
+Poultry
+Giant panda
+Lizard
+Parrot
+Monkey
+Rabbit
+Tiger
+Fish
+Turtle
+Bicycle
+Motorcycle
+Airplane
+Boat
+Vehical
+Background
+True Label
+Fig. 9: Confusion matrix for classiﬁcation.
+and “ + Calibrationdiff” respectively and our module as “ +
+Calibrationcorr” in Table 12.
+As we can see, with the enhanced MaskTrack R-CNN
+(with local sampling strategy of reference frames during
+training) as the base model, the naive “ + Uncalibrated Ad-
+dition” combination even degrades the ﬁnal AP. This is be-
+cause the direct addition of the uncalibrated features from
+other frames may bring noises to the object localization pro-
+
+PAGE 14
+14 Jiyang Qi*, Yan Gao* et al.
+Methods Local sampling AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+MaskTrack R-CNN [87] 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7
+✓ 13.5 29.9 11.3 8.5 18.7 25.4 16.7 3.3
+SipMask [8] 10.2 24.7 7.8 7.9 15.8 19.9 10.5 2.2
+✓ 12.8 29.8 9.6 8.7 17.9 25.5 14.7 2.5
+QueryVIS [20] 14.7 34.7 11.6 9.0 21.2 27.3 17.2 4.1
+✓ 16.4 37.8 12.4 9.9 22.9 31.2 19.0 4.3
+Table 11: Effect of the local sampling strategy on the OVIS validation set.
+Methods Local sampling AP AP 50 AP75 AR1 AR10 APSO APMO APHO
+MaskTrack R-CNN [87] 10.8 25.3 8.5 7.9 14.9 23.0 12.8 2.7
+MaskTrack R-CNN [87] ✓ 13.5 29.9 11.3 8.5 18.7 25.4 16.7 3.3
+[87] + DCN ✓ 14.0 31.2 11.2 8.8 18.5 26.2 16.2 3.2
+[87] + Uncalibrated Addition ✓ 12.9 29.4 11.5 8.2 16.6 25.6 15.3 3.1
+[87] + Calibrationdiff ✓ 14.4 32.6 12.3 8.6 18.9 25.3 17.6 3.8
+[87] + Calibrationcorr ✓ 15.4 33.9 13.1 9.3 20.0 28.6 18.7 4.1
+Table 12: Effect of the local sampling strategy and the comparison of different feature fusion methods. “Local sampling”
+means only sample the reference frames locally within εtrain = 5 frames during training. “ + DCN” means applying a de-
+formable convolutional layer on the query frame itself. “+ Uncalibrated Addition” means adding feature maps directly with-
+out calibration. “ + Calibrationdiff” means generating the calibration offset based on the element-wise difference between
+feature maps, similar to [3] did. “ + Calibrationcorr” is the presented method in Sec. 4.1.
+cess. In contrast, after applying feature calibration, the per-
+formance is improved. “+ Calibrationcorr” achieves an AP of
+15.4, an improvement of 1.9 over the baseline method with-
+out feature fusion and 1.0 over “+ Calibrationdiff”. We argue
+that the correlation operation is able to provide a richer con-
+text for feature calibration because it calculates the similar-
+ity between the query position and its neighboring positions.
+Testing on P-100 GPU, the speed of CMaskTrack R-CNN
+when using Calibration diff and Calibrationcorr are 16 and 7
+fps respectively.
+We also conduct experiments to analyze the inﬂuence of
+the reference frames rangeεtest . εtest = 0 means applying the
+deformable convolutional layer to the query frame itself. As
+can be seen in Fig. 10, the AP increases whenεtest increases,
+and reaching the highest value at εtest = 5. Even if εtest =
+1, the performance exceeds the setting of εtest = 0, which
+demonstrates that calibrating features from adjacent frames
+is beneﬁcial to video instance segmentation.
+To further compare the improvement of TFC on differ-
+ent occlusion levels, we evaluate the relative gain of AP on
+different occlusion levels for a fair comparison. As shown
+in Fig. 11, we report the relative gain by varying εtest . The
+larger the εtest is, the more temporal context will be aggre-
+gated. As can be seen, the relative gain of AP HO is much
+higher than that of AP MO. The relative gain of AP SO is
+smallest once the temporal context is considered ( εtest >0).
+The result demonstrates the effectiveness of temporal fea-
+ture aggregation on occlusion handling.
+0 2 4 6 8
+test
+14.0
+14.2
+14.4
+14.6
+14.8
+15.0
+15.2
+15.4
+15.6OVIS validation AP
+14.0
+14.5
+14.6
+14.9
+15.3
+15.4
+15.3
+15.2
+14.7
+14.8
+Fig. 10: Results of different reference frame range εtest on
+the OVIS validation set. Notably,εtest = 0 indicates applying
+the deformable convolutional layer to the query frame itself,
+without leveraging adjacent frames.
+5 Future Directions
+In the future, there are still many interesting issues that can
+be studied and many remaining difﬁculties to be addressed
+with OVIS, such as:
+Occlusion-aware models. Effectively handling occlusions
+is one of the most straightforward ways to improve the per-
+formance in OVIS. In terms of occlusion-aware models,
+there are a few directions that can be exploited in our fu-
+ture work. For example, compositional models [40,41,42]
+might be a good choice as they are robust to partial occlu-
+sions. It is also interesting to test if completing the invisible
+
+PAGE 15
+Occluded Video Instance Segmentation: A Benchmark 15
+0 2 4 6 8
+test
+0
+5
+10
+15
+20
+25
+30Relative Gain of AP (%)
+APSO
+APMO
+APHO
+Fig. 11: Relative gain of different occlusion levels with in-
+creasing reference frame range εtest .
+parts of occluded objects (a.k.a. de-occlusion [90]) is useful
+in this scenario.
+Occluded data generation. Due to the high cost of annota-
+tion, the scale of video instance segmentation datasets is rel-
+atively smaller than image datasets. Some works [17,89,19,
+23] have proposed augmenting the common datasets ( e.g.,
+COCO [50]) with partial occlusions, and some works [58,
+34,16] synthesize structured amodal data in occluded scenes
+using simulators. It can be anticipated that utilizing those
+data with proper training paradigms will improve the per-
+formance in VIS.
+Learning from occlusion annotations. In OVIS, a coarse
+annotation of occlusion levels (no occlusion, slight occlu-
+sion, and server occlusion) is given per object. As a prior
+knowledge that can be accessed during training, learning
+paradigms that can abstract such information deserve spe-
+cial attention.
+Large scale model pre-training. According to our experi-
+ments, it improves the performance to conduct joint train-
+ing with image datasets. With the development of self-
+supervised learning [25], exploiting the unlimited amounts
+of unlabeled data for model pre-training, then transferring
+the pre-trained model into OVIS will largely enhance the
+discriminative power of frame embeddings.
+Dataset versatility. At last, we are also interested in for-
+malizing the experimental track of OVIS for video object
+segmentation, either in an unsupervised, semi-supervised, or
+interactive setting. It is also of paramount importance to ex-
+tend OVIS to video panoptic segmentation [37]. We believe
+the OVIS dataset will trigger more research in understanding
+videos in complex and diverse scenes.
+6 Conclusions
+In this work, we target video instance segmentation in
+occluded scenes and accordingly contribute a large-scale
+dataset called OVIS. OVIS consists of 296k high-quality in-
+stance masks of 5,223 heavily occluded instances. While be-
+ing the second benchmark dataset after YouTube-VIS, OVIS
+is designed to examine the ability of current video under-
+standing systems in terms of handling object occlusions. A
+general conclusion is that the baseline performance on OVIS
+is far below that on YouTube-VIS, which suggests that more
+effort should be devoted in the future to tackling object oc-
+clusions or de-occluding objects [90]. We also explore ways
+about leveraging temporal context cues to alleviate the oc-
+clusion matter and conduct a comprehensive analysis of oc-
+clusion handling on OVIS.
+Acknowledgements This work is supported by Turing AI Fellowship
+EP/W002981/1.
+References
+1. Abu-El-Haija, S., Kothari, N., Lee, J., Natsev, P., Toderici, G.,
+Varadarajan, B., Vijayanarasimhan, S.: Youtube-8m: A large-scale
+video classiﬁcation benchmark. arXiv preprint arXiv:1609.08675
+(2016) 3
+2. Athar, A., Mahadevan, S., O ˇsep, A., Leal-Taix ´e, L., Leibe, B.:
+Stem-seg: Spatio-temporal embeddings for instance segmentation
+in videos. In: ECCV (2020) 2, 3, 8, 12
+3. Bertasius, G., Torresani, L.: Classifying, segmenting, and tracking
+object instances in video with mask propagation. In: CVPR (2020)
+3, 13, 14
+4. Bertasius, G., Torresani, L., Shi, J.: Object detection in video with
+spatiotemporal sampling networks. In: ECCV , pp. 331–346 (2018)
+7
+5. Bolya, D., Foley, S., Hays, J., Hoffman, J.: Tide: A general toolbox
+for identifying object detection errors. In: ECCV (2020) 11
+6. Brostow, G.J., Fauqueur, J., Cipolla, R.: Semantic object classes
+in video: A high-deﬁnition ground truth database. Pattern Recog-
+nition Letters 30(2), 88–97 (2009) 3, 4
+7. Caelles, S., Pont-Tuset, J., Perazzi, F., Montes, A., Maninis, K.K.,
+Van Gool, L.: The 2019 davis challenge on vos: Unsupervised
+multi-object segmentation. arXiv (2019) 3
+8. Cao, J., Anwer, R.M., Cholakkal, H., Khan, F.S., Pang, Y ., Shao,
+L.: Sipmask: Spatial information preservation for fast image and
+video instance segmentation. In: ECCV (2020) 2, 3, 8, 10, 12, 13,
+14
+9. Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A.,
+Zagoruyko, S.: End-to-end object detection with transformers. In:
+ECCV , pp. 213–229. Springer (2020) 11
+10. Chen, L.C., Papandreou, G., Kokkinos, I., Murphy, K., Yuille,
+A.L.: Deeplab: Semantic image segmentation with deep convo-
+lutional nets, atrous convolution, and fully connected crfs. IEEE
+TPAMI 40(4), 834–848 (2017) 4
+11. Chen, L.C., Zhu, Y ., Papandreou, G., Schroff, F., Adam, H.:
+Encoder-decoder with atrous separable convolution for semantic
+image segmentation. In: ECCV (2018) 4
+12. Chu, Q., Ouyang, W., Li, H., Wang, X., Liu, B., Yu, N.: Online
+multi-object tracking using cnn-based single object tracker with
+spatial-temporal attention mechanism. In: ICCV , pp. 4836–4845
+(2017) 4
+
+PAGE 16
+16 Jiyang Qi*, Yan Gao* et al.
+13. Chu, X., Zheng, A., Zhang, X., Sun, J.: Detection in crowded
+scenes: One proposal, multiple predictions. In: CVPR (2020) 4
+14. Cordts, M., Omran, M., Ramos, S., Rehfeld, T., Enzweiler, M.,
+Benenson, R., Franke, U., Roth, S., Schiele, B.: The cityscapes
+dataset for semantic urban scene understanding. In: Proceedings
+of the IEEE conference on computer vision and pattern recogni-
+tion (2016) 3, 4
+15. Dai, J., Qi, H., Xiong, Y ., Li, Y ., Zhang, G., Hu, H., Wei, Y .: De-
+formable convolutional networks. In: ICCV (2017) 2
+16. Devaranjan, J., Kar, A., Fidler, S.: Meta-sim2: Unsupervised learn-
+ing of scene structure for synthetic data generation. In: ECCV , pp.
+715–733. Springer (2020) 15
+17. DeVries, T., Taylor, G.W.: Improved regularization of con-
+volutional neural networks with cutout. arXiv preprint
+arXiv:1708.04552 (2017) 15
+18. Dosovitskiy, A., Fischer, P., Ilg, E., Hausser, P., Hazirbas, C.,
+Golkov, V ., Van Der Smagt, P., Cremers, D., Brox, T.: Flownet:
+Learning optical ﬂow with convolutional networks. In: CVPR
+(2015) 7
+19. Dwibedi, D., Misra, I., Hebert, M.: Cut, paste and learn: Surpris-
+ingly easy synthesis for instance detection. In: ICCV , pp. 1301–
+1310 (2017) 15
+20. Fang, Y ., Yang, S., Wang, X., Li, Y ., Fang, C., Shan, Y ., Feng, B.,
+Liu, W.: Instances as queries. In: ICCV (2021) 2, 3, 8, 11, 13, 14
+21. Fayyaz, M., Saffar, M.H., Sabokrou, M., Fathy, M., Klette, R.,
+Huang, F.: Stfcn: spatio-temporal fcn for semantic video segmen-
+tation. In: ACCV (2016) 4
+22. Geiger, A., Lenz, P., Urtasun, R.: Are we ready for autonomous
+driving? the kitti vision benchmark suite. In: CVPR (2012) 4
+23. Ghiasi, G., Cui, Y ., Srinivas, A., Qian, R., Lin, T.Y ., Cubuk, E.D.,
+Le, Q.V ., Zoph, B.: Simple copy-paste is a strong data augmenta-
+tion method for instance segmentation. In: CVPR, pp. 2918–2928
+(2021) 15
+24. Gupta, A., Dollar, P., Girshick, R.: Lvis: A dataset for large vocab-
+ulary instance segmentation. In: CVPR (2019) 4, 5
+25. He, K., Chen, X., Xie, S., Li, Y ., Doll ´ar, P., Girshick, R.:
+Masked autoencoders are scalable vision learners. arXiv preprint
+arXiv:2111.06377 (2021) 15
+26. He, K., Gkioxari, G., Doll ´ar, P., Girshick, R.: Mask r-cnn. In:
+CVPR (2017) 3, 4
+27. He, K., Zhang, X., Ren, S., Sun, J.: Deep residual learning for
+image recognition. In: CVPR (2016) 8
+28. Hegd ´e, J., Fang, F., Murray, S.O., Kersten, D.: Preferential re-
+sponses to occluded objects in the human visual cortex. JOV8(4),
+16–16 (2008) 1
+29. Hosang, J., Benenson, R., Schiele, B.: Learning non-maximum
+suppression. In: CVPR, pp. 4507–4515 (2017) 11
+30. Hu, Y .T., Huang, J.B., Schwing, A.G.: Videomatch: Matching
+based video object segmentation. In: ECCV (2018) 3
+31. Huang, Z., Huang, L., Gong, Y ., Huang, C., Wang, X.: Mask scor-
+ing r-cnn. In: CVPR (2019) 4
+32. Hwang, S., Heo, M., Oh, S.W., Kim, S.J.: Video instance seg-
+mentation using inter-frame communication transformers. arXiv
+preprint arXiv:2106.03299 (2021) 3
+33. Johnander, J., Danelljan, M., Brissman, E., Khan, F.S., Felsberg,
+M.: A generative appearance model for end-to-end video object
+segmentation. In: CVPR (2019) 3
+34. Kar, A., Prakash, A., Liu, M.Y ., Cameracci, E., Yuan, J., Rusiniak,
+M., Acuna, D., Torralba, A., Fidler, S.: Meta-sim: Learning to gen-
+erate synthetic datasets. In: ICCV , pp. 4551–4560 (2019) 15
+35. Ke, L., Tai, Y .W., Tang, C.K.: Deep occlusion-aware instance seg-
+mentation with overlapping bilayers. In: CVPR (2021) 4, 12, 13
+36. Khoreva, A., Perazzi, F., Benenson, R., Schiele, B., Sorkine-
+Hornung, A.: Learning video object segmentation from static im-
+ages. In: CVPR (2017) 3
+37. Kim, D., Woo, S., Lee, J.Y ., Kweon, I.S.: Video panoptic segmen-
+tation. In: CVPR (2020) 4, 15
+38. Kirillov, A., He, K., Girshick, R., Rother, C., Doll ´ar, P.: Panoptic
+segmentation. In: CVPR (2019) 4
+39. Kirillov, A., Wu, Y ., He, K., Girshick, R.: Pointrend: Image seg-
+mentation as rendering. In: CVPR (2020) 4
+40. Kortylewski, A., He, J., Liu, Q., Yuille, A.L.: Compositional con-
+volutional neural networks: A deep architecture with innate ro-
+bustness to partial occlusion. In: CVPR, pp. 8940–8949 (2020) 4,
+14
+41. Kortylewski, A., Liu, Q., Wang, A., Sun, Y ., Yuille, A.: Compo-
+sitional convolutional neural networks: A robust and interpretable
+model for object recognition under occlusion. IJCV 129(3), 736–
+760 (2021) 4, 14
+42. Kortylewski, A., Liu, Q., Wang, H., Zhang, Z., Yuille, A.: Com-
+bining compositional models and deep networks for robust object
+classiﬁcation under occlusion. In: W ACV , pp. 1333–1341 (2020)
+4, 14
+43. Lazarow, J., Lee, K., Shi, K., Tu, Z.: Learning instance occlusion
+for panoptic segmentation. In: CVPR, pp. 10720–10729 (2020) 4
+44. Li, M., Li, S., Li, L., Zhang, L.: Spatial feature calibration and
+temporal fusion for effective one-stage video instance segmenta-
+tion. In: CVPR (2021) 2, 3, 8, 9
+45. Li, Q., Qi, X., Torr, P.H.: Unifying training and inference for
+panoptic segmentation. In: CVPR (2020) 4
+46. Li, S., Seybold, B., V orobyov, A., Fathi, A., Kuo, C.C.J.: Instance
+embedding transfer to unsupervised video object segmentation. In:
+CVPR (2018) 3
+47. Li, X., Loy, C.C.: Video object segmentation with joint re-
+identiﬁcation and attention-aware mask propagation. In: ECCV
+(2018) 3
+48. Li, Y ., Xu, N., Peng, J., See, J., Lin, W.: Delving into the
+cyclic mechanism in semi-supervised video object segmentation.
+NeurIPS 33 (2020) 3
+49. Lin, C.C., Hung, Y ., Feris, R., He, L.: Video instance segmentation
+tracking with a modiﬁed vae architecture. In: CVPR (2020) 3
+50. Lin, T.Y ., Maire, M., Belongie, S.J., Hays, J., Perona, P., Ramanan,
+D., Doll´ar, P., Zitnick, C.L.: Microsoft coco: Common objects in
+context. In: ECCV (2014) 5, 8, 9, 12, 15
+51. Liu, D., Cui, Y ., Tan, W., Chen, Y .: Sg-net: Spatial granularity net-
+work for one-stage video instance segmentation. In: CVPR (2021)
+3
+52. Liu, Q., Chu, Q., Liu, B., Yu, N.: Gsm: Graph similarity model for
+multi-object tracking. In: IJCAI, pp. 530–536 (2020) 4
+53. Liu, S., Huang, D., Wang, Y .: Adaptive nms: Reﬁning pedestrian
+detection in a crowd. In: CVPR (2019) 4, 10, 11, 12
+54. Liu, Z., Lin, Y ., Cao, Y ., Hu, H., Wei, Y ., Zhang, Z., Lin, S.,
+Guo, B.: Swin transformer: Hierarchical vision transformer using
+shifted windows. In: ICCV , pp. 10012–10022 (2021) 12
+55. Long, J., Shelhamer, E., Darrell, T.: Fully convolutional networks
+for semantic segmentation. In: CVPR (2015) 4
+56. Milan, A., Leal-Taix ´e, L., Reid, I., Roth, S., Schindler, K.:
+Mot16: A benchmark for multi-object tracking. arXiv preprint
+arXiv:1603.00831 (2016) 4
+57. Nakayama, K., Shimojo, S., Silverman, G.H.: Stereoscopic depth:
+its relation to image segmentation, grouping, and the recognition
+of occluded objects. Perception 18(1), 55–68 (1989) 1
+58. Nikolenko, S.I.: Synthetic data for deep learning. arXiv (2019) 15
+59. Nilsson, D., Sminchisescu, C.: Semantic video segmentation by
+gated recurrent ﬂow propagation. In: CVPR (2018) 4
+60. Oh, S.W., Lee, J.Y ., Sunkavalli, K., Kim, S.J.: Fast video object
+segmentation by reference-guided mask propagation. In: CVPR
+(2018) 3
+61. Oh, S.W., Lee, J.Y ., Xu, N., Kim, S.J.: Video object segmentation
+using space-time memory networks. In: ICCV (2019) 3
+62. Perazzi, F., Pont-Tuset, J., McWilliams, B., Van Gool, L., Gross,
+M., Sorkine-Hornung, A.: A benchmark dataset and evaluation
+methodology for video object segmentation. In: CVPR (2016) 3
+
+PAGE 17
+Occluded Video Instance Segmentation: A Benchmark 17
+63. Qi, J., Gao, Y ., Hu, Y ., Wang, X., Liu, X., Bai, X., Belongie, S.,
+Yuille, A., Torr, P., Bai, S.: Occluded video instance segmentation:
+Dataset and iccv 2021 challenge. In: Thirty-ﬁfth Conference on
+Neural Information Processing Systems Datasets and Benchmarks
+Track (2021) 2
+64. Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma,
+S., Huang, Z., Karpathy, A., Khosla, A., Bernstein, M., et al.: Ima-
+genet large scale visual recognition challenge. IJCV 115(3), 211–
+252 (2015) 4
+65. Shao, S., Zhao, Z., Li, B., Xiao, T., Yu, G., Zhang, X., Sun,
+J.: Crowdhuman: A benchmark for detecting human in a crowd.
+arXiv preprint arXiv:1805.00123 (2018) 11
+66. Smeulders, A.W., Chu, D.M., Cucchiara, R., Calderara, S., De-
+hghan, A., Shah, M.: Visual tracking: An experimental survey.
+IEEE TPAMI 36(7), 1442–1468 (2013) 4
+67. Tian, Z., Shen, C., Chen, H., He, T.: Fcos: Fully convolutional
+one-stage object detection. In: ICCV , pp. 9627–9636 (2019) 3
+68. Tokmakov, P., Alahari, K., Schmid, C.: Learning motion patterns
+in videos. In: CVPR (2017) 3
+69. V oigtlaender, P., Chai, Y ., Schroff, F., Adam, H., Leibe, B., Chen,
+L.C.: Feelvos: Fast end-to-end embedding learning for video ob-
+ject segmentation. In: CVPR (2019) 2, 8
+70. V oigtlaender, P., Krause, M., Osep, A., Luiten, J., Sekar, B.B.G.,
+Geiger, A., Leibe, B.: Mots: Multi-object tracking and segmenta-
+tion. In: CVPR (2019) 4, 11
+71. V oigtlaender, P., Leibe, B.: Online adaptation of convolutional
+neural networks for video object segmentation. In: BMVC (2017)
+3
+72. Wang, H., Jiang, X., Ren, H., Hu, Y ., Bai, S.: Swiftnet: Real-time
+video object segmentation. In: CVPR (2021) 3
+73. Wang, W., Feiszli, M., Wang, H., Tran, D.: Unidentiﬁed video ob-
+jects: A benchmark for dense, open-world segmentation. arXiv
+preprint arXiv:2104.04691 (2021) 4
+74. Wang, W., Song, H., Zhao, S., Shen, J., Ling, H.: Learning unsu-
+pervised video object segmentation through visual attention. In:
+CVPR (2019) 3
+75. Wang, X., Girshick, R., Gupta, A., He, K.: Non-local neural net-
+works. In: CVPR, pp. 7794–7803 (2018) 12, 13
+76. Wang, X., Xiao, T., Jiang, Y ., Shao, S., Sun, J., Shen, C.: Repulsion
+loss: Detecting pedestrians in a crowd. In: CVPR (2018) 4, 12, 13
+77. Wang, Y ., Xu, Z., Wang, X., Shen, C., Cheng, B., Shen, H., Xia,
+H.: End-to-end video instance segmentation with transformers.
+arXiv preprint arXiv:2011.14503 (2020) 3
+78. Wen, L., Du, D., Cai, Z., Lei, Z., Chang, M.C., Qi, H., Lim, J.,
+Yang, M.H., Lyu, S.: Ua-detrac: A new benchmark and protocol
+for multi-object detection and tracking. Computer Vision and Im-
+age Understanding 193, 102907 (2020) 4
+79. Wu, J., Cao, J., Song, L., Wang, Y ., Yang, M., Yuan, J.: Track
+to detect and segment: An online multi-object tracker. In: CVPR
+(2021) 2, 3, 8
+80. Wu, J., Song, L., Wang, T., Zhang, Q., Yuan, J.: Forest r-cnn:
+Large-vocabulary long-tailed object detection and instance seg-
+mentation. In: ACM Multimedia (2020) 4
+81. Wu, J., Zhou, C., Yang, M., Zhang, Q., Li, Y ., Yuan, J.: Temporal-
+context enhanced detection of heavily occluded pedestrians. In:
+CVPR (2020) 4
+82. Xie, S., Girshick, R., Doll ´ar, P., Tu, Z., He, K.: Aggregated resid-
+ual transformations for deep neural networks. In: CVPR (2017)
+12
+83. Xiong, Y ., Liao, R., Zhao, H., Hu, R., Bai, M., Yumer, E., Urtasun,
+R.: Upsnet: A uniﬁed panoptic segmentation network. In: CVPR
+(2019) 4
+84. Xu, J., Cao, Y ., Zhang, Z., Hu, H.: Spatial-temporal relation net-
+works for multi-object tracking. In: ICCV , pp. 3988–3998 (2019)
+4
+85. Xu, N., Yang, L., Fan, Y ., Yang, J., Yue, D., Liang, Y ., Price, B.,
+Cohen, S., Huang, T.: Youtube-vos: Sequence-to-sequence video
+object segmentation. In: ECCV (2018) 3
+86. Xu, Z., Zhang, W., Tan, X., Yang, W., Huang, H., Wen, S., Ding,
+E., Huang, L.: Segment as points for efﬁcient online multi-object
+tracking and segmentation. In: ECCV (2020) 4
+87. Yang, L., Fan, Y ., Xu, N.: Video instance segmentation. In: ICCV
+(2019) 1, 2, 3, 5, 7, 8, 9, 10, 11, 12, 13, 14
+88. Yang, S., Fang, Y ., Wang, X., Li, Y ., Fang, C., Shan, Y ., Feng, B.,
+Liu, W.: Crossover learning for fast online video instance segmen-
+tation. In: ICCV (2021) 2, 3, 8
+89. Yun, S., Han, D., Oh, S.J., Chun, S., Choe, J., Yoo, Y .: Cutmix:
+Regularization strategy to train strong classiﬁers with localizable
+features. In: ICCV , pp. 6023–6032 (2019) 15
+90. Zhan, X., Pan, X., Dai, B., Liu, Z., Lin, D., Loy, C.C.: Self-
+supervised scene de-occlusion. In: CVPR (2020) 4, 15
+91. Zhang, S., Benenson, R., Schiele, B.: Citypersons: A diverse
+dataset for pedestrian detection. In: CVPR, pp. 3213–3221 (2017)
+11
+92. Zhang, S., Wen, L., Bian, X., Lei, Z., Li, S.Z.: Occlusion-aware
+r-cnn: Detecting pedestrians in a crowd. In: ECCV (2018) 4, 12,
+13
+93. Zhou, C., Yuan, J.: Bi-box regression for pedestrian detection and
+occlusion estimation. In: ECCV , pp. 135–151 (2018) 4
+94. Zhu, J., Yang, H., Liu, N., Kim, M., Zhang, W., Yang, M.H.: On-
+line multi-object tracking with dual matching attention networks.
+In: ECCV , pp. 366–382 (2018) 4
+95. Zhu, X., Xiong, Y ., Dai, J., Yuan, L., Wei, Y .: Deep feature ﬂow
+for video recognition. In: CVPR (2017) 4

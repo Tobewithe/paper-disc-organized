@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/evaluate.py", line 72, in main
+    k=t['base_id'];weights['GEOM'][f,k]=max(.05,1-overlap(t['box'],[tt['box'] for tt in tracks if tt['base_id']!=k]));weights['SHUFFLE'][f,k]=weights['FULL'][f,tracks[(j+1)%len(tracks)]['base_id']]
+                                                                                                                                              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: (222, 63)

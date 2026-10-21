@@ -1,0 +1,26 @@
+[
+  {
+    "stage": "final_audit",
+    "job_id": "159",
+    "dependency": "158",
+    "script": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02/final_audit.sbatch",
+    "script_sha256": "616a27c6adf1f6639f64ca5b56ea4544dc8d6618c17877cc87f0bfe085432b3a",
+    "time_limit": "00:30:00"
+  },
+  {
+    "stage": "pilot_prepare",
+    "job_id": "160",
+    "dependency": "159",
+    "script": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02/pilot_prepare.sbatch",
+    "script_sha256": "b629f28717d1be076d1fd979df8e5239bc7fa5a2caf43646498daf2c9fb1f211",
+    "time_limit": "24:00:00"
+  },
+  {
+    "stage": "four_arm",
+    "job_id": "161",
+    "dependency": "160",
+    "script": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02/four_arm.sbatch",
+    "script_sha256": "77b8ed7a42069e64d1c25ff55b020b7e215d2c7915860e6cf2e47038041108ad",
+    "time_limit": "12:00:00"
+  }
+]

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/joint_runner.py", line 692, in main
+    elif args.stage == 'native': native_stage(run)
+                                 ^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/joint_runner.py", line 293, in native_stage
+    require(json.loads(json.dumps(cache[key])) == json.loads(json.dumps(previous_cache[key])), 'historical native geometry drift: '+key)
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/mask_branch_joint_adaptation_20261018/scripts/joint_data.py", line 20, in require
+    raise RuntimeError(message)
+RuntimeError: historical native geometry drift: batch_position

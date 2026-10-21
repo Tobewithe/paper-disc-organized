@@ -1,0 +1,75 @@
+{
+  "study_id": "STUDY_MASK_LOCAL_RESIDUAL_PILOT_20261017",
+  "research_line": "neighbor_sensitive_p3",
+  "display_name": "原型—系数链路：局部像素残差探索训练",
+  "plan_status": "closed",
+  "execution_status": "completed",
+  "scientific_status": "NEGATIVE_AT_BUDGET",
+  "artifact_status": "complete",
+  "transfer_status": "verified",
+  "protocol": "PROTOCOL.md",
+  "training_arms": [
+    "LOCAL",
+    "UNIFORM"
+  ],
+  "steps_per_arm": 1200,
+  "authorized_after_negative_LEA": true,
+  "runs": [
+    {
+      "run_id": "RUN_LRP_EVALUATION_f89d8084795244a985b37031a6b395a9",
+      "kind": "LRP_EVALUATION",
+      "execution_status": "completed",
+      "scientific_status": "NEGATIVE_AT_BUDGET"
+    },
+    {
+      "run_id": "RUN_LRP_FULL_LOCAL_564e54cb99764cd894b856bbc2f3fe47",
+      "kind": "LRP_FULL_LOCAL",
+      "execution_status": "completed",
+      "scientific_status": "trained_not_evaluated"
+    },
+    {
+      "run_id": "RUN_LRP_FULL_UNIFORM_cc6633af9a1840188dfa899cf7c1a811",
+      "kind": "LRP_FULL_UNIFORM",
+      "execution_status": "completed",
+      "scientific_status": "trained_not_evaluated"
+    },
+    {
+      "run_id": "RUN_LRP_PREPARE_e997b525bb1847109734cd3674998ea4",
+      "kind": "LRP_PREPARE",
+      "execution_status": "completed",
+      "scientific_status": "engineering_preparation_only"
+    },
+    {
+      "run_id": "RUN_LRP_SMOKE_LOCAL_e910b619dc274ed4b54ce038654c4e87",
+      "kind": "LRP_SMOKE_LOCAL",
+      "execution_status": "completed",
+      "scientific_status": "engineering_only"
+    },
+    {
+      "run_id": "RUN_LRP_SMOKE_UNIFORM_21e0996f050d46c99ceb906b41575e19",
+      "kind": "LRP_SMOKE_UNIFORM",
+      "execution_status": "completed",
+      "scientific_status": "engineering_only"
+    },
+    {
+      "run_id": "RUN_LRP_TESTS_4f2d3b82046c4b6fac6ff5d622e5e2a5",
+      "kind": "LRP_TESTS",
+      "execution_status": "completed",
+      "scientific_status": "engineering_only"
+    }
+  ],
+  "phase": "closed_after_training_and_evaluation",
+  "report": "REPORT.md",
+  "configuration_review": "CONFIGURATION_REVIEW.md",
+  "evaluation_run": "RUN_LRP_EVALUATION_f89d8084795244a985b37031a6b395a9",
+  "local_training_run": "RUN_LRP_FULL_LOCAL_564e54cb99764cd894b856bbc2f3fe47",
+  "uniform_training_run": "RUN_LRP_FULL_UNIFORM_cc6633af9a1840188dfa899cf7c1a811",
+  "training_updates": {
+    "formal_per_arm": 1200,
+    "formal_total": 2400,
+    "smoke_per_arm": 2,
+    "smoke_total": 4
+  },
+  "next_action": "Add LEA/LRP to manuscript evidence and results/discussion; no additional training or experiment authorized by this closeout",
+  "next_action_started": false
+}

@@ -1,0 +1,168 @@
+diff --git a/.gitattributes b/.gitattributes
+index 6b577343..1fbf075a 100644
+--- a/.gitattributes
++++ b/.gitattributes
+@@ -24,3 +24,6 @@ experiments/mask_gate_s3r_20261015/** -text
+ experiments/mask_opportunity_audit_20261015/** -text
+ experiments/mask_soft_fit_audit_20261016/** -text
+ experiments/mask_attainable_teacher_20261016/** -text
++experiments/mask_repair_preservation_20261016/** -text
++experiments/mask_adapter_ray_audit_20261016/** -text
++experiments/mask_direction_learnability_20261016/** -text
+diff --git a/AGENTS.md b/AGENTS.md
+index 7001fac4..31fd7b74 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -61,20 +61,28 @@ Agent 应自主判断研究命题的取舍、实验是否值得做、结果解
+ 
+ 新运行、结果回传及多会话接续按 [运行登记与本地协同](project/科研项目通用规范/运行登记与本地协同.md)；当前方法的样本分母、阶段映射和冻结缺项按 [执行合同](experiments/mask_readout_mechanism_v2_20261012/EXECUTION_CONTRACT.md)。G2 后先用同一 pilot checkpoint 做 G3，全量效用通过才规划 20k。
+ 
+-## 6. 科研结束时交付
++## 6. 实验展示范式
+ 
+-**每次实验结束，先给用户一段简短、通俗的结果讲解。** 无论成功、失败还是因工程问题中止，都用日常语言讲清以下四点：
++**以一次完整实验为叙述单位，讲清整项实验的“问题—机制假说—针对性方法—整体结果—研究决策”。** 适用于每次实验结案，包括成功、失败、零训练诊断及工程中止；普通进度查询无需重复完整范式。
+ 
+-1. **这次在验证什么：** 想解决哪个问题，实际做了什么、改变了哪个因素。
+-2. **结果怎么样：** 相比基线改善了还是变差了，是否达到预定要求；只选最关键的数字，并说明比较对象、分母和单位。未完成时说明实际做到哪一步。
+-3. **这意味着什么：** 结果支持了什么判断，对研究方向有什么影响；把实测事实与尚待验证的解释分开，不能把统计不确定或工程失败说成科学结论。
+-4. **下一步做什么：** 给出 Agent 选定的唯一下一步，并用一句话解释为什么优先做它。
++先用两三句通俗说明实验名称、实际完成范围和最重要结论。单个实验默认使用以下两列表格，五行共同解释同一个完整实验：
+ 
+-通俗讲解以一小段或四条短句为宜，避免堆砌缩写、公式和日志；必要术语随文解释。讲解之后保留必要的技术指标、配置复核和文件路径或 Run ID，不能用通俗化省略证据或夸大结果。此要求适用于实验结案汇报，不要求在每次进度查询中重复整套讲解。
++| 维度 | 本次实验的整体研究链路 |
++|---|---|
++| **问题** | 【整项实验针对哪个已观察到的科研缺口？已有证据是什么，为什么值得解决？】 |
++| **机制假说** | 【哪个计算过程可能造成该缺口？主要解释与竞争解释是什么，成立时各应出现什么现象？】 |
++| **针对性方法** | 【整项实验怎样通过干预及必要对照区分上述解释？改变什么、冻结什么，使用哪些对象与预算？】 |
++| **整体结果** | 【关键证据是否符合原先预测？分别说明相对原生模型和已有方法的收益、损伤、门槛与不确定性。】 |
++| **研究决策** | 【整体证据支持或削弱了什么？明确选择研究方向、保留或停止什么，并给出唯一下一步及改判条件。】 |
+ 
+-随后按“**方向上的肯定回答 → 源 Run/参数身份与 Gate → 本次支持/削弱了什么 → 选择该方向的依据 → 单个下一步及改判条件**”给出必要的技术依据；与通俗讲解重合的内容可合并，避免重复。无论实验成功或失败，方向性肯定回答均为必交付项，不得用否定结论、停止决定或不确定性声明替代。
++**展示层级固定在完整实验。** 参照建立、调幅、消融、解码重放、配置核验、回传等属于该实验的方法或支撑证据，合并进上述链路；不再为每个操作分别写一套问题/机制/方法/结果/决策。一个科学命题可以由多个Run支撑；Run数量或执行阶段数量不决定展示单位。汇报多个独立实验时，可以用“实验｜问题｜机制假说｜针对性方法｜整体结果｜研究决策”六列表格，每个完整实验一行。
+ 
+-最低交付句式：**“我建议下一阶段聚焦【具体方向】，因为【本次及已有证据】表明【已知事实或有依据的推断】；优先解决【关键问题】，第一步【最小行动】，以【判别结果】决定后续推进或改判。”** 同时标明方向的证据强度与适用范围，负面结论如实保留。未实际执行的结果不填数字，历史 AP 与新 AP 不串表；若已经有旧 Run 支撑当前命题，复用它，不重新跑相同实验。确实需要变更当前任务，仅更新总控的路由和新版本 protocol，并留下旧文件完整证据。
++**讲清整项实验的因果逻辑。** 问题要有实测来源；机制假说说明可能的计算原因与可证伪预测；方法解释为什么该干预能够检验假说；结果回到原先预测；决策由整体证据推出。必要对照及阴性结果须纳入判断，但不把实验主表扩写成操作清单。模块名、loss名、Gate标签或总分不能替代解释。纯工程/基线任务没有机制假说时写“不适用”，说明其整体核验目标。
+ 
++**分别交付两项收益：**相对同配置原生模型的改善与损伤，以及相对协议预先指定已有方法的额外收益或退化；必要机制匹配对照的增量也要交代。写明共同对象/分母、指标单位、归约、差值及协议要求的区间和护栏。可放在“整体结果”中，数字较多时另附精简成绩表。GT辅助结果与无GT部署结果的权限差异必须说明；对照组的成果不能记作新增设计贡献。
++
++**保留整体判断所需的边界。** 相对原生有收益但未超过已有方法，两者同时报告；未过Gate不等于零收益，超过原生不等于机制成立。损伤精度不足、已证超限、数值未决和工程失败分开。未测/待核实/不可比须说明原因，不为填表追加实验或编造结果。
++
++“研究决策”必须包含Agent选定的**有依据的正向研究重点和唯一下一步**，说明为什么优先、继续/停止或改判条件，以及是否已启动；表后无需再重复整套决策。配置复核、工程测试、回传和独立核验用简短附注及证据链接交付；只有它们改变科学结论时才在整体结果中重点解释。附本次与参照Run、冻结协议、配置复核和证据路径。详细要求见[科学准入规范中的实验展示范式](project/科研项目通用规范/机制方法科学准入与归因.md#7-实验展示范式)。本节替代此前逐实验环节展开的展示要求，不追溯改写原始产物、冻结协议或科学判定。
+ 
+ **修改规范或重定向 Plan 后的最小文件检查：** 在已拉取的本地仓库运行 `python project/check_active_plan.py`；若检查失败，只修路由/链接/Study 状态，不把它当作模型或科学 Gate 的执行凭据。
+diff --git a/project/ACTIVE_PLAN.md b/project/ACTIVE_PLAN.md
+index 7b89984e..984af87b 100644
+--- a/project/ACTIVE_PLAN.md
++++ b/project/ACTIVE_PLAN.md
+@@ -1,6 +1,6 @@
+ # 当前科研总控：原型—系数链路
+ 
+-**更新：2026-10-16｜AMT-v1 S2已结案：1311图/188708输出，原生目标ΔIoU+0.005420，但相对原soft-IoU门控为−0.004605、配对CI完全低于0；损伤7/1024上界1.263%精度不足。本实现关闭，配置/166文件回传/两机独立核验通过。当前无运行项；唯一建议下一步是冻结修复状态在现有读出表征中的可分性核验，尚未启动。**
++**更新：2026-10-16｜“有益方向的实例条件可学习性”CLD-v1科学协议已冻结，执行尚未启动。原2000图固定拆为1600拟合/400留出，REAL/PERM两臂同原initial、每臂3轮1200步；581条留出教师检验等幅方向，正常输出另查T490/全部2246配对及1808成功GT。笔记本2000缓存、2000原图、18项输入/源码、预测及标注身份只读核验通过；新训练/模型forward均为0。唯一下一步是实现并核验冻结协议，尚缺runner/独立复核器/张量派生与smoke，不直接训练。方向审计的DIRECTION_PRIORITY及旧C159、EK-v1、S2/S3判定保留。**
+ 
+ 本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+ 
+@@ -31,13 +31,22 @@
+ | **S1—S3机会兑现核对：已结案** | 原S1固定256条/243图、同soft-IoU checkpoint及9216门控，零训练 | 冻结L/G/R互斥分解；原生/oracle/旧输出精确重放与独立复算 | [机会核对报告](../experiments/mask_opportunity_audit_20261015/REPORT.md)：原122条oracle阳性中100/10/12；按冻结规则学习侧优先，配置/回传/两机核验通过；不是新的S2/S3 Gate |
+ | **训练内拟合/开发落差核验：已结案** | 同soft-IoU checkpoint、原fit2000、U/G完整输出；dev512直接复用，零训练 | 训练内修复/保护诊断要求及冻结的组成可比性；不放行S3 | [核验报告](../experiments/mask_soft_fit_audit_20261016/REPORT.md)：`RUN_SOFT_FIT_FULL_14971e618ba8498a9fa8efcd19d21770`，G训练三项满足，U训练损伤4.04%仍失败；门控内train/devΔ为+.054824/+.054241。共同支持仅29/82、28图且差距区间跨零；不确立小样本因果。配置、140文件回传和两机独立核验通过 |
+ | **AMT-v1已结案：增量失败、损伤精度不足** | 原2000图/初始化/架构/3轮1500步，仅替换接受失败实例的可达目标；同last固定9216门控 | 原S2三项加相对原G增量；教师与训练前置均通过 | [AMT结案](../experiments/mask_attainable_teacher_20261016/REPORT.md)，`RUN_AMT_S2_FULL_5dbbed12ed4b4f0989826ff4eabf3357`；目标/总体通过，损伤7/1024上界1.263%精度不足，较原G目标增量−.004605，CI[−.009708,−.001204]；配置/166项回传/两机复核通过，不晋级S3 |
++| **有限修复—保护机制：已结案，数值未决；EK-v1不晋级** | 同原S1的256条/243图完成C/E/EK及等幅对照，768次有限求解；网络训练0 | C256/256收敛，159条实际见证；E/EK有5/18解未过残差标准。EK−C −.002237，保留86.79%；只补未决项的最有利保留上界88.05%仍不达95% | [结案报告](../experiments/mask_repair_preservation_20261016/REPORT.md) · [配置复核](../experiments/mask_repair_preservation_20261016/CONFIGURATION_REVIEW.md) · [投资决定](../experiments/mask_repair_preservation_20261016/INVESTMENT_DECISION.json)；80项原Run回传、532项哈希检查及两机统计复核通过 |
++| **方向与幅度：已结案，方向预测优先** | 原256条/243图、原soft-IoU方向及缓存；GT辅助有限调幅，训练0 | q=26.08%（95%上界30.27%），C见证捕获32/159=20.13%（上界26.74%），均<50%；数值有效 | [报告](../experiments/mask_adapter_ray_audit_20261016/REPORT.md) · [配置复核](../experiments/mask_adapter_ray_audit_20261016/CONFIGURATION_REVIEW.md) · [Study](../experiments/mask_adapter_ray_audit_20261016/study.json)；正式 `RUN_ADAPTER_RAY_FULL_362251e449e3493396e69c56562af96b`，R−N +.034469、R−G +.027240，均为GT辅助IoU，不是新AP；547项哈希、371文件回传及两机复核通过 |
++| **当前：CLD-v1协议冻结，工程未实现** | 训练内有益方向的实例条件可学习性；原2000图1600/400拆分，两臂同initial/目标/容量/每臂1200步，固定同图条件置换及同checkpoint干预 | GT辅助等幅方向和无GT内部效用分轴；通过才建议同checkpoint正式S2。旧G训练过内部400图，不能冒充公平留出训练对照 | [冻结协议](../experiments/mask_direction_learnability_20261016/PROTOCOL.md) · [整体链路与设计核验](../experiments/mask_direction_learnability_20261016/DESIGN_REVIEW.md) · [Study](../experiments/mask_direction_learnability_20261016/study.json)。输入只读核验通过；无新Run、无训练、无新方法收益；只完成科学协议，执行源码/张量预检/smoke待办 |
+ | **S4 不启动**：扩量/独立确认 | S3通过后才规划扩量或开发外确认 | 需S3通过并有新授权/冻结预算 | 本候选S3未通过，不晋级、不扩20k，不把重复开发COCO当独立确认 |
+ 
+ **已完成的原S1固定256条机会兑现核对保留。** [结案报告](../experiments/mask_opportunity_audit_20261015/REPORT.md)对应正式Run `RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd`：原122条oracle阳性分解为L=100（无门控Δc仍未修好）、G=10（已修好但门控撤回）、R=12（修好且保留）；134条原oracle未找到解完整保留。110条未兑现机会中学习侧占90.91%，按事前协议优先选择可恢复失败的条件修复学习；门控也损失10/22条已实现修复，不能忽略，但放宽门控不能解决另100条。49,976行原生/门控重放与旧输出精确一致、256条oracle重放和独立RLE IoU通过；[配置复核](../experiments/mask_opportunity_audit_20261015/CONFIGURATION_REVIEW.md)、80文件回传与两机独立核验通过。本机首次Python3.10描述性均值末位相等检查失败已保留；原冻结脚本在本机Python3.12复验全通过，未改容差或科学结论。
+ 
+ **此前soft-IoU训练内/开发落差核验已完成，以下作为本次目标对照的来源证据。** [报告](../experiments/mask_soft_fit_audit_20261016/REPORT.md)与[配置复核](../experiments/mask_soft_fit_audit_20261016/CONFIGURATION_REVIEW.md)对应正式Run `RUN_SOFT_FIT_FULL_14971e618ba8498a9fa8efcd19d21770`。训练218209输出、T2669、原成功9748；门控内有效监督3453/14268=24.2%，涉及1620张图。G训练目标+.010484、总体+.002194、损伤31/9748，诊断三项满足；开发G目标+.010024、损伤8/2355（本次512图census，不替代旧S2抽样上界）。无门控U训练损伤394/9748，说明保护问题在训练内也存在。分层差距区间跨零且共同支持不足，不认定小样本因果，也不宣称train/dev统计等效。140文件回传、两机独立复核、完整输出身份及12097配对RLE核验均通过，新增训练/基础模型forward/oracle求解均为0。
+ 
+-**当前唯一下一步建议：冻结现有读出表征的修复状态可分性核验（未启动，待新授权）。** 我主张聚焦“可恢复性识别驱动的选择性系数修复”。本次无门控U损伤45/1024、固定面积G降到7/1024，表明选择性应用有实测价值；合格教师3091条和原S1机会仍未转化为新目标增益，继续更换监督目标或直接扩量没有支持。优先复用门控内360条已确认教师、原成功监督实例、原soft-IoU checkpoint与缓存，检验当前181维读出表征中的修复状态信号；未找到oracle解的失败不作不可修复负样本。先冻结分母、按图排除自配对、单个检验和对照判据，再判断应设计选择性读出还是优先改变表征；本次未证明输入缺信息，也未验证新的门控方法。
++**当前唯一下一步：实现并核验CLD-v1冻结协议，正式训练尚未启动。** [科学协议](../experiments/mask_direction_learnability_20261016/PROTOCOL.md)和[冻结清单](../experiments/mask_direction_learnability_20261016/SCIENTIFIC_FREEZE.json)已固定H/H_alt、输入、1600/400拆分、实例置换、空间方向目标、幅度算法、两臂各1200步及三出口；本轮只读输入核验与确定性元数据准备，不是模型Run。需完成runner/独立复核器、仅由拟合教师派生的幅度a、执行源码/环境合同与工程smoke后，才具备正式执行条件。该执行阶段尚未启动，不因计划文件齐全而宣称训练就绪。
++
++选择依据仍是已结案[方向与幅度报告](../experiments/mask_adapter_ray_audit_20261016/REPORT.md)：有限调幅R相对N +.034469、相对G +.027240，仍比C低.100689；159条见证仅兑现32条。正向研究重点是**实例条件能否预测有益修正方向**。新协议防止用训练过全2000图的旧checkpoint提取留出特征；匹配主比较为REAL/PERM，旧G只是历史效用参照。GT辅助等幅方向与无GT输出分别验收；内部400图损伤全查不替代原S2/S3。机制及内部效用均过才建议同checkpoint正式S2；阴性或预算内信息不足均关闭CLD-v1，不追加seed/阈值/训练，不由失败自动推出新结构有效。旧AMT、原生分支方向回归、EK-v1阴性约束继续保留。
++
++**上一轮修复—保护结案的两层状态：**[原始DECISION](../experiments/mask_repair_preservation_20261016/runs/RUN_REPAIR_KEEP_FULL_68b1d8211b30456abb172db046963e01/DECISION.json)保持`INCONCLUSIVE_NUMERICAL`，不因补充分析回写Gate。EK-v1不继续投入训练的依据是19条C/EK均已收敛的丢失：即使把2条未决丢失全部视为修复、保持已收敛结果不变，最高保留仍只有140/159=88.05%，见[算术边界](../experiments/mask_repair_preservation_20261016/runs/RUN_REPAIR_KEEP_FULL_68b1d8211b30456abb172db046963e01/SUPPLEMENTAL_DECISION_BOUND.json)。C的正向见证完整保留；EK实际输出相对原生+.132921、相对C−.002237同时报告，均不是新AP。停止当前保护目标不证明所有保护机制无效，方向判断也不直接把目标失败推成输入不足；下一项才区分方向与幅度。
++
++**本次路由修正（依据c23d8a2c及项目讨论）：** AMT结案中的181维“可修失败/原成功”可分性建议尚未执行，`superseded_by=experiments/mask_repair_preservation_20261016/PROTOCOL_DRAFT.md`；旧报告仍保留当时建议。类别可分不等于能产生有益Δc，它不能优先替代对修复方向和误伤的直接干预。讨论稿中“先做Oracle—Adapter—Gate核对”的语句也已被真实完成Run超越，不再重跑。此次调整是设计判断，不将讨论升级为已证科学结论；不启动更多loss、门控或网络的并行试错。
+ 
+ **AMT-v1证据已结案，原协议保留。** 用户先授权冻结并训练，随后“开始”授权[冻结S2评价](../experiments/mask_attainable_teacher_20261016/EVALUATION_EXECUTION.md)。训练 `RUN_AMT_TRAIN_e10144e6d3d94803824aef1c636d831f` 于02:30完成1500步；last SHA `b39df4f2720bf60f3ffe64f79ce426d2dc55ee28188c0068e6b1aa3061cf79b7`。教师4521求解全部收敛、3091接受、门控内360/305图及训练配置审计均通过，但不能代表学生有效。S2一次抽签1024成功GT与dev512并集1311图；正式 `RUN_AMT_S2_FULL_5dbbed12ed4b4f0989826ff4eabf3357` 于03:15完成，独立流水线03:18结束。G目标+.00541994、总体+.00022803；原G目标+.01002449，新减原−.00460455，CI[−.00970826,−.00120439]；损伤7/1024上界1.263231%为精度不足而非已证总体风险超1%。按原协议关闭AMT-v1。见[结案报告](../experiments/mask_attainable_teacher_20261016/REPORT.md)和[配置复核](../experiments/mask_attainable_teacher_20261016/S2_CONFIGURATION_REVIEW.md)。188708行zero-delta精确重放、原G固定端点复现、完整COCO匹配和两机统计均通过；166项最终文件回传SHA一致，无Python任务/锁/后续触发。无新增训练、无S3/S4、无自动提交推送。原[训练结案](../experiments/mask_attainable_teacher_20261016/TRAINING_REPORT.md)和[教师结案](../experiments/mask_attainable_teacher_20261016/TEACHER_REPORT.md)为各自阶段历史记录。
+ 
+diff --git a/project/PLAN_CATALOG.json b/project/PLAN_CATALOG.json
+index 7f608bb5..3ab2334f 100644
+--- a/project/PLAN_CATALOG.json
++++ b/project/PLAN_CATALOG.json
+@@ -1,6 +1,7 @@
+ {
+   "schema_version": 1,
+   "reviewed_at": "2026-10-16",
++  "last_route_review_commit": "c23d8a2c43d1995979ff757fe7f6ebef5199e086",
+   "source_commit": "14172b57156178955a8391167932ddb53a9f9bcc",
+   "canonical_route": "project/ACTIVE_PLAN.md",
+   "scope": "Filename inventory of project/paper plan-like files plus current two studies; not a scientific audit of 336 experiment directories. Roles do not replace frozen Run protocols or independent research lines.",
+@@ -10,6 +11,66 @@
+       "path": "project/ACTIVE_PLAN.md",
+       "role": "canonical_current_route"
+     },
++    {
++      "path": "project/research_notes/CHAT_RESEARCH_CONTEXT.md",
++      "role": "dated_discussion_background_not_execution_authority_latest_reconciliation_appended"
++    },
++    {
++      "path": "experiments/mask_direction_learnability_20261016/PROTOCOL.md",
++      "role": "current_frozen_scientific_design_conditional_direction_learnability_execution_not_started"
++    },
++    {
++      "path": "experiments/mask_direction_learnability_20261016/study.json",
++      "role": "current_Study_scientific_plan_frozen_code_and_execution_pending"
++    },
++    {
++      "path": "experiments/mask_direction_learnability_20261016/DESIGN_REVIEW.md",
++      "role": "whole_experiment_design_handoff_not_scientific_results"
++    },
++    {
++      "path": "experiments/mask_direction_learnability_20261016/SCIENTIFIC_FREEZE.json",
++      "role": "scientific_protocol_and_deterministic_inputs_freeze_not_execution_source_freeze"
++    },
++    {
++      "path": "experiments/mask_adapter_ray_audit_20261016/PROTOCOL.md",
++      "role": "closed_finite_direction_amplitude_protocol_direction_priority"
++    },
++    {
++      "path": "experiments/mask_adapter_ray_audit_20261016/study.json",
++      "role": "direction_amplitude_Study_execution_and_scientific_status_separate"
++    },
++    {
++      "path": "experiments/mask_adapter_ray_audit_20261016/REPORT.md",
++      "role": "completed_direction_amplitude_diagnostic_evidence_not_deployment_AP"
++    },
++    {
++      "path": "experiments/mask_adapter_ray_audit_20261016/CONFIGURATION_REVIEW.md",
++      "role": "completed_post_run_configuration_and_two_host_independent_verification"
++    },
++    {
++      "path": "experiments/mask_repair_preservation_20261016/PROTOCOL_DRAFT.md",
++      "role": "historical_unexecuted_design_superseded_by_same_Study_PROTOCOL"
++    },
++    {
++      "path": "experiments/mask_repair_preservation_20261016/PROTOCOL.md",
++      "role": "closed_finite_mechanism_protocol_numerically_inconclusive_EK_v1_not_promoted"
++    },
++    {
++      "path": "experiments/mask_repair_preservation_20261016/study.json",
++      "role": "finite_mechanism_Study_execution_and_scientific_status_separate"
++    },
++    {
++      "path": "experiments/mask_repair_preservation_20261016/REPORT.md",
++      "role": "completed_finite_outputs_evidence_C159_witnesses_not_deployment_AP"
++    },
++    {
++      "path": "experiments/mask_repair_preservation_20261016/CONFIGURATION_REVIEW.md",
++      "role": "post_run_configuration_passed_solver_residual_exceptions_preserved"
++    },
++    {
++      "path": "experiments/mask_repair_preservation_20261016/INVESTMENT_DECISION.json",
++      "role": "supplemental_do_not_promote_decision_does_not_rewrite_frozen_Run_gate"
++    },
+     {
+       "path": "project/hypotheses/ACTIVE_FAILURE_ROUTE.md",
+       "role": "historical_reference_not_execution_authority"

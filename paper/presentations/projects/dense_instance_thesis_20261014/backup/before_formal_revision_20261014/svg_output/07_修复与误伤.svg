@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#596B80" stroke-width="1.5"/></marker></defs>
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF"/>
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#007F82">核心难点二 / 像素归属与成功保护</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">同一次修正，可能修好，也可能误伤</text></g>
+<g id="repair-example" data-pptx-bounds="64 180 552 333">
+<text x="64" y="217" font-size="32" font-weight="bold" fill="#007F82">删掉邻居像素 → 修复</text>
+<ellipse cx="189" cy="347" rx="72" ry="80" fill="#007F82" fill-opacity="0.2" stroke="#007F82" stroke-width="3"/><rect x="236" y="306" width="58" height="80" fill="#C36D37" fill-opacity="0.5"/>
+<line x1="313" y1="347" x2="380" y2="347" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)"/>
+<ellipse cx="481" cy="347" rx="72" ry="80" fill="#007F82" fill-opacity="0.2" stroke="#007F82" stroke-width="3"/>
+<text x="165" y="355" fill="#007F82">目标</text><text x="455" y="355" fill="#007F82">目标</text><text x="64" y="483" fill="#25374C">删去的区域原本属于其他实例</text>
+</g>
+<g id="damage-example" data-pptx-bounds="666 180 550 333">
+<text x="666" y="217" font-size="32" font-weight="bold" fill="#C36D37">删掉自身细节 → 误伤</text>
+<ellipse cx="791" cy="347" rx="72" ry="80" fill="#007F82" fill-opacity="0.2" stroke="#007F82" stroke-width="3"/><rect x="838" y="323" width="59" height="43" fill="#007F82" fill-opacity="0.25" stroke="#007F82" stroke-width="2"/><rect x="849" y="314" width="52" height="63" fill="none" stroke="#C36D37" stroke-dasharray="4,4" stroke-width="2"/>
+<line x1="914" y1="347" x2="981" y2="347" stroke="#596B80" stroke-width="2" marker-end="url(#arrow)"/>
+<ellipse cx="1082" cy="347" rx="72" ry="80" fill="#007F82" fill-opacity="0.2" stroke="#007F82" stroke-width="3"/>
+<text x="767" y="355" fill="#007F82">目标</text><text x="1058" y="355" fill="#007F82">目标</text><text x="666" y="483" fill="#25374C">删去的区域原本是正确的自身像素</text>
+</g>
+<g id="same-operation" data-pptx-bounds="64 539 1152 102"><rect x="64" y="539" width="1152" height="102" fill="#F1F5F8"/><text x="88" y="583" font-size="32" font-weight="bold" fill="#172B46">难点在于：推理时没有真实标注，邻居预测也可能有误。</text><text x="88" y="621" font-size="22" fill="#596B80">需要同时检验总体质量、修复数量与误伤数量，不能只看平均提升。</text></g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="64 665 1152 35" font-size="16" fill="#596B80"><text x="64" y="689">同类收紧操作的机制示意，无虚构 IoU。历史空间诊断来源见原汇报稿 [E2]。</text><text x="1216" y="689" text-anchor="end">07 / 13</text></g>
+</svg>

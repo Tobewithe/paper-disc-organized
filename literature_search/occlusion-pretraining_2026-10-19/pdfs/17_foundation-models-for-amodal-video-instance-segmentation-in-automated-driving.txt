@@ -1,0 +1,1059 @@
+
+
+PAGE 1
+Foundation Models for Amodal Video Instance
+Segmentation in Automated Driving
+Jasmin Breitenstein1, Franz Jünger1, Andreas Bär1, and Tim Fingscheidt1
+1Institute for Communications Technology
+Technische Universität Braunschweig
+{j.breitenstein, f.juenger, andreas.baer, t.fingscheidt}@tu-bs.de
+Abstract. In this work, we study amodal video instance segmentation
+for automated driving. Previous works perform amodal video instance
+segmentation relying on methods trained on entirely labeled video data
+with techniques borrowed from standard video instance segmentation.
+Such amodally labeled video data is difficult and expensive to obtain
+and the resulting methods suffer from a trade-off between instance seg-
+mentation and tracking performance. To largely solve this issue, we pro-
+pose to study the application of foundation models for this task. More
+precisely, we exploit the extensive knowledge of the Segment Anything
+Model (SAM), while fine-tuning it to the amodal instance segmentation
+task. Given an initial video instance segmentation, we sample points
+from the visible masks to prompt our amodalSAM. We use a point mem-
+ory to store those points. If a previously observed instance is not pre-
+dicted in a following frame, we retrieve its most recent points from the
+point memory and use a point tracking method to follow those points
+to the current frame, together with the corresponding last amodal in-
+stance mask. This way, while basing our method on an amodal instance
+segmentation, we nevertheless obtain video-level amodal instance seg-
+mentation results. Our resultingS-AModal method achieves state-of-the-
+art results in amodal video instance segmentation while resolving the
+need for amodal video-based labels. Code forS-AModal is available at
+https://github.com/ifnspaml/S-AModal.
+1 Introduction
+For safe automated driving, environment perception is required to perform at
+least on par with human drivers [15]. Recently, foundation models for environ-
+ment perception have been introduced. Such models have been trained on a
+broad amount of data to perform their respective perception task on a wide
+range of data showcasing impressive zero-shot generalizability. A famous exam-
+ple for such foundation models is the Segment Anything Model (SAM) [26] which
+can be prompted via points, bounding boxes, or text, to segment instances in a
+zero-shot fashion in a wide range of images. In contrast to this type of percep-
+tion, one important human ability is amodal perception allowing us to perceive
+the full shape of occluded objects. This ability is typically not found in machine
+learning perception methods, and, even worse, performance drastically drops
+arXiv:2409.14095v1  [cs.CV]  21 Sep 2024
+
+PAGE 2
+2 J. Breitenstein et al.
+Fig. 1: In a video sequence, when an instance is (partially) visible (time stept − 1), we
+extract points (green arrow) from the predicted instance mask to prompt an amodal
+SAM method to generate an amodal mask (yellow). The corresponding points are stored,
+and if the instance is not visible (time stept), we track the previous points to the next
+frame (t), transferring the previous amodal mask to the next frame (yellow, purple
+arrow). Once the instance reappears (time step t + 1), we prompt the amodal SAM
+method again (green arrow).
+when confronted with occlusions. However, handling occlusions is of high impor-
+tance for safety in automated driving. Without a safe treatment of occlusions,
+one risks fatal accidents of the automated vehicle affecting both vehicle occu-
+pants and other traffic participants. Amodal segmentation methods offer a way
+to do this by segmenting not only what is visible, but the full shape of objects
+in a scene, thus, providing information about what is currently occluded. While
+there exist many methods working towards amodal segmentation on single im-
+ages — and excelling at it [1–3,16,24,30,36], they are limited in the occlusion
+types they can resolve: Only partial occlusions can be identified and segmented
+on a single image basis. For occlusions that arise temporarily leading to almost
+no visible object parts or even to a totally occluded object, amodal segmentation
+methods working on a single image basis cannot rely on sufficient information.
+Here, recent new approaches have been introduced and investigated on the task
+of amodal video instance segmentation (VIS) [5,53]. Amodal VIS builds upon
+the terminology of standard (visible) VIS and aims to track and segment the
+full shape on an instance throughout all frames of a video. Recent approaches
+have leveraged a full end-to-end training of amodal VIS [5], or investigated a
+self-supervised training approach based on the results of a VIS method on the
+considered data [53]. In contrast, our proposedS-AModal method relies during
+training on image-level amodal labels to fine-tune a foundation model to the task
+of (image-based) amodal segmentation. We build upon the highly generalizing
+pre-trained SAM [26] using an adaptive fine-tuning approach to facilitate the pre-
+diction of amodal masks. To extend this to videos, during inference a pre-trained
+VIS method provides point prompts for our amodalSAM method. Additionally,
+we exploit a point tracking method to provide point prompts for occluded in-
+stances by relying on a point memory to store points of previously observed
+instances. This high-level operation of our S-AModal method is illustrated in
+Figure 1. Whenever an instance is at least partially visible and predicted by the
+VIS method (yellow, left and right images in Figure 1, time instantst − 1, t + 1),
+
+PAGE 3
+Foundation Models for Amodal VIS in Automated Driving 3
+we extract points from the visible mask to prompt theSAM method fine-tuned
+on amodal data (highlighted by a green arrow). In Figure 1 one example point
+prompt is visualized by the green arrow and cross. If a previously predicted in-
+stance is not predicted for the current frame (purple, middle image of Figure 1),
+we apply a point tracking method to track the previous (t − 1) point prompt to
+the current framet, and we move the amodal mask along the point trajectory.
+A reappearing instance is identified by the VIS method, so in this case theSAM
+method can again be prompted. Our amodal VIS method based on these foun-
+dation models is able to perform state-of-the-art amodal VISwithout relying on
+amodal VIS labels in training.
+Our contributions are as follows: First, we provide a fine-tuning strategy
+to leverage SAM for amodal segmentation. Second, we show that our proposed
+S-AModal method achieves state-of-the-art results in image-level amodal seg-
+mentation. Third, we are the first to apply such a foundation model to the task
+of amodal VIS, again achieving state-of-the-art results in this task. The remain-
+der of this work is structured as follows: In Section 2, we review the related work
+w.r.t. SAM [26], point tracking, and amodal segmentation. Section 3 describes our
+proposed method in detail. In Section 4, we describe the experimental setup and
+report our results in Section 5. Finally, we conclude with Section 6.
+2 Related Work
+Here, we review works related toSAM, point tracking, and amodal segmentation.
+Segment Anything Model (SAM) [26] was first introduced as a foundation
+model that solves the task of promptable segmentation. It can be prompted using
+text, bounding boxes or points to produce a segmentation mask accordingly.
+SAM has been trained on an extensive amount of data to perform promptable
+segmentation in a zero-shot manner on many different types of images.
+Adapters have been proposed to allowSAM to, e.g., work well on high-quality
+images [25, 49], or, in general, on underperformed scenes [7, 42, 47, 48]. The
+adapters follow fine-tuning strategies, so only the decoder and the prompt en-
+coder [42] or added adapter layers of the encoder [7] have to be fine-tuned. Most
+related work about fine-tuningSAM is related to underperformed scenes, e.g., in
+the medical field [7,42,47]. In contrast, we investigateSAM not only on a different
+image domain, but also tailor it to the new task of amodal segmentation.
+Additionally, strategies have been proposed to extend theSAM capabilities to
+video sequences [38]. Rajic et al. [38] perform video segmentation by applying
+a point tracking method to points of a query mask in the first frame to track
+it through an entire video sequence, Yang et al. [51] useSAM to improve the
+segmentation of a VIS method. Cheng et al. [8] extendSAM to track objects via
+text prompts. Recently,SAM 2 [39], the successor of SAM, has been introduced
+adding video segmentation capabilities toSAM. In this work, we build upon the
+benefits of the above by following a combination ofSAM with VIS methods to
+perform the tracking and segmentation task. However, to resolve occlusions, we
+additionally add a point tracking method to identify points for occluded masks.
+
+PAGE 4
+4 J. Breitenstein et al.
+Point T racking has first been introduced and defined by Doersch et al. [11],
+naming it the “tracking any point” (TAP) task. This task focuses on predicting
+the pixel positions of a given point in all subsequent frames of a video sequence,
+as well as identifying its occlusion state. Harley et al. [19] developPIPs, one of
+the initial methods for the TAP task. AlthoughPIPS can trace points through
+temporal occlusions lasting up to eight frames, it cannot account for the occlu-
+sion state of the points themselves [19]. Doersch et al. [11] address this limitation
+by introducing theTAP-Vid benchmark consisting of labelled real and synthetic
+data for the TAP task, enabling the end-to-end point tracking modelTAP-Net.
+The TAPIR method [12] combines the advantages of bothTAP-Net and PIPs. An-
+other enhancement is thePIPs++method by Zheng et al. [54]. It extendsPIPsfor
+improved long-term tracking. All the methods described above focus on tracking
+points independently, neglecting any potential correlations between them. Con-
+versely, OmniMotion[46]aimstoachievegloballyconsistentmotionbyoptimizing
+volumetric representations for individual videos. Similarly,CoTracker[23] tracks
+points jointly without relying on specific per-video optimization. In this work, we
+employ a point tracking method to identify the location of points belonging to
+an occluded instance which is precisely what all aforementioned methods excel
+in. While any point tracking method can be used for our purpose, we choose to
+apply the CoTracker method [23] due to its performance and ease of use.
+Amodal Segmentation describes the task of segmenting the full shape of an
+object even in the presence of occlusions. First methods investigate predicting
+an amodal mask given the visible mask and the input image [27,55]. This has
+been extended to instance segmentation methods predicting the amodal instead
+of the visible mask directly from the input image [16,22,30,34,36,40,44]. Amodal
+semantic segmentation methods apply grouping and multi-task training to look
+behind occlusions [4,6,35]. Recently, amodal video instance segmentation (VIS)
+has been investigated more extensively, considering both end-to-end supervised
+training of VIS [5], and self-supervised approaches based on the visible masks
+[53]. While the end-to-end approach requires amodal video labels which are
+expensive and difficult to obtain, the self-supervised approach requires visible
+masks to be predicted. In this sense, our approach is closest to the self-supervised
+approach,termed SAVOS[53],aswestrivetowardsamodalVISwithoutrelyingon
+video-based labels. SAVOS takes as input the images, the visible instance masks
+and the optical flow between two frames. In contrast, we build our method on top
+of an image-based amodal segmentation method, where datasets for training are
+available. We rely on point tracking methods to track points of instances through
+the sequence which diminishes the need for optical flow. Moreover, whileSAVOS
+makes its prediction in an offline fashion, i.e., based on the entire video, our
+proposed method can operate in an online fashion.
+One challenge in amodal segmentation is the availability of real datasets, as
+amodal labeling of real data is associated with high costs, especially for videos.
+However, on image level, many datasets are available: The KINS dataset [36]
+based on the KITTI dataset [17], the COCOA dataset [55] based on COCO [29],
+D2S [16], KITTI-360-APS [33] based on KITTI-360 [28], and Amodal Cityscapes
+
+PAGE 5
+Foundation Models for Amodal VIS in Automated Driving 5
+Fig. 2: Overview of ourS-AModal method: Given an input framext, it predicts amodal
+instance segmentation masks(at,n)n∈Nt. First, a VIS method provides visible instance
+masks (mt,n)n∈N vis
+t
+, from which we extract points(pt,n)n∈N vis
+t
+.These points prompt
+our amodal SAM method to produce amodal instance masks (at,n)n∈N vis
+t
+. Points
+are stored to track for occlusions, helping to update previous masks(at−1,n)n∈N vis
+t−1
+to (at,n)n∈N inv
+t
+. Final amodal masks per frame(at,n)n∈Nt combine (at,n)n∈N inv
+t
+and
+(at,n)n∈N vis
+t
+. We denote delay units by “T”.
+[4] based on Cityscapes [9]. For videos, two large-scale synthetic video datasets
+with amodal video-level labels exist: SAIL-VOS [22] is a synthetic dataset col-
+lected in the GTA V game. AmodalSynthDrive [41] is another synthetic dataset
+of automated driving sequences collected in the CARLA engine [14]. Addition-
+ally, on real data, Yao et al. [53] match amodal annotations of the KINS dataset
+with videos of KITTI to obtain amodal annotations on single frames of the
+videos, termed KINS-car. Note that in contrast to the synthetic datasets, for
+KINS-car no full video annotations are available. As we are interested in amodal
+video instance segmentation for automated driving, we investigate the perfor-
+mance of our method on AmodalSynthDrive and KINS-car. This way, we obtain
+evaluation results on videos. For training, only image annotations are needed.
+3 Proposed S-AModal Method
+Our proposedS-AModalmethod performs amodal VIS based on point-prompting
+a fine-tunedSAM network which we term amodalSAM f aSAM. We consider a video
+as sequence of frames xt ∈ [0, 1]H×W ×C for t ∈ T = {1, . . . , T} with T being
+the video length. The overall method is depicted in Figure 2. We apply a stan-
+dard online VIS methodf VIS to the input framext to obtain the corresponding
+visible segmentation masksf VIS(xt) = ( mt,n)n∈N vis
+t
+∈ { 0, 1}H×W ×Nt for all in-
+stances n ∈ N vis
+t = {1, . . . , Nvis
+t } with N vis
+t being the number of instances visible
+in frame t. The total number of visible and occluded instances in framet is de-
+noted asNt = N vis
+t + N inv
+t , and the total number of instances per video sequence
+is accordingly denoted asN. We define a point selected from the instance seg-
+mentation mt,n as pt,n,k ∈ { 1, ..., H · W }, i.e., a pixel index where the visible
+
+PAGE 6
+6 J. Breitenstein et al.
+Fig. 3: Schematic view of a video sequencext−1, xt, xt+1 and an instance n which is
+partially visible att − 1 at t + 1, but fully occluded att. For framesxt−1 and xt+1, the
+points pt−1,n,k and pt+1,n,k of the predicted visible instance masksmt−1,n and mt+1,n,
+are used to prompt the amodalSAM model to obtain at−1,n and at+1,n, respectively.
+For framext, we apply point tracking to obtain the predicted pointˆpt,n,k and shift the
+amodal mask along this trajectory toˆat,n.
+instance mask is predicted. From each instance segmentationmt,n, we extract a
+point K-tuple (henceforth referred to as points)pt,n = (pt,n,k) ∈ {1, ..., H · W }K
+with K being the number of points used to prompt the amodalSAM method
+f aSAM. The amodal SAM method then provides the amodal instance segmen-
+tation f aSAM(xt, pt,n) = at,n ∈ { 0, 1}H×W, n ∈ N vis
+t . Note that both, point
+extraction and prompting of amodalSAM, are done for all visible instances with
+index n ∈ N vis
+t . Additionally, we store the extracted pointspt,n in a point mem-
+ory, which we access for each frame to check for instancesn ∈ N t that are not
+visible (“memory check” in Figure 2). We term this subset of fully occluded (i.e.,
+invisible) instances at framet as N inv
+t . The point memory contains all previously
+observed point K-tuples per previously observed instance, i.e.,(pτ,n)τ ∈Tt,n∈Nτ
+where Tt = {1, . . . , t}, andt being the current frame index. At framet, a memory
+retrieval checks whether any points in the K-tuplept−1,n are contained in the
+memory, for which the corresponding instancen has not been predicted by the
+VIS method f VIS for frame t, i.e., n ∈ N inv
+t . A point tracking methodf pt then
+tracks the as occluded identified instance points(pt−1,n)n∈N inv
+t
+, towards the cur-
+rent framext, to obtain predicted pointsf pt(xt, (pt−1,n)n∈N inv
+t
+) = ( ˆpt,n)n∈N inv
+t
+.
+Let’s look into details: Given a pointpt−1,n,k ∈ { 1, ..., H · W } correspond-
+ing to the 2D pixel position(ht−1,n, wt−1,n), with ht−1,n ∈ {1, . . . , H}, wt−1,n ∈
+{1, . . . , W}, the goal of the point tracking method is to determine the pixel
+position of that point at the next time step t. Moreover, a binary occlusion
+score ot,n,k ∈ {0, 1} predicts whether the point is actually visible or occluded by
+another object. Similar to the optical flow, these pixel positions can be repre-
+sented as 2D(∆ht−1,n, ∆wt−1,n) displacement vectors at time stept − 1, where
+∆ht−1,n ∈ R describes the vertical offset with respect to the source position and
+∆wt−1,n ∈ R represents the horizontal offset. In summary, for each pointpt−1,n,k
+that should be tracked, a point tracking methodf pt predicts the pointˆpt,n,k ac-
+
+PAGE 7
+Foundation Models for Amodal VIS in Automated Driving 7
+cording to f pt(xt, (pt−1,n)) = ( ˆpt,n, ) and the occlusion score ot,n,k. From the
+predicted point ˆpt,n,k, we calculate vertical offset ∆ht−1,n and the horizontal
+offset ∆wt−1,n, which we then use to shift the amodal maskat−1,n to time step
+t, i.e., at,n. This way we obtain a trajectory from the pointpt−1,n,k, n ∈ N inv
+t ,
+to its position in the next frame, i.e.,ˆpt,n,k.
+Figure 3 shows this for a schematic example of an occluded person. In image
+frame xt−1, the person is partially visible and amodalSAM f aSAM is prompted
+using a point pt−1,n,k (green) from the visible maskmt−1,n (orange) to obtain
+the full amodal mask for instancen, i.e., f aSAM(xt−1, pt−1,n,k) = at−1,n. Using
+a VIS method for tracking and segmentation allows identifying a fully occluded
+instance as a missing segmentation mask in the output. As this instancen is
+no longer visible in framext, we use a point tracking methodf pt to predict the
+location of pt−1,n,k in xt, i.e., obtainingf pt(xt, pt−1,n,k) = ˆpt,n,k (illustrated in
+pink in Figure 3). This gives a trajectory as visualized by pink arrows in Figure
+3. The amodal mask is moved along this trajectory to obtain the amodal mask
+ˆat,n. If the number of points in the K-tuple isK > 1, we obtain a trajectory per
+point from the point tracking method.
+Weusethepredictedpoints (ˆpt,n)n∈N inv
+t
+toshiftthecorrespondingpreviously
+observed amodal instance masks (ˆat−1,n)n∈N inv
+t
+to the current frame xt along
+the trajectory, and obtain the amodal masks for instances that were not detected
+by the VIS method in framext, i.e., (ˆat,n)n∈N inv
+t
+. The simple shifting operation
+translates the previous amodal maskat−1,n to the current frame by adding the
+displacement from the previous pointpt−1,n,k to the predicted point ˆpt,n,k to
+all coordinates of the amodal mask at−1,n. Note that if K > 1, we calculate
+the displacement as the average of the predicted points. Combining the amodal
+masks from the point tracking branch(ˆat,n)n∈N inv
+t
+and the amodalSAM branch
+(ˆat,n)n∈N vis
+t
+gives the full set of amodal instance masks for framext, (ˆat,n)n∈Nt
+.
+Our approach is independent of the choice of the VIS methodf VIS and of
+the point tracking methodf pt, so any method in these fields can be chosen. Our
+amodal SAM is fine-tuned on the amodal ground truth on images. For fine-tuning
+SAM on amodal data, we follow the approach of Chen et al. [7], keeping the image
+encoder fixed, while we add additional adapter layers to the image encoder and
+fine-tune the decoder. In addition, we keep the fixed prompt encoder to insert
+point prompts into the network, see more details in the Supplementary Sec. A.
+4 Experimental Setup
+We consider two datasets: AmodalSynthDriveDASD [41] and KINS-car DKcar
+[53]. As DASD only provides training (Dtrain
+ASD) and validation (Dval
+ASD) data with
+ground-truth annotations, we report results on the validation set. ForDKcar, in
+addition to training (Dtrain
+Kcar) and validation (Dval
+Kcar) data, labeled test dataDtest
+Kcar
+exists on which our results are reported. Both are video-based datasets, while
+DKcar only provides an image-based ground truth and no tracking information.
+On image level , we report mean intersection over union (mIoU), average
+precision (AP), and AP50 according to the COCO evaluation [29]. Additionally,
+
+PAGE 8
+8 J. Breitenstein et al.
+we report derivatives of these metrics for small, medium, and large objects as
+well as partial and heavy occlusions following standards in literature [5,22,29].
+On video level, we report video average precision (vAP) and its derivatives
+metrics following the SAIL-VOS dataset benchmark [22], and Breitenstein et
+al. [5]. Definitions are recapitulated in the Supplementary Sec. B. Note that for
+our proposed method, the instance class prediction is simply derived from the
+underlying VIS method. Hence, all our metrics are reported in a class-agnostic
+setting. The quality of class prediction is not influenced by the investigated
+methods and gives no indication about their performance. In this setting, class
+predictions do not influence whether a prediction is defined as true positive, false
+positive or false negative, instead, this decision is only based on the IoU between
+predicted and ground-truth mask.
+We compare our results withSAVOS [53], which is closest to our method as it
+also does not require amodal video-based labels during training.SAVOS performs
+self-supervisedamodalVISontopofavisibleinstancesegmentation.Itistrained
+without amodal labels using optical flow and the visible instance masks. We train
+SAVOS [53] following the original setting on both datasets.
+On DKcar, we usePointTrack (PT) [50] as VIS method with the same check-
+point asSAVOS [53]. ForDASD, we chooseGenVIS [20], one of the current top VIS
+methods. We trainGenVIS on Dtrain
+ASD using the full image resolution. It achieves
+an AP of30.38%, an AP50 of 43.83%, a vAP of16.36% and a vAP50 of 23.13%
+on Dval
+ASD. Detailed results are reported in Supplementary Sec. C. We also replace
+the VIS method in Figure 2 by the ground truth (GT) to cancel out the VIS
+performance, giving the methods access to the ground-truth visible masks.
+To obtain our amodalSAM f aSAM, SAM with the added adapters is fine-tuned
+on the training data of both datasets using a batchsize of 1 on oneNVidia A100
+GPU for 20 epochs. Due to memory constraints, we use the vision transformer
+ViT-B backbone [13] with pre-trained weights as provided by the originalSAM
+codebase [26]. We use the AdamW optimizer and a start learning rate of 0.00001.
+The learning rate is multiplied by0.1 every 10 epochs. As loss function, we use a
+combination of focal loss and dice loss as is common for fine-tuningSAM [7,42,47].
+We report results as mean across three inference runs. If not stated otherwise, we
+prompt amodal SAM f aSAM with K = 1 point. As point tracking method, we use
+CoTracker [23] with the given checkpoints. No further fine-tuning is necessary.
+5 Experiments and Discussion
+Quantitative Results: First, we regard the amodal image-level results on both
+datasets. Table 1 reports the results on the validation data of AmodalSynth-
+Drive (Dval
+ASD) and on the test data of KINS-car (Dtest
+Kcar). We compare our results
+against the SAVOS method [53]. We observe that ourS-AModal method outper-
+forms SAVOS on both datasets in almost all metrics. Especially, onDtest
+Kcar with
+the PointTrack (PT) method [50], the average precision (AP) ofS-AModal on
+heavily occluded objects (APH
+50), S-AModal (35.08%) excels the SAVOS result
+(30.72%) by 4.36% absolute. We observe similar performance improvements on
+Dval
+ASD using the VIS methodGenVIS [20]: S-AModal leads to better performance
+
+PAGE 9
+Foundation Models for Amodal VIS in Automated Driving 9
+Data Method VIS AP AP50 APP
+50 APH
+50 APL
+50 APM
+50 APS
+50
+Dval
+ASD
+SAVOS [53] GV 7.41 13.19 16.13 2.34 12.52 16.24 6.91
+S-AModal (ours) GV 21.59 35.00 38.50 10.43 66.71 50.23 14.75
+SAVOS [53] GT 50.89 76.26 81.89 41.92 91.49 84.21 41.62
+S-AModal (ours) GT 46.91 73.86 80.85 43.79 97.15 82.41 60.13
+Dtest
+Kcar
+SAVOS [53] PT 40.50 61.80 77.89 30.72 96.38 89.83 39.38
+S-AModal (ours) PT 41.08 74.28 78.23 35.08 97.40 85.25 57.13
+T able 1: Amodal image-level instance segmentation metrics onDval
+ASD and on Dtest
+Kcar
+using GenVIS (GV) [20], the ground-truth visible masks (GT), andPointTrack (PT) [50]
+as VIS methods, respectively. Best results inbold.
+Data Method VIS vAP vAP50 vAPP
+50 vAPH
+50 vAPL
+50 vAPM
+50 vAPS
+50
+Dval
+ASD
+SAVOS [53] GV 1.27 3.95 12.46 0.16 7.56 0.16 0.43
+S-AModal (ours) GV 2.96 6.03 13.44 0.63 27.91 4.12 1.64
+SAVOS [53] GT 20.53 38.39 45.54 31.39 79.60 73.46 14.77
+S-AModal (ours) GT 30.88 56.60 67.03 45.57 98.91 80.46 29.10
+T able 2: Amodal video-level instance segmentation metrics onDval
+ASD using GenVIS
+(GV) [20] and ground-truth visible masks (GT) as VIS methods. Best results inbold.
+in comparison toSAVOS, even increasing AP by14.18% absolute to 21.59% and
+APH
+50 by 21.81% absolute to 35.00%. We perform an additional experiment on
+Dval
+ASD, using the visible ground truth as VIS method. Table 1 shows the results:
+Especially for heavy occlusionsS-AModal increases APH
+50 by 1.87% absolute to
+43.79%. However,SAVOS achieves slightly better results on 4 out of the 7 metrics,
+e.g., AP and AP50. This can be attributed to the differences in both methods
+which givesSAVOS an advantage in this setting:SAVOS takes as input the image,
+the visible mask and the optical flow to predict the full amodal mask. This means
+that in the ground truth setting it can simply learn to just add amodal areas
+beside the visible mask. In contrast,S-AModal only takes points of the visible
+mask as input to predict the amodal mask, and hence, cannot leverage the full
+mask-specific information, such as shape. However, the improvement in APH
+50
+shows that once amodal and visible mask become more different due to occlu-
+sion, our proposed approach is better suited for this task. The higher robustness
+of our approach for practical cases, where no ground truth (GT) is available, can
+be seen in the first and the third row segment of Table 1.
+Table 2 reports the video-level metrics of the proposedS-AModal method and
+SAVOS [53] on Dval
+ASD. Note that we cannot report video-level results forDtest
+Kcar
+since video-level ground truth is not available. UsingGenVIS, we see that results
+on video level show the same tendency as on image level:S-AModal outperforms
+SAVOS in all metrics, e.g., leading to an1.69% absolute performance improve-
+ment towards a vAP50 of 2.96%. The amodal VIS results of Table 2 are in line
+with the VIS results ofGenVIS and can be attributed to relatively low tracking
+performance of the underlying VIS method. When using the ground truth as
+input (lower segment in Table 2),S-AModal interestingly outperforms SAVOS in
+all metrics, leading to an14.18% absolute improvement in vAPH
+50, showing that
+S-AModal is better suited to handle heavy occlusions.
+
+PAGE 10
+10 J. Breitenstein et al.
+Video 1Video 2Video 3
+t − 1 t t + 1
+Fig. 4: Qualitative results of the proposed S-AModal method for three sequences
+xt+1
+t−1 with overlayed colorized amodal predictionsat+1
+t−1 on AmodalSynthDrive Dval
+ASD.
+t − 3 t − 2
+t − 1 t t + 1
+Fig. 5: Qualitative results of the proposed S-AModal method for a sequence xt+1
+t−3
+with overlayed colorized amodal predictionsat+1
+t−3 on AmodalSynthDrive Dval
+ASD, illus-
+trating a fully occluded person for a time span of 3 frames (t − 2, t − 1, t).
+Qualitative Results: Figure 4 shows qualitative results ofS-AModal for three
+sequences xt+1
+t−1 of the validation data of AmodalSynthDriveDval
+ASD. The amodal
+predictions at+1
+t−1 are overlayed over the image for visualization purposes. The
+same color indicates the same identified instance. In all three videos, occluded
+pedestrians are tracked through occlusions with plausible amodal masks showing
+that our S-AModal method provides high-quality results in amodal VIS.
+Figure 5 shows an example ofS-AModal with a longer occlusion of a person
+(yellow mask) behind a large tree spanning 3 frames (t − 2, t − 1, t). The amodal
+mask of the last appearance att−3is shifted along the predicted point trajectory
+to framest − 2, t − 1, t. S-AModal is clearly able to follow the person throughout
+this full occlusion until its reappearance in framet + 1.
+
+PAGE 11
+Foundation Models for Amodal VIS in Automated Driving 11
+SAVOS [53]S-SAModal
+t − 1 t t + 1
+Fig. 6: Qualitative results of the SAVOS [53] (top) and the proposedS-AModal (bot-
+tom) methods for a sequencext+1
+t−1 with yellow amodal predictionsat+1
+t−1 on Dtest
+Kcar.
+Number of Point Prompts
+K = 1 K = 2 K = 3 K = 4
+AP 46.91 ± 0.03 41.75 ± 0.03 35.47 ± 0.01 30.01 ± 0.13
+AP50 73.86 ± 0.06 68.57 ± 0.21 61.20 ± 0.09 53.54 ± 0.27
+APP
+50 80.85 ± 0.08 76.45 ± 0.23 69.11 ± 0.14 62.34 ± 0.07
+APH
+50 43.79 ± 0.38 37.58 ± 0.61 28.36 ± 0.08 20.53 ± 0.11
+APL
+50 97.15 ± 0.53 97.71 ± 0.42 96.84 ± 0.15 95.94 ± 0.16
+APM
+50 82.41 ± 0.08 80.70 ± 0.62 72.56 ± 0.11 63.23 ± 0.51
+APS
+50 60.13 ± 0.42 51.39 ± 0.15 42.88 ± 0.11 34.95 ± 0.01
+T able 3:Ablation: Amodal image-level instance segmentation metrics in AP and its
+metric derivatives onDval
+ASD using the ground-truth visible masks (GT) as VIS method
+and using different numbers of pointsK for prompting the amodal SAM network of
+S-AModal. Best results inbold.
+In Figure 6 we compare our proposedS-AModal method (bottom) with the
+SAVOS method (top) on a sequencext+1
+t−1 of Dtest
+Kcar. The quantitative performance
+gain of S-AModal is reflected in these qualitative results as well. The visualized
+amodal segmentation masks of the car (yellow) are seemingly more accurate
+compared to theSAVOS results in handling the occlusion by the tree. Note that
+the tracking quality of both methods is inherited fromPointTrack [50]. When
+the VIS method fails as in framet − 1, SAVOS is not able to make a prediction.
+Ablation: Amodal SAM is prompted using points as input. For all above exper-
+iments the number of point prompts per instance was chosen as one. Table 3
+shows the results of the proposedS-AModal on image-level using different num-
+bers K of points to prompt the amodalSAM network. Surprisingly, using more
+points does not lead to better performance. Using onlyK = 1 point leads to the
+best performance overall, e.g., an AP of 46.91%. Only for large objects, APL
+50 is
+slightly higher (97.71%) when usingK = 2 point prompts compared toK = 1.
+However, when regarding the standard deviations, the slightly higher mean value
+is not significant. Since our point prompts are randomly selected from the visible
+mask, additional points may not provide additional information to amodalSAM.
+
+PAGE 12
+12 J. Breitenstein et al.
+Point Selection Method
+Random Saliency Erosion (default)Erosion (best)
+AP 46.91 ± 0.03 36.84 ± 0.15 48.03 ± 0.18 49.21 ± 0.04
+AP50 73.86 ± 0.06 58.16 ± 0.19 75.25 ± 0.10 76.26 ± 0.38
+APP
+50 80.85 ± 0.08 65.83 ± 0.28 82.30 ± 0.10 82.85 ± 0.07
+APH
+50 43.79 ± 0.38 22.87 ± 0.31 45.90 ± 0.25 47.84 ± 0.24
+APL
+50 97.15 ± 0.53 88.76 ± 0.53 97.65 ± 0.45 98.05 ± 0.11
+APM
+50 82.41 ± 0.08 69.15 ± 0.72 83.58 ± 0.50 85.61 ± 0.16
+APS
+50 60.13 ± 0.42 42.17 ± 0.08 62.17 ± 0.09 62.66 ± 0.43
+T able 4:Ablation: Amodal image-level instance segmentation metrics in AP and its
+metric derivatives onDval
+ASD using the ground-truth visible masks (GT) as VIS method
+and using different point selection methods to prompt the amodal SAM network of
+S-AModal. Best results inbold.
+We also investigate different point selection methods. For our main results
+in Tables 1, 2, we select points randomly from the visible mask. In Table 4,
+we show results on image level when instead of selecting a random point, we
+select the point with the highest saliency of the visible mask [10]. Moreover, we
+show results when applying the erosion algorithm to the visible mask to ensure,
+we do not sample our point prompt from the boarder regions of an instance.
+We report results for erosion using two different kernel sizes: the default size of
+3 × 3 (default [45]) and the size7 × 7, which led to the best performance (best).
+As can be seen by the results in Table 4, sampling the point with the highest
+saliency does not lead to better results since it does not provide more informa-
+tion to amodalSAM. However, ensuring through the erosion algorithm [45] that
+we do not sample point prompts from boarder regions does lead to impressive
+performance gains in all metrics, e.g., an AP performance improvement of1.12%
+absolute from random sampling to the sampling after default erosion (48.03%),
+and even 2.30% absolute from random sampling to sampling after erosion us-
+ing the kernel size7 × 7 (49.21%). Note that this simple post-processing of the
+visible segmentation masks leads to significant performance improvements while
+only adding a small computational overhead, i.e., the application of erosion per
+visible mask. The results in Table 4 support our hypothesis that point prompts
+sampled from ambiguous boarder regions of an instance confuse the amodalSAM
+method, resulting in failure cases as shown in Figure 8. This highlights the po-
+tential of prompt engineering [10,18,32,37,43] for this task and opens up a new
+research direction to design powerful prompts for amodal segmentation.
+Additional qualitative results : Figure 7 shows additional qualitative results
+ofourproposed S-AModalonthreevideosof Dval
+ASD.InVideo1,apersonisheavily
+occluded by the turning taxi.S-AModal recovers the shape reliably throughout
+this occlusion. Video 2 shows in this case an occluded car. It vanishes behind a
+whitetruckinframe t−1.Inthemiddleframe tthecariscompletelyoccludedbut
+its position and shape are reasonably recovered byS-AModal. The reappearance
+of the car in framet + 1 is also challenging to segment amodally in this case
+due to multi-layer occlusion of the car by the white van, another car and the
+motorcyclist in front. In this complex scenario,S-AModal predicts a slightly too
+large amodal mask for the car in framet + 1. In Video 3, a pedestrian vanishes
+
+PAGE 13
+Foundation Models for Amodal VIS in Automated Driving 13
+Video 1Video 2Video 3Video 4Video 5
+t − 1 t t + 1
+Fig. 7: Qualitative results of the proposedS-AModal method for five sequencesxt+1
+t−1
+with overlayed colorized amodal predictionsat+1
+t−1 on AmodalSynthDrive Dval
+ASD.
+behind a turning car. In framet − 1, just part of the head is still visible. The
+person is completely occluded in framet ans reappears in framet + 1. We see
+that in both partial occlusions (t − 1, t + 1) only a small part of the person is
+visible, and stillS-AModal recovers the full shape of the person. In framet, by
+relying on point tracking, the full shape of the person is predicted behind the
+car. Video 4 shows again a pedestrian fully occluded by a bypassing car. Also
+in this case,S-AModal is able to recover the full occlusion in framet. In Video
+5, a pedestrian is heavily occluded by a bus stop. In framest − 1, t + 1, the feet
+are partly visible and hence, we are able to prompt the amodalSAM method to
+recover the full shape. In framet, the pedestrian is not visible. Hence in this
+case, point tracking allows us to predict the amodal mask in framet.
+Limitations: Figure 8 illustrates limitations of our method. In Video 1, a person
+walks behind a tree and reappears. However, in framet − 1, where the person
+is partially visible, amodalSAM predicts a wrong mask due to similar textures of
+person and car, which is then propagated to predict the amodal instance mask
+in the total occlusion in framet. In Video 2, a person is occluded by a pillar.
+While the shape of the person is recovered in framest − 1 and t + 1, the more
+
+PAGE 14
+14 J. Breitenstein et al.
+Video 1Video 2Video 3
+t − 1 t t + 1
+Fig. 8: F ailure Cases of the proposed S-AModal method for three sequences xt+1
+t−1
+with overlayed colorized amodal predictionsat+1
+t−1 on AmodalSynthDrive Dval
+ASD.
+challenging occlusion in framet cannot be fully resolved: Only the upper body is
+predicted. We attribute this mainly to two reasons: First, the occlusion in frame
+t, where object parts are visible to the left and right of an occluder, is more often
+seen for the typically wider vehicle classes whose full shape is similar to the one
+recovered in framet. Second, Video 2 is affected by challenging conditions like
+heavy rain and low light. In Video 3, a pedestrian in framet is heavily but not
+fully occluded by a bypassing cyclist. In framest − 1 and t + 1, the pedestrian is
+correctly segmented, however in framet, only a very small part of the pedestrian
+is visible behind the cyclist andS-AModal is prompted using a point close to the
+cyclist. This leads to a confusion of the instances and the faulty segmentation of
+the cyclist in framet. Future work could address these limitations by developing
+stronger prompts for amodal segmentation and adapting the newly published
+SAM 2 [39] to this task to enhance prediction consistency.
+6 Conclusions
+In this work, we proposeS-AModalfor amodal video instance segmentation (VIS)
+with a focus on automated driving. To our knowledge, this is the first work to
+incorporate foundation models into the amodal segmentation task. We show that
+it is possible to adapt the originalSAM model to the prompted amodal instance
+segmentation task using point prompts. Moreover, we show that incorporating
+this model into a VIS pipeline leads to an amodal VIS method with state-of-
+the-art (SOTA) performance while not relying on video-wise amodal VIS labels.
+Additionally, by incorporating the recent advances in point tracking into our
+pipeline, we are able to surpass limitations of previous amodal segmentation
+methods on both image- and video-level metrics and are able to provide instance
+masks also for temporal full occlusions of instances in the video sequence.
+
+PAGE 15
+Foundation Models for Amodal VIS in Automated Driving 15
+References
+1. Ao, J., Ke, Q., Ehinger, K.A.: Image Amodal Completion: A Survey. Computer
+Vision and Image Understanding229, pp. 1–18 (Mar 2023)
+2. Ao,J.,Ke,Q.,Ehinger,K.A.:AmodalIntra-classInstanceSegmentation:Synthetic
+Datasets and Benchmark. In: Proc. of WACV. pp. 281–290. Waikoloa, HI, USA
+(Jan 2024)
+3. Back, S., Lee, J., Kim, T., Noh, S., Kang, R., Bak, S., Lee, K.: Unseen Object
+Amodal Instance Segmentation via Hierarchical Occlusion Modeling. In: Proc. of
+ICRA. pp. 5085–5092. Philadelphia, PA, USA (May 2022)
+4. Breitenstein, J., Fingscheidt, T.: Amodal Cityscapes: A New Dataset, its Genera-
+tion, and an Amodal Semantic Segmentation Challenge Baseline. In: Proc. of IV.
+pp. 1018–1025. Aachen, Germany (Jun 2022)
+5. Breitenstein, J., Jin, K., Hakiri, A., Klingner, M., Fingscheidt, T.: End-to-end
+Amodal Video Instance Segmentation. In: Proc. of BMVC - Workshops. pp. 1–15.
+Aberdeen, UK (Nov 2023)
+6. Breitenstein, J., Löhdefink, J., Fingscheidt, T.: Joint Prediction of Amodal and
+Visible Semantic Segmentation for Automated Driving. In: Proc. of ECCV - Work-
+shops. pp. 633–645. Tel Aviv, Israel (Oct 2022)
+7. Chen, T., Zhu, L., Ding, C., Cao, R., Zhang, S., Wang, Y., Li, Z., Sun, L., Mao, P.,
+Zang, Y.: SAM-Adapter: Adapting Segment Anything in Underperformed Scenes.
+In: Proc. of ICCV - Workshops. pp. 3367–3375. Paris, France (Oct 2023)
+8. Cheng, Y., Li, L., Xu, Y., Li, X., Yang, Z., Wang, W., Yang, Y.: Segment and
+Track Anything. arXiv2305.06558, pp. 1–8 (May 2023)
+9. Cordts, M., Omran, M., Ramos, S., Rehfeld, T., Enzweiler, M., Benenson, R.,
+Franke, U., Roth, S., Schiele, B.: The Cityscapes Dataset for Semantic Urban
+Scene Understanding. In: Proc. of CVPR. pp. 3213–3223. Las Vegas, NV, USA
+(Jun 2016)
+10. Dai, H., Ma, C., Yan, Z., Liu, Z., Shi, E., Li, Y., Shu, P., Wei, X., Zhao, L., Wu,
+Z., Zeng, F., Zhu, D., Liu, W., Li, Q., Sun, L., Liu, S.Z.T., Li, X.: SAMAug: Point
+Prompt Augmentation for Segment Anything Model. arXiv2307.01187, pp. 1–16
+(Jul 2023)
+11. Doersch,C.,Gupta,A.,Markeeva,L.,Recasens,A.,Smaira,L.,Aytar,Y.,Carreira,
+J., Zisserman, A., Yang, Y.: TAP-Vid: A Benchmark for Tracking Any Point in a
+Video. In: Proc. of NeurIPS. pp. 13610–13626. New Orleans, LA, USA (Dec 2022)
+12. Doersch, C., Yang, Y., Vecerik, M., Gokay, D., Gupta, A., Aytar, Y., Carreira,
+J., Zisserman, A.: TAPIR: Tracking Any Point with per-Frame Initialization and
+Temporal Refinement. In: Proc. of ICCV. pp. 10061–10072. Paris, France (Oct
+2023)
+13. Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X., Unterthiner,
+T., Dehghani, M., Minderer, M., Heigold, G., Gelly, S., Uszkoreit, J., Houlsby, N.:
+An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale. In:
+Proc. of ICLR. pp. 1–21. virtual (May 2021)
+14. Dosovitskiy, A., Ros, G., Codevilla, F., Lopez, A., Koltun, V.: CARLA: An Open
+Urban Driving Simulator. In: Proc. of CoRL. pp. 1–16. Mountain View, CA, USA
+(Nov 2017)
+15. Fingscheidt, T., Gottschalk, H., Houben, S. (eds.): Deep Neural Networks and
+Data for Automated Driving: Robustness, Uncertainty Quantification, and Insights
+Towards Safety. Springer Nature, Cham (2022).https://doi.org/10.1007/978-
+3-031-01233-4, https://library.oapen.org/handle/20.500.12657/57375
+
+PAGE 16
+16 J. Breitenstein et al.
+16. Follmann, P., König, R., Härtinger, P., Klostermann, M.: Learning to See the In-
+visible: End-to-End Trainable Amodal Instance Segmentation. In: Proc. of WACV.
+pp. 1328–1336. Waikoloa Village, HI, USA (Jan 2019)
+17. Geiger, A., Lenz, P., Stiller, C., Urtasun, R.: Vision Meets Robotics: The KITTI
+Dataset. International Journal of Robotics Research (IJRR)32(11), pp. 1231–1237
+(Aug 2013)
+18. Gu, J., Han, Z., Chen, S., Beirami, A., He, B., Zhang, G., Liao, R., Qin, Y., Tresp,
+V., Torr, P.: A Systematic Survey of Prompt Engineering on Vision-Language
+Foundation Models. arXiv2307.12980, pp. 1–21 (Jul 2023)
+19. Harley, A.W., Fang, Z., Fragkiadaki, K.: Particle Video Revisited: Tracking
+Through Occlusions Using Point Trajectories. In: Proc. of ECCV. pp. 59–75. Tel
+Aviv, Israel (Oct 2022)
+20. Heo, M., Hwang, S., Hyun, J., Kim, H., Oh, S.W., Lee, J.Y., Kim, S.J.: A General-
+ized Framework for Video Instance Segmentation. In: Proc. of CVPR. pp. 14623–
+14632. Vancouver, BC, Canada (Jun 2023)
+21. Heo, M., Hwang, S., Oh, S.W., Lee, J.Y., Kim, S.J.: VITA: Video Instance Segmen-
+tation via Object Token Association. In: Proc. of NeurIPS. pp. 1–12. New Orleans,
+LA, USA (Dec 2022)
+22. Hu, Y.T., Chen, H.S., Hui, K., Huang, J.B., Schwing, A.G.: SAIL-VOS: Semantic
+Amodal Instance Level Video Object Segmentation – A Synthetic Dataset and
+Baselines. In: Proc. of CVPR. pp. 3105–3115. Long Beach, CA, USA (Jun 2019)
+23. Karaev, N., Rocco, I., Graham, B., Neverova, N., Vedaldi, A., Rupprecht, C.:
+CoTracker: It is Better to Track Together. arXiv2307.07635, pp. 1–13 (Jul 2023)
+24. Ke, L., Tai, Y.W., Tang, C.K.: Deep Occlusion-Aware Instance Segmentation with
+Overlapping BiLayers. In: Proc. of CVPR. pp. 4019–4028. Nashville, TN, USA
+(Jun 2021)
+25. Ke, L., Ye, M., Danelljan, M., Liu, Y., Tai, Y.W., Tang, C.K., Yu, F.: Segment
+Anything in High Quality. In: Proc. of NeurIPS. pp. 29914–29934. Vancouver, BC,
+Canada (Dec 2023)
+26. Kirillov, A., Mintun, E., Ravi, N., Mao, H., Rolland, C., Gustafson, L., Xiao, T.,
+Whitehead, S., Berg, A.C., Lo, W.Y., Dollár, P., Girshick, R.: Segment Anything.
+In: Proc. of ICCV. pp. 4015–4026. Paris, France (Oct 2023)
+27. Li, K., Malik, J.: Amodal Instance Segmentation. In: Proc. of ECCV. pp. 677–693.
+Amsterdam, The Netherlands (Oct 2016)
+28. Liao, Y., Xie, J., Geiger, A.: KITTI-360: A Novel Dataset and Benchmarks for
+Urban Scene Understanding in 2D and 3D. arXiv 2109.13410, pp. 1–32 (Sep
+2021)
+29. Lin, T.Y., Maire, M., Belongie, S., Hays, J., Perona, P., Ramanan, D., Dollár, P.,
+Zitnick, C.L.: Microsoft COCO: Common Objects in Context. In: Proc. of ECCV.
+pp. 740–755. Zurich, Switzerland (Sep 2014)
+30. Ling, H., Acuna, D., Kreis, K., Kim, S.W., Fidler, S.: Variational Amodal Object
+Completion. In: Proc. of NeurIPS. pp. 16246–16257. Vancouver, BC, Canada (Dec
+2020)
+31. Loshchilov, I., Hutter, F.: Decoupled Weight Decay Regularization. In: Proc. of
+ICLR. pp. 1–18. New Orleans, LA, USA (May 2019)
+32. Lüddecke, T., Ecker, A.: Image Segmentation Using Text and Image Prompts. In:
+Proc. of CVPR. pp. 7086–7096. New Orleans, LA, USA (Jun 2022)
+33. Mohan, R., Valada, A.: Amodal Panoptic Segmentation. In: Proc. of CVPR. pp.
+21023–21032. New Orleans, LA, USA (Jun 2022)
+34. Nguyen, K., Todorovic, S.: A Weakly Supervised Amodal Segmenter with Bound-
+ary Uncertainty Estimation. In: Proc. of ICCV. pp. 2995–3003. Virtual (Oct 2021)
+
+PAGE 17
+Foundation Models for Amodal VIS in Automated Driving 17
+35. Purkait, P., Zach, C., Reid, I.D.: Seeing Behind Things: Extending Semantic Seg-
+mentation to Occluded Regions. In: Proc. of IROS. pp. 1998–2005. Macau, SAR,
+China (Nov 2019)
+36. Qi, L., Jiang, L., Liu, S., Shen, X., Jia, J.: Amodal Instance Segmentation With
+KINS Dataset. In: Proc. of CVPR. pp. 3014–3023. Long Beach, CA, USA (Jun
+2019)
+37. Radford, A., Kim, J.W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., Sastry, G.,
+Askell, A., Mishkin, P., Clark, J., Krueger, G., Sutskever, I.: Learning Transferable
+Visual Models From Natural Language Supervision. In: Proc. of ICML. pp. 8748–
+8763. virtual (Jul 2021)
+38. Rajič, F., Ke, L., Tai, Y.W., Tang, C.K., Danelljan, M., Yu, F.: Segment Anything
+Meets Point Tracking. arXiv2307.01197, pp. 1–15 (Dec 2023)
+39. Ravi, N., Gabeur, V., Hu, Y.T., Hu, R., Ryali, C., Ma, T., Khedr, H., Rädle, R.,
+Rolland, C., Gustafson, L., Mintun, E., Pan, J., Alwala, K.V., Carion, N., Wu,
+C.Y., Girshick, R., Dollár, P., Feichtenhofer, C.: SAM 2: Segment Anything in
+Images and Videos. arXiv2408.00714, pp. 1–41 (Aug 2024)
+40. Reddy, N.D., Tamburo, R., Narasimhan, S.: WALT: Watch And Learn 2D Amodal
+Representation using Time-lapse Imagery. In: Proc. of CVPR. pp. 9356–9366. New
+Orleans, LA, USA (Jun 2022)
+41. Sekkat, A.R., Mohan, R., Sawade, O., Matthes, E., Valada, A.: AmodalSynth-
+Drive: A Synthetic Amodal Perception Dataset for Autonomous Driving. arXiv
+2309.06547, pp. 1–12 (Sep 2023)
+42. Shaharabany, T., Dahan, A., Giryes, R., Wolf, L.: AutoSAM: Adapting SAM to
+Medical Images by Overloading the Prompt Encoder. In: Proc. of BMVC. pp. 1–15.
+Aberdeen, UK (Nov 2023)
+43. Shtedritski, A., Rupprecht, C., Vedaldi, A.: What Does CLIP Know About a Red
+Circle? Visual Prompt Engineering for VLMs. In: Proc. of ICCV. pp. 11987–11997.
+Paris, France (Oct 2023)
+44. Sun, Y., Kortylewski, A., Yuille, A.: Amodal Segmentation through Out-of-Task
+and Out-of-Distribution Generalization with a Bayesian Model. In: Proc. of CVPR.
+pp. 1215–1224. New Orleans, LA, USA (Jun 2022)
+45. Van der Walt, S., Schönberger, J.L., Nunez-Iglesias, J., Boulogne, F., Warner, J.D.,
+Yager, N., Gouillart, E., Yu, T.: scikit-image: Image Processing in Python. PeerJ
+2, p. e453 (May 2014)
+46. Wang, Q., Chang, Y.Y., Cai, R., Li, Z., Hariharan, B., Holynski, A., Snavely, N.:
+Tracking Everything Everywhere All at Once. In: Proc. of ICCV. pp. 19795–19806.
+Paris, France (Oct 2023)
+47. Wu, J., Ji, W., Liu, Y., Fu, H., Xu, M., Xu, Y., Jin, Y.: Medical SAM Adapter:
+Adapting Segment Anything Model for Medical Image Segmentation. arXiv
+2304.12620, pp. 1–10 (Apr 2023)
+48. Xiao, A., Xuan, W., Qi, H., Xing, Y., Ren, R., Zhang, X., Ling, S., Lu, S.: CAT-
+SAM: Conditional Tuning Network for Few-Shot Adaptation of Segmentation Any-
+thing Model. arXiv2402.03631, pp. 1–25 (Feb 2024)
+49. Xie, Z., Guan, B., Jiang, W., Yi, M., Ding, Y., Lu, H., Zhang, L.: PA-SAM: Prompt
+Adapter SAM for High-quality Image Segmentation. In: Proc. of ICME. pp. 1–10.
+Niagra Falls, Canada (Jul 2024)
+50. Xu, Z., Zhang, W., Tan, X., Yang, W., Huang, H., Wen, S., Ding, E., Huang, L.:
+Segment as Points for Efficient Online Multi-Object Tracking and Segmentation.
+In: Proc. of ECCV. pp. 1–17. Glasgow, UK (Aug 2020)
+51. Yang, J., Gao, M., Li, Z., Gao, S., Wang, F., Zheng, F.: Track Anything: Segment
+Anything Meets Videos. arXiv2304.11968, pp. 1–7 (Apr 2023)
+
+PAGE 18
+18 J. Breitenstein et al.
+52. Yang, L., Fan, Y., Xu, N.: Video Instance Segmentation. In: Proc. of ICCV. pp.
+5188–5197. Seoul, Korea (Oct 2019)
+53. Yao, J., Hong, Y., Wang, C., Xiao, T., He, T., Locatello, F., Wipf, D., Fu,
+Y., Zhang, Z.: Self-supervised Amodal Video Object Segmentation. In: Proc. of
+NeurIPS. pp. 6278–6291. New Orleans, LA, USA (Dec 2022)
+54. Zheng, Y., Harley, A.W., Shen, B., Wetzstein, G., Guibas, L.J.: PointOdyssey: A
+Large-Scale Synthetic Dataset for Long-Term Point Tracking. In: Proc. of ICCV.
+pp. 19855–19865. Paris, France (Oct 2023)
+55. Zhu, Y., Tian, Y., Metaxas, D., Dollár, P.: Semantic Amodal Segmentation. In:
+Proc. of CVPR. pp. 1464–1472. Honolulu, HI, USA (Jul 2017)
+
+PAGE 19
+Supplementary:
+Foundation Models for Amodal Video Instance
+Segmentation in Automated Driving
+Jasmin Breitenstein1, Franz Jünger1, Andreas Bär1, and Tim Fingscheidt1
+1Institute for Communications Technology
+Technische Universität Braunschweig
+{j.breitenstein, f.juenger, andreas.baer, t.fingscheidt}@tu-bs.de
+Inthissupplementary,wegiveadditionalinformationaboutourproposed S-AModal
+method for amodal video instance segmentation (amodal VIS).
+A Amodal SAM
+In this section we describe the adapter method for our amodalSAM as well as our
+chosen training strategy. Finally, we describe how our sampled point prompts
+are used as input to amodalSAM.
+Figure1showsthenetworkstructure.FollowingtheworkofChenetal.[7],we
+add adapter blocks to the image encoder. An adapter block follows each encoder
+block as can bee seen in Figure 1. Internally, each adapter block extracts two
+types of featuresf (1)
+t , f (2)
+t , from the input imagext. After adding these features,
+each adapter block applies a fully connected layer with GELU activation. A
+second fully connected layer follows, which is shared between all adapter blocks
+to obtain the adapter featuresf adapt
+t,ℓ . The detailed structure is shown in Figure
+1 (left). Note that all adapter block features are of course also dependent on
+the current adapter block in layerℓ ∈ { 1, ..., 12}. On the right of Figure 1, the
+overall network architecture of theSAM model [26] is shown in the form as we use
+itforamodalfine-tuning:Intheimageencoder,theadapterblocksareintroduced
+between the encoder blocks. The output features of each adapter blockf adapt
+t,ℓ are
+added to the features of the image encoder before each encoder block. The final
+encoder featuresf enc
+t are one of the inputs to the mask decoder. The second input
+to the mask decoder are the features obtained from the prompt encoderf pt
+t,n. The
+prompt encoder receives as input a point K-tuplept,n = (pt,n,k) ∈ {1, .., H·W }K
+where n ∈ N t = {1, . . . , Nt} denoting the instance index with Nt being the
+number of instances observed until framet and H, W being height and width,
+respectively. Additionally, the prompt encoder receives corresponding labels for
+the point K-tuple. We denote these labels asst,n = ( st,n,k) ∈ { 0, 1}K. These
+labels describe whether each point prompt is positive (st,n,k = 1) or negative
+(st,n,k = 0), i.e., whether the point is part of the desired mask. Since we use
+point prompts derived from predicted instance masks, we only use positive point
+prompts with st,n,k = 1 . Given both the final encoder features f enc
+t and the
+features f pt
+t,n of the prompt encoder, the mask decoder then outputs the amodal
+mask at,n. In contrast to Chen et al. [7], we keep the prompt encoder for our
+
+PAGE 20
+20 J. Breitenstein et al.
+Fig. 1: Detailed structure of the adapter block [7] (left) and theSAM network [26] used
+during our amodal fine-tuning (right). Snowflakes indicate layers frozen during fine-
+tuning while the gear wheel indicates adjustable layers. The fine-tunedSAM network is
+used in ourS-AModal method as amodalSAM f aSAM() network, as shown in Figure 2.
+Algorithm 1: Prompting amodal SAM with points from a visible mask
+Input: visible mask mt,n, input imagext, number of desired point prompts
+K, amodal SAM model with image encoderE, prompt encoderP and
+mask decoder D
+Output: amodal mask at,n
+I (m)
+t,n = {i ∈ I = {1, ..., H · W }|mt,n(i) = 1 }
+pt,n = (pt,n,k) = random.choice(I (m)
+t,n ,K)
+st,n = 1 K
+f enc
+t = E(xt)
+f pt
+t,n = P(pt,n, st,n)
+at,n = D(f enc
+t , f pt
+t,n)
+return at,n
+network. Given the input imagext, we obtain encoder features f enc
+t from the
+image encoder, and given a point promptpt,n, we obtain point encoder features
+f pt
+t,n from the prompt encoder. Both features are then input to the mask decoder
+to obtain the final amodal maskat,n. During the fine-tuning process, we keep
+the original image encoder blocks and the prompt encoder frozen. Only the mask
+decoder as well as the adapter blocks remain adjustable. As loss function, we
+use the common choice of combining dice and focal loss [7,25,26,42,47], and
+the AdamW optimizer [31]. We observe that for our purpose, training with small
+batch sizes (B = 1) was more advantageous.
+Point prompts for amodal SAM: Here, we briefly describe how points are
+extracted from a given visible mask and used to prompt amodalSAM f aSAM.
+Note that in the absence of a visible mask, we apply point tracking to move
+a previously predicted amodal mask along the predicted trajectory instead of
+
+PAGE 21
+Supplementary: Foundation Models for Amodal VIS in Automated Driving 21
+Fig. 2: Schematic visualization of a point promptpt,n,k (left, green cross) resulting
+in the yellow amodal mask. For better understanding, we denote the point prompt
+using its heighth and widthw value, i.e.,(h, w) = (250 , 400) (indicated by green line).
+Right: visualization of the same point prompt (green cross) in the corresponding image
+of Dval
+ASD again with height and width value(h, w) = (250 , 450) (green lines) resulting
+in the yellow amodal mask.
+prompting amodal SAM. The algorithm to prompt amodalSAM is shown in Al-
+gorithm 1 in pseudo code. Given a visible maskmt,n, an input image xt, the
+desired number of point promptsK and the amodalSAM model with image en-
+coder E, prompt encoder P and mask decoder D, the output is the amodal
+mask at,n. The visible maskmt,n ∈ {0, 1}H×W takes on the value1 for the pixel
+indices i ∈ I = {1, ..., H · W } where the mask is predicted, i.e.,mt,n(i) = 1 .
+We extract the subset of pixel indicesI (m)
+t,n where the visible mask is predicted.
+From the set I (m)
+t,n we randomly sample K point prompts pt,n = ( pt,n,k). As
+shown in Figure 1 (right), the prompt encoder takes as input the point prompts
+and corresponding labels st,n ∈ { 0, 1}K indicating whether each point is posi-
+tive (1), i.e. belongs to the desired mask, or negative (0), i.e. does not belong
+to the desired mask. Due to our choice of sampling the point promptspt,n from
+the visible mask mt,n, we only consider positive point labels, i.e.,st,n,k = 1 .
+We obtain the encoder features from the image encoder, i.e.E(xt) = f enc
+t , and
+the point prompt features from the prompt encoder, i.e.,P(pt,n, st,n) = f pt
+t,n.
+Both are then input to the mask decoder to obtain the final amodal mask
+at,n = D(f enc
+t , f pt
+t,n). For more details on the code, please refer to our github
+repository https://github.com/ifnspaml/S-AModal.
+For a better understanding, we visualize an example for a point prompt in
+Figure 2. On the left, we show the amodal maskat,n of a car in yellow. The point
+prompt is indicated by a green cross with corresponding green lines to the width
+w and height h value corresponding to this point, i.e.,(h, w) = (250 , 450). In
+addition to the schematic figure, we show the corresponding image fromDval
+ASD
+on the right side. The amodal maskat,n is shown yellow with the point prompt
+pt,n indicated again by the green cross with corresponding green lines to the
+
+PAGE 22
+22 J. Breitenstein et al.
+height value h = 250 and the width valuew = 450. Note that for this example,
+we visualized the point prompts for the choiceK = 1.
+B Metrics for amodal and visible VIS
+Metrics for amodal VIS are derived from the metrics typically used in (visible)
+VIS. Here, one uses the notion of average precision (AP), i.e., the area under the
+precision-recall curve, as is typically used in instance segmentation. We follow
+the definition of MS-COCO [29] to calculate AP at pre-defined intersection over
+union (IoU) thresholds, and AP at an IoU threshold of0.5 (AP50). However, AP
+relies on calculating true positive predictions by considering the IoU between
+the predicted instance maskmt,n and the ground truth instance maskmt,n. On
+videos, we need to slightly alter this notion, as we are not only interested in the
+image-wise segmentation quality, but also in a video-wise segmentation quality.
+Hence, we consider the overlap between predicted and ground truth instance
+masks over the entire video sequence [52],
+vIoU(mT
+1,n, mT
+1,n) =
+TP
+t=1
+|mt,n ∩ mt,n|
+TP
+t=1
+|mt,n ∪ mt,n|
+, (1)
+where ∩ denotes the intersection between the predicted and ground-truth mask,
+∪means the union of both masks, and|·| is the cardinality. In this case, we define
+cardinalityasthenumberofpixelindices iwheretheunionorintersectionofboth
+masks takes on the value1, i.e., the area of the resulting mask. From Equation 1
+itfollowsthatacorrectpredictionneedstohavesufficientoverlapwithallground
+truth instance masks over a video sequence, and the tracking performance has a
+large influence on this video-wise IoU notion. To be able to better distinguish the
+video- and image-wise metrics, we use the notion vAP whenever performance on
+videos is addressed. Amodal metrics are calculated using the amodal masksaT
+1,n.
+Next to standard AP, we also calculate metric variants as defined for the SAIL-
+VOS dataset and following the standard in literature [5,22,29], i.e., considering
+small, medium, and large objects, and partially and heavily occluded objects
+separately.
+C Video Instance Segmentation Results on
+AmodalSynthDrive
+To have a full understanding about our proposed method for amodal VIS, it
+is important to regard the (visible) VIS performance of the underlying VIS
+method. For our work, we apply theGenVIS method [20]. GenVIS [20] is a high-
+performing VIS method using a training strategy for sequential learning based
+on queries. Additionally, it introduces a memory to access information from
+previous states [20].
+
+PAGE 23
+Supplementary: Foundation Models for Amodal VIS in Automated Driving 23
+Method Resolution AP AP50 APP
+50 APH
+50 APL
+50 APM
+50 APS
+50
+VITA [21] 540×960 16.45 28.27 34.64 9.30 63.12 51.55 5.71
+VITA [21] 1080×1920 23.84 33.58 44.92 14.31 76.00 57.95 5.50
+GenVIS [20] 540×960 22.73 32.84 44.48 11.74 85.53 53.50 2.58
+GenVIS [20] 1080×1920 30.38 43.83 53.99 18.45 66.23 69.65 12.59
+T able 1: Visible image -level results by VITA [21] and GenVIS [20] on the Amodal-
+SynthDrive validation datasetDval
+ASD. Best results inbold, second best underlinded.
+Table 1 shows results for VITA [21] and its advanced version GenVIS [20].
+While GenVIS training takes longer than trainingVITA, Table 1 clearly shows
+the advantage of the additional training time, whereGenVIS reaches an AP of
+30.38%, whileVITA reaches only an AP of23.84%. Additionally, we observe that
+using the original image resolution of1080 × 1920 is much more advantageous
+compared to using half the resolution, as, e.g., AP50 increases by10.99%absolute
+to 43.83% for GenVIS.
+Method Resolution vAP vAP50 vAPP
+50 vAPH
+50 vAPL
+50 vAPM
+50 vAPS
+50
+VITA [21] 540×960 14.72 25.27 36.12 27.10 47.92 26.07 4.57
+VITA [21] 1080×1920 15.32 24.88 46.07 19.41 48.75 48.32 3.37
+GenVIS [20] 540×960 14.46 21.49 34.03 21.00 63.79 24.89 0.59
+GenVIS [20] 1080×1920 16.36 23.13 35.47 21.81 55.24 15.09 1.71
+T able 2: Visible video-level results byVITA [21] andGenVIS [20] on the AmodalSyn-
+thDrive validation datasetDval
+ASD. Best results inbold, second best underlinded.
+Table 2 shows the performance ofVITA and GenVIS on video level onDval
+ASD.
+Here, in contrast to image-level metrics, not one method clearly outperforms the
+other, however, since GenVIS still achieves competitive results, it remains our
+choice of VIS method onDASD.

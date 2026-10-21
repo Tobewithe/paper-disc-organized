@@ -1,0 +1,148 @@
+{
+  "run_id": "RUN_RSMC_FULL_c130c3b5270744fabdb50df0b0326c95",
+  "pairs": 256,
+  "images": 243,
+  "accepted_centers": 218,
+  "fallback_centers": 38,
+  "numerical_valid": false,
+  "stress_iou_gain": {
+    "mean": -0.0014216165952345122,
+    "ci95": [
+      -0.0023194112634038013,
+      -0.0005596166437649656
+    ]
+  },
+  "per_direction_gain": {
+    "S": {
+      "mean": -0.0013145200328347467,
+      "ci95": [
+        -0.002295439067409248,
+        -0.0002979508668998613
+      ]
+    },
+    "R": {
+      "mean": -0.001367936727819751,
+      "ci95": [
+        -0.00238029932316664,
+        -0.00039231475941127084
+      ]
+    },
+    "M": {
+      "mean": -0.0015823930250490382,
+      "ci95": [
+        -0.0024667216868692237,
+        -0.0007616558515121348
+      ]
+    }
+  },
+  "geometric_margin_gain": null,
+  "witness_retention": {
+    "C_witnesses": 159,
+    "C_retention": 0.9502096436058699,
+    "W_retention": 0.9473270440251572,
+    "gain": -0.00288259958071279,
+    "ci95": [
+      -0.01020984654276152,
+      0.004331890331890315
+    ],
+    "undefined_bootstrap_replicates": 0
+  },
+  "reference_comparisons": {
+    "C-N": {
+      "mean": 0.13515794199074366,
+      "ci95": [
+        0.119684198610911,
+        0.15110916355261236
+      ]
+    },
+    "C_stress-N": {
+      "mean": 0.12843277549386017,
+      "ci95": [
+        0.11292762994555242,
+        0.1444166143604153
+      ]
+    },
+    "C-G_old": {
+      "mean": 0.12792952489184903,
+      "ci95": [
+        0.11350127275165059,
+        0.14310383637862092
+      ]
+    },
+    "C_stress-G_old": {
+      "mean": 0.12120435839496557,
+      "ci95": [
+        0.10671344433967854,
+        0.13592316779270275
+      ]
+    },
+    "W-N": {
+      "mean": 0.13515794199074366,
+      "ci95": [
+        0.119684198610911,
+        0.15110916355261236
+      ]
+    },
+    "W_stress-N": {
+      "mean": 0.12701115889862566,
+      "ci95": [
+        0.11151622183153158,
+        0.14288104781553201
+      ]
+    },
+    "W-G_old": {
+      "mean": 0.12792952489184903,
+      "ci95": [
+        0.11350127275165059,
+        0.14310383637862092
+      ]
+    },
+    "W_stress-G_old": {
+      "mean": 0.11978274179973106,
+      "ci95": [
+        0.10539126215970675,
+        0.13462378550773973
+      ]
+    }
+  },
+  "G_budget": {
+    "status": "historical_only_checkpoint_unavailable",
+    "source_run_id": "RUN_JOINT_TRAIN_G_budget_73cca72b692e4097a974426de2a5b226",
+    "checkpoint_sha256": "cff530a9c38f4b70c4e54c93326307aa4264ab1b7928680c8b80daf2a8be67bc",
+    "same_panel_metrics": null
+  },
+  "G_budget_same_panel_gain": null,
+  "G_budget_comparison_status": "unavailable_checkpoint",
+  "decision": "INCONCLUSIVE_NUMERICAL",
+  "training_readiness": "not_recommended_at_scope",
+  "new_training_steps": 0,
+  "base_model_forward_calls": 0,
+  "adapter_forward_calls": 0,
+  "scope": "GT_assisted_fixed_detection_not_AP",
+  "pressure_diagnostics": {
+    "C": {
+      "directions": 6144,
+      "original_RMS_failed": 0,
+      "decoded_difference_failed": 0,
+      "original_max_relative_error": 1.7366953766195792e-06,
+      "decoded_max_relative_error": 2.9955560943983883e-06
+    },
+    "W": {
+      "directions": 6144,
+      "original_RMS_failed": 12,
+      "decoded_difference_failed": 49,
+      "original_max_relative_error": 0.00039845174609787204,
+      "decoded_max_relative_error": 0.00035935282802890267
+    }
+  },
+  "pressure_invalid_pairs": 8,
+  "original_pressure_invalid_pairs": 3,
+  "pressure_precision_valid": false,
+  "all_pairs_retained": true,
+  "analysis_permission": "descriptive_actual_implementation_when_numerically_invalid",
+  "processing_seconds": 206.7810000005411,
+  "zero_delta_exact_rows": 49976,
+  "full_native_decoder_checks": 1024,
+  "projected_full_seconds": null,
+  "max_cuda_allocated": 1044573184
+}

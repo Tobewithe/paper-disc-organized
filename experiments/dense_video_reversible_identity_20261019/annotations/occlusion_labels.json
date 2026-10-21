@@ -1,0 +1,4945 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-18T17:24:31.996521+00:00",
+  "reviewer": "Codex AI visual review",
+  "independent_human_gold": false,
+  "tracker_outputs_read": false,
+  "complete_occlusion_events": 0,
+  "full_occlusion_gate": "insufficient verified events; do not claim recovery efficacy",
+  "candidate_events": 64,
+  "dense_events": 16,
+  "dense_pages": 42,
+  "partial_event_count": 11,
+  "visible_label_count": 165,
+  "categories": {
+    "visible_unlabelled": 9,
+    "partial_occlusion": 33,
+    "uncertain": 8,
+    "partial_or_uncertain": 9,
+    "out_of_view": 3,
+    "physical_occlusion_fullness_uncertain": 2
+  },
+  "events": [
+    {
+      "sequence": "duck_1",
+      "gt_id": 4,
+      "before": 176,
+      "after": 226,
+      "gap": 49,
+      "event_id": "O001",
+      "panel": "O001.jpg",
+      "review_frames": [
+        174,
+        176,
+        177,
+        192,
+        209,
+        225,
+        226,
+        228
+      ],
+      "crop": [
+        2077,
+        782,
+        2560,
+        964
+      ],
+      "panel_sha256": "7f191d8532c8084465e8dc90e4165e8b89beff03d65e82866e5e0349744e35d7",
+      "initial_review": {
+        "id": "O001",
+        "category": "visible_unlabelled",
+        "note": "Duck body remains visible in sampled gap; no complete obstruction."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Duck body remains visible in sampled gap; no complete obstruction.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "duck_1",
+      "gt_id": 16,
+      "before": 25,
+      "after": 61,
+      "gap": 35,
+      "event_id": "O002",
+      "panel": "O002.jpg",
+      "review_frames": [
+        23,
+        25,
+        26,
+        37,
+        49,
+        60,
+        61,
+        63
+      ],
+      "crop": [
+        1691,
+        765,
+        2363,
+        977
+      ],
+      "panel_sha256": "94a84d1da4e632c3199d8f8a899493d792897c264e3d64fd2b0e8fccb45b0baa",
+      "initial_review": {
+        "id": "O002",
+        "category": "partial_or_uncertain",
+        "note": "Small duck behind overlapping drakes; target continuity at all hidden frames needs dense review."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Overlapping ducks retain visible body patches; complete invisibility not established.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O002_01.jpg",
+          "frames": [
+            22,
+            51
+          ],
+          "sha256": "542167b9ce353e513f80e9bc28e3f8d1f26edfbdd41d006dd97cee9f1e3ff7e4"
+        },
+        {
+          "path": "O002_02.jpg",
+          "frames": [
+            52,
+            73
+          ],
+          "sha256": "43964c4c1e797d75c22dd7da834b53b8d4df38e9f050754e75ecace06ae8bd93"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 23,
+          "gt_id": 16,
+          "box": [
+            1895.0,
+            838.0,
+            2002.0,
+            901.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 24,
+          "gt_id": 16,
+          "box": [
+            1898.0,
+            839.0,
+            2002.0,
+            902.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 25,
+          "gt_id": 16,
+          "box": [
+            1900.0,
+            840.0,
+            2000.0,
+            903.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 61,
+          "gt_id": 16,
+          "box": [
+            2035.0,
+            845.0,
+            2155.0,
+            903.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 62,
+          "gt_id": 16,
+          "box": [
+            2040.0,
+            847.0,
+            2163.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 63,
+          "gt_id": 16,
+          "box": [
+            2044.0,
+            850.0,
+            2170.0,
+            900.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 64,
+          "gt_id": 16,
+          "box": [
+            2049.0,
+            852.0,
+            2178.0,
+            898.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 65,
+          "gt_id": 16,
+          "box": [
+            2052.0,
+            848.0,
+            2186.0,
+            898.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 66,
+          "gt_id": 16,
+          "box": [
+            2054.0,
+            845.0,
+            2194.0,
+            900.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 67,
+          "gt_id": 16,
+          "box": [
+            2057.0,
+            841.0,
+            2202.0,
+            900.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 68,
+          "gt_id": 16,
+          "box": [
+            2070.0,
+            840.0,
+            2210.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 69,
+          "gt_id": 16,
+          "box": [
+            2083.0,
+            839.0,
+            2219.0,
+            902.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 70,
+          "gt_id": 16,
+          "box": [
+            2096.0,
+            838.0,
+            2227.0,
+            903.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 71,
+          "gt_id": 16,
+          "box": [
+            2106.0,
+            838.0,
+            2238.0,
+            904.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 72,
+          "gt_id": 16,
+          "box": [
+            2115.0,
+            837.0,
+            2247.0,
+            904.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "duck_1",
+      "gt_id": 15,
+      "before": 59,
+      "after": 86,
+      "gap": 26,
+      "event_id": "O003",
+      "panel": "O003.jpg",
+      "review_frames": [
+        57,
+        59,
+        60,
+        68,
+        77,
+        85,
+        86,
+        88
+      ],
+      "crop": [
+        1900,
+        764,
+        2280,
+        968
+      ],
+      "panel_sha256": "1989b34a8337abef47fdc6dce984021c54efad4f31d3a2e970897013b7787145",
+      "initial_review": {
+        "id": "O003",
+        "category": "partial_occlusion",
+        "note": "Brown target partly covered by foreground drake; portions remain visible."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Brown target partly covered by foreground drake; portions remain visible.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "duck_1",
+      "gt_id": 1,
+      "before": 80,
+      "after": 103,
+      "gap": 22,
+      "event_id": "O004",
+      "panel": "O004.jpg",
+      "review_frames": [
+        78,
+        80,
+        81,
+        87,
+        95,
+        102,
+        103,
+        105
+      ],
+      "crop": [
+        169,
+        899,
+        757,
+        1063
+      ],
+      "panel_sha256": "082234dec631a3845990ed0a858c3ffbad529151fde339e29a75c7e68cd94f59",
+      "initial_review": {
+        "id": "O004",
+        "category": "visible_unlabelled",
+        "note": "Single duck remains visible, with no physical occluder."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Single duck remains visible, with no physical occluder.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "duck_1",
+      "gt_id": 16,
+      "before": 94,
+      "after": 114,
+      "gap": 19,
+      "event_id": "O005",
+      "panel": "O005.jpg",
+      "review_frames": [
+        92,
+        94,
+        95,
+        100,
+        107,
+        113,
+        114,
+        116
+      ],
+      "crop": [
+        2183,
+        775,
+        2560,
+        970
+      ],
+      "panel_sha256": "78c614d7d5e229482faf527b02576c0db36810423c2a35048a25c82d67225b96",
+      "initial_review": {
+        "id": "O005",
+        "category": "partial_or_uncertain",
+        "note": "Small female behind male; portions appear near tail/body, dense review required for complete interval."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Female remains partly visible behind the drake; GT gap is longer than the visually obstructed interval.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O005_01.jpg",
+          "frames": [
+            91,
+            120
+          ],
+          "sha256": "91bb9339125d6eb3fadc01253217fad6b981847f0fb3f9f550d7beec0289496b"
+        },
+        {
+          "path": "O005_02.jpg",
+          "frames": [
+            121,
+            126
+          ],
+          "sha256": "49b95dc61ac3d65b2accee8dd9fd3c09aebba6aa9a6399e6a2b6cf0758163a42"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 92,
+          "gt_id": 16,
+          "box": [
+            2303.0,
+            852.0,
+            2420.0,
+            894.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 93,
+          "gt_id": 16,
+          "box": [
+            2305.0,
+            848.0,
+            2426.0,
+            893.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 94,
+          "gt_id": 16,
+          "box": [
+            2307.0,
+            845.0,
+            2432.0,
+            891.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 114,
+          "gt_id": 16,
+          "box": [
+            2337.0,
+            857.0,
+            2440.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 115,
+          "gt_id": 16,
+          "box": [
+            2334.0,
+            855.0,
+            2439.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 116,
+          "gt_id": 16,
+          "box": [
+            2331.0,
+            854.0,
+            2437.0,
+            902.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 117,
+          "gt_id": 16,
+          "box": [
+            2328.0,
+            852.0,
+            2436.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 118,
+          "gt_id": 16,
+          "box": [
+            2325.0,
+            850.0,
+            2434.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 119,
+          "gt_id": 16,
+          "box": [
+            2323.0,
+            850.0,
+            2434.0,
+            902.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 120,
+          "gt_id": 16,
+          "box": [
+            2320.0,
+            849.0,
+            2432.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 121,
+          "gt_id": 16,
+          "box": [
+            2318.0,
+            849.0,
+            2432.0,
+            902.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 122,
+          "gt_id": 16,
+          "box": [
+            2315.0,
+            848.0,
+            2430.0,
+            901.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 123,
+          "gt_id": 16,
+          "box": [
+            2316.0,
+            849.0,
+            2432.0,
+            900.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 124,
+          "gt_id": 16,
+          "box": [
+            2316.0,
+            849.0,
+            2434.0,
+            897.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 125,
+          "gt_id": 16,
+          "box": [
+            2317.0,
+            850.0,
+            2436.0,
+            896.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "duck_1",
+      "gt_id": 16,
+      "before": 133,
+      "after": 150,
+      "gap": 16,
+      "event_id": "O006",
+      "panel": "O006.jpg",
+      "review_frames": [
+        131,
+        133,
+        134,
+        138,
+        144,
+        149,
+        150,
+        152
+      ],
+      "crop": [
+        2167,
+        783,
+        2558,
+        963
+      ],
+      "panel_sha256": "75c3e106f65f6661f46946af3a062442f639b665ec325d19fe8489ef6f3a4ff6",
+      "initial_review": {
+        "id": "O006",
+        "category": "visible_unlabelled",
+        "note": "Foreground female remains visible throughout sampled gap."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Foreground female remains visible throughout sampled gap.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "duck_1",
+      "gt_id": 1,
+      "before": 173,
+      "after": 188,
+      "gap": 14,
+      "event_id": "O007",
+      "panel": "O007.jpg",
+      "review_frames": [
+        171,
+        173,
+        174,
+        178,
+        183,
+        187,
+        188,
+        190
+      ],
+      "crop": [
+        517,
+        904,
+        863,
+        1052
+      ],
+      "panel_sha256": "7ba7c6d0653280ef1f936a4228c81cb14c49b45d8d1d4b0cf59cfc0b41dcf198",
+      "initial_review": {
+        "id": "O007",
+        "category": "visible_unlabelled",
+        "note": "Duck head and body remain visible; head posture changes."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Duck head and body remain visible; head posture changes.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "duck_1",
+      "gt_id": 15,
+      "before": 256,
+      "after": 266,
+      "gap": 9,
+      "event_id": "O008",
+      "panel": "O008.jpg",
+      "review_frames": [
+        254,
+        256,
+        257,
+        259,
+        262,
+        265,
+        266,
+        268
+      ],
+      "crop": [
+        1945,
+        753,
+        2305,
+        962
+      ],
+      "panel_sha256": "72861a104e33439a612b186e1944c87f8939f6bde6bafd59eeae15651713ba90",
+      "initial_review": {
+        "id": "O008",
+        "category": "partial_occlusion",
+        "note": "Several overlapping bodies; portions of target still visible."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Several overlapping bodies; portions of target still visible.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "duck_2",
+      "gt_id": 20,
+      "before": 109,
+      "after": 139,
+      "gap": 29,
+      "event_id": "O009",
+      "panel": "O009.jpg",
+      "review_frames": [
+        107,
+        109,
+        110,
+        119,
+        129,
+        138,
+        139,
+        141
+      ],
+      "crop": [
+        176,
+        157,
+        1373,
+        541
+      ],
+      "panel_sha256": "9417280d5813fe80b21193e0634ebaf1dcae10028399cf5becebf23dff971e58",
+      "initial_review": {
+        "id": "O009",
+        "category": "candidate_full",
+        "note": "Small waterbird passes behind foreground goose; dense review needed to distinguish protruding heads."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Rear waterbird head remains above foreground goose throughout the gap.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O009_01.jpg",
+          "frames": [
+            106,
+            135
+          ],
+          "sha256": "b7fbe7e2f37f6b6cad256b3baa9325795a4b7cc96f2fa5b05b5413e9850a1b7d"
+        },
+        {
+          "path": "O009_02.jpg",
+          "frames": [
+            136,
+            151
+          ],
+          "sha256": "ced970b1d2142962e96426857e5df698c2f2182d82977627d1c6eaec7d53ff04"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 107,
+          "gt_id": 20,
+          "box": [
+            507.0,
+            270.0,
+            714.0,
+            375.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 108,
+          "gt_id": 20,
+          "box": [
+            523.0,
+            276.0,
+            709.0,
+            372.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 109,
+          "gt_id": 20,
+          "box": [
+            538.0,
+            282.0,
+            703.0,
+            369.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 139,
+          "gt_id": 20,
+          "box": [
+            790.0,
+            284.0,
+            1012.0,
+            417.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 140,
+          "gt_id": 20,
+          "box": [
+            788.0,
+            285.0,
+            1019.0,
+            414.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 141,
+          "gt_id": 20,
+          "box": [
+            786.0,
+            286.0,
+            1025.0,
+            410.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 142,
+          "gt_id": 20,
+          "box": [
+            804.0,
+            283.0,
+            1034.0,
+            411.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 143,
+          "gt_id": 20,
+          "box": [
+            821.0,
+            279.0,
+            1041.0,
+            410.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 144,
+          "gt_id": 20,
+          "box": [
+            833.0,
+            280.0,
+            1040.0,
+            407.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 145,
+          "gt_id": 20,
+          "box": [
+            845.0,
+            281.0,
+            1039.0,
+            404.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 146,
+          "gt_id": 20,
+          "box": [
+            854.0,
+            279.0,
+            1045.0,
+            405.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 147,
+          "gt_id": 20,
+          "box": [
+            862.0,
+            278.0,
+            1049.0,
+            407.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 148,
+          "gt_id": 20,
+          "box": [
+            871.0,
+            276.0,
+            1055.0,
+            408.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 149,
+          "gt_id": 20,
+          "box": [
+            906.0,
+            279.0,
+            1067.0,
+            403.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 150,
+          "gt_id": 20,
+          "box": [
+            910.0,
+            276.0,
+            1075.0,
+            402.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "horse_2",
+      "gt_id": 29,
+      "before": 213,
+      "after": 247,
+      "gap": 33,
+      "event_id": "O010",
+      "panel": "O010.jpg",
+      "review_frames": [
+        211,
+        213,
+        214,
+        224,
+        235,
+        246,
+        247,
+        249
+      ],
+      "crop": [
+        0,
+        218,
+        495,
+        974
+      ],
+      "panel_sha256": "8eecf11e430d1e3ed7b1f483e9951689ae3c168a2ec2f4128e2e2cd45209871a",
+      "initial_review": {
+        "id": "O010",
+        "category": "visible_unlabelled",
+        "note": "White horse remains visible across sampled gap."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "White horse remains visible across sampled gap.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_2",
+      "gt_id": 18,
+      "before": 278,
+      "after": 293,
+      "gap": 14,
+      "event_id": "O011",
+      "panel": "O011.jpg",
+      "review_frames": [
+        276,
+        278,
+        279,
+        283,
+        288,
+        292,
+        293,
+        295
+      ],
+      "crop": [
+        1515,
+        338,
+        2560,
+        904
+      ],
+      "panel_sha256": "2e19c49531aa2a4c3af1c3c9b12117eb0dcf71dca5e6bb6a6ad57ec906cc5790",
+      "initial_review": {
+        "id": "O011",
+        "category": "candidate_full",
+        "note": "Brown horse behind white horse; possible complete disappearance around middle."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Rear horse head/back or extremities remain visible through the overlap.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O011_01.jpg",
+          "frames": [
+            275,
+            304
+          ],
+          "sha256": "47836f2b6492a5dfc7bcaaa21c1f377cd1371d737e99a2526e76bf16565a3505"
+        },
+        {
+          "path": "O011_02.jpg",
+          "frames": [
+            305,
+            305
+          ],
+          "sha256": "6625f0f520996be14c750cf66fe23af152c440aeacceb180074e7b174991f16c"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 276,
+          "gt_id": 18,
+          "box": [
+            2011.0,
+            515.0,
+            2298.0,
+            732.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 277,
+          "gt_id": 18,
+          "box": [
+            1997.0,
+            516.0,
+            2282.0,
+            730.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 278,
+          "gt_id": 18,
+          "box": [
+            1984.0,
+            516.0,
+            2268.0,
+            727.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 293,
+          "gt_id": 18,
+          "box": [
+            1843.0,
+            516.0,
+            2113.0,
+            727.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 294,
+          "gt_id": 18,
+          "box": [
+            1843.0,
+            514.0,
+            2114.0,
+            729.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 295,
+          "gt_id": 18,
+          "box": [
+            1842.0,
+            512.0,
+            2114.0,
+            729.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 296,
+          "gt_id": 18,
+          "box": [
+            1842.0,
+            509.0,
+            2116.0,
+            731.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 297,
+          "gt_id": 18,
+          "box": [
+            1842.0,
+            506.0,
+            2117.0,
+            731.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 298,
+          "gt_id": 18,
+          "box": [
+            1841.0,
+            504.0,
+            2117.0,
+            733.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 299,
+          "gt_id": 18,
+          "box": [
+            1841.0,
+            501.0,
+            2118.0,
+            733.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 300,
+          "gt_id": 18,
+          "box": [
+            1836.0,
+            493.0,
+            2110.0,
+            733.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 301,
+          "gt_id": 18,
+          "box": [
+            1831.0,
+            491.0,
+            2102.0,
+            733.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 302,
+          "gt_id": 18,
+          "box": [
+            1826.0,
+            489.0,
+            2094.0,
+            733.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 303,
+          "gt_id": 18,
+          "box": [
+            1822.0,
+            488.0,
+            2086.0,
+            735.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 304,
+          "gt_id": 18,
+          "box": [
+            1817.0,
+            486.0,
+            2078.0,
+            735.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "horse_3",
+      "gt_id": 16,
+      "before": 112,
+      "after": 160,
+      "gap": 47,
+      "event_id": "O012",
+      "panel": "O012.jpg",
+      "review_frames": [
+        110,
+        112,
+        113,
+        128,
+        144,
+        159,
+        160,
+        162
+      ],
+      "crop": [
+        0,
+        44,
+        2560,
+        812
+      ],
+      "panel_sha256": "ab1afa10f4335ca01dae5aec3a47d5cb0e4916d3211d10808985d6137bf1e53b",
+      "initial_review": {
+        "id": "O012",
+        "category": "visible_unlabelled",
+        "note": "Rear dark horse remains visible."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Rear dark horse remains visible.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_3",
+      "gt_id": 36,
+      "before": 398,
+      "after": 425,
+      "gap": 26,
+      "event_id": "O013",
+      "panel": "O013.jpg",
+      "review_frames": [
+        396,
+        398,
+        399,
+        407,
+        416,
+        424,
+        425,
+        427
+      ],
+      "crop": [
+        902,
+        377,
+        2560,
+        1056
+      ],
+      "panel_sha256": "350feb22206793b9f07bf4a4da93ce31f0d902ad2c6d17ccbe3ddbb216162619",
+      "initial_review": {
+        "id": "O013",
+        "category": "candidate_full",
+        "note": "GT box is inside foreground brown horse silhouette; likely different animal concealed behind it; dense identity review required."
+      },
+      "dense_reviewed": true,
+      "category": "uncertain",
+      "review_note": "Small target is not visually separable from foreground horse; official ID alone cannot certify hidden identity.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O013_01.jpg",
+          "frames": [
+            395,
+            424
+          ],
+          "sha256": "aabff61317ae3a1c47289bed9bff0ff9295a2b4fee90961a4fcc2666bb080cfc"
+        },
+        {
+          "path": "O013_02.jpg",
+          "frames": [
+            425,
+            437
+          ],
+          "sha256": "9a13a280f233438ac782a8706eb9f068c63cf8a9719ec833a791548006533dca"
+        }
+      ],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_3",
+      "gt_id": 47,
+      "before": 559,
+      "after": 584,
+      "gap": 24,
+      "event_id": "O014",
+      "panel": "O014.jpg",
+      "review_frames": [
+        557,
+        559,
+        560,
+        567,
+        575,
+        583,
+        584,
+        586
+      ],
+      "crop": [
+        633,
+        245,
+        2344,
+        1116
+      ],
+      "panel_sha256": "83f7d1406bc21f5833f2893575c0c59b09463e70d155dc16b04b8e69f46ac47a",
+      "initial_review": {
+        "id": "O014",
+        "category": "partial_occlusion",
+        "note": "Rear black horse partly blocked by brown horse, visible back/legs/tail remain."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear black horse partly blocked by brown horse, visible back/legs/tail remain.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_3",
+      "gt_id": 45,
+      "before": 925,
+      "after": 939,
+      "gap": 13,
+      "event_id": "O015",
+      "panel": "O015.jpg",
+      "review_frames": [
+        923,
+        925,
+        926,
+        929,
+        934,
+        938,
+        939,
+        941
+      ],
+      "crop": [
+        189,
+        331,
+        1214,
+        1103
+      ],
+      "panel_sha256": "4873a023842b3808eff1ed3ccf181a8a8914a223b697d44bd8e17290d90f59f7",
+      "initial_review": {
+        "id": "O015",
+        "category": "partial_or_uncertain",
+        "note": "Rear animal's head and white legs may remain visible; identity cannot be confidently separated in sparse panel."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Rear animal's head and white legs may remain visible; identity cannot be confidently separated in sparse panel.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_3",
+      "gt_id": 19,
+      "before": 186,
+      "after": 199,
+      "gap": 12,
+      "event_id": "O016",
+      "panel": "O016.jpg",
+      "review_frames": [
+        184,
+        186,
+        187,
+        190,
+        194,
+        198,
+        199,
+        201
+      ],
+      "crop": [
+        574,
+        303,
+        2388,
+        1338
+      ],
+      "panel_sha256": "f225c6a85286d3199c117400172d7acb78d70ed48cc11c620be61108d95d5f9f",
+      "initial_review": {
+        "id": "O016",
+        "category": "partial_occlusion",
+        "note": "Two dark horses overlap; rear body/legs remain partly visible."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Two dark horses overlap; rear body/legs remain partly visible.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_5",
+      "gt_id": 10,
+      "before": 187,
+      "after": 264,
+      "gap": 76,
+      "event_id": "O017",
+      "panel": "O017.jpg",
+      "review_frames": [
+        185,
+        187,
+        188,
+        212,
+        238,
+        263,
+        264,
+        266
+      ],
+      "crop": [
+        863,
+        467,
+        2003,
+        854
+      ],
+      "panel_sha256": "2a30d6bee26ac7d1f66d3f1bcb96de14ebbc79a2aa9f4d6fa480e696fa89fe4d",
+      "initial_review": {
+        "id": "O017",
+        "category": "partial_or_uncertain",
+        "note": "Distant target overlaps multiple horses; sparse views cannot establish complete disappearance."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Distant target overlaps multiple horses; sparse views cannot establish complete disappearance.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_6",
+      "gt_id": 2,
+      "before": 127,
+      "after": 276,
+      "gap": 148,
+      "event_id": "O018",
+      "panel": "O018.jpg",
+      "review_frames": [
+        125,
+        127,
+        128,
+        176,
+        226,
+        275,
+        276,
+        278
+      ],
+      "crop": [
+        0,
+        225,
+        108,
+        725
+      ],
+      "panel_sha256": "4f80628ec76bdaf5cd285efece863d848195410e877c742b04fdbaccf5d603b0",
+      "initial_review": {
+        "id": "O018",
+        "category": "out_of_view",
+        "note": "Target leaves left image boundary and returns; no foreground occluder."
+      },
+      "dense_reviewed": false,
+      "category": "out_of_view",
+      "review_note": "Target leaves left image boundary and returns; no foreground occluder.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_6",
+      "gt_id": 5,
+      "before": 34,
+      "after": 146,
+      "gap": 111,
+      "event_id": "O019",
+      "panel": "O019.jpg",
+      "review_frames": [
+        32,
+        34,
+        35,
+        71,
+        108,
+        145,
+        146,
+        148
+      ],
+      "crop": [
+        0,
+        629,
+        115,
+        1277
+      ],
+      "panel_sha256": "b03abb3cb16f80483e8a128968c8286e5c26131ec4bf36c809de15f55fb30663",
+      "initial_review": {
+        "id": "O019",
+        "category": "out_of_view",
+        "note": "Target near left image edge disappears beyond boundary, not physical occlusion."
+      },
+      "dense_reviewed": false,
+      "category": "out_of_view",
+      "review_note": "Target near left image edge disappears beyond boundary, not physical occlusion.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_6",
+      "gt_id": 11,
+      "before": 148,
+      "after": 260,
+      "gap": 111,
+      "event_id": "O020",
+      "panel": "O020.jpg",
+      "review_frames": [
+        146,
+        148,
+        149,
+        185,
+        222,
+        259,
+        260,
+        262
+      ],
+      "crop": [
+        0,
+        728,
+        922,
+        1239
+      ],
+      "panel_sha256": "f172a07cc7cd73e470b06520ee9d772d5513991522ecec2f974f04c216749baa",
+      "initial_review": {
+        "id": "O020",
+        "category": "partial_occlusion",
+        "note": "Small horse overlaps adult; body/legs still partly visible across sampled gap."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Small horse overlaps adult; body/legs still partly visible across sampled gap.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_6",
+      "gt_id": 8,
+      "before": 63,
+      "after": 116,
+      "gap": 52,
+      "event_id": "O021",
+      "panel": "O021.jpg",
+      "review_frames": [
+        61,
+        63,
+        64,
+        80,
+        98,
+        115,
+        116,
+        118
+      ],
+      "crop": [
+        0,
+        682,
+        94,
+        1414
+      ],
+      "panel_sha256": "0304e25ef9fd967314f75d26bc5b7b5eec7bd5222716f7066df952e42aa00b72",
+      "initial_review": {
+        "id": "O021",
+        "category": "out_of_view",
+        "note": "Horse at left frame boundary leaves field of view."
+      },
+      "dense_reviewed": false,
+      "category": "out_of_view",
+      "review_note": "Horse at left frame boundary leaves field of view.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "horse_7",
+      "gt_id": 17,
+      "before": 591,
+      "after": 677,
+      "gap": 85,
+      "event_id": "O022",
+      "panel": "O022.jpg",
+      "review_frames": [
+        589,
+        591,
+        592,
+        619,
+        648,
+        676,
+        677,
+        679
+      ],
+      "crop": [
+        662,
+        381,
+        1365,
+        1139
+      ],
+      "panel_sha256": "784bcb865563957c7557fbbff0942072b6bccbc678e11401cd82a42160de2ec8",
+      "initial_review": {
+        "id": "O022",
+        "category": "candidate_full",
+        "note": "Foal passes behind foreground adult at river bank; full interval requires dense inspection."
+      },
+      "dense_reviewed": true,
+      "category": "uncertain",
+      "review_note": "Foal legs overlap adult legs and water; complete invisibility and precise identity continuity cannot be certified.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O022_01.jpg",
+          "frames": [
+            588,
+            617
+          ],
+          "sha256": "13b1d0e6fb55e4a950abf10bc481fea79ee641bd391d3ea92c159c8e50652696"
+        },
+        {
+          "path": "O022_02.jpg",
+          "frames": [
+            618,
+            647
+          ],
+          "sha256": "37688b216c1031bd8926d923e765daa6f753a88b07b06448f8d4b75e37b9596a"
+        },
+        {
+          "path": "O022_03.jpg",
+          "frames": [
+            648,
+            677
+          ],
+          "sha256": "0a6250dedc09c02c40da15529c6250da5be3fbfde83b71eea8de25ae8ced1fd8"
+        },
+        {
+          "path": "O022_04.jpg",
+          "frames": [
+            678,
+            689
+          ],
+          "sha256": "77550437855c6295d1441401132d336341204cb06e7eec8d2235ffd2e67e21e9"
+        }
+      ],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 12,
+      "before": 177,
+      "after": 251,
+      "gap": 73,
+      "event_id": "O023",
+      "panel": "O023.jpg",
+      "review_frames": [
+        175,
+        177,
+        178,
+        201,
+        226,
+        250,
+        251,
+        253
+      ],
+      "crop": [
+        0,
+        525,
+        2560,
+        960
+      ],
+      "panel_sha256": "b4450cf4f03b093de6e55ccff2f7850623b1fbb5f5f052d69fb4015cab0c41ff",
+      "initial_review": {
+        "id": "O023",
+        "category": "partial_or_uncertain",
+        "note": "Distant small pig in group; sparse long-gap panel insufficient for identity continuity."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Distant small pig in group; sparse long-gap panel insufficient for identity continuity.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 8,
+      "before": 104,
+      "after": 149,
+      "gap": 44,
+      "event_id": "O024",
+      "panel": "O024.jpg",
+      "review_frames": [
+        102,
+        104,
+        105,
+        119,
+        134,
+        148,
+        149,
+        151
+      ],
+      "crop": [
+        1366,
+        547,
+        1842,
+        965
+      ],
+      "panel_sha256": "7b2e928d98d7a251cc6511080c664b3a32432b4664e3c5fe28d8cb5e2cedc776",
+      "initial_review": {
+        "id": "O024",
+        "category": "candidate_full",
+        "note": "Small pig moves behind overlapping dark pigs; possible full obstruction."
+      },
+      "dense_reviewed": true,
+      "category": "uncertain",
+      "review_note": "Small blurred animals overlap; uncertain identity during group motion.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O024_01.jpg",
+          "frames": [
+            101,
+            130
+          ],
+          "sha256": "cb148dca8b051e9e48896754e990ca6f7fcc9b576debb3c0cc73b845d6652673"
+        },
+        {
+          "path": "O024_02.jpg",
+          "frames": [
+            131,
+            160
+          ],
+          "sha256": "a5fad3612526255b95f200e672b1adff765d84cc25f43c6f89c196688d48be1b"
+        },
+        {
+          "path": "O024_03.jpg",
+          "frames": [
+            161,
+            161
+          ],
+          "sha256": "ede532a75aa8f0b7325d0b478ca745b058fb63858f795fc7b6c324d7ffad0246"
+        }
+      ],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 10,
+      "before": 56,
+      "after": 92,
+      "gap": 35,
+      "event_id": "O025",
+      "panel": "O025.jpg",
+      "review_frames": [
+        54,
+        56,
+        57,
+        68,
+        80,
+        91,
+        92,
+        94
+      ],
+      "crop": [
+        976,
+        423,
+        1545,
+        987
+      ],
+      "panel_sha256": "1409db96cc24b5e2608066411bbc92da4e484f09c8773821d85bd202d58f9735",
+      "initial_review": {
+        "id": "O025",
+        "category": "uncertain",
+        "note": "Fast motion/blur; object can leave endpoint-union crop, no full physical occlusion established."
+      },
+      "dense_reviewed": false,
+      "category": "uncertain",
+      "review_note": "Fast motion/blur; object can leave endpoint-union crop, no full physical occlusion established.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 4,
+      "before": 127,
+      "after": 146,
+      "gap": 18,
+      "event_id": "O026",
+      "panel": "O026.jpg",
+      "review_frames": [
+        125,
+        127,
+        128,
+        133,
+        139,
+        145,
+        146,
+        148
+      ],
+      "crop": [
+        1184,
+        514,
+        1715,
+        905
+      ],
+      "panel_sha256": "3bb8ed69f1f528002099b4e761ad6e80ab9dea5971d05c1a910940ef7ec6ee39",
+      "initial_review": {
+        "id": "O026",
+        "category": "partial_occlusion",
+        "note": "Rear gray pig partly covered; upper silhouette/head remains visible."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear gray pig partly covered; upper silhouette/head remains visible.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 10,
+      "before": 141,
+      "after": 159,
+      "gap": 17,
+      "event_id": "O027",
+      "panel": "O027.jpg",
+      "review_frames": [
+        139,
+        141,
+        142,
+        147,
+        153,
+        158,
+        159,
+        161
+      ],
+      "crop": [
+        1112,
+        519,
+        2045,
+        927
+      ],
+      "panel_sha256": "833bf4602887d54d745f5c981846f4b4069802d0729172e433a26dfdcfcd75d7",
+      "initial_review": {
+        "id": "O027",
+        "category": "partial_occlusion",
+        "note": "Brown pig partly behind black pigs; visible upper body remains."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Brown pig partly behind black pigs; visible upper body remains.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 10,
+      "before": 238,
+      "after": 254,
+      "gap": 15,
+      "event_id": "O028",
+      "panel": "O028.jpg",
+      "review_frames": [
+        236,
+        238,
+        239,
+        243,
+        248,
+        253,
+        254,
+        256
+      ],
+      "crop": [
+        1782,
+        589,
+        2454,
+        973
+      ],
+      "panel_sha256": "9c7eac97754c7596b82e77d2c17cfb35afc88c44cb44893b38587258ddbb4040",
+      "initial_review": {
+        "id": "O028",
+        "category": "partial_occlusion",
+        "note": "Brown pig back remains visible above foreground black pig."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Brown pig back remains visible above foreground black pig.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 8,
+      "before": 57,
+      "after": 69,
+      "gap": 11,
+      "event_id": "O029",
+      "panel": "O029.jpg",
+      "review_frames": [
+        55,
+        57,
+        58,
+        61,
+        65,
+        68,
+        69,
+        71
+      ],
+      "crop": [
+        588,
+        529,
+        1209,
+        937
+      ],
+      "panel_sha256": "fc3f954d6378ba8eda4d5cfc8a43d6239e24fc0eaf2bac75f7364903aca1eb4a",
+      "initial_review": {
+        "id": "O029",
+        "category": "uncertain",
+        "note": "Rapid movement with blur and overlap; precise identity not resolved from sampled frames."
+      },
+      "dense_reviewed": false,
+      "category": "uncertain",
+      "review_note": "Rapid movement with blur and overlap; precise identity not resolved from sampled frames.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_1",
+      "gt_id": 12,
+      "before": 254,
+      "after": 264,
+      "gap": 9,
+      "event_id": "O030",
+      "panel": "O030.jpg",
+      "review_frames": [
+        252,
+        254,
+        255,
+        257,
+        260,
+        263,
+        264,
+        266
+      ],
+      "crop": [
+        1977,
+        530,
+        2546,
+        1030
+      ],
+      "panel_sha256": "2e0f507ae2ca766a573ecbc6d8ba586d5825e2ad1fe37c843bab081e87005bb1",
+      "initial_review": {
+        "id": "O030",
+        "category": "candidate_full",
+        "note": "Rear small gray pig disappears behind foreground black pig; inspect intermediate frames."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Gray animal has protruding ears/back before passing below foreground black animal; no certain full interval.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O030_01.jpg",
+          "frames": [
+            251,
+            276
+          ],
+          "sha256": "4fba24d055d91a68a1897a70b1faa383d0ed6a16778bbe985832be77f970fe5e"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 252,
+          "gt_id": 12,
+          "box": [
+            2203.0,
+            669.0,
+            2351.0,
+            819.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 253,
+          "gt_id": 12,
+          "box": [
+            2220.0,
+            680.0,
+            2368.0,
+            829.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 254,
+          "gt_id": 12,
+          "box": [
+            2213.0,
+            689.0,
+            2368.0,
+            823.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 264,
+          "gt_id": 12,
+          "box": [
+            2156.0,
+            712.0,
+            2361.0,
+            872.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 265,
+          "gt_id": 12,
+          "box": [
+            2156.0,
+            702.0,
+            2344.0,
+            872.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 266,
+          "gt_id": 12,
+          "box": [
+            2150.0,
+            695.0,
+            2345.0,
+            875.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 267,
+          "gt_id": 12,
+          "box": [
+            2143.0,
+            688.0,
+            2344.0,
+            878.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 268,
+          "gt_id": 12,
+          "box": [
+            2133.0,
+            683.0,
+            2343.0,
+            879.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 269,
+          "gt_id": 12,
+          "box": [
+            2123.0,
+            678.0,
+            2342.0,
+            880.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 270,
+          "gt_id": 12,
+          "box": [
+            2113.0,
+            679.0,
+            2330.0,
+            882.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 271,
+          "gt_id": 12,
+          "box": [
+            2104.0,
+            679.0,
+            2318.0,
+            882.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 272,
+          "gt_id": 12,
+          "box": [
+            2094.0,
+            680.0,
+            2306.0,
+            884.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 273,
+          "gt_id": 12,
+          "box": [
+            2078.0,
+            684.0,
+            2288.0,
+            882.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 274,
+          "gt_id": 12,
+          "box": [
+            2061.0,
+            688.0,
+            2269.0,
+            880.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 275,
+          "gt_id": 12,
+          "box": [
+            2035.0,
+            691.0,
+            2246.0,
+            877.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 27,
+      "before": 120,
+      "after": 211,
+      "gap": 90,
+      "event_id": "O031",
+      "panel": "O031.jpg",
+      "review_frames": [
+        118,
+        120,
+        121,
+        150,
+        180,
+        210,
+        211,
+        213
+      ],
+      "crop": [
+        1001,
+        437,
+        2560,
+        756
+      ],
+      "panel_sha256": "cb8e2f5efbf8e846bc7e3613c1d1ec48fd88db8087f991fcb395cbc62e9d87dc",
+      "initial_review": {
+        "id": "O031",
+        "category": "candidate_full",
+        "note": "Pig moves into dense foreground group; target may be fully covered for part of gap."
+      },
+      "dense_reviewed": true,
+      "category": "uncertain",
+      "review_note": "Long group overlap with similar animals; cannot independently confirm full hidden trajectory.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O031_01.jpg",
+          "frames": [
+            117,
+            146
+          ],
+          "sha256": "681748930493142237f4a026c006abcea8f0e07bb8bb52f4bc1df0c1defffd63"
+        },
+        {
+          "path": "O031_02.jpg",
+          "frames": [
+            147,
+            176
+          ],
+          "sha256": "5531920f8f09524483a0e2b8c5dc13f978879948d0b7d3b0951172f7d2fbe191"
+        },
+        {
+          "path": "O031_03.jpg",
+          "frames": [
+            177,
+            206
+          ],
+          "sha256": "f42561ba74e5712a8fe8b354c4cb7836f04a494710f8c7f4b98c98051c70926a"
+        },
+        {
+          "path": "O031_04.jpg",
+          "frames": [
+            207,
+            223
+          ],
+          "sha256": "111c8717a8c81ee067aa5fdf06ee5825f3b3ffa047d772251711cfaaa841e4fe"
+        }
+      ],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 30,
+      "before": 51,
+      "after": 127,
+      "gap": 75,
+      "event_id": "O032",
+      "panel": "O032.jpg",
+      "review_frames": [
+        49,
+        51,
+        52,
+        76,
+        101,
+        126,
+        127,
+        129
+      ],
+      "crop": [
+        1031,
+        527,
+        1655,
+        993
+      ],
+      "panel_sha256": "99ed950d4085af457861bfeb455e85d27fb6567f0679786321d1391d6796a975",
+      "initial_review": {
+        "id": "O032",
+        "category": "candidate_full",
+        "note": "Recumbent pig behind standing pink pig may become completely hidden during passage."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "High resolution f90 shows recumbent animal belly under standing pink pig; not completely hidden.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O032_01.jpg",
+          "frames": [
+            48,
+            77
+          ],
+          "sha256": "cbcc48547b5321f4a7f17d92260099cecc61831a226821423fd6638054954d54"
+        },
+        {
+          "path": "O032_02.jpg",
+          "frames": [
+            78,
+            107
+          ],
+          "sha256": "3b64b9bdec319c43dee8a789bd3756e83b248ffc02d52c4b3dd5d5f919d2061b"
+        },
+        {
+          "path": "O032_03.jpg",
+          "frames": [
+            108,
+            137
+          ],
+          "sha256": "c12d53264e5401e6f32ae5de665325567aa631e9ec6013f4976eac059543615a"
+        },
+        {
+          "path": "O032_04.jpg",
+          "frames": [
+            138,
+            139
+          ],
+          "sha256": "8c62c0413c998d82fca9d254caa35bc7ec209d6e1f0ee909817232d14a9cf5a0"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 49,
+          "gt_id": 30,
+          "box": [
+            1226.0,
+            676.0,
+            1386.0,
+            800.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 50,
+          "gt_id": 30,
+          "box": [
+            1226.0,
+            676.0,
+            1386.0,
+            800.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 51,
+          "gt_id": 30,
+          "box": [
+            1226.0,
+            676.0,
+            1386.0,
+            800.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 127,
+          "gt_id": 30,
+          "box": [
+            1286.0,
+            702.0,
+            1461.0,
+            845.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 128,
+          "gt_id": 30,
+          "box": [
+            1290.0,
+            703.0,
+            1464.0,
+            846.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 129,
+          "gt_id": 30,
+          "box": [
+            1294.0,
+            704.0,
+            1467.0,
+            847.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 130,
+          "gt_id": 30,
+          "box": [
+            1298.0,
+            705.0,
+            1471.0,
+            848.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 131,
+          "gt_id": 30,
+          "box": [
+            1302.0,
+            706.0,
+            1474.0,
+            849.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 132,
+          "gt_id": 30,
+          "box": [
+            1306.0,
+            707.0,
+            1477.0,
+            850.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 133,
+          "gt_id": 30,
+          "box": [
+            1310.0,
+            708.0,
+            1480.0,
+            851.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 134,
+          "gt_id": 30,
+          "box": [
+            1311.0,
+            710.0,
+            1482.0,
+            853.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 135,
+          "gt_id": 30,
+          "box": [
+            1312.0,
+            711.0,
+            1484.0,
+            854.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 136,
+          "gt_id": 30,
+          "box": [
+            1314.0,
+            713.0,
+            1488.0,
+            856.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 137,
+          "gt_id": 30,
+          "box": [
+            1315.0,
+            714.0,
+            1490.0,
+            857.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 138,
+          "gt_id": 30,
+          "box": [
+            1316.0,
+            716.0,
+            1492.0,
+            859.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 45,
+      "before": 190,
+      "after": 265,
+      "gap": 74,
+      "event_id": "O033",
+      "panel": "O033.jpg",
+      "review_frames": [
+        188,
+        190,
+        191,
+        215,
+        240,
+        264,
+        265,
+        267
+      ],
+      "crop": [
+        1552,
+        460,
+        2495,
+        769
+      ],
+      "panel_sha256": "05eda1809952a29d57e5678e0aed6a5b20482e6991342ff787242d9a5de3c8b7",
+      "initial_review": {
+        "id": "O033",
+        "category": "candidate_full",
+        "note": "Moving pig behind foreground group; possible complete interval needs dense continuity check."
+      },
+      "dense_reviewed": true,
+      "category": "uncertain",
+      "review_note": "Dense same-color group; endpoint GT geometry is insufficient to establish a fully hidden individual.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O033_01.jpg",
+          "frames": [
+            187,
+            216
+          ],
+          "sha256": "a09f8ea3d73c093cc85a80f7b146bd8f774512f11e20c8e3e9f6627903cdf988"
+        },
+        {
+          "path": "O033_02.jpg",
+          "frames": [
+            217,
+            246
+          ],
+          "sha256": "2dc6bef7ead5b92490319d17aa5f3e898d3d49990e690152a476b93fb47f4b04"
+        },
+        {
+          "path": "O033_03.jpg",
+          "frames": [
+            247,
+            276
+          ],
+          "sha256": "3fac8a97eb649a70877c08597ee96eeaf4fc3983f9fe59e26d40a6451fb83999"
+        },
+        {
+          "path": "O033_04.jpg",
+          "frames": [
+            277,
+            277
+          ],
+          "sha256": "cb82e9e07959b29bec9ced586bcc72c87ffdc09b1372d0d4c4e05aff394e2f20"
+        }
+      ],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 21,
+      "before": 89,
+      "after": 149,
+      "gap": 59,
+      "event_id": "O034",
+      "panel": "O034.jpg",
+      "review_frames": [
+        87,
+        89,
+        90,
+        109,
+        129,
+        148,
+        149,
+        151
+      ],
+      "crop": [
+        369,
+        461,
+        1171,
+        945
+      ],
+      "panel_sha256": "f8bd12674deee0c5e05bc4506b932de9064028ddbeded01f3d7b13b457e29680",
+      "initial_review": {
+        "id": "O034",
+        "category": "partial_occlusion",
+        "note": "Spotted upper back of rear pig stays visible above foreground animal."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Spotted upper back of rear pig stays visible above foreground animal.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 23,
+      "before": 34,
+      "after": 82,
+      "gap": 47,
+      "event_id": "O035",
+      "panel": "O035.jpg",
+      "review_frames": [
+        32,
+        34,
+        35,
+        50,
+        66,
+        81,
+        82,
+        84
+      ],
+      "crop": [
+        1163,
+        420,
+        1526,
+        720
+      ],
+      "panel_sha256": "72698070091aa03fa0d0fb32a14ddfaa0b49d3f8956d5c012b51df73713e75e6",
+      "initial_review": {
+        "id": "O035",
+        "category": "candidate_full",
+        "note": "Rear pig turns behind brown-white pig; inspect legs and head for total coverage."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Rear back sliver/legs remain visible behind brown-white pig.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O035_01.jpg",
+          "frames": [
+            31,
+            60
+          ],
+          "sha256": "fa9b981d151849a081f2a70ba1d0695afb7d33ac0b85d2fdc9a8353fa0dc1851"
+        },
+        {
+          "path": "O035_02.jpg",
+          "frames": [
+            61,
+            90
+          ],
+          "sha256": "5e6f82b48d64fb46b0d26af3b78dd499481fccd61cd5d728b9e22c4cc058ce5f"
+        },
+        {
+          "path": "O035_03.jpg",
+          "frames": [
+            91,
+            94
+          ],
+          "sha256": "725eb489f7890233060304967c33151fba7dbc18c7c961b22fb6479f2f7663db"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 32,
+          "gt_id": 23,
+          "box": [
+            1353.0,
+            528.0,
+            1407.0,
+            619.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 33,
+          "gt_id": 23,
+          "box": [
+            1354.0,
+            529.0,
+            1408.0,
+            619.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 34,
+          "gt_id": 23,
+          "box": [
+            1355.0,
+            529.0,
+            1408.0,
+            618.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 82,
+          "gt_id": 23,
+          "box": [
+            1282.0,
+            520.0,
+            1354.0,
+            620.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 83,
+          "gt_id": 23,
+          "box": [
+            1282.0,
+            521.0,
+            1355.0,
+            621.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 84,
+          "gt_id": 23,
+          "box": [
+            1282.0,
+            521.0,
+            1356.0,
+            620.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 85,
+          "gt_id": 23,
+          "box": [
+            1282.0,
+            522.0,
+            1356.0,
+            621.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 86,
+          "gt_id": 23,
+          "box": [
+            1282.0,
+            522.0,
+            1357.0,
+            620.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 87,
+          "gt_id": 23,
+          "box": [
+            1280.0,
+            523.0,
+            1356.0,
+            621.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 88,
+          "gt_id": 23,
+          "box": [
+            1278.0,
+            523.0,
+            1354.0,
+            621.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 89,
+          "gt_id": 23,
+          "box": [
+            1277.0,
+            524.0,
+            1354.0,
+            623.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 90,
+          "gt_id": 23,
+          "box": [
+            1275.0,
+            525.0,
+            1353.0,
+            624.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 91,
+          "gt_id": 23,
+          "box": [
+            1273.0,
+            525.0,
+            1351.0,
+            624.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 92,
+          "gt_id": 23,
+          "box": [
+            1271.0,
+            526.0,
+            1350.0,
+            625.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 93,
+          "gt_id": 23,
+          "box": [
+            1270.0,
+            527.0,
+            1352.0,
+            626.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 34,
+      "before": 190,
+      "after": 236,
+      "gap": 45,
+      "event_id": "O036",
+      "panel": "O036.jpg",
+      "review_frames": [
+        188,
+        190,
+        191,
+        205,
+        220,
+        235,
+        236,
+        238
+      ],
+      "crop": [
+        1349,
+        419,
+        2299,
+        772
+      ],
+      "panel_sha256": "e7fa3c17d35ad627711e309c3e4ded5aaa0d8f1649f8668c6fe785cc758ae6a7",
+      "initial_review": {
+        "id": "O036",
+        "category": "partial_occlusion",
+        "note": "Rear brown pig's back remains visible in sampled frames."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear brown pig's back remains visible in sampled frames.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 19,
+      "before": 83,
+      "after": 127,
+      "gap": 43,
+      "event_id": "O037",
+      "panel": "O037.jpg",
+      "review_frames": [
+        81,
+        83,
+        84,
+        97,
+        112,
+        126,
+        127,
+        129
+      ],
+      "crop": [
+        1068,
+        404,
+        1400,
+        737
+      ],
+      "panel_sha256": "9f587a58f9586da34a740fd3880af565b6f508fbe7a00c16f9eee59b2482e490",
+      "initial_review": {
+        "id": "O037",
+        "category": "partial_occlusion",
+        "note": "Rear pig behind brown-white pig retains visible upper back."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear pig behind brown-white pig retains visible upper back.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_2",
+      "gt_id": 23,
+      "before": 203,
+      "after": 231,
+      "gap": 27,
+      "event_id": "O038",
+      "panel": "O038.jpg",
+      "review_frames": [
+        201,
+        203,
+        204,
+        212,
+        221,
+        230,
+        231,
+        233
+      ],
+      "crop": [
+        1314,
+        445,
+        2480,
+        771
+      ],
+      "panel_sha256": "f1d862d510bfce5a9d333a19d22d9c788b6979f971b2218a4bbb80b9c8884ba4",
+      "initial_review": {
+        "id": "O038",
+        "category": "partial_or_uncertain",
+        "note": "Dense similar-colored pigs; small patches persist and identity is not separable in sparse views."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Dense similar-colored pigs; small patches persist and identity is not separable in sparse views.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_3",
+      "gt_id": 6,
+      "before": 172,
+      "after": 219,
+      "gap": 46,
+      "event_id": "O039",
+      "panel": "O039.jpg",
+      "review_frames": [
+        170,
+        172,
+        173,
+        187,
+        203,
+        218,
+        219,
+        221
+      ],
+      "crop": [
+        990,
+        0,
+        1394,
+        610
+      ],
+      "panel_sha256": "82034bf68b1554d45b3dce900da01cb667bf31a15af3def1799779f3a3da39d0",
+      "initial_review": {
+        "id": "O039",
+        "category": "partial_occlusion",
+        "note": "Rear pig head/upper back remain visible behind dark foreground pig."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear pig head/upper back remain visible behind dark foreground pig.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_3",
+      "gt_id": 9,
+      "before": 155,
+      "after": 174,
+      "gap": 18,
+      "event_id": "O040",
+      "panel": "O040.jpg",
+      "review_frames": [
+        153,
+        155,
+        156,
+        161,
+        167,
+        173,
+        174,
+        176
+      ],
+      "crop": [
+        392,
+        0,
+        1369,
+        473
+      ],
+      "panel_sha256": "d55a22f2c5f359d2732dd8a1bcf9a81dccd248ae324fe3a985c0a363ac6b6441",
+      "initial_review": {
+        "id": "O040",
+        "category": "candidate_full",
+        "note": "Smaller pig passes behind standing brown pig; dense review needed for fully hidden interval."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Small pig legs remain visible underneath foreground animal.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O040_01.jpg",
+          "frames": [
+            152,
+            181
+          ],
+          "sha256": "ddbd3bf874db7c3521984a63bc164ce040efd6dbc9943052ebdd732d69e01c63"
+        },
+        {
+          "path": "O040_02.jpg",
+          "frames": [
+            182,
+            186
+          ],
+          "sha256": "9bd37a5654b82575215317a1a2093cfea9e4029435cb0725a6a46568d9b011fa"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 153,
+          "gt_id": 9,
+          "box": [
+            768.0,
+            87.0,
+            1077.0,
+            293.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 154,
+          "gt_id": 9,
+          "box": [
+            765.0,
+            87.0,
+            1074.0,
+            293.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 155,
+          "gt_id": 9,
+          "box": [
+            763.0,
+            86.0,
+            1072.0,
+            292.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 174,
+          "gt_id": 9,
+          "box": [
+            690.0,
+            81.0,
+            1005.0,
+            294.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 175,
+          "gt_id": 9,
+          "box": [
+            690.0,
+            81.0,
+            1005.0,
+            295.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 176,
+          "gt_id": 9,
+          "box": [
+            690.0,
+            81.0,
+            1004.0,
+            295.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 177,
+          "gt_id": 9,
+          "box": [
+            690.0,
+            81.0,
+            1004.0,
+            296.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 178,
+          "gt_id": 9,
+          "box": [
+            690.0,
+            81.0,
+            1003.0,
+            296.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 179,
+          "gt_id": 9,
+          "box": [
+            690.0,
+            80.0,
+            1002.0,
+            297.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 180,
+          "gt_id": 9,
+          "box": [
+            689.0,
+            79.0,
+            1000.0,
+            297.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 181,
+          "gt_id": 9,
+          "box": [
+            689.0,
+            79.0,
+            998.0,
+            299.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 182,
+          "gt_id": 9,
+          "box": [
+            688.0,
+            78.0,
+            996.0,
+            299.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 183,
+          "gt_id": 9,
+          "box": [
+            688.0,
+            77.0,
+            995.0,
+            300.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 184,
+          "gt_id": 9,
+          "box": [
+            688.0,
+            78.0,
+            995.0,
+            301.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 185,
+          "gt_id": 9,
+          "box": [
+            687.0,
+            79.0,
+            994.0,
+            302.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "pig_3",
+      "gt_id": 9,
+      "before": 79,
+      "after": 88,
+      "gap": 8,
+      "event_id": "O041",
+      "panel": "O041.jpg",
+      "review_frames": [
+        77,
+        79,
+        80,
+        82,
+        85,
+        87,
+        88,
+        90
+      ],
+      "crop": [
+        513,
+        58,
+        1398,
+        613
+      ],
+      "panel_sha256": "fe8295134caf38a3ddb1240522c75a6ae6ea9992483f50ee81042bde85b5d39e",
+      "initial_review": {
+        "id": "O041",
+        "category": "partial_or_uncertain",
+        "note": "Overlapping pale pigs; visible bodies remain, complete loss not established."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Overlapping pale pigs; visible bodies remain, complete loss not established.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_3",
+      "gt_id": 6,
+      "before": 247,
+      "after": 253,
+      "gap": 5,
+      "event_id": "O042",
+      "panel": "O042.jpg",
+      "review_frames": [
+        245,
+        247,
+        248,
+        249,
+        251,
+        252,
+        253,
+        255
+      ],
+      "crop": [
+        857,
+        0,
+        1549,
+        676
+      ],
+      "panel_sha256": "4ced4501ee31ce6018856a23d19b7d9e69870444091ff335eb1212b6aa40ee7d",
+      "initial_review": {
+        "id": "O042",
+        "category": "partial_occlusion",
+        "note": "Rear pale pig partly hidden but legs and upper head remain visible."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear pale pig partly hidden but legs and upper head remain visible.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_4",
+      "gt_id": 8,
+      "before": 63,
+      "after": 86,
+      "gap": 22,
+      "event_id": "O043",
+      "panel": "O043.jpg",
+      "review_frames": [
+        61,
+        63,
+        64,
+        70,
+        78,
+        85,
+        86,
+        88
+      ],
+      "crop": [
+        396,
+        1021,
+        816,
+        1440
+      ],
+      "panel_sha256": "5b49a77763c62bd80e17159848cacbded442cff878c8e219dd0874b984a49e75",
+      "initial_review": {
+        "id": "O043",
+        "category": "candidate_full",
+        "note": "Pig passes under tree canopy; clear physical foliage occluder and possible fully hidden interval."
+      },
+      "dense_reviewed": true,
+      "category": "physical_occlusion_fullness_uncertain",
+      "review_note": "Tree canopy clearly obstructs target. Faint body/branch patches preclude a reliable zero-visibility interval; reappears to right of canopy.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O043_01.jpg",
+          "frames": [
+            60,
+            89
+          ],
+          "sha256": "39050b0376f4a27c05ffc32cc38abf784774ff98bc9dccc89c2165b008106c14"
+        },
+        {
+          "path": "O043_02.jpg",
+          "frames": [
+            90,
+            98
+          ],
+          "sha256": "d574a0a69451ca5554745d5dfda6c36d1853e5ad3fad6c574d9c110e517b2d7f"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 61,
+          "gt_id": 8,
+          "box": [
+            536.0,
+            1212.0,
+            686.0,
+            1438.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 62,
+          "gt_id": 8,
+          "box": [
+            533.0,
+            1212.0,
+            683.0,
+            1438.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 63,
+          "gt_id": 8,
+          "box": [
+            531.0,
+            1212.0,
+            681.0,
+            1437.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 86,
+          "gt_id": 8,
+          "box": [
+            564.0,
+            1210.0,
+            637.0,
+            1399.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 87,
+          "gt_id": 8,
+          "box": [
+            559.0,
+            1217.0,
+            636.0,
+            1394.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 88,
+          "gt_id": 8,
+          "box": [
+            555.0,
+            1220.0,
+            637.0,
+            1401.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 89,
+          "gt_id": 8,
+          "box": [
+            550.0,
+            1223.0,
+            637.0,
+            1407.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 90,
+          "gt_id": 8,
+          "box": [
+            543.0,
+            1226.0,
+            635.0,
+            1413.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 91,
+          "gt_id": 8,
+          "box": [
+            536.0,
+            1229.0,
+            633.0,
+            1419.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 92,
+          "gt_id": 8,
+          "box": [
+            530.0,
+            1233.0,
+            633.0,
+            1427.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 93,
+          "gt_id": 8,
+          "box": [
+            523.0,
+            1236.0,
+            631.0,
+            1433.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 94,
+          "gt_id": 8,
+          "box": [
+            516.0,
+            1239.0,
+            629.0,
+            1439.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 95,
+          "gt_id": 8,
+          "box": [
+            512.0,
+            1238.0,
+            626.0,
+            1440.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 96,
+          "gt_id": 8,
+          "box": [
+            507.0,
+            1236.0,
+            622.0,
+            1439.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 97,
+          "gt_id": 8,
+          "box": [
+            502.0,
+            1238.0,
+            618.0,
+            1439.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "pig_5",
+      "gt_id": 12,
+      "before": 51,
+      "after": 117,
+      "gap": 65,
+      "event_id": "O044",
+      "panel": "O044.jpg",
+      "review_frames": [
+        49,
+        51,
+        52,
+        73,
+        95,
+        116,
+        117,
+        119
+      ],
+      "crop": [
+        1369,
+        536,
+        1756,
+        790
+      ],
+      "panel_sha256": "db3c78e22c9dbcf2d90c5f0cd4c050db87d4641e371e291d9520569bedc41e91",
+      "initial_review": {
+        "id": "O044",
+        "category": "partial_occlusion",
+        "note": "Pale rear pig remains partly visible above dark foreground pig."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Pale rear pig remains partly visible above dark foreground pig.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_5",
+      "gt_id": 16,
+      "before": 95,
+      "after": 160,
+      "gap": 64,
+      "event_id": "O045",
+      "panel": "O045.jpg",
+      "review_frames": [
+        93,
+        95,
+        96,
+        116,
+        138,
+        159,
+        160,
+        162
+      ],
+      "crop": [
+        1351,
+        526,
+        1872,
+        876
+      ],
+      "panel_sha256": "ee546c328703c4fd10ce80ec11f79f2a31e5e912c5c0b650db559b827cd8c38c",
+      "initial_review": {
+        "id": "O045",
+        "category": "partial_occlusion",
+        "note": "Pale pig is partly covered by dark pig but upper contour remains visible."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Pale pig is partly covered by dark pig but upper contour remains visible.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_5",
+      "gt_id": 9,
+      "before": 47,
+      "after": 109,
+      "gap": 61,
+      "event_id": "O046",
+      "panel": "O046.jpg",
+      "review_frames": [
+        45,
+        47,
+        48,
+        67,
+        88,
+        108,
+        109,
+        111
+      ],
+      "crop": [
+        651,
+        600,
+        1529,
+        871
+      ],
+      "panel_sha256": "0a21569b11acbf311326ee7815365448b347d90e1f7602dae7b881191209e0d3",
+      "initial_review": {
+        "id": "O046",
+        "category": "candidate_full",
+        "note": "Smaller pig behind dark pig can become fully covered; dense inspection required."
+      },
+      "dense_reviewed": true,
+      "category": "partial_occlusion",
+      "review_note": "Rear smaller gray pig retains upper back visibility left/above dark pig.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O046_01.jpg",
+          "frames": [
+            44,
+            73
+          ],
+          "sha256": "f361173b8f2b8b623dcefe7e3bd17bbc63bb41e84cc1d08b91f091d93cac8553"
+        },
+        {
+          "path": "O046_02.jpg",
+          "frames": [
+            74,
+            103
+          ],
+          "sha256": "815616150bc84d34dfeb1e2b8d30e281999442916283337121fc661a48b80bfd"
+        },
+        {
+          "path": "O046_03.jpg",
+          "frames": [
+            104,
+            121
+          ],
+          "sha256": "efba924262b349a285de806ed0852d97e30f5a13e98ba0e6e08403e519f097c7"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 45,
+          "gt_id": 9,
+          "box": [
+            915.0,
+            690.0,
+            1035.0,
+            778.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 46,
+          "gt_id": 9,
+          "box": [
+            918.0,
+            691.0,
+            1036.0,
+            779.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 47,
+          "gt_id": 9,
+          "box": [
+            920.0,
+            692.0,
+            1035.0,
+            780.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 109,
+          "gt_id": 9,
+          "box": [
+            1139.0,
+            697.0,
+            1261.0,
+            779.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 110,
+          "gt_id": 9,
+          "box": [
+            1138.0,
+            698.0,
+            1258.0,
+            780.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 111,
+          "gt_id": 9,
+          "box": [
+            1136.0,
+            700.0,
+            1254.0,
+            782.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 112,
+          "gt_id": 9,
+          "box": [
+            1135.0,
+            701.0,
+            1251.0,
+            783.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 113,
+          "gt_id": 9,
+          "box": [
+            1137.0,
+            701.0,
+            1256.0,
+            785.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 114,
+          "gt_id": 9,
+          "box": [
+            1138.0,
+            702.0,
+            1261.0,
+            787.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 115,
+          "gt_id": 9,
+          "box": [
+            1140.0,
+            702.0,
+            1266.0,
+            789.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 116,
+          "gt_id": 9,
+          "box": [
+            1135.0,
+            707.0,
+            1268.0,
+            795.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 117,
+          "gt_id": 9,
+          "box": [
+            1135.0,
+            708.0,
+            1267.0,
+            796.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 118,
+          "gt_id": 9,
+          "box": [
+            1135.0,
+            708.0,
+            1266.0,
+            796.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 119,
+          "gt_id": 9,
+          "box": [
+            1135.0,
+            709.0,
+            1265.0,
+            797.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 120,
+          "gt_id": 9,
+          "box": [
+            1135.0,
+            709.0,
+            1264.0,
+            797.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "pig_5",
+      "gt_id": 6,
+      "before": 189,
+      "after": 222,
+      "gap": 32,
+      "event_id": "O047",
+      "panel": "O047.jpg",
+      "review_frames": [
+        187,
+        189,
+        190,
+        200,
+        211,
+        221,
+        222,
+        224
+      ],
+      "crop": [
+        1567,
+        532,
+        2205,
+        968
+      ],
+      "panel_sha256": "315c5b972e75d27b6f639e5b34a36012b4a1d044fec2eb70c6880e4ff8d74aed",
+      "initial_review": {
+        "id": "O047",
+        "category": "partial_occlusion",
+        "note": "Rear pale animal remains partly visible among similarly colored pigs."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear pale animal remains partly visible among similarly colored pigs.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "pig_5",
+      "gt_id": 18,
+      "before": 145,
+      "after": 165,
+      "gap": 19,
+      "event_id": "O048",
+      "panel": "O048.jpg",
+      "review_frames": [
+        143,
+        145,
+        146,
+        151,
+        158,
+        164,
+        165,
+        167
+      ],
+      "crop": [
+        1372,
+        594,
+        2000,
+        964
+      ],
+      "panel_sha256": "b3a0ba8e118b116722870a9052e2919e765a77b578f6a7a0a74bfdb8394ec310",
+      "initial_review": {
+        "id": "O048",
+        "category": "visible_unlabelled",
+        "note": "Target pale pig remains visible in all sampled frames."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Target pale pig remains visible in all sampled frames.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_1",
+      "gt_id": 33,
+      "before": 30,
+      "after": 59,
+      "gap": 28,
+      "event_id": "O049",
+      "panel": "O049.jpg",
+      "review_frames": [
+        28,
+        30,
+        31,
+        39,
+        49,
+        58,
+        59,
+        61
+      ],
+      "crop": [
+        1443,
+        0,
+        1954,
+        315
+      ],
+      "panel_sha256": "fd80fc0e5ab2181625936a8a76301f1f42d4fdc122cb0f7edac67c864c9cefe2",
+      "initial_review": {
+        "id": "O049",
+        "category": "partial_or_uncertain",
+        "note": "Overlapping ascending zebra group with camera movement; cannot establish total obstruction from sampled frames."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Overlapping ascending zebra group with camera movement; cannot establish total obstruction from sampled frames.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_1",
+      "gt_id": 39,
+      "before": 114,
+      "after": 136,
+      "gap": 21,
+      "event_id": "O050",
+      "panel": "O050.jpg",
+      "review_frames": [
+        112,
+        114,
+        115,
+        121,
+        128,
+        135,
+        136,
+        138
+      ],
+      "crop": [
+        1078,
+        569,
+        1714,
+        1087
+      ],
+      "panel_sha256": "602390e52ec7521af060c877e70369c2d5abe12c9818071a9999827d8366671d",
+      "initial_review": {
+        "id": "O050",
+        "category": "partial_occlusion",
+        "note": "Animal in water retains head/back visibility; water submersion is not verified complete disappearance."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Animal in water retains head/back visibility; water submersion is not verified complete disappearance.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_1",
+      "gt_id": 16,
+      "before": 226,
+      "after": 242,
+      "gap": 15,
+      "event_id": "O051",
+      "panel": "O051.jpg",
+      "review_frames": [
+        224,
+        226,
+        227,
+        231,
+        236,
+        241,
+        242,
+        244
+      ],
+      "crop": [
+        2006,
+        0,
+        2560,
+        358
+      ],
+      "panel_sha256": "504d5a6f1121d098b780deb5798b6806954418735ee34d27cc496fee3280bc32",
+      "initial_review": {
+        "id": "O051",
+        "category": "candidate_full",
+        "note": "Zebra passes behind dense shrub; intermediate frames appear fully obscured."
+      },
+      "dense_reviewed": true,
+      "category": "physical_occlusion_fullness_uncertain",
+      "review_note": "Shrub clearly obstructs zebra; compression and leaf/stripe patches prevent certifying complete invisibility. Original GT resumes through shrub.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": true,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [
+        {
+          "path": "O051_01.jpg",
+          "frames": [
+            223,
+            252
+          ],
+          "sha256": "11a56b72c3acf717e53ccaf595d4852eab5fb6debc4216cbe4a69a9249f6e06b"
+        },
+        {
+          "path": "O051_02.jpg",
+          "frames": [
+            253,
+            254
+          ],
+          "sha256": "7d8c04f3a6619381e6d528d1b0e111ea81f0c6010d0bb44b3ec6f27482ce4edc"
+        }
+      ],
+      "visible_labels": [
+        {
+          "frame": 224,
+          "gt_id": 16,
+          "box": [
+            2272.0,
+            52.0,
+            2399.0,
+            178.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 225,
+          "gt_id": 16,
+          "box": [
+            2300.0,
+            43.0,
+            2424.0,
+            159.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 226,
+          "gt_id": 16,
+          "box": [
+            2304.0,
+            36.0,
+            2426.0,
+            150.0
+          ],
+          "phase": "pre",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 242,
+          "gt_id": 16,
+          "box": [
+            2197.0,
+            68.0,
+            2399.0,
+            208.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 243,
+          "gt_id": 16,
+          "box": [
+            2189.0,
+            78.0,
+            2387.0,
+            231.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 244,
+          "gt_id": 16,
+          "box": [
+            2172.0,
+            92.0,
+            2340.0,
+            231.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 245,
+          "gt_id": 16,
+          "box": [
+            2156.0,
+            98.0,
+            2327.0,
+            250.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 246,
+          "gt_id": 16,
+          "box": [
+            2148.0,
+            114.0,
+            2336.0,
+            250.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 247,
+          "gt_id": 16,
+          "box": [
+            2135.0,
+            110.0,
+            2333.0,
+            261.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 248,
+          "gt_id": 16,
+          "box": [
+            2131.0,
+            114.0,
+            2344.0,
+            268.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 249,
+          "gt_id": 16,
+          "box": [
+            2127.0,
+            117.0,
+            2354.0,
+            273.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 250,
+          "gt_id": 16,
+          "box": [
+            2127.0,
+            120.0,
+            2361.0,
+            272.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 251,
+          "gt_id": 16,
+          "box": [
+            2127.0,
+            122.0,
+            2368.0,
+            270.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 252,
+          "gt_id": 16,
+          "box": [
+            2120.0,
+            125.0,
+            2352.0,
+            280.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        },
+        {
+          "frame": 253,
+          "gt_id": 16,
+          "box": [
+            2113.0,
+            128.0,
+            2335.0,
+            289.0
+          ],
+          "phase": "post",
+          "geometry_source": "official GT, visually reviewed boundary window"
+        }
+      ],
+      "reappearance_time": "Not exact: official first relabelled frame; target may have been partially visible earlier."
+    },
+    {
+      "sequence": "zebra_1",
+      "gt_id": 33,
+      "before": 112,
+      "after": 121,
+      "gap": 8,
+      "event_id": "O052",
+      "panel": "O052.jpg",
+      "review_frames": [
+        110,
+        112,
+        113,
+        115,
+        118,
+        120,
+        121,
+        123
+      ],
+      "crop": [
+        1582,
+        0,
+        1932,
+        497
+      ],
+      "panel_sha256": "61bf2dce14d6f1275f7a7ed4a3fb93b7720038f02cda4bd7b786808bbf7cfbe4",
+      "initial_review": {
+        "id": "O052",
+        "category": "partial_occlusion",
+        "note": "Zebra remains partly visible through overlapping group."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Zebra remains partly visible through overlapping group.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_1",
+      "gt_id": 8,
+      "before": 165,
+      "after": 173,
+      "gap": 7,
+      "event_id": "O053",
+      "panel": "O053.jpg",
+      "review_frames": [
+        163,
+        165,
+        166,
+        167,
+        170,
+        172,
+        173,
+        175
+      ],
+      "crop": [
+        832,
+        392,
+        1189,
+        858
+      ],
+      "panel_sha256": "2937e39a7fdb90a0619e636d5df6ef07f6ecf6284b22d14b00bd55feb292afd6",
+      "initial_review": {
+        "id": "O053",
+        "category": "partial_occlusion",
+        "note": "Target head/neck remain visible among swimming zebras."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Target head/neck remain visible among swimming zebras.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_2",
+      "gt_id": 5,
+      "before": 68,
+      "after": 233,
+      "gap": 164,
+      "event_id": "O054",
+      "panel": "O054.jpg",
+      "review_frames": [
+        66,
+        68,
+        69,
+        123,
+        178,
+        232,
+        233,
+        235
+      ],
+      "crop": [
+        0,
+        196,
+        2548,
+        1327
+      ],
+      "panel_sha256": "f06db52e867c77e36af05c93182cf8b54a3a9d8f2dd5b5eac0e18cda67322fc1",
+      "initial_review": {
+        "id": "O054",
+        "category": "partial_or_uncertain",
+        "note": "Several similarly patterned zebras overlap; complete obstruction and identity cannot be resolved from sparse views."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Several similarly patterned zebras overlap; complete obstruction and identity cannot be resolved from sparse views.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_2",
+      "gt_id": 6,
+      "before": 87,
+      "after": 171,
+      "gap": 83,
+      "event_id": "O055",
+      "panel": "O055.jpg",
+      "review_frames": [
+        85,
+        87,
+        88,
+        115,
+        143,
+        170,
+        171,
+        173
+      ],
+      "crop": [
+        0,
+        139,
+        988,
+        1264
+      ],
+      "panel_sha256": "a0b3603045933b77e7006b4a1d1fe4b15415f120a2ab9e9928cc1a8ddd2a4607",
+      "initial_review": {
+        "id": "O055",
+        "category": "partial_or_uncertain",
+        "note": "Overlapping heads and camera edge complicate identity; sparse panel insufficient."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Overlapping heads and camera edge complicate identity; sparse panel insufficient.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_2",
+      "gt_id": 2,
+      "before": 218,
+      "after": 297,
+      "gap": 78,
+      "event_id": "O056",
+      "panel": "O056.jpg",
+      "review_frames": [
+        216,
+        218,
+        219,
+        244,
+        270,
+        296,
+        297,
+        299
+      ],
+      "crop": [
+        0,
+        14,
+        1882,
+        1440
+      ],
+      "panel_sha256": "b1d0123fb1f28c756ef5cd63e554e4a11bdd69856c21235e2c3c3e8a3342f97c",
+      "initial_review": {
+        "id": "O056",
+        "category": "visible_unlabelled",
+        "note": "Foreground zebra matching endpoint geometry remains visible in sampled gap."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Foreground zebra matching endpoint geometry remains visible in sampled gap.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_2",
+      "gt_id": 2,
+      "before": 35,
+      "after": 73,
+      "gap": 37,
+      "event_id": "O057",
+      "panel": "O057.jpg",
+      "review_frames": [
+        33,
+        35,
+        36,
+        47,
+        60,
+        72,
+        73,
+        75
+      ],
+      "crop": [
+        0,
+        216,
+        1565,
+        1303
+      ],
+      "panel_sha256": "e5ac68c42500412b5a9cbbb8f0ffc3871cfc3cba39c4971c6ae931d17afaf27a",
+      "initial_review": {
+        "id": "O057",
+        "category": "partial_or_uncertain",
+        "note": "Rear zebra overlaps foreground adult; sparse view does not resolve all extremities."
+      },
+      "dense_reviewed": false,
+      "category": "partial_or_uncertain",
+      "review_note": "Rear zebra overlaps foreground adult; sparse view does not resolve all extremities.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_2",
+      "gt_id": 2,
+      "before": 191,
+      "after": 211,
+      "gap": 19,
+      "event_id": "O058",
+      "panel": "O058.jpg",
+      "review_frames": [
+        189,
+        191,
+        192,
+        197,
+        204,
+        210,
+        211,
+        213
+      ],
+      "crop": [
+        0,
+        134,
+        1490,
+        1433
+      ],
+      "panel_sha256": "af18de5734317997a535b853dbf2a5ac7848f5e440426a26d74ec79a64dce41e",
+      "initial_review": {
+        "id": "O058",
+        "category": "visible_unlabelled",
+        "note": "Foreground zebra remains visible with continuous motion through interval."
+      },
+      "dense_reviewed": false,
+      "category": "visible_unlabelled",
+      "review_note": "Foreground zebra remains visible with continuous motion through interval.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_3",
+      "gt_id": 19,
+      "before": 159,
+      "after": 199,
+      "gap": 39,
+      "event_id": "O059",
+      "panel": "O059.jpg",
+      "review_frames": [
+        157,
+        159,
+        160,
+        172,
+        185,
+        198,
+        199,
+        201
+      ],
+      "crop": [
+        2165,
+        873,
+        2560,
+        1099
+      ],
+      "panel_sha256": "191b40b198c13003c4ced977c7374ce8222c0c4736e438910bcfad0a9860ea27",
+      "initial_review": {
+        "id": "O059",
+        "category": "partial_occlusion",
+        "note": "Rear ungulate head/neck and legs remain visible behind zebra."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear ungulate head/neck and legs remain visible behind zebra.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_3",
+      "gt_id": 19,
+      "before": 74,
+      "after": 110,
+      "gap": 35,
+      "event_id": "O060",
+      "panel": "O060.jpg",
+      "review_frames": [
+        72,
+        74,
+        75,
+        86,
+        98,
+        109,
+        110,
+        112
+      ],
+      "crop": [
+        2215,
+        883,
+        2551,
+        1119
+      ],
+      "panel_sha256": "6f3a1a7d0906dac25c1f6bba9fcd1549abedcd7ea06d09459e9fb638290b3310",
+      "initial_review": {
+        "id": "O060",
+        "category": "partial_occlusion",
+        "note": "Same rear animal remains partly visible; no complete obstruction established."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Same rear animal remains partly visible; no complete obstruction established.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_4",
+      "gt_id": 9,
+      "before": 128,
+      "after": 142,
+      "gap": 13,
+      "event_id": "O061",
+      "panel": "O061.jpg",
+      "review_frames": [
+        126,
+        128,
+        129,
+        132,
+        137,
+        141,
+        142,
+        144
+      ],
+      "crop": [
+        117,
+        0,
+        801,
+        625
+      ],
+      "panel_sha256": "c5ecfd55b104e43c8be55cd05b2b1a26569ed47a2bd59a12b2934c5777c31770",
+      "initial_review": {
+        "id": "O061",
+        "category": "partial_occlusion",
+        "note": "Rear zebra's head/neck remains visible above overlapping foreground animal."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear zebra's head/neck remains visible above overlapping foreground animal.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_4",
+      "gt_id": 19,
+      "before": 9,
+      "after": 22,
+      "gap": 12,
+      "event_id": "O062",
+      "panel": "O062.jpg",
+      "review_frames": [
+        7,
+        9,
+        10,
+        13,
+        17,
+        21,
+        22,
+        24
+      ],
+      "crop": [
+        959,
+        0,
+        2259,
+        1090
+      ],
+      "panel_sha256": "07a40716dc89633220f94712b11774bbeb14f61eedcfcbd8c5267fc1d9469e23",
+      "initial_review": {
+        "id": "O062",
+        "category": "partial_occlusion",
+        "note": "Zebra remains visibly identifiable among overlaps; no full obstruction."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Zebra remains visibly identifiable among overlaps; no full obstruction.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_4",
+      "gt_id": 8,
+      "before": 204,
+      "after": 217,
+      "gap": 12,
+      "event_id": "O063",
+      "panel": "O063.jpg",
+      "review_frames": [
+        202,
+        204,
+        205,
+        208,
+        212,
+        216,
+        217,
+        219
+      ],
+      "crop": [
+        0,
+        0,
+        651,
+        934
+      ],
+      "panel_sha256": "c7f6b8e29502a99eba3e970779edb8d0b499e9e152e6a642fa7d84a48ec6d56c",
+      "initial_review": {
+        "id": "O063",
+        "category": "partial_occlusion",
+        "note": "Rear zebra retains visible upper neck/back."
+      },
+      "dense_reviewed": false,
+      "category": "partial_occlusion",
+      "review_note": "Rear zebra retains visible upper neck/back.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    },
+    {
+      "sequence": "zebra_5",
+      "gt_id": 13,
+      "before": 133,
+      "after": 218,
+      "gap": 84,
+      "event_id": "O064",
+      "panel": "O064.jpg",
+      "review_frames": [
+        131,
+        133,
+        134,
+        161,
+        189,
+        217,
+        218,
+        220
+      ],
+      "crop": [
+        0,
+        411,
+        375,
+        1007
+      ],
+      "panel_sha256": "1d9d6c961204b79415f5062c73acd3f1af8db81af68b340361e49f3ef757d928",
+      "initial_review": {
+        "id": "O064",
+        "category": "uncertain",
+        "note": "Severe exposure change and frame-edge motion; cannot attribute GT gap to complete physical occlusion."
+      },
+      "dense_reviewed": false,
+      "category": "uncertain",
+      "review_note": "Severe exposure change and frame-edge motion; cannot attribute GT gap to complete physical occlusion.",
+      "full_occlusion_verified": false,
+      "verified_hidden_interval": null,
+      "eligible_partial_event": false,
+      "identity_source": "official AnimalTrack identity plus raw-image AI review; not human reannotation",
+      "reviewed_pages": [],
+      "visible_labels": []
+    }
+  ],
+  "metric_scope": "Full-video frozen gates unchanged. Partial event metrics are supplementary and do not replace full physical-occlusion gate. GT gap is not physical full occlusion.",
+  "source_hashes": {
+    "initial_visual_review.json": "7a59a0fb18b5d5812b20b64154e3cf96a8de6267eb531f11a090b11a3a1eef65",
+    "review_manifest.json": "ce9baa320bd2b8cec9f039a3e439e38b600fe349266897b5680ce61c04547964",
+    "dense/manifest.json": "6cecca810679aee79a516843583816942ab0a417dffb70972882faafe4a92881",
+    "zoom/manifest.json": "7d5b3a4365ac7371a328a77c39b6b1c7d4ce23c440d7f6810fdb3d41382b3d1b"
+  }
+}

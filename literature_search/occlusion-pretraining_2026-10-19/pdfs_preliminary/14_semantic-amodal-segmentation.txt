@@ -1,0 +1,986 @@
+
+
+PAGE 1
+Semantic Amodal Segmentation
+Yan Zhu1,2, Yuandong Tian1, Dimitris Mexatas2, and Piotr Doll´ar1
+1Facebook AI Research (FAIR)
+2Department of Computer Science, Rutgers University
+Abstract
+Common visual recognition tasks such as classiﬁcation,
+object detection, and semantic segmentation are rapidly
+reaching maturity, and given the recent rate of progress, it is
+not unreasonable to conjecture that techniques for many of
+these problems will approach human levels of performance
+in the next few years. In this paper we look to the future:
+what is the next frontier in visual recognition?
+We offer one possible answer to this question. We pro-
+pose a detailed image annotation that captures information
+beyond the visible pixels and requires complex reasoning
+about full scene structure. Speciﬁcally, we create anamodal
+segmentation of each image: the full extent of each region is
+marked, not just the visible pixels. Annotators outline and
+name all salient regions in the image and specify a partial
+depth order. The result is a rich scene structure, including
+visible and occluded portions of each region, ﬁgure-ground
+edge information, semantic labels, and object overlap.
+We create two datasets for semantic amodal segmenta-
+tion. First, we label 500 images in the BSDS dataset with
+multiple annotators per image, allowing us to study the
+statistics of human annotations. We show that the proposed
+full scene annotation is surprisingly consistent between an-
+notators, including for regions and edges. Second, we an-
+notate 5000 images from COCO. This larger dataset allows
+us to explore a number of algorithmic ideas for amodal seg-
+mentation and depth ordering. We introduce novel metrics
+for these tasks, and along with our strong baselines, deﬁne
+concrete new challenges for the community.
+1. Introduction
+In recent years, visual recognition tasks such as image
+classiﬁcation [22, 16], object detection [10, 35, 13, 33],
+edge detection [2, 8, 43], and semantic segmentation [36,
+30, 26] have witnessed dramatic progress. This has been
+driven by the availability of large scale image datasets [9, 5,
+24] coupled with a renaissance in deep learning techniques
+with massive model capacity [22, 39, 40, 16]. Given the
+pace of recent advances, one may conjecture that techniques
+fox,	  D=1	   fox,	  D=2	  fox,	  D=3	   tree,	  D=4	  
+Figure 1: Example of Semantic Amodal Segmentation . Given
+an image (top-left), annotators segment each region (top-right)
+and specify a partial depth order (middle-left). From this, visi-
+ble edges can be obtained (middle-right) along with ﬁgure-ground
+assignment for each edge (not shown). All regions are annotated
+amodally: the full extent of each region is marked, not just the
+visible pixels. Four annotated regions along with their semantic
+label and depth order are shown (bottom); note that both visible
+and occluded portions of each region are annotated.
+for many of these tasks will rapidly approach human levels
+of performance. Indeed, preliminary evidence exists this is
+already the case for ImageNet classiﬁcation [20].
+In this work we ask: what are the next set of challenges
+in visual recognition? What capabilities do we expect future
+visual recognition systems to possess?
+We take our inspiration from the study of the human vi-
+sual system. A remarkable property of human perception is
+the ease with which our visual system interpolates informa-
+tion not directly visible in an image [29]. A particularly
+prominent example of this, and one on which we focus,
+is amodal perception: the phenomenon of perceiving the
+1
+arXiv:1509.01329v2  [cs.CV]  14 Dec 2016
+
+PAGE 2
+whole of a physical structure when only a portion of it is
+visible [18, 29, 41]. Humans can readily perceive partially
+occluded objects and guess at their true shape.
+To encourage the study of machine vision systems with
+similar capabilities, we ask human subjects to annotate
+regions in images amodally. Speciﬁcally, annotators are
+asked to mark the full extent of each region, not just the
+visible pixels. Annotators outline and name all salient re-
+gions in the image and specify a partial depth order. The re-
+sult is a rich scene structure, including visible and occluded
+portions of each region, ﬁgure-ground edge information, se-
+mantic labels, and object overlap. See Figure 1.
+An astute reader may ask: is amodal segmentation even
+a well-posed annotation task? More precisely, will multiple
+annotators agree on the annotation of a given image?
+To study these questions, we asked multiple annotators
+to label all 500 images in the BSDS dataset [2]. We de-
+signed the annotation task in a manner that encouraged an-
+notators to consider object relationships and reason about
+scene geometry. This resulted in agreement between anno-
+tators that is surprisingly strong. In particular, our data has
+higher region and edge consistency than the original BSDS
+labels. Likewise, annotators tend to agree on the amodal
+completions. We report a thorough study of human perfor-
+mance on amodal segmentation using this data and also use
+it to train and evaluate state-of-the-art edge detectors.
+In addition to the BSDS data, we annotate a second
+larger semantic amodal segmentation dataset using 5000
+images from COCO [24]. To achieve this scale, each im-
+age in COCO was annotated with just one expert annota-
+tor plus strict quality control. The dataset is divided into
+2500/1250/1250 images for train/val/test, respectively. We
+introduce novel evaluation metrics for measuring amodal
+segment quality and pairwise depth-ordering of region seg-
+ments. We do not currently use the semantic labels for eval-
+uation as they come from an open vocabulary; nevertheless,
+we show that collecting these labels is key for obtaining
+high-quality amodal annotations. All train and val annota-
+tions along with evaluation code will be publicly released.
+Finally, the larger collection of annotations on COCO
+allows us to train strong baselines for amodal segmentation
+and depth ordering. To perform amodal segmentation, we
+extend recent modal segmentation algorithms [31, 32] to the
+amodal setting. We train two baselines: ﬁrst, we train a
+deep net to directly predict amodal masks, second, moti-
+vated by [23], we train a model that takes a modal mask and
+attempts to expand it. Both variants achieve large gains over
+their modal counterparts, especially under heavy occlusion.
+We also experiment with deep nets for depth ordering and
+achieve accuracy over 80%.
+Our challenging new dataset, metrics, and strong base-
+lines deﬁne concrete new challenges for the community and
+we hope that they will help spur novel research directions.
+Figure 2: Amodal versus modal segmentation : The left (red
+frame) of each image pair shows the modal segmentation of a
+region (visible pixels only) while the right (green frame) shows
+the amodal segmentation (visible and interpolated region). In this
+work we ask annotators to segment regions amodally. Note that the
+amodal segments have simpler shapes than the modal segments.
+1.1. Related Work
+Amodal perception [18] has been studied extensively in
+the psychophysics literature, for a review see [41, 29]. How-
+ever, amodal completion, along with many of the principles
+of perceptual grouping, are often demonstrated via simple
+illustrative examples such as the famous Kanizsa’s trian-
+gle [18]. To our knowledge, there is no large scale dataset
+of amodally segmented natural images.
+Modal segmentation1 datasets are more common. The
+most well known of these is the BSDS dataset [2], which
+has been used extensively for training and evaluating edge
+detection [6, 8, 43] and segmentation algorithms [2]. BSDS
+was later extended with ﬁgure-ground edge labels [12]. A
+drawback of this annotation style is that it lacks clear guide-
+lines, resulting in inconsistencies between annotators.
+An alternative to unrestricted modal segmentation is se-
+mantic segmentation [36, 25, 37], where each image pixel is
+assigned a unique label from a ﬁxed category set (e.g. grass,
+sky, person). Such datasets have higher consistency than
+BSDS. However, the label set is typically small, individual
+objects are not delineated, and the annotations are modal.
+Notable exception are the StreetScenes dataset [4], which
+contains a few categories which are labeled amodally, and
+PASCAL context [28], which uses a large category set.
+The closest dataset to ours is the hierarchical scenes
+dataset from Maire et al. [27], which aims to captures oc-
+clusion, ﬁgure-ground ordering, and object-part relations.
+The dataset consists of incredibly rich and detailed annota-
+tions for 100 images. Our dataset shares some similarities
+but is easier to collect, allowing us to scale. Likewise, Vi-
+sual Genome [21] also provides rich annotations, including
+depth ordering, but does not include segmentation.
+Compared to object detection datasets [9, 5, 24], our an-
+notation is dense, amodal, and covers both objects and re-
+1In an abuse of terminology, we use modal segmentation to refer to
+an annotation of only the visible portions of a region. This lets us easily
+differentiate it from amodal segmentation (full region extent annotated).
+
+PAGE 3
+Figure 3: A screenshot of our annotation tool for semantic
+amodal segmentation (adopted from the Open Surfaces tool [3]).
+gions. Related datasets such as LabelMe [34] and Sun [42]
+also have objects annotated modally. Only for pedestrian
+detection [7] are objects often annotated amodally (with
+both visible and amodal bounding boxes).
+We note that our annotation scheme subsumes modal
+segmentation [2], edge detection [2], and ﬁgure-ground
+edge labeling [12]. As our COCO annotations (5000 im-
+ages) are an order of magnitude larger than BSDS (500 im-
+ages) [2], the previous de-facto dataset for these tasks, we
+expect our data to be quite useful for these classic tasks.
+Finally there has been some algorithmic work on amodal
+completion [14, 15, 38, 19]. Of particular interest, Ke et
+al. [23] recently proposed a general approach for amodal
+segmentation that serves as the foundation for one of our
+baselines (see §5). Most existing recognition systems,
+however, operate on a per-patch or per-window basis, or
+with a limited receptive ﬁeld, including for object detec-
+tion [10, 35, 13], edge detection [6, 8, 43], and semantic
+segmentation [36, 30, 26]. Our dataset will present chal-
+lenges to such methods as amodal segmentation requires
+reasoning about object interactions.
+2. Dataset Annotation
+For our semantic amodal segmentation, we extend the
+Open Surfaces annotation tool from Bell et al. [3], see Fig-
+ure 3. The original tool allows for labeling multiple regions
+in an image by specifying a closed polygon for each; the
+same tool was also adopted for annotation of COCO [24].
+We extend the tool in a number of ways, including for re-
+gion ordering, naming, and improved editing. For full de-
+tails, including handling of corner cases, we refer readers to
+the supplementary. We will open-source the updated tool.
+We found four guidelines to be key for obtaining high-
+quality and consistent annotations: (1) only semantically
+meaningful regions should be annotated, (2) images should
+be annotated densely, (3) all regions should be ordered in
+depth, and (4) shared region boundaries should be marked.
+These guidelines encouraged annotators to consider object
+(a)	  depth	  ordering	   (b)	  edge	  sharing	  
+Figure 4: (a) We ask annotators to arrange region depth order.
+The right panel gives a correct depth order of the two people in the
+foreground while in the left panel the order is reversed. (b) Shared
+region edges must be marked to avoid duplicate edges. Unlike
+regular edges, shared edges do not have a ﬁgure-ground side.
+relationships and reason about scene geometry, and have
+proven to be effective in practice as we show in§4.
+(1) Semantic annotation: Annotators are asked to name
+all annotated regions. Perceptually, the fact that a segment
+can be named implies that it has a well-deﬁned prototype
+and corresponds to a semantically meaningful region. This
+criterion leads to a natural constraint on the granularity of
+the annotation: material boundaries and object parts ( i.e.
+interior edges) should not be annotated if they are not nam-
+able. Moreover, under this constraint, annotators are more
+likely to have a consistent prior on the occluded part of a re-
+gion. In practice, we found that enforcing region naming led
+to more consistent and higher-quality amodal annotations.
+(2) Dense annotation: Annotators are asked to label an
+image densely, in particular all foreground object over a
+minimum size (600 pixels) should be labeled. Of particu-
+lar importance is that if an annotated region is occluded, the
+occluder should also be annotated. When all foreground re-
+gions are annotated and a depth order speciﬁed, the visible
+and occluded portions of each annotated region are deter-
+mined, as are the visible and hidden edges.
+(3) Depth ordering: Annotators are asked to specify the
+relative depth order of all regions, see Figure 4a. In partic-
+ular, for two overlapping regions, the occluder should pre-
+cede the occludee. In ambiguous cases, the depth order is
+speciﬁed so that edges are correctly ‘rendered’ ( e.g., eyes
+go in front of the face). For non-overlapping regions any
+depth order is acceptable. Depth ordering encourages anno-
+tators to reason about scene geometry, including occlusion,
+and therefore improves the quality of amodal annotation.
+(4) Edge sharing: When one region occludes another,
+the ﬁgure-ground relation is clear, and an edge separating
+the regions belongs to the foreground region. However,
+when two regions are adjacent, an edge is shared and has
+no ﬁgure-ground side. We require annotators to explicitly
+mark shared edges, thus avoiding duplicate edges, see Fig-
+ure 4b. As with the other criteria, this encourages annotators
+to reason about object interactions and scene geometry.
+We refer readers to the supplementary material for addi-
+tional details on the annotation tool and pipeline.
+
+PAGE 4
+BSDS COCO
+ann/image 5-7 1
+regions/ann 7.3 9.2
+points/region 64 46
+pixel coverage 84% 69%
+occlusion rate 62% 61%
+occ/region 21% 31%
+time/polygon 68s 41s
+time/region 2m 2m
+time/ann 15m 18m
+(a) dataset summary statistics
+ (b) most common semantic labels
+Figure 5: (a) Dataset summary statistics on BSDS and COCO.
+COCO images are more cluttered, leading to some differences in
+statistics (e.g. higher regions/ann and lower pixel coverage). (b)
+The top 50 semantic labels in our BSDS annotations. Roughly
+speaking, the blue words indicate ‘things’ (person, ﬁsh, ﬂower)
+while the black words indicate ‘stuff’ (grass, cloud, water).
+3. Dataset Statistics
+The analysis in this section is primarily based on the 500
+images in the BSDS dataset [2], which has been used ex-
+tensively for edge detection and modal segmentation. An-
+notating the same images amodally allows us to compare
+our proposed annotations to the original annotations. While
+all following analysis is based on these images, we note that
+the statistics of our annotations on COCO [24] are similar
+(they differ slightly as COCO images are more cluttered).
+Figure 5a summarizes the statistics of our data. Each of
+the 500 BSDS images was annotated independently by 5 to
+7 annotators. On average each image annotation consists
+of 7.3 labeled regions, and each region polygon consists of
+64 points. About 84% of image pixels are covered by at
+least one region polygon. Of all regions, 62% are partially
+occluded and average occlusion is 21%.
+Annotating a single region takes ∼2 minutes. Of this,
+half the time is spent on the initial polygon and the rest on
+naming, depth ordering, and polygon reﬁnement. Annotat-
+ing an entire image takes ∼15m, although this varies based
+on image complexity and annotator skill.
+Semantic labels: Figure 5b shows the top 50 semantic la-
+bels in our data with word size indicating region frequency.
+The labels give insight into the regions being labeled as
+well as the granularity of the annotation. Most labels cor-
+respond to basic level categories and refer to entire objects
+(not object parts). Using common terminology [1, 11], we
+explicitly classify the labels into two categories: ‘things’
+and ‘stuff’, where a ‘thing’ is an object with a canonical
+shape (person, ﬁsh, ﬂower) while ‘stuff’ has a consistent vi-
+sual appearance but can be of arbitrary spatial extent (grass,
+cloud, water). Both ‘thing’ and ‘stuff’ labels are prevalent
+in our data (stuff composes about a quarter of our regions).
+Shape complexity: One important property of amodal
+segments is that they tend to have a relatively simple shape
+BSDS COCO
+original modal amodal modal amodal
+simplicity .801 .718 .834 .746 .856
+convexity .664 .616 .643 .658 .685
+density 1.80% 1.57% 1.97% 1.71% 2.10%
+Table 1: Comparison of shape and edge statistics between modal
+and amodal segments on BSDS and COCO. Amodal segments
+tend to have a relatively simpler shape that is independent of scene
+geometry and occlusion patterns (see also Figure 2). Interestingly,
+the original BSDS annotations (ﬁrst column) are even simpler than
+our modal annotations. Finally the last row reports edge density.
+compared to modal segments that is independent of scene
+geometry and occlusion patterns (see Figure 2). We ver-
+ify this observation with the following two statistics, shape
+convexity and simplicity, deﬁned on a segmentS:
+convexity(S) = Area(S))
+Area(ConvexHull (S)) (1)
+simplicity(S) =
+√
+4π ∗Area(S)
+Perimeter (S) (2)
+A segment with a large convexity and simplicity value
+means it is simple (and both metrics achieve their maxi-
+mum value of 1.0 for a circle). Table 1 shows that amodal
+regions are indeed simpler than modal ones, which veriﬁes
+our hypothesis. Due to their simplicity, amodal regions can
+actually be more efﬁcient to label than modal regions.
+We also compare to the original (modal) BSDS annota-
+tions (ﬁrst column of Table 1). Interestingly, the original
+BSDS annotations are even simpler than our modal anno-
+tations. Qualitatively it appears that the original annotators
+had a bias for simpler shapes and smoother boundaries.
+Edge density: The last row of Table 1 shows that our
+dataset has fewer visible edges marked than the original
+BSDS annotation (edge density is the percentage of image
+pixels that are edge pixels). This is necessarily the case as
+material boundaries and object parts (i.e. interior edges) are
+not annotated in our data. Note that in §4 we demonstrate
+that although our edge maps are slightly less dense, they can
+be used to effectively train state-of-the-art edge detectors.
+Occlusion: Figure 6a shows a histogram of occlusion
+level (deﬁned as the fraction of region area that is occluded).
+Most regions are slightly occluded, while a small portion
+of regions are heavily occluded. We additionally display 3
+occluded examples at different occlusion levels.
+Scene complexity: With the help of depth ordering,
+we can represent regions using a Directed Acyclic Graph
+(DAG). Speciﬁcally, we draw a directed edge from region
+R1 to region R2 if R1 spatially overlaps R2 and R1 pre-
+cedes R2 in depth ordering. Given the DAG corresponding
+to an image annotation, a few quantities can be analyzed.
+First, Figure 6b shows the number of connected compo-
+nents (CC) per DAG. Most annotations have only one CC,
+
+PAGE 5
+occlusion level0 0.2 0.4 0.6 0.8 1
+percent
+0
+10
+20
+30
+40
+AB
+C
+A B
+C
+(a) detailed occlusion statistics
+# of connected components123456
+percent
+0
+20
+40
+60
+80
+100
+A B C
+A B
+C (b) number of connected components per annotation
+# regions per CC (CC size)5 10 15 20 25 30 35
+percent
+0
+5
+10
+15
+20
+25
+A B
+C	  
+A
+B
+C	  
+(c) connected components size
+# layer per CC2 4 6 8 10 12 14
+percent
+0
+5
+10
+15
+20
+A B
+C	  
+A
+B
+C	   (d) number of depth layers per connected component
+Figure 6: Detailed dataset statistics. See text for details.
+as shown in example A. If regions are scattered and discon-
+nected an image will have more CC’s, as in B and C.
+The size of a CC measures how many regions are mutu-
+ally overlapped, which in turns gives an implicit measure of
+scene complexity. Figure 6c shows a number of examples.
+More complex scenes (examples B and C) have large CC’s.
+Finally, the longest directed path of any CC in a DAG
+characterizes the minimum number of depth layers required
+to properly order all regions in the DAG. Note that the num-
+ber of depth layers is often smaller than the size of a CC:
+e.g. a large CC with numerous non-overlapping foreground
+objects and a single common background only requires two
+depth layers. Figure 6d shows the distribution of number of
+depth layers needed per CC. Most components require only
+a few depth layers although some are far more complex.
+Figure 7 further investigates the correlation between CC
+size and the minimum number of depth layers necessary to
+order all regions. We observe that the number of depth lay-
+ers necessary appears to grow logarithmically with CC size.
+# regions per CC
+2 4 8 16
+# layers
+2
+4
+6
+8
+10
+Figure 7: The minimum number of depth layers necessary to rep-
+resent a connected component (CC). See text for details.
+4. Dataset Consistency
+We next aim to show that semantic amodal segmentation
+is a well-posed annotation task. Speciﬁcally, we show that
+agreement between independent annotators is high. Consis-
+tency is a key property of any human-labeled dataset as it
+enables machine vision systems to learn a well deﬁned con-
+cept. In the next two sub-sections we analyze our dataset’s
+region and edge consistency on BSDS. As a baseline, we
+compare to the original (modal) BSDS annotations.
+
+PAGE 6
+(a) region consistency
+0 0.5 1
+percent
+0
+5
+10
+15
+20
+25
+BSDS train
+BSDS val
+BSDS test
+Our train
+Our val
+Our test
+(b) edge consistency
+0.4 0.6 0.8 1
+percent
+0
+5
+10
+15
+20
+BSDS train
+BSDS val
+BSDS test
+Our train
+Our val
+Our test
+Figure 8: (a) Histogram of pairwise region consistency scores for
+the original modal BSDS annotations and our amodal regions. (b)
+Histogram of pairwise edge consistency scores for visible edges.
+4.1. Region Consistency
+To measure region consistency, we use Intersection over
+Union (IoU) to match regions. The IoU between two seg-
+ments is the area of their intersection divided by the area
+of their union. We threshold IoU at 0.5 and use bipartite
+matching to match two sets of regions. We set each annota-
+tion as the ground truth in turn, and for every other annota-
+tor we compute precision (P) and recall (R) and summarize
+the result via the F measure: F = 2 P R/(P + R). For n
+annotators this yields n(n− 1) F scores per image.
+In Figure 8a we display a histogram of F scores for
+both the original BSDS modal annotations from [2] and
+the amodal annotations in our proposed dataset across each
+split of the dataset. The region consistency of our amodal
+regions is substantially higher than the consistency of the
+original modal regions: median of 0.723 versus 0.425. This
+is in spite of the fact that our amodal regions include both
+the visible and occluded portions of each region. We note
+that the modal region consistency of our annotations is
+0.756, slightly higher than for amodal regions, as expected.
+A number of factors contribute to the consistency of our
+regions. Most importantly, we gave more focused instruc-
+tions to the annotators; speciﬁcally, we asked annotators to
+label only semantically meaningful regions and to label all
+foreground objects, see§2. Thus there was less inherent am-
+biguity in the task. Moreover, in modal segmentation, anno-
+tation level of detail substantially impacts region agreement.
+Figure 9 shows qualitative examples of annotator agree-
+ment on individual regions for both visible and occluded
+portions of a region. Naturally, annotations are most consis-
+tent for regions with simple shapes and little occlusions. On
+the other hand, when the object is highly articulated and/or
+severely occluded, annotators tend to disagree more.
+4.2. Edge Consistency
+Given the amodal annotations and depth ordering, along
+with the constraint that all foreground regions are annotated,
+we can compute the set of visible image edges. We next
+verify the quality of the obtained edge maps.
+First, to measure edge consistency among annotators,
+we compute the F score between each pair of annotations,
+SE [8] HED [43]
+train / test ODS AP R50 ODS AP R50
+bsds / bsds .744 .795 .921 .787 .790 .855
+ours / bsds .747 .802 .923 .775 .793 .868
+bsds / ours .619 .603 .761 .657 .578 .697
+ours / ours .630 .630 .785 .694 .572 .752
+Table 2: Cross-dataset performance of two state-of-the-art edge
+detectors. For SE, training on our dataset improves performance
+even when testing on the original BSDS edges. For HED, using
+the same train/test combination maximizes performance. These
+results indicate that our dataset is valid for edge detection.
+for details see [2]. Figure 8b shows the distribution of
+the boundary consistency scores. The edges in our amodal
+dataset are more consistent than edges in the original BSDS
+annotations (median consistency of 0.795 versus 0.728).
+While our edges are more consistent, the edges are also
+less dense (see Table 1). To evaluate the efﬁcacy of using
+our data for edge detection, we test two popular state-of-
+the-art edge detectors: structured edges (SE) [8] and the
+holistically-nested edge detector (HED) [43]. Results for
+cross-dataset generalization are shown in Table 2. For SE,
+training on our dataset improves performance even when
+testing on the original BSDS edges. For HED, using the
+same train/test combination maximizes performance by a
+slight margin. These results indicate that our dataset is valid
+for edge detection. Note, however, that our test set is sub-
+stantially harder as only semantic boundaries are annotated.
+Finally, we measure human performance. As in [2], we
+take one annotation as the detection and the union of the
+others as ground truth (note that this differs from the 1-vs-1
+methodology used for Figure 8b). On the original BSDS
+test set, precision/recall/F-Score are .92/.73/.81. Human
+performance is much higher on our test set, the scores are
+.98/.83/.90. Of particular interest, however, is the gap be-
+tween human and machine. On the original BSDS annota-
+tions, HED achieves ODS of .79 while human F score is .81,
+leaving a gap of just .02. On our annotations, however, HED
+drops to .69 while human F score increases to .90. Thus, un-
+like the original annotations, our dataset leaves substantial
+room for improvement of the state-of-the-art.
+5. Metrics and Baselines
+We aim to develop measures to quantify algorithm per-
+formance on our data. We begin by reiterating that our rich
+annotations subsume many classic grouping tasks, includ-
+ing modal segmentation, edge detection, and ﬁgure-ground
+edge labeling. Indeed, our COCO dataset (5000 images) is
+an order of magnitude larger than BSDS (500 images), the
+previous de-facto dataset for these tasks. We encourage re-
+searchers to use our data to study these classic tasks; for
+well-established metrics we refer readers to [2].
+
+PAGE 7
+Increasing	  occlusion	  
+Decreasing	  consistency	  
+Figure 9: Visualizations of amodal region consistency. The blue edges are the visible edges, while the red edges are the occluded edges.
+Ground truth is determined by a single randomly chosen annotator. The region consistency score (average IoU score) and the occlusion
+rate are displayed. Examples are roughly sorted by decreasing consistency vertically and increasing occlusion horizontally.
+Here we propose two simple metrics that focus on the
+most salient aspect of our dataset: the amodal nature of the
+segmentations. Predicting amodal segments requires under-
+standing object interaction and reasoning about occlusion.
+Speciﬁcally, we propose to evaluate: (1) amodal segment
+quality and (2) pairwise depth ordering between regions.
+We additionally deﬁne strong baselines for each task.
+All experiments are on the 5000 COCO annotations, split
+into 2500/1250/1250 images for train/val/test, respectively.
+We evaluate on val and reserve the test images for use in a
+possible future challenge as is best practice on COCO.
+5.1. Amodal Segment Quality
+Metrics: To evaluate amodal segments, we adopt a pop-
+ular metric for object proposals: average recall (AR), pro-
+posed in [17] and used in the COCO challenges. To com-
+pute AR, segment recall is computed at multiple IoU thresh-
+olds (0.5-0.95), then averaged. To extend to our setting,
+we simply measure the IoU against the amodal masks. We
+measure AR for 1000 segments per image and also sepa-
+rately for things and stuff. Finally, we report AR for vary-
+ing occlusion levels q: none ( q=0), partial (0<q≤.25), and
+heavy (q>.25), comprising 39%, 31% and 30% of the data.
+Baselines: We use DeepMask [31] and SharpMask [32],
+current state-of-the-art methods for modal class-agnostic
+object segmentation, as our ﬁrst baselines. Next, inspired
+by Ke et al. [23] (which is not directly applicable to our
+setting), we propose a deep network we call ExpandMask.
+ExpandMask takes an image patch and a modal mask gen-
+erated by SharpMask as input and outputs an amodal mask.
+Finally, we train a network, which we call AmodalMask,
+to directly predict amodal masks from image patches. Ex-
+pandMask and AmodalMask share an identical network ar-
+chitecture with SharpMask (except ExpandMask adds an
+extra input channel and uses a slightly larger input size).
+However, while AmodalMask is run convolutionally, Ex-
+pandMask is evaluated on top of SharpMask segments.
+We use the DeepMask and SharpMask publicly available
+code and pre-trained models. We implement ExpandMask
+and AmodalMask on top of the same codebase. Our models
+are initialized from the SharpMask network trained on the
+original modal COCO data. We ﬁnetune using our amodal
+training set. We also attempted to ﬁnetune our models using
+synthetic amodal data ( ExpandMaskS and AmodalMaskS)
+by randomly overlaying objects masks from the original
+COCO dataset. For reproducibility, and to elucidate design
+and network choices, all source code will be released.
+Results: AR for all methods is given in Table 3a and
+qualitative results are shown in Figure 10. SharpMask is a
+strong baseline, especially for things and under limited oc-
+clusion, which is its training setup. With more occlusion,
+the amodal baselines are superior, indicating these models
+can predict amodal masks (however, they are worse on un-
+occluded objects). Using synthetic data improved AR on
+
+PAGE 8
+all regions things only stuff only
+AR AR N ARP ARH AR AR N ARP ARH AR AR N ARP ARH
+DeepMask [31] .378 .456 .407 .248 .422 .470 .473 .279 .248 .367 .242 .199
+SharpMask [32] .396 .493 .428 .242 .448 .510 .501 .275 .246 .384 .243 .187
+ExpandMaskS .384 .460 .415 .256 .427 .474 .480 .284 .258 .374 .250 .212
+AmodalMaskS .395 .457 .424 .289 .435 .468 .487 .316 .282 .388 .268 .246
+ExpandMask .417 .480 .428 .327 .456 .495 .488 .351 .305 .387 .278 .289
+AmodalMask .434 .470 .460 .364 .458 .479 .498 .376 .366 .414 .365 .346
+(a) amodal segmentation evaluation
+Sharp Expand Amodal Ground Ground
+Mask Mask Mask Truth Truth
+train-recall 45% 56% 59% 50% 100%
+test-recall 41% 51% 54% 100% 100%
+area .696 .703 .719 .715 .715
+y-axis .711 .708 .706 .702 .702
+OrderNetB .753 .764 .770 .770 .765
+OrderNetM .786 .785 .791 .810 .817
+OrderNetM+I .793 .802 .814 .869 .883
+(b) depth ordering evaluation
+Table 3: (a) Amodal segmentation quality on the COCO validation set for multiple baselines and under no, partial, and heavy occlusion
+(ARN, ARP, ARH). (b) Accuracy of pairwise depth ordering baselines applied to various segmentations results. See text for details.
+GroundTruth SharpMask ExpandMask AmodalMask
+Figure 10: Examples of amodal mask prediction (red indicates
+occlusion). SharpMask predicts modal masks; ExpandMask and
+AmodalMask predict amodal masks. The last row shows an unoc-
+cluded object, for which ExpandMask is overzealous.
+occluded regions over SharpMask but lagged the accuracy
+of using real training data. Finally, we note that human ac-
+curacy on this task is still substantially higher (see§4).
+5.2. Pairwise Depth Ordering
+Metrics: Understanding full scene structure is challeng-
+ing. Instead, we focus on evaluating pairwise depth or-
+dering, which still requires reasoning about object interac-
+tions and spatial layout. Speciﬁcally, we report the accuracy
+of predicting which of two overlapping masks is in front.
+There are 36k/23k overlapping masks in the train/val sets.
+Note that we have decoupled depth ordering from mask
+prediction. Since higher quality masks should be easier to
+order, we test each ordering algorithm with masks from
+multiple segmentation approaches. Speciﬁcally, for each
+ground truth mask we ﬁrst ﬁnd the best matching mask gen-
+erated by a segmenter (with IoU of at least 0.5), we then
+evaluate the depth ordering only on these matched masks.
+Baselines: We start with two trivial baselines: order by
+area (smaller mask in front) and order by y-axis (mask clos-
+est to top in back). Next, we implemented a number of deep
+nets for this binary prediction task: OrderNet B which takes
+two bounding boxes as input, OrderNet M which takes two
+masks as input, and OrderNet M+I which takes two masks
+and an image patch. OrderNet B uses a 3 layer MLP while
+the other variants use pre-trained ResNet50 models [16]
+(modiﬁed slightly to account for varying number of input
+channels). We train and test a separate OrderNet model for
+each set of masks. For each prediction we run inference
+twice (with input order reversed) and average the results.
+Results: We report results in Table 3b. In addition to
+ordering masks from multiple segmentation algorithms, we
+also train and test OrderNet on ground truth masks (with
+varying amount of training data) to capture the role of mask
+quality and data quantity on ordering accuracy. The naive
+heuristics (area and y-axis) both achieve about 70% accu-
+racy. OrderNet performs much better, with OrderNet M+I
+achieving ∼80% accuracy on generated masks and ∼90%
+on ground truth. OrderNet beneﬁts from better masks (per-
+formance increases in each row moving from left to right),
+and the percent of recalled pairs also affects results slightly
+(as there is more data for training). Considering the simplic-
+ity of our approach, these results are surprisingly strong.
+6. Discussion
+We presented a new dataset to study perceptual group-
+ing tasks. The most distinctive feature of our dataset is that
+regions are annotated amodally: both the visible and oc-
+cluded portions of regions are marked. The motivation is to
+encourage amodal perception, and reasoning about object
+interactions and scene structure. Extensive analysis shows
+that semantic amodal segmentation is a well-posed annota-
+tion task. We also provided evaluation metrics and strong
+baselines for the proposed tasks. We hope our dataset will
+help stimulate new research directions for the community.
+Acknowledgements
+We would like to thank Saining Xie and Yin Li for help with
+training the HED detector and to Lubomir Bourdev and Manohar
+Paluri and many others for valuable discussions and feedback.
+
+PAGE 9
+References
+[1] E. H. Adelson and J. R. Bergen. The plenoptic function and
+the elements of early vision. In Computational Models of
+Visual Processing. MIT Press, 1991.
+[2] P. Arbelaez, M. Maire, C. Fowlkes, and J. Malik. Contour
+detection and hierarchical image segmentation. PAMI, 2011.
+[3] S. Bell, P. Upchurch, N. Snavely, and K. Bala. Opensur-
+faces: A richly annotated catalog of surface appearance.
+SIGGRAPH, 2013.
+[4] S. M. Bileschi. StreetScenes: Towards scene understanding
+in still images. PhD thesis, Citeseer, 2006.
+[5] J. Deng, W. Dong, R. Socher, L. Li, K. Li, and L. Fei-Fei. Im-
+ageNet: A large-scale hierarchical image database. InCVPR,
+2009.
+[6] P. Doll ´ar, Z. Tu, and S. Belongie. Supervised learning of
+edges and object boundaries. In CVPR, 2006.
+[7] P. Doll ´ar, C. Wojek, B. Schiele, and P. Perona. Pedestrian
+detection: An evaluation of the state of the art. PAMI, 2011.
+[8] P. Doll ´ar and C. L. Zitnick. Fast edge detection using struc-
+tured forests. PAMI, 2015.
+[9] M. Everingham, L. V . Gool, C. K. I. Williams, J. Winn, and
+A. Zisserman. The PASCAL visual object classes (VOC)
+challenge. IJCV, 2010.
+[10] P. Felzenszwalb, R. Girshick, D. McAllester, and D. Ra-
+manan. Object detection with discriminatively trained part
+based models. PAMI, 2010.
+[11] D. A. Forsyth, J. Malik, M. M. Fleck, H. Greenspan, T. Le-
+ung, S. Belongie, C. Carson, and C. Bregler.Finding pictures
+of objects in large collections of images. Springer, 1996.
+[12] C. C. Fowlkes, D. R. Martin, and J. Malik. Local ﬁgure–
+ground cues are valid for natural images. Journal of Vision,
+2007.
+[13] R. Girshick, J. Donahue, T. Darrell, and J. Malik. Rich fea-
+ture hierarchies for accurate object detection and semantic
+segmentation. In CVPR, 2014.
+[14] R. Guo and D. Hoiem. Beyond the line of sight: labeling the
+underlying surfaces. In ECCV, 2012.
+[15] S. Gupta, P. Arbelaez, and J. Malik. Perceptual organization
+and recognition of indoor scenes from RGB-D images. In
+CVPR, 2013.
+[16] K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning
+for image recognition. In CVPR, 2016.
+[17] J. Hosang, R. Benenson, P. Doll ´ar, and B. Schiele. What
+makes for effective detection proposals? PAMI, 2015.
+[18] G. Kanizsa. Organization in vision: Essays on Gestalt per-
+ception. Praeger Publishers, 1979.
+[19] A. Kar, S. Tulsiani, J. Carreira, and J. Malik. Amodal com-
+pletion and size constancy in natural scenes. In ICCV, 2015.
+[20] A. Karpathy. What I learned from compet-
+ing against a ConvNet on ImageNet, 2015.
+http://karpathy.github.io/2014/09/02/what-i-learned-from-
+competing-against-a-convnet-on-imagenet/.
+[21] R. Krishna, Y . Zhu, O. Groth, J. Johnson, K. Hata, J. Kravitz,
+S. Chen, Y . Kalantidis, L.-J. Li, D. A. Shamma, M. Bern-
+stein, and L. Fei-Fei. Visual genome: Connecting language
+and vision using crowdsourced dense image annotations. In
+arXiv:1602.07332, 2016.
+[22] A. Krizhevsky, I. Sutskever, and G. Hinton. ImageNet classi-
+ﬁcation with deep convolutional neural nets. InNIPS, 2012.
+[23] K. Li and J. Malik. Amodal instance segmentation. In ECCV,
+2016.
+[24] T.-Y . Lin, M. Maire, S. Belongie, L. Bourdev, R. Girshick,
+J. Hays, P. Perona, D. Ramanan, C. L. Zitnick, and P. Doll´ar.
+Microsoft COCO: Common objects in context. PAMI, 2015.
+[25] C. Liu, J. Yuen, and A. Torralba. Nonparametric scene pars-
+ing via label transfer. PAMI, 2011.
+[26] J. Long, E. Shelhamer, and T. Darrell. Fully convolutional
+networks for semantic segmentation. In CVPR, 2015.
+[27] M. Maire, S. X. Yu, and P. Perona. Hierarchical scene anno-
+tation. In BMVC, 2013.
+[28] R. Mottaghi, X. Chen, X. Liu, N.-G. Cho, S.-W. Lee, S. Fi-
+dler, R. Urtasun, and A. Yuille. The role of context for object
+detection and semantic segmentation in the wild. In CVPR,
+2014.
+[29] S. E. Palmer. Vision science: Photons to phenomenology .
+MIT press Cambridge, MA, 1999.
+[30] P. O. Pinheiro and R. Collobert. Recurrent conv. neural net-
+works for scene labeling. In ICML, 2014.
+[31] P. O. Pinheiro, R. Collobert, and P. Dollar. Learning to seg-
+ment object candidates. In NIPS, 2015.
+[32] P. O. Pinheiro, T.-Y . Lin, R. Collobert, and P. Doll´ar. Learn-
+ing to reﬁne object segments. In ECCV, 2016.
+[33] S. Ren, K. He, R. Girshick, and J. Sun. Faster r-cnn: Towards
+real-time object detection with region proposal networks. In
+NIPS, 2015.
+[34] B. Russell, A. Torralba, K. P. Murphy, and W. T. Freeman.
+LabelMe: A database and web-based tool for image annota-
+tion. IJCV, 2008.
+[35] P. Sermanet, D. Eigen, X. Zhang, M. Mathieu, R. Fergus,
+and Y . LeCun. Overfeat: Integrated recognition, localization
+and detection using convolutional networks. In ICLR, 2014.
+[36] J. Shotton, J. Winn, C. Rother, and A. Criminisi. Texton-
+Boost: Joint appearance, shape and context modeling for
+multi-class object recognition and segm. In ECCV, 2006.
+[37] N. Silberman, D. Hoiem, P. Kohli, and R. Fergus. Indoor
+segmentation and support inference from rgbd images. In
+ECCV, 2012.
+[38] N. Silberman, L. Shapira, R. Gal, and P. Kohli. A contour
+completion model for augmenting surface reconstructions.
+In ECCV, 2014.
+[39] K. Simonyan and A. Zisserman. Very deep convolutional
+networks for large-scale image recognition. In ICLR, 2015.
+[40] C. Szegedy, W. Liu, Y . Jia, P. Sermanet, S. Reed,
+D. Anguelov, D. Erhan, V . Vanhoucke, and A. Rabinovich.
+Going deeper with convolutions. In CVPR, 2015.
+[41] J. Wagemans, J. H. Elder, M. Kubovy, S. E. Palmer, M. A.
+Peterson, M. Singh, and R. von der Heydt. A century of
+Gestalt psychology in visual perception. Psychological Bul-
+letin, 2012.
+[42] J. Xiao, J. Hays, K. Ehinger, A. Oliva, A. Torralba, et al. Sun
+database: Large-scale scene recognition from abbey to zoo.
+In CVPR, 2010.
+[43] S. Xie and Z. Tu. Holistically-nested edge detection. In
+ICCV, 2015.
+
+PAGE 10
+(a)	   (b)	   (c)	   (d)	  
+Figure 11: A few corner cases in annotation: (a) Annotators only
+label exterior boundaries, leaving holes as part of the region. (b)
+Annotators only label the most salient objects in blurry and clut-
+tered backgrounds. (c) For regions with intertwined depth order-
+ing, annotators are instructed to pick the depth ordering which is
+‘least wrong’ or to annotate object parts. (d) Annotators can mark
+a group of similar objects using a single segment.
+A. Appendix: Annotation Details
+A.1. Annotation Tool
+For our task we adopt the Open Surfaces [3] annotation
+tool developed by Bellet al. for material segmentation. The
+original tool allows for labeling multiple regions in an im-
+age by specifying a closed polygon for each region. The
+same tool was also adopted for annotation of COCO [24].
+The interface is simple and intuitive.
+We extend the tool in a number of ways to support se-
+mantic amodal segmentation and facilitate annotation (see
+Figure 3). We have added the following features:
+Depth ordering: An ordered list next to the image indi-
+cates the segment depth order. Annotators can rearrange the
+order by dragging items up and down in this list (see Figure
+3). Moreover, visual feedback is given about depth order
+through the region ﬁll overlaid on the image, allowing an-
+notators to quickly determine the correct order, see Fig. 4a.
+Semantic annotation: The same list used for specifying
+depth ordering is also used for naming each segment. The
+annotators enter free-form text for the segment names. All
+segments must be named for an annotation to be complete.
+Edge sharing: We extended polygon annotation to allow
+for ‘snapping’ of a new polygon vertex to the closest ex-
+isting polygon edge or vertex. This mechanism allows for
+easily annotating shared edges, see Figure 4b.
+Polygon editing: Finally, we add control for adding and
+removing vertices while editing existing polygons.
+We will release the code for the modiﬁed annotation tool.
+A.2. Corner Cases
+Although our annotation instructions are sufﬁcient for
+most images, the following cases require special treatment:
+Regions with holes: We only annotate the exterior region
+boundaries, therefore each region is represented by a single
+segment. Holes are ignored (Figure 11a).
+Background objects : For blurry objects in the back-
+ground, annotators are asked to label only the most salient
+objects individually, rather than every detail (Figure 11b).
+Intertwined depth: Two regions might not have a valid
+depth ordering (e.g., the woman holding the musical instru-
+ment in Figure 11c). In such cases we instruct the annota-
+tors to pick the depth ordering which is ‘least wrong’. In
+extreme cases, annotators may label parts of an object so
+that visibility and occlusion information are correctly spec-
+iﬁed (e.g., by marking the woman’s hands in Figure 11c).
+Groups: For groups of similar objects (e.g. a crowd
+of people or bunch of bananas), annotators are instructed
+to mark a single region enclosing the entire group (Fig-
+ure 11d). Note that groups are often perceived as a single
+visual entity, so this form of annotation is quite natural.
+Truncation: Segments must be fully contained within the
+image boundaries, i.e. regions extending beyond the image
+are not annotated amodally (annotation outside the image is
+particularly challenging as the occluder is not visible).
+A.3. Annotators
+Rather than rely on a crowdsourcing platform, we uti-
+lize a pool of expert workers to perform all annotations.
+This allows us to specify more complex instructions than
+is typically possible with crowdsourcing platforms and iter-
+ate with workers until annotations reach a sufﬁcient quality.
+We note, however, that if necessary we could move our an-
+notation onto a crowdsourcing platform. This would require
+splitting a single image annotation into multiple separate
+and possibly redundant tasks, similarly to how annotation
+was performed on COCO [24].
+While every image in BSDS is annotated by multiple
+workers, we also monitor individual worker quality. We dif-
+ferentiate between obvious errors, which we ask workers to
+correct, and subjective judgments, which differ between in-
+dividuals and for which a clear criterion is harder to deﬁne.
+Each image annotation is manually checked, and obvious
+errors are sent back to the annotators for improvement. Sub-
+jective judgements, on the other hand, are left to annotators’
+discretion. Checking annotations for errors is a quick and
+lightweight process (and can also be crowdsourced).
+Common obvious errors include incorrect depth order-
+ing, missing foreground objects, regions annotated modally,
+and low quality polygons. These errors all explicitly violate
+the annotation instructions and are easily identiﬁable. On
+the other hand, common subjective judgements include the
+semantic label used, the exact location of hidden edges, and
+whether a region was sufﬁciently salient to warrant annota-
+tion. As mentioned, annotators are asked to correct obvious
+errors but not subjective judgements.
+
+PAGE 11
+(a) Image (b) BSDS [original] (c) BSDS-5 [ours] (d) BSDS-1 [ours] (e) COCO
+Figure 12: Edge detections for HED learned with different training sets. (b) Using the original BSDS annotations results in dense edge
+maps with interior edges being detected. (c,d) Training with our BSDS edges (with either 1 or 5 annotators per image) results in sparser,
+more semantically meaningful edges. (e) Finally, training with our COCO edges yields qualitatively similar albeit slightly better results.
+SE [8] HED [43]
+train / test bsds-5 bsds-1 coco-1 bsds-5 bsds-1 coco-1
+bsds-5 .630 .543 .522 .694 .615 .583
+bsds-1 .628 .540 .520 .690 .609 .575
+coco-1 .622 .536 .524 .686 .607 .609
+Table 4: Edge detection accuracy (ODS) versus the number of
+annotators per image. Each row shows a different train setup and
+each column a different test setup. The number of annotators per
+image heavily affects test accuracy, but it makes little difference
+for training. Finally, switching the training set from BSDS to
+COCO has only a minor effect on SE but impacts HED more.
+B. Appendix: Edge Detection on COCO
+To allow for the study of edge detectors on COCO, in
+this appendix we report the performance of the structured
+edges (SE) [8] and the holistically-nested edge detector
+(HED) [43] on COCO. Results of these detectors on the
+BSDS dataset [2] (for both the original annotations and our
+annotations) were presented in §4.2. Here we train these
+state-of-the-art edge detectors on the 2500 COCO train im-
+ages and test them on the 1250 image COCO val set.
+We begin by noting that edge detection metrics [2] are
+heavily impacted by the number of annotators per image .
+The ground truth edges used for evaluation are the union of
+the human annotations and using more annotators per image
+results in denser edges for testing. In Table 4, we report
+ODS AP R50
+SE [8] .524 .474 .519
+HED [43] .609 .493 .741
+Table 5: Edge evaluation for SE and HED on the COCO val set.
+edge detection accuracy versus the number of annotators per
+image using our annotations. During testing, reducing the
+number of annotators per image lowers ODS substantially
+(even though the evaluated models are identical). On the
+other hand, reducing the number of annotations per image
+during training leaves results largely unchanged.
+From Table 4 we also observe that results between
+COCO and BSDS are quite similar once the number of an-
+notators per image is accounted for. We thus emphasize that
+while the edge detection accuracy on COCO appears to be
+worse than on BSDS (both using our annotations), this is
+an artifact of how accuracy is measured. We also note that
+while COCO only has one annotator per image, it has 10×
+more images than BSDS (5000 versus 500). Thus, more
+data-hungry approaches should beneﬁt from COCO.
+In Table 5, we report complete SE and HED edge detec-
+tion results on the COCO validation set (training performed
+on the COCO train set). Our dataset provides a substan-
+tial challenge for current state-of-the-art edge detectors. Fi-
+nally, in Figure 12, we show qualitative HED edge detection
+results using different options for the training data.

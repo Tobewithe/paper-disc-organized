@@ -1,0 +1,164 @@
+{
+  "study_id": "STUDY_DENSE_VIDEO_OCCLUSION_TRANSFER_20261019",
+  "line_key": "dense_video_identity",
+  "title": "合成可见性学习与真实视频身份恢复迁移",
+  "plan_status": "frozen",
+  "execution_status": "completed",
+  "scientific_status": "utility_not_established",
+  "artifact_status": "model_checkpoints_and_full_outputs_completed_showcase_in_preparation",
+  "transfer_status": "inputs_verified",
+  "protocol": "PROTOCOL.md",
+  "implementation": "IMPLEMENTATION_CONTRACT.md",
+  "correction": "GEOMETRY_CORRECTION.md",
+  "executor": "a25023104@192.168.71.10",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2",
+  "updated_at": "2026-10-19T10:44:57.732855+00:00",
+  "jobs": {
+    "assets": 122,
+    "smoke_failed": 123,
+    "smoke_passed": 124,
+    "argument_failures": [
+      125,
+      126,
+      127,
+      128
+    ],
+    "original_generation": [
+      129,
+      130,
+      131,
+      132
+    ],
+    "cancelled_before_start": [
+      133,
+      134
+    ],
+    "geometry_debug": [
+      135,
+      136
+    ],
+    "corrected_generation": [
+      137,
+      138,
+      139,
+      140
+    ],
+    "features": 144,
+    "train": 145,
+    "evaluate": 149,
+    "feature_initial_failed": 141,
+    "evaluation_import_failed": 146,
+    "evaluation_input_failed": 147,
+    "features_repair": 148,
+    "supplementary_adjudication": 150
+  },
+  "training_steps_completed": 6000,
+  "formal_budget": {
+    "arms": [
+      "FULL",
+      "NOW",
+      "NOCTX"
+    ],
+    "steps_each": 2000,
+    "seed": 20261019,
+    "real_GT_training": false
+  },
+  "expected_outputs": [
+    "real heldout11 N/R/C/GEOM/FULL/NOW/NOCTX/SHUFFLE metrics",
+    "synthetic heldout asset capability",
+    "2000 paired video bootstrap",
+    "physical partial occlusion supplementary evaluation",
+    "honest visual comparisons"
+  ],
+  "smoke_training_steps": 60,
+  "final_runs": {
+    "features": {
+      "run_id": "RUN_OCC_FEATURES_REPAIR_20261019T103708_2379ad5b",
+      "path": "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/experiments/dense_video_occlusion_transfer_20261019/runs/RUN_OCC_FEATURES_REPAIR_20261019T103708_2379ad5b"
+    },
+    "train": {
+      "run_id": "RUN_OCC_TRAIN_20261019T103219_d68f927f",
+      "path": "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/experiments/dense_video_occlusion_transfer_20261019/runs/RUN_OCC_TRAIN_20261019T103219_d68f927f"
+    },
+    "evaluate": {
+      "run_id": "RUN_OCC_EVALUATE_20261019T103747_e09ab314",
+      "path": "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/experiments/dense_video_occlusion_transfer_20261019/runs/RUN_OCC_EVALUATE_20261019T103747_e09ab314"
+    },
+    "adjudicate": {
+      "run_id": "RUN_OCC_ADJUDICATE_20261019T104238_ad6cf8ab",
+      "path": "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/experiments/dense_video_occlusion_transfer_20261019/runs/RUN_OCC_ADJUDICATE_20261019T104238_ad6cf8ab"
+    }
+  },
+  "primary_result": {
+    "N": {
+      "delta_IDF1": 2.2207017886814526,
+      "paired_video_bootstrap_95": [
+        0.4684043873046818,
+        3.4371817795741877
+      ],
+      "videos": 11,
+      "resamples": 2000,
+      "scope": "descriptive, historical nonblind small-sample"
+    },
+    "R": {
+      "delta_IDF1": -4.171077282532295,
+      "paired_video_bootstrap_95": [
+        -8.232949281904988,
+        -0.7180093653005563
+      ],
+      "videos": 11,
+      "resamples": 2000,
+      "scope": "descriptive, historical nonblind small-sample"
+    },
+    "C": {
+      "delta_IDF1": 0.26292640015637403,
+      "paired_video_bootstrap_95": [
+        0.0,
+        0.4999871849349101
+      ],
+      "videos": 11,
+      "resamples": 2000,
+      "scope": "descriptive, historical nonblind small-sample"
+    },
+    "GEOM": {
+      "delta_IDF1": 0.5434463884273129,
+      "paired_video_bootstrap_95": [
+        0.0,
+        1.0209081927629344
+      ],
+      "videos": 11,
+      "resamples": 2000,
+      "scope": "descriptive, historical nonblind small-sample"
+    },
+    "NOW": {
+      "delta_IDF1": 0.032254911543333264,
+      "paired_video_bootstrap_95": [
+        0.0,
+        0.16163085731200505
+      ],
+      "videos": 11,
+      "resamples": 2000,
+      "scope": "descriptive, historical nonblind small-sample"
+    },
+    "NOCTX": {
+      "delta_IDF1": 0.19939399863159224,
+      "paired_video_bootstrap_95": [
+        0.0,
+        0.37917243764579345
+      ],
+      "videos": 11,
+      "resamples": 2000,
+      "scope": "descriptive, historical nonblind small-sample"
+    },
+    "SHUFFLE": {
+      "delta_IDF1": -0.10751637181117246,
+      "paired_video_bootstrap_95": [
+        -0.23385106065062936,
+        0.10076115976032421
+      ],
+      "videos": 11,
+      "resamples": 2000,
+      "scope": "descriptive, historical nonblind small-sample"
+    }
+  }
+}

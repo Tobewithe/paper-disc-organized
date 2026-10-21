@@ -1,0 +1,46 @@
+{
+  "action_counts": {
+    "unknown": {
+      "actions": 13,
+      "positive": 0,
+      "zero": 9,
+      "negative": 4
+    },
+    "correct_connection": {
+      "actions": 13,
+      "positive": 1,
+      "zero": 2,
+      "negative": 10
+    },
+    "wrong_connection": {
+      "actions": 4,
+      "positive": 0,
+      "zero": 2,
+      "negative": 2
+    }
+  },
+  "unique_events": {
+    "-1": 7,
+    "0": 9,
+    "1": 2
+  },
+  "wrong_event_ids": [
+    [
+      "duck_2",
+      98
+    ],
+    [
+      "zebra_2",
+      34
+    ]
+  ],
+  "status": "insufficient_distinct_wrong_events_for_population_alignment_gate",
+  "point_evidence": "2 events / 4 trigger times; no single withdrawal improves IDF1; 2 harmful and 2 neutral actions",
+  "source": {
+    "run_id": "RUN_DECISION_ACTION_ALIGNMENT_AUDIT_20261019T135713_9e907503",
+    "path": "D:\\thesis-video-v4-20261019\\runs\\RUN_DECISION_ACTION_ALIGNMENT_AUDIT_20261019T135713_9e907503"
+  },
+  "correction": "initial audit DECISION counted actions rather than distinct events; original retained",
+  "next_focus": "build trajectory-level decision supervision; first verify action utility on independently identifiable events",
+  "new_training_authorized_by_this_audit": false
+}

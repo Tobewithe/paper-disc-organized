@@ -1,20 +1,54 @@
-# 当前科研总控：原型—系数链路
+# 当前科研总控与研究线路由
 
-**更新：2026-10-17｜CET-v1真实系数误差迁移核验已在笔记本完成并结案。仅拟合2510条教师估计误差库和强度，在581条/208图留出完成33698次等功能幅度压力；真实中心化结构相对随机/错配的额外损失+.001973/+.002291，区间均跨零且均值低于.005，冻结判定INCONCLUSIVE_NOT_READY，不进入原型容错训练。三类扰动均使教师IoU损失约.147–.149的共同现象保留。166项回传、配置和两机独立复核通过；训练/forward/Oracle求解均0，任务已停用。唯一后续建议是先设计端点保真且功能尺度受控的一般扰动稳定性可行性对照，尚未启动。**
+按用户当前指定的研究线读取相应入口，各线的实验状态、执行设备和冻结 Gate 独立。研究线身份见 [research_lines.json](research_lines.json)，原型—系数链路的既有总控在下方保留。
 
-本页是 **“原型—系数链路”这条研究线唯一的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。对其它独立研究线（例如 `mask_boundary_calibration`）只做边界标记，不抢占其原冻结计划。新指令出现时先更新本页的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+## 用户指定独立诊断：YOLOseg低中高频分析
+
+**2026-10-20 FREQ-S2服务器尺度条件化复析已结案。** Slurm171/`RUN_FREQ_S2_FULL_4db146ff8acd405094115055754f0bca`完整复析28,377条既有频谱，6.01秒，零训练/新推理。按同类、输入面积细分层后失败减成功低频份额S/M/L为+2.44/+11.95/+33.34点；L区间[32.51,34.20]点，覆盖963/981，Hann方向保持。L失败低频方向差占86.32%，低频余弦0.7189（成功0.9798），支持优先核验大目标粗轮廓/覆盖空间定位；不证明纯相位或具体因果。**唯一下一步建议：冻结同检测、等改动预算的低频空间纠正vs低频仅调幅零训练对照，尚未启动。** 同数据探索性关联，不冒称独立FFT/模型复现或AP增益；原始24项份额差0，28,377身份与168+18项均值独立核验、18项回传及4份修订图SHA通过。见[完整报告](../experiments/yoloseg_frequency_scale_reanalysis_20261020/REPORT.md)、[冻结协议](../experiments/yoloseg_frequency_scale_reanalysis_20261020/PROTOCOL.md)、[Study](../experiments/yoloseg_frequency_scale_reanalysis_20261020/study.json)。下方FREQ-v1原结案建议由本结果细化，LCF/VOR及其它任务不变。
+
+**2026-10-20（last_reviewed）：FREQ-v1已结案并交付可视化。** YANGLEI于17:17完成5000图原型与28,377条固定Box75配对，正式Run `RUN_FREQ_FULL_666fc3b6b2aa427d80220d4a6956a41a`，零训练/前向。P低/中/高能量59.85/27.35/12.80%；自身失败组高频误差56.24%（95%区间55.20–57.21%），但S/M/L分别77.40/47.53/17.52%，高频预测/GT能量比均不低于1，不支持统一高频不足。**本诊断的正向重点：大目标低频轮廓/覆盖空间错配；唯一后继建议是冻结同检测、同改动能量预算的低频空间纠正/高频增幅零训练对照，尚未启动。** 28,377项IoU差0、20,000项图/缓存SHA、71项回传及180项独立均值复算通过，5组PNG/SVG已查看。见[完整报告](../experiments/yoloseg_frequency_audit_20261020/REPORT.md)、[协议](../experiments/yoloseg_frequency_audit_20261020/PROTOCOL.md)、[Study](../experiments/yoloseg_frequency_audit_20261020/study.json)。频谱是描述性证据，不证明机制或方法效用；不改变下方服务器LCF及视频任务的运行、Gate或预算，无定时器/目标模式。
+
+## 独立主线 视频遮挡表征预训练
+
+**2026-10-20 E0 已通过，服务器正式数据准备正在运行。** 本线 key 为 `occlusion_representation_pretraining`，入口为[视频遮挡表征预训练](../paper/manuscripts/occlusion_representation_pretraining/README.md)。8家族/24视频/1,152帧、27,648次射线复核以及四臂16工程步通过；初始化和有效参数一致，未来泄漏/校准梯度检查通过。该结果是工程有效性，不是恢复效用。见[E0报告](../experiments/occlusion_representation_pretraining_20261019/E0_REPORT.md)。
+
+- **状态：**Job160 单卡生成40,320帧、核验并缓存特征；Run `RUN_VOR_RENDER_PILOT_TRAIN_0000_565c71df87ac`。Job161依赖其成功后运行B/P/I/Hpos各2,000步和冻结评价。正式训练当前0步，尚无方法成绩；不把提交或工程通过当科研完成。
+- **唯一下一步：**按一次性Slurm链完成四臂恢复/错误接受对照，不追加预算、重选阈值或重复提交。E0/E1和16个源文件已冻结；[冻结协议](../experiments/occlusion_representation_pretraining_20261019/EXECUTION_E1_V02.md) · [Study](../experiments/occlusion_representation_pretraining_20261019/study.json) · [接续记录](../experiments/occlusion_representation_pretraining_20261019/HANDOFF.md)。
+- **范围：**实际首版底座为公开DINOv2 ViT-S/14；DINOv3权重访问未就绪，执行前登记替换。当前验证同渲染器的留出动物资产，真实视频/固定YOLO跟踪迁移未测。执行账号 `a25023104@192.168.71.10`，主存目录 `video-occlusion-pretraining-v02`。旧草案、旧Run和小论文Gate保留；无定时器或自动续训。
+
+## 原型—系数链路独立总控
+
+**2026-10-20 V2两项独立零训练机制核验已授权并提交。** [冻结协议](../experiments/yoloseg_v2_mechanism_audits_20261020/PROTOCOL.md)、[Study](../experiments/yoloseg_v2_mechanism_audits_20261020/study.json)：Slurm167输出链归因、Slurm168采样位置稳定性，各单卡/4CPU/16GiB，先各64原帧smoke再正式576原帧；平移固定9相位，正式5184张前向。复用V2原生批次/预测/GT，先逐项精确重放，检测失配与条件P/c交换分别记账。当前仅提交，未判定工程或科学通过；完成后原协议复核、回传并分别结案。仅推进这两项诊断，不改LCF/VOR任务，不训练、不扫阈值、不设定时/目标、不提交推送；下方V2结案时“尚未启动”的建议已由本授权取代。
+
+**2026-10-20 Blender V2已结案。** Slurm164正常完成16帧smoke及12段/576帧正式测试，训练0步；正式`RUN_YB2_FULL_9154f356ba5f435f8c73db254817abb3`。三seed分散组适用性、投影及14704条原生重放通过；中心近邻/遮挡失败增量+7.6389/+9.7222个百分点，均未过预设10点门槛。近邻共同132条正确配对实质混入0→55；不据此宣称P容量不足或新方法增益。完整1303项Run清单SHA、本机冻结复算及16280项独立拓扑核算通过。见[报告](../experiments/yoloseg_blender_scale_controlled_20261020/REPORT.md)、[配置复核](../experiments/yoloseg_blender_scale_controlled_20261020/CONFIGURATION_REVIEW.md)、[Study](../experiments/yoloseg_blender_scale_controlled_20261020/study.json)。正向重点为区分实例输出断续与掩码混入的来源；唯一下一步建议冻结候选/最终输出/P/c分段归因协议，尚未启动。两项空闲卡分析建议仅讨论；不追加训练、不改LCF/VOR，不设定时/目标、不提交推送。
+
+**2026-10-20 Blender合成视频首轮已结案。** Slurm162/`RUN_YB_SMOKE_c6f0333ccc994518bdf0790b52265526`正常完成8段/384帧，单卡15分11秒、训练0步；49152射线检查与33967条原生输出zero-delta重放通过。交叉条件正确检测189/192→168/192，共同168条观测混入9→69（补充描述）；三组控制可识别性未过80%，不作原型因果结论。59项回传SHA及账本/配置复算通过；[报告](../experiments/yoloseg_blender_stress_20261020/REPORT.md)、[配置复核](../experiments/yoloseg_blender_stress_20261020/CONFIGURATION_REVIEW.md)、[Study](../experiments/yoloseg_blender_stress_20261020/study.json)。唯一下一步建议冻结以可识别分散场景为参照、目标投影尺度受控的V2场景协议，尚未启动；12类/20736帧大矩阵仍仅设计，不改LCF及其它视频任务，无定时/目标/自动重启。
+
+**2026-10-20当前唯一正式训练：LCF服务器四卡正式训练，Slurm154（LCFS-train-ABCD）。** [迁移Study](../experiments/mask_local_connectivity_server_20261020/study.json)、[迁移协议](../experiments/mask_local_connectivity_server_20261020/MIGRATION_PROTOCOL.md)及[初始化工程修订](../experiments/mask_local_connectivity_server_20261020/INITIALIZATION_RECOVERY.md)已冻结；Slurm153四卡smoke通过。四臂实际initial.pt与笔记本零步张量精确一致、新建空优化器，首批日志12/13/15/14步确认。每臂20k×3轮15000步不变，笔记本失败2165步单列，累计正式尝试上限62165；服务器smoke32步另列丢弃。GPU各一张A6000，无DDP/跨卡batch扩大；预计约19小时为smoke外推。见[启动配置复核](../experiments/mask_local_connectivity_server_20261020/STARTUP_CONFIGURATION_REVIEW.md)，157项回传SHA核验通过。训练结果未出，后续按原LCF Gate完整5000图评价；当前Slurm仅提交train，没有自动评价任务。原失败保留，无定时/目标/自动提交推送。
+
+**2026-10-20实机核验更正：下方启动快照已过时。** LCF笔记本Run已于台北时间06:05因`CUDA reserved exceeds 6 GiB`退出，无活跃训练；实际日志A542/B541/C541/D541，共2165步（run.json总计2160为较早快照）。尚无训练后checkpoint，仅四份initial.pt，未评价，不能断点续接或声称科研失败。用户已要求改到算力服务器；只读连接master-01/a25023104成功，本账号Slurm队列为空，尚未提交迁移作业。旧Run、冻结文件与日志保留；重启及预算记账须先在迁移执行补充协议明确。见[实机核验回执](../experiments/mask_local_connectivity_factorial_20261020/LAPTOP_FAILURE_STATUS.json)。
+
+**历史笔记本启动快照（已被工程失败及上方服务器迁移取代）：LCF-v1/V2实例局部解码×连接监督四臂训练。** 用户“试试”承接方案，笔记本独立进程PID24120。正式Run `RUN_LCF_TRAIN_ced92f98a1aa4d8898fe5a24c0b13a39`，回传真日志确认四臂各36/15000步，未完成/未出科研成绩。A/B全局系数约束、C/D局部残差；A/C同类同难度监督控制，B/D连接路径监督，D为唯一主方法。四臂均71361有效参数、同seed0实际初始化张量，原20k图×3轮，总60000步；本Study独立新预算，不冒称旧2k/S3已放行或S4扩量。完整训练标注、25k图片SHA、原历史批次通过；真实smoke32图/每臂4步与额外16图原生/旧G2345条重放及point-F相同，显存峰值约2.40GiB、保守估时79.92小时<96小时。见[启动配置复核](../experiments/mask_local_connectivity_factorial_20261020/STARTUP_CONFIGURATION_REVIEW.md)、[协议V2](../experiments/mask_local_connectivity_factorial_20261020/PROTOCOL.md)、[Study](../experiments/mask_local_connectivity_factorial_20261020/study.json)。完成后同一checkpoint全5000图拓扑/AP/损伤评价与统计，再复核配置；不追加训练/阈值搜索，不恢复SSR/PLF，不设定时任务/目标、不自动提交推送。
+
+**2026-10-20 STA-v1拓扑审计已结案；原设计建议已由上方LCF新授权取代。** [报告](../experiments/mask_split_merge_topology_audit_20261020/REPORT.md)：笔记本CPU完成原256条/243图及6144个已有C压力掩码，训练/推理/系数求解均0。C的97条Mask75失败中47条有实质分裂/混入候选，159条成功中仍有58条；C相对N/旧G既有GT辅助IoU收益+.135158/+.127930，混入量下降、分裂量差区间跨0。408个像素变化≤1%的有效方向中，仅3个实质告警翻转，不能把细碎拓扑变化夸成主要结构瓶颈。20480项独立连通域字段及6144精度标记通过，20项回传SHA与本机6配对均值通过；[配置复核](../experiments/mask_split_merge_topology_audit_20261020/CONFIGURATION_REVIEW.md)。**正向研究重点：局部切断跨实例错误连接，同时保持目标自身正确连接。唯一下一步是设计并冻结全局系数/独立局部编辑的同质量、同幅度、同编辑预算可控性对照，尚未启动。** 现有有限Oracle不是全局最优；全局耦合因果、固定P拓扑不可达及局部新方法效用均未证。SSR保持停止，PLF暂缓，不训练、不设定时任务/目标。
+
+**PLF暂缓：**线性可分性/有理证书程序已准备并在笔记本生成执行前freeze，尚无smoke或正式科学Run。用户新指令优先拓扑审计；保留准备文件与冻结快照，不启动求解，不抹去原计划。
+
+**SSR用户终止：**缺图16344/16344已回传并保留；接续在输入准备标注SHA断言处失败，正式训练0步，已核对本机及笔记本均无SSR活跃Python进程。错误、全部数据与工程证据保留；本次按用户要求停止，不修复或重启。见[终止回执](../experiments/mask_sampling_readout_20261020/USER_STOP_RECEIPT.json)和[原Study](../experiments/mask_sampling_readout_20261020/study.json)。
+
+**历史结案：2026-10-20原256条完整评价已完成（其Run无活跃任务）。** 笔记本RSM-C1完成256条/243图、零训练，C/W同掩码端点精确一致；原10%logit幅度压力下W-C IoU=-0.001422，95%区间[-0.002319,-0.000560]，159见证平均保留95.02096%→94.73270%。218/256中心接受、38回退、1条代理越限，W原幅度12/6144及实际logit差49/6144超差，科学状态仍为INCONCLUSIVE_NUMERICAL；完整读数不冒充原Gate通过。13056次full replay、13312项RLE/IoU、旧113条前缀、96文件回传与两机统计核验通过。见[完整报告](../experiments/mask_repair_margin_completion_20261020/REPORT.md)、[配置复核](../experiments/mask_repair_margin_completion_20261020/CONFIGURATION_REVIEW.md)、[Study](../experiments/mask_repair_margin_completion_20261020/study.json)。**停止该最大最小余量重居中配置的训练及追加修复投入；当时建议恢复G_budget备份作独立确认，尚未执行，现行动作已由上方STA-v1取代（SSR已终止、PLF暂缓）。** 原114工程失败及V3协议不改，不训练、不自动推送、不设置定时或目标。
+
+以下内容是 **“原型—系数链路”这条研究线的「现在做什么」索引**，不是新 Study、科学结果或替代历史实验协议。其设备、预算和 Gate 仅适用于该线，不抢占上方遮挡表征主线或其它独立研究线的计划。新指令出现时更新本页对应研究线的**指向和状态**，不要在旧日报/原计划里继续追加「最新计划」。
+
+**当前执行设备：算力服务器 `a25023104@192.168.71.10`（用户2026-10-20新授权，Slurm）。笔记本 `ssh 28358lan` 保留失败产物，不再训练。** 已核对主机 `YANGLEI`、账号 `yanglei\28358`。2026-10-20当前授权为上方LCF-v1；SSR已按用户要求终止、旧RSM已结案，原生响应漂移草案不执行。服务器登录及既有结果保留，不把服务器AP当作本机同配对重放；已知视频服务保留，不改其它会话任务。新Run是否启动以Study与真实run.json为准。
 
 **研究线命名（2026-10-14，用户指定）：** 展示名称统一为“原型—系数链路”（Prototype→Coefficient）。`neighbor_sensitive_p3` 保留为历史技术标识和目录名，维持既有证据引用；邻域机制、P3 干预等具体方法是否采用，由证据与所属实验协议决定，名称不预设机制结论。本次更名不改变下列阶段、冻结配置或 Gate。
 
-**2026-10-20当前授权：SSR-v1“空间采样×实例条件读出”交叉实验。** 用户要求选择足以检验效果的预算并开始；新[协议](../experiments/mask_sampling_readout_20261020/PROTOCOL.md)明确登记A/B/C/D/M及同预算G20k，每臂20k图×3轮、15000步，合计90000步，仅笔记本执行。当前在补齐原20k清单的缺图并完成执行冻结；合成梯度/容量检查和16图历史原生输入/P/c0/RLE预检已通过，**正式训练尚未开始**。预注册D为唯一主方法，完整5000图、真实原成功GT全查、同checkpoint错配和等幅控制分别检验机制及效用。一次有限接续依次验证输入→冻结→smoke→训练→评价→统计，不设置定时任务或目标模式，不自动提交推送；以[Study](../experiments/mask_sampling_readout_20261020/study.json)及执行端真实run.json更新状态。其他研究线保持独立。
-
-此前本研究线的“当前/唯一下一步”均为历史状态，现由本条新授权取代；不修改任何旧 Run 的冻结协议或判定。
-
 ## 0. 唯一研究命题与路线裁决
 
-> 固定官方 `yolo26m-seg.pt` 的预训练网络、Box/Class、原生 Prototype P、原始系数 c0 和正常最终检测身份，只对真实推理输出进行**后训练的无 GT 条件系数残差修复**：`c'=c0+Δcθ`。检验哪些原 Mask75 任务失败的 GT 在同一最终 Box75 检测上具备固定 P 的有限可恢复空间，以及新读出器是否能救回且不会损伤原成功实例。
+> 已有系数链路的基准命题：固定官方 `yolo26m-seg.pt` 的预训练网络、Box/Class、原生 Prototype P、原始系数 c0 和正常最终检测身份，只对真实推理输出进行**后训练的无 GT 条件系数残差修复**：`c'=c0+Δcθ`。检验哪些原 Mask75 任务失败的 GT 在同一最终 Box75 检测上具备固定 P 的有限可恢复空间，以及新读出器是否能救回且不会损伤原成功实例。
 
-**当前采纳：** `output-first GT 任务账本 → 同最终检测 fixed-P coefficient finite oracle → 通过 Gate 后单个轻量 adapter pilot → 全量同输出 COCO AP/损伤验收 → 方法开发外确认`。
+**主线已执行的评价链：** `output-first GT 任务账本 → 同最终检测 fixed-P coefficient finite oracle → 轻量 adapter pilot → 全量同输出 COCO AP/损伤验收`。局部像素残差、区域F对照及原生掩码分支联合适配均已结案。最后一项按用户授权允许PC的P及原生系数头共同变化、每臂20k×3轮，检测分支/身份/评价配置冻结；不能误写为PC仍固定P。实际PC显著弱于旧G、G_budget和C，关闭本配置继续投入。G_budget的新增收益属于既有适配器在共同新配方下的成果，不能归为PC机制贡献，也不能单独归因为扩数据。旧Gate与冻结阴性保留。
 
 **当前不做：** 重建当年预训练 TAL 动态、重新预训练 YOLO、重扫 30828840 raw、以 GT 选最优 raw 冒充实际推理、为挽救旧阴性结果重开教师/门控/共享仿射配置、未过初筛直接做五臂×20k。历史 TAL 是可选独立审计，不是本后训练主线的依赖。
 
@@ -22,7 +56,14 @@
 
 | 阶段 | 研究对象与唯一动作 | 必需输入/通过判据 | 产物/进度 |
 |---|---|---|---|
-| **SSR-v1：已授权，输入补齐与执行冻结** | 五组信息/读出机制对照＋同预算G20k；每臂20k×3轮、15000步；D固定为主方法 | 完整原图SHA、8.4.100源码、zero-delta、真实梯度/容量与资源smoke通过后才训练；门槛见新协议 | [协议](../experiments/mask_sampling_readout_20261020/PROTOCOL.md) · [Study](../experiments/mask_sampling_readout_20261020/study.json)；本机代取缺图后回传，尚无正式训练步 |
+| **LCF-S1：当前，服务器四卡训练中** | 四臂71361参数；原20k×3轮各15000步；主D局部解码+连接监督 | 输入、smoke、历史原生/旧G/point-F与实际初始化/优化器核验通过；未有新成绩 | Slurm154，四个独立Run，启动快照12/13/15/14步；[服务器配置复核](../experiments/mask_local_connectivity_server_20261020/STARTUP_CONFIGURATION_REVIEW.md) |
+| **STA-v1：已结案，现象支持、因果未证** | 分裂/混入与已有C压力；256条/243图、6144方向；唯一下一步设计局部断桥—连通保持匹配对照，未启动 | 无新增训练/推理；GT多部件与漏覆盖分开；独立连通域/精度/传输核验通过 | [报告](../experiments/mask_split_merge_topology_audit_20261020/REPORT.md) · [配置复核](../experiments/mask_split_merge_topology_audit_20261020/CONFIGURATION_REVIEW.md) · [Study](../experiments/mask_split_merge_topology_audit_20261020/study.json) |
+| **PLF-v1：用户改题后暂缓** | 已准备线性可分性程序、freeze；尚无科学Run | 不启动；不宣称精确像素不可分等于Mask75不可达 | [原协议](../experiments/prototype_linear_feasibility_20261020/PROTOCOL.md)及准备文件保留 |
+| **SSR-v1：用户终止，训练未启动** | 原六臂预算停止，缺图保留 | 不再接续、修复或启动训练 | [终止回执](../experiments/mask_sampling_readout_20261020/USER_STOP_RECEIPT.json)；旧协议与失败证据保留 |
+| **RSM-C1：完整读数已结案，数值未决** | 原256条/243图完成；W-C受压IoU=-0.001422，见证保留率增量-0.28826个百分点 | 原门槛不变；218/256候选、幅度/代理未全有效，不进入稳定性训练 | [报告](../experiments/mask_repair_margin_completion_20261020/REPORT.md) · [配置复核](../experiments/mask_repair_margin_completion_20261020/CONFIGURATION_REVIEW.md) · [Study](../experiments/mask_repair_margin_completion_20261020/study.json)；两机核验/回传完成，无活跃Run |
+| **RSM-v1：114数值恢复核验结案；无有效完整修复** | 原16图重新生成精确一致；W原方向22/24、实际双读数16/24，原C24/24 | 原精度/科学协议未改；未启动新smoke/256；下一步仅建议先设计稳定系数表示的目标等价性检查 | [恢复报告](../experiments/mask_repair_margin_20261019/RECOVERY_REPORT_20261020.md) · [配置复核](../experiments/mask_repair_margin_20261019/RECOVERY_CONFIGURATION_REVIEW_20261020.md) · [Study](../experiments/mask_repair_margin_20261019/study.json)；3工程Run、117候选独立核验、157文件回传完成 |
+| **联合掩码分支已结案；论文证据整合已完成** | G_budget收益和PC/C对照已并入当前结果、讨论及证据主张表；作为历史证据保留 | 三臂20k×3轮各15000步、5000图、2000配对统计完成；PC四项主增量失败，三护栏通过；最高点估计G不等于事后通过主Gate | [正文](../paper/manuscripts/neighbor_sensitive_p3/RESULTS_AND_DISCUSSION_ZH_20261017.md) · [证据表](../paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_AND_CLAIMS_20261017.md) · [Study](../experiments/mask_branch_joint_replay_20261018/study.json)；G/N/旧G为44.265173/44.013836/44.152393，G损伤81/22958；PC44.017703，损伤198/22958；配置/回传核验沿用结案回执 |
+| **RFC-v1 已结案；证据入稿建议暂缓** | 有序区域F的A/Q原预算训练与固定1294图评价完成；关闭本配置新增投入 | A−N修复/总体护栏通过；A−G实用增量未过；损伤上界精度不足；四项机制CI跨0；配置/身份通过 | [报告](../experiments/mask_region_f_correspondence_20261017/REPORT.md) · [配置复核](../experiments/mask_region_f_correspondence_20261017/CONFIGURATION_REVIEW.md) · [Study](../experiments/mask_region_f_correspondence_20261017/study.json)；RUN_RFC_EVAL_RECOVERY_e2b485f03a5f4e96a0f96ab327f4e39f；两机复核及2041项回传通过；原结案后继建议为整合论文证据；当前被上方新路线设计暂缓。不补训/补样/晋升Q或S3 |
 | **S0 已结案**：采用本地配置范围的原生基线 | 按固定 `v8.4.100` 读取实际 O2O 输出，确认 `end2end=True`、`agnostic_nms=False`、类别/图片/面积/decoder、官方 bbox 与 segm 分别匹配，同输出 ID 不混用 | 模型 SHA 和标注、5000 图；`native_gt_ledger_validity=passed`。官网公布 AP parity 是**另一个独立 Gate**，未过不能自称刊载基线复现，但只要原生任务账本有效，可继续在明示 `native_config_scoped` 下做科研诊断 | [冻结 GT 基线协议](../experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) · [真实执行状态](../experiments/official_gt_failure_rebaseline_20261013/EXECUTION_STATUS.md)。原生账本通过，发表 AP 复现未过；主 Run `RUN_NATIVE_FULL_7609b70db27a4989b8da814e51cbd170`，详见[结果报告](../experiments/official_gt_failure_rebaseline_20261013/REPORT.md) |
 | **S1 已通过**：同最终检测系数可恢复性 | 在基线 Mask75 失败且同一最终 Box75 检测自身 MaskIoU<.75 的集合 T，只优化系数；P、框、类别、score、decoder和输出身份冻结 | 预注册 ≥200个GT、找到 Mask75 ≥20%；有限机会下界，不是可部署成绩 | [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)：`RUN_S1_ORACLE_f35a1399ac244f74aeebf94e4e843949`，122/256，全部收敛，控制/配置/回传审计通过 |
 | **S2 已结案：BCE及soft-IoU当前配置均拒绝** | soft-IoU从原B initial.pt、原2000图/逐轮顺序/3epoch/1500步，只替换GT loss；执行完整结束 | 原门槛：目标ΔIoU≥.005且95%下界>0、总体≥−.001、成功损伤上界≤1% | [soft-IoU结案报告](../experiments/mask_readout_soft_iou_pilot_20261014/REPORT.md)：评价 `RUN_SOFT_IOU_EVAL_f3177058b874484f9576dd5a3674b9a0`，目标+.006799但CI下界−.001267、总体−.002618、损伤53/1024且上界6.4338%，三项失败；配置/回传/独立复算通过。旧[BCE结案](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)保留 |
@@ -40,19 +81,23 @@
 | **方向与幅度：已结案，方向预测优先** | 原256条/243图、原soft-IoU方向及缓存；GT辅助有限调幅，训练0 | q=26.08%（95%上界30.27%），C见证捕获32/159=20.13%（上界26.74%），均<50%；数值有效 | [报告](../experiments/mask_adapter_ray_audit_20261016/REPORT.md) · [配置复核](../experiments/mask_adapter_ray_audit_20261016/CONFIGURATION_REVIEW.md) · [Study](../experiments/mask_adapter_ray_audit_20261016/study.json)；正式 `RUN_ADAPTER_RAY_FULL_362251e449e3493396e69c56562af96b`，R−N +.034469、R−G +.027240，均为GT辅助IoU，不是新AP；547项哈希、371文件回传及两机复核通过 |
 | **CLD-v1已结案：机制/效用两轴阴性** | REAL/PERM各1600拟合图×3轮1200步；固定last完成400图完整评价；停止当前配置 | R−P/R−J单项通过，R−N失败；M−N目标、M−G增量与总体护栏失败，损伤14/1808通过；不晋级S2 | [整体报告](../experiments/mask_direction_learnability_20261016/REPORT.md) · [配置复核](../experiments/mask_direction_learnability_20261016/EVALUATION_CONFIGURATION_REVIEW.md) · [最终裁决](../experiments/mask_direction_learnability_20261016/EVALUATION_DECISION.json)。`RUN_CLD_EVALUATION_3bf05f04bb6e47c9abf9bb46cc4e1f47`；1352项回传和两机核验通过 |
 | **CET-v1已结案：结构迁移证据不足，不进入训练** | 2510条/867图拟合；581条/208图留出、33698次固定强度压力；训练0 | S−R额外损失+.001973 CI[−.001149,.005096]；S−M+.002291 CI[−.000305,.005035]。两项均未满足≥.005且下界>0，上界尚未低于.005，不能判实质无效 | [整体报告](../experiments/mask_coefficient_error_transfer_20261017/REPORT.md) · [配置复核](../experiments/mask_coefficient_error_transfer_20261017/CONFIGURATION_REVIEW.md) · [研究决定](../experiments/mask_coefficient_error_transfer_20261017/RESEARCH_DECISION.json)；正式 `RUN_CET_FULL_3d2de9164a2f434eba4ff3a756690c45`；166项回传、两机全量核验通过；无后继运行 |
+| **LEA-v1：已结案，当前域阴性** | 原256条/243图，原生低置信可编辑域；GT辅助支持域上界及限制已有G的完整输出；零训练 | 见证保留≥152/159、额外机会与定位价值、局部性≤25%、原成功损伤≤1%且不多于G；先smoke再正式 | [协议](../experiments/mask_local_editability_20261017/PROTOCOL.md) · [Study](../experiments/mask_local_editability_20261017/study.json)；正式RUN_LEA_FULL_b383a8db922c451cbc77f2069d385cd7；C见证保留132/159、局部占比32.99%，两项失败；GT上界204/256，G_B较G退化，242项回传与两机复核通过 |
+| **LRP-v1：已结案，实用幅度/历史增量失败** | LOCAL/UNIFORM各1600图×3轮1200步；固定last完整400图42167输出评价 | T490上L−N+.002100、L−U+.001884，两项95%上界<.005；L−G−.007460区间全负；损伤1/1808及总体护栏通过 | [报告](../experiments/mask_local_residual_pilot_20261017/REPORT.md) · [配置复核](../experiments/mask_local_residual_pilot_20261017/CONFIGURATION_REVIEW.md)；RUN_LRP_EVALUATION_f89d8084795244a985b37031a6b395a9，两机核验及2145项回传通过；关闭当前配置 |
 | **S4 不启动**：扩量/独立确认 | S3通过后才规划扩量或开发外确认 | 需S3通过并有新授权/冻结预算 | 本候选S3未通过，不晋级、不扩20k，不把重复开发COCO当独立确认 |
 
 **已完成的原S1固定256条机会兑现核对保留。** [结案报告](../experiments/mask_opportunity_audit_20261015/REPORT.md)对应正式Run `RUN_OPPORTUNITY_FULL_18ab59a063b0489d81f541d45a907bfd`：原122条oracle阳性分解为L=100（无门控Δc仍未修好）、G=10（已修好但门控撤回）、R=12（修好且保留）；134条原oracle未找到解完整保留。110条未兑现机会中学习侧占90.91%，按事前协议优先选择可恢复失败的条件修复学习；门控也损失10/22条已实现修复，不能忽略，但放宽门控不能解决另100条。49,976行原生/门控重放与旧输出精确一致、256条oracle重放和独立RLE IoU通过；[配置复核](../experiments/mask_opportunity_audit_20261015/CONFIGURATION_REVIEW.md)、80文件回传与两机独立核验通过。本机首次Python3.10描述性均值末位相等检查失败已保留；原冻结脚本在本机Python3.12复验全通过，未改容差或科学结论。
 
 **此前soft-IoU训练内/开发落差核验已完成，以下作为本次目标对照的来源证据。** [报告](../experiments/mask_soft_fit_audit_20261016/REPORT.md)与[配置复核](../experiments/mask_soft_fit_audit_20261016/CONFIGURATION_REVIEW.md)对应正式Run `RUN_SOFT_FIT_FULL_14971e618ba8498a9fa8efcd19d21770`。训练218209输出、T2669、原成功9748；门控内有效监督3453/14268=24.2%，涉及1620张图。G训练目标+.010484、总体+.002194、损伤31/9748，诊断三项满足；开发G目标+.010024、损伤8/2355（本次512图census，不替代旧S2抽样上界）。无门控U训练损伤394/9748，说明保护问题在训练内也存在。分层差距区间跨零且共同支持不足，不认定小样本因果，也不宣称train/dev统计等效。140文件回传、两机独立复核、完整输出身份及12097配对RLE核验均通过，新增训练/基础模型forward/oracle求解均为0。
 
-**证据综合已完成：** [论文证据与主张表](../paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_AND_CLAIMS_20261017.md)区分固定P的GT辅助机会、无GT方法实际兑现、原成功GT损伤及各主张的未证边界，另附完整实验链路和可引用正文草稿。[来源清单](../paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_AND_CLAIMS_20261017.sources.json)保存16个正式Run的字段、原摘要哈希和154项来源文件；本轮只读复核原产物并整理文档，不创建新Study/Run或重算模型评价。原CLD结案中“下一步尚未启动”保留为当时历史状态，当前完成状态以本页为准。
+**证据综合于2026-10-19更新：** [论文证据与主张表](../paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_AND_CLAIMS_20261017.md)保留E0—E15，并以E16补入完整三臂命题，区分GT辅助机会、无GT实际兑现和原成功GT损伤。[来源清单](../paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_AND_CLAIMS_20261017.sources.json)保留历史154项来源并增加三臂Run、冻结配置及结案核验的哈希和字段；新增10个Run摘要按原POINTERS/产物清单核对。本轮只写作与读取原产物，不创建新Study/Run或重算评价。各旧报告中“下一步尚未启动”保留其历史状态，本页登记论文整合已完成。
 
-**结果与讨论正文已完成：** [中文正文](../paper/manuscripts/neighbor_sensitive_p3/RESULTS_AND_DISCUSSION_ZH_20261017.md)按“可修机会—实际兑现—损伤代价”组织，含同配置原生参照、全量效用、AMT/CLD双参照、诊断解释及局限；[正文核验收据](../paper/manuscripts/neighbor_sensitive_p3/RESULTS_AND_DISCUSSION_ZH_20261017.audit.json)记录来源、表格与引用核查。旧raw/argmax和P3完整稿与当前O2O正文节选分开保留，没有将历史候选总体移作当前最终输出结论。本次授权写作已完成，证据表中“正文尚未改写”是上一轮历史状态。
+**结果与讨论正文已补齐本次授权内容：** [中文正文](../paper/manuscripts/neighbor_sensitive_p3/RESULTS_AND_DISCUSSION_ZH_20261017.md)新增三臂双参照AP/区间/损伤、PC四项Gate与归因边界，明确G_budget收益不归PC，PC不固定P，历史22957与服务器22958成功GT分开；[正文核验收据](../paper/manuscripts/neighbor_sensitive_p3/RESULTS_AND_DISCUSSION_ZH_20261017.audit.json)记录来源、表格与引用核查。旧S3和失败Run原判定保留，旧raw/argmax与P3完整稿未改写；当前是结果讨论节选完成，不等于整篇投稿稿已统一合稿。
 
-**当前唯一后续建议：先冻结“原生输出与可达修复端点保真下的一般功能扰动稳定性”最小可行性对照设计，尚未启动。** [CET整体报告](../experiments/mask_coefficient_error_transfer_20261017/REPORT.md)记录本次完整实验链路与[研究裁决](../experiments/mask_coefficient_error_transfer_20261017/RESEARCH_DECISION.json)。本轮正面证据是三类等幅扰动均显著损伤可达教师，结构专属额外损伤仍未获支持；因此不按真实误差协方差启动原型容错训练。后继可行性设计须保护原生与修复端点、控制功能尺度、排除整体logit放大或缩小扰动的伪收益；未验证这一条件前不进入训练。均值符号非对称只作预登记描述，不能挽救本次Gate，也不自动推出可部署偏置修正。原“统一O2O引言与方法”写作建议暂缓；已有论文正文、原S3及CLD/AMT/EK Gate均保留。当前没有任何科研运行或自动后续触发。
+**RFC-v1已完成训练与评价并关闭新增投入。** 当前状态只见本页顶部与Study；本段保留设计依据。[执行协议](../experiments/mask_region_f_correspondence_20261017/EXECUTION_PROTOCOL.md)启用原[方案](../experiments/mask_region_f_correspondence_20261017/PROTOCOL_DRAFT.md)：依据[空间信息审查](audits/repair_information_20261017/REPORT.md)及[275项来源收据](audits/repair_information_20261017/EXISTING_ARTIFACT_REVIEW.json)，保留旧单点F，用共享投影把同层8×8区域F接入既有卷积，不加参数；A/Q只差F排列，预登记同checkpoint置换与等功能幅度对照。两臂沿用G的原2000图/1500步，在原512图比较，避开旧G训练过400图的问题。此前[CPU核心工程报告](../experiments/mask_region_f_correspondence_20261017/IMPLEMENTATION_REPORT.md)及design_snapshot保留当时范围；现已补齐原批次重放和训练集成，新增批次选择测试后29项通过，真实运行独立登记。额外效用、原S2护栏和机制分别裁决；若效用未过则停止该配置并整理论文证据，不自动变网格/换loss/加训。不解冻P、不扩量。
 
-本次取舍依据为累计实测：旧方向有限调幅只兑现32/159见证；新CLD正确对应相对PERM/J分别+.045044/+.021467，但留出/拟合GT辅助方向相对N分别−.101720/−.056781，正常候选相对历史G目标−.009738且区间全负。因此保留“实例对应有相对作用”的有限事实，关闭“该直接方向监督能形成有益修复”的当前配置，不把它概括成输入信息绝对无用或只因样本少。正向重点收束到**已有G的低损伤实际效用与可修机会的兑现边界**；旧G在5000图的+.141573 AP与未达到+.30门槛同时保留。AMT、EK-v1及其它旧阴性约束不改写。
+**此前空间信息审查暂缓的论文补写建议：** 把LEA/LRP结案证据补入论文结果讨论仍未执行，其既有事实保持。[LRP整体报告](../experiments/mask_local_residual_pilot_20261017/REPORT.md)已按冻结门槛关闭：相对原生和统一偏移控制有小幅正值，但95%上界低于.005、对历史G增量全负；G训练过本400图，差值不能作匹配训练条件的架构因果结论。G全量实证保留，LRP独有恢复1例且独有损伤1例，不直接组合。[LEA结案](../experiments/mask_local_editability_20261017/REPORT.md)覆盖/局部性阴性原样保留。该次审查仅读取原产物；其后的RFC设计/工程进度以上方当前路由为准。
+
+CLD结案时的历史取舍依据为累计实测：旧方向有限调幅只兑现32/159见证；新CLD正确对应相对PERM/J分别+.045044/+.021467，但留出/拟合GT辅助方向相对N分别−.101720/−.056781，正常候选相对历史G目标−.009738且区间全负。因此保留“实例对应有相对作用”的有限事实，关闭“该直接方向监督能形成有益修复”的当前配置，不把它概括成输入信息绝对无用或只因样本少。正向重点收束到**已有G的低损伤实际效用与可修机会的兑现边界**；旧G在5000图的+.141573 AP与未达到+.30门槛同时保留。AMT、EK-v1及其它旧阴性约束不改写。
 
 **上一轮修复—保护结案的两层状态：**[原始DECISION](../experiments/mask_repair_preservation_20261016/runs/RUN_REPAIR_KEEP_FULL_68b1d8211b30456abb172db046963e01/DECISION.json)保持`INCONCLUSIVE_NUMERICAL`，不因补充分析回写Gate。EK-v1不继续投入训练的依据是19条C/EK均已收敛的丢失：即使把2条未决丢失全部视为修复、保持已收敛结果不变，最高保留仍只有140/159=88.05%，见[算术边界](../experiments/mask_repair_preservation_20261016/runs/RUN_REPAIR_KEEP_FULL_68b1d8211b30456abb172db046963e01/SUPPLEMENTAL_DECISION_BOUND.json)。C的正向见证完整保留；EK实际输出相对原生+.132921、相对C−.002237同时报告，均不是新AP。停止当前保护目标不证明所有保护机制无效，方向判断也不直接把目标失败推成输入不足；下一项才区分方向与幅度。
 
@@ -80,6 +125,9 @@
 本次诊断正式Run为 `RUN_BENEFIT_AUDIT_FULL_44b006cece39486aa502ca64398166d4`，1314图、185621条输出，配置与独立复算通过，新增训练步0。V1中断Run `RUN_BENEFIT_AUDIT_FULL_1ab7051a0f39457090f9ba6fdde8a336` 因显存资源瓶颈保留为工程失败；[V2恢复协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL_V2.md)只改变逐图显存释放，全部2995条重叠配对完全一致，科学判据沿用[原诊断协议](../experiments/mask_readout_benefit_audit_20261014/PROTOCOL.md)。禁止重复运行已完成诊断或原训练/评价。
 
 2026-10-14 路由复核先依据 [S1 报告](../experiments/mask_readout_mechanism_v2_20261012/S1_REPORT_20261013.md)及 [S2 结案报告](../experiments/mask_readout_mechanism_v2_20261012/S2_REPORT_20261013.md)纠正残留的“S1 正在运行”旧句，随后按用户授权完成上述独立零训练诊断。S0 REPORT/DECISION 中“继续取得官方发布回执”的下一步保留为当时结案记录，当前队列以本页为准。任何 Gate 已执行与否必须依据 `runs/<RUN_ID>/run.json`、实际产物和任务状态，不能仅凭 GitHub 缺文件判定本机没跑。
+
+
+**2026-10-17此前训练授权与参数化范围（已履行）：** 用户要求“不论门槛如何继续至完成一个实际训练”，这是对LEA旧“后继不启动”执行限制的明确扩展，现已履行。原LEA冻结协议/阴性不改。本次LRP用逐像素δz替代全局Δc作为独立探索参数化，P/c0/基础网络/检测身份仍冻结；仅在固定B内最终硬合成。证据依据为B内GT上界204/256及对等面积随机域+.095538 IoU，不把低置信当正确性保证。该科学问题已按协议完成：可测小收益存在，实用幅度与历史方法增量不足；两臂训练和400图评价后已停止，唯一后继见上方结案路由。旧未冻结后继建议均服从此路由。
 
 ## 2. 文件角色和权威来源（找不到时不要自行创造新「总计划」）
 

@@ -1,0 +1,77 @@
+{"requested_at": "2026-10-19T19:20:37.299468+00:00", "reason": "User stopped SSR and redirected to certified prototype linear feasibility mechanism audit", "matched": [{"ProcessId": 18256, "ParentProcessId": 16864, "Name": "powershell.exe", "CommandLine": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'python|powershell' -and $_.CommandLine -like '*mask_sampling_readout_20261020*' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | ConvertTo-Json -Compress\""}], "stopped": [{"process": {"ProcessId": 18256, "ParentProcessId": 16864, "Name": "powershell.exe", "CommandLine": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'python|powershell' -and $_.CommandLine -like '*mask_sampling_readout_20261020*' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | ConvertTo-Json -Compress\""}, "returncode": 128, "stdout": "", "stderr": "\u9519\u8bef: \u6ca1\u6709\u627e\u5230\u8fdb\u7a0b \"18256\"\u3002\n"}], "artifacts_retained": true}
+PREPARATION_STATUS.json {
+  "study_id": "STUDY_MASK_SAMPLING_READOUT_20261020",
+  "run_id": "RUN_SSR_PREPARE_83442232dc014fe38d8e7d48e68d5817",
+  "stage": "input_preparation",
+  "host": "YANGLEI",
+  "pid": 15552,
+  "started_at": "2026-10-19T19:15:10.227700+00:00",
+  "execution_status": "failed",
+  "training_steps": 0,
+  "protocol_sha256": "d634beb393d12cbcf6fbf910dfa3b6a726f53d4d54b9745d34de0557063110b5",
+  "script_sha256": "d8706ed96d2a627078c50a9d7bb7a0e526ed22b18e31b2a86611055b035e7965",
+  "code_commit": "bc0507c5400b61935fe93f981a4ff5026964c271",
+  "command": [
+    "D:/coco_wire/baseline_native_20261013/experiments/mask_sampling_readout_20261020/scripts/prepare_inputs.py"
+  ],
+  "phase": "failed",
+  "updated_at": "2026-10-19T19:15:10.275724+00:00",
+  "elapsed_seconds": 0.06300000002374873,
+  "finished_at": "2026-10-19T19:15:10.275724+00:00",
+  "exit_code": 1,
+  "error": ""
+}
+
+RUNS
+RUN_SSR_NATIVE_PREFLIGHT_1226fe0e96434548b2f4a98c38420248 {
+  "run_id": "RUN_SSR_NATIVE_PREFLIGHT_1226fe0e96434548b2f4a98c38420248",
+  "study_id": "STUDY_MASK_SAMPLING_READOUT_20261020",
+  "stage": "native_input_preflight",
+  "pid": 2508,
+  "started_at": "2026-10-19T18:26:13.973465+00:00",
+  "execution_status": "completed",
+  "optimizer_steps": 0,
+  "protocol_sha256": "087f8cfd09e361e26c8ad09276874f0e5c72c13c20bf8309bc3d0db1258795e9",
+  "code_commit": "bc0507c5400b61935fe93f981a4ff5026964c271",
+  "finished_at": "2026-10-19T18:26:25.968143+00:00",
+  "exit_code": 0
+}
+
+RUN_SSR_NATIVE_PREFLIGHT_2d304c69d9954866903176244704e9b8 {
+  "run_id": "RUN_SSR_NATIVE_PREFLIGHT_2d304c69d9954866903176244704e9b8",
+  "study_id": "STUDY_MASK_SAMPLING_READOUT_20261020",
+  "stage": "native_input_preflight",
+  "pid": 3020,
+  "started_at": "2026-10-19T18:20:04.832852+00:00",
+  "execution_status": "completed",
+  "optimizer_steps": 0,
+  "protocol_sha256": "b434f3cc746ec9fe808b7cf05584600e628c7ced3046f5db1c8a885621d9431d",
+  "code_commit": "bc0507c5400b61935fe93f981a4ff5026964c271",
+  "finished_at": "2026-10-19T18:20:16.251371+00:00",
+  "exit_code": 0
+}
+
+RUN_SSR_PREPARE_83442232dc014fe38d8e7d48e68d5817 {
+  "study_id": "STUDY_MASK_SAMPLING_READOUT_20261020",
+  "run_id": "RUN_SSR_PREPARE_83442232dc014fe38d8e7d48e68d5817",
+  "stage": "input_preparation",
+  "host": "YANGLEI",
+  "pid": 15552,
+  "started_at": "2026-10-19T19:15:10.227700+00:00",
+  "execution_status": "failed",
+  "training_steps": 0,
+  "protocol_sha256": "d634beb393d12cbcf6fbf910dfa3b6a726f53d4d54b9745d34de0557063110b5",
+  "script_sha256": "d8706ed96d2a627078c50a9d7bb7a0e526ed22b18e31b2a86611055b035e7965",
+  "code_commit": "bc0507c5400b61935fe93f981a4ff5026964c271",
+  "command": [
+    "D:/coco_wire/baseline_native_20261013/experiments/mask_sampling_readout_20261020/scripts/prepare_inputs.py"
+  ],
+  "phase": "failed",
+  "updated_at": "2026-10-19T19:15:10.275724+00:00",
+  "elapsed_seconds": 0.06300000002374873,
+  "finished_at": "2026-10-19T19:15:10.275724+00:00",
+  "exit_code": 1,
+  "error": ""
+}
+
+

@@ -1,0 +1,23 @@
+RUN_START RUN_OCC_EVALUATE_20261019T103528_e1d4bd2a
+REAL_RESULT {'arm': 'N', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 58.38742472823962, 'HOTA': 51.81474348662353, 'AssA': 51.13663951964309, 'DetA': 54.402155558652275, 'IDSW': 57, 'FP': 1188, 'FN': 1923, 'IDTP': 3733, 'IDFP': 2293, 'IDFN': 3028, 'confirmed': 0, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_RESULT {'arm': 'R', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 65.858617453863, 'HOTA': 57.154065664969956, 'AssA': 60.962079362573505, 'DetA': 54.98645021983256, 'IDSW': 57, 'FP': 1197, 'FN': 1931, 'IDTP': 4211, 'IDFP': 1816, 'IDFN': 2550, 'confirmed': 0, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_RESULT {'arm': 'C', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 59.138187221396734, 'HOTA': 52.246560701302855, 'AssA': 52.08352529088581, 'DetA': 54.24081109347389, 'IDSW': 55, 'FP': 1188, 'FN': 1923, 'IDTP': 3781, 'IDFP': 2245, 'IDFN': 2980, 'confirmed': 13, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_RESULT {'arm': 'GEOM', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 59.138187221396734, 'HOTA': 52.246560701302855, 'AssA': 52.08352529088581, 'DetA': 54.24081109347389, 'IDSW': 55, 'FP': 1188, 'FN': 1923, 'IDTP': 3781, 'IDFP': 2245, 'IDFN': 2980, 'confirmed': 13, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_RESULT {'arm': 'FULL', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 59.138187221396734, 'HOTA': 52.246560701302855, 'AssA': 52.08352529088581, 'DetA': 54.24081109347389, 'IDSW': 55, 'FP': 1188, 'FN': 1923, 'IDTP': 3781, 'IDFP': 2245, 'IDFN': 2980, 'confirmed': 13, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_RESULT {'arm': 'NOW', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 59.138187221396734, 'HOTA': 52.246560701302855, 'AssA': 52.08352529088581, 'DetA': 54.24081109347389, 'IDSW': 55, 'FP': 1188, 'FN': 1923, 'IDTP': 3781, 'IDFP': 2245, 'IDFN': 2980, 'confirmed': 13, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_RESULT {'arm': 'NOCTX', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 59.138187221396734, 'HOTA': 52.246560701302855, 'AssA': 52.08352529088581, 'DetA': 54.24081109347389, 'IDSW': 55, 'FP': 1188, 'FN': 1923, 'IDTP': 3781, 'IDFP': 2245, 'IDFN': 2980, 'confirmed': 13, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_RESULT {'arm': 'SHUFFLE', 'sequence': 'pig_3', 'split': 'fit', 'IDF1': 59.138187221396734, 'HOTA': 52.246560701302855, 'AssA': 52.08352529088581, 'DetA': 54.24081109347389, 'IDSW': 55, 'FP': 1188, 'FN': 1923, 'IDTP': 3781, 'IDFP': 2245, 'IDFN': 2980, 'confirmed': 13, 'gap_proxy_eligible': 4, 'gap_proxy_same_id': 0, 'gap_proxy_wrong_reuse': 0}
+REAL_SEQUENCE_DONE pig_3 8.63
+RUN_END RUN_OCC_EVALUATE_20261019T103528_e1d4bd2a failed
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/runner.py", line 44, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/runner.py", line 43, in main
+    f()
+  File "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/shared/dense_video_occlusion/evaluate.py", line 72, in main
+    k=t['base_id'];weights['GEOM'][f,k]=max(.05,1-overlap(t['box'],[tt['box'] for tt in tracks if tt['base_id']!=k]));weights['SHUFFLE'][f,k]=weights['FULL'][f,tracks[(j+1)%len(tracks)]['base_id']]
+                                                                                                                                              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: (222, 63)

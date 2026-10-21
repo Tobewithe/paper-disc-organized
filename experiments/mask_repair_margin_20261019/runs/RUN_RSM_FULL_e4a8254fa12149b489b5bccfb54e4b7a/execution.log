@@ -1,0 +1,65 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\runs\RUN_RSM_FULL_e4a8254fa12149b489b5bccfb54e4b7a
+PAIR 1 / 256 accepted True solver converged
+PAIR 2 / 256 accepted False solver ill_conditioned_metric
+PAIR 3 / 256 accepted False solver ill_conditioned_metric
+PAIR 4 / 256 accepted True solver converged
+PAIR 5 / 256 accepted True solver converged
+PAIR 6 / 256 accepted True solver converged
+PAIR 7 / 256 accepted False solver ill_conditioned_metric
+PAIR 8 / 256 accepted True solver converged
+PAIR 9 / 256 accepted True solver converged
+PAIR 10 / 256 accepted True solver converged
+PAIR 11 / 256 accepted True solver converged
+PAIR 12 / 256 accepted True solver converged
+PAIR 13 / 256 accepted True solver converged
+PAIR 14 / 256 accepted False solver converged
+PAIR 15 / 256 accepted False solver ill_conditioned_metric
+PAIR 16 / 256 accepted True solver converged
+PAIR 17 / 256 accepted True solver converged
+PAIR 18 / 256 accepted True solver converged
+PAIR 19 / 256 accepted True solver converged
+PAIR 20 / 256 accepted True solver converged
+PAIR 21 / 256 accepted True solver converged
+PAIR 22 / 256 accepted True solver converged
+PAIR 23 / 256 accepted True solver converged
+PAIR 24 / 256 accepted True solver converged
+PAIR 25 / 256 accepted False solver ill_conditioned_metric
+PAIR 26 / 256 accepted True solver converged
+PAIR 27 / 256 accepted True solver converged
+PAIR 28 / 256 accepted True solver converged
+PAIR 29 / 256 accepted True solver converged
+PAIR 30 / 256 accepted True solver converged
+PAIR 31 / 256 accepted True solver converged
+PAIR 32 / 256 accepted True solver converged
+PAIR 33 / 256 accepted True solver converged
+PAIR 34 / 256 accepted True solver converged
+PAIR 35 / 256 accepted True solver converged
+PAIR 36 / 256 accepted False solver ill_conditioned_metric
+PAIR 37 / 256 accepted True solver converged
+PAIR 38 / 256 accepted False solver ill_conditioned_metric
+PAIR 39 / 256 accepted True solver converged
+PAIR 40 / 256 accepted False solver ill_conditioned_metric
+PAIR 41 / 256 accepted True solver converged
+PAIR 42 / 256 accepted False solver ill_conditioned_metric
+PAIR 43 / 256 accepted True solver converged
+PAIR 44 / 256 accepted True solver converged
+PAIR 45 / 256 accepted True solver converged
+PAIR 46 / 256 accepted True solver converged
+PAIR 47 / 256 accepted True solver converged
+PAIR 48 / 256 accepted True solver converged
+PAIR 49 / 256 accepted True solver converged
+PAIR 50 / 256 accepted True solver converged
+PAIR 51 / 256 accepted True solver converged
+PAIR 52 / 256 accepted True solver converged
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\preflight\run_attached.py", line 21, in <module>
+    save(STUDY/'study.json',study);execute(run)
+                                   ^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\scripts\run_audit.py", line 82, in execute
+    wp,wamp,_=matched_coefficients(decoder,w,vectors,amplitude,cfg['numerics']['rms_relative_tolerance'])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\scripts\native_ops.py", line 53, in matched_coefficients
+    if not np.all(np.abs(actual/amplitude-1)<=tolerance):raise ValueError('pressure functional RMS differs')
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: pressure functional RMS differs
+

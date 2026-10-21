@@ -1,0 +1,2432 @@
+{
+  "annotation_version": "field_sparse_identity_v1",
+  "annotator": "Codex visual review",
+  "human_gold_standard": false,
+  "tracker_identity_used": false,
+  "geometry_source": "fixed YOLO proposals; reference identity assigned by visual temporal review",
+  "review_procedure": "reviewed raw/proposal-only 8-frame contact sheets per sequence; no candidate tracker ID consulted for labels",
+  "evaluation_scope": "detection-conditioned identity consistency on specified visible targets; no full-frame MOT score",
+  "full_occlusion_reappearance_events_verified": 0,
+  "limitations": [
+    "16 sparse frames, not dense ID annotations",
+    "physical full disappearance/reappearance is not established by these stationary snippets",
+    "proposal-derived boxes cannot validate detector recall or segmentation AP",
+    "one AI review pass; external human review pending"
+  ],
+  "sequences": [
+    {
+      "sequence": "现场_群体活动",
+      "role": "field_development",
+      "video_sha256": "99381590073f3387d418e007457e7b7d8c09576d0071a842b291fc1beda7af60",
+      "frames_reviewed": [
+        1,
+        31,
+        61,
+        91,
+        121,
+        151,
+        181,
+        211
+      ],
+      "image_evidence": [
+        {
+          "frame": 1,
+          "file": "clip1_f001_raw.png",
+          "sha256": "4d414e2f0da44cf9aaa85a314bbf19f003ad0a43fd2ff5dbb0535cb31fa22c74"
+        },
+        {
+          "frame": 31,
+          "file": "clip1_f031_raw.png",
+          "sha256": "29c6bc94ed58045b3181afac09bac1307da08f9df028d39cd197a5221aa599b9"
+        },
+        {
+          "frame": 61,
+          "file": "clip1_f061_raw.png",
+          "sha256": "7ae3788647f7ec803cc64e8b4fdb2f085b492ba58de12ef2a68d8579d6b9b378"
+        },
+        {
+          "frame": 91,
+          "file": "clip1_f091_raw.png",
+          "sha256": "31cd7a07294792e6ca945badecf117398b476f9ecc9c98a089ab36f6e6859734"
+        },
+        {
+          "frame": 121,
+          "file": "clip1_f121_raw.png",
+          "sha256": "b9e4cd19aebf123765e26c66759ce5659b1497f5b5655c00eec857e8ad8f1cad"
+        },
+        {
+          "frame": 151,
+          "file": "clip1_f151_raw.png",
+          "sha256": "b18284efbdd0c052f27b3190821758c0a5aff94e7ca1887599a53aeb5ae8f18a"
+        },
+        {
+          "frame": 181,
+          "file": "clip1_f181_raw.png",
+          "sha256": "ba3982a87d534006b7bfac187e34691fd5e1deee5bc7dddcff3abdd74274f534"
+        },
+        {
+          "frame": 211,
+          "file": "clip1_f211_raw.png",
+          "sha256": "92b544ea6f3b4bd1433b0571bb2cd90775baf2065195ce7c20f42073a93fad3d"
+        }
+      ],
+      "coverage": "selected visible animals only; not complete frame annotations"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "role": "field_confirmation",
+      "video_sha256": "0c992cb4ea4e671ffb78be53dc71fc2aa7c69415c0214af364bbb3e5340513c1",
+      "frames_reviewed": [
+        1,
+        31,
+        61,
+        91,
+        121,
+        151,
+        181,
+        211
+      ],
+      "image_evidence": [
+        {
+          "frame": 1,
+          "file": "clip2_f001_raw.png",
+          "sha256": "5df691b5d7de0d438cf0a7382d203545305510ef011a23668c574f2810acd5f2"
+        },
+        {
+          "frame": 31,
+          "file": "clip2_f031_raw.png",
+          "sha256": "264cd8ebf5ca7a1971a714775b8a75e19999dfd7320b67b88264465a5a2aa2ae"
+        },
+        {
+          "frame": 61,
+          "file": "clip2_f061_raw.png",
+          "sha256": "53071df2fc60c9c60f5032d60522ea5e9f6fe728a836259b108adcf10741244d"
+        },
+        {
+          "frame": 91,
+          "file": "clip2_f091_raw.png",
+          "sha256": "fb2151ff65f1371d6902a94d4992b6743cef8ccf355e41730696c97c7cbb1e0e"
+        },
+        {
+          "frame": 121,
+          "file": "clip2_f121_raw.png",
+          "sha256": "b179556ebb4e244b89c180d05f9d07703bcf0f16a05c10d963c587ef5cabf902"
+        },
+        {
+          "frame": 151,
+          "file": "clip2_f151_raw.png",
+          "sha256": "00ef595fa9bdc6458ff21891a99dc1086e87b380ad659e1c35c456b9003c32d2"
+        },
+        {
+          "frame": 181,
+          "file": "clip2_f181_raw.png",
+          "sha256": "965f4b3f04904b563609d7e83ee1ceedd78198c83ab8f4f45a328275759207a1"
+        },
+        {
+          "frame": 211,
+          "file": "clip2_f211_raw.png",
+          "sha256": "e1fa942613a181864db607e49e9f6d5760533305aa355711f0304a792b37bfe7"
+        }
+      ],
+      "coverage": "selected visible animals only; not complete frame annotations"
+    }
+  ],
+  "observations": [
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P01",
+      "proposal_index": 1,
+      "box_xyxy": [
+        627.61962890625,
+        324.16455078125,
+        782.3626708984375,
+        540.0
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        627.0521850585938,
+        338.3316345214844,
+        779.3070678710938,
+        540.0
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        626.837158203125,
+        336.8226318359375,
+        787.5338134765625,
+        540.0
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P01",
+      "proposal_index": 1,
+      "box_xyxy": [
+        538.9630737304688,
+        328.0061950683594,
+        749.5543823242188,
+        539.7305908203125
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P01",
+      "proposal_index": 3,
+      "box_xyxy": [
+        533.1882934570312,
+        283.9396667480469,
+        738.3136596679688,
+        527.4938354492188
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P01",
+      "proposal_index": 2,
+      "box_xyxy": [
+        571.9804077148438,
+        321.75653076171875,
+        736.1270751953125,
+        538.8848266601562
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P01",
+      "proposal_index": 2,
+      "box_xyxy": [
+        575.3074340820312,
+        320.839599609375,
+        750.0070190429688,
+        539.8330078125
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P01",
+      "proposal_index": 2,
+      "box_xyxy": [
+        584.67626953125,
+        303.5082092285156,
+        762.9132690429688,
+        540.0
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "近景右侧面朝镜头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P02",
+      "proposal_index": 2,
+      "box_xyxy": [
+        762.1513671875,
+        286.06048583984375,
+        959.0941772460938,
+        456.748046875
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P02",
+      "proposal_index": 2,
+      "box_xyxy": [
+        724.136474609375,
+        281.89959716796875,
+        959.4237060546875,
+        453.00592041015625
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P02",
+      "proposal_index": 2,
+      "box_xyxy": [
+        730.6478881835938,
+        282.055908203125,
+        959.2501220703125,
+        452.5580139160156
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P02",
+      "proposal_index": 5,
+      "box_xyxy": [
+        688.4044189453125,
+        285.5356140136719,
+        959.0359497070312,
+        411.75030517578125
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P02",
+      "proposal_index": 6,
+      "box_xyxy": [
+        685.0550537109375,
+        268.4869079589844,
+        958.671875,
+        396.31939697265625
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P02",
+      "proposal_index": 5,
+      "box_xyxy": [
+        684.8097534179688,
+        275.8729553222656,
+        958.724365234375,
+        405.6979064941406
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P02",
+      "proposal_index": 3,
+      "box_xyxy": [
+        693.1801147460938,
+        278.439697265625,
+        958.0665893554688,
+        405.756591796875
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P02",
+      "proposal_index": 4,
+      "box_xyxy": [
+        705.4668579101562,
+        278.26678466796875,
+        957.89306640625,
+        403.888427734375
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "最右侧料槽旁侧身个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P03",
+      "proposal_index": 3,
+      "box_xyxy": [
+        264.8829650878906,
+        211.0190887451172,
+        375.4472351074219,
+        415.37884521484375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P03",
+      "proposal_index": 8,
+      "box_xyxy": [
+        265.9805908203125,
+        211.69998168945312,
+        375.5558166503906,
+        420.1387634277344
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P03",
+      "proposal_index": 3,
+      "box_xyxy": [
+        263.59906005859375,
+        211.64651489257812,
+        374.4705505371094,
+        423.6165771484375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P03",
+      "proposal_index": 2,
+      "box_xyxy": [
+        210.8748321533203,
+        221.83770751953125,
+        486.947265625,
+        367.2890319824219
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P03",
+      "proposal_index": 2,
+      "box_xyxy": [
+        201.1298370361328,
+        211.23654174804688,
+        448.38934326171875,
+        358.7886047363281
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P03",
+      "proposal_index": 0,
+      "box_xyxy": [
+        219.5526123046875,
+        222.3673095703125,
+        468.8619384765625,
+        408.8724365234375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P03",
+      "proposal_index": 0,
+      "box_xyxy": [
+        221.6647186279297,
+        223.77801513671875,
+        465.128173828125,
+        409.2483215332031
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P03",
+      "proposal_index": 3,
+      "box_xyxy": [
+        231.739013671875,
+        219.74713134765625,
+        472.9532470703125,
+        407.08380126953125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间浅色个体，先面朝镜头后转向右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P04",
+      "proposal_index": 4,
+      "box_xyxy": [
+        304.0072021484375,
+        126.25234985351562,
+        415.6518859863281,
+        228.18048095703125
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P04",
+      "proposal_index": 3,
+      "box_xyxy": [
+        314.72564697265625,
+        123.59378814697266,
+        412.880615234375,
+        224.990478515625
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P04",
+      "proposal_index": 4,
+      "box_xyxy": [
+        324.9956970214844,
+        121.30152893066406,
+        404.4784240722656,
+        225.15203857421875
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P04",
+      "proposal_index": 0,
+      "box_xyxy": [
+        286.5718994140625,
+        137.2102813720703,
+        433.5484313964844,
+        236.32156372070312
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P04",
+      "proposal_index": 1,
+      "box_xyxy": [
+        284.9044189453125,
+        125.99800109863281,
+        430.02374267578125,
+        232.73959350585938
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P04",
+      "proposal_index": 3,
+      "box_xyxy": [
+        301.7750549316406,
+        134.75192260742188,
+        445.16046142578125,
+        242.96157836914062
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P04",
+      "proposal_index": 4,
+      "box_xyxy": [
+        303.4601745605469,
+        132.0181121826172,
+        447.551025390625,
+        244.6421356201172
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P04",
+      "proposal_index": 0,
+      "box_xyxy": [
+        310.5513610839844,
+        130.42123413085938,
+        469.0442199707031,
+        243.17727661132812
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排站立个体，前段背向镜头、后段侧身"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P05",
+      "proposal_index": 5,
+      "box_xyxy": [
+        337.2892150878906,
+        223.3927459716797,
+        584.2354736328125,
+        365.5215148925781
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P05",
+      "proposal_index": 5,
+      "box_xyxy": [
+        337.80279541015625,
+        219.08804321289062,
+        588.7529907226562,
+        368.54339599609375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P05",
+      "proposal_index": 6,
+      "box_xyxy": [
+        337.751953125,
+        217.87203979492188,
+        588.1187744140625,
+        365.2044372558594
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P05",
+      "proposal_index": 9,
+      "box_xyxy": [
+        379.7225646972656,
+        237.54148864746094,
+        544.117431640625,
+        307.1719970703125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P05",
+      "proposal_index": 0,
+      "box_xyxy": [
+        360.1139831542969,
+        225.0595703125,
+        525.8624267578125,
+        342.488037109375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P05",
+      "proposal_index": 8,
+      "box_xyxy": [
+        369.9931335449219,
+        237.24374389648438,
+        532.8052978515625,
+        335.0574951171875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P05",
+      "proposal_index": 9,
+      "box_xyxy": [
+        372.64569091796875,
+        239.1780548095703,
+        536.240234375,
+        335.2228698730469
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P05",
+      "proposal_index": 9,
+      "box_xyxy": [
+        376.33837890625,
+        237.75633239746094,
+        543.5938110351562,
+        332.7359619140625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "中间横向朝右的棕色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P06",
+      "proposal_index": 9,
+      "box_xyxy": [
+        480.98974609375,
+        149.2701416015625,
+        567.5450439453125,
+        232.78346252441406
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P06",
+      "proposal_index": 4,
+      "box_xyxy": [
+        457.1911926269531,
+        159.24710083007812,
+        559.7333984375,
+        234.26124572753906
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        457.61944580078125,
+        159.3290252685547,
+        558.6392822265625,
+        234.52688598632812
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P06",
+      "proposal_index": 3,
+      "box_xyxy": [
+        401.04266357421875,
+        174.47476196289062,
+        503.4728088378906,
+        248.81906127929688
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P06",
+      "proposal_index": 4,
+      "box_xyxy": [
+        390.2485046386719,
+        159.10736083984375,
+        491.4620666503906,
+        233.66647338867188
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P06",
+      "proposal_index": 6,
+      "box_xyxy": [
+        403.7680358886719,
+        164.8795166015625,
+        505.8527526855469,
+        244.00521850585938
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        409.26116943359375,
+        167.33995056152344,
+        508.54949951171875,
+        245.38343811035156
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        414.5909118652344,
+        166.84329223632812,
+        516.5992431640625,
+        244.34425354003906
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "P05后方露头的浅色个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P07",
+      "proposal_index": 12,
+      "box_xyxy": [
+        594.3908081054688,
+        116.52617645263672,
+        719.1009521484375,
+        212.02796936035156
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "static_pole",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P07",
+      "proposal_index": 10,
+      "box_xyxy": [
+        590.965087890625,
+        117.84894561767578,
+        721.1920166015625,
+        212.91114807128906
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "static_pole",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P07",
+      "proposal_index": 10,
+      "box_xyxy": [
+        581.7911987304688,
+        117.79405212402344,
+        722.6641235351562,
+        212.27133178710938
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "static_pole",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P07",
+      "proposal_index": 8,
+      "box_xyxy": [
+        479.60858154296875,
+        127.30619812011719,
+        554.866455078125,
+        207.41159057617188
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "static_pole",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P07",
+      "proposal_index": 5,
+      "box_xyxy": [
+        487.00830078125,
+        131.87384033203125,
+        563.3505249023438,
+        254.84506225585938
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "static_pole",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P07",
+      "proposal_index": 1,
+      "box_xyxy": [
+        523.0436401367188,
+        155.64837646484375,
+        674.074951171875,
+        299.725830078125
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P07",
+      "proposal_index": 1,
+      "box_xyxy": [
+        525.4744873046875,
+        157.22726440429688,
+        675.8079223632812,
+        302.8917236328125
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P07",
+      "proposal_index": 1,
+      "box_xyxy": [
+        532.9383544921875,
+        156.05323791503906,
+        683.6951904296875,
+        302.06793212890625
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后方右侧棕色个体，随后走到立柱右侧"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 1,
+      "reference_id": "P08",
+      "proposal_index": 8,
+      "box_xyxy": [
+        153.97119140625,
+        212.62208557128906,
+        279.076416015625,
+        290.7028503417969
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 31,
+      "reference_id": "P08",
+      "proposal_index": 7,
+      "box_xyxy": [
+        154.13092041015625,
+        212.9205780029297,
+        280.58306884765625,
+        290.4661560058594
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 61,
+      "reference_id": "P08",
+      "proposal_index": 7,
+      "box_xyxy": [
+        154.46917724609375,
+        213.14202880859375,
+        280.7315673828125,
+        290.8952331542969
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 91,
+      "reference_id": "P08",
+      "proposal_index": 7,
+      "box_xyxy": [
+        85.593505859375,
+        224.7136688232422,
+        224.02162170410156,
+        308.3770751953125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 121,
+      "reference_id": "P08",
+      "proposal_index": 8,
+      "box_xyxy": [
+        69.66726684570312,
+        213.411376953125,
+        217.89569091796875,
+        296.07122802734375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 151,
+      "reference_id": "P08",
+      "proposal_index": 10,
+      "box_xyxy": [
+        88.73518371582031,
+        225.2710418701172,
+        234.90225219726562,
+        307.7305603027344
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 181,
+      "reference_id": "P08",
+      "proposal_index": 8,
+      "box_xyxy": [
+        92.56399536132812,
+        226.89657592773438,
+        236.8197784423828,
+        304.8388671875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_群体活动",
+      "frame": 211,
+      "reference_id": "P08",
+      "proposal_index": 8,
+      "box_xyxy": [
+        103.20327758789062,
+        223.50672912597656,
+        245.5928192138672,
+        298.8013916015625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧中排卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        321.3492431640625,
+        226.10511779785156,
+        537.1390991210938,
+        399.3450927734375
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        354.2018127441406,
+        189.32882690429688,
+        567.1212158203125,
+        383.8724060058594
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        400.3703918457031,
+        208.12332153320312,
+        561.1551513671875,
+        370.3791198730469
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "head_near_pole",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        396.6564636230469,
+        208.86643981933594,
+        563.61474609375,
+        370.0894775390625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "head_near_pole",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        396.0082702636719,
+        210.05755615234375,
+        562.5843505859375,
+        370.27239990234375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "head_near_pole",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        395.878173828125,
+        210.6050567626953,
+        562.7518920898438,
+        370.4878234863281
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "head_near_pole",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        396.1558837890625,
+        210.58863830566406,
+        563.7758178710938,
+        370.18121337890625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "head_near_pole",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q01",
+      "proposal_index": 0,
+      "box_xyxy": [
+        395.6854553222656,
+        211.6540069580078,
+        562.6337280273438,
+        370.14764404296875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "head_near_pole",
+      "status": "ai_visual_reviewed",
+      "description": "画面中央站立、随后朝右低头的浅色个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q02",
+      "proposal_index": 1,
+      "box_xyxy": [
+        196.35386657714844,
+        118.58914947509766,
+        257.9722595214844,
+        230.68096923828125
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q02",
+      "proposal_index": 4,
+      "box_xyxy": [
+        197.7336883544922,
+        119.90441131591797,
+        262.6746826171875,
+        235.14212036132812
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q02",
+      "proposal_index": 2,
+      "box_xyxy": [
+        199.5087432861328,
+        120.4354248046875,
+        267.06439208984375,
+        235.0947723388672
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q02",
+      "proposal_index": 2,
+      "box_xyxy": [
+        196.21832275390625,
+        119.43248748779297,
+        253.27468872070312,
+        232.47869873046875
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q02",
+      "proposal_index": 3,
+      "box_xyxy": [
+        197.50267028808594,
+        120.10456848144531,
+        262.1570739746094,
+        234.69923400878906
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q02",
+      "proposal_index": 3,
+      "box_xyxy": [
+        198.58294677734375,
+        120.7222900390625,
+        258.77447509765625,
+        234.83212280273438
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q02",
+      "proposal_index": 4,
+      "box_xyxy": [
+        199.2708740234375,
+        121.04486083984375,
+        261.5401611328125,
+        234.69972229003906
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q02",
+      "proposal_index": 3,
+      "box_xyxy": [
+        198.816162109375,
+        119.79708862304688,
+        258.8190612792969,
+        234.43397521972656
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排左侧背向镜头站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q03",
+      "proposal_index": 3,
+      "box_xyxy": [
+        243.4908447265625,
+        169.41510009765625,
+        407.6732177734375,
+        227.51507568359375
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q03",
+      "proposal_index": 1,
+      "box_xyxy": [
+        244.82467651367188,
+        170.087890625,
+        406.42059326171875,
+        227.23941040039062
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q03",
+      "proposal_index": 1,
+      "box_xyxy": [
+        244.15789794921875,
+        154.5286407470703,
+        404.5351257324219,
+        226.6520538330078
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q03",
+      "proposal_index": 1,
+      "box_xyxy": [
+        243.21847534179688,
+        158.89805603027344,
+        402.15411376953125,
+        227.23080444335938
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q03",
+      "proposal_index": 1,
+      "box_xyxy": [
+        243.34872436523438,
+        156.89743041992188,
+        401.51104736328125,
+        227.8654022216797
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q03",
+      "proposal_index": 1,
+      "box_xyxy": [
+        244.9755096435547,
+        156.7486572265625,
+        404.90966796875,
+        227.80262756347656
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q03",
+      "proposal_index": 2,
+      "box_xyxy": [
+        244.60646057128906,
+        166.80462646484375,
+        404.7903137207031,
+        227.15516662597656
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q03",
+      "proposal_index": 1,
+      "box_xyxy": [
+        245.1255645751953,
+        160.3389129638672,
+        403.13690185546875,
+        227.44332885742188
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中左横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q04",
+      "proposal_index": 2,
+      "box_xyxy": [
+        405.08465576171875,
+        172.5419464111328,
+        566.0953979492188,
+        223.01522827148438
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q04",
+      "proposal_index": 6,
+      "box_xyxy": [
+        404.8114929199219,
+        173.2093505859375,
+        567.06396484375,
+        217.49679565429688
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q04",
+      "proposal_index": 3,
+      "box_xyxy": [
+        407.70751953125,
+        166.39227294921875,
+        566.7639770507812,
+        225.37330627441406
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q04",
+      "proposal_index": 5,
+      "box_xyxy": [
+        402.6971740722656,
+        173.0957794189453,
+        566.55322265625,
+        225.24505615234375
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q04",
+      "proposal_index": 2,
+      "box_xyxy": [
+        404.3935852050781,
+        173.1127471923828,
+        566.7078247070312,
+        227.01580810546875
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q04",
+      "proposal_index": 2,
+      "box_xyxy": [
+        406.5174560546875,
+        172.94442749023438,
+        566.6536254882812,
+        228.35414123535156
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q04",
+      "proposal_index": 1,
+      "box_xyxy": [
+        402.92706298828125,
+        173.08888244628906,
+        566.7504272460938,
+        228.3705596923828
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q04",
+      "proposal_index": 2,
+      "box_xyxy": [
+        403.0823059082031,
+        173.14251708984375,
+        566.6324462890625,
+        226.2777862548828
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "后排中右横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q05",
+      "proposal_index": 6,
+      "box_xyxy": [
+        70.5523681640625,
+        173.7374725341797,
+        204.97869873046875,
+        265.621337890625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q05",
+      "proposal_index": 7,
+      "box_xyxy": [
+        70.35723114013672,
+        174.6724853515625,
+        186.0186767578125,
+        265.7825012207031
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q05",
+      "proposal_index": 9,
+      "box_xyxy": [
+        71.43374633789062,
+        176.04672241210938,
+        190.63211059570312,
+        265.81494140625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q05",
+      "proposal_index": 8,
+      "box_xyxy": [
+        73.33230590820312,
+        174.88504028320312,
+        178.43028259277344,
+        265.7575988769531
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q05",
+      "proposal_index": 9,
+      "box_xyxy": [
+        73.6832046508789,
+        176.13333129882812,
+        186.37338256835938,
+        265.35076904296875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q05",
+      "proposal_index": 8,
+      "box_xyxy": [
+        73.83041381835938,
+        176.30271911621094,
+        181.6667938232422,
+        265.310546875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q05",
+      "proposal_index": 8,
+      "box_xyxy": [
+        73.37652587890625,
+        176.30776977539062,
+        180.11053466796875,
+        265.4245910644531
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q05",
+      "proposal_index": 8,
+      "box_xyxy": [
+        73.54647064208984,
+        176.29815673828125,
+        185.22161865234375,
+        265.690673828125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧近处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q06",
+      "proposal_index": 4,
+      "box_xyxy": [
+        132.7408447265625,
+        169.59803771972656,
+        238.05465698242188,
+        248.95364379882812
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        136.35531616210938,
+        170.02828979492188,
+        222.99594116210938,
+        258.4594421386719
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q06",
+      "proposal_index": 6,
+      "box_xyxy": [
+        134.92901611328125,
+        169.90240478515625,
+        222.56173706054688,
+        259.1676940917969
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q06",
+      "proposal_index": 3,
+      "box_xyxy": [
+        135.514892578125,
+        170.1884765625,
+        227.39816284179688,
+        258.72430419921875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        136.10841369628906,
+        170.35983276367188,
+        227.1297607421875,
+        258.55035400390625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        136.5623779296875,
+        170.1392364501953,
+        227.10568237304688,
+        258.2995300292969
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        136.55445861816406,
+        170.2169189453125,
+        227.19508361816406,
+        257.9689025878906
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q06",
+      "proposal_index": 5,
+      "box_xyxy": [
+        136.51681518554688,
+        170.272216796875,
+        227.12071228027344,
+        257.758544921875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "左侧远处横卧个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q07",
+      "proposal_index": 9,
+      "box_xyxy": [
+        588.5006713867188,
+        113.07136535644531,
+        694.5316162109375,
+        205.07882690429688
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q07",
+      "proposal_index": 2,
+      "box_xyxy": [
+        622.072509765625,
+        116.81884765625,
+        694.6980590820312,
+        203.8324737548828
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q07",
+      "proposal_index": 4,
+      "box_xyxy": [
+        621.88037109375,
+        118.53775024414062,
+        699.59130859375,
+        206.0414276123047
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q07",
+      "proposal_index": 4,
+      "box_xyxy": [
+        633.919189453125,
+        116.82353210449219,
+        697.5700073242188,
+        207.384521484375
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q07",
+      "proposal_index": 4,
+      "box_xyxy": [
+        631.8482666015625,
+        116.79707336425781,
+        717.0418701171875,
+        207.24331665039062
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q07",
+      "proposal_index": 4,
+      "box_xyxy": [
+        630.8035888671875,
+        116.889892578125,
+        710.2210693359375,
+        208.34104919433594
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q07",
+      "proposal_index": 3,
+      "box_xyxy": [
+        631.3417358398438,
+        117.30523681640625,
+        702.91357421875,
+        207.58636474609375
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q07",
+      "proposal_index": 4,
+      "box_xyxy": [
+        633.6431884765625,
+        117.3170394897461,
+        697.6461181640625,
+        206.723388671875
+      ],
+      "visibility": "visible",
+      "occlusion_type": "none",
+      "status": "ai_visual_reviewed",
+      "description": "右后角站立个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q08",
+      "proposal_index": 5,
+      "box_xyxy": [
+        558.4134521484375,
+        243.8832550048828,
+        769.1427001953125,
+        335.77178955078125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q08",
+      "proposal_index": 3,
+      "box_xyxy": [
+        539.7384033203125,
+        251.02200317382812,
+        769.5105590820312,
+        336.02294921875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q08",
+      "proposal_index": 5,
+      "box_xyxy": [
+        569.5751953125,
+        234.20419311523438,
+        769.5322265625,
+        337.6553955078125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q08",
+      "proposal_index": 6,
+      "box_xyxy": [
+        570.226806640625,
+        231.93588256835938,
+        770.148193359375,
+        335.73175048828125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q08",
+      "proposal_index": 6,
+      "box_xyxy": [
+        567.0072021484375,
+        248.04139709472656,
+        768.7993774414062,
+        332.4013671875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q08",
+      "proposal_index": 7,
+      "box_xyxy": [
+        543.5237426757812,
+        243.767822265625,
+        768.5256958007812,
+        333.1231384277344
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q08",
+      "proposal_index": 6,
+      "box_xyxy": [
+        543.1851806640625,
+        231.15625,
+        769.9522094726562,
+        333.8056335449219
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q08",
+      "status": "unknown_geometry",
+      "reason": "末帧同一个体被多个提议切分，避免从碎片框选出偏好结果",
+      "description": "右侧卧躺群前排，头朝左的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q09",
+      "proposal_index": 7,
+      "box_xyxy": [
+        685.6331176757812,
+        220.80767822265625,
+        853.6448364257812,
+        276.31976318359375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q09",
+      "proposal_index": 9,
+      "box_xyxy": [
+        685.7529907226562,
+        221.40988159179688,
+        850.1312866210938,
+        276.36651611328125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q09",
+      "proposal_index": 7,
+      "box_xyxy": [
+        686.0941162109375,
+        221.39437866210938,
+        846.10400390625,
+        276.1562805175781
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q09",
+      "proposal_index": 9,
+      "box_xyxy": [
+        685.9755249023438,
+        220.96743774414062,
+        851.12646484375,
+        276.3241882324219
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q09",
+      "proposal_index": 7,
+      "box_xyxy": [
+        685.4613037109375,
+        221.705078125,
+        851.7042236328125,
+        276.6517639160156
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q09",
+      "proposal_index": 6,
+      "box_xyxy": [
+        685.2868041992188,
+        221.022705078125,
+        851.3592529296875,
+        276.4884033203125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q09",
+      "proposal_index": 7,
+      "box_xyxy": [
+        686.1732177734375,
+        221.0569305419922,
+        851.8282470703125,
+        276.08477783203125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q09",
+      "proposal_index": 7,
+      "box_xyxy": [
+        686.118408203125,
+        220.9103546142578,
+        851.3834228515625,
+        276.13409423828125
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧卧躺群中排、身躯较细长的个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 1,
+      "reference_id": "Q10",
+      "proposal_index": 8,
+      "box_xyxy": [
+        751.7575073242188,
+        259.51165771484375,
+        899.935546875,
+        347.71209716796875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 31,
+      "reference_id": "Q10",
+      "proposal_index": 8,
+      "box_xyxy": [
+        753.1183471679688,
+        260.5137939453125,
+        899.015869140625,
+        346.62213134765625
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 61,
+      "reference_id": "Q10",
+      "proposal_index": 8,
+      "box_xyxy": [
+        751.7245483398438,
+        259.7771301269531,
+        899.550537109375,
+        346.1943359375
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 91,
+      "reference_id": "Q10",
+      "proposal_index": 7,
+      "box_xyxy": [
+        753.2559204101562,
+        259.8050231933594,
+        899.5352783203125,
+        346.2458190917969
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 121,
+      "reference_id": "Q10",
+      "proposal_index": 8,
+      "box_xyxy": [
+        752.82666015625,
+        260.45184326171875,
+        899.9751586914062,
+        346.156982421875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 151,
+      "reference_id": "Q10",
+      "proposal_index": 9,
+      "box_xyxy": [
+        751.0720825195312,
+        259.6559143066406,
+        900.7949829101562,
+        346.6313171386719
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 181,
+      "reference_id": "Q10",
+      "proposal_index": 9,
+      "box_xyxy": [
+        750.8011474609375,
+        259.3565673828125,
+        899.9248657226562,
+        345.88836669921875
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    },
+    {
+      "sequence": "现场_遮挡交互",
+      "frame": 211,
+      "reference_id": "Q10",
+      "proposal_index": 6,
+      "box_xyxy": [
+        749.4274291992188,
+        260.3709411621094,
+        900.7669677734375,
+        347.9762878417969
+      ],
+      "visibility": "partial_occlusion",
+      "occlusion_type": "animal_overlap",
+      "status": "ai_visual_reviewed",
+      "description": "右侧最前靠料槽卧躺个体"
+    }
+  ]
+}

@@ -1,0 +1,2120 @@
+
+
+PAGE 1
+1
+Monocular Quasi-Dense 3D Object Tracking
+Hou-Ning Hu, Yung-Hsu Y ang, Tobias Fischer, Trevor Darrell, Fisher Yu, and Min Sun
+Abstract—A reliable and accurate 3D tracking framework is essential for predicting future locations of surrounding objects and
+planning the observer’s actions in numerous applications such as autonomous driving. We propose a framework that can effectively
+associate moving objects over time and estimate their full 3D bounding box information from a sequence of 2D images captured on a
+moving platform. The object association leverages quasi-dense similarity learning to identify objects in various poses and viewpoints
+with appearance cues only. After initial 2D association, we further utilize 3D bounding boxes depth-ordering heuristics for robust
+instance association and motion-based 3D trajectory prediction for re-identiﬁcation of occluded vehicles. In the end, an LSTM-based
+object velocity learning module aggregates the long-term trajectory information for more accurate motion extrapolation. Experiments on
+our proposed simulation data and real-world benchmarks, including KITTI, nuScenes, and Waymo datasets, show that our tracking
+framework offers robust object association and tracking on urban-driving scenarios. On the Waymo Open benchmark, we establish the
+ﬁrst camera-only baseline in the 3D tracking and 3D detection challenges. Our quasi-dense 3D tracking pipeline achieves impressive
+improvements on the nuScenes 3D tracking benchmark with near ﬁve times tracking accuracy of the best vision-only submission
+among all published methods. Our code, data and trained models are available at https://github.com/SysCV/qd-3dt.
+Index Terms—Monocular 3D Detection, Monocular 3D Tracking, Multiple Object Tracking, Quasi-Dense Similarity Learning
+!
+1 I NTRODUCTION
+A
+utonomous driving motivates much of contemporary
+visual deep learning research. However, many com-
+mercially successful approaches to autonomous driving con-
+trol rely on a wide array of views and sensors, recon-
+structing 3D point clouds of the surroundings before infer-
+ring object instance trajectories in 3D. In contrast, human
+observers have no difﬁculty perceiving the 3D world in
+space and time from simple sequences of 2D images rather
+than 3D point clouds, even though human stereo vision
+only reaches several meters. Recent progress in monocular
+object detection and scene segmentation offers the promise
+to make low-cost mobility widely available. In this paper,
+we focus on monocular 3D detection and tracking so that
+this low-cost system can be robust and reason in 3D even
+without 3D sensors.
+Monocular 3D detection and tracking are inherently
+intertwined. 3D detection is challenging by itself in the ab-
+sence of depth measurements or strong priors given a single
+image. However, current 3D object detectors based on deep
+learning show promise in capturing geometric priors. This
+detection basis makes short-term 3D tracking more robust
+and makes long-term tracking possible. At the same time,
+3D tracking information across multiple frames can assist
+3D detection in future frames. Note that 3D tracking in the
+world coordinate can be achieved by projecting object 3D
+extents in each frame to the world coordinate so that a still
+object stays still although it moves in 2D observations. This
+3D transformation makes both 3D detection and tracking
+robust as ego-motion of the sensor platform is factored out.
+We propose an online 3D tracking framework to detect
+• H.-N. Hu, Y.-H. Yang and M. Sun are with the Department of Electrical
+Engineering, National T sing Hua University, Hsinchu, T aiwan.
+E-mail: eborboihuc@gapp.nthu.edu.tw
+• T. Darrell is with the Department of EECS Department, UC Berkeley.
+• T. Fischer and F . Yu are with the Department of Information T echnology
+and Electrical Engineering, ETH Zurich.
+[R|t]
+[R|t]
+Fig. 1: Monocular quasi-dense detection and tracking
+in 3D. Our dynamic 3D tracking pipeline predicts 3D
+bounding box association of observed target from quasi-
+dense object proposals in image sequences captured by a
+monocular camera with an ego-motion sensor.
+and track 3D objects in world coordinates from a series
+of monocular images. Figure 1 provides an overview of
+our 3D detection and tracking task. After generating object
+proposals from a monocular image, we estimate their 3D
+properties, i.e., 3D bounding box center, depth, dimension,
+and orientation with a multi-head network. Our model
+also learns an instance descriptor represented as a vector
+in a latent space via quasi-dense similarity learning. The
+quasi-dense mechanism leverages densely populated object
+proposals, instead of scarce ground truth bounding boxes,
+to learn instance similarity mappings on a high-dimensional
+arXiv:2103.07351v1  [cs.CV]  12 Mar 2021
+
+PAGE 2
+2
+latent space and decide if two object detections are the same
+object. We utilize the instance feature embedding, estimated
+3D information, and object motion from lifted 3D object
+instance poses to associate instances over time. Notably,
+we leverage novel motion-aware association and depth-
+ordering matching algorithms to overcome the occlusion
+and reappearance problems in tracking. Finally, our model
+captures the movement of instances in a world coordinate
+system and updates their 3D poses using velocity-based
+LSTM (VeloLSTM) to estimate motion along a trajectory,
+integrating single-frame observations associated with an
+object instance over time.
+Like any deep network, our model is data-hungry. The
+more data we feed it, the better it performs. However, early
+public datasets are either limited to static scenes [1], lack
+the required ground truth trajectories [2], or are too small
+to train contemporary deep models [3]. To bridge this gap,
+we resort to realistic video games. We use a new pipeline
+to collect large-scale 3D trajectories from a realistic synthetic
+driving environment, augmented with dynamic meta-data
+associated with each observed scene and object instance.
+Thanks to the hype of autonomous driving, more and more
+large-scale datasets, and benchmarks have surged onto the
+desk. However, most of the datasets, collected in days to
+months and with costly human resources to reach a reason-
+able scale for a data-hungry network, are licensed for only
+non-commercial use. Our 3D vehicle tracking simulation
+dataset democratizes the autonomous driving ﬁeld that our
+simulation dataset is open to both the research community
+and industrial side. As a result, we believe the presented
+synthetic driving dataset would foster the community in
+discovering the power of a deep network as an entry point,
+especially in combination with sim-to-real approaches, for
+the large dataset and benchmarks.
+In summary, we propose a new pipeline while revis-
+ing each module building upon the ﬁndings of our initial
+work [4]. The key contributions and extended results are
+highlighted below.
+Quasi-Dense 3D Object Tracking Pipeline. We integrate
+Quasi-Dense Similarity Learning [5] into our tracking frame-
+work. It learns to match objects from dense object proposals,
+instead of only a few annotated foreground regions. Our
+quasi-dense 3D tracking pipeline outperforms the camera-
+based state of the art by near500% while bridging the gap to
+LiDAR-based methods on the nuScenes 3D tracking bench-
+mark. Please refer to Section 3.3 for the method details.
+3D Conﬁdence, Motion-based Similarity and VeloLSTM.
+In addition to the 2D tracking upgrade, we revised our
+detection and tracking method from all aspects,i.e., detector,
+tracker, and motion model. We introduce a 3D conﬁdence
+in Section 3.4, aggregating 2D bounding box conﬁdence and
+depth conﬁdence, that beneﬁts the bounding box ﬁltering.
+In Section 3.5, we improve our centroid-based data asso-
+ciation scheme with a motion-based similarity so that the
+tracker is encouraged to match reappeared candidates in
+trajectories. Lastly, in Section 3.6, we enhance our VeloLSTM
+module to model not only object velocity, but heading angle
+and dimension. With all the new techniques, our 3D tracking
+method has improved the rank on the KITTI 2D tracking
+benchmarks outperforming existing online approaches.
+Detailed Experiments on large-scale Datasets. Apart from
+the KITTI and our simulated dataset, we applied our ex-
+tended model to experiment on urban-driving situations
+with recently collected large-scale datasets, i.e., nuScenes
+and Waymo Open. On nuScenes, we focus on detailed
+module design comparison and hyper-parameter tuning,
+while on Waymo Open, we discuss the advantages and
+limitations of a monocular-based method.
+2 R ELATED WORKS
+2D Object Detection. Object detection reaped many of the
+beneﬁts from the success of convolutional representation.
+There are two mainstream deep detection frameworks: 1)
+two-step detectors: R-CNN [6], Fast R-CNN [7], and Faster
+R-CNN [8]. 2) one-step detectors: SSD [9], YOLO9000 [10]
+and RetinaNet [11]. While these methods rely on so-called
+anchor boxes to predict offsets for bounding box estimation
+which are usually derived from dataset depended statistics,
+more recent works study anchor-free object detection by
+predicting keypoints such as centers or corners [12], [13],
+[14]. We utilize Faster R-CNN, one of the most popular
+object detectors, as our detection model basis.
+Image-based 3D Object Detection. A large body of research
+[15], [16], [17], [18], [19], [20], [21], [22], [23] has focused on
+3D object detection rather than detecting objects on the im-
+age plane since understanding the environment in 3D is of
+fundamental importance for many vision applications such
+as robotic navigation and autonomous driving. Over the
+last years, these methods predominantly regressed the 3D
+bounding box parameters directly from the image domain
+using 2D CNNs [15], [16], [17], [18], [19]. More recent works
+[20], [21] propose to transform the data representation to
+detect objects by utilizing recent advances in point cloud
+based 3D object detection [24], [25], [26], [27] where methods
+showed impressive performance on point clouds retrieved
+from LiDAR sensors. Other works leverage shape prior
+cues to enhance the performance of image-based 3D object
+detection [22], [23]. In contrast, our work extends beyond
+the single-frame domain, leveraging temporal information
+to enhance monocular 3D detection by utilizing instance-
+level uncertainty estimation in combination with our LSTM-
+based motion module.
+2D Object Tracking. Object tracking in the image-domain
+has been explored extensively in the last decade [28], [29],
+[30]. Early methods [31], [32], [33] track objects based on
+correlation ﬁlters. Recent ConvNet-based methods typi-
+cally leverage pre-trained object recognition networks. Some
+generic object trackers are trained entirely online, start-
+ing from the ﬁrst frame of a given video [34], [35], [36].
+While object tracking has been tackled by many differ-
+ent paradigms [37], including tracking by object veriﬁ-
+cation [38], tracking by correlation [39] and tracking by
+detection [40], we build upon on the recent successes of
+tracking by detection methods [41], [42], [43]. These are typi-
+cally distinguished by their data association mechanism, for
+which many different algorithms have been explored, such
+as network ﬂow [44], conditional random ﬁelds [45], multi-
+hypothesis tracking [46] and quadratic pseudo boolean op-
+timization [47]. These association mechanisms are fueled by
+
+PAGE 3
+3
+different appearance and location based cues such as consis-
+tency of 2D and 3D motion [41], [45], [48] as well as visual
+appearance similarity [41], [49]. Our method combines the
+strengths of different similarity cues for object tracking.
+3D Object Tracking. The previously discussed methods for
+object tracking in the image-domain usually only take 2D
+visual features into consideration, where the search space
+is restricted near the original position of the object. This
+works well for a static observer, but fails in a dynamic 3D
+environment. Therefore, various research works have pro-
+posed to further leverage 3D information to narrow down
+the search space and stabilize the trajectory of target objects
+[48], [50], [51], [52], [53]. Scheidegger et al. [48] estimate 3D
+object positions from single images and add a 3D Kalman
+ﬁlter on the 3D positions to get more consistent localization
+results and thus improve association. Another approach by
+Luiten et al. [51] proposes to use dynamic 3D reconstruction
+for tracklet association in 3D space to improve long-term
+tracking. Osep et al. [53] and Li et al. [52] study the extension
+of this paradigm to 3D bounding box tracking using 3D
+information obtained from stereo cameras. Recent work by
+Weng et al. [54] proposes speciﬁc evaluation metrics for this
+task and provides a baseline relying on 3D detections from
+LiDAR. Our work is in line with the recent developments in
+this ﬁeld and aims to improve data association by leveraging
+3D information, but goes beyond this by integrating both vi-
+sual appearance and 3D localization information. Moreover,
+we utilize only a monocular camera and GPS information to
+track objects in 3D.
+Joint Detection and Tracking. While accurate object detec-
+tion is a crucial component for tracking, i.e. to track an object
+throughout a video we must ﬁrst detect it in every frame it is
+present, information from tracking can also provide strong
+priors for object detection. Therefore, many works have
+studied ways of integrating techniques from object detection
+with tracking algorithms. Feichtenhofer et al . [40] compute
+correlation maps between a pair of frames which are subse-
+quently used to predict the 2D bounding box deformation
+of each instance between the two frames. In [41], the authors
+utilize a single-frame Faster-RCNN model to predict the 2D
+bounding box deformation from the second stage reﬁne-
+ment module alone. Recently, Lu et al. [55] extend RetinaNet
+[11] to learn track-level instance embeddings via a triplet
+loss in a joint detection and tracking model. In contrast
+to the popular triplet loss training scheme, Pang et al . [5]
+propose to exploit given object proposals within the Faster-
+RCNN framework to learn instance embedding similarity
+using densely-connected contrastive pairs and show impres-
+sive improvement to instance embedding quality. Our work
+leverages these ﬁndings within our 3D detection and track-
+ing framework, extending the work of Panget al. beyond the
+image domain. In the 3D tracking domain, the paradigm
+of joint detection and tracking also caught researcher’s
+attention recently, with Yin et al. [56] combining 3D LiDAR
+detection with the center-based association paradigm from
+CenterTrack [57] to perform joint 3D detection and tracking.
+However, because the depth can be perceived directly in
+LiDAR data, the task is much easier. Our work in contrast
+is able to perform joint 3D detection and tracking solely
+from 2D image information, estimating the 3D properties
+of the visible objects from the image information as well as
+associating these objects over time.
+Autonomous Driving Datasets. Driving datasets have com-
+prised some of the most popular benchmarks for com-
+puter vision algorithms in the last decade. Benchmarks like
+KITTI [3], UA-DETRAC [1], Cityscapes [58] and Oxford
+RobotCar [59] provide well annotated ground truth for
+visual odometry, stereo reconstruction, optical ﬂow, scene
+ﬂow, object detection and tracking as well as semantic
+segmentation. However, due to the high effort that the
+annotation of these datasets requires, these benchmarks
+have been limited in scale. In recent years, the topic of
+autonomous driving catched on more and more in the in-
+dustry, providing the resources for new, large-scale driving
+benchmarks for computer vision, providing annotations for
+3D computer vision tasks like 3D object detection and track-
+ing at an unprecedented scale. Therefore, benchmarks like
+BDD100K [60], NuScenes [61], Argoverse [62] and Waymo
+Open [63] have attracted a lot of attention by the research
+community. Still, accurate 3D annotations are challenging to
+obtain and expensive to measure with 3D sensors like Li-
+DAR. To overcome this difﬁculty, there has been signiﬁcant
+work on virtual driving datasets: virtual KITTI [32], SYN-
+THIA [64], GTA5 [65], VIPER [66], CARLA [67], and Free
+Supervision from Video Games (FSV) [68]. These datasets
+have the potential to lower the costs of training accurate
+deep learning models for applications like autonomous
+driving tremendously, thus opening up the capabilities of
+these to a broader audience. The closest dataset to ours is
+VIPER [66], which provides a suite of videos and annota-
+tions for various computer vision problems while we focus
+on object tracking. We extend FSV [68] to include object
+tracking in both 2D and 3D, as well as ﬁne-grained object
+attributes, control signals from driver actions.
+In the next section, we describe how to generate 3D ob-
+ject trajectories from 2D dash-cam videos. Considering the
+practical requirement of autonomous driving, we primarily
+focus on online tracking systems, where only the current
+and constant number of past frames are accessible to a
+tracker.
+3 J OINT 3D D ETECTION AND TRACKING
+Our goal is to jointly track objects across frames and infer
+the full 3D information of all tracks from a single monocular
+video stream and a GPS sensor. The 3D information includes
+the position, orientation, and dimensions of each object
+instance. Figure 2 shows an overview of our system. Images
+are ﬁrst passed through a backbone network and Region
+Proposal Network (RPN) to generate 2D object proposals
+(Section 3.2). These 2D proposals are then fed into two
+lightweight multi-head networks to infer per-instance sim-
+ilarity feature embedding (Section 3.3) and 3D information
+(Section 3.4). Using both feature embedding and 3D infor-
+mation to generate similarity metrics between all trajectories
+and detected proposals, we leverage estimated 3D object
+instance of current trajectories to track them through time
+(Section 3.5). We introduce motion-aware data association
+and depth-ordering matching to solve the occlusion prob-
+lem in tracking. Finally, we reﬁne the 3D location of objects
+
+PAGE 4
+4
+Predict LSTM
+ Update LSTM
+Tracklets
+Detected objects
+Predict LSTM
+ Update LSTM
+Tracklets
+Detected objects
+Predict LSTM
+ Update LSTM
+Tracklets
+Detected objectsT-2
+T-1
+T
+Frame
+InputImage Quasi-DenseRegionProposals Multi-head3D Estimation Deep VeloLSTMData Association Multi-frameRefinement
+Feature
+Angle
+Dim
+PositionObjectState
+30m
+60m
+30m
+60m
+30m
+60m
+Feature
+Angle
+Dim
+PositionObjectState
+Feature
+Angle
+Dim
+PositionObjectState
+(a) (b) (c) (d)
+Fig. 2: Overview of our monocular quasi-dense 3D tracking framework. Our online approach processes monocular frames
+to estimate and track regions of interest (RoIs) in 3D (a). For each RoI, we learn the 3D layout ( i.e., depth, orientation,
+dimensions, a projection of 3D center) estimation and instance-level feature embedding (b). With the 3D layout, our
+VeloLSTM helps to predict object states, and our 3D tracker produces robust linking across frames leveraging motion-
+aware association and depth-ordering matching (c). VeloLSTM further reﬁnes the 3D estimation by fusing object motion
+features of the previous frames (d).
+using the motion model through the newly matched trajec-
+tory (Section 3.6).
+3.1 Problem Formulation
+We phrase the 3D tracking problem as a supervised learning
+problem. The goal is to ﬁndN trajectories T ={τ 1,...,τ N}
+that match the ground truth trajectories in a video. Each
+trajectory τi
+a,b links to a sequence of detected object states
+⟨s(i)
+a , s(i)
+a+1,..., s(i)
+b ⟩ starting at the ﬁrst visible frame a and
+ending at the last visible frame b. The state of an object i at
+frame a is given by si
+a = [P,O,D,F, ∆P ]∈ R10 whereP
+deﬁnes the 3D world location (x,y,z ) of the object center,
+O for object orientation θ, D for dimensions ( l,w,h ), F
+for appearance feature fapp, and ∆P stands for its velocity
+( ˙x, ˙y, ˙z). The 3D object states in the world coordinates
+enable the use of our depth-ordering matching and motion-
+aware association.
+On a moving platform with a pose [R|t], the mounted
+camera captures objects found in the 3D world. We describe
+an object in the form of a 3D bounding box X∈ R3×8 in
+the world coordinates to avoid the changing reference axes
+introduced by ego-motion. Each 3D bounding box X can be
+viewed as the composition of object location P , dimensions
+D, and orientation O. The location P can be projected
+onto the camera plane using camera pose [R|t] as a point
+Pcam = (xcam,y cam,d ) where d is the depth from camera.
+The Pcam can be further projected to image plane using
+camera intrinsics K as the projection of the 3D bounding
+box center C = (uc,vc). The intrinsic parameter K can be
+obtained from camera calibration. Therefore, we can “lift”
+an object center C in the image plane with a depth d using
+camera parameters M = K[R|t] to a object location P in
+the world. Given the mapping from 3D points in the 3D
+world and 2D points in the image is known, we enclose
+a 2D bounding box B = ( umin,v min,u max,v max) over the
+projected 3D bounding box M× X as the 2D annotation
+for object detectors. The extrinsic parameter [R|t] can be
+retrieved from a commonly equipped GPS or IMU sensor.
+The recorded extrinsic parameter will be used later in the 3D
+tracking phase to cancel out the ego-motion of the moving
+platform.
+The whole system is powered by an end-to-end multi-
+head convolutional network trained on a considerable
+amount of ground truth supervision. Next, we discuss each
+component in more detail.
+3.2 Candidate Box Detection
+We employ Faster R-CNN [8] trained on our dataset to
+provide object candidates in the form of bounding boxes. As
+a two-stage detector, Faster R-CNN ﬁrst generates regions of
+interest (RoIs) using a multiple-scale Region Proposal Net-
+work (RPN) and then utilizes a region convolutional neural
+network (R-CNN) to classify the RoI as well as to reﬁne
+its localization. The multiple-scale RPN generates RoIs from
+the image feature and obtains its regional feature maps at
+different levels as the input of our multi-head detector, 3D
+estimator, and quasi-dense feature extractor networks. RoI
+align [69] is used instead of RoI pool to obtain the regional
+representation, which reduces the misalignment of two-step
+quantization. Each object proposal (Figure 2(a)) corresponds
+to a 2D bounding box B as well as an estimated projection
+of the 3D bounding box center ˆC. The proposals are used
+to locate the candidate objects and extract their appearance
+features. However, the center of the objects’ 3D bounding
+box usually does not project directly to the center of its 2D
+counterparts. Hence, we also provide an estimation of the
+3D bounding box center for better accuracy.
+
+PAGE 5
+5
+Projection of 3D bounding box center. To estimate the 3D
+layout from single images more accurately, we extend the
+regression process to predict a projected 2D point of the 3D
+bounding box center from an RoI aligned feature F using
+Smooth L1 loss [70]. Estimating a projection of the 3D center
+is crucial since a small gap in the image coordinate can cause
+a tremendous shift in 3D. With the extended multi-head
+detector, the model simultaneously regresses a bounding
+box B and an estimated center ˆC from an object proposal.
+We discuss how an estimated center ˆC is used in Section 3.4
+for lifting predicted 3D bounding boxes.
+3.3 Quasi-dense Similarity Learning
+Data association, one challenging problem in the multiple
+object tracking ﬁeld, requires distinguishable feature em-
+beddings to match detections and tracklets [71], [72]. We
+leverage quasi-dense proposals to train a discriminative
+feature space using contrastive loss. Figure 3 depicts the
+difference of a quasi-dense approach comparing to con-
+ventional sparse ground-truth based approaches. Unlike
+sparse feature learning, which is commonly used in multiple
+object tracking that learns only from ground-truth bound-
+ing boxes, quasi-dense similarity learning utilizes all object
+proposals to discriminate positive proposals from negative
+ones. Unlike dense approaches, which is commonly used in
+single object tracking that compare tracklets with the whole
+image, our approach focuses on potential regions of interest
+to reduce the computational redundancy.
+To obtain the proposal-to-proposal quasi-dense instance
+embedding correspondences, we establish pair-wise in-
+stance similarity loss between two neighboring frames,
+namely, a key frame and a reference frame. The multiple-
+scale RPN generates RoIs from the two images and obtains
+their regional feature maps at different levels. We assign
+RoIs with IoU scores to an object over 0.7 as positive pro-
+posals, and those lower than0.3 as negative proposals. Using
+the regional feature maps, we propose a quasi-dense embed-
+ding head to extract feature embeddings from positive and
+negative proposals. Adapting contrastive characteristics to
+the tracking problem, we deﬁned region proposal pairs from
+two frames matched to the same object identity as positive
+pairs, and those matched to different identities are negative
+ones.
+Given a key frame at time a, we sample a reference
+frame within a temporal interval n, where n ∈ [−3, 3]
+throughout all the experiments. For each target proposal sa,
+we optimize its feature embedding Fsa using cross entropy
+loss combining a non-parametric softmax activation [73].
+Lembed =− log
+exp(Fsa·F +
+sa+n)
+exp(Fsa·F +sa+n) + ∑
+F −
+sa+n
+exp(Fsa·F−sa+n),
+(1)
+where feature embedding Fsa of the target proposal is
+learned to associate its positive referenced embedding
+F +
+sa+n, and distinguish all its negative referenced ones
+F−
+sa+n. However, the formula above considers only one
+positive object proposal. To fully leverage the quasi-dense
+characteristics, we can balance the number of positive and
+negative examples by comparing the target proposal to all
+positive proposals.
+Since we accumulate the whole positive targets, Equa-
+tion 1 can be reformulated as follows
+Lembed = log[1 +
+∑
+F +
+sa+n
+∑
+F −
+sa+n
+exp(Fsa·F−
+sa+n−Fsa·F +
+sa+n)]
+(2)
+The loss term Lembed of the above formulation minimizes
+the cosine distance of the target proposal to all positive
+referenced examples while maximizing the cosine distance
+to all negative examples. By balancing positive and negative
+examples, we encourage the network to learn an embedding
+space that discriminates between instances most effectively
+while being invariant to input perturbations like change in
+viewpoint or lighting. In addition, we apply an auxiliary
+loss encouraging the learning of cosine similarity of target
+proposalFsa and referencesFsa+n
+Laux = ( Fsa·Fsa+n
+||Fsa||·|| Fsa+n||− 1(sa, sa+n))2 (3)
+where 1(sa, sa+n) is the matching pair indicator function
+producing 1 if sa and sa+n match to the same object and 0
+otherwise. We deﬁne the full quasi-dense instance similarity
+loss as
+Lsimilarity =λembedLembed +Laux (4)
+In short, the embedding head optimizes the quasi-dense
+feature embedding pairs to discriminate different instances
+using instance similarity loss Lsimilarity. Next, we discuss
+how we estimate the 3D extent of an object.
+3.4 3D Bounding Box Estimation
+We estimate complete 3D bounding box information (Fig-
+ure 2(b)) from an RoI in the image via a feature repre-
+sentation of the pixels in the 2D bounding box. The RoI
+feature vector F is extracted from a deep convolutional
+backbone network. Each of the 3D information is estimated
+by passing the RoI features through a 2-layer convolutional
+sub-network with shared parameters and subsequently a
+4-layer 3x3 convolution sub-network, which extends the
+stacked linear layers design of Mousavian et al . [17]. We
+estimate all necessary parameters for inferring 3D bounding
+boxes from images, whereas Mousavian et al . [17] focus on
+object orientation and dimensions from 2D boxes. Besides,
+our approach integrates 2D detection with 3D estimation,
+3D tracking and motion reﬁnement, while Mousavian et
+al. [17] crops the input image with pre-computed boxes.
+This network is trained using ground truth depth d,
+3D bounding box center projection C, dimensions D, and
+orientationO. We explain how we estimate each component
+in detail in the following paragraphs.
+3D World Location. Unlike previous approaches [4], [16],
+[17] that lift objects in camera coordinates, we infer 3D
+locationP in the world coordinates from monocular images.
+The network learns to regress a logarithmic depth value
+log( ˆd) scaled with a constant r with Smooth L1 loss [70].
+Compared with the characteristics of inverse depth value
+encoding 1/d in [4] which compresses the target range
+([5, 100]) drastically to ( [0.80, 0.99]), our scaled logarithmic
+target provides a more realistic scaling inside our target
+
+PAGE 6
+6
+Quasi-Dense Instance
+Similarity Loss
+Shared
+Embedding Head
+Key frame
+Reference frame
+ NegativePair
+PositivePair Sparse Annotated Object
+Quasi-DenseObject Proposal 
+Embedding 
+Space
+Target
+Proposal
+SampledMatch
+AnnotatedMatch
+Fig. 3: The illustration of the quasi-dense similarity learning. We leverage quasi-dense object proposals (all the circles),
+instead of traditional sparse ground truth (solid circles), to train a discriminative feature space by comparing the region
+proposal pairs between the key frame and the reference frame. The quasi-dense instance similarity loss pulls the feature
+embedding of different object away from its paired target proposal and draws the embedding of same object pairs together
+in a high dimensional space.
+range of the encoded depth value ( [1.39, 4]). The scaled
+logarithmic approach remedies the curse of regression that
+small encoded depth value change results in a large depth
+estimation variation. A projected 3D locationP is calculated
+using an estimated 2D projection of the 3D object center C
+as well as the depth d and camera transformation M.
+Initial Projection of 3D Bounding Box Center. The 3D
+object location in the current camera coordinate system can
+be obtained by estimating the depth of the detected 2D
+bounding box B as well as the 3D object center projection
+C and the camera calibration. The 3D world position P can
+be inferred by transforming the 3D object location based on
+the observer’s pose. We ﬁnd that accurately estimating the
+3D object center and its projection is critical for accurate 3D
+bounding box localization. However, the projection of the
+3D center can be far away from the 2D bounding box center.
+Naturally, a center shift from the 2D box center since the
+2D bounding box encloses the 3D object from the observer’s
+perspective. After occlusion and truncation, the estimated
+2D bounding box can hardly cover the correct dimension
+with only the visible area of the objects. In contrast, the 3D
+bounding box is deﬁned by the full physical dimensions
+of an object. The projected 3D center can lie even outside
+the detected 2D boxes. For instance, the 3D bounding box
+of a truncated object can be out of the camera view. These
+situations are illustrated in Figure 4.
+Single-frame 3D Conﬁdence. Given the high variance in
+estimating the object-observer relationship in the real world,
+we ﬁnd a single-frame depth estimation is prone to predict
+an erroneous guess if the target object is only partially
+observable or in unforeseen situations. While the uncer-
+tainty of the model estimation has been well-studied [74],
+[75], we aim to solve the uncertainty problem in a spatial-
+temporal approach, focusing on the conﬁdence of the 3D
+Visible
+Invisible
+2D Center
+3D re-projection
+2D projection3D Center
+Fig. 4: 3D projected centers are perferred over 2D bound-
+ing boxes. A visible 2D center projection point may
+wrongly locate the object away from the ground plane in
+the 3D coordinates and would inevitably suffer from more
+severe scenarios, occluded or truncated. The center shift
+causes object misalignment for GT and predicted tracks and
+harms 3D IoU AP performance.
+estimation. During training, the network is supervised by
+the target conﬁdence scorecdepth = exp(−| ˆd−d|/r), which
+we formulated as an exponential of negative depth distance
+of prediction and ground truth scaled by a constant r. The
+learned conﬁdence ˆcdepth is used during inference as a 3D
+objectness score in the detection phase, and as a weighting
+score in the tracking phase. The conﬁdence helps to han-
+dle the ambiguity of the single-frame depth estimation by
+balancing single-frame depth estimation and multiple-frame
+motion model location prediction.
+Object Orientation. Given the image coordinate distance
+ˆu = ˆuc−wimg/2 from an object center ˆuc to the horizontal
+
+PAGE 7
+7
+center of an image wimg/2 and the focal length f, the object
+rotation θcam in the camera coordinates transformed from
+an observed vehicle heading θobs with simple geometry,
+θcam = [θobs + arctan(ˆu/f)] mod 2 π. Later we can restore
+the global rotation θ in the world coordinates using ego-
+vehicle heading obtained in R. Following Mousavian et
+al. [17] for θobs estimation, we ﬁrst classify the angle into
+two bins and then regress the residual relative to the bin
+center using Smooth L1 loss [70].
+Object Dimension. In driving scenarios, the high variance
+of the distribution of the dimensions of different categories
+of vehicles ( e.g., car, bus) results in difﬁculty classifying
+various vehicles using unimodal object proposals. There-
+fore, we regress the dimensions (ˆl, ˆw, ˆh) to the ground truth
+dimensions (l,w,h ) using Smooth L1 loss [70].
+To sum up, estimating an object’s 3D properties provides
+us with an observation of its location P with orientationO,
+dimensions D and 2D projection of its 3D center C. Next,
+we discuss how we associate the estimation across frames.
+3.5 Data Association and Tracking
+Given a set of candidate detections Sa ={s1
+a,..., sM
+a} and
+a set of tracks Ta ={τJ,...,τ K} at framea where 1≤J≤
+K ≤ N from N trajectories, our goal is to associate each
+trackτ with a candidate detection s, spawn new tracks, or
+end a track (Figure 2(c)) in an online fashion.
+We solve the data association problem by using a
+weighted bipartite matching algorithm. Afﬁnities between
+tracks and new detections are calculated from three crite-
+ria, (1) the deep representation similarity Adeep(τa, sa) of
+the appearance embeddings fapp between an accumulated
+feature Fτa from existing tracks and a learned feature
+Fsa from object detections; (2) the overlap of bounding
+boxes Aiou(τa, sa) between the projection of a 3D bounding
+box in current trajectories forward in time Bτa and one
+of the bounding box candidates Bsa; and (3) the motion
+similarity Amotion(τa, sa) of a pseudo object motion vector
+Vsa =−−−−→PτaPsa and the accumulated motion vector Vτa from
+current trajectories. Each trajectory is projected forward in
+time using the estimated velocity of an object and camera
+ego-motion. Here, we assume that ego-motion is given by a
+sensor, like GPS, an accelerometer, gyro, or IMU.
+We deﬁne an afﬁnity matrix A(Ta, Sa) ∈ R||Ta||·||Sa||
+between the information of existing tracks Ta and candidate
+detections Sa as a joint probability of appearance, location,
+and velocity correlation.
+Adeep(τa, sa) = σx(FτaFT
+sa) +σy(FτaFT
+sa)
+2 (5)
+Aiou(τa, sa) = exp(−|Bτa−Bsa|
+c ), (6)
+Amotion(τa, sa) = exp(−|Vτa−Vsa|
+c )) (7)
+where σx, σy are sigmoid functions applied along x, y
+direction.
+The afﬁnity matrix, A(Ta, Sa), aggregates the semantic,
+spatial and temporal similarities.
+A(τa, sa) =wdeepAdeep(τa, sa)
++ (1−wdeep)Amotion(τa, sa)· Aiou(τa, sa) (8)
+Frame = T-1
+Frame = T
+Tracklets
+Proposals
+Detection of 
+Interest
+X Z
+Y
+WorldCoordinates
+si=[x,y,z,Θ,l,w,h]
+[RT|tT]
+[RT-1|tT-1]
+𝛕i=[x,y,z,Θ,l,w,h]
+Fig. 5: Illustration of depth-ordering matching. Given the
+tracklets and detections, we sort them into a list by depth
+order. For each detection of interest (DoI), we calculate
+similarities of the object state between DoI and each tracklet.
+The location of the object in the world coordinates naturally
+provides higher probabilities to tracklets near the DoI.
+The weight wdeep balances appearance similarity and a
+hybrid of motion and 3D location overlap. We utilize a
+mixture of discriminative quasi-dense feature embeddings,
+bounding box overlaps, and location reasoning as similarity
+measures across frames, similar to the design of POI [76].
+We solve data association greedily instead of using Kuhn-
+Munkres algorithm [77] in Mono3DT [4].
+Comparing to 2D tracking, 3D-oriented tracking is more
+robust to ego-motion, visual occlusion, overlaps, and re-
+appearances. When a target is temporarily occluded, the
+corresponding 3D motion estimator can roll-out for a period
+of time and relocate the 2D location at each new point in
+time via the camera coordinate transformation.
+Data Association Scheme. Similar to previous meth-
+ods [78], [79], [80], we model the lifespan of a
+tracker using four major subspaces in MDP state space:
+{birth, tracked, lost, death}. For each new set of detec-
+tions, the tracker is updated ( tracked) using pairs with
+the highest afﬁnity score (Equation 8). Each unmatched
+detection spawns a new tracklet ( birth); however, an un-
+matched tracklet is not immediately terminated ( death), as
+tracklets can naturally disappear ( lost) into an occluded
+region and reappear later. We address the dynamic object
+inter-occlusion problem by introducing a motion vector
+propagation. A lost tracklet will not update its feature
+representation until it reappears, but we still predict its 3D
+location using the estimated motion. We continue to predict
+the 3D location of unmatched tracklets until they disappear
+from our tracking range (e.g. 0.15m to 100m) or die out after
+their lifespan (e.g. 10 time-steps). With the sweeping scheme
+above, we keep disappeared object tracks inside the tracker
+memory to be able to recover from object occlusions while
+still keeping the computational requirements for storing all
+object tracks at a feasible level.
+Depth-Ordering Matching. We introduce instance depth or-
+dering for assigning a detection to neighbor tracklets, which
+models the strong prior of relative depth ordering found
+in human perception. Extending the formulation in Hu et
+al. [4], we consider probabilities of matching each detection
+of interest (DoI) to potential tracklets using centroid distance
+of their object state sa. Additionally, we introduce object
+orientation and dimensions to discover different neighbor
+
+PAGE 8
+8
+Depth
+Order Frame
+Frame = T-2
+Frame = T-1
+Frame = T
+Visible
+Occluded
+Truncated
+MatchedTrajectory
+PseudoVector
+AggregatedVector 3D Motion 
+Estimation
+Fig. 6: Demonstration of motion-aware data association.
+The yellow tracklet is visible all the time, while the red
+tracklet is occluded by the blue tracklet at frameT−1. Given
+pseudo motion vectors (dot arrows from a tracklet to all
+detection candidates) and the temporal-aggregated motion
+vector (dashed arrows) by the tracklet, our motion-based
+data association scheme is encouraged match reappeared
+candidates in trajectories.
+objects with similar centroid distances.
+From the view of each DoI, we compare the pairwise
+distance of object state sa with all the tracklets τa in the
+world coordinates. We directly enforce a smooth distance
+transition of an exponential function to replace the discrete
+depth order relationship. To cancel out the ordering ambi-
+guity of a distant tracklet, we leverage the nature of negative
+exponential to cut off the matching probability of a distant
+tracklet smoothly. So Equation 6 becomes
+Aiou(τa, sa) = exp(−|τa− sa|
+r ), (9)
+where the exponential function with a constant r captures
+the concept that distant objects contribute less to the afﬁni-
+ties. It naturally provides higher probabilities of linking sim-
+ilar neighbor tracklets than those far away. In this way, we
+solve the data association problem of moving objects with
+the help of 3D trajectories in world coordinates. Figure 5
+depicts the pipeline of depth ordering.
+Motion-aware Data Association. Assuming a linear move-
+ment of an object, we expect a lost object to reappear at
+a predictable location based on its velocity and the previ-
+ously seen locations. Equation 7 encodes both the motion
+magnitude||V|| and heading angle ∠V into the similarity.
+Speciﬁcally, Amotion considers accumulated motion vectors
+Vτa from tracklet trajectories and pseudo motion vectorsVsa
+from single-frame depth estimation. Since the network can
+not estimate a velocity directly from a single frame, we
+leverage the bipartite afﬁnity that aggregates the pseudo
+motion vectors −−−−→PτaPsa from all Pτa to Psa. However, a
+motion-only similarity in Equation 7 does not distinguish
+similar motion vectors in different locations. We propose a
+new Amotion(τa, sa) that counts in the motion vectors as well
+as the centroid location of the objects.
+Amotion(τa, sa) = wcos Acentroid + (1− wcos) Apseudo
+(10)
+which composed of the following terms
+Acentroid = exp(−|Pτa−Psa|
+r )
+Apseudo = exp(−|Vτa−Vsa|
+r )
+wcos = ∠(Vτa,V sa)
+(11)
+where wcos is the normalized cosine similarity of two mo-
+tion vectors ∠(Vτa,V sa)∈ [0, 1]. The wcos favors centroid
+distance if two motion vectors within a hemisphere of the
+same direction and weights more on pseudo motion other-
+wise. Therefore, we can ﬁnd the most aligned motion vector
+that assigns the detected object sa to the target tracklet τa.
+Figure 6 illustrates how our motion-aware data association
+scheme works. In the next subsection, we show how a
+motion model helps reﬁne the estimated 3D object state.
+3.6 Motion Model Reﬁnement
+For any new tracklet, the detection network is trained to
+predict the object states by leveraging RoI features. For any
+previously tracked object, the motion model network learns
+a mixture of multi-view monocular 3D estimates by merging
+the object state from previous visible frames and the current
+frame. Given the learned motion and updated object state,
+the motion model network predicts the next possible object
+state to assist the data association procedure. The update
+and predict cycles reﬁne the ﬁnal object state in tandem.
+VeloLSTM: Deep Motion Estimation and Update. To ex-
+ploit the temporal consistency of objects, we associate the
+information across frames using two LSTMs for object state
+prediction and updating (Figure 2(c)). We use two-layer
+LSTMs with 128-dim hidden state size to keep track of a
+3D object state in the world coordinates s(i)
+a ={P,O,D} =
+{x,y,z,θ,l,w,h } from the 64-dim output feature.
+Prediction LSTM (P-LSTM) models the dynamic object
+state sa in 3D world coordinates based on the previous
+reﬁned object state sa−1 with predicted object velocity
+˙sa = {∆P, ∆O, ∆D} from previously updated velocities
+˙sa−n:a−1. We encode previous n = 5 frames of object ve-
+locity into a 64-dim velocity feature to model object motion
+and acceleration from the trajectory. P-LSTM predicts the
+next possible object state ˜sa = sa−1 + ˙sa.
+Updating LSTM (U-LSTM) balances current observed
+object state ˆsa from 3D estimation module and previously
+predicted state ˜sa−1 considering current 3D conﬁdence of
+depth estimation ˆcdepth. We encode observed, predicted
+object states into 64-dim state features and 3D conﬁdence
+scores into a 64-dim conﬁdence feature. By concatenating
+observation, prediction state features and conﬁdence feature
+together, we obtained a 192-dim feature embedding as the
+input of U-LSTM. Given the fusion information, U-LSTM
+reﬁnes the object state ¯sa and updates velocities ˙sa−n:a−1.
+Modeling motion in 3D world coordinates naturally can-
+cels out adverse effects of ego-motion, allowing our model
+to handle missed and occluded objects. The LSTMs keep
+updating the predicted object state ˜sa−1 while assuming a
+linear velocity model if there is no matched bounding box.
+Therefore, we model 3D motion (Figure 2(d)) in world coor-
+dinates allowing occluded tracklets to move along motion-
+plausible paths while managing the birth and death of
+moving objects.
+
+PAGE 9
+9
+Both LSTM modules are trained with predicted object
+states ˜sa, reﬁned object states sa from detector prediction,
+and ground truth object state sa trajectories. The reﬁnement
+loss Lrefine(sa, sa) and prediction loss Lpredict(˜sa, sa) aim
+to reduce the distance of estimated and ground-truth object
+state using Smooth L1 loss [70]. The linear motion loss
+Llinear(ya−n:a) = ∑
+a−n:a|(ya−ya−1)− (ya−1−ya−2)|/∆t
+focuses on the smooth transition over time ∆t of object state
+reﬁnement Llinear(sa−n:a) and prediction Llinear(˜sa−n:a).
+Conclusively, our pipeline consists of a single-frame
+monocular 3D object detection model for object-level pose
+inference and recurrent neural networks for inter-frame
+object association and matching. We extend the region
+processing to include 3D estimation by employing multi-
+head modules for each object instance. We introduce a
+motion-aware association to solve the inter-object occlusion
+problem. For tracklet matching, depth ordering lowers the
+mismatch rate by ﬁltering out distant candidates from a
+target. The LSTM motion estimator updates the velocity and
+states of each object independent of camera movement or
+interactions with other objects. The ﬁnal pipeline produces
+accurate and smooth object trajectories in the 3D world
+coordinate system.
+4 3D V EHICLE TRACKING SIMULATION DATASET
+It is laborious and expensive to annotate a large-scale 3D
+bounding box image dataset even in the presence of LiDAR
+data, although it is much easier to label 2D bounding
+boxes on tens of thousands of videos [60]. Therefore, no
+such dataset collected from real sensors is available to the
+research community. To resolve the data problem, we turn
+to driving simulation to obtain accurate 3D bounding box
+annotations at no cost of human efforts. Our data collection
+and annotation pipeline extend the previous works like
+VIPER [66] and FSV [68], especially in terms of linking
+identities across frames.
+Our simulation is based on Grand Theft Auto V, a modern
+game that simulates a functioning city and its surroundings
+in a photo-realistic three-dimensional world. To associate
+object instances across frames, we utilize in-game API to
+capture global instance id and corresponding 3D anno-
+tations directly. In contrast, VIPER leverages a weighted
+matching algorithm based on a heuristic distance function,
+which can lead to inconsistencies. It should be noted that
+our pipeline is real-time, providing the potential of large-
+scale data collection, while VIPER requires expensive off-
+line processings.
+Dataset Statistics. Compared to the others, our dataset has
+more diversity regarding instance scales (Figure 7a) and
+closer instance distribution to real scenes (Figure 7b). To
+help understand our dataset and its difference, we show
+more statistics in the appendix.
+5 E XPERIMENTS
+We evaluate our 3D detection and tracking pipeline on
+the real-world driving scenes, i.e., Waymo Open dataset,
+nuScenes Tracking, KITTI MOT benchmarks, and our large-
+scale simulation dataset featuring a wide variety of road
+conditions in a diverse virtual environment. To follow the
+(a) Instance scale
+ (b) Instances per image
+(c) Frames of tracking
+ (d) Vehicle distance
+Fig. 7: Statistical summary of our dataset in comparison of
+KITTI [3], VKITTI [32], VIPER [66], and Cityscapes [58]
+submission policy on the above public testing benchmarks,
+we only evaluate the ﬁnal performance of our best result on
+the public testing benchmark.
+5.1 Dataset Details
+GTA 3D Vehicle Tracking dataset recorded raw data at 12
+FPS, which is helpful for temporal aggregation. With the
+goal of autonomous driving in mind, we focus on vehicles
+closer than 150m, and also ﬁltered out the bounding boxes
+whose areas are smaller than 256 pixels. The dataset is then
+split into train, validation and test set with a ratio 10 : 1 : 4.
+KITTI MOT benchmark [3] provides real-world driving
+scenarios. Since the KITTI benchmark is relatively small-
+scale, we additionally train on the whole KITTI detection
+training set to enhance our 3D estimation module in the
+connection of lifting 3D bounding boxes from a single
+image. We train a full model with the whole detection and
+tracking training set for the public benchmark submission.
+For bounding box center comparison, we train on the whole
+detection training set and half of the tracking training set,
+and then we evaluate the performance difference on the
+other half of the tracking training set.
+nuScenes dataset [61] is another real-world benchmark con-
+taining street scenes in Boston and Singapore captured from
+a moving vehicle equipped with different sensors, i.e., 6
+cameras, 1 LiDAR, and 4 radars. It provides 3D annotations
+for LiDAR data with 10 object classes for detection task,
+and 7 object classes for tracking task. There are 700 training
+sequences, 150 validation sequences and 150 test sequences
+in the nuScenes dataset. Every sequence collects images
+at 12 FPS, denoted as full frames , and only those sampled
+keyframes, annotated at 2 FPS, are used for evaluation. Each
+sequence consists of about 40 keyframes per camera. We
+apply our motion-based pipeline on the frames in a higher
+frame rate ( full frames) and produce reﬁned tracking results
+on a keyframe basis.
+Waymo Open Dataset [63] collects images at 10Hz from 5
+different directions with partially overlapped regions: front,
+front left, front right, side left, and side right. There are
+
+PAGE 10
+10
+1, 150 segments of 20s each, 798 segments for training, 202
+segments for validation, and 150 segments for testing. Every
+segment contains about 198 frames per camera. Waymo
+dataset provides 3 types of annotations: 2D annotations,
+3D LiDAR annotations, and projected 3D LiDAR annota-
+tions. The annotated object classes are vehicles, pedestrians,
+cyclists, and signs. However, signs are not used in the 3D
+detection and 3D tracking benchmark.
+Cross Camera Aggregation. For both nuScenes and Waymo,
+we align all camera results together in an online fashion
+because their ofﬁcial evaluations only support the LiDAR-
+based perspective. The cross-camera aggregation criteria fo-
+cus on removing duplicated objects across different cameras
+whose 3D euclidean distance is within 2 meters. For an
+object with smaller width or height, such as a pedestrian,
+the threshold is set to1 meter. Once duplicates are found, we
+keep the bounding box with a higher 3D score and discard
+the lower ones to handle the overlapping problem.
+On the nuScenes dataset, we found using only cam-
+era data achieving competitive results compared to LiDAR
+baselines since all 6 cameras can be stitched together to
+reconstruct the 360-degree scene. On the other hand, the ﬁve
+camera setting on Waymo Open Dataset lacks information
+at the rear camera and covers only 5/8 azimuth angle of
+the horizon. But objects are annotated in LiDAR sweeps.
+The limitation above refrains our method from reaching
+meaningful evaluation scores on Waymo Open 3D detection
+or tracking benchmark. Therefore, we conduct a view angle
+ablation study in Table 7 to validate the power of our data-
+driven method.
+5.2 Training and Evaluation
+Network Speciﬁcation. Our 2D detection and 3D center
+estimation are based (Section 3.2) on Faster RCNN [8] with
+image classiﬁcation pre-trained weights on ImageNet [81]
+from TorchVision [82]. For the KITTI dataset with a smaller
+amount of data, we choose a light-weight yet powerful
+DLA-34-up [83] architecture, while for the large driving
+datasets, e.g., nuScenes, GTA, Waymo, we resort to a 101-
+layer ResNet [84]. The anchors of the RPN in Faster R-CNN
+span 5 scales and 5 ratios, in order to detect small objects at
+distance as well as larger, close objects. We use a maximum
+of 2000 candidate objects before NMS. The 3D estimation
+network (Section 3.4) estimate 3D bounding box parameters
+from features extracted from RoI align [69]. For the quasi-
+dense similarity learning (Section 3.3), we useλembed = 0.25
+throughout the experiments. The LSTM motion module
+(Section 3.6) is trained for 100 epochs on 10 sample frames
+per object trajectory with 128 sequences per batch for large-
+scale datasets and 8 for KITTI.
+Training Procedure. The general training procedure is con-
+ducted for 24 epochs using SGD [85] with a momentum of
+0.9 and a weight decay of 10−4. The learning rate linearly
+increases from 5× 10−4 to 5× 10−3 over the initial 1000
+warm-up training steps. We use a batch size of 8 images
+per GPU and train on 4 GPUs, resulting in an effective
+mini-batch size of 32. We apply image horizontal ﬂipping
+as data augmentation in the training phase, and there is no
+augmentation performed for test/validation phase.
+We optimize our model on each dataset with different
+training procedures according to its amount of data and
+the GPU memory limit. The image resolution is resized and
+padded to ﬁt the minimum down sample scale 32. We use
+1600× 900 resolution for nuScenes, 1280× 854 for Waymo,
+1485× 448 for KITTI, and 1920× 1080 for GTA. Following
+CenterTrack [57], we ﬁne-tune our KITTI model from a GTA
+3D detection model. Given the multiple cameras setup in
+nuScenes and Waymo, we treat each camera video as a
+different sequence during both training and inference. Since
+nuScenes doesn’t provide 2D annotations, we project the
+annotated 3D bounding boxes to the image plane to train
+the 2D branch of our model. On the Waymo Open dataset,
+we use only the 3D LiDAR annotations and project them
+to the image coordinates as our 2D annotations since the
+2D and 3D bounding boxes are annotated independently.
+For more details on training strategies, please refer to the
+appendix.
+3D Detection Evaluation. We evaluate the performance of
+3D detection with reﬁned object state estimation of different
+tracking methods. For KITTI and GTA, we use the formal
+evaluation metrics of detection 3D mAP from KITTI [3] in
+the 3D Object Detection Evaluation. To inspect the precision-
+recall curve deeper, we also use detection 3D mAP from
+COCO [86] with a range of IoU thresholds from 50 to 95 at a
+step of 5. As stated in [19], we use 40 recall positions in 3D
+object detection evaluation instead of the 11 recall positions
+proposed in the original Pascal VOC benchmark [87]. For
+nuScenes, we use the benchmark evaluation metrics, called
+nuScenes detection score (NDS), which is the weighted sum
+of mean Average Precision (mAP) and several True Positive
+(TP) metrics. For Waymo, we also use the 3D detection
+benchmark evaluation metrics where their primary metric
+is mean Average Precision weighted by Heading (mAPH)
+with different 3D IoU thresholds for each class.
+Multiple Object Tracking Evaluation. For KITTI and GTA,
+we use the ofﬁcial KITTI 2D tracking benchmark metrics
+following CLEAR [88] and Li et al. [89], including Multiple
+Object Tracking Accuracy (MOTA), Multiple Object Track-
+ing Precision (MOTP), Miss-Match (MM), False Positive
+(FP), False Negative (FN), Mostly-Tracked (MT), Partly-
+Tracked (PT), and Mostly-Lost (ML), etc. MOTA indicates
+the tracking performance of a tracker in dealing with three
+common errors, i.e., false positives, missed targets and iden-
+tity switches.
+MOTA = 1− IDS +FP +FN
+GT (12)
+whereGT stands for number of ground-truth positives.
+For nuScenes, we follow the 3D tracking benchmark
+evaluation metrics using Average Multi-Object Tracking
+Accuracy (AMOTA) as the main metric. They average the
+MOTA metric over different recall thresholds
+AMOTA = 1
+n− 1
+∑
+r∈{ 1
+n−1, 2
+n−1,...,1}
+MOTA r,
+MOTA r = max(0,
+1−αIDS r +FP r +FN r− (1−r)GT
+rGT )
+(13)
+
+PAGE 11
+11
+with recall threshold r is calculated at each of the interpola-
+tion n-points forn = 40, tolerance ratioα aims to retain the
+non-zero values of MOTA r. We report α = 1.0, denoted as
+AMOTA@1, for the ofﬁcial benchmark andα = 0.2, denoted
+as AMOTA@0.2, for backward comparison with previous
+arts. Instead of using 3D IoU threshold, the nuScenes track-
+ing benchmark choose a centroid distance threshold of 2
+meters on the ground plane as the matching criterion.
+For Waymo, we report the ofﬁcial 3D tracking evaluation
+metrics, which follow the metrics of CLEAR [88] with dif-
+ferent 3D IoU thresholds for each class. However, the limita-
+tions above (Section 5.1) refrain our method from reaching
+meaningful evaluation scores on benchmarks using 3D IoU
+based metrics.
+Discussion of Evaluation Metrics The analysis from [61]
+has shown that objects, i.e., pedestrians, bicycles, are hard
+for camera-based methods to have meaningful IoU scores,
+while those objects are difﬁcult to be detected in LiDAR.
+Similarly, we observe from quantitative results on Waymo
+that the IoU threshold at 0.7 prohibits the camera-based
+method from evaluating meaningful tracking performance.
+However, the score does not cohere to our qualitative re-
+sults. We argue that high IoU thresholds become impractical
+with uncertain object state sa measurements as the metric
+does not reward a tracker for associating all matches right if
+it makes a moderate error on the object state.
+Therefore, we report extended 3D tracking evalua-
+tion [62] for a better understanding of the association mea-
+sure in the 3D extent. The MOTA 3D is based on the object
+centroid distance, denoted as MOTP C, from tracked objects
+to the ground truth within a detection association range, i.e.,
+2 meters. MOTP O calculates orientation angle difference to
+the vertical axis, and MOTP I stands for the amodal shape
+error, using 1− IoU with aligned orientation and centroid.
+We conduct ablation studies in Table 8 with detailed
+metrics on translation, scale, orientation as accompanying
+metrics to validate the power of our data-driven method.
+5.3 Ablation Experiments
+In the following, we discuss the results of our ablation
+experiments on the design choices of each component (3D
+box estimation, data association, motion modeling) in our
+quasi-dense 3D tracking pipeline. We report the 3D tracking
+performance comparison on nuScenes validation set for
+dropping sub-afﬁnity scores in Table 1a, using full images
+in Table 1b, and swapping different modules in Table 2. We
+also investigate the importance of using a 3D object center
+using the KITTI sub-val set in Table 3.
+Importance of each sub-afﬁnity matrix. From Table 1a, we
+observe that adding a deep feature afﬁnity ( Adeep) distin-
+guishes two near-overlapping objects and thus increasing
+AMOTA@1 with an observable margin. Adding 3D object
+state afﬁnity ( Aiou) also contributes to AMOTA@1 effec-
+tively. Lastly, we found in Table 1b that applying our model
+on full frames during inference helps the motion model
+estimate an objects’ velocity more accurately. Motion-based
+methods beneﬁt from using a higher frame rate setting, full
+frames, with a (0.2421− 0.2329)/0.2421 = 3.8% improve-
+ment on LSTM and 0.6% on KF3D.
+TABLE 1: Ablation study of tracking performance with
+different methods on nuScenes validation set. Results in
+(a) suggest that the deep feature afﬁnity matrix contributes
+to data association. From (b), we observe a robust trend that
+a motion model with a higher frame rate image sequence
+encourages tracking performance.
+(a) Ablation study of dropping afﬁnity matrix.
+Method Adeep Aiou Adepth ˆcdepth AMOTA@1↑ AMOTP↓
+KF3D
+- ✓ ✓ ✓ 0.1779 1.596
+✓ - ✓ ✓ 0.2013 1.540
+✓ ✓ - ✓ 0.2213 1.535
+✓ ✓ ✓ - 0.2301 1.535
+✓ ✓ ✓ ✓ 0.2306 1.535
+(b) Ablation study of full frames.
+Method full frames AMOTA@1 ↑ AMOTP ↓
+KF3D - 0.2306 1.535
+✓ 0.2321 1.530
+VeloLSTM - 0.2329 1.528
+✓ 0.2421 1.518
+Importance of sub-afﬁnity module design. Comparing
+boxes IoU sub-afﬁnity (Aiou), adding depth-order matching,
+denoted 3D in Table 2, as overlapping threshold helps iden-
+tify falsely rejected objects and increases overall AMOTA@1
+scores by a relative (0.2306− 0.1381)/0.2306 = 40 .1%
+AMOTA@1. With motion-aware association, denoted motion
+in Table 2, our full model ﬁltering out objects with wrong
+motion velocity reaches 0.2306 AMOTA@1 comparing to
+0.2234 using only cosine angle difference module or 0.2300
+using centroid distance module.
+TABLE 2: Tracking performance comparison with different
+designs of afﬁnity matrix on nuScenes validation set.
+Results suggest that using 3D IoU and motion-based sub-
+afﬁnity matrix yielding the best validation performance of
+our ﬁnal pipeline.
+Aiou Adepth AMOTA@1 ↑ AMOTP ↓
+2D
+motion
+0.1381 1.674
+BEV 0.1929 1.599
+3D 0.2306 1.535
+3D
+cosine 0.2234 1.534
+centroid 0.2300 1.536
+motion 0.2306 1.535
+Importance of 3D center projection estimation. We es-
+timate the 3D location of a bounding box by predicting
+the projection of its center and depth, while Mousavian et
+al. [17] uses the center of detected 2D boxes directly. Table 3
+shows the comparison of these two methods on the KITTI
+dataset. The result indicates that the correct 3D projections
+provide a higher tracking capacity for a motion module to
+associate candidates and signiﬁcantly reduce the centroid
+misalignment (MOTPC).
+5.4 Motion Modeling Comparison.
+For motion-based models, update-and-predict cycles help
+single-frame 3D estimates. To examine the effectiveness of
+
+PAGE 12
+12
+TABLE 3: Importance of using projection of 3D bounding
+box center estimation on KITTI sub-validation set. We
+evaluate our KF3D model using different center inputs C
+on the Car category to reveal the importance of estimating
+the projection of a 3D center. The increase of MOTA and
+higher 3D IoU AP with COCO (50 : 5 : 95) suggest that the
+projection of a 3D center beneﬁts our tracking pipeline over
+the 2D center.
+MethodRange MOTA↑ MOTPC↓ DifﬁcultyAPCOCObev↑ APCOCO3d ↑
+2D Cen
+0-30m 77.28 0.56 Easy 24.91 15.11
+0-50m 70.78 0.60 Medium 23.53 15.87
+0-100m 65.15 0.62 Hard 21.99 14.99
+3D Cen
+0-30m 79.50 0.44 Easy 41.71 36.74
+0-50m 72.53 0.51 Medium 33.73 29.30
+0-100m 66.77 0.54 Hard 31.05 26.67
+our VeloLSTM, we compare variants of motion models to
+pure detection in reﬁning the object locations along their
+trajectories.
+Pure Detection (Detection). A single-frame monocular 3D
+estimate provides a noisy measurement of an object learned
+from the data distribution.
+Dummy Motion Model (Momentum). Comparing with the
+non-linear motion model, we experimented with a dummy
+motion model that directly updated the object state with a
+ﬁxed momentum on observed measurements and predicted
+the next possible state with zero motion. By applying motion
+momentum, we expect the dummy model to output linearly
+smoothed trajectories.
+Kalman Filter 3D baseline (KF3D). We take a Kalman ﬁlter-
+based motion model as our baseline which models
+{x,y,z,θ,l,w,h, ∆x, ∆y, ∆z}
+in 3D world coordinates. The well-tuned Kalman ﬁlter [90]
+models a sequence of observed measurements with Gaus-
+sian noise assumptions to ﬁnd a prediction location that
+minimize a mean of square error.
+Deep Motion Estimation and Update (VeloLSTM). As
+mentioned in Section 3.6, we propose a VeloLSTM network
+to model the vehicle motion. To analyze the effectiveness
+of our deep motion model, we compare our LSTM model
+with traditional 3D Kalman ﬁlter (KF3D) and single-frame
+3D estimation (Detect) using 3D detection and tracking eval-
+uation metrics from nuScenes. Table 4 shows that KF3D pro-
+vides a small improvement in NDS via trajectory smoothing
+within prediction and observation. On the other hand, our
+VeloLSTM module provides a learned estimation based on
+past n = 5 velocity predictions and current frame obser-
+vation, which may compensate for the observation error.
+Our VeloLSTM module achieves the highest AMOTA@1,
+AMOTP , and NDS, among the other methods.
+5.5 Real-world Evaluation.
+Besides evaluating on large-scale synthetic data, we utilize
+nuScenes [61], Waymo Open [63] and KITTI [3] benchmarks
+to compare our model abilities with other state of the arts.
+Major results are listed in Table 5 for nuScenes dataset and
+Table 6a and Table 6b for Waymo Open dataset. Qualitative
+results on all three datasets are shown in Figure 8.
+TABLE 4: Comparison of location reﬁnement with dif-
+ferent motion model on nuScenes validation set. Result
+suggests the VeloLSTM achieves the highest performance
+among the other methods. Besides, employing a motion
+model beneﬁts 3D detection and tracking. We use full frames
+and ﬁnal afﬁnity matrices.
+Method NDS AMOTA@1 ↑ AMOTP ↓
+Detection 0.3622 0.222 1.538
+Momentum 0.3620 0.227 1.532
+KF3D 0.3634 0.232 1.530
+VeloLSTM 0.3666 0.242 1.518
+nuScenes tracking challenge. Our monocular 3D track-
+ing method outperforms all the published methods with
+a large margin. Center-Track-Vision [57] uses two con-
+secutive frames to generate inter-frame motion for object
+detection and 3D tracking. Center-Track-Open [57] fuses
+LiDAR information in the Center-Track-Vision pipeline
+with Megvii-detector [91] to generate 3D detection. The
+LiDAR-based baselines [61] uses state-of-the-art LiDAR-
+based detectors [25], [26], [91] to estimate accurate bound-
+ing boxes and feed into a Kalman-Filter-based 3D tracker,
+AB3DMOT [54]. Our method takes only one image for 3D
+object detection and tracking and leverages our deep motion
+model to reﬁne object trajectories compared to the prior
+arts. The nuScenes tracking dataset linearly interpolates GT
+tracks to avoid track fragments from LiDAR point ﬁltering
+and removes GT objects without LiDAR points. Both invisi-
+ble objects with annotation and visible objects without anno-
+tation prohibit the camera-based methods from optimizing
+bounding box estimation. Nevertheless, our quasi-dense 3D
+tracking approach reaches 0.217 AMOTA with near ﬁve
+times tracking accuracy of the best vision-only submission
+among all published methods.
+TABLE 5: Tracking performance on the testing set of
+nuScenes tracking benchmark [61]. We report the average
+AMOTA@1 and AMOTP over 7 categories on the bench-
+mark with only published methods shown. Our quasi-dense
+3D tracking pipeline outperforms the best camera-based
+submission (underlined) by near 500% while bridging the
+gap to LiDAR-based methods on the nuScenes 3D tracking
+benchmark.
+Method Modality AMOTA@1↑ AMOTP↓
+QD3DT (Ours) Camera 0.217 1.550
+Megvii-AB3DMOT [61] LiDAR 0.151 1.501
+CenterTrack-Open [57] LiDAR + Camera 0.108 0.989
+CenterTrack-Vision [57] Camera 0.046 1.543
+PointPillars-AB3DMOT [61] LiDAR 0.029 1.703
+Mapillary-AB3DMOT [61] LiDAR 0.018 1.790
+Waymo Open benchmark. We provide a strong baseline
+being the ﬁrst entry in camera-only modality for both 3D
+tracking and detection challenges shown in Table 6a and 6b.
+5.6 Evaluation Metrics.
+We observe from Table 6a that the IoU threshold at 0.7
+prohibits the camera-based method from evaluating mean-
+ingful tracking performance. However, the score does not
+
+PAGE 13
+13
+Fig. 8: Qualitative results on testing set of nuScenes (First row), Waymo Open (Second row) datasets. Our proposed
+quasi-dense 3D tracking pipeline estimates accurate 3D extent and robustly associates tracking trajectories from a
+monocular image. We show predicted 3D bounding boxes and trajectories colored with tracking IDs.
+Fig. 9: Qualitative results on testing set of KITTI datasets.
+Our VeloLSTM continues to predict the 3D object state of un-
+matched tracklets after they disappear. With motion-based
+data association, our tracker successfully recovers tracked
+vehicle (cyan-colored box) from object occlusions after the
+vehicle re-appeared. We show predicted 3D bounding boxes
+and trajectories colored with tracking IDs.
+TABLE 6: 3D detection and tracking performance in Vehi-
+cle Level 2 difﬁculty on the testing set of Waymo dataset.
+Our pipeline serves as a strong baseline with non-zero
+scores using only camera modality in the 3D detection and
+tracking challenge on LiDAR-dominated benchmark.
+(a) 3D Tracking Performance
+Method Modality MOTA↑ MOTP↓
+HorizonMOT3D [92]Lidar+Camera 0.6407 0.1577
+CenterPoint [56] Lidar 0.5938 0.1637
+pillarskf baseline [63]Lidar 0.4008 0.1856
+QD3DT (Ours) Camera 0.0001 0.0658
+(b) 3D Detection Performance.
+Method Modality mAPH↑ mAP↑
+HorizonMOT3D [92]Lidar+Camera 0.7783 0.7823
+PV-RCNN [93] Lidar 0.7323 0.7369
+CenterPoint [56] Lidar 0.7299 0.7342
+QD3DT (Ours) Camera 0.0233 0.0242
+TABLE 7: 3D detection and tracking performance in Ve-
+hicle Level 2 difﬁculty on the validation set of Waymo
+dataset. We compare 3D detection and tracking results on
+different extent of the observable area. LiDAR-based GT
+covers a 360-degree area, while camera-based GT ﬁlters
+out annotations outside of camera view. MOTA and mAPH
+increase greatly while lowering IoU thresholds slightly.
+Modality Range IoU MOTA↑ mAPH↑
+LiDAR-based GT Overall
+0.3 0.1183 0.2242
+0.5 0.0195 0.1161
+0.7 1.8e-06 0.0286
+Camera-based GT Overall
+0.3 0.1867 0.3401
+0.5 0.0308 0.1743
+0.7 2.8e-06 0.0408
+
+PAGE 14
+14
+cohere to our qualitative results in Figure 8. Therefore, we
+conduct ablation studies to validate the power of our data-
+driven method. We ﬁrst compare 3D detection and tracking
+results on different extent of observable area, i.e., for the
+annotations from the whole ﬁeld of view, denoted LiDAR-
+based GT , and ones from full camera ﬁeld of view, denoted
+Camera-based GT . The LiDAR-based GT setting constantly
+yields inferior performance with approximate a 5/8 to the
+Camera-based GT ones in different IoU thresholds in Table 7.
+The difference matches the ratio of an observable area by
+cameras and area by a LiDAR.
+We turn to centroid-based metrics to validate our
+pipeline’s performance since the IoU-based metrics set up
+an unreachable bar for the camera-based method. With
+centroid-based metrics, the tracking scores of our ﬁnal
+model on nuScenes and Waymo Open datasets list in Ta-
+ble 8. The similarity in MOTA and MOTP performance
+suggests that our pipeline has enough capacity to handle
+different datasets with minimal change of training proce-
+dure, underlining the robustness of our tracking pipeline.
+From Table 8 and Table 7, our method acts comparable in
+IoU-based metrics with a threshold at 0.3 to centroid-based
+metrics with a threshold at 2 meters on the camera-based
+GT setting. We argue that the IoU threshold at 0.7 is overly
+biased toward a precise 3D object attributes estimation,
+like depth estimation, 3D center, orientation, 3D center or
+dimensions. A trajectory with perfect matching but a moder-
+ate error in one of the object attributes, e.g., 1m off in depth,
+is not counted as a true positive. However, it is treated
+equally as those with a completely wrong estimation e.g.,
+10m away. Besides, the experiment in Table 8 and Table 7
+show an interesting discrepancy in reported performance
+by different types of evaluation metrics, which supports
+analysis in [61] to choose centroid-based evaluation metrics
+as a fair comparison to both camera-based and LiDAR-
+based methods.
+TABLE 8: Centroid-based evaluation across datasets. This
+experiment uses our ﬁnal model and the full frames setting
+for nuScenes. We evaluate the results in different datasets to
+reveal the importance of choosing evaluation metrics. The
+similarity of MOTA and MOTP performance suggests that
+our pipeline has been well trained and performs equally
+well on the Waymo Open dataset.
+Method Range MOTA↑ MOTPC↓ MOTPO↓ MOTPI↓
+Waymo
+0-30m 57.33 0.61 14.66 0.18
+0-50m 36.87 0.74 16.10 0.18
+0-100m 18.66 0.79 17.63 0.19
+nuScenes
+0-30m 44.47 0.64 14.18 0.19
+0-50m 25.93 0.73 14.84 0.19
+0-100m 12.14 0.75 15.05 0.19
+5.7 Amount of Data Matters.
+We train the depth estimation module with 1%, 10%, and
+100% training data on the GTA dataset. The results show
+how we can beneﬁt from more data in Table 9, where a
+consistent trend of performance improvement emerges as
+the number of data increases. The trend of our results with
+a different amount of training data indicates that large-scale
+3D annotation is helpful, especially with the ground truth
+of distant and small objects.
+TABLE 9: Performance of 3D estimation on object detec-
+tion IoU mAP . The evaluation demonstrates the effective-
+ness of our model from each separate metric. With different
+amounts of training data in our GTA dataset, the results
+suggest that large data capacity beneﬁts the performance of
+a data-hungry network.
+Dataset Amount Medium
+AP70bev AP703d AP70bbox AP70aos
+GTA
+1% 4.10 1.31 78.18 75.59
+10% 14.61 8.45 91.66 90.83
+100% 21.61 15.63 94.62 94.23
+5.8 Comparison of matching algorithms.
+A tracker solves the assignment problem often using com-
+binatorial optimization algorithms, e.g., Hungarian algo-
+rithm. However, from the comparison in Table 10, we found
+the well-trained instance embeddings and 3D object states
+are robust in matching possible pairs without needing an
+optimizing algorithm. Besides, our method beneﬁts from
+the lower computational complexity compared to using
+polynomial-time optimization algorithms. Therefore, we
+choose to greedily match bipartite quasi-dense pairs of
+detections and tracklets throughout the experiments.
+TABLE 10: Comparison of the different matching algo-
+rithms on nuScenes validation set. We use only keyframes
+and all afﬁnity matrices as our setting. We found that using
+greedy matching yields similar results to the Hungarian
+matching but with less computation complexity on well-
+trained quasi-dense embedding pairs.
+Matching Algorithm AMOTA@1↑ AMOTA@0.2↑
+Hungarian [77] 0.230 0.3479
+Greedy 0.230 0.3479
+6 C ONCLUSION
+We propose an online 3D object detection and tracking
+framework, combining quasi-dense similarity learning and
+3D instance dynamics, to track moving objects in a 3D
+world. Our updated pipeline consists of four parts: a single-
+frame monocular 3D object inference model, cross-frames
+contrastive feature learning network, multimodal afﬁnity
+matching scheme for inter-frame object association, and an
+LSTM-based motion model for reﬁning the 3D extents from
+location trajectories. Besides, we introduce a 3D detection
+conﬁdence to provide a balancing cue of single-frame depth
+estimation and multi-frame motion model reﬁnement. We
+present 3D bounding boxes depth-ordering matching for
+robust instance association and utilize motion-based 3D tra-
+jectory prediction for re-identiﬁcation of occluded vehicles.
+We design an object movement learning module, termed
+VeloLSTM, to update each object’s location independent
+of camera movement. Moreover, our ablation study and
+
+PAGE 15
+15
+experiments show that our quasi-dense 3D tracking pipeline
+takes advantage of dynamic 3D trajectories and offers robust
+data association on urban-driving situations. On the Waymo
+Open benchmark, we established the ﬁrst strong baseline in
+camera modality with positive scores in both the 3D detec-
+tion and tracking challenge. Our quasi-dense 3D tracking
+pipeline outperforms the camera-based state of the art by
+near 500% while bridging the gap to LiDAR-based methods
+on nuScenes 3D tracking benchmark.
+ACKNOWLEDGMENTS
+Hu would like to thank the National Center for High-
+performance Computing for computer time and facilities,
+and Google PhD Fellowship Program for their support. The
+authors gratefully acknowledge the support of Berkeley AI
+Research, Berkeley DeepDrive and Ministry of Science and
+Technology of Taiwan (MOST-110-2634-F-007-016), MOST
+Joint Research Center for AI Technology and All Vista
+Healthcare.
+
+PAGE 16
+16
+FOREWORD
+This appendix provides technical details about our monoc-
+ular quasi-dense 3D object tracking network, our training
+procedures for different datasets, and more qualitative and
+quantitative results. Section A offers frame- and object-
+based statistical summaries of our proposed simulation
+dataset. Section B describes our training procedure, and
+network setting of each dataset. Section C illustrates various
+comparisons, including inference time, network settings and
+performance results, of our method on nuScenes, Waymo,
+GTA, and KITTI dataset.
+APPENDIX A
+DATASET STATISTICS
+To help understand our dataset and its difference, we show
+more statistics.
+Dataset Comparison. Table 11 demonstrates a detailed com-
+parison with related datasets, including detection, tracking,
+and driving benchmarks. KITTI-D [3] and KAIST [94] are
+mainly detection datasets, while KITTI-T [3], MOT15 [95],
+MOT16 [2], and UA-DETRAC [1] are primarily 2D tracking
+benchmarks. The common drawback could be the limited
+scale, which cannot meet the growing demand for training
+data. Compared to the related synthetic dataset, Virtual
+KITTI [32] and VIPER [66], we additionally provide ﬁne-
+grained attributes of object instances, such as color, model,
+maker attributes of a vehicle, motion and control signals,
+which leaves the space for the imitation learning system.
+Number of Instances in Each Category. The vehicle diver-
+sity is also very large in the GTA world, featuring 15 ﬁne-
+grained subcategories. We analyzed the distribution of the
+15 subcategories in Figure 10a. Besides instance categories,
+we also show the distribution of occluded (Figure 10c) and
+truncated (Figure 10b) instances to support the problem of
+partially visible in the 3D coordinates.
+(a) Category
+(b) Truncation
+ (c) Occlusion
+Fig. 10: The statistics of object in our dataset.
+Weather and Time of Day. Figure 11 shows the distribution
+of weather, hours of our dataset. It features a full weather
+cycle and time of a day in a diverse virtual environment. By
+collecting various weather cycles (Figure 11a), our model
+learns to track with a higher understanding of environ-
+ments. With different times of a day (Figure 11b), the net-
+work handles changeable perceptual variation.
+0 20000 40000 60000
+Thunder
+OvercastSnow
+ChristmasBlizzard
+ExtrasunnySmog
+CloudsRain
+Light SnowFoggyClear
+Clearing
+(a) Weather
+ (b) Hours
+Fig. 11: The statistics of scene in our dataset.
+Examples of Our Dataset. Figure 12 shows some visual
+examples in different time, weather and location.
+APPENDIX B
+TRAINING DETAILS
+We optimize our model on each dataset with different
+training procedures according to its amount of data and the
+limit of the GPU memory.
+Training Procedure. For nuScenes, we train our model on
+the training set with all 10 object classes and evaluate the
+performance on the validation set with 10 object classes
+for detection task and 7 object classes for tracking task. We
+trained the model on 8 GPUs with a total batch size of 32
+for 24 epochs. The learning rate was linearly increased from
+1× 10−3, to 1× 10−2 over the initial 1000 warm-up training
+steps decreased by 0.5 after 16 and 22 epochs.
+For Waymo, we trained the model on8 GPUs with a total
+batch size of 16 for 24 epochs. The learning rate was linearly
+increased from 5× 10−4, to 5× 10−3 over the initial 1000
+warm-up training steps. Also, due to the large amount of
+the training data, we decrease the learning rate by 0.5 after
+8, 12, 16, 20, and 22 epochs.
+For GTA, we trained the model on 8 GPUs with a total
+batch size of 24 for 24 epochs. The learning rate was linearly
+increased from 1× 10−3, to 1× 10−2 over the initial 1000
+warm-up training steps. Due to the large amount of the
+training data, we decreased the learning rate by 0.5 after
+8, 12, 16, 20, and 22 epochs.
+For KITTI, we ﬁne-tuned the model from a GTA 3D
+detection model on 4 GPUs with a total batch size of 8 for
+24 epochs. The learning rate was linearly increased from
+5× 10−4, to 5× 10−3 over the initial 1000 warm-up training
+steps and decreased by 0.5 after 16 and 22 epochs.
+APPENDIX C
+EXPERIMENTS
+Inference Time. The average inference time is 123.3 + 2.3 +
+12.3 + 1.9 + 22.2 = 162.0 ms with 11095 frames on a single
+RTX 2080Ti GPU (see Table 12 for details). Note that the
+KITTI benchmark focuses only on the non-detection part
+inference time (22.2 ms).
+
+PAGE 17
+17
+Fig. 12: Examples of our GTA dataset. We collected a diverse set of driving scenes in different weather, location and time
+of a day.
+
+PAGE 18
+18
+TABLE 11: Comparison to related dataset for detection and tracking (Upper half: real-world, Lower half: synthetic). We
+only count the size and types of annotations for training and validation (D=detection, T=tracking, C=car, P=pedestrian). To
+our knowledge, our dataset is the largest 3D tracking benchmark for dynamic scene understanding, with control signals of
+driving, sub-categories of object.
+Dataset Task Object Frame Track Boxes 3D Weather Occlusion Ego-Motion
+KITTI-D [3] D C,P 7k - 41k ✓ - ✓ -
+KAIST [94] D P 50k - 42k - ✓ ✓ -
+KITTI-T [3] T C 8k 938 65k ✓ - ✓ ✓
+MOT15-3D [95] T P 974 29 5632 ✓ ✓ - -
+MOT15-2D [95] T P 6k 500 40k - ✓ - -
+MOT16 [2] T C,P 5k 467 110k - ✓ ✓ -
+UA-DETRAC [1] D,T C 84k 6k 578k - ✓ ✓ -
+Virtual KITTI [32] D,T C 21k 2610 181k ✓ ✓ ✓ ✓
+VIPER [66] D,T C,P 184k 8272 5203k ✓ ✓ ✓ ✓
+Ours D,T C,P 688k 325k 10068k ✓ ✓ ✓ ✓
+TABLE 12: Inference Time (second) of our proposed frame-
+work on KITTI tracking benchmark. We recorded the wall
+clock of the execution time consumption of each module,
+which might have slight overhead, e.g., functions with result
+dumping. Bold fonts are the summation of each sub-module
+and misc. time. Note that elapsed time for object detection
+is not included in the speciﬁed runtime of the KITTI bench-
+mark.
+Phase Second
+Detection 0.1256
+2D Box, 3D Estimation 0.1233
+Contrastive Feature 0.0023
+3D transform 0.0142
+3D Lifting (img to world) 0.0123
+Reprojection (world to img) 0.0019
+Tracking 0.0222
+LSTM Predict 0.0076
+Greedy Matching 0.0019
+LSTM Update 0.0009
+Misc. 0.0118
+Total 0.1620
+Data Association Weights. We use different weights of ap-
+pearance during our experiment, 3D IoU overlap, and mo-
+tion overlap for corresponding methods. We select weight
+ratios based on the results of our validation set. For deep
+appearance only methods, we give100% weighting towdeep.
+For 3D related methods, we set wdeep with 0.5 to balance
+appearance and 3D extents.
+Tracking Performance on nuScenes dataset. We report the
+full table of nuScenes tracking benchmark in Table 13.
+Tracking Performance on KITTI dataset. As mentioned in
+the main paper, we resort to KITTI [3] tracking benchmarks
+to compare our model abilities in the real-world scenario.
+We have improved our previous results [4] to third place
+with ﬁve ranks improvement and have increased from84.52
+to 86.41 in MOTA. Our quasi-dense 3D tracking method
+ranked in the top tier among all the published methods
+upon the time of submission. Please note that we focus
+on tracking module improvements and not over-design
+the detector-speciﬁc architecture to ﬁt on a small dataset.
+Results are listed in Table 14.
+Qualitative results. We show our evaluation results in Fig-
+ure 13 on the test set of nuScenes dataset and Figure 14
+on the test set of Waymo Open Dataset. The trajectories
+in Figure 13 demonstrate our long-term tracking ability in
+the nuScenes dataset. The results of Waymo show that our
+proposed 3D tracking pipeline establishes a strong baseline
+using monocular images. The solid rectangular in bird’s eye
+view stands for the predicted vehicle. The 3D bounding
+boxes and the rectangular are colored with their tracking
+ID. The ﬁgures are best viewed in color.
+Evaluation Video. We have uploaded a showcase video
+that demonstrates video inputs with estimated 3D bounding
+boxes in the camera view and tracked trajectories in bird’s
+eye view on nuScenes, KITTI, and Waymo Open dataset.
+Please refer to the showcase video for more qualitative
+examples.
+
+PAGE 19
+19
+TABLE 13: Tracking performance on the testing set of nuScenes tracking benchmark [61]. We report the average
+AMOTA@1 and AMOTP over 7 categories on the benchmark. Camera-based and published methods are shown. Our
+quasi-dense 3D tracking achieves the top ranking with about 5 times the 3D tracking performance of the best camera-based
+submission, CenterTrack Vision [57] (score underlined), at the time of submission. We mark the best result in bold and
+runner-up in italic.
+Method Published Modality AMOTA@1.0 ↑ AMOTP ↓
+Ours Camera 0.217 1.550
+DEFT Camera 0.177 1.564
+Megvii-AB3DMOT [61] LiDAR 0.151 1.501
+CenterTrack-Open [57] LiDAR + Camera 0.108 0.989
+DBNet Camera 0.072 1.489
+ProTracker Camera 0.072 1.628
+Buffalo Vision Camera 0.059 1.490
+CaTracker Camera 0.053 1.611
+CenterTrack-Vision [57] Camera 0.046 1.543
+GDLG Camera 0.045 1.819
+PointPillars-AB3DMOT [61] LiDAR 0.029 1.703
+Mapillary-AB3DMOT [61] LiDAR 0.018 1.790
+TABLE 14: Tracking performance on the testing set of KITTI tracking benchmark. Improving from mono3DT [4], we
+have greatly increased the ranking position by leveraging the quasi-dense contrastive feature in the data association part.
+However, the goal objective of our training aims for 3D object tracking, and we are not optimizing the network for the 2D
+tracking task. Only published methods are reported. We mark the best result in bold and runner-up in italic.
+Benchmark LiDAR Stereo MOTA↑ MOTP↑ MT↑ ML↓ FP↓ FN↓
+SRK ODESA [42] 90.03 84.32 82.62 2.31 451 2887
+CenterTrack [57] 89.44 85.05 82.31 2.31 849 2666
+Ours 86.41 85.82 75.38 2.46 804 3761
+Quasi-Dense [5] 85.76 85.01 69.08 3.08 517 4288
+JRMOT [96] ✓ 85.70 85.48 71.85 4.00 772 4049
+MASS [97] 85.04 85.53 74.31 2.77 742 4101
+MOSTFusion [49] ✓ 84.83 85.21 73.08 2.77 681 4260
+mmMOT [43] ✓ 84.77 85.21 73.23 2.77 711 4243
+Mono3DT [4] 84.52 85.64 73.38 2.77 705 4242
+BeyondPixels [50] 84.24 85.73 73.23 2.77 705 4247
+AB3DMOT [54] ✓ 83.84 85.24 66.92 11.38 1059 4491
+PMBM [48] ✓ 80.39 81.26 62.77 6.15 1007 5616
+extraCK [98] 79.99 82.46 62.15 5.54 642 5896
+MCMOT-CPD [99] 78.90 82.13 52.31 11.69 316 6713
+NOMT [100] ✓ 78.15 79.46 57.23 13.23 1061 6421
+MDP [79] 76.59 82.10 52.15 13.38 606 7315
+DSM [101] 76.15 83.42 60.00 8.31 578 7328
+SCEA [102] 75.58 79.39 53.08 11.54 1306 6989
+CIWT [53] 75.39 79.25 49.85 10.31 954 7345
+NOMT-HM [100] ✓ 75.20 80.02 50.00 13.54 1143 7280
+mbodSSP [103] 72.69 78.75 48.77 8.77 1918 7360
+
+PAGE 20
+20
+Fig. 13: Qualitative results on the testing set of nuScenes dataset. Our QD-3DT robustly tracks all observed objects and
+locates them in 3D. We show predicted 3D bounding boxes and trajectories colored with tracking IDs. Better visualization
+with color.
+
+PAGE 21
+21
+Fig. 14: Qualitative results on the testing set of Waymo Open dataset. Our QD-3DT accurately tracks all observed
+objects and locates them in 3D. We show predicted 3D bounding boxes and trajectories colored with tracking IDs. Better
+visualization with color.
+
+PAGE 22
+22
+REFERENCES
+[1] L. Wen, D. Du, Z. Cai, Z. Lei, M.-C. Chang, H. Qi, J. Lim, M.-H.
+Yang, and S. Lyu, “Ua-detrac: A new benchmark and protocol for
+multi-object detection and tracking,” ArXiv:1511.04136, 2015.
+[2] A. Milan, L. Leal-Taix ´e, I. Reid, S. Roth, and K. Schindler, “Mot16:
+A benchmark for multi-object tracking,” ArXiv:1603.00831, 2016.
+[3] A. Geiger, P . Lenz, and R. Urtasun, “Are we ready for au-
+tonomous driving? the kitti vision benchmark suite,” in IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR) ,
+2012.
+[4] H.-N. Hu, Q.-Z. Cai, D. Wang, J. Lin, M. Sun, P . Kr ¨ahenb ¨uhl,
+T. Darrell, and F. Yu, “Joint monocular 3d vehicle detection and
+tracking,” in IEEE International Conference on Computer Vision
+(ICCV), 2019.
+[5] J. Pang, L. Qiu, X. Li, H. Chen, Q. Li, T. Darrell, and F. Yu, “Quasi-
+dense similarity learning for multiple object tracking,” in IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR) ,
+2021.
+[6] R. Girshick, J. Donahue, T. Darrell, and J. Malik, “Rich feature
+hierarchies for accurate object detection and semantic segmenta-
+tion,” in IEEE Conference on Computer Vision and Pattern Recogni-
+tion (CVPR), 2014.
+[7] R. Girshick, “Fast r-cnn,” in IEEE International Conference on
+Computer Vision (ICCV), 2015.
+[8] S. Ren, K. He, R. Girshick, and J. Sun, “Faster r-cnn: Towards
+real-time object detection with region proposal networks,” in
+Advances in Neural Information Processing Systems (NeurIPS) , 2015.
+[9] W. Liu, D. Anguelov, D. Erhan, C. Szegedy, S. Reed, C.-Y. Fu,
+and A. C. Berg, “Ssd: Single shot multibox detector,” in European
+Conference on Computer Vision (ECCV) , 2016.
+[10] J. Redmon and A. Farhadi, “Yolo9000: Better, faster, stronger,”
+in IEEE Conference on Computer Vision and Pattern Recognition
+(CVPR), 2017.
+[11] T.-Y. Lin, P . Goyal, R. Girshick, K. He, and P . Doll ´ar, “Focal loss
+for dense object detection,” in IEEE International Conference on
+Computer Vision (ICCV), 2017.
+[12] X. Zhou, D. Wang, and P . Kr ¨ahenb ¨uhl, “Objects as points,”
+ArXiv:1904.07850, 2019.
+[13] H. Law and J. Deng, “Cornernet: Detecting objects as paired
+keypoints,” in European Conference on Computer Vision (ECCV) ,
+2018.
+[14] Z. Tian, C. Shen, H. Chen, and T. He, “Fcos: Fully convolutional
+one-stage object detection,” in IEEE International Conference on
+Computer Vision (ICCV), 2019.
+[15] X. Chen, K. Kundu, Y. Zhu, A. G. Berneshawi, H. Ma, S. Fidler,
+and R. Urtasun, “3D object proposals for accurate object class
+detection,” in Advances in Neural Information Processing Systems
+(NeurIPS), 2015.
+[16] X. Chen, K. Kundu, Z. Zhang, H. Ma, S. Fidler, and R. Urta-
+sun, “Monocular 3D object detection for autonomous driving,”
+in IEEE Conference on Computer Vision and Pattern Recognition
+(CVPR), 2016.
+[17] A. Mousavian, D. Anguelov, J. Flynn, and J. Ko ˇseck´a, “3D bound-
+ing box estimation using deep learning and geometry,” in IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR) ,
+2017.
+[18] G. Brazil and X. Liu, “M3D-RPN: Monocular 3D region proposal
+network for object detection,” in IEEE International Conference on
+Computer Vision (ICCV), 2019.
+[19] A. Simonelli, S. R. Bulo, L. Porzi, M. L ´opez-Antequera, and
+P . Kontschieder, “Disentangling monocular 3D object detection,”
+in IEEE International Conference on Computer Vision (ICCV) , 2019.
+[20] Y. Wang, W.-L. Chao, D. Garg, B. Hariharan, M. Campbell, and
+K. Q. Weinberger, “Pseudo-LiDAR from visual depth estimation:
+Bridging the gap in 3D object detection for autonomous driving,”
+in IEEE Conference on Computer Vision and Pattern Recognition
+(CVPR), 2019.
+[21] X. Ma, Z. Wang, H. Li, P . Zhang, W. Ouyang, and X. Fan,
+“Accurate monocular 3D object detection via color-embedded
+3D reconstruction for autonomous driving,” in IEEE International
+Conference on Computer Vision (ICCV) , 2019.
+[22] A. Kundu, Y. Li, and J. M. Rehg, “3D-RCNN: Instance-level 3D
+object reconstruction via render-and-compare,” in IEEE Confer-
+ence on Computer Vision and Pattern Recognition (CVPR) , 2018.
+[23] F. Chabot, M. Chaouch, J. Rabarisoa, C. Teuliere, and T. Chateau,
+“Deep MANTA: A coarse-to-ﬁne many-task network for joint
+2D and 3D vehicle analysis from monocular image,” in IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR) ,
+2017.
+[24] Y. Zhou and O. Tuzel, “Voxelnet: End-to-end learning for point
+cloud based 3d object detection,” in IEEE Conference on Computer
+Vision and Pattern Recognition (CVPR) , 2018.
+[25] S. Shi, X. Wang, and H. Li, “PointRCNN: 3D object proposal
+generation and detection from point cloud,” in IEEE Conference
+on Computer Vision and Pattern Recognition (CVPR) , 2019.
+[26] A. H. Lang, S. Vora, H. Caesar, L. Zhou, J. Yang, and O. Bei-
+jbom, “PointPillars: Fast encoders for object detection from point
+clouds,” in IEEE Conference on Computer Vision and Pattern Recog-
+nition (CVPR), 2019.
+[27] X. Chen, H. Ma, J. Wan, B. Li, and T. Xia, “Multi-view 3d object
+detection network for autonomous driving,” in IEEE Conference
+on Computer Vision and Pattern Recognition (CVPR) , 2017.
+[28] A. Yilmaz, O. Javed, and M. Shah, “Object tracking: A survey,”
+ACM computing surveys (CSUR) , 2006.
+[29] S. Salti, A. Cavallaro, and L. Di Stefano, “Adaptive appearance
+modeling for video tracking: Survey and evaluation,”IEEE T rans-
+actions on Image Processing (TIP) , 2012.
+[30] A. W. Smeulders, D. M. Chu, R. Cucchiara, S. Calderara, A. De-
+hghan, and M. Shah, “Visual tracking: An experimental survey,”
+IEEE T ransactions on Pattern Analysis and Machine Intelligence
+(TP AMI), 2014.
+[31] D. S. Bolme, J. R. Beveridge, B. A. Draper, and Y. M. Lui, “Visual
+object tracking using adaptive correlation ﬁlters,” in IEEE Confer-
+ence on Computer Vision and Pattern Recognition (CVPR) , 2010.
+[32] A. Gaidon, Q. Wang, Y. Cabon, and E. Vig, “Virtual worlds as
+proxy for multi-object tracking analysis,” in IEEE Conference on
+Computer Vision and Pattern Recognition (CVPR) , 2016.
+[33] M. Kristan, J. Matas, A. Leonardis, M. Felsberg, L. Cehovin,
+G. Fern ´andez, T. Vojir, G. Hager, G. Nebehay, and R. Pﬂugfelder,
+“The visual object tracking vot2015 challenge results,” in IEEE
+International Conference on Computer Vision Workshops (ICCV Work-
+shops), 2015.
+[34] S. Hare, S. Golodetz, A. Saffari, V . Vineet, M.-M. Cheng, S. L.
+Hicks, and P . H. Torr, “Struck: Structured output tracking with
+kernels,” IEEE T ransactions on Pattern Analysis and Machine Intelli-
+gence (TP AMI), 2016.
+[35] B. Babenko, M.-H. Yang, and S. Belongie, “Visual tracking with
+online multiple instance learning,” in IEEE Conference on Com-
+puter Vision and Pattern Recognition (CVPR) , 2009.
+[36] Z. Kalal, K. Mikolajczyk, and J. Matas, “Tracking-learning-
+detection,” IEEE T ransactions on Pattern Analysis and Machine
+Intelligence (TP AMI), 2012.
+[37] W. Luo, J. Xing, A. Milan, X. Zhang, W. Liu, X. Zhao, and
+T.-K. Kim, “Multiple object tracking: A literature review,”
+Arxiv:1409.7618, 2017.
+[38] R. Tao, E. Gavves, and A. W. Smeulders, “Siamese instance search
+for tracking,” in IEEE Conference on Computer Vision and Pattern
+Recognition (CVPR), 2016.
+[39] L. Bertinetto, J. Valmadre, J. F. Henriques, A. Vedaldi, and P . H.
+Torr, “Fully-convolutional siamese networks for object tracking,”
+in European Conference on Computer Vision (ECCV) , 2016.
+[40] C. Feichtenhofer, A. Pinz, and A. Zisserman, “Detect to track
+and track to detect,” in IEEE International Conference on Computer
+Vision (ICCV), 2017.
+[41] P . Bergmann, T. Meinhardt, and L. Leal-Taix ´e, “Tracking without
+bells and whistles,” in IEEE International Conference on Computer
+Vision (ICCV), 2019.
+[42] D. Mykheievskyi, D. Borysenko, and V . Porokhonskyy, “Learning
+local feature descriptors for multiple object tracking,” in Asian
+Conference on Computer Vision (ACCV) , 2020.
+[43] W. Zhang, H. Zhou, S. Sun, Z. Wang, J. Shi, and C. C. Loy, “Ro-
+bust multi-modality multi-object tracking,” in IEEE International
+Conference on Computer Vision (ICCV) , 2019.
+[44] Li Zhang, Yuan Li, and R. Nevatia, “Global data association for
+multi-object tracking using network ﬂows,” in IEEE Conference on
+Computer Vision and Pattern Recognition (CVPR) , 2008.
+[45] W. Choi, “Near-online multi-target tracking with aggregated lo-
+cal ﬂow descriptor,” in IEEE International Conference on Computer
+Vision (ICCV), 2015.
+[46] C. Kim, F. Li, A. Ciptadi, and J. M. Rehg, “Multiple hypothesis
+tracking revisited,” in IEEE International Conference on Computer
+Vision (ICCV), 2015.
+
+PAGE 23
+23
+[47] A. Ess, B. Leibe, K. Schindler, and L. Van Gool, “A mobile vision
+system for robust multi-person tracking,” in IEEE Conference on
+Computer Vision and Pattern Recognition (CVPR) , 2008.
+[48] S. Scheidegger, J. Benjaminsson, E. Rosenberg, A. Krishnan, and
+K. Granstrom, “Mono-camera 3d multi-object tracking using
+deep learning detections and pmbm ﬁltering,” in IEEE Intelligent
+Vehicles Symposium (IV), 2018.
+[49] P . Voigtlaender, M. Krause, A. Osep, J. Luiten, B. B. G. Sekar,
+A. Geiger, and B. Leibe, “Mots: Multi-object tracking and segmen-
+tation,” in Proceedings of the IEEE Conference on Computer Vision
+and Pattern Recognition , 2019, pp. 7942–7951.
+[50] S. Sharma, J. A. Ansari, J. Krishna Murthy, and K. Madhava Kr-
+ishna, “Beyond pixels: Leveraging geometry and shape cues for
+online multi-object tracking,” in IEEE International Conference on
+Robotics and Automation (ICRA) , 2018.
+[51] J. Luiten, T. Fischer, and B. Leibe, “Track to reconstruct and
+reconstruct to track,” IEEE Robotics and Automation Letters (RA-
+L), 2020.
+[52] P . Li, T. Qin, and a. Shen, “Stereo vision-based semantic 3d object
+and ego-motion tracking for autonomous driving,” in European
+Conference on Computer Vision (ECCV) , 2018.
+[53] A. Osep, W. Mehner, M. Mathias, and B. Leibe, “Combined
+image- and world-space tracking in trafﬁc scenes,” in IEEE
+International Conference on Robotics and Automation (ICRA) , 2017.
+[54] X. Weng, J. Wang, D. Held, and K. Kitani, “3d multi-object
+tracking: A baseline and new evaluation metrics,” in IEEE/RSJ
+International Conference on Intelligent Robots and Systems (IROS) ,
+2020.
+[55] Z. Lu, V . Rathod, R. Votel, and J. Huang, “Retinatrack: Online
+single stage joint detection and tracking,” in IEEE Conference on
+Computer Vision and Pattern Recognition (CVPR) , 2020.
+[56] T. Yin, X. Zhou, and P . Kr ¨ahenb ¨uhl, “Center-based 3d object
+detection and tracking,” ArXiv:2006.11275, 2020.
+[57] X. Zhou, V . Koltun, and P . Kr ¨ahenb ¨uhl, “Tracking objects as
+points,” in IEEE International Conference on Computer Vision
+(ICCV), 2020.
+[58] M. Cordts, M. Omran, S. Ramos, T. Rehfeld, M. Enzweiler,
+R. Benenson, U. Franke, S. Roth, and B. Schiele, “The cityscapes
+dataset for semantic urban scene understanding,” in IEEE Con-
+ference on Computer Vision and Pattern Recognition (CVPR) , 2016.
+[59] W. Maddern, G. Pascoe, C. Linegar, and P . Newman, “1 year, 1000
+km: The oxford robotcar dataset,” International Journal of Robotics
+Research (IJRR), 2017.
+[60] F. Yu, H. Chen, X. Wang, W. Xian, Y. Chen, F. Liu, V . Madhavan,
+and T. Darrell, “Bdd100k: A diverse driving dataset for hetero-
+geneous multitask learning,” in The IEEE Conference on Computer
+Vision and Pattern Recognition (CVPR) , June 2020.
+[61] H. Caesar, V . Bankiti, A. H. Lang, S. Vora, V . E. Liong, Q. Xu,
+A. Krishnan, Y. Pan, G. Baldan, and O. Beijbom, “nuscenes: A
+multimodal dataset for autonomous driving,” ArXiv:1903.11027,
+2019.
+[62] M.-F. Chang, J. Lambert, P . Sangkloy, J. Singh, S. Bak, A. Hartnett,
+D. Wang, P . Carr, S. Lucey, D. Ramanan, and J. Hays, “Argoverse:
+3d tracking and forecasting with rich maps,” in IEEE Conference
+on Computer Vision and Pattern Recognition (CVPR) , 2019.
+[63] P . Sun, H. Kretzschmar, X. Dotiwalla, A. Chouard, V . Patnaik,
+P . Tsui, J. Guo, Y. Zhou, Y. Chai, B. Caine, V . Vasudevan, W. Han,
+J. Ngiam, H. Zhao, A. Timofeev, S. Ettinger, M. Krivokon, A. Gao,
+A. Joshi, Y. Zhang, J. Shlens, Z. Chen, and D. Anguelov, “Scalabil-
+ity in perception for autonomous driving: Waymo open dataset,”
+ArXiv:1912.04838, 2019.
+[64] G. Ros, L. Sellart, J. Materzynska, D. Vazquez, and A. M. Lopez,
+“The synthia dataset: A large collection of synthetic images for
+semantic segmentation of urban scenes,” in IEEE Conference on
+Computer Vision and Pattern Recognition (CVPR) , 2016.
+[65] S. R. Richter, V . Vineet, S. Roth, and V . Koltun, “Playing for data:
+Ground truth from computer games,” in European Conference on
+Computer Vision (ECCV), 2016.
+[66] S. R. Richter, Z. Hayder, and V . Koltun, “Playing for bench-
+marks,” in IEEE International Conference on Computer Vision
+(ICCV), 2017.
+[67] A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, and V . Koltun,
+“Carla: An open urban driving simulator,” in Conference on Robot
+Learning (CoRL), 2017.
+[68] P . Kr ¨ahenb ¨uhl, “Free supervision from video games,” in IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR) ,
+2018.
+[69] K. He, G. Gkioxari, P . Doll ´ar, and R. Girshick, “Mask r-cnn,” in
+IEEE International Conference on Computer Vision (ICCV) , 2017.
+[70] P . J. Huber, “Robust estimation of a location parameter,” The
+Annals of Mathematical Statistics , 1964.
+[71] A. Hermans, L. Beyer, and B. Leibe, “In defense of the triplet loss
+for person re-identiﬁcation,” ArXiv:1703.07737, 2017.
+[72] J. Valmadre, L. Bertinetto, J. Henriques, A. Vedaldi, and P . H. S.
+Torr, “End-to-end representation learning for correlation ﬁlter
+based tracking,” in IEEE Conference on Computer Vision and Pattern
+Recognition (CVPR), 2017.
+[73] Z. Wu, Y. Xiong, X. Y. Stella, and D. Lin, “Unsupervised feature
+learning via non-parametric instance discrimination,” in IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR) ,
+2018.
+[74] A. Kendall and Y. Gal, “What uncertainties do we need in
+bayesian deep learning for computer vision?” in Advances in
+Neural Information Processing Systems (NeurIPS) , 2017.
+[75] G. Brazil, G. Pons-Moll, X. Liu, and B. Schiele, “Kinematic 3d
+object detection in monocular video,” in European Conference on
+Computer Vision (ECCV), Virtual, 2020.
+[76] F. Yu, W. Li, Q. Li, Y. Liu, X. Shi, and J. Yan, “Poi: multiple
+object tracking with high performance detection and appearance
+feature,” in European Conference on Computer Vision (ECCV) , 2016.
+[77] H. W. Kuhn, “The hungarian method for the assignment prob-
+lem,” in Naval Research Logistics Quarterly , 1955.
+[78] N. Wojke, A. Bewley, and D. Paulus, “Simple online and realtime
+tracking with a deep association metric,” in IEEE International
+Conference on Image Processing (ICIP) , 2017.
+[79] Y. Xiang, A. Alahi, and S. Savarese, “Learning to track: Online
+multi-object tracking by decision making,” in IEEE International
+Conference on Computer Vision (ICCV) , 2015.
+[80] A. Sadeghian, A. Alahi, and S. Savarese, “Tracking the untrack-
+able: Learning to track multiple cues with long-term dependen-
+cies,” in IEEE International Conference on Computer Vision (ICCV) ,
+2017.
+[81] O. Russakovsky, J. Deng, H. Su, J. Krause, S. Satheesh, S. Ma,
+Z. Huang, A. Karpathy, A. Khosla, M. Bernstein et al., “Imagenet
+large scale visual recognition challenge,” International Journal of
+Computer Vision (IJCV), 2015.
+[82] A. Paszke, S. Gross, F. Massa, A. Lerer, J. Bradbury, G. Chanan,
+T. Killeen, Z. Lin, N. Gimelshein, L. Antiga, A. Desmaison,
+A. Kopf, E. Yang, Z. DeVito, M. Raison, A. Tejani, S. Chil-
+amkurthy, B. Steiner, L. Fang, J. Bai, and S. Chintala, “Pytorch:
+An imperative style, high-performance deep learning library,” in
+Advances in Neural Information Processing Systems (NeurIPS) , 2019.
+[83] F. Yu, D. Wang, E. Shelhamer, and T. Darrell, “Deep layer ag-
+gregation,” in IEEE Conference on Computer Vision and Pattern
+Recognition (CVPR), 2018.
+[84] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for
+image recognition,” in IEEE Conference on Computer Vision and
+Pattern Recognition (CVPR) , 2016.
+[85] H. Robbins and S. Monro, “A stochastic approximation method,”
+Ann. Math. Statist. , vol. 22, no. 3, pp. 400–407, 09 1951.
+[86] T.-Y. Lin, M. Maire, S. Belongie, J. Hays, P . Perona, D. Ramanan,
+P . Doll´ar, and C. L. Zitnick, “Microsoft coco: Common objects in
+context,” in European Conference on Computer Vision (ECCV) , 2014.
+[87] M. Everingham, L. Van Gool, C. K. I. Williams, J. Winn, and
+A. Zisserman, “The pascal visual object classes (voc) challenge,”
+International Journal of Computer Vision (IJCV) , vol. 88, 2010.
+[88] K. Bernardin and R. Stiefelhagen, “Evaluating multiple object
+tracking performance: the clear mot metrics,” EURASIP Journal
+on Image and Video Processing (JIVP) , 2008.
+[89] Y. Li, C. Huang, and R. Nevatia, “Learning to associate: Hy-
+bridboosted multi-target tracker for crowded scene,” in IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR) ,
+2009.
+[90] R. E. Kalman, “A new approach to linear ﬁltering and prediction
+problems,” Journal of basic Engineering , 1960.
+[91] B. Zhu, Z. Jiang, X. Zhou, Z. Li, and G. Yu, “Class-balanced
+grouping and sampling for point cloud 3d object detection,”
+ArXiv:1908.09492, 2019.
+[92] Y. Wang, S. Chen, L. Huang, R. Ge, Y. Hu, Z. Ding, and J. Liao,
+“1st place solutions for waymo open dataset challenges – 2d and
+3d tracking,” Arxiv:2006.15506, 2020.
+[93] O. D. Team, “Openpcdet: An open-source toolbox for 3d
+object detection from point clouds,” https://github.com/
+open-mmlab/OpenPCDet, 2020.
+
+PAGE 24
+24
+[94] S. Hwang, J. Park, N. Kim, Y. Choi, and I. S. Kweon, “Multi-
+spectral pedestrian detection: Benchmark dataset and baseline,”
+Integrated Computer-Aided Engineering (ICAE) , 2013.
+[95] L. Leal-Taix ´e, A. Milan, I. Reid, S. Roth, and K. Schindler,
+“Motchallenge 2015: Towards a benchmark for multi-target track-
+ing,” ArXiv:1504.01942, 2015.
+[96] A. Shenoi, M. Patel, J. Gwak, P . Goebel, A. Sadeghian,
+H. Rezatoﬁghi, R. Martin-Martin, and S. Savarese, “Jrmot: A real-
+time 3d multi-object tracker and a new large-scale dataset,” in
+IEEE/RSJ International Conference on Intelligent Robots and Systems
+(IROS), 2020.
+[97] H. Karunasekera, H. Wang, and H. Zhang, “Multiple object
+tracking with attention to appearance, structure, motion and
+size,” IEEE Access, 2019.
+[98] G. G ¨und ¨uz and T. Acarman, “A lightweight online multiple
+object vehicle tracking method,” in IEEE Intelligent Vehicles Sym-
+posium (IV), 2018.
+[99] B. Lee, E. Erdenee, S. Jin, M. Y. Nam, Y. G. Jung, and P . Rhee,
+“Multi-class multi-object tracking using changing point detec-
+tion,” in European Conference on Computer Vision Workshops (ECCV
+Workshops), 2016.
+[100] W. Choi, “Near-online multi-target tracking with aggregated lo-
+cal ﬂow descriptor,” in IEEE International Conference on Computer
+Vision (ICCV), 2015.
+[101] D. Frossard and R. Urtasun, “End-to-end learning of multi-sensor
+3d tracking by detection,” in IEEE International Conference on
+Robotics and Automation (ICRA) , 2018.
+[102] J. Hong Yoon, C.-R. Lee, M.-H. Yang, and K.-J. Yoon, “Online
+multi-object tracking via structural constraint event aggregation,”
+in IEEE Conference on Computer Vision and Pattern Recognition
+(CVPR), 2016.
+[103] P . Lenz, A. Geiger, and R. Urtasun, “Followme: Efﬁcient online
+min-cost ﬂow tracking with bounded memory and computa-
+tion,” in IEEE International Conference on Computer Vision (ICCV) ,
+2015.

@@ -1,0 +1,16 @@
+RUN_DIRECTORY D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\runs\RUN_RSM_SMOKE_51c2e75d572a4a0db94ed432a4014f1d
+PAIR 1 / 4 accepted True solver converged
+PAIR 2 / 4 accepted True solver converged
+PAIR 3 / 4 accepted False solver ill_conditioned_metric
+PAIR 4 / 4 accepted True solver converged
+Traceback (most recent call last):
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\preflight\run_attached.py", line 21, in <module>
+    save(STUDY/'study.json',study);execute(run)
+                                   ^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\scripts\run_audit.py", line 113, in execute
+    summary=analyze(results,cfg,scope,run.path/'BOOTSTRAP_INDICES.npz')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\coco_wire\baseline_native_20261013\experiments\mask_repair_margin_20261019\scripts\margin_stats.py", line 35, in analyze
+    raise ValueError('bootstrap sample without any C witness')
+ValueError: bootstrap sample without any C witness
+

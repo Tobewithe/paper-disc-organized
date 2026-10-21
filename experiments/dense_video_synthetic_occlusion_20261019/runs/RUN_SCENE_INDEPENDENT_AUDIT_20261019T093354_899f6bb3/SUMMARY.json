@@ -1,0 +1,225 @@
+{
+  "status": "passed",
+  "scenes": 6,
+  "frames": 144,
+  "track_observations": 288,
+  "independent_geometry_checks": 6912,
+  "state_counts": {
+    "visible": 167,
+    "partially_occluded": 85,
+    "fully_occluded": 28,
+    "out_of_view": 8
+  },
+  "per_scene": [
+    {
+      "scene": "front_occlusion",
+      "frames": 24,
+      "track_observations": 48,
+      "states": {
+        "visible": 7,
+        "partially_occluded": 26,
+        "fully_occluded": 15
+      }
+    },
+    {
+      "scene": "rear_control",
+      "frames": 24,
+      "track_observations": 48,
+      "states": {
+        "visible": 41,
+        "partially_occluded": 7
+      }
+    },
+    {
+      "scene": "similar_crossing",
+      "frames": 24,
+      "track_observations": 48,
+      "states": {
+        "visible": 43,
+        "partially_occluded": 5
+      }
+    },
+    {
+      "scene": "partial_occlusion",
+      "frames": 24,
+      "track_observations": 48,
+      "states": {
+        "visible": 27,
+        "partially_occluded": 21
+      }
+    },
+    {
+      "scene": "out_of_view",
+      "frames": 24,
+      "track_observations": 48,
+      "states": {
+        "visible": 39,
+        "partially_occluded": 5,
+        "out_of_view": 4
+      }
+    },
+    {
+      "scene": "mixed_occlusion_exit",
+      "frames": 24,
+      "track_observations": 48,
+      "states": {
+        "partially_occluded": 21,
+        "fully_occluded": 13,
+        "visible": 10,
+        "out_of_view": 4
+      }
+    }
+  ],
+  "events": [
+    {
+      "scene": "front_occlusion",
+      "track_id": 1,
+      "frame": 3,
+      "from": "visible",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "front_occlusion",
+      "track_id": 1,
+      "frame": 9,
+      "from": "partially_occluded",
+      "to": "fully_occluded"
+    },
+    {
+      "scene": "front_occlusion",
+      "track_id": 1,
+      "frame": 14,
+      "from": "fully_occluded",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "front_occlusion",
+      "track_id": 2,
+      "frame": 14,
+      "from": "partially_occluded",
+      "to": "fully_occluded"
+    },
+    {
+      "scene": "front_occlusion",
+      "track_id": 1,
+      "frame": 20,
+      "from": "partially_occluded",
+      "to": "visible"
+    },
+    {
+      "scene": "rear_control",
+      "track_id": 2,
+      "frame": 11,
+      "from": "visible",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "rear_control",
+      "track_id": 2,
+      "frame": 18,
+      "from": "partially_occluded",
+      "to": "visible"
+    },
+    {
+      "scene": "similar_crossing",
+      "track_id": 1,
+      "frame": 9,
+      "from": "visible",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "similar_crossing",
+      "track_id": 1,
+      "frame": 14,
+      "from": "partially_occluded",
+      "to": "visible"
+    },
+    {
+      "scene": "partial_occlusion",
+      "track_id": 1,
+      "frame": 5,
+      "from": "visible",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "partial_occlusion",
+      "track_id": 2,
+      "frame": 11,
+      "from": "visible",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "partial_occlusion",
+      "track_id": 2,
+      "frame": 18,
+      "from": "partially_occluded",
+      "to": "visible"
+    },
+    {
+      "scene": "partial_occlusion",
+      "track_id": 1,
+      "frame": 19,
+      "from": "partially_occluded",
+      "to": "visible"
+    },
+    {
+      "scene": "out_of_view",
+      "track_id": 2,
+      "frame": 6,
+      "from": "visible",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "out_of_view",
+      "track_id": 2,
+      "frame": 11,
+      "from": "partially_occluded",
+      "to": "visible"
+    },
+    {
+      "scene": "out_of_view",
+      "track_id": 1,
+      "frame": 20,
+      "from": "visible",
+      "to": "out_of_view"
+    },
+    {
+      "scene": "mixed_occlusion_exit",
+      "track_id": 1,
+      "frame": 3,
+      "from": "partially_occluded",
+      "to": "fully_occluded"
+    },
+    {
+      "scene": "mixed_occlusion_exit",
+      "track_id": 1,
+      "frame": 6,
+      "from": "fully_occluded",
+      "to": "partially_occluded"
+    },
+    {
+      "scene": "mixed_occlusion_exit",
+      "track_id": 1,
+      "frame": 10,
+      "from": "partially_occluded",
+      "to": "visible"
+    },
+    {
+      "scene": "mixed_occlusion_exit",
+      "track_id": 2,
+      "frame": 14,
+      "from": "partially_occluded",
+      "to": "fully_occluded"
+    },
+    {
+      "scene": "mixed_occlusion_exit",
+      "track_id": 1,
+      "frame": 20,
+      "from": "visible",
+      "to": "out_of_view"
+    }
+  ],
+  "paired_trajectory_control_passed": true,
+  "model_training_steps": 0,
+  "scientific_scope": "synthetic geometry/labels only; real-video transfer untested"
+}

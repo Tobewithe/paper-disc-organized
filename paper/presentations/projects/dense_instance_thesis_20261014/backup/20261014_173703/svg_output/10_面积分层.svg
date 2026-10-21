@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF" />
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#C36D37">02 研究方法 · 模块三</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">小掩码的修正损伤更集中</text></g>
+<g id="stratification-setup" data-pptx-bounds="64 163 1152 46"><text x="64" y="195" font-size="22" fill="#596B80">复用同一 soft-IoU 修正结果，按推理时可见的原生掩码面积分组。</text></g>
+<g id="area-damage" data-pptx-bounds="64 221 1152 329">
+ <g id="area-damage-chartArea"><line x1="250" y1="490" x2="1000" y2="490" stroke="#596B80" />
+ <!-- chart-plot-area: object=area-damage | 250,220,1000,490 -->
+ <rect x="250" y="248" width="642.361" height="34" fill="#C36D37" /><rect x="250" y="338" width="154.776" height="34" fill="#315E9D" /><rect x="250" y="428" width="28.409" height="34" fill="#007F82" />
+ </g>
+ <g fill="#25374C"><text x="64" y="274">小掩码</text><text x="64" y="364">中掩码</text><text x="64" y="454">大掩码</text></g>
+ <g font-size="22" font-weight="bold"><text x="907" y="274" fill="#C36D37">13.70%</text><text x="420" y="364" fill="#315E9D">3.30%</text><text x="294" y="454" fill="#007F82">0.61%</text></g>
+ <g font-size="22" fill="#596B80" text-anchor="end"><text x="1216" y="240">损伤数 / 原成功数</text><text x="1216" y="274">37 / 270</text><text x="1216" y="364">14 / 424</text><text x="1216" y="454">2 / 330</text></g>
+ <g font-size="16" fill="#596B80" text-anchor="middle"><text x="250" y="515">0</text><text x="437.5" y="515">4</text><text x="625" y="515">8</text><text x="812.5" y="515">12</text><text x="1000" y="515">16%</text></g>
+ <text x="250" y="540" font-size="16" fill="#596B80">原成功实例修正后失去分割任务匹配的比例</text>
+</g>
+<g id="stratum-finding" data-pptx-bounds="64 563 1152 85"><text x="64" y="597" font-size="32" font-weight="bold" fill="#172B46">小掩码占成功面板的 26.4%，却占损伤案例的 69.8%。</text><text x="64" y="638" font-size="22" fill="#596B80">大掩码组点估计较低，仍不能据此宣布其损伤上界已经低于 1%。</text></g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="64 665 1152 35" font-size="16" fill="#596B80"><text x="64" y="689">[E4] 原成功面板 n=1,024；面积按原图像素：小&lt;32²，中[32²,96²)，大≥96²；描述性比例。</text><text x="1216" y="689" text-anchor="end">10 / 15</text></g>
+</svg>

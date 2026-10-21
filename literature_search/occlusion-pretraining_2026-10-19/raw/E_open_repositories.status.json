@@ -1,0 +1,42 @@
+{
+  "bucket": "E_open_repositories",
+  "status": "completed_with_repository_access_and_semantic_limits",
+  "queried_at": "2026-10-19",
+  "queries": [
+    "site:zenodo.org amodal video segmentation occlusion dataset",
+    "site:zenodo.org MOVi Kubric video dataset instance segmentation optical flow",
+    "synthetic amodal video occlusion dataset SAIL-VOS open repository",
+    "MOVi dataset Kubric official download instance segmentation depth optical flow annotations",
+    "PointOdyssey dataset annotations occlusion visibility synthetic animal Blender",
+    "TAP-Vid official GitHub visibility occlusion annotations",
+    "TAO-Amodal dataset official",
+    "TABE-51 dataset official amodal video object segmentation",
+    "MOSE video object segmentation dataset occlusion reappearance masks",
+    "OVIS occluded video instance segmentation benchmark official annotations occlusion levels"
+  ],
+  "methods": [
+    "Web search and official project/repository pages; Zenodo query returned no directly relevant primary synthetic-amodal-video resource.",
+    "Attempted scholar-megasearch resilient DDG script, but the documented Codex skill-venv executable path did not exist on this host; no local recovery JSON was written."
+  ],
+  "records_written": 8,
+  "key_semantic_findings": [
+    "SAIL-VOS is the strongest accessible synthetic amodal video label reference: explicit paired modal and per-object amodal masks with stable IDs.",
+    "TAO-Amodal has amodal bounding boxes and visibility, including fully invisible and out-of-frame, but no amodal masks; it is the closest real-video evaluation reference for separating hidden from out-of-view geometry at box level.",
+    "OVIS and MOSE have real modal masks with occlusion/challenge context, but neither verifiedly supplies pixel-level full-occlusion amodal truth or physical-occluder labels.",
+    "TAP-Vid and PointOdyssey support point visibility/correspondence, not instance-level amodal segmentation or individual identity recovery."
+  ],
+  "resource_relationships": [
+    "MOVi-A--F are Kubric challenge resources (official path: github.com/google-research/kubric/tree/main/challenges/movi), not an independent paper record: their arXiv identifier is Kubric's 2203.03570 and is deliberately retained only as a resource relationship to avoid duplicate-paper merging."
+  ],
+  "access_and_license_risks": [
+    "SAIL-VOS requires GTA V ownership and restricts use to non-commercial research/education with no redistribution.",
+    "PointOdyssey is CC BY-NC-SA 4.0.",
+    "TAO-Amodal has gated AVA/HACS videos and no-redistribution/non-commercial terms despite repository metadata.",
+    "TABE code is MIT, but third-party models, checkpoints and dataset download terms are separate."
+  ],
+  "unresolved": [
+    "No primary Zenodo/HAL/OpenAIRE/CORE record was retained: searches produced generic or unrelated results rather than a verified source matching these six facets.",
+    "Amodal SAM (arXiv:2604.20748) is confirmed by the parent as a 2026 paper, but exact AmodalSAM2 is not established; its official code/repository should be verified in a scholarly/official-code bucket before merge.",
+    "TABE-51’s label-production details and whether every fully hidden target represents a real physical occlusion rather than its generation protocol require full-paper review."
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "source_decision": {
+    "gates": {
+      "synthetic_macro_F1": true,
+      "extra_C_magnitude": false,
+      "extra_C_CI": false,
+      "above_reference": false,
+      "per_video_guard": true,
+      "HOTA_guard": true
+    },
+    "scientific_status": "utility_not_established",
+    "mechanism": {
+      "history_increment": {
+        "delta_IDF1": 0.032254911543333264,
+        "paired_video_bootstrap_95": [
+          0.0,
+          0.16163085731200505
+        ],
+        "videos": 11,
+        "resamples": 2000,
+        "scope": "descriptive, historical nonblind small-sample"
+      },
+      "context_increment": {
+        "delta_IDF1": 0.19939399863159224,
+        "paired_video_bootstrap_95": [
+          0.0,
+          0.37917243764579345
+        ],
+        "videos": 11,
+        "resamples": 2000,
+        "scope": "descriptive, historical nonblind small-sample"
+      },
+      "object_correspondence_increment": {
+        "delta_IDF1": -0.10751637181117246,
+        "paired_video_bootstrap_95": [
+          -0.23385106065062936,
+          0.10076115976032421
+        ],
+        "videos": 11,
+        "resamples": 2000,
+        "scope": "descriptive, historical nonblind small-sample"
+      },
+      "simple_geometry_increment": {
+        "delta_IDF1": 0.5434463884273129,
+        "paired_video_bootstrap_95": [
+          0.0,
+          1.0209081927629344
+        ],
+        "videos": 11,
+        "resamples": 2000,
+        "scope": "descriptive, historical nonblind small-sample"
+      }
+    },
+    "next_action": "stop this fixed weighting configuration; prioritize directly supervised cross-gap identity discriminability (or domain gap if synthetic capacity fails)",
+    "started_next_experiment": false,
+    "complete_physical_occlusion_claim": false
+  },
+  "direction": "cross-gap identity discrimination and rejection supervision",
+  "next_action": "freeze the cross-gap identity positive/negative data contract before a new training study",
+  "next_training_started": false,
+  "win_loss_vs_comparators": {
+    "N": {
+      "improved": 6,
+      "unchanged": 2,
+      "worse": 3,
+      "worst_delta": -0.4932182490752126,
+      "best_delta": 4.754358161648177
+    },
+    "R": {
+      "improved": 5,
+      "unchanged": 0,
+      "worse": 6,
+      "worst_delta": -14.622961688568836,
+      "best_delta": 4.912898066136009
+    },
+    "C": {
+      "improved": 1,
+      "unchanged": 10,
+      "worse": 0,
+      "worst_delta": 0.0,
+      "best_delta": 0.6471791170455958
+    }
+  },
+  "physical_metrics_source": "RUN_OCC_ADJUDICATE_20261019T104238_ad6cf8ab"
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF"/>
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#315E9D">02 研究方法 · 模块一</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">评价既看轮廓改善，也看原成功实例是否受损</text></g>
+<g id="target" data-pptx-bounds="64 185 1152 87"><text x="64" y="223" font-size="32" font-weight="bold" fill="#315E9D">目标集合 T</text><text x="350" y="222" fill="#25374C">原分割任务失败，框达标、同一检测的轮廓未达标。</text><text x="350" y="260" font-size="22" fill="#596B80">锁定同一条预测，避免把不同检测的好结果拼在一起。</text></g>
+<g id="gain" data-pptx-bounds="64 286 1152 87"><line x1="64" y1="286" x2="1216" y2="286" stroke="#D4DEE7"/><text x="64" y="326" font-size="32" font-weight="bold" fill="#315E9D">轮廓增益 ΔIoU</text><text x="350" y="326" fill="#25374C">修正后的 IoU 减去原 IoU，先按图、再跨图平均。</text><text x="350" y="364" font-size="22" fill="#596B80">分别看目标 T 和全部合格框配对，检查收益是否局部化。</text></g>
+<g id="repair" data-pptx-bounds="64 389 1152 87"><line x1="64" y1="389" x2="1216" y2="389" stroke="#D4DEE7"/><text x="64" y="429" font-size="32" font-weight="bold" fill="#315E9D">任务修复率</text><text x="350" y="429" fill="#25374C">目标 T 中，修正后重新获得分割任务匹配的比例。</text><text x="350" y="467" font-size="22" fill="#596B80">与“原固定检测自身达到 IoU 阈值”分别统计。</text></g>
+<g id="damage" data-pptx-bounds="64 492 1152 87"><line x1="64" y1="492" x2="1216" y2="492" stroke="#D4DEE7"/><text x="64" y="532" font-size="32" font-weight="bold" fill="#C36D37">成功损伤率</text><text x="350" y="532" fill="#25374C">原成功实例中，修正后分割任务失败的比例。</text><text x="350" y="570" font-size="22" fill="#596B80">改善错误的同时，检查原本正确的结果是否被破坏。</text></g>
+<g id="metric-scope" data-pptx-bounds="64 600 1152 47"><text x="64" y="630" font-size="22" fill="#596B80">IoU 是预测与标注的交并比；本组诊断阈值为 0.75，完整方法效果仍需全量 AP 验证。</text></g>
+</svg>

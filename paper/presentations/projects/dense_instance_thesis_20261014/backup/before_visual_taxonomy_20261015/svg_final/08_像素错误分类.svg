@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Microsoft YaHei, Arial" font-size="28" data-pptx-page-role="content">
+<rect id="background" data-pptx-role="background" width="1280" height="720" fill="#FFFFFF"/>
+<g id="title" data-pptx-bounds="64 42 1152 108"><text x="64" y="65" font-size="22" fill="#315E9D">02 研究方法 · 模块一</text><text x="64" y="122" font-size="40" font-weight="bold" fill="#172B46">轮廓错在哪里：把遗漏与误报分别量化</text></g>
+<g id="pixel-denominator" data-pptx-bounds="64 168 1152 44"><text x="64" y="197" font-size="22" fill="#596B80">以下五项均为像素数 ÷ 有效目标标注面积；固定同一预测，排除 crowd 区域。</text></g>
+<g id="pixel-errors" data-pptx-bounds="64 224 1152 310">
+ <rect x="64" y="224" width="1152" height="44" fill="#F1F5F8"/>
+ <g font-size="22" font-weight="bold" fill="#172B46"><text x="80" y="254">分类指标</text><text x="340" y="254">统计哪些错误像素</text><text x="790" y="254">为什么要分开看</text></g>
+ <g fill="#25374C"><text x="80" y="304">自身遗漏率</text><text x="340" y="304" font-size="22">属于目标，却没有被预测覆盖</text><text x="790" y="304" font-size="22">防止靠缩小轮廓减少误报</text></g>
+ <line x1="64" y1="320" x2="1216" y2="320" stroke="#D4DEE7"/>
+ <g fill="#007F82"><text x="80" y="356" font-weight="bold">同类邻居误分率</text><text x="340" y="356" font-size="22">误纳同类邻居独占区域</text><text x="790" y="356" font-size="22">识别同类个体之间的混入</text></g>
+ <line x1="64" y1="372" x2="1216" y2="372" stroke="#D4DEE7"/>
+ <g fill="#25374C"><text x="80" y="408">异类邻居误分率</text><text x="340" y="408" font-size="22">误纳异类邻居独占区域</text><text x="790" y="408" font-size="22">区分跨类别的区域混入</text></g>
+ <line x1="64" y1="424" x2="1216" y2="424" stroke="#D4DEE7"/>
+ <g fill="#25374C"><text x="80" y="460">邻居歧义误分率</text><text x="340" y="460" font-size="22">误纳同类、异类共同标注区域</text><text x="790" y="460" font-size="22">单列交叠，避免重复归属</text></g>
+ <line x1="64" y1="476" x2="1216" y2="476" stroke="#D4DEE7"/>
+ <g fill="#25374C"><text x="80" y="512">背景误分率</text><text x="340" y="512" font-size="22">误纳无普通实例标注的区域</text><text x="790" y="512" font-size="22">区分背景外溢与邻居混入</text></g>
+</g>
+<g id="coverage-protection" data-pptx-bounds="64 551 1152 97"><text x="64" y="585" font-size="32" font-weight="bold" fill="#172B46">减少邻居误分，也要保住自身覆盖。</text><text x="64" y="630" font-size="22" fill="#596B80">自身覆盖率 = 1−遗漏率；四类误报互斥，保留各项连续数值，不只挑一个主导标签。</text></g>
+<g id="footer" data-pptx-role="footer" data-pptx-bounds="64 665 1152 35" font-size="16" fill="#596B80"><text x="64" y="689">[D2] 自身标注优先；无配对实例仍计入任务失败，不能把其像素错误填成零。此页为既有诊断定义。</text><text x="1216" y="689" text-anchor="end">08 / 25</text></g>
+</svg>

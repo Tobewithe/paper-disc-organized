@@ -1,0 +1,241 @@
+{
+  "arm": "G_budget",
+  "optimizer_steps": 15000,
+  "images_seen": 60000,
+  "epochs": 3,
+  "initial_state_sha256": "8b714a12ed832ec54d57af1ba88009e0b10154be8fae922f2f2a61ddaf080e94",
+  "final_state_sha256": "e8f28cbe85b1bbf97e871cdd5bdfd8480f700f16d9517c7467c602cfcc5e2173",
+  "checkpoint_sha256": "cff530a9c38f4b70c4e54c93326307aa4264ab1b7928680c8b80daf2a8be67bc",
+  "checkpoint_selection": "last_only",
+  "parameters": {
+    "arm": "G_budget",
+    "trainable_whitelist": [
+      "adapter.spatial.0.weight",
+      "adapter.spatial.0.bias",
+      "adapter.spatial.2.weight",
+      "adapter.spatial.2.bias",
+      "adapter.feature.0.weight",
+      "adapter.feature.0.bias",
+      "adapter.feature.1.weight",
+      "adapter.feature.1.bias",
+      "adapter.feature.2.weight",
+      "adapter.feature.2.bias",
+      "adapter.coefficient.weight",
+      "adapter.coefficient.bias",
+      "adapter.category.weight",
+      "adapter.readout.0.weight",
+      "adapter.readout.0.bias",
+      "adapter.readout.2.weight",
+      "adapter.readout.2.bias"
+    ],
+    "trainable_parameter_count": 167872,
+    "trainable_tensor_count": 17,
+    "parameters": {
+      "adapter.spatial.0.weight": {
+        "shape": [
+          64,
+          33,
+          3,
+          3
+        ],
+        "numel": 19008,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.spatial.0.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.spatial.2.weight": {
+        "shape": [
+          64,
+          64,
+          3,
+          3
+        ],
+        "numel": 36864,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.spatial.2.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.feature.0.weight": {
+        "shape": [
+          64,
+          256
+        ],
+        "numel": 16384,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.feature.0.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.feature.1.weight": {
+        "shape": [
+          64,
+          512
+        ],
+        "numel": 32768,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.feature.1.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.feature.2.weight": {
+        "shape": [
+          64,
+          512
+        ],
+        "numel": 32768,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.feature.2.bias": {
+        "shape": [
+          64
+        ],
+        "numel": 64,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.coefficient.weight": {
+        "shape": [
+          32,
+          32
+        ],
+        "numel": 1024,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.coefficient.bias": {
+        "shape": [
+          32
+        ],
+        "numel": 32,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.category.weight": {
+        "shape": [
+          80,
+          16
+        ],
+        "numel": 1280,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.readout.0.weight": {
+        "shape": [
+          128,
+          181
+        ],
+        "numel": 23168,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.readout.0.bias": {
+        "shape": [
+          128
+        ],
+        "numel": 128,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.readout.2.weight": {
+        "shape": [
+          32,
+          128
+        ],
+        "numel": 4096,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      },
+      "adapter.readout.2.bias": {
+        "shape": [
+          32
+        ],
+        "numel": 32,
+        "dtype": "torch.float32",
+        "requires_grad": true
+      }
+    },
+    "mutable_buffer_whitelist": [],
+    "frozen_buffers": {},
+    "loss_spec": {
+      "name": "same_ROI_soft_IoU",
+      "epsilon": 1e-06,
+      "formula": "1-(sum_ROI(sigmoid(z)*g)+eps)/(sum_ROI(sigmoid(z)+g-sigmoid(z)*g)+eps)",
+      "empty_GT": "same_formula_in_original_supervised_instance_denominator",
+      "empty_ROI": "exclude_and_count_as_original",
+      "dtype": "float32",
+      "reduction": "instance_mean_within_image_then_original_effective_batch4_mean",
+      "preservation": "original_BCE_all_nonempty_ROI_instances",
+      "preservation_weight": 0.1
+    },
+    "module_mode": "eval_with_autograd"
+  },
+  "parameters_with_nonzero_gradient": [
+    "adapter.category.weight",
+    "adapter.coefficient.bias",
+    "adapter.coefficient.weight",
+    "adapter.feature.0.bias",
+    "adapter.feature.0.weight",
+    "adapter.feature.1.bias",
+    "adapter.feature.1.weight",
+    "adapter.feature.2.bias",
+    "adapter.feature.2.weight",
+    "adapter.readout.0.bias",
+    "adapter.readout.0.weight",
+    "adapter.readout.2.bias",
+    "adapter.readout.2.weight",
+    "adapter.spatial.0.bias",
+    "adapter.spatial.0.weight",
+    "adapter.spatial.2.bias",
+    "adapter.spatial.2.weight"
+  ],
+  "parameter_update_counts": {
+    "adapter.spatial.0.weight": 15000,
+    "adapter.spatial.0.bias": 15000,
+    "adapter.spatial.2.weight": 15000,
+    "adapter.spatial.2.bias": 15000,
+    "adapter.feature.0.weight": 14996,
+    "adapter.feature.0.bias": 14996,
+    "adapter.feature.1.weight": 14999,
+    "adapter.feature.1.bias": 14999,
+    "adapter.feature.2.weight": 15000,
+    "adapter.feature.2.bias": 15000,
+    "adapter.coefficient.weight": 15000,
+    "adapter.coefficient.bias": 15000,
+    "adapter.category.weight": 15000,
+    "adapter.readout.0.weight": 15000,
+    "adapter.readout.0.bias": 15000,
+    "adapter.readout.2.weight": 15000,
+    "adapter.readout.2.bias": 15000
+  },
+  "empty_roi_instances": 11193,
+  "images_without_matched_supervision": 546,
+  "max_cuda_allocated": 2935705088,
+  "max_cuda_reserved": 4357881856
+}

@@ -1,0 +1,7 @@
+# 正式跟踪评价前的工程修正
+
+2026-10-19：PROTOCOL.md将鸭类写成COCO bird类16，这是类别编码错误，固定源码coco.yaml明确14=bird、16=dog。目标类别一直是bird；现修正duck_1/duck_2类别到14，视频、权重、检测阈值及恢复方法不变。原RUN_FEATURES_20261019T010916_32e20660中两个鸭视频0检测缓存保留，标为wrong_class_engineering_output，不用于正式成绩。zebra_5缓存正确，继续复用。以独立工程修正Run登记前后manifest和源码类别证据，再只重提两个鸭视频。此修正发生在任何正式方法评价之前，不是运行后换样本/阈值追阳性。
+
+RUN_REVERSIBLE_SMOKE_20261019T010915_d55fd8ca因直接比较包含NumPy数组的字典触发ValueError；仅改为完整序列化逐字段比较，未改变算法。重试RUN_REVERSIBLE_SMOKE_20261019T011004_8554dc41通过因果前缀、检测身份/框/计数和唯一ID检查。
+
+PROTOCOL.md原文和SHA保留；本文件仅覆盖错误的数字16→14，科学Gate/样本/预算不变。

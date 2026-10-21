@@ -1,0 +1,63 @@
+{
+  "run_id": "RUN_RSM_RECOVER114_f22b016c00f5482eb7551a4acbe3dad9",
+  "study_id": "STUDY_MASK_REPAIR_MARGIN_20261019",
+  "stage_id": "RSM",
+  "kind": "RSM_SMOKE",
+  "host": "YANGLEI",
+  "pid": 19672,
+  "started_at": "2026-10-19T16:39:13.485930+00:00",
+  "execution_status": "completed",
+  "plan_status": "frozen",
+  "scientific_status": "ENGINEERING_ONLY",
+  "artifact_status": "complete",
+  "transfer_status": "local_only",
+  "parent_run_id": "RUN_RSM_FULL_f02b00986ed14331871c00f9564d6426",
+  "executor": {
+    "environment": "laptop_windows",
+    "interpreter": "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "directory": "D:\\coco_wire\\baseline_native_20261013",
+    "host": "YANGLEI"
+  },
+  "command": [
+    "C:\\Users\\28358\\anaconda3\\envs\\pytorch\\python.exe",
+    "-B",
+    "D:/coco_wire/baseline_native_20261013/experiments/mask_repair_margin_20261019/preflight/recover114.py"
+  ],
+  "wall_budget_seconds": 900,
+  "exit_code": 0,
+  "scope": "engineering_recover114",
+  "new_training_steps": 0,
+  "base_model_forward_calls": 3,
+  "adapter_forward_calls": 0,
+  "G_budget_reference_status": "historical_only_checkpoint_unavailable",
+  "helper_sha256": "c318d8ca1e960ec85bca20eeb9487585ff205e1786ad5c2b620813fe5502e5e6",
+  "code_commit": "bc0507c5400b61935fe93f981a4ff5026964c271",
+  "dirty_patch_sha256": "6b8fcb392b9eb9a42d07eb050210b7c2d1791e8cd78e5c6e7af917dfa46d7122",
+  "protocol_sha256": "fc18e379f8679920ec8f472af2ad8ac955859ee449f7d99d32519d44d09dad12",
+  "input_manifest_sha256": "6a70b5a9afdc132b795d32280caeb0c966cf168fc6e8d1484f537c024567a56c",
+  "contract_sha256": "17e18d41b43622697402d7fa0f1cf60f07652832a20604382dd2faa06d5a4398",
+  "base_model_forward_shapes": [
+    [
+      1,
+      3,
+      32,
+      32
+    ],
+    [
+      1,
+      3,
+      640,
+      640
+    ],
+    [
+      16,
+      3,
+      416,
+      672
+    ]
+  ],
+  "real_image_forward_batches": 1,
+  "real_image_forward_images": 16,
+  "ended_at": "2026-10-19T16:40:20.987726+00:00",
+  "elapsed_seconds": 67.5
+}
