@@ -4,6 +4,8 @@
 **上位约束：** RESEARCH_RULES.md、AGENTS.md；本文件细化而不撤销 RESEARCH_CHARTER.md 和旧实验。未冻结正式预算、未开始渲染或训练。  
 **原则：** 真实训练域统计 → 条件化合成数据 → 真实成像适配 → 共同特征空间与动态原型 → 冻结检索注入 → 真实独立测试。先证明合成改进有用，再判断原型的独立增量。
 
+**2026-10-22 基础实现细化：** 用户要求先完成必须的基础方案。当前实现以[基础方案V0.1](BASE_IMPLEMENTATION_SPEC.md)和[配置草案](../../../experiments/spm_yoloseg_20261021/BASE_CONFIG_DRAFT.json)为入口：单猪可见任务、共用RLE加载器、只用P3、冻结构库/查询坐标、保留原生两训练分支。本文中的P4、真实HF和多臂比较保留为后续扩展，不构成基础链路必须先取得效果的Gate；任何已冻结Run均不改变。
+
 ## 0. 完整系统的输入、输出和核心预测
 
 ### 输入
@@ -99,7 +101,7 @@ occlusion_ratio=1-area(visible)/max(area(amodal_on_screen),1)；不要把部分�
 ## 4. D3：从真实图像提取与自动发现视觉原型
 
 ### 4.1 训练输入与可见对象
-- **默认空间是 B 的冻结 YOLO26-Seg Neck P3/P4**，不是直接在 RGB 生硬做 K-means；保证构库和推理用同一个语义坐标。保留原 COCO 训练任务和原生 Mask decoder。
+- **基础版空间是B的冻结YOLO26-Seg Neck P3，P4留作扩展**，不是直接在RGB做K-means；保证构库和推理用同一坐标。第一版是单猪可见实例任务（nc=1），保留原生Mask decoder及结构，不是保持COCO80类训练任务不变。
 - 真实原型只允许训练簇 RGB 和训练真实可见 Mask。未标注训练帧可在明确的伪标质量协议下用于无标签增强一致性，但严禁把未审核的伪实例当作可靠的实例内部 token。
 - 每帧先执行完全一致的 letterbox/resize/color preprocessing，记录从原图→网络输入的仿射，Mask 同几何映射；采样前保证 P3/P4 网格对齐到 Mask。
 
@@ -118,6 +120,8 @@ occlusion_ratio=1-area(visible)/max(area(amodal_on_screen),1)；不要把部分�
 不得把**不同猪个体**的所有 token 生硬定义成负例，也不得把未知部位的 real/syn token 硬配为正样本。
 
 候选目标：同区域一致性（VICReg/方差-协方差防塌缩思路）+ Pig/Background 辅助二分类 + 各来源采样均衡；所有系数在 dev 冻结。初版不建议叠加额外 ViT/DINO 教师和域判别器，避免引入新的预训练知识和算力混杂。检查投影输出方差、真实/合成同条件检索一致性、前景与背景 separability，出现常量塌缩就停止构库。
+
+实现细节：方差/协方差正则作用于投影后的未归一化h，归一化q只用于检索/聚类；同图几何增强先做坐标逆映射和有效区过滤。球面归一化中心的动态算法标作DP-means-inspired，不沿用原欧式DP-means目标的收敛保证。
 
 ### 4.4 数据自适应发现 K（不预定义猪头/猪腿等部位）
 对 L2-normalized z 建立 foreground、background 两个可查询分区，接触/尺度/域作为支持元数据；可选后续增加边界专用子库，但第一版不增加第三类训练语义。
@@ -155,7 +159,7 @@ YOLO26-Seg 选择 640 输入时需以锁定源码审计 P3/P4 真实形状；典
 
 **第二层：记忆。** 固定上一层选中的 B* 的 Backbone/Neck 和训练数据，构 real-only / synth-only / combined 三类 memory（来源平衡、K 和查询量报告）；相同 B* checkpoint 起步微调 FSPM 和 G-no-memory，尽量匹配可训练参数、head 训练步数、投影器离线训练信息及预算。FSPM 应优于 G 才有记忆独立价值。
 
-**第三层：机制。** 同 checkpoint 关闭 memory / 中心置乱 / 真实-合成替换 / top-k 限制 / fg-only / bg-only / 查询相似度与门控可视化；注意简单关掉整个分支会导致分布移位，需辅以等残差范数的替代信号，以及可重新训练的无记忆 G 控制。
+**第三层：机制（后续）。** 同checkpoint关闭memory / 错误key↔value对应 / 真实-合成替换 / top-k限制 / fg-only / bg-only等；共同重排keys和values的表行不改变Top-k检索，不能作为有效破坏。简单关闭分支会有分布移位，需结合等幅控制与可重训无记忆G。基础链路阶段先实现明确的key/value存储与可重放接口。
 
 ## 7. D6：评价指标、错误类型、统计和停止规则
 
@@ -190,9 +194,11 @@ YOLO26-Seg 选择 640 输入时需以锁定源码审计 P3/P4 真实形状；典
 - memory/manifest.json：feature_extractor_sha、projection_sha、split_sha、training_domains、K_fg/K_bg、lambda、support_hist、query_contract、memory_sha；
 - evaluation/contract.json：weights、code、split_sha、model_outputs_policy、segm_decoder、normal inference config、cluster bootstrap unit。
 
-## 9. 首个最值得做的判别实验：同一 Blender 场景的高频适配增益
+## 9. 后续候选判别：同一 Blender 场景的高频适配增益
 
 **只控制数据渲染，不增加训练模型复杂度。** 用真实训练域 profile 建 100–200 个 QA 场景，直接生成成对 raw / random high-frequency / real-conditioned HF / real-conditioned HF+camera degradation。先核照片质量、可见 GT 一致性、real-vs-syn PSD 和与真实尺寸/密度分布的差异。之后 600 matched geometry 的小样本训练 B_raw、B_randomHF、B_realHF（真实数据和 step 完全相同），在 real dev 看 Mask AP、遮挡/接触子集和负迁移；通过之后再投资更大 Blender 和 memory。条件已具备时再按 [PILOT_AND_ABLATION_V2.md](../../../experiments/spm_yoloseg_20261021/PILOT_AND_ABLATION_V2.md) 冻结。
+
+以上保留为扩展候选，不是当前下一动作，也不是原型基础实现的前置成功条件。当前先按基础方案清点输入、接通共用标注/特征/梯度/存取接口；是否展开高频效用实验留待之后讨论。
 
 ## 10. 预定论文新颖性边界与参考起点
 

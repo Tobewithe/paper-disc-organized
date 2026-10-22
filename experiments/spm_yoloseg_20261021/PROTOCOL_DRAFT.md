@@ -7,6 +7,8 @@
 
 > **V2 设计补充（2026-10-22）**：涉及 Blender 场景生成、真实高频统计迁移、动态原型实际提取流程，先读 [V2 实施蓝图](../../paper/manuscripts/spm_yoloseg/IMPLEMENTATION_BLUEPRINT_V2.md)、[高频迁移规范](../../paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md) 和 [Pilot / 消融 V2](PILOT_AND_ABLATION_V2.md)。本文件保留首次 A–G 草案历史，不代表当前可直接运行的冻结协议；V2 的 B* 额外区分几何/真实高频/普通随机化收益。
 
+> **基础实现优先（2026-10-22用户最新要求）**：当前先读[基础方案](../../paper/manuscripts/spm_yoloseg/BASE_IMPLEMENTATION_SPEC.md)与[配置草案](BASE_CONFIG_DRAFT.json)，补齐必须的数据、P3原型、YOLO接入与梯度/存取接口。下方效果阈值和A–G矩阵是后续候选，不是基础方案本轮待执行任务；不创建Run、不渲染或训练。
+
 > 本文件是候选实验设计，**尚无 Run、没有完成数据生成/训练/评价，也不包含自动开训许可**。正式运行时必须创建冻结版本（例如 `PROTOCOL.md`）及明确执行授权、环境/预算、数据划分/sha、指标阈值、统计规则与 Run 记录。
 
 ## 0. 一次实验的科学闭环

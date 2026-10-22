@@ -1,0 +1,35 @@
+{
+  "run_id": "RUN_SPM_PROTO_TRAIN_2e46d0049349",
+  "slurm_job_id": "184",
+  "projector_steps": 2000,
+  "memory_sha256": "6c6ca1237b1500eed317b93c47c01ebbba1118fd16cd2c009224d354779c69cd",
+  "projector_sha256": "4e32f2ca3c1cd8a1998b184a825510a427bd37dc9efa5f68e7377c62034fe939",
+  "input_channels": 256,
+  "dimension": 128,
+  "projector_parameter_count": 32896,
+  "class_partitions": {
+    "foreground": {
+      "K": 128,
+      "tokens": 14973,
+      "domains": {
+        "real": 5504,
+        "synthetic": 9469
+      },
+      "card_reassignment_counts_exact": true,
+      "unit_norm_passed": true
+    },
+    "background": {
+      "K": 128,
+      "tokens": 15744,
+      "domains": {
+        "real": 5504,
+        "synthetic": 10240
+      },
+      "card_reassignment_counts_exact": true,
+      "unit_norm_passed": true
+    }
+  },
+  "heldout_sources_excluded_from_memory": true,
+  "independent_retrieval_max_abs_error": 0.0,
+  "scientific_scope": "trained_artifact_validation_not_YOLO_AP_effectiveness"
+}

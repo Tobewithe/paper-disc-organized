@@ -2,17 +2,24 @@
   "study_id": "STUDY_SPM_YOLOSEG_20261021",
   "research_line": "spm_yoloseg",
   "title": "Blender-真实场景联合原型记忆注入 YOLO26-Seg 的猪群实例分割",
-  "protocol": "PROTOCOL_DRAFT.md",
-  "protocol_status": "draft_not_frozen",
-  "plan_status": "registered_design_draft",
-  "execution_status": "not_started",
-  "scientific_status": "hypothesis_only",
-  "artifact_status": "design_documents_committed",
-  "transfer_status": "not_applicable",
-  "authorization": "2026-10-21 用户授权 GitHub 独立主线登记和设计文件写入；未授权渲染、训练或远程执行",
-  "executor": null,
+  "protocol": "EXECUTION_PROTOCOL.md",
+  "protocol_status": "frozen_for_first_bounded_contact_probe",
+  "plan_status": "bounded_probe_stopped_at_P0_coverage_gate",
+  "execution_status": "P0_completed_probe_not_started",
+  "scientific_status": "inconclusive_data_support",
+  "artifact_status": "P0_results_report_and_QA_returned",
+  "transfer_status": "20_manifest_files_SHA_verified_226_caches_retained_server",
+  "authorization": "2026-10-22用户明确授权完善后直接服务器实验，并允许按需多卡；范围冻结于EXECUTION_PROTOCOL.md",
+  "executor": "a25023104@192.168.71.10",
   "active_run_id": null,
-  "current_phase": "P0_dataset_code_baseline_and_contact_boundary_ledger_audit_pending",
+  "current_phase": "P0_source_coverage_gate_not_met",
+  "design_version": "base_v0.1_20261022_with_v3_research_priority",
+  "basic_specification": "../../paper/manuscripts/spm_yoloseg/BASE_IMPLEMENTATION_SPEC.md",
+  "draft_config": "BASE_CONFIG_DRAFT.json",
+  "upstream_design_revision": "a7e47c44",
+  "runtime_implementation_exists": true,
+  "current_priority": "establish_sufficient_contact_source_support_before_probe",
+  "updated_on": "2026-10-22",
   "formal_training_started": false,
   "formal_optimizer_steps": 0,
   "scheduled_tasks": false,
@@ -26,15 +33,66 @@
     "P4_controlled_ablation",
     "P5_independent_validation_and_paper"
   ],
-  "evidence_note": "2026-10-22 V3 updates only research priority, risk decision tree and probe draft. No new real Run, Blender render, prototype weights, contact probe scores or positive scientific effects have been verified.",
-  "design_revision": "2026-10-22_v3_contact_boundary_priority",
-  "current_decision_question": "Does frozen YOLO26-Seg P3/P4 reliably distinguish same-class pig-pig boundaries (C) from pig-background boundaries (B) in held-out real video/pen groups?",
-  "next_recommended_research_step": "Finish read-only P0 data/model/GT contact ledger audit; then, with separately frozen authorization, execute frozen P3/P4 contact boundary probe before large synthetic or memory training.",
   "design_documents": [
     "paper/manuscripts/spm_yoloseg/IMPLEMENTATION_BLUEPRINT_V2.md",
     "paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md",
     "paper/manuscripts/spm_yoloseg/PRIORITIES_RISKS_AND_DECISION_TREE_V3.md",
     "experiments/spm_yoloseg_20261021/PILOT_AND_ABLATION_V2.md",
-    "experiments/spm_yoloseg_20261021/CONTACT_BOUNDARY_PROBE_DRAFT.md"
-  ]
+    "experiments/spm_yoloseg_20261021/CONTACT_BOUNDARY_PROBE_DRAFT.md",
+    "paper/manuscripts/spm_yoloseg/BASE_IMPLEMENTATION_SPEC.md",
+    "experiments/spm_yoloseg_20261021/BASE_CONFIG_DRAFT.json",
+    "experiments/spm_yoloseg_20261021/PROTOCOL_DRAFT.md"
+  ],
+  "design_revisions": [
+    {
+      "version": "base_v0.1_20261022",
+      "supersedes_scope": "V1/V2中首版P3+P4共同投影、查询上游解冻、效果矩阵优先及HF效用作为构库必经前提的未执行建议",
+      "preserved_scope": "V2场景统计、真实纹理/频率迁移及效果对照作为可选扩展保留",
+      "frozen_protocols_or_runs_changed": false,
+      "reason": "用户要求先完成最基本方案与必须接口，再讨论效果"
+    }
+  ],
+  "evidence_note": "Slurm181 completed 226 images; 212 sampled C tokens in55 images, only4 eligible inferred families versus required8. No feature forwards, no probe/detector/prototype optimization; no method effect measured.",
+  "design_revision": "2026-10-22_v3_contact_boundary_priority",
+  "current_decision_question": "Does frozen YOLO26-Seg P3/P4 reliably distinguish same-class pig-pig boundaries (C) from pig-background boundaries (B) in held-out real video/pen groups?",
+  "next_recommended_research_step": "Superseded by user-directed direct prototype training; follow child Study, do not restart contact census.",
+  "authorization_record": "AUTHORIZATION_SERVER_20261022.json",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/spm-yoloseg-20261022",
+  "execution_config": "EXECUTION_CONFIG.json",
+  "freeze_manifest": "FREEZE_MANIFEST.json",
+  "slurm_jobs": {
+    "p0_failed_preparation": 180,
+    "p0_retry": 181
+  },
+  "engineering_failures": [
+    {
+      "job_id": 180,
+      "run_id": "RUN_SPM_P0_57a92317e623",
+      "stage": "p0",
+      "cause": "input extraction preflight failed on Windows-style manifest path keys; submission proceeded before dependency success",
+      "training_steps": 0,
+      "recovery": "manifest path keys normalized; same source/config/annotation preserved; verify and extract before job181"
+    }
+  ],
+  "current_run": "RUN_SPM_P0_a5037a9c76d5",
+  "report": "REPORT_SPM_S1_20261022.md",
+  "decision": "DECISION_SPM_P0_20261022.json",
+  "acceptance_receipt": "P0_ACCEPTANCE_RECEIPT_20261022.json",
+  "runs": [
+    "RUN_SPM_P0_57a92317e623",
+    "RUN_SPM_P0_a5037a9c76d5"
+  ],
+  "probe_optimizer_steps_completed": 0,
+  "feature_images_completed": 0,
+  "acceptance": {
+    "execution_verified": true,
+    "P0_gate_passed": false,
+    "eligible_families": 4,
+    "required_families": 8,
+    "images": 226,
+    "images_with_C": 55,
+    "C_tokens": 212,
+    "raw_recount_matches": true
+  },
+  "continued_by": "../spm_prototype_training_20261022/study.json"
 }

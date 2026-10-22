@@ -1,0 +1,22 @@
+RUN RUN_SPM_PROTO_SMOKE_6be0cfa75245
+features 1 8 {'train/real/1': 32, 'train/real/0': 32}
+libpng warning: eXIf: duplicate
+libpng warning: eXIf: duplicate
+libpng warning: eXIf: duplicate
+libpng warning: eXIf: duplicate
+train {'step': 1, 'total': 12.490434646606445, 'invariance': 0.006789422128349543, 'variance': 0.4471185505390167, 'covariance': 0.45350682735443115, 'fg_bce': 0.6892279386520386}
+train {'step': 16, 'total': 6.995227336883545, 'invariance': 0.01046154648065567, 'variance': 0.11350592970848083, 'covariance': 3.574902057647705, 'fg_bce': 0.3211382031440735}
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022/scripts/prototype_train.py", line 318, in <module>
+    if __name__ == "__main__": main()
+                               ^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022/scripts/prototype_train.py", line 301, in main
+    summary = build_memory(run, cfg, data, projector, q, metrics)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022/scripts/prototype_train.py", line 247, in build_memory
+    fg, fg_cards, fg_summary = discover(q, data["records"], cfg, 1)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022/scripts/prototype_train.py", line 233, in discover
+    assert updated, "all prototypes pruned"
+           ^^^^^^^
+AssertionError: all prototypes pruned

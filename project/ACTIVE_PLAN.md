@@ -2,7 +2,19 @@
 
 按用户当前指定的研究线读取相应入口，各线的实验状态、执行设备和冻结 Gate 独立。研究线身份见 [research_lines.json](research_lines.json)，原型—系数链路的既有总控在下方保留。
 
-**2026-10-22 用户最新安排：暂不执行 LCF 正式统计结案及其后继实验，保留 `evaluated_pending_statistics` 状态、已有验收结论和未完成项。当前动作仅将已有研究文件、结果与验收记录提交并推送 GitHub；后续转做其它主线，具体研究线与执行范围待用户指定，不据此启动新实验。** 本次推送授权覆盖已有记录中的“不自动提交推送”限制；不改变任何冻结 Gate、科学结论或训练预算。
+**2026-10-22 用户最新安排：暂不执行LCF正式统计结案及其后继实验，保留 `evaluated_pending_statistics` 状态、已有验收结论和未完成项。已有结果已推送GitHub；用户随后明确选择SPM-YOLO，当前任务见下节。** 不改变LCF任何冻结Gate、科学结论或训练预算。
+
+## 当前用户指定主线：SPM-YOLO 猪群原型记忆
+
+**2026-10-23 当前保存检查点：用户在推进多样化猪场场景后要求“你先保存现有成果”。** [SPM-FARM](../experiments/spm_farm_scenes_20261023/study.json)已完成资产预检和Slurm189工程渲染：`RUN_SPM_FARM_SMOKE_c065813560a6`，8个独立场景×2外观、90头几何实例/180条可见Mask，640×384原生标签；32,768条独立射线ID核验0错，RLE往返与成对标签一致。站/走/进食/腹卧/左右侧卧、4布局/4地面/2相机已生成；3次前置工程失败与R0/R1源码保留。见[保存与接续说明](../experiments/spm_farm_scenes_20261023/CHECKPOINT.md)、[报告](../experiments/spm_farm_scenes_20261023/REPORT.md)。**当前动作仅保存与回传，不再追加作业；正式128场景/256图及新版2000步原型更新均未启动。** 原P1的已训练memory/projector保留；新训练执行器尚未完成，TRAIN_PROTOCOL与输入准备脚手架不能视为已训练。恢复时唯一下一步是按真实猪体尺度完善相机近景/局部群体取景并复核姿态样例，再按原预算执行正式生成。此安排取代下段未启动的“先接入旧库smoke”顺序；不改旧Run/Gate，不把工程样例视为Mask AP收益，无定时任务或自动续训。
+
+**2026-10-22：按用户明确目标，已训练出双源原型并交付。** Slurm184/`RUN_SPM_PROTO_TRAIN_2e46d0049349`正式完成2000步投影训练及构库（exit0，1分55秒），真实226图＋既有Blender Pig 384帧，共610图提取、492图train-only学习；P3编码器固定官方COCO预训练，未先训猪群YOLO B。已交付[原型memory](../experiments/spm_prototype_training_20261022/artifacts/pig_prototype_memory.pt)和[投影权重](../experiments/spm_prototype_training_20261022/artifacts/pig_projector.pt)：fg/bg各128个128维中心，26项回传SHA一致、单位中心及512条dev特征独立检索误差0，编码器不变。两分区均触及容量上限，不能称最优K；训练loss12.3533→.9709不是Mask AP收益。Slurm182工程失败保留，183重试通过，累计32工程步独立于2000正式步。见[报告](../experiments/spm_prototype_training_20261022/REPORT.md)、[协议](../experiments/spm_prototype_training_20261022/PROTOCOL.md)、[Study](../experiments/spm_prototype_training_20261022/study.json)。**唯一下一步：将已验证memory接入同编码器YOLO P3，先做零残差等价与真实检索响应smoke，尚未启动。** 下方SPM-S1失败不重判，其Gate不阻止本轮原型训练；“先接触普查”建议由用户新指令取代。服务器独立根`/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022`，无遗留作业、定时器或目标模式。
+
+**2026-10-22服务器SPM-S1已执行，在P0覆盖Gate停止。** 用户授权完善后直接服务器实验并允许按需多卡；实际按[冻结合同](../experiments/spm_yoloseg_20261021/EXECUTION_PROTOCOL.md)完成226张原train图/38视频的标签核验，Slurm181/`RUN_SPM_P0_a5037a9c76d5`正常结束84.42秒。55图产生212个采样C token，B/I为5424/4813；17个推断family中仅4个达到各类≥16的覆盖要求，低于预冻结8组，故本配置停止，特征前向与所有训练均0，未占GPU。Slurm180输入准备工程失败保留。20项回传清单SHA和账本计数复算通过，226个cache留服务器；无probe AP或方法效用结果。**当前正向重点与唯一下一步建议：对已有原train全量标注做零训练接触来源普查，区分均匀6帧漏采稀有接触与来源本身不足；尚未启动，不降低原Gate或重选原226图。** 文件名family不是已核实物理猪栏，不能声称跨栏泛化。见[报告](../experiments/spm_yoloseg_20261021/REPORT_SPM_S1_20261022.md)、[回执](../experiments/spm_yoloseg_20261021/P0_ACCEPTANCE_RECEIPT_20261022.json)、[Study](../experiments/spm_yoloseg_20261021/study.json)。服务器独立根`/srv/gpu-lab/users/a25023104/projects/spm-yoloseg-20261022`；本轮不训练YOLO/原型、不渲染Blender，无定时器或目标模式，下方准备快照不再代表未执行。
+
+**本次拉取更新（2026-10-22，`a7e47c44`）：** 新增[V3重点难点与科学决策树](../paper/manuscripts/spm_yoloseg/PRIORITIES_RISKS_AND_DECISION_TREE_V3.md)及[接触边界Probe草案](../experiments/spm_yoloseg_20261021/CONTACT_BOUNDARY_PROBE_DRAFT.md)。本地基础接口方案保留；当前P0输入清点同时覆盖真实同类接触C/猪-背景B/内部I账本及P3/P4提取接口，后续科研取舍按V3建议顺序另行冻结。下段V2拉取与基础设计记录保留，不视为绕过V3建议直接构库/训练的授权。
+
+**2026-10-22：已拉取远端5项V2设计更新（HEAD `9b03dfe6`），用户要求“先把最基本的方案做出来，在讨论实验效果，先把必须做的完善了”。** 当前优先完成[基础实现方案](../paper/manuscripts/spm_yoloseg/BASE_IMPLEMENTATION_SPEC.md)与[配置草案](../experiments/spm_yoloseg_20261021/BASE_CONFIG_DRAFT.json)：可见实例RLE与共用加载器、Blender几何标注、单P3投影/动态原型、冻结查询坐标、原生训练梯度、检索融合及模型打包。真实高频迁移可独立关闭，完整效果矩阵留待基础链路接通后讨论。**唯一下一步：清点本地已登记真实RGB/可见Mask与3D资产，补齐路径、来源和哈希。** 仍为设计/`not_started`/`hypothesis_only`，未实现运行代码、未渲染或训练，未选择本线执行设备或冻结预算；不自动启动远程任务。见[主线入口](../paper/manuscripts/spm_yoloseg/README.md)与[Study](../experiments/spm_yoloseg_20261021/study.json)。其它独立研究线的既有结果与状态保持不变。
 
 ## 用户指定独立诊断：YOLOseg低中高频分析
 

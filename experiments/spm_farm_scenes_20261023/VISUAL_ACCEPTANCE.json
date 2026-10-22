@@ -1,0 +1,20 @@
+{
+  "reviewed_date": "2026-10-23",
+  "run_id": "RUN_SPM_FARM_SMOKE_c065813560a6",
+  "slurm_job_id": 189,
+  "reviewed_images": ["PREVIEW_RGB.jpg", "PREVIEW_MASKS.jpg"],
+  "reviewed_geometry_ids": ["SMOKE_9000", "SMOKE_9001", "SMOKE_9002", "SMOKE_9003", "SMOKE_9004", "SMOKE_9005", "SMOKE_9006", "SMOKE_9007"],
+  "engineering_label_pipeline_passed": true,
+  "observed": [
+    "standing, walking, feeding, prone and side-lying appear in generated pen layouts",
+    "floor, fences, trough and drinker are present",
+    "mask contours follow visible pig outlines in the eight reviewed previews",
+    "camera fitting the entire pen leaves pigs smaller than the real-train reference",
+    "some row layouts are overly regular; resting limb shapes remain stylized"
+  ],
+  "not_claimed": ["photorealistic pigs", "statistically matched real pose frequencies", "real segmentation gain"],
+  "formal_render_authorized_after_smoke_review": false,
+  "reason": "user requested saving first; refine camera framing and inspect close pose examples before formal generation",
+  "next_action_after_resume": "real-scale close and partial-pen camera framing plus pose review",
+  "new_jobs_started_after_save_request": 0
+}

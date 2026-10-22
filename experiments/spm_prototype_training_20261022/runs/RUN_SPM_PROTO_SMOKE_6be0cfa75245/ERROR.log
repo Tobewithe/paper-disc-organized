@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022/scripts/prototype_train.py", line 301, in main
+    summary = build_memory(run, cfg, data, projector, q, metrics)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022/scripts/prototype_train.py", line 247, in build_memory
+    fg, fg_cards, fg_summary = discover(q, data["records"], cfg, 1)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022/scripts/prototype_train.py", line 233, in discover
+    assert updated, "all prototypes pruned"
+           ^^^^^^^
+AssertionError: all prototypes pruned

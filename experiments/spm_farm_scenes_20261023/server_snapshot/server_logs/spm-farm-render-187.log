@@ -1,0 +1,13 @@
+RUN RUN_SPM_FARM_SMOKE_707bd2434460
+Traceback (most recent call last):
+TypeError: bpy_struct: item.attr = val: enum "BW" not found in ('RGB', 'RGBA')
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/run_render.py", line 203, in <module>
+    main()
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/run_render.py", line 183, in main
+    summary = postprocess(root, run, args.stage)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/run_render.py", line 112, in postprocess
+    assert len(scene_paths) == expected and len(entries) == expected*2
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

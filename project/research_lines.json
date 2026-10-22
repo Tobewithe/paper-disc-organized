@@ -215,15 +215,22 @@
       "line_id": "LINE_SPM_YOLOSEG_20261021",
       "key": "spm_yoloseg",
       "title": "合成—真实原型记忆增强的猪群实例分割（SPM-YOLO）",
-      "status": "research_draft",
+      "status": "prototype_P1_preserved_farm_scene_smoke_completed_saved_checkpoint",
       "role": "independent_mainline",
       "entrypoint": "paper/manuscripts/spm_yoloseg/README.md",
       "paper_directory": "paper/manuscripts/spm_yoloseg",
       "study_ids": [
-        "STUDY_SPM_YOLOSEG_20261021"
+        "STUDY_SPM_YOLOSEG_20261021",
+        "STUDY_SPM_PROTOTYPE_TRAINING_20261022",
+        "STUDY_SPM_FARM_SCENES_20261023"
       ],
       "focus_documents": [
         "paper/manuscripts/spm_yoloseg/README.md",
+        "paper/manuscripts/spm_yoloseg/BASE_IMPLEMENTATION_SPEC.md",
+        "experiments/spm_yoloseg_20261021/BASE_CONFIG_DRAFT.json",
+        "paper/manuscripts/spm_yoloseg/IMPLEMENTATION_BLUEPRINT_V2.md",
+        "paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md",
+        "experiments/spm_yoloseg_20261021/PILOT_AND_ABLATION_V2.md",
         "paper/manuscripts/spm_yoloseg/RESEARCH_CHARTER.md",
         "paper/manuscripts/spm_yoloseg/RESEARCH_RULES.md",
         "experiments/spm_yoloseg_20261021/PROTOCOL_DRAFT.md",
@@ -232,15 +239,24 @@
         "paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md",
         "paper/manuscripts/spm_yoloseg/PRIORITIES_RISKS_AND_DECISION_TREE_V3.md",
         "experiments/spm_yoloseg_20261021/PILOT_AND_ABLATION_V2.md",
-        "experiments/spm_yoloseg_20261021/CONTACT_BOUNDARY_PROBE_DRAFT.md"
+        "experiments/spm_yoloseg_20261021/CONTACT_BOUNDARY_PROBE_DRAFT.md",
+        "experiments/spm_prototype_training_20261022/REPORT.md",
+        "experiments/spm_prototype_training_20261022/PROTOCOL.md",
+        "experiments/spm_prototype_training_20261022/study.json",
+        "experiments/spm_farm_scenes_20261023/CHECKPOINT.md",
+        "experiments/spm_farm_scenes_20261023/REPORT.md",
+        "experiments/spm_farm_scenes_20261023/study.json"
       ],
       "locations": [],
       "limits": [
         "2026-10-21 仅授权登记独立应用型论文主线与未冻结实验草案；未授权数据渲染/远程 GPU/模型训练。",
+        "2026-10-22用户选择本线，拉取V2并要求先完善基础实现方案；当前P3/RLE/梯度/打包接口已细化设计，仍无运行代码、未渲染或训练，执行设备与预算未冻结。",
         "原型记忆为跨图像可检索特征，不等同于 YOLO26 原生 Proto26 掩码原型或既有 Prototype→Coefficient 研究。",
         "数据/容量/域差竞争解释、泄漏防护及独立真实测试结果需先验证；无科学结果、期刊接收/分区保证。",
         "原 neighbor_sensitive_p3、mask_boundary_calibration 和 world_model_action_time_identifiability 的协议、运行和结果均不改变。",
-        "2026-10-22 V3 未冻结设计优先级：P0 真实分簇/可见 Mask + 接触边界账本优先；随后冻结 P3/P4 接触边界可读性 probe（需另行授权）；仅有证据后扩大 Blender/真实高频/原型注入。"
+        "2026-10-22 V3 未冻结设计优先级：P0 真实分簇/可见 Mask + 接触边界账本优先；随后冻结 P3/P4 接触边界可读性 probe（需另行授权）；仅有证据后扩大 Blender/真实高频/原型注入。",
+        "2026-10-22用户明确要求训练原型；Slurm184已完成2000步及fg/bg各128个128维中心。双源产物和重载通过，两分区容量触限，分割AP和物理猪栏泛化未测；旧S1失败不改写。",
+        "2026-10-23用户要求先保存；Slurm189工程样例8几何场景/16图/90头，标签射线核验通过。正式128场景与新版原型/YOLO训练尚未启动；旧P1权重保留，无自动续训。"
       ],
       "design_version": "v3_contact_boundary_priority_draft"
     }

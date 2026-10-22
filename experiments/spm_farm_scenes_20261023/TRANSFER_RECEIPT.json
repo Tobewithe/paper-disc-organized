@@ -1,0 +1,81 @@
+{
+  "saved_date": "2026-10-23",
+  "verified_at_utc": "2026-10-22T16:35:43.199156+00:00",
+  "archive": "SPM_FARM_CHECKPOINT_20261023.tar.gz",
+  "archive_sha256": "ba33fbc5d3ed2b71963e3bdd99d07cfa904d167392fe523866780a83f702df00",
+  "archive_size_bytes": 11214426,
+  "archive_SHA_matched_server": true,
+  "render_manifest_files_verified": 89,
+  "render_runs": [
+    {
+      "run_id": "RUN_SPM_FARM_SMOKE_707bd2434460",
+      "job": 187,
+      "status": "failed",
+      "files_verified": 5,
+      "frozen_source_snapshot": "revisions\\render187"
+    },
+    {
+      "run_id": "RUN_SPM_FARM_SMOKE_c065813560a6",
+      "job": 189,
+      "status": "completed",
+      "files_verified": 59,
+      "frozen_source_snapshot": "."
+    },
+    {
+      "run_id": "RUN_SPM_FARM_SMOKE_fc69af56c6d8",
+      "job": 188,
+      "status": "failed",
+      "files_verified": 25,
+      "frozen_source_snapshot": "revisions\\render188"
+    }
+  ],
+  "asset_preflight_records": [
+    {
+      "study_id": "STUDY_SPM_FARM_SCENES_20261023",
+      "run_id": "RUN_SPM_ASSET_PRECHECK_JOB185",
+      "stage": "read_only_asset_preflight",
+      "slurm_job_id": 185,
+      "execution_status": "failed",
+      "exit_code": 127,
+      "started_at_server_reported": "2026-10-23T00:10:33",
+      "ended_at_server_reported": "2026-10-23T00:10:35",
+      "elapsed": "00:00:02",
+      "timestamp_source": "sacct server-reported; no timezone conversion inferred",
+      "metadata_recorded_after_execution": true,
+      "source_sha256": "55dd002f9b9e202804882ffa61d0b35c89324f4e2deb8c3e057e58d055edc788",
+      "command": "sbatch scripts/inspect.sbatch",
+      "optimizer_steps": 0,
+      "scientific_status": "engineering_inventory_only",
+      "reason": "missing_existing_user_runtime_library_search_path"
+    },
+    {
+      "study_id": "STUDY_SPM_FARM_SCENES_20261023",
+      "run_id": "RUN_SPM_ASSET_PRECHECK_JOB186",
+      "stage": "read_only_asset_preflight",
+      "slurm_job_id": 186,
+      "execution_status": "completed",
+      "exit_code": 0,
+      "started_at_server_reported": "2026-10-23T00:11:35",
+      "ended_at_server_reported": "2026-10-23T00:11:39",
+      "elapsed": "00:00:04",
+      "timestamp_source": "sacct server-reported; no timezone conversion inferred",
+      "metadata_recorded_after_execution": true,
+      "source_sha256": "55dd002f9b9e202804882ffa61d0b35c89324f4e2deb8c3e057e58d055edc788",
+      "command": "sbatch scripts/inspect.sbatch",
+      "optimizer_steps": 0,
+      "scientific_status": "engineering_inventory_only",
+      "reason": "completed_asset_inspection"
+    }
+  ],
+  "old_P1_core_weights_SHA_verified": {
+    "artifacts/pig_prototype_memory.pt": "6c6ca1237b1500eed317b93c47c01ebbba1118fd16cd2c009224d354779c69cd",
+    "artifacts/pig_projector.pt": "4e32f2ca3c1cd8a1998b184a825510a427bd37dc9efa5f68e7377c62034fe939"
+  },
+  "new_training_steps": 0,
+  "formal_generation_started": false,
+  "source_revisions_preserved": [
+    "revisions/render187",
+    "revisions/render188"
+  ],
+  "scope": "local/server checkpoint integrity; not a new model-utility evaluation"
+}

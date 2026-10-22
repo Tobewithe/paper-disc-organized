@@ -6,6 +6,8 @@
 > **V3 执行优先级补充（2026-10-22）：** 完成 P0 的真实数据/Mask/模型审计后，优先进行[冻结 P3/P4 接触边界 Probe](CONTACT_BOUNDARY_PROBE_DRAFT.md) 的小规模科学判别（需另行冻结与训练授权），以辨明同类实例边界线索是否在特征中可稳定读取，再决定外观/几何原型和合成规模。V2 原设计的同几何 V0/V2/V3 高频实验保留、但**不是 P0 后默认立即开训**。[V3 决策树](../../paper/manuscripts/spm_yoloseg/PRIORITIES_RISKS_AND_DECISION_TREE_V3.md)。  
 **前置：** [V2 实施蓝图](../../paper/manuscripts/spm_yoloseg/IMPLEMENTATION_BLUEPRINT_V2.md)、[频率迁移规范](../../paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md)、[RESEARCH_RULES](../../paper/manuscripts/spm_yoloseg/RESEARCH_RULES.md)。本文件补充原 [PROTOCOL_DRAFT](PROTOCOL_DRAFT.md)，**不覆盖或替代任何已冻结 Protocol**。
 
+**当前暂不展开本矩阵：** 用户本轮要求先完善[基础方案](../../paper/manuscripts/spm_yoloseg/BASE_IMPLEMENTATION_SPEC.md)，之后再讨论实验效果。下列Stage A–E作为后续研究候选保留，HF对比阳性不是构建基础原型链路的强制前提；当前只做输入清点与接口设计，未授权远程运行或新训练。
+
 ## 1. 研究命题、竞争解释和主比较
 
 | 主张 | 关键干预 | 合法主比较 | 竞争解释 |

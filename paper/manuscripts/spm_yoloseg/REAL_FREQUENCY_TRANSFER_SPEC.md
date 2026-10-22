@@ -3,6 +3,8 @@
 **2026-10-22 | DESIGN DRAFT | 无现成代码/真实实验**  
 [总实施蓝图](IMPLEMENTATION_BLUEPRINT_V2.md) · [首轮对照](../../../experiments/spm_yoloseg_20261021/PILOT_AND_ABLATION_V2.md)
 
+**基础实现优先级（2026-10-22）：** 当前先实现[基础链路](BASE_IMPLEMENTATION_SPEC.md)。本模块作为独立可关闭选项保留，默认关闭；真实高频处理、PBR贴图和相机处理分别开关，不要求高频先获得增益才允许构建原型。本轮只完善设计，以下算法仍未实现/执行。
+
 ## 1. 问题：真实「高频」不只有一个东西
 
 视频像素中的高频至少来自 **(a) 猪皮毛孔/毛发/褶皱/污渍微纹理；(b) 真实猪、栏杆、地面等物体轮廓锐度；(c) 镜头 PSF/去马赛克/锐化、ISO 噪声、帧压缩和下采样伪影**。三种来源不是同一种变换：
@@ -10,7 +12,7 @@
 - (b) 属于几何边界，优先由正确的三维猪体姿态、遮挡 Z-buffer 与相机成像产生，**绝不把真实猪的外轮廓直接贴到合成 Mask 附近**；
 - (c) 属于整帧成像管线，应该在 Blender 渲染后统一模拟，不能只给合成猪加噪声而不给背景。
 
-**最强首选方案**：Blender 负责正确几何/遮挡、Pig/ground 类别真实纹理做材质、统一真实条件镜头+噪声+编码；频域统计用于进一步校准和进行结构化增强，避免高频细节成为单一猪舍的记忆捷径。
+**完整候选方案**：Blender 负责正确几何/遮挡、Pig/ground 类别真实纹理做材质、统一真实条件镜头+噪声+编码；频域统计用于进一步校准和进行结构化增强。基础版先用可核实的程序性材质与基本成像；不能在没有比较结果时把完整候选称为最强方案。
 
 ## 2. 真实素材采集：train-only 的 patch/频谱/成像参数库
 
@@ -43,6 +45,8 @@
 **V3 Real-HF**：**真实语义条件统计 + 保持合成相位**的局部高频幅度匹配，Pig / floor / bg 单独处理；并施加真实训练相机 profile 的图像退化。  
 **V4 Hybrid**：三维真实纹理材质+真实低频风格+V3 高频+真实相机退化，原则是每层可关闭，不能把几个变化混在一起后宣称高频单独有效。
 
+实现时拆出 `V3a=real-HF only`、`V3b=camera only`、`V3c=both`；这些是独立开关标识，当前不启动三臂实验。V0/V2/V3a共用基础相机映射和非研究变量。相机几何warp一旦变化就产生新geometry_hash，不能继续标成同几何视图。原PASTA是“高频扰动相对更强”，不等于严格只改高频；本地裁频带/局部语义版标作PASTA-inspired，待与[作者实现](https://github.com/prithv1/PASTA)核对后才可称原方法复现。
+
 **公平数据量**：每个几何 scene_id 在每臂只采**一张**训练图；不同 variant 虽可离线生成配对 QA 图，训练时每 epoch 按固定 seed 调度，不能 V3 训练了 3×样本却拿 V0 当无额外数据对照。权威 scene 及 visible Mask SHA 逐一一致，除非对镜头几何有同样作用于标签的合法几何变换。
 
 ## 4. Real-HF 的可编码算法：分两支，不能只套整图 FFT
@@ -54,20 +58,27 @@
 4. 随相机投影自然产生 perspective shrink、遮挡、阴影和 specular；高清渲染再用相机 PSF→下采样，这通常比在最终图像复制静态纹理更接近真实成像。
 5. **必要消融**：全程序性猪皮纹理 vs train-real UV patch 材质；若真实皮纹只导致对某个猪场肤色过拟合，保留 30–50% 完全随机材质样本作为候选。
 
+单张压缩RGB不能唯一分离albedo、法线、粗糙度与光照；这里得到的是近似外观残差。法线/粗糙度优先用程序性先验，任何由RGB估计的物理材质参数须标为估计值，不能冒称真实PBR真值。
+
 ### 4.2 支路 B：类别条件「真实高频幅度谱」适配（容易先实现）
 
 局部 patch 记为 S，真实训练类别桶聚合的目标谱为 A_real,c,bin(f)，源谱 A_syn(f)，源相位 φ_syn(f)。为避免目标图片的解剖轮廓偷偷进入合成标签，**不拷贝 φ_real**，只改变高频振幅。
 
-    F_syn = FFT2( Hann(S - mean(S)) )
-    A_syn = abs(F_syn)
-    phi_syn = angle(F_syn)
-    w(f) = smooth_band_mask(f; f_min,f_max) * alpha
-    log_A_mix = (1-w) * log(A_syn+eps) + w * log(A_real,c,bin+eps)
-    F_mix = exp(log_A_mix) * exp(1j * phi_syn)
-    H_mix = iFFT2(F_mix).real
-    S_new = preserve_local_mean_and_low_frequency(S, H_mix)
+    window_j = Hann_window_for_patch_j
+    F_j = FFT2(window_j * (S_j - mean(S_j)))
+    delta_log_j = log(A_real,c,bin + eps) - log(abs(F_j) + eps)
+    gain_j = exp(alpha * smooth_band_mask * clipped_delta_log_j)
+    gain_j[DC] = 1                         # 偶对称正实增益
+    D_j = iFFT2(F_j * (gain_j - 1)).real   # 只重建频谱增量
+    delta_image = sum_j(scatter(window_j * D_j)) / max(sum_j(scatter(window_j**2)), eps)
+    delta_image[uncovered_pixels] = 0
+    S_new = S + valid_interior_mask * delta_image
 
 其中 **A_real 是从许多 train patch 平滑聚合的谱包络，不是某张真实猪照片的 FFT**。f_min/f_max 在最终 640 像素单位定义，首版可用 1/16 到 1/2 cycles/pixel 作为高频候选，alpha ∈ {0,0.25,0.5,0.75} 的候选要经 dev 冻结。实际实现需要 patch Hann window、overlap-add 平滑、避免局部相位/振幅数值爆炸，并将倍率（建议初始 0.5–2 的试验夹紧）记录到 manifest。色彩统计尽可能与频谱能量分离，避免整体变色。
+
+**数值约定：** gain在每对共轭频率上相同，或用合法rFFT实现；alpha=0时gain恒为1，D_j恒为0，输出直接等于原S，不能用窗口化patch重建替换原图而留下Hann衰减。eps只用于对数/分母保护，不凭空向零能量频点注入eps幅度；这也意味着纯增益不能恢复原本严格为零的频点。真实/合成谱使用相同窗口、归一化与patch尺寸。未覆盖区域保留原图，不除以近零窗口。记录重建虚部误差、增益夹紧、RGB越界/裁剪比例。
+
+**频率和空间的边界：** 内部soft mask、overlap-add与RGB裁剪会产生额外频率成分，不能声称最终图像严格只有高频改变。局部均值/低频漂移及边界带变化按预定数值容差核验；保源相位也不保证可见边缘位置绝对不变。频谱统计与变换必须处于相同采样网格；若改变分辨率，重新换算频带和统计，不直接复用640尺度参数。
 
 **图像合成**：对 Pig/背景各有效内部区域分别求 S_new，再用 soft-eroded region mask 混合；在实例轮廓 3–7px 保护带内不使用真实局部 donor 谱或 donor residual，轮廓只受物理成像统一模糊/锐化影响。边界保护带的宽度应随最终像素尺度和 PSF 调整，不能用遮罩羽化制造「人工毛边」。
 
@@ -121,7 +132,7 @@ FDA（CVPR 2020）强调替换**低频**幅度使 synthetic 更接近 real 风�
 - test_no_test_source_in_bank、test_repeatability_given_seed、test_mask_sha_invariant；
 - test_foreground_background_band_isolation；
 - test_fft_identity_at_alpha_zero、test_complex_inverse_real_numerics；
-- test_only_high_band_changes、test_no_nan_blowup、test_color_range；
+- test_intended_band_gain_and_bounded_low_frequency_leakage、test_no_nan_blowup、test_color_range；
 - test_split_video_heldout、test_PSFWarp_mask_sync；
 - test_donor_texture_not_containing_other_pig_edges。
 

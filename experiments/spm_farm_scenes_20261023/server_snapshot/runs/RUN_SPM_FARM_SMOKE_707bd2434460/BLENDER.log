@@ -1,0 +1,15 @@
+Blender 4.2.1 LTS (hash 396f546c9d82 built 2024-08-19 23:32:23)
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/render_farm.py", line 488, in <module>
+    main()
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/render_farm.py", line 483, in main
+    render_one(cfg, recipe, output)
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/render_farm.py", line 440, in render_one
+    scene, pigs, compositor, devices = setup(cfg, recipe)
+                                       ^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/render_farm.py", line 348, in setup
+    output.format.file_format = 'OPEN_EXR'; output.format.color_mode = 'BW'; output.format.color_depth = '32'
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: bpy_struct: item.attr = val: enum "BW" not found in ('RGB', 'RGBA')
+
+Blender quit

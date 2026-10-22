@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-yoloseg-20261022/scripts/contact_probe.py", line 306, in main
+    if a.stage == "p0": result = p0(root, run, cfg)
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-yoloseg-20261022/scripts/contact_probe.py", line 98, in p0
+    inp = root / "inputs"; data = json.loads((inp / "annotations.json").read_text())
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/.cache/python3123-source-runtime/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/.cache/python3123-source-runtime/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/srv/gpu-lab/users/a25023104/projects/spm-yoloseg-20261022/inputs/annotations.json'

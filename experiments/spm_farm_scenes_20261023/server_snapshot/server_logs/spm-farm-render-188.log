@@ -1,0 +1,17 @@
+RUN RUN_SPM_FARM_SMOKE_fc69af56c6d8
+SCENE_COMPLETE SMOKE_9000 {'feeding': 1, 'walking': 1, 'standing': 1} 7.289522261999082
+SCENE_COMPLETE SMOKE_9001 {'walking': 3, 'feeding': 4, 'standing': 1} 6.091702885001723
+SCENE_COMPLETE SMOKE_9002 {'prone': 2, 'lateral_left': 1} 4.759774547001143
+SCENE_COMPLETE SMOKE_9003 {'prone': 3, 'lateral_right': 4, 'lateral_left': 1} 5.103537507002329
+SCENE_COMPLETE SMOKE_9004 {'standing': 3, 'prone': 3, 'lateral_left': 2, 'walking': 2, 'lateral_right': 2, 'feeding': 2} 6.241168935997848
+Traceback (most recent call last):
+    raise RuntimeError(f"Cannot place requested pig {i+1}/{recipe['requested_pigs']} without intersection; {recipe['geometry_id']}")
+RuntimeError: Cannot place requested pig 16/20 without intersection; SMOKE_9005
+Error: script failed, file: '/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/render_farm.py', exiting.
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/run_render.py", line 203, in <module>
+    main()
+  File "/srv/gpu-lab/users/a25023104/projects/spm-farm-scenes-20261023/scripts/run_render.py", line 182, in main
+    assert code == 0, f'Blender failed exit={code}; inspect BLENDER.log'
+           ^^^^^^^^^
+AssertionError: Blender failed exit=1; inspect BLENDER.log

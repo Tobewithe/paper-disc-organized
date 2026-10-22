@@ -1,0 +1,54 @@
+{
+  "status": "trained_and_memory_built",
+  "projector_steps": 2000,
+  "foreground": {
+    "partition": 1,
+    "K": 128,
+    "training_tokens": 14973,
+    "capacity_hits": 14471,
+    "quantization_cosine": 0.5450275540351868
+  },
+  "background": {
+    "partition": 0,
+    "K": 128,
+    "training_tokens": 15744,
+    "capacity_hits": 14160,
+    "quantization_cosine": 0.5588055849075317
+  },
+  "representation_metrics": {
+    "train/real": {
+      "tokens": 11008,
+      "fg_accuracy_at_0_5": 0.9616642594337463,
+      "paired_cosine": 0.9900714755058289,
+      "mean_coordinate_std": 1.0674524307250977
+    },
+    "train/synthetic": {
+      "tokens": 19709,
+      "fg_accuracy_at_0_5": 0.9904612302780151,
+      "paired_cosine": 0.9930223226547241,
+      "mean_coordinate_std": 1.0310890674591064
+    },
+    "dev/real": {
+      "tokens": 3456,
+      "fg_accuracy_at_0_5": 0.9293981790542603,
+      "paired_cosine": 0.9890421032905579,
+      "mean_coordinate_std": 1.0992122888565063
+    },
+    "dev/synthetic": {
+      "tokens": 3808,
+      "fg_accuracy_at_0_5": 0.9905462861061096,
+      "paired_cosine": 0.9939024448394775,
+      "mean_coordinate_std": 1.0263135433197021
+    }
+  },
+  "memory_sha256": "6c6ca1237b1500eed317b93c47c01ebbba1118fd16cd2c009224d354779c69cd",
+  "projector_sha256": "4e32f2ca3c1cd8a1998b184a825510a427bd37dc9efa5f68e7377c62034fe939",
+  "reload_query_passed": true,
+  "query_samples": 512,
+  "unit_norm_passed": true,
+  "not_measured": [
+    "YOLO_mask_AP_gain",
+    "mechanism_causality",
+    "physical_pen_generalization"
+  ]
+}

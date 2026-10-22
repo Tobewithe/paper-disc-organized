@@ -1,0 +1,68 @@
+{
+  "study_id": "STUDY_SPM_PROTOTYPE_TRAINING_20261022",
+  "research_line": "spm_yoloseg",
+  "title": "真实与既有Blender猪图的P3局部投影训练及双源原型构库",
+  "parent_study": "../spm_yoloseg_20261021/study.json",
+  "protocol": "PROTOCOL.md",
+  "plan_status": "completed_for_first_prototype_artifact",
+  "execution_status": "training_and_memory_build_completed",
+  "scientific_status": "prototype_artifact_validated_method_utility_unmeasured",
+  "artifact_status": "projector_memory_cards_and_report_delivered",
+  "transfer_status": "26_manifest_files_SHA_verified_3_feature_caches_server_only",
+  "authorization": "2026-10-22用户明确纠正目标：我需要你做实验，训练出原型来；沿用服务器与按需多卡授权",
+  "executor": "a25023104@192.168.71.10",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/spm-prototype-training-20261022",
+  "supersedes_unexecuted_action": "SPM-S1报告中的全train接触来源普查建议及把Probe作为构库前置的路线",
+  "old_runs_and_frozen_gates_changed": false,
+  "budget": {
+    "formal_projector_steps": 2000,
+    "discarded_smoke_steps": 32,
+    "detector_steps": 0,
+    "real_images": 226,
+    "synthetic_frames": 384
+  },
+  "formal_training_started": true,
+  "scheduled_tasks": false,
+  "goal_mode": false,
+  "auto_commit_or_push": false,
+  "slurm_smoke_job_id": 183,
+  "current_phase": "trained_prototypes_delivered",
+  "current_action": "train_projector_then_build_and_deliver_memory",
+  "configuration": "CONFIG.json",
+  "freeze_manifest": "FREEZE_MANIFEST.json",
+  "input_manifest": "INPUT_MANIFEST.json",
+  "smoke_run_id": "RUN_SPM_PROTO_SMOKE_f6e66dbf2384",
+  "engineering_failure": {
+    "job": 182,
+    "run_id": "RUN_SPM_PROTO_SMOKE_6be0cfa75245",
+    "steps": 16,
+    "reason": "tiny smoke set cannot meet formal cluster support thresholds; archived and separated from formal discovery"
+  },
+  "slurm_training_job_id": 184,
+  "active_run_id": null,
+  "current_run": "RUN_SPM_PROTO_TRAIN_2e46d0049349",
+  "training_steps_completed": 2000,
+  "detector_optimizer_steps_completed": 0,
+  "report": "REPORT.md",
+  "artifact_acceptance": "ARTIFACT_ACCEPTANCE.json",
+  "transfer_receipt": "TRANSFER_RECEIPT.json",
+  "next_action": "wire frozen memory into matching YOLO P3; zero residual and response smoke; not started",
+  "artifacts": {
+    "memory": "artifacts/pig_prototype_memory.pt",
+    "projector": "artifacts/pig_projector.pt",
+    "foreground_K": 128,
+    "background_K": 128,
+    "dimension": 128
+  },
+  "limits": [
+    "both partitions hit128 capacity ceiling",
+    "official COCO encoder, not pig-finetuned B",
+    "Mask AP gain not measured",
+    "physical pen independence unknown"
+  ],
+  "runs": [
+    "RUN_SPM_PROTO_SMOKE_6be0cfa75245",
+    "RUN_SPM_PROTO_SMOKE_f6e66dbf2384",
+    "RUN_SPM_PROTO_TRAIN_2e46d0049349"
+  ]
+}
