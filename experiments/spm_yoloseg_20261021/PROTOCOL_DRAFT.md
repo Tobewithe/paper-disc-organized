@@ -3,6 +3,8 @@
 **研究线：** `spm_yoloseg`　**日期：** 2026-10-21  
 [主线入口](../../paper/manuscripts/spm_yoloseg/README.md) · [研究章程](../../paper/manuscripts/spm_yoloseg/RESEARCH_CHARTER.md) · [专属规则](../../paper/manuscripts/spm_yoloseg/RESEARCH_RULES.md)
 
+> **V3 问题优先级补充（2026-10-22）**：P0 加入真实同类接触 C / 猪-背景 B / 内部 I 边界账本；P0 完成后优先验证冻结 P3/P4 [可读性 Probe 草案](CONTACT_BOUNDARY_PROBE_DRAFT.md)，再决定合成/原型投入。见 [优先级与科学决策树](../../paper/manuscripts/spm_yoloseg/PRIORITIES_RISKS_AND_DECISION_TREE_V3.md)。P1–P5 原文保留为候选阶段，并非当前直接执行顺序或新的训练许可。
+
 > **V2 设计补充（2026-10-22）**：涉及 Blender 场景生成、真实高频统计迁移、动态原型实际提取流程，先读 [V2 实施蓝图](../../paper/manuscripts/spm_yoloseg/IMPLEMENTATION_BLUEPRINT_V2.md)、[高频迁移规范](../../paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md) 和 [Pilot / 消融 V2](PILOT_AND_ABLATION_V2.md)。本文件保留首次 A–G 草案历史，不代表当前可直接运行的冻结协议；V2 的 B* 额外区分几何/真实高频/普通随机化收益。
 
 > 本文件是候选实验设计，**尚无 Run、没有完成数据生成/训练/评价，也不包含自动开训许可**。正式运行时必须创建冻结版本（例如 `PROTOCOL.md`）及明确执行授权、环境/预算、数据划分/sha、指标阈值、统计规则与 Run 记录。
