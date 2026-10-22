@@ -1,0 +1,50 @@
+{
+  "study_id": "STUDY_SPM_V4_FASTPILOT_20261023",
+  "research_line": "spm_yoloseg",
+  "title": "V4快速猪群基线、原型与融合训练及关键技术可视化",
+  "protocol": "PROTOCOL.md",
+  "parent_study": "../spm_farm_scenes_20261023/study.json",
+  "plan_status": "completed_fastpilot",
+  "execution_status": "completed",
+  "scientific_status": "single_seed_development_positive_active_retrieval_increment_absent",
+  "artifact_status": "weights_metrics_technical_visualizations_delivered_locally",
+  "transfer_status": "sha256_verified",
+  "executor": "a25023104@192.168.71.10",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/spm-v4-fastpilot-20261023",
+  "authorization": "用户要求按V4快速取得真实正收益、关键技术与结果可视化，并显式要求goal；不再将完整论文消融作为快速首轮前置",
+  "budget": {
+    "render_geometries": 64,
+    "appearance_pairs": 2,
+    "cutout_images": 64,
+    "baseline_steps": 600,
+    "prototype_steps": 1000,
+    "arms": [
+      "continued",
+      "adapter",
+      "spm"
+    ],
+    "steps_per_arm": 400,
+    "seed": 0
+  },
+  "old_runs_changed": false,
+  "scheduled_tasks": false,
+  "goal_mode": "explicit_user_goal_first_pilot_delivered",
+  "current_action": "deliver_completed_fastpilot_no_further_training_started",
+  "results": {
+    "spm_mask_ap": 50.92666169560185,
+    "continued_mask_ap": 49.62214235021191,
+    "adapter_mask_ap": 49.55413129128794,
+    "baseline_mask_ap": 50.69601196553175,
+    "native_head_export_mask_ap": 50.92724685135814,
+    "primary_delta_pp": 1.3045193453899415
+  },
+  "reports": [
+    "REPORT.md",
+    "VISUAL_GUIDE.md",
+    "USAGE.md",
+    "ACCEPTANCE_RECEIPT.json",
+    "TRANSFER_RECEIPT.json"
+  ],
+  "recommended_direction": "prototype_assisted_training_with_native_head_deployment_pending_independent_test",
+  "recommended_next_action": "independent_real_test_of_existing_checkpoint_not_started"
+}

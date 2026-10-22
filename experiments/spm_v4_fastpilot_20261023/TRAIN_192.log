@@ -1,0 +1,91 @@
+RUN RUN_V4_PREPARE_e0b5b8cff4fd
+REAL_CACHE 1 226
+REAL_CACHE 41 226
+REAL_CACHE 81 226
+REAL_CACHE 121 226
+REAL_CACHE 161 226
+REAL_CACHE 201 226
+DATA_READY {'dev/real': 54, 'train/real': 172, 'dev/synthetic': 16, 'train/synthetic': 112, 'train/cutout': 64}
+RUN RUN_V4_ENGINEERING_0f5ebaf06d88
+Overriding model.yaml nc=80 with nc=1
+RUN RUN_V4_BASELINE_013ffd51f526
+Overriding model.yaml nc=80 with nc=1
+TRAIN baseline 1 12.4292 None
+TRAIN baseline 50 3.7435 None
+TRAIN baseline 100 2.8135 None
+TRAIN baseline 150 3.3566 None
+TRAIN baseline 200 2.761 None
+/srv/gpu-lab/users/a25023104/projects/spm-v4-fastpilot-20261023/scripts/evaluate.py:28: UserWarning: indexing with dtype torch.uint8 is now deprecated, please use a dtype torch.bool instead. (Triggered internally at ../aten/src/ATen/native/IndexingUtils.h:27.)
+  return out[keep].cpu().numpy(), masks[keep].cpu().numpy().astype(np.uint8)
+EVAL step_0200 {'mask_ap': 46.155713477196855, 'mask_ap75': 51.939641416349836, 'box_ap': 55.12222375149365}
+TRAIN baseline 250 2.1084 None
+TRAIN baseline 300 2.2285 None
+TRAIN baseline 350 1.9955 None
+TRAIN baseline 400 2.6794 None
+EVAL step_0400 {'mask_ap': 50.69601196553175, 'mask_ap75': 58.38346306559392, 'box_ap': 58.99156857419583}
+TRAIN baseline 450 1.4688 None
+TRAIN baseline 500 1.6502 None
+TRAIN baseline 550 1.5174 None
+TRAIN baseline 600 1.5039 None
+EVAL step_0600 {'mask_ap': 47.87261851202018, 'mask_ap75': 56.35862795576797, 'box_ap': 56.830217495072375}
+RUN RUN_V4_PROTOTYPE_00bab48aef0f
+FEATURES 1 292 96
+FEATURES 41 292 3564
+FEATURES 81 292 7019
+FEATURES 121 292 10525
+FEATURES 161 292 13957
+FEATURES 201 292 17051
+FEATURES 241 292 20318
+FEATURES 281 292 23884
+PROTO 1 1.5939
+PROTO 100 0.6247
+PROTO 200 0.6553
+PROTO 300 0.6558
+PROTO 400 0.6603
+PROTO 500 0.6655
+PROTO 600 0.6182
+PROTO 700 0.5898
+PROTO 800 0.6299
+PROTO 900 0.5964
+PROTO 1000 0.5915
+RUN RUN_V4_CONTINUED_a7f79eba1da2
+TRAIN continued 1 1.6224 None
+TRAIN continued 50 2.343 None
+TRAIN continued 100 1.7884 None
+TRAIN continued 150 2.1756 None
+TRAIN continued 200 1.4224 None
+EVAL step_0200 {'mask_ap': 48.807838968182146, 'mask_ap75': 56.06362507091928, 'box_ap': 56.28306089808688}
+TRAIN continued 250 1.7028 None
+TRAIN continued 300 1.3438 None
+TRAIN continued 350 1.635 None
+TRAIN continued 400 1.4601 None
+EVAL step_0400 {'mask_ap': 49.62214235021191, 'mask_ap75': 54.24919049521208, 'box_ap': 58.155257036430584}
+RUN RUN_V4_ADAPTER_209c3f995a24
+TRAIN adapter 1 1.6224 -0.009999945759773254
+TRAIN adapter 50 2.3404 0.04241665080189705
+TRAIN adapter 100 1.8424 0.023544276133179665
+TRAIN adapter 150 2.1549 0.007664605043828487
+TRAIN adapter 200 1.4299 0.05029303580522537
+EVAL step_0200 {'mask_ap': 48.72453312720285, 'mask_ap75': 55.59788072397554, 'box_ap': 56.694825388570024}
+TRAIN adapter 250 1.7252 0.01487989816814661
+TRAIN adapter 300 1.385 0.008875243365764618
+TRAIN adapter 350 1.6238 0.027164580300450325
+TRAIN adapter 400 1.5285 0.03526578098535538
+EVAL step_0400 {'mask_ap': 49.55413129128794, 'mask_ap75': 55.208435978841194, 'box_ap': 58.172442868479216}
+RUN RUN_V4_SPM_2f2740fc801a
+TRAIN spm 1 1.6224 -0.009999812580645084
+TRAIN spm 50 2.3342 -0.04530379921197891
+TRAIN spm 100 1.8279 0.02348693273961544
+TRAIN spm 150 2.1472 -0.01105666346848011
+TRAIN spm 200 1.4404 -0.022791912779211998
+EVAL step_0200 {'mask_ap': 48.78901396415652, 'mask_ap75': 55.68333161944109, 'box_ap': 56.23857785119771}
+TRAIN spm 250 1.7279 -0.0037500958424061537
+TRAIN spm 300 1.3901 0.0017721574986353517
+TRAIN spm 350 1.6245 -0.018519524484872818
+TRAIN spm 400 1.5226 -0.002600114792585373
+EVAL step_0400 {'mask_ap': 50.92666169560185, 'mask_ap75': 57.24271491995678, 'box_ap': 58.80274685044987}
+RUN RUN_V4_VISUALIZE_b8797cb13710
+EVAL alpha_zero {'mask_ap': 50.92724685135814, 'mask_ap75': 57.24516047149852, 'box_ap': 58.786619678568975}
+EVAL wrong_key_value {'mask_ap': 50.928095431920774, 'mask_ap75': 57.2458769090526, 'box_ap': 58.786520917934425}
+EVAL shuffle_spatial {'mask_ap': 50.9280440062127, 'mask_ap75': 57.245272663798076, 'box_ap': 58.78718590673526}
+VISUALIZATION_COMPLETE {'status': 'development_positive', 'primary_delta_pp': 1.3045193453899415, 'increment_over_adapter_pp': 1.3725304043139133, 'best_measured_configuration': 'spm', 'scientific_scope': 'single_seed_small_development_set_no_mechanism_or_final_test_claim', 'recommended_direction': 'prioritize_the_best_measured_configuration_and_verify_its_real_held_out_utility', 'next_action': 'preserve_and_deliver_all_weights_metrics_and_technical_visualizations', 'further_training_started': False}

@@ -1,0 +1,83 @@
+{
+  "metrics": {
+    "mask_ap": 50.92724685135814,
+    "mask_ap50": 77.61402236805824,
+    "mask_ap75": 57.24516047149852,
+    "mask_small_ap": 18.727583084113444,
+    "mask_ar100": 57.87012987012987,
+    "box_ap": 58.786619678568975,
+    "box_ap50": 83.05294207236948,
+    "box_ap75": 68.37894728435718,
+    "segm_stats": [
+      50.92724685135814,
+      77.61402236805824,
+      57.24516047149852,
+      18.727583084113444,
+      65.26710691718678,
+      82.39242040146044,
+      11.506493506493506,
+      53.14285714285714,
+      57.87012987012987,
+      25.999999999999996,
+      70.91286307053942,
+      86.25
+    ],
+    "bbox_stats": [
+      58.786619678568975,
+      83.05294207236948,
+      68.37894728435718,
+      33.310053041673925,
+      70.82479972335317,
+      70.74141221980186,
+      11.636363636363633,
+      60.18181818181818,
+      68.75324675324674,
+      45.083333333333336,
+      79.00414937759336,
+      84.16666666666669
+    ],
+    "images": 54,
+    "predictions": 1166,
+    "elapsed_seconds": 3.145966459000192,
+    "tag": "native_head_export",
+    "canvas": 640,
+    "selection_split": "development_not_independent_test"
+  },
+  "timing": {
+    "median_forward_ms": 16.4531192779541,
+    "p90_forward_ms": 16.741580772399903,
+    "batch": 1,
+    "precision": "fp32",
+    "warmup": 5,
+    "repetitions": 20,
+    "parameters": 26969951,
+    "gpu": "NVIDIA RTX A6000"
+  },
+  "source_run_id": "RUN_V4_SPM_2f2740fc801a",
+  "source_checkpoint_sha256": "7537931a51857af41b217caa01c292221e29445ebdd64a3bdf37b721f617672b",
+  "export_checkpoint_sha256": "f4b18a1cce43c408aaa0536c487154c6c9257480ddd9ac4833696cea6ad987e7",
+  "reload_equivalence_to_alpha_zero": [
+    {
+      "source_id": "real/1",
+      "max_abs_difference": 0.0
+    },
+    {
+      "source_id": "real/31",
+      "max_abs_difference": 0.0
+    },
+    {
+      "source_id": "real/94",
+      "max_abs_difference": 0.0
+    },
+    {
+      "source_id": "real/95",
+      "max_abs_difference": 0.0
+    },
+    {
+      "source_id": "real/96",
+      "max_abs_difference": 0.0
+    }
+  ],
+  "additional_training_steps": 0,
+  "interpretation": "SPM-training checkpoint with native-only deployment; not evidence of active retrieval utility"
+}

@@ -2,14 +2,16 @@
 
 **研究线 Key：** `spm_yoloseg`  
 
+**2026-10-23 V4快速首轮已完成：** [报告](../../../experiments/spm_v4_fastpilot_20261023/REPORT.md)、[13张技术/结果图](../../../experiments/spm_v4_fastpilot_20261023/VISUAL_GUIDE.md)和[权重用法](../../../experiments/spm_v4_fastpilot_20261023/USAGE.md)已交付。Slurm191/192/193完成64几何/128图、B*600步、原型1000步、continued/G/F各400步及免检索导出。F Mask AP50.9267，对同预算continued +1.3045pp、G +1.3725pp、B* +0.2306pp；AP75相对B*下降。关闭检索几乎无变化，优先使用保留SPM训练权重的原生head（AP50.9272）。单seed54图开发结果，不称独立测试或机制证明；当前路由仅看ACTIVE_PLAN。下方旧保存、not_started和Probe顺序保留历史范围。
+
 **2026-10-23保存检查点：** 用户要求先保存。新猪栏生成器已完成Slurm189工程样例（8独立场景、16外观图、90头几何实例），标签与射线核验通过；见[接续说明](../../../experiments/spm_farm_scenes_20261023/CHECKPOINT.md)与[报告](../../../experiments/spm_farm_scenes_20261023/REPORT.md)。正式128场景和新版原型更新尚未启动，旧P1原型完整保留。当前仅保存，不追加作业；恢复时先补符合真实猪体尺度的相机取景，当前路由以ACTIVE_PLAN为准。
 
-**当前产物（2026-10-22）：** 按用户“训练出原型”的明确要求，Slurm184正式完成2000步投影训练与双源构库。已有[256个128维原型](../../../experiments/spm_prototype_training_20261022/artifacts/pig_prototype_memory.pt)和[投影权重](../../../experiments/spm_prototype_training_20261022/artifacts/pig_projector.pt)，重载/来源/检索核验通过；见[训练报告](../../../experiments/spm_prototype_training_20261022/REPORT.md)与[用法](../../../experiments/spm_prototype_training_20261022/USAGE.md)。下一步是同编码器P3接入smoke，尚未启动；YOLO AP效用未测。旧S1覆盖结果保留，不再作为本轮构库前置。
+**历史P1产物（2026-10-22）：** 按用户“训练出原型”的明确要求，Slurm184正式完成2000步投影训练与双源构库。已有[256个128维原型](../../../experiments/spm_prototype_training_20261022/artifacts/pig_prototype_memory.pt)和[投影权重](../../../experiments/spm_prototype_training_20261022/artifacts/pig_projector.pt)，重载/来源/检索核验通过；见[训练报告](../../../experiments/spm_prototype_training_20261022/REPORT.md)与[用法](../../../experiments/spm_prototype_training_20261022/USAGE.md)。下一步是同编码器P3接入smoke，尚未启动；YOLO AP效用未测。旧S1覆盖结果保留，不再作为本轮构库前置。
 
-**最新执行状态（2026-10-22）：** 用户授权服务器最小试验；SPM-S1的P0已完成226图标签/覆盖核验，4个推断来源组达到要求、低于预冻结8组，故停在训练前。特征前向、probe、YOLO和原型优化均0；属于数据支持不足，不是方法效用失败。见[完整报告](../../../experiments/spm_yoloseg_20261021/REPORT_SPM_S1_20261022.md)。以下V1/V2/V3设计与“未运行”文字保留其历史范围；当前状态以本段、Study与ACTIVE_PLAN为准。
+**历史SPM-S1状态（2026-10-22）：** 用户授权服务器最小试验；SPM-S1的P0已完成226图标签/覆盖核验，4个推断来源组达到要求、低于预冻结8组，故停在训练前。特征前向、probe、YOLO和原型优化均0；属于数据支持不足，不是方法效用失败。见[完整报告](../../../experiments/spm_yoloseg_20261021/REPORT_SPM_S1_20261022.md)。以下V1/V2/V3设计与“未运行”文字保留其历史范围；当前状态以本段、Study与ACTIVE_PLAN为准。
 **登记日期：** 2026-10-21  
 **定位：** 独立应用型 SCI 论文主线；目标是先完成可重复、可投稿的猪场 YOLO26-Seg 改进研究（优先满足毕业需求，期刊分区与录用均不预先保证）。  
-**当前状态：** `research_draft / hypothesis_only / not_started`。2026-10-22 已补充 V2 详细设计与 V3 难点排序/冻结特征接触边界 Probe 草案；仍未渲染、训练、产生本线科学结果或冻结正式协议。 本地[基础实现方案](BASE_IMPLEMENTATION_SPEC.md)和配置草案已保留，包含RLE加载、P3检索、梯度与打包接口；它们不替代下方V3科学决策顺序。
+**初始设计状态（历史）：** `research_draft / hypothesis_only / not_started`。2026-10-22 已补充 V2 详细设计与 V3 难点排序/冻结特征接触边界 Probe 草案；仍未渲染、训练、产生本线科学结果或冻结正式协议。 本地[基础实现方案](BASE_IMPLEMENTATION_SPEC.md)和配置草案已保留，包含RLE加载、P3检索、梯度与打包接口；它们不替代下方V3科学决策顺序。
 
 ## 核心科研问题
 
@@ -21,7 +23,7 @@
 
 ## V4 数据、监督、训练与评价补充（2026-10-23）
 
-新增 [V4 可执行候选协议](DATA_SUPERVISION_TRAINING_EVALUATION_PROTOCOL_V4_20261023.md)，把数据准备（真实实例/接触 crop、cutout 合成与 Blender）、C/B/I/D 标签、监督目标、冻结原型与 P3 注入、数据/模型融合训练、公平消融和真实测试评价细化为可审计合同。**V4 是设计文档，不代表已获训练授权或已产生研究结果；不取代 V3 的“P0 只读审计 → frozen P3/P4 接触边界 Probe”前置顺序。**固定 K=32 仅是 pilot 对照，动态 K 研究仍保留。
+新增 [V4 可执行候选协议](DATA_SUPERVISION_TRAINING_EVALUATION_PROTOCOL_V4_20261023.md)，把数据准备（真实实例/接触 crop、cutout 合成与 Blender）、C/B/I/D 标签、监督目标、冻结原型与 P3 注入、数据/模型融合训练、公平消融和真实测试评价细化为可审计合同。**V4初版为候选设计；用户随后明确授权按V4快速实施，本轮以快速Study启动前冻结合同和真实Run为准，不重判旧Probe Gate。**固定 K=32 仅是 pilot 对照，动态 K 研究仍保留。
 
 ## 当前决策优先级（V3，2026-10-22）
 
@@ -64,8 +66,8 @@
 | [Study 状态](../../../experiments/spm_yoloseg_20261021/study.json) | 计划、执行、科学结果和产物状态 |
 | [研究线总索引](../../../project/research_lines.json) | 独立主线正式登记 |
 
-## 当前唯一建议动作（尚未执行）
+## 历史建议（执行顺序已由V4快速合同取代）
 
 **SPM-S1之后：** 先对已有原train全部标注做零训练接触来源普查，确定能否满足来源覆盖，再决定是否另冻接触覆盖采样合同；不足则优先补独立真实接触来源，暂停纯外观原型大库。本轮固定226图probe配置已停止，不降Gate、不换图续跑。下段P0建议为此前设计记录，不表示重跑已完成阶段。
 
-**P0（唯一当前动作）：** 只读核实数据/权重/Ultralytics 版本与可见掩码评价口径，确认视频/猪栏无泄漏分组及原生 P3/P4 提取接口，形成**猪-猪接触 C / 猪-背景 B / 内部 I** 的真实训练域标签与难例账本。P0 完成后先评估冻结特征接触边界可读性（Probe 草案，未授权开训），再决定是否大规模 Blender 渲染、构建原型与正式训练。 同时清点本地已登记3D资产并补齐[基础配置草案](../../../experiments/spm_yoloseg_20261021/BASE_CONFIG_DRAFT.json)中的路径、来源与哈希；基础接口设计保留，当前不启动渲染或训练。
+**原P0建议（历史设计）：** 只读核实数据/权重/Ultralytics 版本与可见掩码评价口径，确认视频/猪栏无泄漏分组及原生 P3/P4 提取接口，形成**猪-猪接触 C / 猪-背景 B / 内部 I** 的真实训练域标签与难例账本。P0 完成后先评估冻结特征接触边界可读性（Probe 草案，未授权开训），再决定是否大规模 Blender 渲染、构建原型与正式训练。 同时清点本地已登记3D资产并补齐[基础配置草案](../../../experiments/spm_yoloseg_20261021/BASE_CONFIG_DRAFT.json)中的路径、来源与哈希；基础接口设计保留，当前不启动渲染或训练。

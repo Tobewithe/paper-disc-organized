@@ -1,0 +1,13 @@
+RUN RUN_SPM_V4_RENDER_FORMAL_5c1cba118edf
+SCENE_COMPLETE V4G_0000 {'feeding': 4, 'lateral_left': 5, 'prone': 2, 'standing': 3} 6.740451911999116
+Traceback (most recent call last):
+    raise RuntimeError(f"Cannot place requested pig {i+1}/{recipe['requested_pigs']} without intersection; {recipe['geometry_id']}; footprint={np.ptp(base, axis=0).tolist()}")
+RuntimeError: Cannot place requested pig 7/20 without intersection; V4G_0001; footprint=[0.46482111513614655, 1.3680720329284668]
+Error: script failed, file: '/srv/gpu-lab/users/a25023104/projects/spm-v4-fastpilot-20261023/scripts/render_farm.py', exiting.
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-v4-fastpilot-20261023/scripts/run_render.py", line 203, in <module>
+    main()
+  File "/srv/gpu-lab/users/a25023104/projects/spm-v4-fastpilot-20261023/scripts/run_render.py", line 182, in main
+    assert code == 0, f'Blender failed exit={code}; inspect BLENDER.log'
+           ^^^^^^^^^
+AssertionError: Blender failed exit=1; inspect BLENDER.log

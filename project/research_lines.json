@@ -215,14 +215,15 @@
       "line_id": "LINE_SPM_YOLOSEG_20261021",
       "key": "spm_yoloseg",
       "title": "合成—真实原型记忆增强的猪群实例分割（SPM-YOLO）",
-      "status": "prototype_P1_preserved_farm_scene_smoke_completed_saved_checkpoint",
+      "status": "V4_fastpilot_completed_development_positive_native_head_export_delivered",
       "role": "independent_mainline",
       "entrypoint": "paper/manuscripts/spm_yoloseg/README.md",
       "paper_directory": "paper/manuscripts/spm_yoloseg",
       "study_ids": [
         "STUDY_SPM_YOLOSEG_20261021",
         "STUDY_SPM_PROTOTYPE_TRAINING_20261022",
-        "STUDY_SPM_FARM_SCENES_20261023"
+        "STUDY_SPM_FARM_SCENES_20261023",
+        "STUDY_SPM_V4_FASTPILOT_20261023"
       ],
       "focus_documents": [
         "paper/manuscripts/spm_yoloseg/README.md",
@@ -245,7 +246,12 @@
         "experiments/spm_prototype_training_20261022/study.json",
         "experiments/spm_farm_scenes_20261023/CHECKPOINT.md",
         "experiments/spm_farm_scenes_20261023/REPORT.md",
-        "experiments/spm_farm_scenes_20261023/study.json"
+        "experiments/spm_farm_scenes_20261023/study.json",
+        "paper/manuscripts/spm_yoloseg/DATA_SUPERVISION_TRAINING_EVALUATION_PROTOCOL_V4_20261023.md",
+        "experiments/spm_v4_fastpilot_20261023/PROTOCOL.md",
+        "experiments/spm_v4_fastpilot_20261023/study.json",
+        "experiments/spm_v4_fastpilot_20261023/REPORT.md",
+        "experiments/spm_v4_fastpilot_20261023/VISUAL_GUIDE.md"
       ],
       "locations": [],
       "limits": [
@@ -256,9 +262,10 @@
         "原 neighbor_sensitive_p3、mask_boundary_calibration 和 world_model_action_time_identifiability 的协议、运行和结果均不改变。",
         "2026-10-22 V3 未冻结设计优先级：P0 真实分簇/可见 Mask + 接触边界账本优先；随后冻结 P3/P4 接触边界可读性 probe（需另行授权）；仅有证据后扩大 Blender/真实高频/原型注入。",
         "2026-10-22用户明确要求训练原型；Slurm184已完成2000步及fg/bg各128个128维中心。双源产物和重载通过，两分区容量触限，分割AP和物理猪栏泛化未测；旧S1失败不改写。",
-        "2026-10-23用户要求先保存；Slurm189工程样例8几何场景/16图/90头，标签射线核验通过。正式128场景与新版原型/YOLO训练尚未启动；旧P1权重保留，无自动续训。"
+        "2026-10-23用户要求先保存；Slurm189工程样例8几何场景/16图/90头，标签射线核验通过。正式128场景与新版原型/YOLO训练尚未启动；旧P1权重保留，无自动续训。",
+        "2026-10-23用户随后明确按V4快速训练、要求正收益和技术可视化并显式要求goal。Slurm191/192/193已完成；F Mask AP50.9267，相对continued +1.3045pp、G +1.3725pp、B* +0.2306pp，但AP75相对B*下降。关闭部署检索几乎无变化，免检索权重AP50.9272；5模型、32槽memory与13图已交付。仅单seed54图开发结果，独立真实test尚未启动，不改旧Gate。"
       ],
-      "design_version": "v3_contact_boundary_priority_draft"
+      "design_version": "v4_authorized_fastpilot_20261023"
     }
   ]
 }

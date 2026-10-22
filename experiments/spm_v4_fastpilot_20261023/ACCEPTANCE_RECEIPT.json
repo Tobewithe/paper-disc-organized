@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-10-22T18:11:37.418734+00:00",
+  "status": "passed",
+  "data_images": 418,
+  "real_train_dev": [
+    172,
+    54
+  ],
+  "cache_file_hashes_verified": 836,
+  "train_dev_groups_disjoint": true,
+  "cutout_donors_train_only": true,
+  "prototype_sources_train_only": true,
+  "prototype_tokens": 24889,
+  "prototype_unit_norm_max_error": 1.1920928955078125e-07,
+  "memory_coordinates_and_buffers_frozen": true,
+  "arm_sample_schedule_identical": true,
+  "all_recomputed_AP_differences_below": 1e-10,
+  "arms": {
+    "baseline": {
+      "run_id": "RUN_V4_BASELINE_013ffd51f526",
+      "checkpoint_sha256": "260ebe303040cd160b708403b4c19c084c081724e7032d566be3c54c4f9cb811",
+      "recomputed": {
+        "mask_ap": 50.69601196553175,
+        "box_ap": 58.99156857419583
+      },
+      "recorded_steps": 600
+    },
+    "continued": {
+      "run_id": "RUN_V4_CONTINUED_a7f79eba1da2",
+      "checkpoint_sha256": "ea92d63fe7b049b2f1889ab64c76ec06179fadcf69a02dfbd2781ec96f790164",
+      "recomputed": {
+        "mask_ap": 49.62214235021191,
+        "box_ap": 58.155257036430584
+      },
+      "recorded_steps": 400
+    },
+    "adapter": {
+      "run_id": "RUN_V4_ADAPTER_209c3f995a24",
+      "checkpoint_sha256": "f3ac7dd4ad03e3581c01dc337f687d3f51e8fcccb48bd5e896febf2d5bd2362b",
+      "recomputed": {
+        "mask_ap": 49.55413129128794,
+        "box_ap": 58.172442868479216
+      },
+      "recorded_steps": 400
+    },
+    "spm": {
+      "run_id": "RUN_V4_SPM_2f2740fc801a",
+      "checkpoint_sha256": "7537931a51857af41b217caa01c292221e29445ebdd64a3bdf37b721f617672b",
+      "recomputed": {
+        "mask_ap": 50.92666169560185,
+        "box_ap": 58.80274685044987
+      },
+      "recorded_steps": 400
+    },
+    "export_lite": {
+      "run_id": "RUN_V4_EXPORT_LITE_dba5bbf80522",
+      "checkpoint_sha256": "f4b18a1cce43c408aaa0536c487154c6c9257480ddd9ac4833696cea6ad987e7",
+      "recomputed": {
+        "mask_ap": 50.92724685135814,
+        "box_ap": 58.786619678568975
+      },
+      "recorded_steps": 0
+    }
+  },
+  "positive_development_delta_pp": 1.3045193453899415,
+  "scope": "artifact_and_evaluation_validity_not_independent_test_or_mechanism_confirmation"
+}

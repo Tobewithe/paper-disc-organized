@@ -1,0 +1,18 @@
+# Reproducible large artifacts remain available on local disk / the registered server.
+*.tar.gz
+*.pt
+cache/
+examples/*.png
+runs/**/evaluation/*_predictions.json
+runs/**/interventions/*_predictions.json
+runs/**/features.pt
+runs/**/embedding.pt
+runs/**/figures/response_*.npz
+SPM_V4_RESULTS_LIGHT.tar.receipt.json
+SPM_V4_WEIGHTS.tar.receipt.json
+DATASET.json
+DEV_COCO.json
+
+# Curated research figures are small, reviewable outputs.
+!runs/**/figures/*.png
+!previews/farm_rgb.jpg
