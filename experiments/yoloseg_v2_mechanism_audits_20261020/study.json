@@ -2,11 +2,11 @@
   "study_id": "STUDY_YOLOSEG_V2_MECHANISM_AUDITS_20261020",
   "research_line": "neighbor_sensitive_p3",
   "title": "V2 output-chain attribution and sampling-position stability",
-  "plan_status": "protocol_frozen",
-  "execution_status": "running",
-  "scientific_status": "unadjudicated",
-  "artifact_status": "running",
-  "transfer_status": "partial",
+  "plan_status": "closed",
+  "execution_status": "completed",
+  "scientific_status": "two_audits_completed_phase_not_bottleneck_chain_attributed_to_operating_point",
+  "artifact_status": "both_formal_runs_returned_and_sha_verified",
+  "transfer_status": "chain_34_files_shift_9_files_verified",
   "protocol": "PROTOCOL.md",
   "training_steps": 0,
   "experiments": [
@@ -16,7 +16,8 @@
   "runs": [
     "RUN_V2_CHAIN_SMOKE_b2f63a95ee6e49ecbd87fdee8040eaa4",
     "RUN_V2_CHAIN_FULL_06436d85bab04058a36aa7b6beecb80c",
-    "RUN_V2_SHIFT_SMOKE_7c65d404353147b58c3ed26d4df2e1bd"
+    "RUN_V2_SHIFT_SMOKE_7c65d404353147b58c3ed26d4df2e1bd",
+    "RUN_V2_SHIFT_FULL_e9754eecd2314965b3731d28ba1d0c3c"
   ],
   "engineering_revision": "revisions/r1",
   "slurm_jobs": {
@@ -24,7 +25,7 @@
       167,
       168
     ],
-    "active": [
+    "completed": [
       169,
       170
     ]
@@ -32,5 +33,42 @@
   "failed_engineering_runs": [
     "RUN_V2_CHAIN_SMOKE_37020679b82e4e788a14f1de4c3a0a42",
     "RUN_V2_SHIFT_SMOKE_6ceb7d7d003f4f67adcf7665733c6eb9"
-  ]
+  ],
+  "current_phase": "completed",
+  "acceptance": {
+    "reviewed_at": "2026-10-22T20:20:00+08:00",
+    "scope": "both experiments accepted; experiment 2 closed in REPORT.md",
+    "experiment_1": "completed previously; failure first occurs at the fixed .25 operating point (82/100), P/c single-factor replacement admission failed",
+    "experiment_2": {
+      "run_id": "RUN_V2_SHIFT_FULL_e9754eecd2314965b3731d28ba1d0c3c",
+      "slurm_job_id": 170,
+      "frames": 5184,
+      "training_steps": 0,
+      "manifest_entries": 4662,
+      "manifest_sha_mismatch": 0,
+      "one_pixel_flip_fraction": 0.027922454,
+      "one_pixel_delta_iou": -0.004996704,
+      "per_seed_flip": {
+        "20261020": 0.039496528,
+        "20261021": 0.019965278,
+        "20261022": 0.024305556
+      },
+      "per_variant_flip": {
+        "clear": 0.006365741,
+        "front": 0.060185185,
+        "near": 0.041087963,
+        "rear": 0.004050926
+      },
+      "gate": "FAIL: 2.7922% < 5% and 0/3 seeds >= 5%",
+      "verdict": "sampling position is not the primary bottleneck at this scene and amplitude",
+      "recomputation": "bitwise identical to SUMMARY.json (0.00e+00) for flip fraction, delta IoU, per-seed and per-variant"
+    },
+    "boundaries": [
+      "three seeds are grouped variants not independent models",
+      "offset grid limited to +/-1 and +/-4",
+      "no threshold retuning",
+      "training 0 steps"
+    ],
+    "next_step": "continue with the .25 operating point and class-confidence formation identified in experiment 1; no new training or threshold search; needs authorization"
+  }
 }

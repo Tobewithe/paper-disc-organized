@@ -4,10 +4,10 @@
   "title": "LCF四臂服务器迁移与独立并行训练",
   "protocol": "MIGRATION_PROTOCOL.md",
   "plan_status": "frozen",
-  "execution_status": "running",
-  "scientific_status": "hypothesis_only",
-  "artifact_status": "startup_verified",
-  "transfer_status": "startup_157_files_verified",
+  "execution_status": "training_and_evaluation_completed",
+  "scientific_status": "evaluated_pending_statistics",
+  "artifact_status": "evaluate_artifacts_transferred_20",
+  "transfer_status": "startup_157_files_verified_evaluate_20_files_verified",
   "executor": "a25023104@192.168.71.10 / Slurm",
   "parent_study": "../mask_local_connectivity_factorial_20261020/study.json",
   "retry_of": "RUN_LCF_TRAIN_ced92f98a1aa4d8898fe5a24c0b13a39",
@@ -32,7 +32,7 @@
     "user": "迁到算力服务器，先冻结迁移协议，保留笔记本失败记录，明确从头重启的预算记账，保持四臂科学配置不变，通过smoke后用Slurm启动正式训练。可以使用四块显卡同时跑",
     "no_auto_commit_or_push": true
   },
-  "current_phase": "server_four_arm_formal_training",
+  "current_phase": "evaluation_completed_pending_statistics",
   "slurm_smoke_job_id": 153,
   "server_freeze_sha256": "bbf44febb59ffb051d105ca2a816d88765e30eaa3d013092d59d37d23344feb4",
   "initialization_recovery": "INITIALIZATION_RECOVERY.md",
@@ -48,5 +48,37 @@
     "B": 13,
     "C": 15,
     "D": 14
+  },
+  "evaluation_run_id": "RUN_LCFS_ALL_EVALUATE_a126a83488fd46728faf91ea579e9371",
+  "evaluation_slurm_job_id": 178,
+  "evaluation_completed_at": "2026-10-22T10:16:40Z",
+  "evaluation_images": 5000,
+  "evaluation_outputs": 539125,
+  "acceptance": {
+    "receipt": "ACCEPTANCE_RECEIPT_20261022.json",
+    "report": "ACCEPTANCE_REVIEW_20261022.md",
+    "reviewed_at": "2026-10-22T19:30:00+08:00",
+    "kind": "independent_recomputation_not_official_statistics",
+    "integrity_passed": true,
+    "joint_verdict": "requirements_not_jointly_met",
+    "failed_gates": [
+      "topology_utility_D_vs_N",
+      "neither_error_type_significantly_worse",
+      "supervision_mechanism_D_vs_C",
+      "local_expression_D_vs_B",
+      "local_projection_and_equal_amplitude",
+      "native_success_damage_le_1pct"
+    ],
+    "passed_gates": [
+      "topology_D_vs_G_old_ci_lower_gt_0",
+      "hardness_match_ge_90pct",
+      "pixel_noninferiority_D_minus_N",
+      "box_identity_unchanged",
+      "AP_gain_vs_N_ge_0.3_point"
+    ],
+    "not_evaluated": ["AP_paired_ci_lower", "Dproj_Deq_AP_metrics"],
+    "ap_segm": {"N": 44.013836, "G_old": 44.152393, "A": 44.758755, "B": 44.755534, "C": 44.734297, "D": 44.667286},
+    "damage_fraction": {"G_old": 0.0039202, "A": 0.0196446, "B": 0.0176845, "C": 0.0181200, "D": 0.0195139},
+    "next_step": "zero-training acceptance-gate contrast on frozen B checkpoint with the old-G 9216 area gate; not started, needs authorization"
   }
 }

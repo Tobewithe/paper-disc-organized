@@ -1,0 +1,92 @@
+{
+  "receipt_id": "ACCEPTANCE_VOR_EVALUATE_20261022",
+  "kind": "independent_acceptance_review",
+  "reviewed_at": "2026-10-22T20:05:00+08:00",
+  "study_id": "STUDY_OCCLUSION_REPRESENTATION_PRETRAINING_20261019",
+  "run_id": "RUN_VOR_EVALUATE_PILOT_bacf87dfcd02",
+  "slurm_job_id": 161,
+  "train_runs": {
+    "B": "RUN_VOR_TRAIN_B_ac08e91ce269",
+    "P": "RUN_VOR_TRAIN_P_437c161107fe",
+    "I": "RUN_VOR_TRAIN_I_a489d4c1ae18",
+    "Hpos": "RUN_VOR_TRAIN_HPOS_be39334a93ca"
+  },
+  "integrity": {
+    "execution_status": "completed",
+    "exit_code": 0,
+    "training_steps_in_evaluate_run": 0,
+    "each_arm_steps": 2000,
+    "manifest_entries": 1708,
+    "manifest_missing": 0,
+    "manifest_sha_mismatch": 0,
+    "manifest_size_mismatch": 0,
+    "checkpoint_sha_all_four_match_trained_json": true,
+    "prediction_arms": ["N", "B", "P", "I", "Hpos", "P_other_query", "P_matched_norm"],
+    "families_per_arm": 80,
+    "intervention_arms_distinct_from_P": true,
+    "threshold_split": "validation_only_confirmed_in_source",
+    "threshold_visible_count": 87944
+  },
+  "recomputation": {
+    "method": "replicated evaluate.py::compare with shared RNG stream, seed 20261020, 2000 family-level resamples",
+    "means_max_abs_diff_pp": 0.0,
+    "delta_max_abs_diff_pp": 0.0,
+    "ci_endpoint_max_abs_diff_pp": 0.0,
+    "families_match": true,
+    "verdict_rederived": "no_practical_pair_increment",
+    "verdict_recorded": "no_practical_pair_increment"
+  },
+  "means_pct": {
+    "N": {"R1": 3.682, "W": 56.992, "U": 16.039, "coverage": 66.220, "R_object_conditional": 0.0},
+    "B": {"R1": 7.027, "W": 37.107, "U": 23.682, "coverage": 50.592, "R_object_conditional": 6.806},
+    "P": {"R1": 7.034, "W": 37.898, "U": 23.946, "coverage": 51.515, "R_object_conditional": 7.083},
+    "I": {"R1": 10.192, "W": 41.497, "U": 24.631, "coverage": 55.942, "R_object_conditional": 14.028},
+    "Hpos": {"R1": 7.261, "W": 37.546, "U": 23.439, "coverage": 50.822, "R_object_conditional": 6.944}
+  },
+  "paired_pp": {
+    "P-B": {"R1": {"delta": 0.006462, "ci": [-0.352692, 0.274945], "families": 72},
+            "W": {"delta": 0.790925, "ci": [0.640257, 0.949464], "families": 80},
+            "U": {"delta": 0.264659, "ci": [0.095962, 0.447420], "families": 31}},
+    "P-I": {"R1": {"delta": -3.157813, "ci": [-5.372675, -1.395270], "families": 72},
+            "W": {"delta": -3.598825, "ci": [-4.267963, -2.871869], "families": 80},
+            "U": {"delta": -0.684803, "ci": [-1.377056, -0.041389], "families": 31},
+            "R_object_conditional": {"delta": -6.944444, "ci": [-12.78125, -1.527778], "families": 40}},
+    "P-N": {"R1": {"delta": 3.351599, "ci": [0.980753, 5.694528], "families": 72}},
+    "B-N": {"R1": {"delta": 3.345137, "ci": [0.946045, 5.699719], "families": 72}},
+    "Hpos-P": {"R1": {"delta": 0.227206, "ci": [-0.562276, 1.066807], "families": 72}}
+  },
+  "gates": {
+    "primary_utility_P_minus_B_R1_ge_3pp_lower_gt_0": "FAIL",
+    "guardrail_P_minus_B_W_upper_le_1pp": "PASS_BORDERLINE",
+    "guardrail_P_minus_B_U_lower_ge_-1pp": "PASS",
+    "temporal_P_minus_I_R1_lower_gt_0": "FAIL_REVERSED",
+    "Hpos_minus_P": "NO_DIFFERENCE"
+  },
+  "mechanism_readout": {
+    "gain_from_adapter_not_pairing": "P-N +3.3516 vs B-N +3.3451; P-B +0.0065",
+    "history_is_negative_contribution": "I 10.192 vs P 7.034 R1; conditional recovery 14.028 vs 7.083 on a fixed event denominator",
+    "cost_of_I": "W +3.5988pp vs P (CI [2.8719, 4.2679])",
+    "pairing_W_margin": "0.0505pp below the 1pp guard, weak pass"
+  },
+  "documentation_defect": {
+    "where": "VALIDATION_THRESHOLDS.json -> P_other_query, P_matched_norm",
+    "issue": "f1/tp/accepted/visible_count are verbatim copies of arm P because evaluate.py:256 reuses thresholds['P'] for interventions",
+    "impact": "none on R1/W/U or paired comparisons; misleading if read as intervention-arm f1",
+    "recommendation": "label the fields as inherited, or split threshold value from its statistics in future runs"
+  },
+  "boundaries": [
+    "single seed (0)",
+    "final step 2000 checkpoint only, no best-on-validation selection",
+    "synthetic held-out assets (train Horse/Pig/Cow/Sheep/Zebra, val Llama, test Pug/Fox), same renderer",
+    "no real video, no mature tracker comparison; conditional localisation is not IDF1"
+  ],
+  "next_step_single": {
+    "statement": "Zero-training equal-coverage contrast between P and I on saved predictions before changing any architecture.",
+    "reason": "I accepts 70,978 vs P 57,389 proposals (+23.7%), so part of its R1 advantage could be acceptance aggressiveness; the conditional-recovery denominator is fixed, which argues against that, but the two explanations are not yet separated.",
+    "decision_rule": {
+      "if_I_minus_P_R1_ci_lower_gt_0_at_equal_coverage": "keep 'history is a negative contribution'; route to current-frame evidence with per-frame reset",
+      "if_advantage_disappears": "retract 'history harmful', keep only 'history gives no extra benefit'; add calibration/rejection to I"
+    },
+    "requires": "new authorization; no training, no threshold reselection outside the frozen grid, no automatic submission"
+  }
+}

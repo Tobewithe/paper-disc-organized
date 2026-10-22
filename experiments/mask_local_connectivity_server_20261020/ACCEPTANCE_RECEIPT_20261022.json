@@ -1,0 +1,166 @@
+{
+  "receipt_id": "ACCEPTANCE_LCFS_EVALUATE_20261022",
+  "kind": "independent_acceptance_review",
+  "reviewed_at": "2026-10-22T19:30:00+08:00",
+  "reviewer_role": "验收方独立复算；非官方 statistics 阶段产物，不替代 STATISTICS.json/DECISION.json",
+  "study_id": "STUDY_MASK_LOCAL_CONNECTIVITY_SERVER_20261020",
+  "run_id": "RUN_LCFS_ALL_EVALUATE_a126a83488fd46728faf91ea579e9371",
+  "slurm_job_id": 178,
+  "train_runs": {
+    "A": "RUN_LCFS_A_TRAIN_e99ac7f8bacf469cbbaab7babc4a3c1c",
+    "B": "RUN_LCFS_B_TRAIN_6428b48d81774d72b6a121369f221b0c",
+    "C": "RUN_LCFS_C_TRAIN_0ea3b01d9ddb4c96abf722794def9b2b",
+    "D": "RUN_LCFS_D_TRAIN_909459171de84d8bb1a8a4f39c82f066"
+  },
+  "integrity": {
+    "execution_status": "completed",
+    "exit_code": 0,
+    "completed_images": 5000,
+    "outputs": 539125,
+    "elapsed_seconds_evaluate": 7848.03,
+    "slurm_elapsed": "02:11:03",
+    "each_arm_optimizer_steps": 15000,
+    "each_arm_images": 60000,
+    "train_slurm_elapsed": "10:48:42",
+    "hardness_match_fraction": {"A": 0.9975569, "C": 0.9978114},
+    "hardness_requirement": 0.9,
+    "artifact_manifest_entries": 74,
+    "artifact_manifest_missing": 0,
+    "artifact_manifest_sha_mismatch": 0,
+    "checkpoint_sha_all_four_match_composite": true,
+    "composite_summary_sha_match": true,
+    "evaluate_summary_sha_match": true,
+    "full_native_and_oldG_RLE_exact": true,
+    "identity_rows_checked": 539125,
+    "amplitude_invalid_rows": 0,
+    "configuration_review": "passed",
+    "box_identity_unchanged": true,
+    "box_AP_all_methods": 52.34795017624022,
+    "area_gate_in_four_arms": null
+  },
+  "baseline_identity_note": {
+    "new_N_sha256": "80e4912f335a431fab692d083e501164ada1fe0d6f8898700abfde7ff8ace677",
+    "historical_Ns_sha256": "376a3f4a1c64b9d6202722f9b808a20069a09e57b24e266ea365afc46c719ce4",
+    "difference_cause": "JSON serialization only (compact separators vs spaced); payload bytes of image_id/file_name/category_id/bbox/score/segmentation counts identical at head comparison",
+    "supporting_evidence": [
+      "file size 210610966 vs 220315216 bytes",
+      "segm AP identical to 1e-14: 44.01383582200932",
+      "full_native_and_oldG_RLE_exact=true over 539125 rows"
+    ],
+    "verdict": "baseline identity equivalent; sha difference is textual, not semantic"
+  },
+  "recomputed": {
+    "panel": {"fixed_pairs": 28380, "images": 4929, "bridge_eligible_instances": 26429},
+    "endpoints_union": {
+      "N": 0.262912, "G_old": 0.283379, "A": 0.277021, "B": 0.265058, "C": 0.285968,
+      "D": 0.277198, "Dproj": 0.272217, "Deq": 0.276403, "DprojEq": 0.273109
+    },
+    "endpoints_split": {
+      "N": 0.033901, "G_old": 0.030848, "A": 0.023460, "B": 0.023489, "C": 0.021552, "D": 0.024594
+    },
+    "endpoints_bridge": {
+      "N": 0.238021, "G_old": 0.260754, "A": 0.260760, "B": 0.248539, "C": 0.271466, "D": 0.260064
+    },
+    "paired_ref_minus_D": {
+      "N": {"diff": -0.014286, "ci": [-0.017951, -0.010731], "relative_reduction": -0.0543,
+            "split_diff": 0.009306, "bridge_diff": -0.022043},
+      "G_old": {"diff": 0.006181, "ci": [0.002393, 0.010142], "relative_reduction": 0.0218,
+                "split_diff": 0.006253, "bridge_diff": 0.000690},
+      "A": {"diff": -0.000176, "ci": [-0.002824, 0.002689], "relative_reduction": -0.0006},
+      "B": {"diff": -0.012140, "ci": [-0.014652, -0.009670], "relative_reduction": -0.0458,
+            "bridge_diff": -0.011525},
+      "C": {"diff": 0.008770, "ci": [0.006596, 0.011001], "relative_reduction": 0.0307,
+            "bridge_diff": 0.011402}
+    },
+    "Deq_minus_DprojEq": {"diff": -0.003294, "ci": [-0.005451, -0.000982]},
+    "IoU_paired": {
+      "D-N": {"mean": 0.005196, "ci": [0.004554, 0.005863]},
+      "D-G_old": {"mean": 0.004153, "ci": [0.003610, 0.004750]},
+      "D-A": {"mean": -0.000765}, "D-B": {"mean": -0.000514}, "D-C": {"mean": -0.000605},
+      "D-Dproj": {"mean": -0.000702}
+    },
+    "AP_segm": {
+      "N": 44.013836, "G_old": 44.152393, "A": 44.758755, "B": 44.755534,
+      "C": 44.734297, "D": 44.667286
+    },
+    "AP_gain_vs_N": {"G_old": 0.138557, "A": 0.744919, "B": 0.741698, "C": 0.720461, "D": 0.653450},
+    "damage_full_22958": {
+      "G_old": {"damaged": 90, "fraction": 0.0039202, "repaired": 192},
+      "A": {"damaged": 451, "fraction": 0.0196446, "repaired": 983},
+      "B": {"damaged": 406, "fraction": 0.0176845, "repaired": 953},
+      "C": {"damaged": 416, "fraction": 0.0181200, "repaired": 922},
+      "D": {"damaged": 448, "fraction": 0.0195139, "repaired": 900}
+    },
+    "bootstrap_spec": {"replicates": 2000, "seed": 1729, "unit": "paired_whole_image"}
+  },
+  "gates": {
+    "topology_utility_D_vs_N_reduction_ge_20pct": {
+      "verdict": "FAIL", "required": ">=0.20 and ci_lower>0",
+      "observed": "-0.0543 (D worse than N by 5.43% relative)",
+      "ci": [-0.017951, -0.010731]
+    },
+    "topology_D_vs_G_old_ci_lower_gt_0": {
+      "verdict": "PASS", "observed": 0.006181, "ci": [0.002393, 0.010142],
+      "note": "2.18% relative, far below the 20% utility bar"
+    },
+    "neither_error_type_significantly_worse": {
+      "verdict": "FAIL", "observed": "bridge diff N-D = -0.022043, ci upper -0.019042 (<0)"
+    },
+    "supervision_mechanism_D_vs_C_ge_10pct": {
+      "verdict": "FAIL", "required": ">=0.10 and ci_lower>0",
+      "observed": "0.0307 (D better than C by 3.07% relative)"
+    },
+    "hardness_match_ge_90pct": {"verdict": "PASS", "observed": {"A": 0.99756, "C": 0.99781}},
+    "local_expression_D_vs_B": {
+      "verdict": "FAIL", "required": "ci_lower>0 (B minus D)",
+      "observed": "-0.012140", "ci": [-0.014652, -0.009670],
+      "note": "B significantly better than D; forced-ridge projection (Dproj) also better than D by -0.004981"
+    },
+    "local_equal_amplitude_Deq_vs_DprojEq": {"verdict": "FAIL", "observed": -0.003294,
+                                             "ci": [-0.005451, -0.000982]},
+    "pixel_noninferiority_D_minus_N": {"verdict": "PASS", "required": ">=-0.001", "observed": 0.005196},
+    "native_success_damage_le_1pct": {
+      "verdict": "FAIL", "required": "<=0.01",
+      "observed": {"A": 0.019645, "B": 0.017685, "C": 0.018120, "D": 0.019514}
+    },
+    "box_identity_unchanged": {"verdict": "PASS"},
+    "AP_gain_vs_N_ge_0.3_point": {
+      "verdict": "PASS_on_point_estimate", "observed": {"A": 0.744919, "B": 0.741698,
+                                                        "C": 0.720461, "D": 0.653450}
+    },
+    "AP_paired_ci_lower_ge_0": {
+      "verdict": "NOT_COMPUTED",
+      "reason": "official statistics stage (lcf_statistics.py) not yet executed; STATISTICS.json and DECISION.json absent"
+    }
+  },
+  "joint_verdict": {
+    "status": "requirements_not_jointly_met",
+    "confidence": "high; failures are directional, not precision-limited",
+    "primary_method_D": "not supported; D ranks lowest in AP among the four arms and significantly worse than B on topology",
+    "why_not_precision_limited": [
+      "topology reduction is negative with CI entirely below zero",
+      "damage exceeds the 1% guard by 1.8x with 448/22958 observed events",
+      "local-expression contrast is negative with CI entirely below zero"
+    ],
+    "positive_facts_preserved": [
+      "all four arms exceed the old S3 +0.30 AP amplitude bar (A/B/C/D +0.65 to +0.74 points)",
+      "hardness matching in A/C passed at 99.76%/99.78%",
+      "five-of-six full 5000-image evaluation sets are Box-identical to native",
+      "no numerical or identity artifact invalidates the readout"
+    ]
+  },
+  "gaps": [
+    "STATISTICS.json / DECISION.json not produced; run scientific_status remains evaluated_pending_statistics",
+    "AP paired bootstrap CI (2000x) not run; only point estimates available",
+    "Dproj/Deq/DprojEq AP metrics not evaluated (only topology endpoints)"
+  ],
+  "next_step_single": {
+    "statement": "Freeze the B checkpoint and run a zero-training, same-detection acceptance-rule contrast: apply the old-G 9216 native-mask-area gate to B outputs only, then re-measure damage and AP against native.",
+    "evidence": "Old G carries the 9216 area gate and shows 0.392% damage with +0.1386 AP; all four arms have area_gate=null and show 1.77-1.96% damage; area gating is the only component already shown to reduce damage while retaining a positive AP delta (S2 large-mask gate, three-of-three numerical gates passed).",
+    "decision_rule": {
+      "if_damage_le_1pct_and_B_gain_retained_ge_0.5pt": "bottleneck is protection, not capacity; method route becomes expressive readout plus explicit acceptance criterion",
+      "if_B_gain_collapses_below_0.14pt": "high AP and <=1% damage are not co-attainable in this configuration; close further investment in it"
+    },
+    "requires": "new user authorization; no training, no threshold search, no automatic submission"
+  }
+}

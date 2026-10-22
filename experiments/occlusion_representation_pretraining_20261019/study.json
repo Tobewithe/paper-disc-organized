@@ -6,17 +6,17 @@
   "title": "视频遮挡表征预训练",
   "created_on": "2026-10-19",
   "plan_status": "frozen",
-  "execution_status": "running",
-  "scientific_status": "pipeline_validated_method_utility_unmeasured",
-  "artifact_status": "E0_validated_implementation_and_four_arm_jobs_submitted",
-  "transfer_status": "lightweight_receipt_verified_assets_persist_on_server",
+  "execution_status": "training_and_evaluation_completed",
+  "scientific_status": "no_practical_pair_increment",
+  "artifact_status": "evaluate_artifacts_transferred_10",
+  "transfer_status": "evaluate_10_files_verified_1708_manifest_sha_on_server",
   "entrypoint": "../../paper/manuscripts/occlusion_representation_pretraining/README.md",
   "canonical_route": "../../project/ACTIVE_PLAN.md",
   "protocol": "EXECUTION_E1_V02.md",
   "protocol_frozen": true,
   "data_contract": "DATA_CONTRACT_VIDEO_V02_DRAFT.md",
   "source_evidence": "SOURCE_EVIDENCE_VIDEO_V02.json",
-  "current_stage": "pilot_data_generation",
+  "current_stage": "pilot_evaluated_closed",
   "hypothesis": "物理干预下的视频内容保持与可见证据响应监督，相比同预算普通视频训练改善跨遮挡对应及冻结表征迁移",
   "authorization": {
     "request": "就按这个方向继续，在服务器上先把最小视频事件包、自动标签和模型损失接口做出来，核验通过后跑四组对照，重点验证遮挡后恢复和错误补接有没有实际改善，不要只停在方案。",
@@ -108,9 +108,14 @@
     "RUN_VOR_RENDER_ENGINEERING_ENGINEERING_0001_d8d90cc64b91",
     "RUN_VOR_RENDER_PILOT_TRAIN_0000_565c71df87ac",
     "RUN_VOR_SMOKE_ENGINEERING_FIRST_6168931e469d",
-    "RUN_VOR_VALIDATE_ENGINEERING_FIRST_2007fcf994e5"
+    "RUN_VOR_VALIDATE_ENGINEERING_FIRST_2007fcf994e5",
+    "RUN_VOR_TRAIN_B_ac08e91ce269",
+    "RUN_VOR_TRAIN_P_437c161107fe",
+    "RUN_VOR_TRAIN_I_a489d4c1ae18",
+    "RUN_VOR_TRAIN_HPOS_be39334a93ca",
+    "RUN_VOR_EVALUATE_PILOT_bacf87dfcd02"
   ],
-  "training_steps_completed": 0,
+  "training_steps_completed": 8000,
   "pending_execution_freeze": [],
   "record_paths": [
     "study.json",
@@ -130,7 +135,7 @@
     "server_execution/TRAIN_FREEZE.json",
     "server_execution/DELIVERY_RECEIPT.json"
   ],
-  "updated_on": "2026-10-20",
+  "updated_on": "2026-10-22",
   "design_version": "v0.2",
   "model_and_loss": "MODEL_AND_LOSS_VIDEO_V02_DRAFT.md",
   "experiment_matrix": "EXPERIMENT_MATRIX_VIDEO_V02_DRAFT.md",
@@ -161,7 +166,7 @@
     }
   ],
   "proposed_pilot_budget": {
-    "status": "frozen_and_submitted_waiting_data_dependency",
+    "status": "executed_and_evaluated",
     "arms": [
       "B",
       "P",
@@ -185,5 +190,47 @@
   "server_root": "/srv/gpu-lab/users/a25023104/projects/video-occlusion-pretraining-v02",
   "engineering_training_steps_completed": 16,
   "latest_snapshot_utc": "2026-10-20T07:24:01.240501+00:00",
-  "current_run": "RUN_VOR_RENDER_PILOT_TRAIN_0000_565c71df87ac"
+  "current_run": "RUN_VOR_EVALUATE_PILOT_bacf87dfcd02",
+  "acceptance": {
+    "receipt": "ACCEPTANCE_RECEIPT_VOR_20261022.json",
+    "report": "ACCEPTANCE_REVIEW_VOR_20261022.md",
+    "reviewed_at": "2026-10-22T20:05:00+08:00",
+    "kind": "independent_recomputation_matches_recorded",
+    "integrity_passed": true,
+    "manifest_entries_checked": 1708,
+    "manifest_sha_mismatch": 0,
+    "checkpoint_sha_all_four_match": true,
+    "means_delta_ci_bitwise_reproduced": true,
+    "verdict": "no_practical_pair_increment",
+    "gates": {
+      "P_minus_B_R1_ge_3pp_and_lower_gt_0": "FAIL (+0.0065pp, CI[-0.3527,+0.2749])",
+      "P_minus_B_W_upper_le_1pp": "PASS_borderline (+0.7909, upper +0.9495)",
+      "P_minus_B_U_lower_ge_-1pp": "PASS (+0.2647, lower +0.0960)",
+      "P_minus_I_R1_lower_gt_0": "FAIL_reversed (-3.1578, CI[-5.3727,-1.3953])",
+      "Hpos_minus_P": "no_difference (+0.2272, CI crosses 0)"
+    },
+    "means_pct": {
+      "N": 3.682,
+      "B": 7.027,
+      "P": 7.034,
+      "I": 10.192,
+      "Hpos": 7.261
+    },
+    "R_object_conditional_pct": {
+      "N": 0.0,
+      "B": 6.806,
+      "P": 7.083,
+      "I": 14.028,
+      "Hpos": 6.944
+    },
+    "doc_defect": "VALIDATION_THRESHOLDS.json copies P's f1/tp/accepted rows into P_other_query and P_matched_norm (evaluate.py:256); R1/W/U unaffected",
+    "boundaries": [
+      "single_seed_0",
+      "final_step_2000_only",
+      "synthetic_heldout_assets",
+      "no_real_video",
+      "no_mature_tracker_comparison"
+    ],
+    "next_step": "zero-training equal-coverage contrast between P and I using saved predictions; not started, needs authorization"
+  }
 }
