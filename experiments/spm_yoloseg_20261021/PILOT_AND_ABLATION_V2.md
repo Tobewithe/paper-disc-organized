@@ -1,7 +1,9 @@
 # SPM-YOLO V2：高频域适配与原型记忆分阶段试验协议（候选、未冻结）
 
 **日期：** 2026-10-22；**Study:** STUDY_SPM_YOLOSEG_20261021  
-**状态：** proposal_only / not_started / formal_optimizer_steps=0；不创建 Run、不自动渲染或训练。  
+**状态：** proposal_only / not_started / formal_optimizer_steps=0；不创建 Run、不自动渲染或训练。
+
+> **V3 执行优先级补充（2026-10-22）：** 完成 P0 的真实数据/Mask/模型审计后，优先进行[冻结 P3/P4 接触边界 Probe](CONTACT_BOUNDARY_PROBE_DRAFT.md) 的小规模科学判别（需另行冻结与训练授权），以辨明同类实例边界线索是否在特征中可稳定读取，再决定外观/几何原型和合成规模。V2 原设计的同几何 V0/V2/V3 高频实验保留、但**不是 P0 后默认立即开训**。[V3 决策树](../../paper/manuscripts/spm_yoloseg/PRIORITIES_RISKS_AND_DECISION_TREE_V3.md)。  
 **前置：** [V2 实施蓝图](../../paper/manuscripts/spm_yoloseg/IMPLEMENTATION_BLUEPRINT_V2.md)、[频率迁移规范](../../paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md)、[RESEARCH_RULES](../../paper/manuscripts/spm_yoloseg/RESEARCH_RULES.md)。本文件补充原 [PROTOCOL_DRAFT](PROTOCOL_DRAFT.md)，**不覆盖或替代任何已冻结 Protocol**。
 
 ## 1. 研究命题、竞争解释和主比较
