@@ -3,7 +3,7 @@
 **研究线 Key：** `spm_yoloseg`  
 **登记日期：** 2026-10-21  
 **定位：** 独立应用型 SCI 论文主线；目标是先完成可重复、可投稿的猪场 YOLO26-Seg 改进研究（优先满足毕业需求，期刊分区与录用均不预先保证）。  
-**当前状态：** `research_draft / hypothesis_only / not_started`。本次仅在 GitHub 登记；没有训练、渲染、原型、结果或正式冻结协议。
+**当前状态：** `research_draft / hypothesis_only / not_started`。2026-10-22 已补充 V2 详细设计（真实域约束场景、语义条件高频迁移、可追溯原型和对照试验），仍未渲染/训练/产生结果或冻结正式协议。
 
 ## 核心科研问题
 
@@ -34,6 +34,9 @@
 
 | 文件 | 内容 |
 |---|---|
+| [V2 详细实施蓝图](IMPLEMENTATION_BLUEPRINT_V2.md) | **场景统计→Blender 几何与标注→真实纹理/高频→共同原型空间→YOLO 注入**，每步算法、输入输出与QA |
+| [真实频率迁移规范](REAL_FREQUENCY_TRANSFER_SPEC.md) | 类别条件真实 Pig/背景高频、UV/PBR 纹理、FFT 幅度/相位、相机退化、真实数据防泄漏及 QA |
+| [V2 Pilot 与消融设计](../../../experiments/spm_yoloseg_20261021/PILOT_AND_ABLATION_V2.md) | 同场景同标签 V0/V2/V3 高频对照、真实/合成原型独立贡献、数据/计算公平性与阶段 Gate |
 | [研究章程](RESEARCH_CHARTER.md) | 机制假说、数学接口、Blender→真实原型→YOLO26-Seg 的完整技术路线及失败出口 |
 | [本线规则](RESEARCH_RULES.md) | 数据、权重、评价、冻结、训练授权和因果归因规范 |
 | [实验设计草案](../../../experiments/spm_yoloseg_20261021/PROTOCOL_DRAFT.md) | P0–P5 分阶段 Gate、最低实验矩阵与报告要求；**未冻结且未开训** |
