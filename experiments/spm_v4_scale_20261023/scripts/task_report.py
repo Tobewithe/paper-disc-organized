@@ -50,7 +50,8 @@ def report(root, run, sources, metrics, costs, family, decision):
                     '05_data_coverage_and_poses': '全量输入、实例尺度与真实生成姿态频数', '06_actual_synthetic_scene_and_label_pairs': '真实已渲染场景、可见ID与成对外观',
                     '07_prototype_atlas_foreground': '前景16中心的真实train exemplar，红十字为stride4查询位置',
                     '07_prototype_atlas_background': '背景16中心及其真实来源/层支持', '08_prototype_support': '32槽利用率与各训练域支持',
-                    '09_embedding_PCA': '同一学习嵌入按域和C/B/I/BG显示，仅作描述', '10_real_improvement_and_damage_cases': '固定规则选择最好3例和最差3例',
+                    '09_embedding_PCA': '同一学习嵌入按域和C/B/I/BG显示，仅作描述', '09b_prototype_center_cosine': '32个真实中心的完整128维余弦矩阵，不从二维投影重叠推断塌缩或效用',
+                    '10_real_improvement_and_damage_cases': '固定规则选择最好3例和最差3例',
                     '11_contact_or_explicit_boundary_crops': '真实接触crop；无接触时显式标注边界fallback', '12_actual_prototype_responses': '实际前景/背景余弦、Top1及新增基底幅度',
                     '13_actual_mask_logit_contribution': '同一个真实最终检测的原32/新32/合计Mask logit，阈值与框裁剪前',
                     '14_all_family_damage_breakdown': '四个文件名family的完整描述性损伤'}

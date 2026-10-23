@@ -5,10 +5,10 @@
   "protocol": "PROTOCOL.md",
   "parent_study": "../spm_v4_fastpilot_20261023/study.json",
   "plan_status": "authorized_scale_continuation",
-  "execution_status": "full_data_preparation_completed_baseline_running_method_dependency_queued",
-  "scientific_status": "task_supervised_prototype_hypothesis_five_pp_target_unmeasured",
-  "artifact_status": "full_render_real_cutout_synthetic_cache_verified_method_weights_pending",
-  "transfer_status": "source_and_real_inputs_verified_on_server",
+  "execution_status": "task_memory_20000_steps_completed_four_arm_segmentation_running",
+  "scientific_status": "interim_1000_step_F_below_matched_continued_full_comparison_pending",
+  "artifact_status": "trained_32_slot_memory_projector_baseline_and_prototype_figures_local_SHA_verified",
+  "transfer_status": "baseline_task_memory_projector_and_actual_prototype_visuals_received_verified",
   "executor": "a25023104@192.168.71.10",
   "server_root": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023",
   "authorization": "2026-10-23 用户明确要求规模化继续；沿用服务器、多卡及一次性Slurm授权",
@@ -34,7 +34,7 @@
   },
   "scheduled_tasks": false,
   "old_runs_modified": false,
-  "current_action": "complete_full_baseline_then_task_supervised_prototypes_and_matched_four_arms",
+  "current_action": "complete_frozen_8000_step_four_arms_then_same_checkpoint_interventions",
   "baseline_protocol": "BASELINE_PROTOCOL.md",
   "method_protocol": "TASK_PROTOCOL_V3.md",
   "goal_status": "active_user_requested_at_least_5_pp",
@@ -58,7 +58,9 @@
     "visual_preflight_R0": 211,
     "visual_preflight_R2": 212,
     "feature_prefetch_array": 213,
-    "feature_cache_engineering": 215
+    "feature_cache_engineering": 215,
+    "prototype_visuals_R0": 219,
+    "prototype_visuals_R3": 220
   },
   "goal_acceptance_addendum": "GOAL_ACCEPTANCE_ADDENDUM.md",
   "goal_reference": "max_selected_Bstar_and_matched_continued",
@@ -82,5 +84,29 @@
     "provisional_Bstar_sha256": "6f0393c8c9199916ed3483b250f4af5f6b4758b9ff9649394672d0616b77fc94",
     "formal_use": "pending_final_Bstar_SHA_match",
     "mismatch_rejection_engineering": "passed"
+  },
+  "baseline_result": {
+    "run_id": "RUN_SPM_SCALE_BASELINE_162af9978b28",
+    "optimizer_steps": 12720,
+    "epochs": 120,
+    "selected_Mask_AP": 54.67980979145691,
+    "last_Mask_AP": 47.80626904044667,
+    "selected_checkpoint_sha256": "6f0393c8c9199916ed3483b250f4af5f6b4758b9ff9649394672d0616b77fc94"
+  },
+  "trained_prototype": {
+    "run_id": "RUN_SPM_SCALE_PROTOTYPE_FINAL_959ef31d838a",
+    "K": 32,
+    "dimension": 128,
+    "optimizer_steps_total": 20000,
+    "tokens": 791652,
+    "memory_sha256": "6ad2e284824abf4a2bd7c7af97ea3f84e088167c9d09b551286cb83e2b076e96"
+  },
+  "interim_1000_step_results": {
+    "scope": "interim_not_final_selection",
+    "continued_Mask_AP": 57.087065313871385,
+    "adapter_Mask_AP": 56.912732137300196,
+    "random_memory_Mask_AP": 56.94175519090795,
+    "task_spm_Mask_AP": 56.90639511505267,
+    "task_spm_minus_continued_pp": -0.18067019881871715
   }
 }

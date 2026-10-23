@@ -200,11 +200,24 @@ def memory_figures(root, out, store):
         labels = np.asarray(labels)
         for name, color in colors.items():
             idx = labels == name; ax.scatter(xy[idx, 0], xy[idx, 1], s=3, alpha=.25, c=color, label=name, rasterized=True)
-        ax.scatter(pc[:, 0], pc[:, 1], marker='X', c='black', s=45)
-        for i, point in enumerate(pc): ax.annotate(str(i), point, fontsize=7)
+        # Center IDs become unreadable when a 128D bank overlaps in this 2D projection.
+        ax.scatter(pc[:, 0], pc[:, 1], marker='X', c='black', s=45, label='32 prototype centers')
         ax.legend(frameon=False, markerscale=3); ax.set(xlabel='PC1', ylabel='PC2')
     axes[0].set_title('Actual learned train embedding by domain'); axes[1].set_title('Same embedding by supervised stratum')
     fig.tight_layout(); savefig(fig, out, '09_embedding_PCA')
+    cosine = centers@centers.T
+    fig, ax = plt.subplots(figsize=(8, 7))
+    im = ax.imshow(cosine, cmap='coolwarm', vmin=-1, vmax=1)
+    ax.set_xticks(range(32), range(32), fontsize=7); ax.set_yticks(range(32), range(32), fontsize=7)
+    ax.axvline(15.5, c='black', lw=1); ax.axhline(15.5, c='black', lw=1)
+    ax.set(xlabel='Prototype ID: foreground 0-15, background 16-31', ylabel='Prototype ID', title='Actual learned center cosine similarity | descriptive, not AP')
+    fig.colorbar(im, ax=ax, label='128D cosine similarity', fraction=.045)
+    fig.tight_layout(); savefig(fig, out, '09b_prototype_center_cosine')
+    dump(out/'PROTOTYPE_GEOMETRY.json', {'center_cosine_matrix': cosine.tolist(),
+         'foreground_mean_off_diagonal_cosine': float((cosine[:16, :16].sum()-np.trace(cosine[:16, :16]))/240),
+         'background_mean_off_diagonal_cosine': float((cosine[16:, 16:].sum()-np.trace(cosine[16:, 16:]))/240),
+         'cross_partition_mean_cosine': float(cosine[:16, 16:].mean()),
+         'scope': 'descriptive_trained_bank_geometry_no_new_training_or_utility_threshold'})
     del embedded, z
 
 
