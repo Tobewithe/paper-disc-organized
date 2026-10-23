@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-object-real-transfer-20261023/scripts/rt.py", line 67, in context
+    yield run, meta, cfg
+  File "/srv/gpu-lab/users/a25023104/projects/spm-object-real-transfer-20261023/scripts/run_transfer.py", line 249, in execute
+    cache, native = prepare_cache(root, run, cfg, model, captured, ops, bank, rows, smoke)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-object-real-transfer-20261023/scripts/transfer_io.py", line 225, in prepare_cache
+    assert torch.equal(replay, frame['masks']), 'Native decoder replay mismatch'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Native decoder replay mismatch

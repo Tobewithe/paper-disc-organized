@@ -1,0 +1,193 @@
+{
+  "metrics": {
+    "native": {
+      "mask_ap": 57.315272826035994,
+      "mask_ap50": 84.98348545490508,
+      "mask_ap75": 69.09820934771275,
+      "mask_small_ap": 20.581172240099,
+      "stats": [
+        57.315272826035994,
+        84.98348545490508,
+        69.09820934771275,
+        20.581172240099,
+        68.18383304245347,
+        84.7659943037519,
+        12.42403073698917,
+        58.917219699615785,
+        64.02025847013621,
+        28.447293447293447,
+        74.78325859491778,
+        85.9090909090909
+      ]
+    },
+    "structured": {
+      "mask_ap": 50.90724595911572,
+      "mask_ap50": 71.51003009330383,
+      "mask_ap75": 62.34222121401138,
+      "mask_small_ap": 13.31707303122999,
+      "stats": [
+        50.90724595911572,
+        71.51003009330383,
+        62.34222121401138,
+        13.31707303122999,
+        63.007755588051594,
+        81.50964201900074,
+        12.326231225986728,
+        52.11316800558854,
+        62.0153684945861,
+        26.096866096866094,
+        72.93472845042352,
+        83.44155844155846
+      ]
+    },
+    "scrambled_control": {
+      "mask_ap": 50.21739840700663,
+      "mask_ap50": 70.5380221083951,
+      "mask_ap75": 61.212045874471066,
+      "mask_small_ap": 12.474069829571905,
+      "stats": [
+        50.21739840700663,
+        70.5380221083951,
+        61.212045874471066,
+        12.474069829571905,
+        62.452710680776725,
+        81.6486931675086,
+        12.37862382116661,
+        51.49144254278728,
+        61.9210618232623,
+        25.826210826210826,
+        72.88988540109617,
+        83.50649350649351
+      ]
+    },
+    "structured_off": {
+      "mask_ap": 52.16629942310852,
+      "mask_ap50": 74.88066353409289,
+      "mask_ap75": 64.29780823376761,
+      "mask_small_ap": 14.41598029686083,
+      "stats": [
+        52.16629942310852,
+        74.88066353409289,
+        64.29780823376761,
+        14.41598029686083,
+        64.21846475130003,
+        80.84627414136368,
+        12.329724065665387,
+        53.20293398533007,
+        62.116660845267205,
+        25.527065527065528,
+        73.32835077229696,
+        82.79220779220779
+      ]
+    },
+    "structured_scrambled": {
+      "mask_ap": 51.05500885030353,
+      "mask_ap50": 72.03243201524687,
+      "mask_ap75": 62.90054488373712,
+      "mask_small_ap": 13.09773180555545,
+      "stats": [
+        51.05500885030353,
+        72.03243201524687,
+        62.90054488373712,
+        13.09773180555545,
+        63.30685137451842,
+        80.91861970790468,
+        12.329724065665385,
+        52.16905344044708,
+        61.938526021655605,
+        25.698005698005698,
+        73.00448430493273,
+        82.92207792207792
+      ]
+    }
+  },
+  "damage": {
+    "structured": {
+      "native_success_GT": 2128,
+      "success_to_failure": 106,
+      "damage_fraction": 0.04981203007518797,
+      "native_failures": 735,
+      "failure_to_success": 23
+    },
+    "scrambled_control": {
+      "native_success_GT": 2128,
+      "success_to_failure": 112,
+      "damage_fraction": 0.05263157894736842,
+      "native_failures": 735,
+      "failure_to_success": 20
+    },
+    "structured_off": {
+      "native_success_GT": 2128,
+      "success_to_failure": 91,
+      "damage_fraction": 0.04276315789473684,
+      "native_failures": 735,
+      "failure_to_success": 23
+    },
+    "structured_scrambled": {
+      "native_success_GT": 2128,
+      "success_to_failure": 99,
+      "damage_fraction": 0.046522556390977444,
+      "native_failures": 735,
+      "failure_to_success": 24
+    }
+  },
+  "evaluation_images": 432,
+  "inference_GT_used": false,
+  "elapsed_seconds": 26.86563468800159,
+  "source": "fixed last checkpoints; complete development set; no test and no model selection",
+  "status": "current_object_interface_no_positive_real_segmentation_gain",
+  "structured_minus_native_pp": -6.408026866920274,
+  "structured_minus_control_pp": 0.689847552109093,
+  "off_drop_pp": -1.2590534639927995,
+  "scramble_drop_pp": -0.14776289118780994,
+  "prototype_dependency_observed": false,
+  "positive_development_point_estimate_is_not_independent_confirmation": true,
+  "five_pp_goal_achieved": false,
+  "chosen_research_direction": "prioritize_real_visible_object_alignment_before_any_further_residual_training",
+  "automatic_followup_training": false,
+  "optimizer_steps": 8000,
+  "training": {
+    "structured": {
+      "optimizer_steps": 4000,
+      "trainable_parameters": 46209,
+      "initialization_state_sha256": "6c5fc62149bbd93cecf5beaf6967465736cfa7097fd203fefae485c813cbcc7d",
+      "elapsed_seconds": 18.436121922000893,
+      "sampler_objects": 15851,
+      "positive_objects": 15775,
+      "min_exposure": 12,
+      "max_exposure": 843,
+      "exposed_objects": 15851,
+      "gradient_absolute_sum": null,
+      "checkpoint_selection": "fixed_last_step_no_dev_selection",
+      "checkpoint_sha256": "5ff2302ffc3461d5deb7cf29aad838dc15b2b940ee756c7a2079a3abb3050920"
+    },
+    "scrambled_control": {
+      "optimizer_steps": 4000,
+      "trainable_parameters": 46209,
+      "initialization_state_sha256": "6c5fc62149bbd93cecf5beaf6967465736cfa7097fd203fefae485c813cbcc7d",
+      "elapsed_seconds": 18.022265987994615,
+      "sampler_objects": 15851,
+      "positive_objects": 15775,
+      "min_exposure": 12,
+      "max_exposure": 843,
+      "exposed_objects": 15851,
+      "gradient_absolute_sum": null,
+      "checkpoint_selection": "fixed_last_step_no_dev_selection",
+      "checkpoint_sha256": "f44f0a4770538cdce9c842d9bb36b49fb1034c1e926f14c73756eb0f68d9df7c"
+    }
+  },
+  "native_state_before": "569d9ada25960826b3d498b94e8ea209267c57d7291875fa65becab263d17ca6",
+  "native_state_after": "569d9ada25960826b3d498b94e8ea209267c57d7291875fa65becab263d17ca6",
+  "peak_GPU_memory_bytes": 716253696,
+  "cache_summary": {
+    "zero_replay_rows": 35940,
+    "cache": "/srv/gpu-lab/users/a25023104/projects/spm-object-real-transfer-20261023/cache/RUN_SPM_REAL_OBJECT_FORMAL_7f4c108f0d3b",
+    "train_source_images": 1272,
+    "train_images_with_eligible_rows": 1272,
+    "dev_images": 432,
+    "training_objects": 15851,
+    "training_positive_objects": 15775,
+    "eligible_dev_objects": 3751
+  },
+  "real_test_used": false
+}
