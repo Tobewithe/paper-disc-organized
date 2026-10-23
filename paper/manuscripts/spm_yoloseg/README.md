@@ -1,5 +1,7 @@
 # SPM-YOLO：合成—真实原型记忆增强的猪群实例分割
 
+**2026-10-23 当前规模化V4.1：** 用户明确目标为优化原型与分割训练、同数据同预算Mask mAP50–95至少+5绝对百分点。已启动1272真实train/432dev和2048几何×2外观，基线120轮、任务原型20000步、四臂各8000步；实际状态见[新Study](../../../experiments/spm_v4_scale_20261023/study.json)和[冻结方法](../../../experiments/spm_v4_scale_20261023/TASK_PROTOCOL_V3.md)。P2/P3实例监督与额外Mask基底取代未启动的规模化旧门控；[当前总控](../../../project/ACTIVE_PLAN.md)为唯一动作路由。+5为目标，尚未获得本轮方法结果，旧54图小收益及关原型无影响的阴性保留。
+
 **研究线 Key：** `spm_yoloseg`  
 
 **2026-10-23 V4快速首轮已完成：** [报告](../../../experiments/spm_v4_fastpilot_20261023/REPORT.md)、[13张技术/结果图](../../../experiments/spm_v4_fastpilot_20261023/VISUAL_GUIDE.md)和[权重用法](../../../experiments/spm_v4_fastpilot_20261023/USAGE.md)已交付。Slurm191/192/193完成64几何/128图、B*600步、原型1000步、continued/G/F各400步及免检索导出。F Mask AP50.9267，对同预算continued +1.3045pp、G +1.3725pp、B* +0.2306pp；AP75相对B*下降。关闭检索几乎无变化，优先使用保留SPM训练权重的原生head（AP50.9272）。单seed54图开发结果，不称独立测试或机制证明；当前路由仅看ACTIVE_PLAN。下方旧保存、not_started和Probe顺序保留历史范围。
