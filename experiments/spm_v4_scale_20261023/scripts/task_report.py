@@ -8,10 +8,11 @@ def report(root, run, sources, metrics, costs, family, decision):
     delta = decision['measured_F_minus_continued_pp']; used = decision['operational_prototype_use_drop_exceeds_0_1_pp']
     target = decision['five_pp_metric_target_met']; specific = decision['F_exceeds_G_and_R_and_off_drops']
     f = metrics['task_spm']; b = metrics['continued']; base = metrics['baseline']
-    status = '达到开发集+5点数值目标' if target else '尚未达到+5点目标'
+    status = '达到相对最强保留原生参照的开发集+5点数值目标' if target else '尚未达到相对最强保留原生参照的+5点目标'
     mechanism = 'F优于G/R且删除贡献掉点>.1pp' if specific else '原型特异性效用未共同获得支持'
     comparison = f"F Mask AP {f['mask_ap']:.4f}，相对同预算B {delta:+.4f}pp、G {decision['F_minus_comparators_pp']['adapter']:+.4f}pp、R {decision['F_minus_comparators_pp']['random_memory']:+.4f}pp、B* {f['mask_ap']-base['mask_ap']:+.4f}pp。Mask AP75相对B {f['mask_ap75']-b['mask_ap75']:+.4f}pp、B* {f['mask_ap75']-base['mask_ap75']:+.4f}pp；Box AP相对B {f['box_ap']-b['box_ap']:+.4f}pp。"
     drops = '；'.join(f"{k} {v:+.4f}pp" for k, v in decision['normal_minus_intervention_pp'].items())
+    comparison += f" 相对max(B*,B) {decision['F_minus_strongest_native_pp']:+.4f}pp；原同预算主比较+5门槛{'达到' if decision['matched_primary_five_pp_met'] else '未达到'}。"
     lines = ['# SPM-YOLO V4.1 全量实例任务原型实验', '',
              f"本实验完成1272真实训练图、432真实开发图、2048几何/4096外观、4096 cutout，B* 120轮、原型20000步及四臂各8000步。{status}；{mechanism}。本结果为单seed开发集选优，未使用独立test。", '',
              '| 维度 | 本次实验的整体研究链路 |', '|---|---|',
@@ -34,13 +35,13 @@ def report(root, run, sources, metrics, costs, family, decision):
     params = {m: sources[m]['summary'].get('full_head_trainable_parameters') for m in NAMES}
     lines += ['', '文件名family不是已核实物理猪栏；它们是描述性开发分组。F/R有效可训练参数完全一致；G相对F的实际容量差为 '+str(params['adapter']-params['task_spm'])+'，G/F并非严格容量匹配，R用于该控制。G/R共享同投影预训练信息，不能把新增P2信息本身全部归给学习中心。', '',
               '原始数据仅使用原PigLife train的1704图分组切分；原test未参与训练、构库、阈值或模型选择。合成来自同一Quaternius猪资产；姿态、布局、密度、相机和外观随机化不等于真实分布完全覆盖。', '',
-              '运行、复核与证据：', '', '- 冻结方法：[TASK_PROTOCOL_V3.md](TASK_PROTOCOL_V3.md)、[评价合同](EVALUATION_PROTOCOL.md)、[全量基线](BASELINE_PROTOCOL.md)。',
+              '运行、复核与证据：', '', '- 冻结方法：[TASK_PROTOCOL_V3.md](TASK_PROTOCOL_V3.md)、[评价合同](EVALUATION_PROTOCOL.md)、[全量基线](BASELINE_PROTOCOL.md)、[最强原生参照目标验收补充](GOAL_ACCEPTANCE_ADDENDUM.md)。',
               f'- 总评价Run：`{run.name}`；源Run、检查点SHA与选优step见 [SOURCE_RUNS.json](runs/{run.name}/SOURCE_RUNS.json)。',
               f'- [全量指标](runs/{run.name}/METRICS.json)、[裁决](runs/{run.name}/DECISION.json)、[分组损伤](runs/{run.name}/FAMILY_RESULTS.json)、[真实贡献](runs/{run.name}/CONTRIBUTIONS.json)。',
               '- 原生/方法所有训练、工程失败和先前近零门控阴性均保留；GPU评价步骤0，未追加训练/seed/网格。',
               '- 训练和推理加载见 [USAGE.md](USAGE.md)，实际技术图见 [VISUAL_GUIDE.md](VISUAL_GUIDE.md)。', '']
     (root/'REPORT.md').write_text('\n'.join(lines), encoding='utf-8')
-    (run/'REPORT.md').write_text('\n'.join(lines).replace('(TASK_PROTOCOL', '(../../TASK_PROTOCOL').replace('(EVALUATION_PROTOCOL', '(../../EVALUATION_PROTOCOL').replace('(BASELINE_PROTOCOL', '(../../BASELINE_PROTOCOL').replace('(runs/', '(../../runs/').replace('(USAGE.md)', '(../../USAGE.md)').replace('(VISUAL_GUIDE.md)', '(../../VISUAL_GUIDE.md)'), encoding='utf-8')
+    (run/'REPORT.md').write_text('\n'.join(lines).replace('(TASK_PROTOCOL', '(../../TASK_PROTOCOL').replace('(EVALUATION_PROTOCOL', '(../../EVALUATION_PROTOCOL').replace('(BASELINE_PROTOCOL', '(../../BASELINE_PROTOCOL').replace('(GOAL_ACCEPTANCE_ADDENDUM', '(../../GOAL_ACCEPTANCE_ADDENDUM').replace('(runs/', '(../../runs/').replace('(USAGE.md)', '(../../USAGE.md)').replace('(VISUAL_GUIDE.md)', '(../../VISUAL_GUIDE.md)'), encoding='utf-8')
     guide = ['# V4.1真实技术与结果图集', '', '全部图来自本次实际数据、已训练权重和输出；英文图题对应下列说明。', '',
              '| 图 | 含义 |', '|---|---|']
     descriptions = {'00_method_and_supervision': '实际P2/P3→任务投影→32中心→额外32基底→64系数链路',

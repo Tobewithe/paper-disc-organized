@@ -24,7 +24,10 @@ def folder(root, stage):
 def independent_mask_ap(root, predictions):
     with contextlib.redirect_stdout(io.StringIO()):
         gt = COCO(str(root/'DEV_COCO.json'))
-        dt = gt.loadRes([{k: v for k, v in p.items() if k != 'bbox'} for p in predictions])
+        if predictions:
+            dt = gt.loadRes([{k: v for k, v in p.items() if k != 'bbox'} for p in predictions])
+        else:
+            dt = COCO(); dt.dataset = {**gt.dataset, 'annotations': []}; dt.createIndex()
         evaluator = COCOeval(gt, dt, 'segm'); evaluator.params.maxDets = [1, 10, 100]
         evaluator.evaluate(); evaluator.accumulate(); evaluator.summarize()
     return np.asarray(evaluator.stats)*100
@@ -50,7 +53,10 @@ def main(root):
             recomputed[tag] = {'mask_ap': float(stats[0]), 'all_12_segm_stats_max_error': error}
         d = read(evaluation/'DECISION.json'); actual = recomputed['task_spm']['mask_ap']-recomputed['continued']['mask_ap']
         assert actual == d['measured_F_minus_continued_pp']
-        assert (actual >= 5.) == d['five_pp_metric_target_met']
+        strongest_delta = recomputed['task_spm']['mask_ap']-max(recomputed['continued']['mask_ap'], recomputed['baseline']['mask_ap'])
+        assert (actual >= 5.) == d['matched_primary_five_pp_met']
+        assert strongest_delta == d['F_minus_strongest_native_pp']
+        assert (strongest_delta >= 5.) == d['five_pp_metric_target_met']
         data = read(root/'ALL_DATASET.json'); rows = data['rows']
         assert not data['test_included']
         real = [r for r in rows if r['domain'] == 'real']; assert len(real) == 1704

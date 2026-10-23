@@ -111,7 +111,10 @@ def decisions(metrics, cfg):
     drops = {m: metrics['task_spm']['mask_ap']-metrics['task_spm_'+m]['mask_ap'] for m in INTERVENTIONS}
     used = drops['off'] > cfg['prototype_intervention_meaningful_delta_pp']
     specific = used and deltas['adapter'] > 0 and deltas['random_memory'] > 0
-    target = primary >= cfg['target_mask_ap_absolute_delta_pp']
+    strongest_native = max(metrics['baseline']['mask_ap'], metrics['continued']['mask_ap'])
+    strongest_delta = metrics['task_spm']['mask_ap']-strongest_native
+    matched_target = primary >= cfg['target_mask_ap_absolute_delta_pp']
+    target = strongest_delta >= cfg['target_mask_ap_absolute_delta_pp']
     if target and specific:
         status = 'five_pp_development_target_and_operational_prototype_use_supported'
         direction = 'deliver_task_supervised_high_resolution_prototype_mask_basis'
@@ -128,6 +131,9 @@ def decisions(metrics, cfg):
     return {'status': status, 'target_delta_pp': 5., 'measured_F_minus_continued_pp': primary,
             'F_minus_comparators_pp': deltas, 'normal_minus_intervention_pp': drops,
             'operational_prototype_use_drop_exceeds_0_1_pp': used, 'F_exceeds_G_and_R_and_off_drops': specific,
+            'matched_primary_five_pp_met': matched_target,
+            'strongest_retained_native_mask_ap': strongest_native, 'F_minus_strongest_native_pp': strongest_delta,
+            'goal_acceptance_addendum': 'GOAL_ACCEPTANCE_ADDENDUM.md',
             'five_pp_metric_target_met': target, 'goal_achieved_pending_artifact_acceptance': target and specific,
             'chosen_research_direction': direction, 'unique_next_action': next_action,
             'evidence_scope': 'single_seed_432_real_development_images_selected_on_same_development_set',
