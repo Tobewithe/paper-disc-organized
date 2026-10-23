@@ -215,7 +215,7 @@
       "line_id": "LINE_SPM_YOLOSEG_20261021",
       "key": "spm_yoloseg",
       "title": "合成—真实原型记忆增强的猪群实例分割（SPM-YOLO）",
-      "status": "V4_1_task_memory_trained_four_arm_segmentation_running_five_pp_goal_active",
+      "status": "V4_1_completed_utility_not_supported_instance_readout_opportunity_preparing_five_pp_goal_active",
       "role": "independent_mainline",
       "entrypoint": "paper/manuscripts/spm_yoloseg/README.md",
       "paper_directory": "paper/manuscripts/spm_yoloseg",
@@ -224,7 +224,8 @@
         "STUDY_SPM_PROTOTYPE_TRAINING_20261022",
         "STUDY_SPM_FARM_SCENES_20261023",
         "STUDY_SPM_V4_FASTPILOT_20261023",
-        "STUDY_SPM_V4_SCALE_20261023"
+        "STUDY_SPM_V4_SCALE_20261023",
+        "STUDY_SPM_INSTANCE_READOUT_OPPORTUNITY_20261023"
       ],
       "focus_documents": [
         "paper/manuscripts/spm_yoloseg/README.md",
@@ -255,7 +256,11 @@
         "experiments/spm_v4_fastpilot_20261023/VISUAL_GUIDE.md",
         "experiments/spm_v4_scale_20261023/study.json",
         "experiments/spm_v4_scale_20261023/TASK_PROTOCOL_V3.md",
-        "experiments/spm_v4_scale_20261023/BASELINE_PROTOCOL.md"
+        "experiments/spm_v4_scale_20261023/BASELINE_PROTOCOL.md",
+        "experiments/spm_v4_scale_20261023/REPORT.md",
+        "experiments/spm_v4_scale_20261023/FINAL_LOCAL_ACCEPTANCE.json",
+        "experiments/spm_instance_readout_opportunity_20261023/study.json",
+        "experiments/spm_instance_readout_opportunity_20261023/PROTOCOL.md"
       ],
       "locations": [],
       "limits": [
@@ -267,7 +272,8 @@
         "2026-10-22 V3 未冻结设计优先级：P0 真实分簇/可见 Mask + 接触边界账本优先；随后冻结 P3/P4 接触边界可读性 probe（需另行授权）；仅有证据后扩大 Blender/真实高频/原型注入。",
         "2026-10-22用户明确要求训练原型；Slurm184已完成2000步及fg/bg各128个128维中心。双源产物和重载通过，两分区容量触限，分割AP和物理猪栏泛化未测；旧S1失败不改写。",
         "2026-10-23用户要求先保存；Slurm189工程样例8几何场景/16图/90头，标签射线核验通过。正式128场景与新版原型/YOLO训练尚未启动；旧P1权重保留，无自动续训。",
-        "2026-10-23用户随后明确按V4快速训练、要求正收益和技术可视化并显式要求goal。Slurm191/192/193已完成；F Mask AP50.9267，相对continued +1.3045pp、G +1.3725pp、B* +0.2306pp，但AP75相对B*下降。关闭部署检索几乎无变化，免检索权重AP50.9272；5模型、32槽memory与13图已交付。仅单seed54图开发结果，独立真实test尚未启动，不改旧Gate。"
+        "2026-10-23用户随后明确按V4快速训练、要求正收益和技术可视化并显式要求goal。Slurm191/192/193已完成；F Mask AP50.9267，相对continued +1.3045pp、G +1.3725pp、B* +0.2306pp，但AP75相对B*下降。关闭部署检索几乎无变化，免检索权重AP50.9272；5模型、32槽memory与13图已交付。仅单seed54图开发结果，独立真实test尚未启动，不改旧Gate。",
+        "2026-10-23全量V4.1真实完成并交付。F57.3570−B57.3153仅+0.0417pp、off仅−0.0565pp，+5未达；下一实例稠密读出机会为零训练判别，科学效用未定，不把GT辅助上界当无GT增益。"
       ],
       "design_version": "v4_authorized_fastpilot_20261023"
     }

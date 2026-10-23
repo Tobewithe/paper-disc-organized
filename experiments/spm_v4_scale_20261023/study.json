@@ -4,11 +4,11 @@
   "title": "SPM-YOLO V4全量真实数据、多样场景与长程训练",
   "protocol": "PROTOCOL.md",
   "parent_study": "../spm_v4_fastpilot_20261023/study.json",
-  "plan_status": "authorized_scale_continuation",
-  "execution_status": "task_memory_20000_steps_completed_four_arm_segmentation_running",
-  "scientific_status": "interim_1000_step_F_below_matched_continued_full_comparison_pending",
-  "artifact_status": "trained_32_slot_memory_projector_baseline_and_prototype_figures_local_SHA_verified",
-  "transfer_status": "baseline_task_memory_projector_and_actual_prototype_visuals_received_verified",
+  "plan_status": "completed_configuration_closed_successor_registered",
+  "execution_status": "completed_all_frozen_training_and_evaluation",
+  "scientific_status": "prototype_specific_utility_not_supported_in_this_configuration",
+  "artifact_status": "five_models_memory_projector_17_figures_and_evidence_local_SHA_verified",
+  "transfer_status": "completed_per_file_SHA_verified",
   "executor": "a25023104@192.168.71.10",
   "server_root": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023",
   "authorization": "2026-10-23 用户明确要求规模化继续；沿用服务器、多卡及一次性Slurm授权",
@@ -34,10 +34,10 @@
   },
   "scheduled_tasks": false,
   "old_runs_modified": false,
-  "current_action": "complete_frozen_8000_step_four_arms_then_same_checkpoint_interventions",
+  "current_action": "closed_global_dictionary_configuration_see_ACTIVE_PLAN_for_successor",
   "baseline_protocol": "BASELINE_PROTOCOL.md",
   "method_protocol": "TASK_PROTOCOL_V3.md",
-  "goal_status": "active_user_requested_at_least_5_pp",
+  "goal_status": "active_not_achieved_by_this_configuration",
   "method_change": "instance_mask_supervision_P2_P3_query_and_direct_native_mask_basis_readout",
   "evaluation_protocol": "EVALUATION_PROTOCOL.md",
   "slurm_jobs": {
@@ -82,7 +82,7 @@
     "train_only_source_episodes": 7160,
     "tokens": 791652,
     "provisional_Bstar_sha256": "6f0393c8c9199916ed3483b250f4af5f6b4758b9ff9649394672d0616b77fc94",
-    "formal_use": "pending_final_Bstar_SHA_match",
+    "formal_use": "verified_final_Bstar_match_cache_reused",
     "mismatch_rejection_engineering": "passed"
   },
   "baseline_result": {
@@ -108,5 +108,19 @@
     "random_memory_Mask_AP": 56.94175519090795,
     "task_spm_Mask_AP": 56.90639511505267,
     "task_spm_minus_continued_pp": -0.18067019881871715
+  },
+  "five_pp_goal_achieved": false,
+  "superseded_by": "../spm_instance_readout_opportunity_20261023/study.json",
+  "final_report": "REPORT.md",
+  "final_results": {
+    "continued_Mask_AP": 57.315272826035994,
+    "adapter_Mask_AP": 57.203617484741144,
+    "random_memory_Mask_AP": 57.23953569089551,
+    "task_spm_Mask_AP": 57.35701703514425,
+    "task_spm_minus_continued_pp": 0.041744209108259156,
+    "same_checkpoint_off_drop_pp": 0.05652829017395078,
+    "primary_goal_passed": false,
+    "all_arms_optimizer_steps": 8000,
+    "selected_step_all_arms": 2000
   }
 }

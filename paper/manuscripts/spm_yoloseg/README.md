@@ -1,6 +1,6 @@
 # SPM-YOLO：合成—真实原型记忆增强的猪群实例分割
 
-**2026-10-23 当前规模化V4.1：** 用户明确目标为优化原型与分割训练、同数据同预算Mask mAP50–95至少+5绝对百分点。已完成1272真实train/432dev准备、2048几何×2外观、基线120轮及任务原型20000步；[32槽原型与技术图](../../../experiments/spm_v4_scale_20261023/PROTOTYPE_ARTIFACTS.md)已回传，四臂各8000步正在训练；1000步F尚未超过同预算B，+5目标未达成。实际状态见[新Study](../../../experiments/spm_v4_scale_20261023/study.json)和[冻结方法](../../../experiments/spm_v4_scale_20261023/TASK_PROTOCOL_V3.md)。P2/P3实例监督与额外Mask基底取代未启动的规模化旧门控；[当前总控](../../../project/ACTIVE_PLAN.md)为唯一动作路由。+5为目标，尚未获得本轮方法结果，旧54图小收益及关原型无影响的阴性保留。
+**2026-10-23 全量V4.1完成：** 已完成1272train/432dev、多样场景、120轮基线、20000步实例原型及四臂各8000步。F/B/G/R Mask AP57.3570/57.3153/57.2036/57.2395，F对B仅+0.0417pp；off仅−0.0565pp，原型特异效用未获支持，至少+5点goal未完成。[完整报告](../../../experiments/spm_v4_scale_20261023/REPORT.md)、[17组图](../../../experiments/spm_v4_scale_20261023/VISUAL_GUIDE.md)、[本地验收](../../../experiments/spm_v4_scale_20261023/FINAL_LOCAL_ACCEPTANCE.json)已交付。后继[实例条件稠密读出机会](../../../experiments/spm_instance_readout_opportunity_20261023/study.json)核验现有嵌入能否形成真实实例Mask；GT上界不算部署收益。唯一动作路由见[当前总控](../../../project/ACTIVE_PLAN.md)，不继续扩大本配置固定全局字典。
 
 **研究线 Key：** `spm_yoloseg`  
 
