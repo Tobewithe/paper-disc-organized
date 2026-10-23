@@ -1,5 +1,7 @@
 # SPM-YOLO：合成—真实原型记忆增强的猪群实例分割
 
+**2026-10-23 V5 对象原型设计：** 用户将重点明确为“对象本身如何形成”。[V5 设计与训练](OBJECT_PROTOTYPE_DESIGN_V5_20261023.md)选择共享可变形身体、标准部位及特征场，分离个体体形、姿态、视角和可见性；通过跨视角预测与遮挡恢复学对象，再适配YOLO。新的[对象Study](../../../experiments/spm_object_prototype_20261023/study.json)为设计完成/尚未训练，具体执行路由只看[ACTIVE_PLAN](../../../project/ACTIVE_PLAN.md)。前驱[实例均值读出实验](../../../experiments/spm_instance_readout_opportunity_20261023/REPORT.md)Slurm221/222已结案：有部分特征区分作用，但GT支持仅修复2/305，无GT AP25.2765；不扩大该读出配置。V5取代未启动的直接Mask监督建议，旧Run与冻结规则保留。
+
 **2026-10-23 全量V4.1完成：** 已完成1272train/432dev、多样场景、120轮基线、20000步实例原型及四臂各8000步。F/B/G/R Mask AP57.3570/57.3153/57.2036/57.2395，F对B仅+0.0417pp；off仅−0.0565pp，原型特异效用未获支持，至少+5点goal未完成。[完整报告](../../../experiments/spm_v4_scale_20261023/REPORT.md)、[17组图](../../../experiments/spm_v4_scale_20261023/VISUAL_GUIDE.md)、[本地验收](../../../experiments/spm_v4_scale_20261023/FINAL_LOCAL_ACCEPTANCE.json)已交付。后继[实例条件稠密读出机会](../../../experiments/spm_instance_readout_opportunity_20261023/study.json)核验现有嵌入能否形成真实实例Mask；GT上界不算部署收益。唯一动作路由见[当前总控](../../../project/ACTIVE_PLAN.md)，不继续扩大本配置固定全局字典。
 
 **研究线 Key：** `spm_yoloseg`  
@@ -15,7 +17,7 @@
 **定位：** 独立应用型 SCI 论文主线；目标是先完成可重复、可投稿的猪场 YOLO26-Seg 改进研究（优先满足毕业需求，期刊分区与录用均不预先保证）。  
 **初始设计状态（历史）：** `research_draft / hypothesis_only / not_started`。2026-10-22 已补充 V2 详细设计与 V3 难点排序/冻结特征接触边界 Probe 草案；仍未渲染、训练、产生本线科学结果或冻结正式协议。 本地[基础实现方案](BASE_IMPLEMENTATION_SPEC.md)和配置草案已保留，包含RLE加载、P3检索、梯度与打包接口；它们不替代下方V3科学决策顺序。
 
-## 核心科研问题
+## V1 至 V4 的核心科研问题
 
 面对群养猪密集接触、部分遮挡和高度相似外观，是否能够从 **Blender 合成图像 + 公开/自采真实猪场数据**中形成一组**可冻结的可学习视觉原型**，并在不更换原生 YOLO26-Seg Mask 解码器的前提下，通过**条件检索 + 残差门控**改善实例分割？
 
@@ -27,7 +29,7 @@
 
 新增 [V4 可执行候选协议](DATA_SUPERVISION_TRAINING_EVALUATION_PROTOCOL_V4_20261023.md)，把数据准备（真实实例/接触 crop、cutout 合成与 Blender）、C/B/I/D 标签、监督目标、冻结原型与 P3 注入、数据/模型融合训练、公平消融和真实测试评价细化为可审计合同。**V4初版为候选设计；用户随后明确授权按V4快速实施，本轮以快速Study启动前冻结合同和真实Run为准，不重判旧Probe Gate。**固定 K=32 仅是 pilot 对照，动态 K 研究仍保留。
 
-## 当前决策优先级（V3，2026-10-22）
+## 历史决策优先级（V3，2026-10-22）
 
 **最高优先级科学问题：** 真正失败的猪-猪接触区域（同类不同实例）在原生 YOLO26-Seg 冻结 P3/P4 中，是否存在跨真实视频/猪栏可稳定读取、超出简单像素边缘的分离信息？仅前景/背景原型可能无法提供实例归属线索。
 

@@ -4,3 +4,9 @@
 *.part
 __pycache__/
 runs/**/predictions_*.json
+
+# Full per-object/per-frame audit rows stay local and on the experiment server.
+# Transfer checksums are retained in RESULTS_221.receipt.json and LOCAL_DATA_MANIFEST.json.
+/runs/**/OBJECT_LEDGER.json
+/runs/**/FRAME_READOUT_AUDIT.json
+/runs/**/OUTPUT_IDENTITIES.json
