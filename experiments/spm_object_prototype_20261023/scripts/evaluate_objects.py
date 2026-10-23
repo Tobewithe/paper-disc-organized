@@ -35,6 +35,9 @@ def evaluate(root, device):
         rows = []
         predictions = {}
         for arm in cfg['arms']:
+            trained = read(tr/(arm+'_TRAINING.json'))
+            assert sha(tr/(arm+'_last.pt')) == trained['checkpoint_sha256']
+            assert trained['optimizer_steps'] == cfg['training_steps_per_arm']
             checkpoint = torch.load(tr/(arm+'_last.pt'), map_location='cpu', weights_only=False)
             assert checkpoint['config_sha256'] == sha(root/'CONFIG_V0.json')
             assert checkpoint['source_data_manifest_sha256'] == location['manifest_sha256']
