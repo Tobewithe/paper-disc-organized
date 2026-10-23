@@ -1,0 +1,64 @@
+{
+  "stage": "formal",
+  "geometry_scenes": 683,
+  "RGB_images": 1366,
+  "split_geometry_counts": {
+    "dev": 86,
+    "train": 597
+  },
+  "pose_instances_once_per_geometry": {
+    "standing": 1883,
+    "walking": 972,
+    "feeding": 1706,
+    "prone": 1164,
+    "lateral_right": 781,
+    "lateral_left": 1181
+  },
+  "requested_pigs_once_per_geometry": 7687,
+  "visible_instances_once_per_geometry": 7335,
+  "annotations_across_appearances": 14670,
+  "fully_hidden_or_sub16pixel_instances_once_per_geometry": 352,
+  "layouts": {
+    "scatter": 171,
+    "rest_rows": 171,
+    "feeder_cluster": 170,
+    "fence_strip": 171
+  },
+  "floors": {
+    "concrete": 171,
+    "slatted": 171,
+    "bedded": 170,
+    "stained_concrete": 171
+  },
+  "camera_families": {
+    "overhead": 342,
+    "oblique": 341
+  },
+  "visible_pigs_per_geometry_min_max": [
+    2,
+    20
+  ],
+  "box_long_axis_fraction_quantiles": {
+    "0.1": 0.09114583333333333,
+    "0.5": 0.140625,
+    "0.9": 0.2203125
+  },
+  "ray_check_samples": 2797568,
+  "ray_check_mismatches": 9,
+  "ray_check_mismatch_fraction": 3.2170799780380674e-06,
+  "max_abs_ground_contact_z_m": 9.336508810520172e-08,
+  "RLE_roundtrip_passed": true,
+  "appearance_pair_ID_equal": true,
+  "labels_resolution": [
+    640,
+    384
+  ],
+  "data_manifest_sha256": "abb7aae1b25a58528f409c0fcf69d871fd0dec699cf4bccfb885516ff4de18b4",
+  "annotations_sha256": "3937bd6e0d995637656f0f7693d0fb6d63b4f5c1c0a18ec80e5399fe01bb021b",
+  "real_AP_gain": null,
+  "limits": [
+    "one low-poly Pig asset; scaling and skeletal variation are not independent animal assets",
+    "pose and camera frequencies partly designed, not fully fitted",
+    "same-asset scene holdout is not independent-asset validation"
+  ]
+}
