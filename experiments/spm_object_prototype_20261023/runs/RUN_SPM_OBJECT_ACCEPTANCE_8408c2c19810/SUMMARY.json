@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "GPU_used": false,
+  "optimizer_steps": 0,
+  "completed_training_steps": 8000,
+  "per_arm_steps": 4000,
+  "full_dataset_file_SHA_verified": 2304,
+  "source_run_artifacts_SHA_verified": 107,
+  "paired_geometry_groups_verified": 576,
+  "independent_statistics_max_abs_error": 0.0,
+  "decision_recomputed_exact": true,
+  "scientific_decision": "v0_object_ability_not_jointly_met",
+  "per_arm": {
+    "structured": {
+      "vertex_error": 0.019132758702552464,
+      "template_error": 0.1002331586399426,
+      "novel_view_full_mask_iou": 0.8993410132825375,
+      "shape_drift": 0.22383659137671608
+    },
+    "free": {
+      "vertex_error": 0.035574922241115324,
+      "template_error": 0.1002331586399426,
+      "novel_view_full_mask_iou": 0.8563939852433072,
+      "shape_drift": 0.226652507773704
+    }
+  },
+  "family_bootstrap_95_interval": [
+    0.4166876142431469,
+    0.5147716774607072
+  ],
+  "model_files": {
+    "structured": {
+      "file": "structured_last.pt",
+      "sha256": "d505f16ab9a9268c801fc9751200657e1e44bb8ed55a2006f93e0ec21e70a7e8",
+      "optimizer_steps": 4000,
+      "trainable_parameters": 453384
+    },
+    "free": {
+      "file": "free_last.pt",
+      "sha256": "79b4b566c37b807ffca812d1187dc7bf5b552cf0676b6b05b25c769922cac9aa",
+      "optimizer_steps": 4000,
+      "trainable_parameters": 453384
+    }
+  },
+  "real_data_used": false
+}

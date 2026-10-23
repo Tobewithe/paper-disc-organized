@@ -1,0 +1,76 @@
+{
+  "study_id": "STUDY_SPM_OBJECT_PROTOTYPE_20261023",
+  "phase": "single_asset_object_learning_v0",
+  "seed": 23102391,
+  "asset": "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion-v2/assets/farm/Farm Animals by @Quaternius/Blends/Pig.blend",
+  "asset_sha256": "8aec801123f31ca475000c738287dcd075dda6be4c5650c03b5657d801a847ef",
+  "blender": "/srv/gpu-lab/users/a25023104/projects/dense-video-occlusion/software/blender-4.2.1-linux-x64/blender",
+  "python": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv/bin/python",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/spm-object-prototype-20261023",
+  "families": 32,
+  "train_families": 24,
+  "dev_families": 8,
+  "poses": [
+    "standing",
+    "walking",
+    "feeding",
+    "prone",
+    "lateral_left",
+    "lateral_right"
+  ],
+  "camera_azimuths_degrees": [
+    20,
+    140,
+    260
+  ],
+  "camera_elevations_degrees": [
+    25,
+    50,
+    75
+  ],
+  "appearances": 2,
+  "occlusion_states": 2,
+  "image_size": 128,
+  "shape_dim": 16,
+  "feature_dim": 64,
+  "state_hidden_dim": 192,
+  "batch_size": 16,
+  "training_steps_per_arm": 4000,
+  "engineering_steps": 0,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.0001,
+  "arms": [
+    "structured",
+    "free"
+  ],
+  "loss_weights": {
+    "vertices": 1.0,
+    "novel_view_points": 0.2,
+    "shape": 0.1,
+    "pose": 0.1,
+    "canonical": 0.1,
+    "part": 0.1,
+    "shape_consistency": 0.1,
+    "uncertainty": 0.01
+  },
+  "gates": {
+    "relative_vertex_error_reduction_vs_free": 0.1,
+    "max_mean_vertex_error_body_lengths": 0.05,
+    "min_novel_view_full_mask_iou": 0.8,
+    "max_full_mask_iou_loss_vs_free": 0.01,
+    "max_shape_drift_clean_vs_occluded": 0.1,
+    "min_wrong_binding_error_increase": 0.01
+  },
+  "bootstrap_repetitions": 2000,
+  "max_gpu_count": 1,
+  "max_render_minutes": 30,
+  "max_train_minutes": 60,
+  "real_train_used_in_v0": false,
+  "real_dev_used_in_v0": false,
+  "real_test_used": false,
+  "camera_calibration_given_in_v0": true,
+  "renderer": "hard_triangle_rasterization_with_3D_foreground_bars_and_procedural_Lambert_shading",
+  "synthetic_geometry_targets_are_GT": true,
+  "photorealism_claim": false,
+  "formal_execution_requires_authorization_receipt": true
+}

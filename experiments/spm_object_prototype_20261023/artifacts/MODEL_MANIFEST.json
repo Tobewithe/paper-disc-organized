@@ -1,0 +1,30 @@
+{
+  "models": {
+    "structured": {
+      "file": "structured_last.pt",
+      "sha256": "d505f16ab9a9268c801fc9751200657e1e44bb8ed55a2006f93e0ec21e70a7e8",
+      "optimizer_steps": 4000,
+      "trainable_parameters": 453384
+    },
+    "free": {
+      "file": "free_last.pt",
+      "sha256": "79b4b566c37b807ffca812d1187dc7bf5b552cf0676b6b05b25c769922cac9aa",
+      "optimizer_steps": 4000,
+      "trainable_parameters": 453384
+    }
+  },
+  "inference_template": {
+    "file": "template_inference.npz",
+    "sha256": "3315c00fdb69ec471d02f3c62c8e0b115903b4b06e122b474a79adcc9c165240"
+  },
+  "source_template_sha256": "10e423261c1e1ce2923c0a1c4dab2bbcf411052381b6fc0a7220da6b14bf3674",
+  "source_training_run": "RUN_SPM_OBJECT_TRAIN_8d11962b87a7",
+  "source_evaluation_run": "RUN_SPM_OBJECT_EVALUATE_c41d22e97164",
+  "source_config_sha256": "a32e1cfba324dc0e8daac1c678e8cdeb355ef475bd8fd84cf7b034d6e4d1e6a5",
+  "scope": "single-given-asset known-camera image-to-object v0; no real segmentation claim",
+  "inference_inputs": [
+    "128x128 RGB",
+    "known source camera"
+  ],
+  "target_pose_input": false
+}

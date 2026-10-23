@@ -1,5 +1,7 @@
 # 猪对象学习 v0 训练包
 
+**2026-10-23执行已完成：** 2304图、两臂各4000步和固定评价已结束，权重/18图已回传，独立复算通过。几何增量明确，但体形编码稳定性未过联合Gate；见[结案报告](REPORT.md)、[模型与推断](artifacts/README.md)和[图集](VISUAL_GUIDE.md)。以下接口与预算保留本轮启动合同。
+
 本包把 V5 的对象定义实现为图像到身体模型：共同标准网格与特征场，实例体形与骨骼状态，以及结构化/自由解码两个严格同容量分支。完整实验合同见[PROTOCOL_V0.md](PROTOCOL_V0.md)，数值与资源见[CONFIG_V0.json](CONFIG_V0.json)，源码字节见[FREEZE_V0.json](FREEZE_V0.json)。当前执行状态只看[总控](../../project/ACTIVE_PLAN.md)和真实 Run。
 
 ## 已实现接口
