@@ -1,5 +1,7 @@
 # SPM-YOLO：合成—真实原型记忆增强的猪群实例分割
 
+**2026-10-23 V5对象训练包已实现并通过零优化工程核验：** [入口](../../../experiments/spm_object_prototype_20261023/START_HERE.md)、[报告](../../../experiments/spm_object_prototype_20261023/REPORT_PREPARATION.md)和[冻结协议](../../../experiments/spm_object_prototype_20261023/PROTOCOL_V0.md)。实际Pig网格、24骨骼、六姿态已对齐，两臂均453384参数；训练0步。正式2304图、两臂各4000步的GPU执行按AGENTS第5节等待明确授权覆盖，当前路由见ACTIVE_PLAN。该v0只检验单资产/已知相机的对象能力，不充当真实分割收益。
+
 **2026-10-23 V5 对象原型设计：** 用户将重点明确为“对象本身如何形成”。[V5 设计与训练](OBJECT_PROTOTYPE_DESIGN_V5_20261023.md)选择共享可变形身体、标准部位及特征场，分离个体体形、姿态、视角和可见性；通过跨视角预测与遮挡恢复学对象，再适配YOLO。新的[对象Study](../../../experiments/spm_object_prototype_20261023/study.json)为设计完成/尚未训练，具体执行路由只看[ACTIVE_PLAN](../../../project/ACTIVE_PLAN.md)。前驱[实例均值读出实验](../../../experiments/spm_instance_readout_opportunity_20261023/REPORT.md)Slurm221/222已结案：有部分特征区分作用，但GT支持仅修复2/305，无GT AP25.2765；不扩大该读出配置。V5取代未启动的直接Mask监督建议，旧Run与冻结规则保留。
 
 **2026-10-23 全量V4.1完成：** 已完成1272train/432dev、多样场景、120轮基线、20000步实例原型及四臂各8000步。F/B/G/R Mask AP57.3570/57.3153/57.2036/57.2395，F对B仅+0.0417pp；off仅−0.0565pp，原型特异效用未获支持，至少+5点goal未完成。[完整报告](../../../experiments/spm_v4_scale_20261023/REPORT.md)、[17组图](../../../experiments/spm_v4_scale_20261023/VISUAL_GUIDE.md)、[本地验收](../../../experiments/spm_v4_scale_20261023/FINAL_LOCAL_ACCEPTANCE.json)已交付。后继[实例条件稠密读出机会](../../../experiments/spm_instance_readout_opportunity_20261023/study.json)核验现有嵌入能否形成真实实例Mask；GT上界不算部署收益。唯一动作路由见[当前总控](../../../project/ACTIVE_PLAN.md)，不继续扩大本配置固定全局字典。
