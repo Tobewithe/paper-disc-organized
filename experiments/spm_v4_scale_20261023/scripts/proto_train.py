@@ -11,6 +11,7 @@ from data import Store
 from proto_data import extract, merge_features
 from task_model import Projector, load
 from task_context import task_context
+from feature_cache import reuse
 
 
 def checkpoint(root, stage):
@@ -182,14 +183,18 @@ def train_prototypes(root, stage):
         upstream = checkpoint(root, 'baseline'); encoder = load(upstream).eval().requires_grad_(False)
         before = state_hash(encoder)
         if stage == 'warm':
-            store = Store(read(root/'WARM_DATASET.json')['rows']); features = extract(root, store, encoder, run, ['real', 'cutout'])
+            features = reuse(root, run, upstream, 'warm', 'WARM_DATASET.json')
+            if features is None:
+                store = Store(read(root/'WARM_DATASET.json')['rows']); features = extract(root, store, encoder, run, ['real', 'cutout'])
             state, projector, a, b = optimize(root, run, meta, features, cfg, 0, 5000)
             complete_steps = 5000
         else:
             warmrun = root/'runs'/read(root/'PROTOTYPE_WARM_POINTER.json')['run_id']
             warm_features = torch.load(warmrun/'features.pt', map_location='cpu', weights_only=False)
             warm_state = torch.load(warmrun/'PROJECTOR_STATE.pt', map_location='cpu', weights_only=False)
-            store = Store(read(root/'ALL_DATASET.json')['rows']); synthetic = extract(root, store, encoder, run, ['synthetic'])
+            synthetic = reuse(root, run, upstream, 'synthetic', 'ALL_DATASET.json')
+            if synthetic is None:
+                store = Store(read(root/'ALL_DATASET.json')['rows']); synthetic = extract(root, store, encoder, run, ['synthetic'])
             features = merge_features(warm_features, synthetic)
             state, projector, a, b = optimize(root, run, meta, features, cfg, 5000, 20000, warm_state)
             bank(root, run, features, state, projector, a, b, upstream); complete_steps = 15000

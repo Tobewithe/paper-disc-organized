@@ -17,3 +17,5 @@ PROGRESS_RECEIPT是有观测时间的中途快照，不代表最新Run已全部�
 当前唯一动作：推进既定完整实验并收取真实训练/消融结果；不自动增加seed、网格或重复训练。若有工程失败，保留Run和源快照，修复后另作业/另冻结；若效用未达目标，按实测证据选择一个有依据的改进方向，再登记新版本，不换验证集或弱化基线追5点。
 
 可视化预检已实际执行：210因服务器根SCENES缺失在冻结预检失败，原Run/日志保留；补齐同一冻结配方，211/212 CPU生成真实预览。已查看并核SHA：最新Run `RUN_SPM_SCALE_VISUAL_PREFLIGHT_9711226b9b3d` 的实际方法链路图与8个固定布局/地面/密度/相机代表场景，见VISUAL_PREFLIGHT_ACCEPTANCE.json。CONFIG内旧scenes_sha字段与实际父/分片文件不符，真实FREEZE_MANIFEST逐文件SHA一致，2048条父配方与三分片并集逐条一致；差异登记在SCENE_PROVENANCE_RECONCILIATION.json，不改已冻结CONFIG或数据。
+
+工程提速R1：渲染结束后，Slurm213两分片并行预取warm/synthetic特征，基于当前已保存最佳B*的不可变快照，0优化步。最终只在B*、数据、提取/查询/加载源码及缓存SHA全部一致时复用，否则按原extract路径重新提取。TASK_FREEZE_R0与Git bf8bd0ae保留旧源码，正式训练未启动前注册R1缓存读取，不改任何监督、20k/8k步预算或选优。当前前台日志跟进会话只读取活跃基线PID，不是定时或自动续训任务。
