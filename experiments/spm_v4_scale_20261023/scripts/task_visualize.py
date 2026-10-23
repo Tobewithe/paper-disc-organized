@@ -49,12 +49,15 @@ def method(out):
     box(6, 3.3, 2.2, 1.1, '32 frozen centers\nFG/BG cosine contrast\ntanh + learned mix', '#d9f0e5')
     box(8.9, 3.3, 2, 1.1, '32 extra mask bases\nspatial center / RMS\n160 x 160', '#d9f0e5')
     box(8.9, 1.1, 2, 1.1, '32 original bases\nNative Proto26', '#e5edf5')
-    box(11.5, 2.3, 2, 1.2, '64 coefficients\n32 native + 32 new\nnew rows start at 0', '#fff0d9')
+    box(11.5, 3.3, 2, 1.1, '64 spatial bases\n32 native + 32 extra\nconcatenate channels', '#d9f0e5')
+    box(11.5, .9, 2, 1.2, '64 RGB coefficients\n32 native + 32 new\nnew rows start at 0', '#fff0d9')
     box(14.1, 2.3, 1.6, 1.2, 'Native O2O\nprocess_mask\nvisible instance', '#e5edf5')
     arrow((2.5, 3.85), (3.1, 3.85)); arrow((5.3, 3.85), (6, 3.85)); arrow((8.2, 3.85), (8.9, 3.85))
-    arrow((10.9, 3.85), (11.5, 3.1)); arrow((10.9, 1.65), (11.5, 2.7)); arrow((13.5, 2.9), (14.1, 2.9))
+    arrow((10.9, 3.85), (11.5, 3.85)); arrow((10.9, 1.65), (11.5, 3.5))
+    arrow((13.5, 3.85), (14.1, 3.1)); arrow((13.5, 1.5), (14.1, 2.65))
     ax.text(7.7, 5.25, 'V4.1 | instance-supervised memory + direct high-resolution mask readout', ha='center', fontsize=15, weight='bold')
     ax.text(4.2, 2.3, 'Pretraining: cross-view instance assignment\n+ contact separation + non-collapse\n5k real/cut -> 10k mixed -> 5k real', ha='center', fontsize=11)
+    ax.text(12.5, .65, 'Predicted from head features', ha='center', fontsize=8)
     ax.text(8, .35, 'B / G / R / F: same 8,000 steps and 8 real + 2 cutout + 2 synthetic per batch. GT enters training/evaluation only.', ha='center', fontsize=10)
     savefig(fig, out, '00_method_and_supervision')
 
@@ -117,6 +120,19 @@ def training(root, out, sources, metrics, costs, decision):
     fig.tight_layout(); savefig(fig, out, '04_use_ablation_quality_and_cost')
 
 
+def representative_scenes(recipes):
+    layouts = ['scatter', 'feeder_cluster', 'fence_strip', 'rest_rows']
+    floors = ['concrete', 'slatted', 'stained_concrete', 'bedded']
+    compositions = ['active', 'resting', 'feeding_rest', 'mixed']
+    selected = []
+    for i in range(8):
+        wanted = {'layout': layouts[i % 4], 'floor_type': floors[(i//2) % 4],
+                  'density_bin': i % 4, 'camera_family': 'overhead' if i % 2 == 0 else 'oblique',
+                  'composition': compositions[i % 4]}
+        selected.append(next(r for r in recipes if all(r[k] == value for k, value in wanted.items())))
+    return selected
+
+
 def data_figures(root, out, store):
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.2)); counts = Counter(r['domain']+'/'+r['split'] for r in store.rows)
     axes[0].barh(list(counts), list(counts.values()), color='#0072B2'); axes[0].set(xlabel='Cached RGB images', title='Actual full input coverage')
@@ -131,18 +147,13 @@ def data_figures(root, out, store):
     axes[2].barh(list(poses), list(poses.values()), color='#009E73'); axes[2].set(xlabel='Pig instances (one count / geometry)', title='2048 geometries, 4096 appearances')
     fig.tight_layout(); savefig(fig, out, '05_data_coverage_and_poses')
     recipes = read(root/'SCENES.json')['formal']; by_geometry = {r['group']: r for r in store.rows if r['domain'] == 'synthetic' and r['appearance_id'] == 0}
-    selected = []; keys = set()
-    for recipe in recipes:
-        key = (recipe['composition'], recipe['camera_family'])
-        if key not in keys and recipe['geometry_id'] in by_geometry:
-            selected.append((recipe, by_geometry[recipe['geometry_id']])); keys.add(key)
-    selected = selected[:8]
+    selected = [(recipe, by_geometry[recipe['geometry_id']]) for recipe in representative_scenes(recipes)]
     fig, axes = plt.subplots(len(selected), 3, figsize=(12, 2.6*len(selected)), squeeze=False)
     for i, (recipe, row) in enumerate(selected):
         rgb = store.get(row)['rgb'][:, :, ::-1]; paired = next(r for r in store.rows if r['domain'] == 'synthetic' and r['group'] == row['group'] and r['appearance_id'] == 1)
         for j, image in enumerate([rgb, overlay(rgb, [cm.decode(e) for e in row['rles']]), store.get(paired)['rgb'][:, :, ::-1]]):
             axes[i, j].imshow(image); axes[i, j].axis('off')
-        axes[i, 0].set_title(f"{row['group']} | {recipe['composition']} | {recipe['layout']} | {recipe['camera_family']}", fontsize=8)
+        axes[i, 0].set_title(f"{row['group']} | {recipe['layout']} | {recipe['floor_type']} | {recipe['requested_pigs']} pigs | {recipe['camera_family']}", fontsize=8)
         if i == 0:
             axes[i, 1].set_title('Exact visible instance masks'); axes[i, 2].set_title('Same geometry, second appearance')
     fig.tight_layout(); savefig(fig, out, '06_actual_synthetic_scene_and_label_pairs')

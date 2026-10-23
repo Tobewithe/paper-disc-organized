@@ -15,3 +15,5 @@
 PROGRESS_RECEIPT是有观测时间的中途快照，不代表最新Run已全部完成。是否运行/成功看真实squeue/sacct、run.json和日志；没有指针不直接推出未启动。只有真实完成才生成相应stage指针。评价报告/图集尚未生成前，USAGE仅是加载接口说明。
 
 当前唯一动作：推进既定完整实验并收取真实训练/消融结果；不自动增加seed、网格或重复训练。若有工程失败，保留Run和源快照，修复后另作业/另冻结；若效用未达目标，按实测证据选择一个有依据的改进方向，再登记新版本，不换验证集或弱化基线追5点。
+
+可视化预检已实际执行：210因服务器根SCENES缺失在冻结预检失败，原Run/日志保留；补齐同一冻结配方，211/212 CPU生成真实预览。已查看并核SHA：最新Run `RUN_SPM_SCALE_VISUAL_PREFLIGHT_9711226b9b3d` 的实际方法链路图与8个固定布局/地面/密度/相机代表场景，见VISUAL_PREFLIGHT_ACCEPTANCE.json。CONFIG内旧scenes_sha字段与实际父/分片文件不符，真实FREEZE_MANIFEST逐文件SHA一致，2048条父配方与三分片并集逐条一致；差异登记在SCENE_PROVENANCE_RECONCILIATION.json，不改已冻结CONFIG或数据。

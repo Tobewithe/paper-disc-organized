@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/visual_preflight.py", line 60, in <module>
+    main(Path(parser.parse_args().root))
+  File "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/visual_preflight.py", line 18, in main
+    with task_context(root, 'visual_preflight', freeze='VISUAL_PREFLIGHT_FREEZE.json') as (run, meta):
+  File "/srv/gpu-lab/users/a25023104/.cache/python3123-source-runtime/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/task_context.py", line 6, in task_context
+    with run_context(root, stage, contract='TASK_PROTOCOL_V3.md', freeze=freeze) as (run, meta):
+  File "/srv/gpu-lab/users/a25023104/.cache/python3123-source-runtime/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/common.py", line 47, in run_context
+    assert sha(root/name) == digest, name
+           ^^^^^^^^^^^^^^
+  File "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/common.py", line 15, in sha
+    with open(path, 'rb') as f:
+         ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/SCENES.json'
