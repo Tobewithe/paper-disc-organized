@@ -43,6 +43,24 @@ def bundle(root, name, files):
     dump(root/(name+'.receipt.json'), receipt); return receipt
 
 
+def verify_optimizer_counters(root):
+    evidence = {}
+    for stage in ['baseline', 'continued', 'adapter', 'random_memory', 'task_spm', 'prototype_warm', 'prototype_final']:
+        run = folder(root, stage); prototype = stage.startswith('prototype_')
+        path = run/('PROJECTOR_STATE.pt' if prototype else 'TRAIN_STATE.pt')
+        state = torch.load(path, map_location='cpu', weights_only=False)
+        expected = 5000 if stage == 'prototype_warm' else 20000 if stage == 'prototype_final' else 12720 if stage == 'baseline' else 8000
+        saved = int(state['global_step'] if prototype else state['step'])
+        counts = [int(v['step']) for v in state['optimizer']['state'].values() if 'step' in v]
+        assert saved == expected and counts and max(counts) == expected, (stage, saved, min(counts) if counts else None, max(counts) if counts else None)
+        evidence[stage] = {'saved_training_state_step': saved, 'actual_Adam_step_min': min(counts),
+                           'actual_Adam_step_max': max(counts), 'parameters_with_optimizer_state': len(counts),
+                           'state_sha256': sha(path), 'source_run_id': run.name,
+                           'scope': 'some_parameters_may_start_later_due_to_frozen_warmup'}
+        del state
+    return evidence
+
+
 def main(root):
     with task_context(root, 'acceptance', freeze='ACCEPTANCE_FREEZE.json') as (run, meta):
         evaluation = folder(root, 'evaluate_task'); assert read(evaluation/'run.json')['execution_status'] == 'completed'
@@ -94,7 +112,9 @@ def main(root):
                              'CPU_RGB_only_predictions': len(det), 'finite': True}
             weights.append(path); del model
         weights += [final/'memory.pt', final/'PROJECTOR_STATE.pt']
+        counters = verify_optimizer_counters(root)
         receipt = {'evaluation_run_id': evaluation.name, 'independent_AP_recomputation': recomputed,
+                   'actual_saved_optimizer_counters': counters,
                    'memory_center_max_norm_error': norm_error, 'source_split_disjoint': True,
                    'train_only_exemplars': True, 'unused_prototype_slots': [c['prototype'] for c in memory['clusters'] if not c['support_tokens']],
                    'CPU_load_and_inference': loading,
