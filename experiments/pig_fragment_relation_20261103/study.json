@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "study_id": "STUDY_PIG_FRAGMENT_RELATION_S0_20261103",
+  "title": "真实TRAIN原独立Mask的片段关系适用性",
+  "line_id": "LINE_PIG_FRAGMENT_RELATION_20261103",
+  "idea_id": "IDEA_PIG_FRAGMENT_RELATION_PILOT",
+  "status": "completed_current_cache_entry_closed_insufficient_support",
+  "execution_status": "completed",
+  "assessment": "insufficient",
+  "protocol": "PROTOCOL_S0.md",
+  "objective": "按冻结分母、连通分量及唯一监督支持测量，判断当前TRAIN缓存是否适合承载显式片段关系研究。",
+  "scope": "train_only_data_suitability_no_model_training",
+  "device": "a25023104@192.168.71.10",
+  "budget": {
+    "gpu_hours_cap": 0,
+    "cpu_core_hours_cap": 2,
+    "slurm_cpus_per_task": 2,
+    "slurm_memory_gib": 4,
+    "slurm_time_limit_minutes": 10,
+    "automatic_retry": false
+  },
+  "runs": ["RUN_PIG_FRAGMENT_S0_20261103_3a3e6ca63230"],
+  "report": "REPORT_S0.md",
+  "result_verified": "RESULT_VERIFIED.json",
+  "result": {
+    "images": 1272,
+    "instances": 14642,
+    "reliable_original_fragmented_instances": 14,
+    "reliable_original_fragmented_images": 14,
+    "reliable_original_fragmented_declared_groups": 3,
+    "minimum_engineering_support_met": false,
+    "decision": "stop_current_cache_entry_no_method_training",
+    "method_utility_tested": false
+  },
+  "resources_consumed": {"allocated_cpu_core_seconds": 30, "allocated_gpu_seconds": 0},
+  "test426_opened": false,
+  "model_training_authorized_in_this_stage": false,
+  "authorization": {
+    "source": "用户要求按三层整理纲要、关联Idea并依据Idea开设主线做实验；随后要求继续",
+    "date": "2026-11-03",
+    "interpretation": "新主线的有限探索性实验；旧SPM评价与已关闭配置不因此自动恢复"
+  }
+}

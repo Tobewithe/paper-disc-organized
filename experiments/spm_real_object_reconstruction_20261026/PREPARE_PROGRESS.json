@@ -1,0 +1,58 @@
+{
+  "accounting": "509|COMPLETED|0:0|713|billing=66,cpu=4,gres/gpu=1,mem=48G,node=1",
+  "log_tail": "RUN RUN_SPM_REAL_OBJECT_PREPARE_2429dd0fce34\nCACHED 1 2024 seconds 330899.592379254\nCACHED 101 2024 seconds 330945.590839188\nCACHED 201 2024 seconds 330975.596280952\nCACHED 301 2024 seconds 330999.819139991\nCACHED 401 2024 seconds 331026.078317036\nCACHED 501 2024 seconds 331051.386253968\nCACHED 601 2024 seconds 331078.404480248\nCACHED 701 2024 seconds 331103.089421041\nCACHED 801 2024 seconds 331128.015788482\nCACHED 901 2024 seconds 331152.417837308\nCACHED 1001 2024 seconds 331177.887099952\nCACHED 1101 2024 seconds 331204.389899782\nCACHED 1201 2024 seconds 331228.468134925\nCACHED 1301 2024 seconds 331254.134252655\nCACHED 1401 2024 seconds 331278.345532142\nCACHED 1501 2024 seconds 331303.057289188\nCACHED 1601 2024 seconds 331329.608638341\nCACHED 1701 2024 seconds 331352.811957356\nCACHED 1801 2024 seconds 331428.790472792\nCACHED 1901 2024 seconds 331491.00841163\nCACHED 2001 2024 seconds 331561.450110358\nCACHED 2024 2024 seconds 331569.934041922\nPREPARED RUN_SPM_REAL_OBJECT_PREPARE_2429dd0fce34\n",
+  "pointer": {
+    "run_id": "RUN_SPM_REAL_OBJECT_PREPARE_2429dd0fce34",
+    "status": "completed"
+  },
+  "run": {
+    "run_id": "RUN_SPM_REAL_OBJECT_PREPARE_2429dd0fce34",
+    "execution_status": "completed",
+    "job_id": "509",
+    "command": [
+      "prepare_object_cache.py"
+    ],
+    "environment": {
+      "torch": "2.5.1+cu124",
+      "numpy": "2.4.3",
+      "python": "3.12.3 (main, Oct 18 2026, 03:38:24) [GCC 12.3.1 (openEuler 12.3.1-62.oe2403sp1)]",
+      "executable": "/srv/gpu-lab/users/a25023104/projects/spm-real-object-reconstruction-v28-20261026/preparation_v2/.venv/bin/python",
+      "GPU": "NVIDIA RTX A6000",
+      "source_manifest_sha256": "d08f5eebf5dbe55703d652b5a6c43d591e02c2e4359e546a5891314ec35cfd2f"
+    },
+    "GPU": 1,
+    "optimizer_updates": 0,
+    "query_GT_at_forward": false,
+    "train_reference_GT_used": true,
+    "test_used": false,
+    "whole_goal_complete": false,
+    "exit_code": 0,
+    "wall_seconds": 709.113335181959,
+    "peak_cuda_bytes": 873520640
+  },
+  "summary": {
+    "passed": true,
+    "bank": "/srv/gpu-lab/users/a25023104/projects/spm-real-object-reconstruction-v28-20261026/stage_prepare_v1_81594d5c01e6/runs/RUN_SPM_REAL_OBJECT_PREPARE_2429dd0fce34/OBJECT_BANK.pt",
+    "bank_sha256": "e07888cb7225ab4ca4c29ca2465a44bdaf9f63c5b79a653374cb21ed6aac8967",
+    "real_train": 1272,
+    "synthetic_train": 320,
+    "real_dev": 432,
+    "bank_real": 192,
+    "bank_synthetic": 64,
+    "train_groups": 13,
+    "dev_groups": 4,
+    "source_disjoint": true,
+    "dense_synthetic_images": 193,
+    "train_only_foreground_whitening_count": 449323.2193349656,
+    "feature_quantization": "FP32 to FP16 storage to FP32 compute",
+    "source_data_index_sha256": "fe796c22c458b58045b34b0ef4e555267e189ff56db05043d30b724dd76de655",
+    "source_cost_index_sha256": "8030e1b2773aebf95cdc38b7d62a389e911b630d4f843328e53975298bb4c2a3",
+    "SAM_checkpoint_sha256": "a2345aede8715ab1d5d31b4a509fb160c5a4af1970f199d9054ccfb746c004c5",
+    "optimizer_updates": 0,
+    "test_used": false
+  },
+  "cache_reference": {
+    "index": "/srv/gpu-lab/users/a25023104/projects/spm-real-object-reconstruction-v28-20261026/stage_prepare_v1_81594d5c01e6/runs/RUN_SPM_REAL_OBJECT_PREPARE_2429dd0fce34/CACHE_INDEX.json",
+    "sha256": "60d5c26a3d79af035aef10877222c0c8f377b6fad3ecc8cf57c90ed5dfaa6cda"
+  }
+}

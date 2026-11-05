@@ -1,58 +1,35 @@
 # paper-disc-organized
 
-这是用户的 `paper-disc` 科研工作台 GitHub 镜像，保存实验脚本、协议、报告、论文草稿和可追溯的轻量元数据；大型权重、COCO 图像、预测张量、原始逐 GT 大表主要留在本地/计算环境，**仓库没有文件不代表机器上没有对应 Run**。
+本项目保存纲要、Idea、实验设计与报告、精简Study／Run记录，以及文献、写作和维护资料。当前任务与执行范围从工作台指南规定的入口读取。
 
-## 唯一的当前执行入口
+## 读取入口
 
-**[project/ACTIVE_PLAN.md — 当前研究总控、Gate 队列和历史计划去重](project/ACTIVE_PLAN.md)**
+先读取[AGENTS.md](AGENTS.md)，了解科研角色、算力资源和两份指南的读取要求。接续时先看[当前安排](project/ACTIVE_PLAN.md)，确认目标与执行范围；首次开展工作或规范变化时完整读取[工作台指南](project/WORKBENCH_GUIDE.md)及任务相关的[通用规范](project/科研项目通用规范/通用规范.md)，同一任务复用已读且未变化的内容。
 
-当前用户指定的研究线是 **“原型—系数链路”**（历史技术标识与目录名：`neighbor_sensitive_p3`）：**固定训练完成的 YOLO26m-seg，研究 Prototype→Coefficient 链路的后训练实例修复**。已有 TAL/原始 raw/COCO 口径审计用于证据校正，不是后训练主线的前置训练任务。各阶段的实际状态、Gate 裁决与唯一下一步以总控及其引用的真实 Run 为准。
+寻找知识从[知识入口](project/research_notes/README.md)进入，全部知识统一保存在[项目Skill主份](project/skills/README.md)，用户目录保留加载副本。研究Idea和纲要保留研究组织身份，不纳入知识迁移；项目笔记保存阅读过程、应用与证据。当前猪实例分割的问题空间见[中心纲要](project/outlines/OUTLINE_PIG_INSTANCE_SEGMENTATION.md)。
 
-- [S0：官方原生 COCO GT 失败账本协议](experiments/official_gt_failure_rebaseline_20261013/PROTOCOL.md) — 官方发表 AP 复现与原生 GT 账本有效性分别判定。
-- [S1–S4：冻结权重 Prototype→Coefficient 后训练计划](experiments/mask_readout_mechanism_v2_20261012/POSTTRAIN_RESCOPE_20261013.md) · [Codex 工作入口](experiments/mask_readout_mechanism_v2_20261012/LOCAL_AGENT_START_HERE.md) — 具体执行顺序与已结案配置以总控为准，协议不自动授权续跑。
-- [AGENTS.md：仓库工作规则](AGENTS.md) · [跨项目科研通用规范](project/科研项目通用规范/README.md) · [研究线专属规则](paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md)。
+## 资料位置
 
-研究线元信息由 [project/research_lines.json](project/research_lines.json) 记录；此处的当前任务**不改变其它论文线**。例如独立的 [mask_boundary_calibration](paper/manuscripts/mask_boundary_calibration/README.md) 仍有自己的原冻结结果、稿件与历史研究计划。
-
-## 新登记的独立应用型论文主线（2026-10-21）
-
-**[SPM-YOLO：Blender 合成—真实原型记忆增强的猪群实例分割](paper/manuscripts/spm_yoloseg/README.md)**：以毕业所需应用型 SCI 论文为目标，探索 Blender 合成图 + 真实猪群可见实例 Mask 构建可冻结特征原型，再在 YOLO26-Seg 的 Neck→Segment26 之间进行 P3/P4 条件检索与门控残差注入。[研究章程](paper/manuscripts/spm_yoloseg/RESEARCH_CHARTER.md) · [研究线规则](paper/manuscripts/spm_yoloseg/RESEARCH_RULES.md) · [首轮实验草案](experiments/spm_yoloseg_20261021/PROTOCOL_DRAFT.md) · [Study 登记](experiments/spm_yoloseg_20261021/study.json)。
-
-**登记状态：** `research_draft / hypothesis_only / not_started`，本次没有 Blender 渲染、GPU 训练、Run 或 AP 结果。先执行 P0 数据、源码、基线与防泄漏审计；**不更改**[原型—系数线当前执行总控](project/ACTIVE_PLAN.md)及其它并行研究线的冻结结果。
-
-## 新登记的独立研究主线（2026-10-20）
-
-**[世界模型的行动时间分辨率盲区与可辨识性](paper/manuscripts/world_model_action_time_identifiability/README.md)**：关注固定采样端点下的动力学不可辨识性、模型对区间内切换动作的决策外推，以及数据相容反对模型引导的少量辨识动作。[研究章程](paper/manuscripts/world_model_action_time_identifiability/RESEARCH_CHARTER.md) · [第一轮实验草案](experiments/world_model_action_time_identifiability_20261020/PROTOCOL_DRAFT.md) · [Study登记](experiments/world_model_action_time_identifiability_20261020/study.json)。
-
-这是与「原型—系数链路」并列的正式研究方向登记，**尚未冻结实验、没有训练或科学结果**。不改变本文件上方原型—系数线的现行执行总控、SSR协议和既有结论；新方向运行状态以自己的研究入口及 Study 为准，所有主线登记以 [research_lines.json](project/research_lines.json) 为索引。
-
-## 目录职责（不让历史笔记争夺执行权）
-
-| 目录 | 权威边界 |
+| 位置 | 内容 |
 |---|---|
-| `project/ACTIVE_PLAN.md` | **仅此处回答现在做什么、哪个 Gate 已获得真正凭据、下一步是什么** |
-| `project/科研项目通用规范/` | 工作协议、评价身份、指标选择、训练资源门槛；不决定具体 Study 的实验结果 |
-| `paper/manuscripts/<line>/` | 论文线事实、研究问题与历史稿件；`RESEARCH_RULES.md` 只约束所属研究线 |
-| `experiments/<study>/PROTOCOL.md` / 当前指向的 protocol | 运行前明确冻结该 Study 的方法、输入、数据划分、评价、门槛、停止与交付；不同 Study 不用名字相似就混在一起 |
-| `experiments/<study>/runs/<RUN_ID>/` | **唯一运行事实**：原始命令、环境、原始产物、Run 身份、校验、结果；失败/不完整也保留 |
-| `project/research_notes/`、`project/hypotheses/`、`project/audits/` | 历史推导、旧目标与审计来源；出现“当前”“下一步”时先按当前总控校验时间和适用域 |
+| `project/outlines/` | 问题纲要、已有认识与开放问题 |
+| `project/ideas/` | 具体主张、依据、探索进度与判断 |
+| `project/research_lines.json` | 主线身份、入口和Idea／Study关联 |
+| `project/ACTIVE_PLAN.md` | 当前目标、状态、暂停范围和下一动作 |
+| `experiments/<study>/` | Study登记、协议、报告、交接及远端证据定位 |
+| `paper/manuscripts/<line>/` | 已登记主线的说明和研究材料 |
+| `project/skills/` | 全部知识的Skill主份、来源、配套文件、覆盖与恢复清单 |
+| `project/research_notes/` | [知识入口](project/research_notes/README.md)、项目应用、跨实验笔记与Idea演变 |
+| `project/research_notes/literature/` | 按主题或阅读批次保存的文献来源、阅读范围与当时分析 |
+| `project/research_notes/sources/` | 当前文档引用的固定版本来源与SHA清单 |
+| `project/research_notes/restart/` | 有必要保留的历史安排与接续快照，按对应时点解释 |
+| `project/research_notes/maintenance/` | 目录整理、迁移、清理和维护回执 |
+| `paper/manuscripts/writing/` | 按documents、drafts、presentations保存的写作与展示材料 |
 
-## 历史计划及基线不重写
+完整实验数据与执行产物按服务器留存约定管理，本地记录其位置、版本和核验结果。Study／Run使用稳定身份，资料移动只更新位置与引用，不重新登记实验或改变测量结果。
 
-- [旧 2026-10-12 五臂机制方案](experiments/mask_readout_mechanism_v2_20261012/PROTOCOL.md) 和 [机器门槛草案](experiments/mask_readout_mechanism_v2_20261012/GATES_SPEC.json) **保留为未冻结历史草案**，不再授权 TAL-E0→20k 五臂训练。
-- [2026-10-12 候选/评价历史审计](project/audits/candidate_eval_20261012/REPORT.md) 和 [固定 8.4.100 代码/官方 COCO 基线核验](project/audits/candidate_eval_20261012/O2O_TOPK_OFFICIAL_COCO_BASELINE_20261013.md) 仍是来源事实；旧自定义 Box/Mask AP `51.980/43.518` **不是**官网 `52.5/44.1` 的原生复现。
-- 历史 `raw_all` / `raw_argmax_correct` 的 5000 图统计、几何面板及旧 TAL 回放保留原数值与分母；仅当身份、分支、输入、解码全部可比，才做跨 Run 关联；不能从旧 GT 辅助 oracle 结果声称正常推理已救回。
+## 本地文件检查
 
-**仓库整理本身只修改索引、当前规范和未执行计划路由，不改历史权重、源码快照、原 Run、工作台数据库或用户本地数据；更新 README 不意味着已经完成训练或评估。**
+运行`python project/check_active_plan.py`，只读核对AGENTS.md到两份指南的索引、工作台指南到ACTIVE_PLAN.md的入口和当前文件链接。Skill文件与加载副本的检查见[维护说明](project/skills/README.md)。检查不判断实验是否完成，不修改工作台索引，也不启动远端任务。
 
-
-## 计划查找与本地交接
-
-- [计划文件目录](project/PLAN_CATALOG.json)：项目/论文目录计划文件与当前两份 Study 的角色清单；历史命令不自动生效。
-- [科研对话摘要与待检验猜想](project/research_notes/CHAT_RESEARCH_CONTEXT.md)：供其它 Agent 读取历史讨论与机制疑问，不代替当前总控和真实 Run。
-- [后训练执行合同](experiments/mask_readout_mechanism_v2_20261012/EXECUTION_CONTRACT.md)：S0–S4 映射、唯一目标分母、P/c0 重放、统计与正式运行前冻结项。
-- [运行登记与本地协同](project/科研项目通用规范/运行登记与本地协同.md)：Run 真状态、轻量回传、文件散列与并发交接。
-
-## 最小自检（不启动实验）
-
-本地拉取后执行 `python project/check_active_plan.py`：只读核对当前入口、两份 Study 登记、历史计划警示与核心文件的相对链接。它**不**检查 GPU/Run 完成、不修改工作台，不把旧文件未同步到 GitHub 视为运行失败。当前科研结论仍以对应 Run 和 [总控](project/ACTIVE_PLAN.md) 为准。
+2026-11-04目录整理的位置映射、删除范围及核验结果见[目录清理回执](project/research_notes/maintenance/directory_cleanup_20261104/SUMMARY.md)；当时实验目录以外文件的保存位置整理和服务器归档见[非实验文件规范整理回执](project/research_notes/maintenance/nonrun_file_compliance_20261104T093520Z/SUMMARY.md)。后续知识与入口修订不由这些历史回执覆盖。

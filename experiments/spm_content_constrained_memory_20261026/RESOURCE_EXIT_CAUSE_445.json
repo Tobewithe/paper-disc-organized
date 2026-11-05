@@ -1,0 +1,15 @@
+{
+  "verified": true,
+  "settings_source": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv/lib/python3.12/site-packages/ultralytics/utils/__init__.py",
+  "settings_sha256": "105fd88bb373858a54b6e925433daa27941e89e42822faa8c2a26c4bc069e6b4",
+  "settings_guard_line": 1419,
+  "settings_guard": "torch_distributed_zero_first(LOCAL_RANK)",
+  "helper_source": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/.venv/lib/python3.12/site-packages/ultralytics/utils/torch_utils.py",
+  "helper_sha256": "2b4b271673add74a25b48f959fea6fc50c901cc35a880049c00ed781817eadc3",
+  "helper_line": 64,
+  "helper_code": "@contextmanager\ndef torch_distributed_zero_first(local_rank: int):\n    \"\"\"Ensure all processes in distributed training wait for the local master (rank 0) to complete a task first.\"\"\"\n    initialized = dist.is_available() and dist.is_initialized()\n    use_ids = initialized and dist.get_backend() == 'nccl'\n    if initialized and local_rank not in {-1, 0}:\n        dist.barrier(device_ids=[torch.cuda.current_device()]) if use_ids else dist.barrier()\n    yield\n    if initialized and local_rank == 0:\n        dist.barrier(device_ids=[torch.cuda.current_device()]) if use_ids else dist.barrier()",
+  "root_only_first_import_adds_one_barrier_when_default_group_alive": true,
+  "closing_group_before_aux_disables_that_barrier": true,
+  "GPU": 0,
+  "optimizer_updates": 0
+}

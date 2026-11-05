@@ -1,0 +1,150 @@
+{
+  "generated_utc": "2026-10-23T10:18:12.418187+00:00",
+  "purpose": "numerical_algebra_sanity_checks_not_model_experiment",
+  "script_sha256": "56de577e83e4ffd0ed9765856f743531f8b17bf24d9dfb0fb6da7e85cc6b8549",
+  "python_version": "3.14.6",
+  "model_forward_calls": 0,
+  "optimizer_steps": 0,
+  "GPU_jobs_submitted": 0,
+  "all_passed": true,
+  "check_count": 9,
+  "checks": [
+    {
+      "name": "bilinear_gauge_invariance",
+      "passed": true,
+      "absolute_error": 2.220446049250313e-16,
+      "tolerance": 1e-10,
+      "details": {
+        "original": [
+          -1.0999999999999999,
+          -0.95,
+          0.67
+        ],
+        "transformed": [
+          -1.1,
+          -0.9500000000000001,
+          0.6700000000000002
+        ]
+      }
+    },
+    {
+      "name": "arbitrary_residual_with_instance_delta_p",
+      "passed": true,
+      "absolute_error": 2.220446049250313e-16,
+      "tolerance": 1e-10,
+      "details": {
+        "target": [
+          0.3,
+          -0.4,
+          1.7
+        ],
+        "actual": [
+          0.3,
+          -0.4,
+          1.7000000000000002
+        ]
+      }
+    },
+    {
+      "name": "entropy_regularized_attention_kkt",
+      "passed": true,
+      "absolute_error": 3.885780586188048e-16,
+      "tolerance": 1e-10,
+      "details": {
+        "attention": [
+          0.12778837821262984,
+          0.017294276359753644,
+          0.6765742970124697,
+          0.1783430484151467
+        ],
+        "sum": 0.9999999999999999,
+        "kkt": [
+          -0.33442780708626957,
+          -0.3344278070862692,
+          -0.33442780708626946,
+          -0.3344278070862695
+        ]
+      }
+    },
+    {
+      "name": "different_correspondences_same_aggregate",
+      "passed": true,
+      "absolute_error": 0.0,
+      "tolerance": 1e-10,
+      "details": {
+        "distribution1": [
+          0.25,
+          0.5,
+          0.25
+        ],
+        "distribution2": [
+          0.3,
+          0.4,
+          0.3
+        ],
+        "aggregate": 1.0
+      }
+    },
+    {
+      "name": "ridge_residual_optimum_and_gain",
+      "passed": true,
+      "absolute_error": 1.1102230246251565e-16,
+      "tolerance": 1e-10,
+      "details": {
+        "beta": [
+          0.5867984752183228,
+          0.7410256104492859
+        ],
+        "stationarity": 1.1102230246251565e-16,
+        "objective_decrease": 0.4987051678015081,
+        "formula_decrease": 0.4987051678015081
+      }
+    },
+    {
+      "name": "teacher_kl_shrinkage_optimum",
+      "passed": true,
+      "absolute_error": 0.0,
+      "tolerance": 1e-10,
+      "details": {
+        "optimal_probability": 0.3875,
+        "objective": 0.9834612075160898,
+        "best_grid_objective": 0.9834633135008507
+      }
+    },
+    {
+      "name": "correlated_biased_reliability_weight",
+      "passed": true,
+      "absolute_error": 0.0,
+      "tolerance": 1e-10,
+      "details": {
+        "weight": 0.26666666666666666,
+        "mse": 3.2,
+        "mse_visual": 4.0,
+        "mse_shape": 9.25
+      }
+    },
+    {
+      "name": "bce_improves_while_iou_drops",
+      "passed": true,
+      "absolute_error": 0.0,
+      "tolerance": 1e-10,
+      "details": {
+        "baseline_bce": 0.6733445532637656,
+        "candidate_bce": 0.3617001118654831,
+        "baseline_iou": 1.0,
+        "candidate_iou": 0.0
+      }
+    },
+    {
+      "name": "bayes_logloss_gain_equals_conditional_information",
+      "passed": true,
+      "absolute_error": 5.551115123125783e-17,
+      "tolerance": 1e-10,
+      "details": {
+        "risk_t": 0.6730116670092564,
+        "risk_tz": 0.5273403414984466,
+        "conditional_mutual_information_nats": 0.1456713255108099
+      }
+    }
+  ]
+}

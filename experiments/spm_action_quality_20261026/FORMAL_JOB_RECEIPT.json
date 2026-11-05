@@ -1,0 +1,124 @@
+{
+  "root": "/srv/gpu-lab/users/a25023104/projects/spm-action-quality-v25-20261026/formal_v1_d3ac496d02fc",
+  "jobs": {
+    "cache": {
+      "name": "cache",
+      "stage": "cache_v1",
+      "entry": "cache_quality.py",
+      "GPU": 1,
+      "minutes": 45,
+      "mem": "32G",
+      "deps": [],
+      "job_id": "473",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-473.log"
+    },
+    "train": {
+      "name": "train",
+      "stage": "train_v1",
+      "entry": "train_quality.py",
+      "GPU": 1,
+      "minutes": 45,
+      "mem": "32G",
+      "deps": [
+        "cache"
+      ],
+      "job_id": "475",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-475.log"
+    },
+    "inference": {
+      "name": "inference",
+      "stage": "infer_v1",
+      "entry": "infer_quality.py",
+      "GPU": 1,
+      "minutes": 20,
+      "mem": "32G",
+      "deps": [
+        "train"
+      ],
+      "job_id": "477",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-477.log"
+    },
+    "evaluation": {
+      "name": "evaluation",
+      "stage": "evaluate_v1",
+      "entry": "evaluate_quality.py",
+      "GPU": 0,
+      "minutes": 20,
+      "mem": "16G",
+      "deps": [
+        "inference"
+      ],
+      "job_id": "479",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-479.log"
+    },
+    "independent": {
+      "name": "independent",
+      "stage": "independent_v1",
+      "entry": "independent_quality.py",
+      "GPU": 0,
+      "minutes": 20,
+      "mem": "16G",
+      "deps": [
+        "evaluation"
+      ],
+      "job_id": "481",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-481.log"
+    },
+    "technical": {
+      "name": "technical",
+      "stage": "technical_v1",
+      "entry": "technical_quality.py",
+      "GPU": 1,
+      "minutes": 10,
+      "mem": "32G",
+      "deps": [
+        "inference"
+      ],
+      "job_id": "483",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-483.log"
+    },
+    "intervention": {
+      "name": "intervention",
+      "stage": "intervention_v1",
+      "entry": "intervene_quality.py",
+      "GPU": 1,
+      "minutes": 20,
+      "mem": "32G",
+      "deps": [
+        "technical",
+        "evaluation"
+      ],
+      "job_id": "485",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-485.log"
+    },
+    "figures": {
+      "name": "figures",
+      "stage": "figures_v1",
+      "entry": "render_quality.py",
+      "GPU": 0,
+      "minutes": 20,
+      "mem": "32G",
+      "deps": [
+        "independent",
+        "technical",
+        "intervention"
+      ],
+      "job_id": "487",
+      "log": "/srv/gpu-lab/users/a25023104/logs/spm-action-quality-formal-487.log"
+    }
+  },
+  "source_manifest_sha256": "9b427fc5e0f231400a361750e3ae73edc835b45bc59702a86783febae355d4c6",
+  "resource_budget": {
+    "maximum_total_GPU_hours": 3,
+    "maximum_simultaneous_GPU": 1,
+    "known_actual_GPU_hours": 0.007222222222222222,
+    "formal_GPU_hours_upper": 2.3333333333333335,
+    "conditional_confirmation_reserved_GPU_hours": 0.3333333333333333,
+    "total_upper": 2.673888888888889,
+    "includes_failed_job_469": true
+  },
+  "formal_training_activated": true,
+  "submission_run_id": "RUN_SPM_ACTION_QUALITY_FORMAL_SUBMISSION_V1_d3ac496d02fc",
+  "source_package_sha256": "2f390e7fe9ecd5243764cb8f3402d839d7a48e11879877085f664c4a9d561ced",
+  "submitted_at": "2026-10-26T03:27:12.352975+00:00"
+}

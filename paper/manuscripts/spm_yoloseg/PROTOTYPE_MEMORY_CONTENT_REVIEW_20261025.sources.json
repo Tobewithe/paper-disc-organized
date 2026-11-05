@@ -1,0 +1,160 @@
+{
+  "review_date": "2026-10-25",
+  "research_line": "spm_yoloseg",
+  "purpose": "Review what persistent object prototypes should store for concept recognition, dense instance grouping, and occlusion-aware visible segmentation.",
+  "status": "literature_and_framework_review_only",
+  "systematic_review": false,
+  "sources": [
+    {
+      "id": "P01",
+      "title": "This Looks Like That: Deep Learning for Interpretable Image Recognition",
+      "venue": "NeurIPS 2019",
+      "primary_url": "https://proceedings.neurips.cc/paper/2019/file/adf7ee2dcf142b0e11888e72b43fcb75-Paper.pdf",
+      "read_scope": "Original paper architecture and training sections; prototype grounding/projection also checked against the indexed original text.",
+      "supports": "Class-discriminative prototypical local evidence grounded in latent training patches.",
+      "boundary": "Classification evidence does not establish dense instance separation or pig segmentation gains."
+    },
+    {
+      "id": "P02",
+      "title": "Deformable ProtoPNet: An Interpretable Image Classifier Using Deformable Prototypes",
+      "venue": "CVPR 2022",
+      "primary_url": "https://arxiv.org/html/2111.15000",
+      "publication_url": "https://openaccess.thecvf.com/content/CVPR2022/html/Donnelly_Deformable_ProtoPNet_An_Interpretable_Image_Classifier_Using_Deformable_Prototypes_CVPR_2022_paper.html",
+      "read_scope": "Original abstract, Sections 3.1-3.2 method excerpts and prototype reasoning passages.",
+      "supports": "Prototypes composed of parts with input-dependent relative spatial deformation.",
+      "boundary": "Pose-tolerant classification is not proof of instance ownership."
+    },
+    {
+      "id": "P03",
+      "title": "ShapeMask: Learning to Segment Novel Objects by Refining Shape Priors",
+      "venue": "ICCV 2019",
+      "primary_url": "https://arxiv.org/html/1904.03239",
+      "read_scope": "Original Sections 3.1 and 3.3, abstract and method overview; CVF indexed method text checked as corroboration.",
+      "supports": "Shape priors from normalized training-mask clusters plus instance-conditioned refinement.",
+      "boundary": "Legitimate evidence for mask-derived priors; does not establish current SPM memory or cross-instance ownership."
+    },
+    {
+      "id": "P04",
+      "title": "Compositional Convolutional Neural Networks: A Deep Architecture with Innate Robustness to Partial Occlusion",
+      "venue": "CVPR 2020",
+      "primary_url": "https://arxiv.org/html/2003.04490",
+      "read_scope": "Original Section 3.1 and indexed Section 4 evaluation/occluder-localization passages.",
+      "supports": "Local feature distributions, spatial compositions and competing object/occluder explanations.",
+      "boundary": "Main empirical tasks are occluded classification and occluder localization, not normal YOLO mask AP."
+    },
+    {
+      "id": "P05",
+      "title": "Amodal Segmentation through Out-of-Task and Out-of-Distribution Generalization with a Bayesian Model",
+      "venue": "CVPR 2022",
+      "primary_url": "https://arxiv.org/html/2010.13175",
+      "author_pdf": "https://www.cs.jhu.edu/~alanlab/Pubs22/sun2022amodal.pdf",
+      "read_scope": "Original Sections 3.2-3.3 and evaluation conditions in Section 4, including known versus unknown center conditions.",
+      "supports": "Explicit foreground, context, pose-conditioned shape and occlusion variables in a neural-feature generative model.",
+      "boundary": "Proposal and center privileges must remain distinct from deployed normal-output metrics."
+    },
+    {
+      "id": "P06",
+      "title": "Object-Centric Learning with Slot Attention",
+      "venue": "NeurIPS 2020",
+      "primary_url": "https://arxiv.org/html/2006.15055",
+      "read_scope": "Original abstract and Section 2.1, including slot-axis normalization and iterative update equations.",
+      "supports": "Competitive binding of current input features into exchangeable runtime entity representations.",
+      "boundary": "Runtime slots are not persistent category prototypes; slot budget is not a certified instance count."
+    },
+    {
+      "id": "P07",
+      "title": "Bridging the Gap to Real-World Object-Centric Learning",
+      "venue": "ICLR 2023",
+      "method_name": "DINOSAUR",
+      "primary_url": "https://arxiv.org/html/2209.14860",
+      "author_project": "https://dinosaur-paper.github.io/",
+      "read_scope": "Original Sections 3.1-3.2 and the discussion of image reconstruction versus pretrained feature targets.",
+      "supports": "Pretrained feature reconstruction with competitive grouping can yield object-centric representations on real images.",
+      "boundary": "Counters a blanket rejection of feature reconstruction; does not validate current SPM or imply anatomical correspondence."
+    },
+    {
+      "id": "P08",
+      "title": "InstanceCut: from Edges to Instances with MultiCut",
+      "venue": "CVPR 2017",
+      "primary_url": "https://arxiv.org/html/1611.08272",
+      "read_scope": "Original abstract and Section 3.1 framework overview; indexed original graph-partition formulation also inspected.",
+      "supports": "Combining semantic evidence with instance-aware boundaries for instance partitioning.",
+      "boundary": "Graph boundary grouping alone does not supply a complete model of disconnected occluded parts."
+    },
+    {
+      "id": "P09",
+      "title": "Instance Segmentation by Jointly Optimizing Spatial Embeddings and Clustering Bandwidth",
+      "venue": "CVPR 2019",
+      "primary_url": "https://arxiv.org/html/1906.11109",
+      "read_scope": "Original abstract, Section 3 overview and Section 3.1, with indexed original explanation of instance-specific margins and seeds.",
+      "supports": "Instance-specific pixel association using spatial embeddings and adaptive clustering ranges.",
+      "boundary": "Per-image instance embeddings and centers are transient state, not a persistent object knowledge library."
+    },
+    {
+      "id": "P10",
+      "title": "Pixel-Grounded Prototypical Part Networks",
+      "venue": "WACV 2024",
+      "primary_url": "https://arxiv.org/html/2309.14531",
+      "read_scope": "Original Sections 3-4 excerpts on receptive fields, visualization and corrected pixel-space mappings.",
+      "supports": "Prototype interpretations require faithful spatial grounding rather than appealing heatmaps alone.",
+      "boundary": "Part visualizability does not by itself prove segmentation utility or a unique semantic factor."
+    },
+    {
+      "id": "P11",
+      "title": "Coding of Border Ownership in Monkey Visual Cortex",
+      "authors": [
+        "Hong Zhou",
+        "Howard S. Friedman",
+        "Rudiger von der Heydt"
+      ],
+      "venue": "Journal of Neuroscience 2000",
+      "primary_url": "https://pubmed.ncbi.nlm.nih.gov/10964965/",
+      "original_full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4784717/",
+      "read_scope": "Primary-paper database abstract and indexed original full-text excerpts on contextual integration and border ownership; direct PMC open presented an access challenge.",
+      "supports": "Macaque visual neurons can encode border ownership using broader figure-ground context.",
+      "boundary": "Does not establish a serial human apple-recognition pipeline or identify an optimal artificial architecture."
+    },
+    {
+      "id": "P12",
+      "title": "SAM 3: Segment Anything with Concepts",
+      "venue": "2025 technical report",
+      "primary_url": "https://arxiv.org/html/2511.16719v1",
+      "official_publication_url": "https://ai.meta.com/research/publications/sam-3-segment-anything-with-concepts/",
+      "read_scope": "Original Section 3 presence-token explanation and Appendices A.1, C.2 and F.4 counting details.",
+      "supports": "Separation of concept presence and per-instance localization; concepts can be reused to identify multiple instances.",
+      "boundary": "Not a direct prototype-bank experiment; the report states the presence token does not help its counting setup and handles group-versus-individual duplicates separately."
+    },
+    {
+      "id": "P13",
+      "title": "Dynamic Routing Between Capsules",
+      "venue": "NeurIPS 2017",
+      "primary_url": "https://proceedings.neurips.cc/paper/2017/file/2cad8fa47bbef282badbb8de5374b894-Paper.pdf",
+      "read_scope": "Original abstract and introduction excerpts explaining entity states, part-to-whole predictions, and iterative routing by agreement.",
+      "supports": "Parts predict whole-entity states; mutually consistent predictions support an entity and guide dynamic assignment.",
+      "boundary": "Overlapping digit recognition does not establish real pig instance segmentation or a complete top-down feedback system."
+    },
+    {
+      "id": "P14",
+      "title": "Matrix Capsules with EM Routing",
+      "venue": "ICLR 2018",
+      "primary_url": "https://openreview.net/pdf?id=HJWLfGWRb",
+      "read_scope": "Original abstract and introduction excerpts on learned part-whole transformations, pose votes and EM assignments.",
+      "supports": "Learned transformations encode part-whole relationships while input-specific assignment coefficients group compatible pose votes.",
+      "boundary": "smallNORB classification results do not establish the optimal routing or segmentation gains for the present task."
+    }
+  ],
+  "inferences_by_this_review": [
+    "Prefer evidence-grounded local parts and appearance together with deformable spatial composition and conditional ownership/occlusion priors for the stated SPM goal.",
+    "Keep persistent reusable knowledge distinct from current per-instance pose, location, visibility, ownership and count.",
+    "Use the brain analogy as a functional design motivation rather than a biological equivalence claim.",
+    "No cited paper establishes that this synthesis is optimal or effective on the current pig segmentation task."
+  ],
+  "execution": {
+    "new_training_runs": 0,
+    "new_model_forwards": 0,
+    "new_GPU_jobs": 0,
+    "protocol_or_gate_changes": false,
+    "github_push": false
+  },
+  "user_clarification": "Jointly learn part prototypes, whole-object prototypes and their compositional relationships, with mutual constraints between local evidence and whole-instance hypotheses."
+}

@@ -1,0 +1,1515 @@
+{
+  "root": "/srv/gpu-lab/users/a25023104/projects/spm-content-constrained-memory-v23-20261026/formal_v1_36baf146bf15",
+  "stages": {
+    "candidate": {
+      "scheduler": {
+        "job_id": "457",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 1410,
+        "AllocTRES": "billing=232,cpu=16,gres/gpu=4,mem=64G,node=1"
+      },
+      "GPU": 4,
+      "run_id": "RUN_SPM_CONTENT_CANDIDATE_FORMAL_V1_cfe2bf7d5e20",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_CANDIDATE_FORMAL_V1_cfe2bf7d5e20",
+        "stage": "candidate_formal_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T18:50:08.077785+00:00",
+        "GPU_count": 4,
+        "optimizer_steps": 8000,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3470334,
+        "job_id": "457",
+        "command": [
+          "train_content.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "global_step": 8000,
+        "exit_code": 0,
+        "ended_at": "2026-10-25T19:13:31.485824+00:00",
+        "wall_seconds": 1403.4171176259988
+      },
+      "summary": {
+        "passed": true,
+        "completed_global_updates": 8000,
+        "checkpoint": "/srv/gpu-lab/users/a25023104/projects/spm-content-constrained-memory-v23-20261026/formal_v1_36baf146bf15/runs/RUN_SPM_CONTENT_CANDIDATE_FORMAL_V1_cfe2bf7d5e20/LAST.pt",
+        "checkpoint_sha256": "ab5e01efa061d7132bf410b5aefa1d17b50f38c22570d85f3d62d8938134f82b",
+        "selection": "fixed_last_EMA",
+        "elapsed_training_seconds": 1401.7513162770192,
+        "parameters": 1406161,
+        "appearance_support_initialized": true,
+        "C21_unchanged": true,
+        "actual_unique_train_images": 2552,
+        "AP_measured": false,
+        "policy_trained": false,
+        "whole_goal_complete": false
+      },
+      "last_train_log": {
+        "step": 8000,
+        "loss": 1.0232936143875122,
+        "images_seen": 32000,
+        "queries_seen": 236774,
+        "sum_rank_local_unique_images_not_global_unique": 5102,
+        "gradient_norm": 3.8014743328094482,
+        "seconds_per_update_rank0": 0.16100478519685565,
+        "peak_GPU_bytes": 3908765696,
+        "loss_terms_rank0": {
+          "task_bce": 0.12001407146453857,
+          "task_dice": 0.06955911219120026,
+          "boundary": 0.4624212384223938,
+          "parts": 0.0,
+          "whole": 0.0,
+          "part_dice": 0.0,
+          "whole_dice": 0.0,
+          "self_visible": 0.0,
+          "observation": 0.0,
+          "physical": 0.0,
+          "depth": 0.0,
+          "attachment": 0.050503186881542206,
+          "global_frame": 0.0
+        },
+        "auxiliary_rank0": {
+          "semantic": 0.0,
+          "pose_margin": -0.0,
+          "appearance_known_pixels": 0
+        }
+      },
+      "completed": true,
+      "accrued_GPU_hours": 1.5666666666666667
+    },
+    "costs": {
+      "scheduler": {
+        "job_id": "458",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 1377,
+        "AllocTRES": "billing=62,cpu=4,gres/gpu=1,mem=32G,node=1"
+      },
+      "GPU": 1,
+      "run_id": "RUN_SPM_CONTENT_CONTENT_COSTS_V1_602066820767",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_CONTENT_COSTS_V1_602066820767",
+        "stage": "content_costs_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T19:13:36.200571+00:00",
+        "GPU_count": 1,
+        "optimizer_steps": 0,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3480429,
+        "job_id": "458",
+        "command": [
+          "build_content_costs.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "images_completed": 1568,
+        "exit_code": 0,
+        "ended_at": "2026-10-25T19:36:30.412683+00:00",
+        "wall_seconds": 1374.2384198210202
+      },
+      "summary": {
+        "passed": true,
+        "source_images": 1592,
+        "images_with_queries": 1592,
+        "cases": 41059,
+        "optimizer_steps": 0,
+        "candidate_and_C21_unchanged": true,
+        "index": "/srv/gpu-lab/users/a25023104/projects/spm-content-constrained-memory-v23-20261026/formal_v1_36baf146bf15/runs/RUN_SPM_CONTENT_CONTENT_COSTS_V1_602066820767/COST_INDEX.json",
+        "index_sha256": "8030e1b2773aebf95cdc38b7d62a389e911b630d4f843328e53975298bb4c2a3",
+        "owner_counts": {
+          "positive": 30961,
+          "background": 995,
+          "unknown": 9103
+        }
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.3825
+    },
+    "risk": {
+      "scheduler": {
+        "job_id": "459",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 195,
+        "AllocTRES": "billing=58,cpu=4,gres/gpu=1,mem=16G,node=1"
+      },
+      "GPU": 1,
+      "run_id": "RUN_SPM_CONTENT_RISK_FORMAL_V1_c4de2abb65ce",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_RISK_FORMAL_V1_c4de2abb65ce",
+        "stage": "risk_formal_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T19:36:32.616742+00:00",
+        "GPU_count": 1,
+        "optimizer_steps": 2568,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3494357,
+        "job_id": "459",
+        "command": [
+          "train_content_risk.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "exit_code": 0,
+        "ended_at": "2026-10-25T19:39:44.832766+00:00",
+        "wall_seconds": 192.22670428198762
+      },
+      "summary": {
+        "passed": true,
+        "epochs": 8,
+        "updates": 2568,
+        "cases": 41059,
+        "parameters": 17552,
+        "checkpoint": "/srv/gpu-lab/users/a25023104/projects/spm-content-constrained-memory-v23-20261026/formal_v1_36baf146bf15/runs/RUN_SPM_CONTENT_RISK_FORMAL_V1_c4de2abb65ce/RISK_LAST.pt",
+        "checkpoint_sha256": "a4c8a21ff837b083dd0c7f106c7556dac202f1e486ace2d2319ce0283d36b48e",
+        "fixed_last_train_cost": {
+          "cases": 41059,
+          "mean_costs": {
+            "selected": 0.1231726275001581,
+            "C21": 0.13538263948467913,
+            "native": 0.2466398310814033,
+            "available_best": 0.09659383652280439
+          },
+          "fixed_last_no_update_forward": true,
+          "scope": "training costs only; not AP or independent generalization"
+        },
+        "dev_used": false,
+        "test_used": false,
+        "AP_measured": false
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.05416666666666667
+    },
+    "inference": {
+      "scheduler": {
+        "job_id": "460",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 586,
+        "AllocTRES": "billing=62,cpu=4,gres/gpu=1,mem=32G,node=1"
+      },
+      "GPU": 1,
+      "run_id": "RUN_SPM_CONTENT_CONTENT_INFER_V1_395b28751f49",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_CONTENT_INFER_V1_395b28751f49",
+        "stage": "content_infer_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T19:39:47.282644+00:00",
+        "GPU_count": 1,
+        "optimizer_steps": 0,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3495784,
+        "job_id": "460",
+        "command": [
+          "infer_content.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "images_completed": 432,
+        "exit_code": 0,
+        "ended_at": "2026-10-25T19:49:31.402538+00:00",
+        "wall_seconds": 584.1306268860353
+      },
+      "summary": {
+        "passed": true,
+        "images": 432,
+        "outputs": 12899,
+        "new_reconstruction_outputs": 1121,
+        "native_fallback_outputs": 0,
+        "original_N_C21_full_RGB_exact": true,
+        "all_states_unchanged": true,
+        "checkpoint": "/srv/gpu-lab/users/a25023104/projects/spm-content-constrained-memory-v23-20261026/formal_v1_36baf146bf15/runs/RUN_SPM_CONTENT_CONTENT_INFER_V1_395b28751f49/SPM_CONTENT_FINAL.pt",
+        "checkpoint_sha256": "b7927c602288ffa48589cf1d7808b932fcfc7339a04758a3a329e9f328e7ca1e",
+        "prediction_sha256": "6878dff6714e98422a7055efbf152aa58d540549a4fd91858ce80ada96596e6a",
+        "test_used": false,
+        "whole_goal_complete": false
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.16277777777777777
+    },
+    "evaluation": {
+      "scheduler": {
+        "job_id": "461",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 40,
+        "AllocTRES": "billing=8,cpu=4,mem=16G,node=1"
+      },
+      "GPU": 0,
+      "run_id": "RUN_SPM_CONTENT_CONTENT_EVALUATE_V1_1679edc1f47a",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_CONTENT_EVALUATE_V1_1679edc1f47a",
+        "stage": "content_evaluate_v1",
+        "execution_status": "completed",
+        "scientific_status": "configuration_closed_target_not_met_pending_interpretation",
+        "started_at": "2026-10-25T19:49:33.756628+00:00",
+        "GPU_count": 0,
+        "optimizer_steps": 0,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3499765,
+        "job_id": "461",
+        "command": [
+          "evaluate_content.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "exit_code": 0,
+        "ended_at": "2026-10-25T19:50:11.302613+00:00",
+        "wall_seconds": 37.55472719599493
+      },
+      "summary": {
+        "passed": true,
+        "scores": {
+          "bbox": {
+            "native": {
+              "AP": 66.88450326938813,
+              "AP50": 88.90141999432718,
+              "AP75": 76.35716909003582,
+              "stats": [
+                66.88450326938813,
+                88.90141999432718,
+                76.35716909003582,
+                36.12505562461973,
+                78.37578951201777,
+                81.00288429726493,
+                13.845616486203285,
+                67.37687740132728,
+                75.55012224938874,
+                46.13960113960114,
+                84.9626307922272,
+                86.94805194805195
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2727,
+              "recall50": 0.952497380370241
+            },
+            "C21": {
+              "AP": 66.88450326938813,
+              "AP50": 88.90141999432718,
+              "AP75": 76.35716909003582,
+              "stats": [
+                66.88450326938813,
+                88.90141999432718,
+                76.35716909003582,
+                36.12505562461973,
+                78.37578951201777,
+                81.00288429726493,
+                13.845616486203285,
+                67.37687740132728,
+                75.55012224938874,
+                46.13960113960114,
+                84.9626307922272,
+                86.94805194805195
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2727,
+              "recall50": 0.952497380370241
+            },
+            "method": {
+              "AP": 66.88450326938813,
+              "AP50": 88.90141999432718,
+              "AP75": 76.35716909003582,
+              "stats": [
+                66.88450326938813,
+                88.90141999432718,
+                76.35716909003582,
+                36.12505562461973,
+                78.37578951201777,
+                81.00288429726493,
+                13.845616486203285,
+                67.37687740132728,
+                75.55012224938874,
+                46.13960113960114,
+                84.9626307922272,
+                86.94805194805195
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2727,
+              "recall50": 0.952497380370241
+            },
+            "fallback_only": {
+              "AP": 66.88450326938813,
+              "AP50": 88.90141999432718,
+              "AP75": 76.35716909003582,
+              "stats": [
+                66.88450326938813,
+                88.90141999432718,
+                76.35716909003582,
+                36.12505562461973,
+                78.37578951201777,
+                81.00288429726493,
+                13.845616486203285,
+                67.37687740132728,
+                75.55012224938874,
+                46.13960113960114,
+                84.9626307922272,
+                86.94805194805195
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2727,
+              "recall50": 0.952497380370241
+            },
+            "method_vs_native": {
+              "delta_AP": 0.0,
+              "delta_AP75": 0.0,
+              "delta_sizes": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "success": {
+                "original_success": 2389,
+                "damage": 0,
+                "repairs": 0,
+                "damage_fraction": 0.0,
+                "GT_total": 2863
+              }
+            },
+            "delta_AP_vs_C21": 0.0,
+            "delta_AP_vs_fallback_only": 0.0
+          },
+          "segm": {
+            "native": {
+              "AP": 57.343500243941705,
+              "AP50": 84.99900178665888,
+              "AP75": 69.00982195432428,
+              "stats": [
+                57.343500243941705,
+                84.99900178665888,
+                69.00982195432428,
+                22.54449057151932,
+                68.64777225946754,
+                79.17462381617776,
+                12.42403073698917,
+                58.95564093608103,
+                64.03422982885087,
+                28.34757834757835,
+                74.83806676631788,
+                85.9090909090909
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2584,
+              "recall50": 0.9025497729654209
+            },
+            "C21": {
+              "AP": 60.41652644839418,
+              "AP50": 85.12391768499484,
+              "AP75": 70.82298280234636,
+              "stats": [
+                60.41652644839418,
+                85.12391768499484,
+                70.82298280234636,
+                24.558873409751204,
+                72.2672960894498,
+                81.02519589424608,
+                12.920013971358715,
+                61.24345092560252,
+                66.54208871812784,
+                30.911680911680918,
+                77.50871948181366,
+                86.03896103896102
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2590,
+              "recall50": 0.9046454767726161
+            },
+            "method": {
+              "AP": 60.75327839580857,
+              "AP50": 85.12391768499484,
+              "AP75": 71.18891807825246,
+              "stats": [
+                60.75327839580857,
+                85.12391768499484,
+                71.18891807825246,
+                24.91861614505043,
+                72.81744430529122,
+                80.37381330994486,
+                12.90604261264408,
+                61.46699266503668,
+                66.79706601466992,
+                31.282051282051288,
+                77.80767314399601,
+                85.19480519480518
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2590,
+              "recall50": 0.9046454767726161
+            },
+            "fallback_only": {
+              "AP": 60.41652644839418,
+              "AP50": 85.12391768499484,
+              "AP75": 70.82298280234636,
+              "stats": [
+                60.41652644839418,
+                85.12391768499484,
+                70.82298280234636,
+                24.558873409751204,
+                72.2672960894498,
+                81.02519589424608,
+                12.920013971358715,
+                61.24345092560252,
+                66.54208871812784,
+                30.911680911680918,
+                77.50871948181366,
+                86.03896103896102
+              ],
+              "GT_valid": 2863,
+              "GT50_matched": 2590,
+              "recall50": 0.9046454767726161
+            },
+            "method_vs_native": {
+              "delta_AP": 3.409778151866867,
+              "delta_AP75": 2.1790961239281756,
+              "delta_sizes": [
+                2.37412557353111,
+                4.169672045823674,
+                1.1991894937671077
+              ],
+              "success": {
+                "original_success": 2126,
+                "damage": 18,
+                "repairs": 64,
+                "damage_fraction": 0.008466603951081843,
+                "GT_total": 2863
+              }
+            },
+            "delta_AP_vs_C21": 0.33675194741439185,
+            "delta_AP_vs_fallback_only": 0.33675194741439185
+          }
+        },
+        "guards_passed": true,
+        "five_point_pass": false,
+        "positive_utility": true,
+        "direct_reconstruction_increment_vs_restricted_fallback": 0.33675194741439185,
+        "groups": {
+          "1050s1132a1110s3003-5": {
+            "images": 307,
+            "AP": {
+              "native": 68.99419016530629,
+              "C21": 71.63281327860211,
+              "method": 71.48457055876095,
+              "fallback_only": 71.63281327860211
+            },
+            "delta_vs_native": 2.4903803934546573,
+            "delta_vs_C21": -0.14824271984116422
+          },
+          "1060a1000s1110s4001-2": {
+            "images": 31,
+            "AP": {
+              "native": 16.783188688602877,
+              "C21": 17.929812494503306,
+              "method": 17.944389201322124,
+              "fallback_only": 17.929812494503306
+            },
+            "delta_vs_native": 1.1612005127192475,
+            "delta_vs_C21": 0.014576706818818508
+          },
+          "1020s1220s2003-2": {
+            "images": 48,
+            "AP": {
+              "native": 62.79770855470446,
+              "C21": 67.92048393725902,
+              "method": 69.95739657452087,
+              "fallback_only": 67.92048393725902
+            },
+            "delta_vs_native": 7.159688019816414,
+            "delta_vs_C21": 2.0369126372618496
+          },
+          "1050s1132a1110s3004-2": {
+            "images": 46,
+            "AP": {
+              "native": 85.1311341110503,
+              "C21": 85.1515566875048,
+              "method": 83.59202798922337,
+              "fallback_only": 85.1515566875048
+            },
+            "delta_vs_native": -1.5391061218269328,
+            "delta_vs_C21": -1.5595286982814258
+          }
+        },
+        "group_sensitivity": {
+          "source_groups": 4,
+          "draws": 256,
+          "unique_count_patterns": 35,
+          "delta_AP_percentiles": [
+            0.9619790836083197,
+            3.3527673138066945,
+            6.146404031638312
+          ],
+          "scope": "source-group descriptive resampling on previously-used dev; not independent confirmation"
+        },
+        "dense": {
+          "images": 31,
+          "scores": {
+            "native": {
+              "AP": 16.783188688602877,
+              "AP50": 39.78866309793637,
+              "AP75": 12.724727903882371,
+              "stats": [
+                16.783188688602877,
+                39.78866309793637,
+                12.724727903882371,
+                7.713929801194213,
+                -100.0,
+                84.5910637217568,
+                4.815465729349737,
+                16.71353251318102,
+                23.53251318101933,
+                16.01577909270217,
+                -100.0,
+                85.0
+              ],
+              "GT_valid": 569,
+              "GT50_matched": 311,
+              "recall50": 0.546572934973638
+            },
+            "C21": {
+              "AP": 17.929812494503306,
+              "AP50": 40.581259646587036,
+              "AP75": 14.052268173081234,
+              "stats": [
+                17.929812494503306,
+                40.581259646587036,
+                14.052268173081234,
+                8.800120284660588,
+                -100.0,
+                84.61188118811882,
+                4.833040421792618,
+                17.96133567662566,
+                25.500878734622145,
+                18.224852071005916,
+                -100.0,
+                85.0
+              ],
+              "GT_valid": 569,
+              "GT50_matched": 316,
+              "recall50": 0.5553602811950791
+            },
+            "method": {
+              "AP": 17.944389201322124,
+              "AP50": 40.581259646587036,
+              "AP75": 14.052268173081234,
+              "stats": [
+                17.944389201322124,
+                40.581259646587036,
+                14.052268173081234,
+                8.808741580249045,
+                -100.0,
+                84.61188118811882,
+                4.833040421792618,
+                17.96133567662566,
+                25.51845342706503,
+                18.24457593688363,
+                -100.0,
+                85.0
+              ],
+              "GT_valid": 569,
+              "GT50_matched": 316,
+              "recall50": 0.5553602811950791
+            },
+            "fallback_only": {
+              "AP": 17.929812494503306,
+              "AP50": 40.581259646587036,
+              "AP75": 14.052268173081234,
+              "stats": [
+                17.929812494503306,
+                40.581259646587036,
+                14.052268173081234,
+                8.800120284660588,
+                -100.0,
+                84.61188118811882,
+                4.833040421792618,
+                17.96133567662566,
+                25.500878734622145,
+                18.224852071005916,
+                -100.0,
+                85.0
+              ],
+              "GT_valid": 569,
+              "GT50_matched": 316,
+              "recall50": 0.5553602811950791
+            }
+          },
+          "scope": "real GT count>=15; physical mutual occlusion not established"
+        },
+        "prediction_sha256": "6878dff6714e98422a7055efbf152aa58d540549a4fd91858ce80ada96596e6a",
+        "GT_sha256": "05b23b244ad11f8c39007ed28839306d0538a26966128d1308ad7d902365160f",
+        "test_used": false,
+        "whole_goal_complete": false,
+        "scope": "full reused dev; whole-method comparison; extra data/features/parameters/budget confounded; fallback-only is a same-policy restriction, not separately trained control"
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.0
+    },
+    "independent": {
+      "scheduler": {
+        "job_id": "462",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 33,
+        "AllocTRES": "billing=12,cpu=4,mem=32G,node=1"
+      },
+      "GPU": 0,
+      "run_id": "RUN_SPM_CONTENT_INDEPENDENT_CONTENT_V1_17c27f34af2f",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_INDEPENDENT_CONTENT_V1_17c27f34af2f",
+        "stage": "independent_content_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T19:50:13.587521+00:00",
+        "GPU_count": 0,
+        "optimizer_steps": 0,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3500195,
+        "job_id": "462",
+        "command": [
+          "independent_content.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "exit_code": 0,
+        "ended_at": "2026-10-25T19:50:43.997020+00:00",
+        "wall_seconds": 30.419143976992927
+      },
+      "summary": {
+        "passed": true,
+        "statistics_verified": 96,
+        "maximum_stat_difference": 0.0,
+        "independently_derived_GT_ledgers_exact": true,
+        "output_rows": 12899,
+        "original_identity_values_exact": true,
+        "strict_CPU_payload_equals_actual_fixed_last_EMA_risk_and_original_C21": true,
+        "checkpoint_sha256": "b7927c602288ffa48589cf1d7808b932fcfc7339a04758a3a329e9f328e7ca1e",
+        "completed_candidate_updates": 8000,
+        "completed_risk_epochs": 8,
+        "same_original_Box75_rows": 2389,
+        "same_Box75_errors": {
+          "native": {
+            "mean_IoU": 0.8401432470840929,
+            "FP_pixels": 963608,
+            "FN_pixels": 642873
+          },
+          "C21": {
+            "mean_IoU": 0.8538137775118586,
+            "FP_pixels": 825928,
+            "FN_pixels": 647704
+          },
+          "method": {
+            "mean_IoU": 0.8554041942769316,
+            "FP_pixels": 856989,
+            "FN_pixels": 625018
+          },
+          "fallback_only": {
+            "mean_IoU": 0.8538137775118586,
+            "FP_pixels": 825928,
+            "FN_pixels": 647704
+          }
+        },
+        "optimizer_steps": 0,
+        "test_used": false,
+        "whole_goal_complete": false
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.0
+    },
+    "technical": {
+      "scheduler": {
+        "job_id": "463",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 83,
+        "AllocTRES": "billing=62,cpu=4,gres/gpu=1,mem=32G,node=1"
+      },
+      "GPU": 1,
+      "run_id": "RUN_SPM_CONTENT_TECHNICAL_CONTENT_V1_5955f2eca15e",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_TECHNICAL_CONTENT_V1_5955f2eca15e",
+        "stage": "technical_content_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T19:49:34.067263+00:00",
+        "GPU_count": 1,
+        "optimizer_steps": 0,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3499766,
+        "job_id": "463",
+        "command": [
+          "technical_content.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "synthetic_images_completed": 64,
+        "exit_code": 0,
+        "ended_at": "2026-10-25T19:50:54.033139+00:00",
+        "wall_seconds": 79.9748104219907
+      },
+      "summary": {
+        "passed": true,
+        "semantic": {
+          "whole_IoU": {
+            "value": 0.7388714467857131,
+            "queries": 2147,
+            "geometries": 62,
+            "reduction": "query_then_scene_macro"
+          },
+          "macro_part_IoU": {
+            "value": 0.38698923529191226,
+            "queries": 2147,
+            "geometries": 62,
+            "reduction": "query_then_scene_macro"
+          },
+          "content_ROI_task_IoU": {
+            "value": 0.8326729129042193,
+            "queries": 2147,
+            "geometries": 62,
+            "reduction": "query_then_scene_macro"
+          },
+          "coarse_pose_correct": {
+            "value": 0.9421431717455527,
+            "queries": 2041,
+            "geometries": 62,
+            "reduction": "query_then_scene_macro"
+          }
+        },
+        "typed_appearance": {
+          "confusion": [
+            [
+              8412750,
+              5528,
+              52055,
+              234614,
+              19820,
+              633432,
+              111058,
+              531848,
+              241436,
+              408832
+            ],
+            [
+              3591462,
+              4468388,
+              625182,
+              137529,
+              167403,
+              273697,
+              1055101,
+              330522,
+              869025,
+              733438
+            ],
+            [
+              995937,
+              140586,
+              2229594,
+              380369,
+              835536,
+              330681,
+              358879,
+              27199,
+              8583,
+              77293
+            ],
+            [
+              18671,
+              1053,
+              9375,
+              285228,
+              19244,
+              14406,
+              3436,
+              10243,
+              5993,
+              6198
+            ],
+            [
+              26948,
+              1766,
+              24123,
+              74351,
+              380971,
+              30116,
+              5212,
+              12712,
+              3852,
+              6562
+            ],
+            [
+              74968,
+              6469,
+              24940,
+              27177,
+              6577,
+              387728,
+              80201,
+              73245,
+              7648,
+              20254
+            ],
+            [
+              346979,
+              125053,
+              79893,
+              65832,
+              21259,
+              302075,
+              858882,
+              94669,
+              66116,
+              44710
+            ],
+            [
+              51900,
+              2270,
+              1842,
+              12530,
+              1027,
+              47825,
+              7187,
+              260617,
+              26810,
+              20599
+            ],
+            [
+              194508,
+              44846,
+              5274,
+              26214,
+              2600,
+              45126,
+              38735,
+              232582,
+              783844,
+              101860
+            ],
+            [
+              44562,
+              2769,
+              4380,
+              8433,
+              3762,
+              8881,
+              4011,
+              17288,
+              20973,
+              334520
+            ]
+          ],
+          "known_sampled_pixel_counts": [
+            10651373,
+            12251747,
+            5384657,
+            373847,
+            566613,
+            709207,
+            2005468,
+            432607,
+            1475589,
+            449579
+          ],
+          "class_recall": [
+            0.7898277640342712,
+            0.3647143542766571,
+            0.4140642583370209,
+            0.7629538178443909,
+            0.6723654270172119,
+            0.5467063784599304,
+            0.4282701015472412,
+            0.6024336218833923,
+            0.5312075614929199,
+            0.7440739274024963
+          ],
+          "observed_class_macro_recall": 0.585661768913269,
+          "pixel_accuracy": 0.536505937576294
+        },
+        "cyclic_wrong_part_codes": {
+          "confusion": [
+            [
+              8412750,
+              408832,
+              5528,
+              52055,
+              234614,
+              19820,
+              633432,
+              111058,
+              531848,
+              241436
+            ],
+            [
+              3591462,
+              733439,
+              4468388,
+              625182,
+              137529,
+              167403,
+              273697,
+              1055101,
+              330522,
+              869024
+            ],
+            [
+              995937,
+              77293,
+              140586,
+              2229594,
+              380369,
+              835536,
+              330681,
+              358879,
+              27199,
+              8583
+            ],
+            [
+              18671,
+              6198,
+              1053,
+              9375,
+              285228,
+              19244,
+              14406,
+              3436,
+              10243,
+              5993
+            ],
+            [
+              26948,
+              6562,
+              1766,
+              24123,
+              74351,
+              380971,
+              30116,
+              5212,
+              12712,
+              3852
+            ],
+            [
+              74968,
+              20254,
+              6469,
+              24940,
+              27177,
+              6577,
+              387728,
+              80201,
+              73245,
+              7648
+            ],
+            [
+              346979,
+              44710,
+              125053,
+              79893,
+              65832,
+              21259,
+              302075,
+              858882,
+              94669,
+              66116
+            ],
+            [
+              51900,
+              20599,
+              2270,
+              1842,
+              12530,
+              1027,
+              47825,
+              7187,
+              260617,
+              26810
+            ],
+            [
+              194508,
+              101860,
+              44846,
+              5274,
+              26214,
+              2600,
+              45126,
+              38735,
+              232582,
+              783844
+            ],
+            [
+              44562,
+              334520,
+              2769,
+              4380,
+              8433,
+              3762,
+              8881,
+              4011,
+              17288,
+              20973
+            ]
+          ],
+          "known_sampled_pixel_counts": [
+            10651373,
+            12251747,
+            5384657,
+            373847,
+            566613,
+            709207,
+            2005468,
+            432607,
+            1475589,
+            449579
+          ],
+          "class_recall": [
+            0.7898277640342712,
+            0.05986403301358223,
+            0.026108626276254654,
+            0.025077104568481445,
+            0.13122007250785828,
+            0.009273737668991089,
+            0.15062569081783295,
+            0.016613230109214783,
+            0.15761977434158325,
+            0.04665030911564827
+          ],
+          "observed_class_macro_recall": 0.14128804206848145,
+          "pixel_accuracy": 0.28978705406188965
+        },
+        "canonical_field_mean_abs_probability_change": 3.1499109809374204e-06,
+        "canonical_field_max_abs_probability_change": 0.00012809038162231445,
+        "part_code_initial_final_cosines": [
+          0.8150295615196228,
+          0.8314410448074341,
+          0.9168186187744141,
+          0.7046891450881958,
+          0.815666913986206,
+          0.8046910166740417,
+          0.8572211861610413,
+          0.797646164894104,
+          0.8117337822914124,
+          0.5864392518997192
+        ],
+        "real_matching_usage": {
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9628,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2758,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            513,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "active_slots": 3,
+          "entropy_effective_slots": 1.9667701590601012
+        },
+        "real_applied_content_usage": {
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1048,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            67,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "active_slots": 3,
+          "entropy_effective_slots": 1.2960616051355682
+        },
+        "actual_match_is_used_when_edited": true,
+        "strict_final_payload_normal_RGB_reloads": [
+          {
+            "image_id": 1030,
+            "exact": true
+          },
+          {
+            "image_id": 1203,
+            "exact": true
+          },
+          {
+            "image_id": 1269,
+            "exact": true
+          },
+          {
+            "image_id": 1324,
+            "exact": true
+          },
+          {
+            "image_id": 1410,
+            "exact": true
+          },
+          {
+            "image_id": 1565,
+            "exact": true
+          },
+          {
+            "image_id": 320,
+            "exact": true
+          },
+          {
+            "image_id": 565,
+            "exact": true
+          },
+          {
+            "image_id": 586,
+            "exact": true
+          },
+          {
+            "image_id": 798,
+            "exact": true
+          },
+          {
+            "image_id": 94,
+            "exact": true
+          },
+          {
+            "image_id": 955,
+            "exact": true
+          }
+        ],
+        "optimizer_steps": 0,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "scope": "64 train-seen synthetic normal-output positives; source/body-limited semantic evidence, not independent generalization or AP; exemplars are source-known nearest observations, not photos decoded from a vector"
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.023055555555555555
+    },
+    "intervention": {
+      "scheduler": {
+        "job_id": "464",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 630,
+        "AllocTRES": "billing=62,cpu=4,gres/gpu=1,mem=32G,node=1"
+      },
+      "GPU": 1,
+      "run_id": "RUN_SPM_CONTENT_CONTENT_INTERVENTION_V1_88a4c17eb263",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_CONTENT_INTERVENTION_V1_88a4c17eb263",
+        "stage": "content_intervention_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T19:50:56.665874+00:00",
+        "GPU_count": 1,
+        "optimizer_steps": 0,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3500753,
+        "job_id": "464",
+        "command": [
+          "audit_content_intervention.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "images_completed": 432,
+        "exit_code": 0,
+        "ended_at": "2026-10-25T20:01:23.653313+00:00",
+        "wall_seconds": 626.9974527489976
+      },
+      "summary": {
+        "passed": true,
+        "counts": {
+          "edited": 1121,
+          "controlled_rows": 480,
+          "active_signs": 2242,
+          "controlled_signs": 960,
+          "fallback_rows": 641
+        },
+        "controlled_active_sign_coverage": 0.4281891168599465,
+        "control_sufficient": false,
+        "original": {
+          "AP": 60.75327839580857,
+          "AP50": 85.12391768499484,
+          "AP75": 71.18891807825246,
+          "stats": [
+            60.75327839580857,
+            85.12391768499484,
+            71.18891807825246,
+            24.91861614505043,
+            72.81744430529122,
+            80.37381330994486,
+            12.90604261264408,
+            61.46699266503668,
+            66.79706601466992,
+            31.282051282051288,
+            77.80767314399601,
+            85.19480519480518
+          ],
+          "GT_valid": 2863,
+          "GT50_matched": 2590,
+          "recall50": 0.9046454767726161
+        },
+        "controlled": {
+          "AP": 60.26118835084833,
+          "AP50": 85.12391768499484,
+          "AP75": 71.02237716613551,
+          "stats": [
+            60.26118835084833,
+            85.12391768499484,
+            71.02237716613551,
+            24.455255647478136,
+            72.20184264890946,
+            80.37381330994486,
+            12.881592734893468,
+            61.12120153684947,
+            66.44778204680405,
+            30.883190883190885,
+            77.44892874937716,
+            85.19480519480518
+          ],
+          "GT_valid": 2863,
+          "GT50_matched": 2590,
+          "recall50": 0.9046454767726161
+        },
+        "AP_drop": 0.4920900449602428,
+        "material_content_dependence": false,
+        "group_sensitivity": {
+          "source_groups": 4,
+          "draws": 256,
+          "unique_count_patterns": 35,
+          "delta_AP_percentiles": [
+            -1.7191918900246606,
+            -0.4920900449602428,
+            -0.03320495954210401
+          ],
+          "scope": "source-group descriptive resampling on previously-used dev; not independent confirmation"
+        },
+        "original_predictions_replayed_exact": true,
+        "all_original_states_unchanged": true,
+        "geometry_spatial_permutation_seed": 26102601,
+        "fixed_original_match_action_strength_and_KEEP": true,
+        "maximum_lambda": 10.0,
+        "inference_permission": "same frozen model intervention only; never a selectable candidate",
+        "optimizer_steps": 0,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "scope": "conditional necessity of stored spatial layout at fixed matching/action/signed mass; not independent parameter/data/budget attribution; insufficient coverage cannot be called mechanism negative"
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.175
+    },
+    "figures": {
+      "scheduler": {
+        "job_id": "465",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 32,
+        "AllocTRES": "billing=12,cpu=4,mem=32G,node=1"
+      },
+      "GPU": 0,
+      "run_id": "RUN_SPM_CONTENT_FIGURES_CONTENT_V1_e582d06557d7",
+      "metadata": {
+        "study_id": "STUDY_SPM_CONTENT_CONSTRAINED_MEMORY_20261026",
+        "run_id": "RUN_SPM_CONTENT_FIGURES_CONTENT_V1_e582d06557d7",
+        "stage": "figures_content_v1",
+        "execution_status": "completed",
+        "scientific_status": "execution_in_progress",
+        "started_at": "2026-10-25T20:01:26.743215+00:00",
+        "GPU_count": 0,
+        "optimizer_steps": 0,
+        "executor": "master-01",
+        "user": "a25023104",
+        "pid": 3509148,
+        "job_id": "465",
+        "command": [
+          "render_content_figures.py"
+        ],
+        "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+        "protocol_sha256": "743986a45634ae8c47264c66ed5f6d6de24b9b101588b30185b7e28f70637408",
+        "formal_training_authorized": true,
+        "test_used": false,
+        "whole_goal_complete": false,
+        "source_manifest_sha256": "2a16fc7450c26f15fa2de0c5b7a08d948644d7949020435c9d5753a8f587b166",
+        "code_commit": "60508dfc73f54119fd7746ee9d41a86189f5c9d1",
+        "exit_code": 0,
+        "ended_at": "2026-10-25T20:01:55.920924+00:00",
+        "wall_seconds": 29.188713746028952
+      },
+      "summary": {
+        "passed": true,
+        "figures": 45,
+        "all_from_actual_fixed_last": true,
+        "visual_QA_pending": true,
+        "optimizer_steps": 0,
+        "whole_goal_complete": false
+      },
+      "completed": true,
+      "accrued_GPU_hours": 0.0
+    }
+  },
+  "raw_sacct": "457|COMPLETED|0:0|1410|billing=232,cpu=16,gres/gpu=4,mem=64G,node=1\n458|COMPLETED|0:0|1377|billing=62,cpu=4,gres/gpu=1,mem=32G,node=1\n459|COMPLETED|0:0|195|billing=58,cpu=4,gres/gpu=1,mem=16G,node=1\n460|COMPLETED|0:0|586|billing=62,cpu=4,gres/gpu=1,mem=32G,node=1\n461|COMPLETED|0:0|40|billing=8,cpu=4,mem=16G,node=1\n462|COMPLETED|0:0|33|billing=12,cpu=4,mem=32G,node=1\n463|COMPLETED|0:0|83|billing=62,cpu=4,gres/gpu=1,mem=32G,node=1\n464|COMPLETED|0:0|630|billing=62,cpu=4,gres/gpu=1,mem=32G,node=1\n465|COMPLETED|0:0|32|billing=12,cpu=4,mem=32G,node=1\n",
+  "accrued_formal_GPU_hours": 2.3641666666666667,
+  "all_formal_jobs_terminal": true,
+  "read_at": "2026-10-26T02:02:40.946012+00:00"
+}

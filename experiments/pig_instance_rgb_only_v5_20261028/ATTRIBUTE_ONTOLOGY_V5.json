@@ -1,0 +1,147 @@
+{
+  "version": "RGB_ONLY_PIG_ATTRIBUTES_V5_DRAFT",
+  "status": "engineering_ontology_not_semantic_accuracy_claim",
+  "input": "RGB_and_this_version_RGB_tools_only",
+  "body_part_priority": "primary_output_with_part_ownership_and_evidence_before_coarse_posture",
+  "body_part_specification": "BODY_PART_SPEC_V5.md",
+  "record_states": ["observed_candidate", "inferred_candidate", "measured_pixel", "unknown", "unobservable"],
+  "authority_is_separate_from_state": true,
+  "nonempty_semantic_value_requires_evidence_refs": true,
+  "unknown_or_unobservable_requires_null_value_and_reason": true,
+  "all_keys_required_even_if_unknown": true,
+  "model_confidence_is_calibrated_probability": false,
+  "default_generator_use": "not_approved",
+  "record_metadata": ["image_id", "instance_id", "instance_status", "source_RGB_sha256", "candidate_history", "view_refs", "model_lock", "prompt_version", "tool_version", "attributes", "parts", "relations", "conflicts", "unprocessed_obligations"],
+  "instance_statuses": ["accepted_candidate", "provisional", "identity_ambiguous", "alias", "rejected_with_evidence"],
+  "attribute_groups": [
+    {"id":"localization","sources":["T02","T03","T08","T16"],"fields":[
+      {"key":"visible_extent_box","type":"box","unit":"original_RGB_pixel_edges","definition":"tight visible-evidence extent candidate; not complete hidden body"},
+      {"key":"visible_anchor_points","type":"points","unit":"original_RGB_pixel_edges","definition":"points tied to visible pig evidence with part and view references"},
+      {"key":"image_border_truncation","type":"set","values":["left","right","top","bottom","none_observed"],"definition":"actual visible continuation at frame edge; box touching alone insufficient"},
+      {"key":"visible_fragment_regions","type":"regions","definition":"candidate disconnected evidence regions and ownership status; not exact mask"},
+      {"key":"whole_body_visible_in_frame","type":"enum","values":["supported","not_supported","ambiguous"],"definition":"visible completeness, not amodal extent"},
+      {"key":"pixel_mask_candidate","type":"mask_reference","definition":"optional candidate mask with method and lineage; box is never a mask"},
+      {"key":"mask_quality_status","type":"enum","values":["not_produced","candidate_unverified","independently_reviewed_at_scope","unusable"],"definition":"unverified polygon or image-processing output cannot silently become pixel GT"}
+    ]},
+    {"id":"support_and_pose","sources":["T09","T10","T11","T12"],"fields":[
+      {"key":"coarse_posture","type":"enum","values":["standing","sitting","sternal_lying","lateral_lying","lying_unspecified","supine_candidate","other"],"definition":"derived from cited support/anatomy evidence; no forced subclass under occlusion"},
+      {"key":"supporting_body_region","type":"set","values":["feet","ventral_torso","lateral_torso","hindquarters","other_visible_region"],"definition":"candidate observed/inferred support distinguished"},
+      {"key":"torso_elevation","type":"enum","values":["visibly_elevated","appears_ground_supported","indeterminate"],"definition":"qualitative only; overhead images may not identify height"},
+      {"key":"visible_limb_support","type":"object","definition":"per visible_limb_id support evidence and ownership, no guessed hidden feet"},
+      {"key":"limb_flexion","type":"object","definition":"per visible limb extended/flexed/indeterminate with image evidence"},
+      {"key":"body_roll_evidence","type":"object","definition":"dorsal/ventral/side support cues; not metric 3D roll"},
+      {"key":"spine_curvature","type":"enum","values":["apparently_straight","apparently_curved","indeterminate"],"definition":"apparent image shape, not vertebral reconstruction"},
+      {"key":"head_elevation","type":"enum","values":["apparently_raised","apparently_lowered","indeterminate"],"definition":"relative visual cue with reference surface"},
+      {"key":"ear_configuration","type":"object","definition":"per visible ear geometry/visibility; no forced bilateral state"},
+      {"key":"tail_configuration","type":"enum","values":["curled_visible","straight_visible","other_visible_configuration","indeterminate"],"definition":"visible tail only; absence is not amputation"},
+      {"key":"mouth_state","type":"enum","values":["apparently_open","apparently_closed","indeterminate"],"definition":"only when mouth evidence is sufficiently visible"}
+    ]},
+    {"id":"orientation","sources":["T02","T09","T11","T12"],"fields":[
+      {"key":"head_direction_image","type":"enum","values":["left","right","up","down","diagonal","toward_camera_candidate","away_camera_candidate","indeterminate"],"definition":"image directions and camera-facing inference distinguished"},
+      {"key":"head_tail_axis_endpoints","type":"points","unit":"original_RGB_pixel_edges","definition":"visible or inferred head and tail-root endpoints separately tagged"},
+      {"key":"axis_angle_image","type":"number","unit":"degree_clockwise_from_image_positive_x","definition":"computed only with valid endpoints; not world yaw"},
+      {"key":"body_surface_view","type":"set","values":["dorsal","ventral","lateral","front","rear","oblique"],"definition":"visible anatomical surface candidates"},
+      {"key":"anatomical_side_visible","type":"enum","values":["left_supported","right_supported","both_supported","indeterminate"],"definition":"anatomical side cannot be copied from image left/right"}
+    ]},
+    {"id":"projected_shape","sources":["T02","T09","T10"],"fields":[
+      {"key":"box_width_height","type":"vector","unit":"original_RGB_pixels","definition":"derived from candidate box with location uncertainty retained"},
+      {"key":"box_aspect_ratio","type":"number","unit":"ratio","definition":"visible box shape, not unoccluded body proportion"},
+      {"key":"normalized_center","type":"vector","unit":"fraction_of_RGB_width_height","definition":"candidate box center, not object physical center of mass"},
+      {"key":"projected_size_relative_to_frame","type":"number","unit":"sqrt_box_area_over_RGB_area","definition":"projected scale, not age/weight"},
+      {"key":"apparent_trunk_span","type":"object","unit":"original_RGB_pixels","definition":"only supported visible endpoints; occluded span not completed"},
+      {"key":"relative_size_same_image","type":"object","definition":"relative projection sizes with target IDs; perspective confound retained"},
+      {"key":"mask_area_pixels","type":"number","unit":"RGB_pixels","definition":"unknown unless referenced mask and validity domain exist"},
+      {"key":"outline_candidate","type":"regions","definition":"sparse boundary candidate, uncertainty and holes retained"}
+    ]},
+    {"id":"surface_and_marks","sources":["T09","T12","T14"],"fields":[
+      {"key":"apparent_skin_color","type":"enum","values":["light","dark","mottled","other"],"definition":"image-domain appearance; no reflectance or breed inference"},
+      {"key":"patch_pattern","type":"regions","definition":"visible patch locations and uncertainty between pigment/dirt/shadow"},
+      {"key":"apparent_soiling","type":"object","definition":"visible candidate dirt with region evidence"},
+      {"key":"apparent_wetness","type":"object","definition":"reflection/appearance candidate, not physical moisture measurement"},
+      {"key":"specular_highlights","type":"regions","definition":"local bright reflections separated from material identity"},
+      {"key":"visible_bristles","type":"object","definition":"presence/appearance only where source pixels resolve them"},
+      {"key":"visible_ear_tag","type":"object","definition":"image-visible object candidate and owning ear/animal uncertainty"},
+      {"key":"visible_mark_text","type":"object","definition":"candidate characters and unreadable portions, no external label lookup"},
+      {"key":"surface_irregularity","type":"regions","definition":"visible irregular surface evidence, not disease diagnosis"}
+    ]},
+    {"id":"occlusion_and_visibility","sources":["T08","T09","T10","T16"],"fields":[
+      {"key":"occluder_types","type":"set","values":["pig","barrier","wall","feeder","other_facility","other_object","none_observed"],"definition":"visible occlusion evidence; none_observed is not absolute absence"},
+      {"key":"occluder_entity_refs","type":"references","definition":"current-image entity IDs or unresolved entity nodes"},
+      {"key":"occluded_part_refs","type":"references","definition":"parts whose visibility is affected, without hidden-position hallucination"},
+      {"key":"occlusion_boundary_regions","type":"regions","definition":"where local front/back ordering is supported"},
+      {"key":"fragment_ownership_ambiguity","type":"object","definition":"competing owner IDs for disconnected evidence"},
+      {"key":"visibility_qualitative","type":"enum","values":["mostly_visible_candidate","partly_visible_candidate","small_fragment_candidate","indeterminate"],"definition":"qualitative, not true hidden-area fraction"},
+      {"key":"physical_occlusion_fraction","type":"number","definition":"unobservable by default from single RGB; no inferred amodal denominator"}
+    ]},
+    {"id":"local_context","sources":["T09","T10","T13"],"fields":[
+      {"key":"nearby_pig_refs","type":"references","definition":"candidate neighboring instances with pixel relation, not identity proof"},
+      {"key":"nearby_facility_refs","type":"references","definition":"facilities discovered from RGB only"},
+      {"key":"support_surface_candidate","type":"object","definition":"visible/inferred floor or support surface tied to feet/torso evidence"},
+      {"key":"floor_appearance_near_instance","type":"object","definition":"local floor visual type, unknown if surface not visible"},
+      {"key":"head_near_feeder","type":"object","definition":"single-frame spatial relation, not confirmed feeding behavior"},
+      {"key":"head_near_drinker","type":"object","definition":"single-frame spatial relation, not confirmed drinking"},
+      {"key":"visible_facility_constraints","type":"object","definition":"bars near body and projected space, not metric enclosure dimensions"}
+    ]},
+    {"id":"instance_image_quality","sources":["T02","T03","T04","T07"],"fields":[
+      {"key":"source_and_view_pixel_sizes","type":"object","unit":"pixels","definition":"actual source crop and actual processor grid, no nominal-only size"},
+      {"key":"ROI_brightness","type":"object","unit":"declared_image_RGB_or_luma_units","definition":"ROI descriptor; whole box is not pure pig skin"},
+      {"key":"ROI_contrast","type":"object","definition":"operator and ROI recorded, no physical light parameter"},
+      {"key":"ROI_edge_clarity","type":"object","definition":"image descriptor with resolution and operator version"},
+      {"key":"blur_candidate","type":"object","definition":"visible blur candidate; cause and motion speed unknown"},
+      {"key":"noise_or_compression_candidate","type":"object","definition":"image artifact candidate; no guessed camera noise model"},
+      {"key":"shadow_or_overexposure","type":"regions","definition":"evidence regions, not illumination calibration"},
+      {"key":"appearance_modality","type":"enum","values":["color","near_monochrome","indeterminate"],"definition":"image appearance, not proof of IR sensor"},
+      {"key":"evidence_readability","type":"object","definition":"task-specific unresolved details and additional-view obligations"}
+    ]},
+    {"id":"unidentifiable_physics","sources":["T09","T11","T12"],"fields":[
+      {"key":"metric_body_dimensions","type":"object","definition":"unobservable by default in RGB-only policy without independent calibration"},
+      {"key":"body_weight_or_age","type":"object","definition":"unobservable by default; apparent size is not age/weight"},
+      {"key":"breed_or_sex","type":"object","definition":"no forced category; preserve visible anatomical evidence separately"},
+      {"key":"hidden_3D_joints","type":"object","definition":"unobservable; symmetry prior is not observed ground truth"},
+      {"key":"world_orientation_or_camera_metric_pose","type":"object","definition":"unobservable by default; author label metadata forbidden"},
+      {"key":"cross_frame_animal_identity","type":"object","definition":"outside single-frame scope"}
+    ]}
+  ],
+  "part_record": {
+    "part_categories": ["head","snout","nose_tip","nostril_visible","mouth","lower_jaw_visible","eye_visible","ear","ear_base","ear_tip","neck","shoulder_surface_anchor","thorax_surface","dorsal_trunk","ventral_trunk","lateral_trunk","lumbar_surface","rump","rump_surface_anchor","tail_root","tail_shaft","tail_tip","visible_limb","forelimb_candidate","hindlimb_candidate","elbow_surface_candidate","carpus_surface_candidate","stifle_surface_candidate","hock_surface_candidate","visible_hoof","hoof_contact_candidate","teat_visible","udder_surface_visible","navel_visible","external_genital_surface_visible","tongue_visible","tooth_visible","claw_visible","dewclaw_visible","other_visible_fragment"],
+    "hierarchy": {
+      "head":["snout","nose_tip","nostril_visible","mouth","lower_jaw_visible","eye_visible","ear"],
+      "ear":["ear_base","ear_tip"],
+      "mouth":["tongue_visible","tooth_visible"],
+      "trunk":["neck","shoulder_surface_anchor","thorax_surface","dorsal_trunk","ventral_trunk","lateral_trunk","lumbar_surface","rump"],
+      "ventral_trunk":["teat_visible","udder_surface_visible","navel_visible","external_genital_surface_visible"],
+      "rump":["rump_surface_anchor","tail_root"],
+      "tail":["tail_root","tail_shaft","tail_tip"],
+      "visible_limb":["forelimb_candidate","hindlimb_candidate","elbow_surface_candidate","carpus_surface_candidate","stifle_surface_candidate","hock_surface_candidate","visible_hoof","hoof_contact_candidate"],
+      "visible_hoof":["claw_visible","dewclaw_visible"]
+    },
+    "part_attribute_groups": ["visible_shape","image_orientation","attachment_refs","articulation_candidate","surface_appearance","local_image_quality","uncertainty_and_alternatives","generator_requirements_not_approved"],
+    "parent_part_id_required": true,
+    "landmark_definition_required": true,
+    "shoulder_surface_anchor_is_internal_shoulder_joint": false,
+    "rump_surface_anchor_is_tail_root_or_tip": false,
+    "hidden_side_symmetry_estimate_is_observed": false,
+    "instance_part_attribute_triples_required": true,
+    "required": ["part_id","parent_part_id","owner_instance_id","ownership_state","anatomical_role","anatomical_side","landmark_definition","visibility_state","source_regions_or_points","part_attributes","evidence_refs","unknown_reason"],
+    "ownership_states": ["supported_candidate","ambiguous_between_instances","unresolved"],
+    "anatomical_side": ["left_supported","right_supported","midline_supported","indeterminate","not_applicable"],
+    "visibility_states": ["visible","partly_visible","not_visible","out_of_frame_candidate","unresolved"],
+    "typical_anatomy_is_soft_consistency_check_not_hidden_annotation": true,
+    "nearest_box_center_assigns_ownership": false
+  },
+  "relation_record": {
+    "required": ["relation_id","subject_id","predicate","object_id","subject_part","object_part","state","evidence_refs","measurement_domain","unknown_reason"],
+    "measured_pixel_predicates": ["left_of_in_image","above_in_image","box_overlaps","box_nearby"],
+    "semantic_candidate_predicates": ["locally_occludes","apparent_contact","head_near_body","head_near_feeder","head_near_drinker","supported_by_surface_candidate","fragment_may_belong_to"],
+    "box_overlap_implies_occlusion": false,
+    "apparent_contact_implies_3D_contact": false,
+    "global_occlusion_DAG_required": false,
+    "unexamined_pairs_must_be_reported": true
+  },
+  "image_record": {
+    "required": ["image_id","RGB_sha256","decode_policy","coverage_views","instances","scene_entities","relations","identity_ambiguity_groups","rejected_candidates","unprocessed_obligations","budget_accounting","status"],
+    "statuses": ["candidate_parsing_complete_with_declared_unknowns","partial_budget_exhausted","partial_identity_unresolved","failed_engineering"],
+    "declared_complete_implies_all_real_instances_found": false,
+    "original_dataset_annotations_used": false
+  }
+}

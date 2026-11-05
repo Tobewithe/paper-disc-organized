@@ -26,7 +26,7 @@ YOLO各编号并非同一团队的严格串行升级。本表追踪与当前Ultr
 
 ## 3. 8.4.100里必须准确理解的结构
 
-本节已直接检查本机[官方包归档](../../assets/packages/ultralytics/8.4.100/ultralytics_8.4.100.zip)，下列行号对应包内源码。在线同版本链接便于阅读。
+本节已直接检查本机官方包归档（原本地路径：`assets/packages/ultralytics/8.4.100/ultralytics_8.4.100.zip`，已清理），下列行号对应包内源码。在线同版本链接便于阅读。
 
 1. **多尺度原型已经存在。** `Proto26`把P4/P5经1×1卷积、最近邻上采样后与P3相加，再生成原型。语义辅助头读取融合特征，推理时可移除。P3来自neck，之前也已有跨尺度信息；26增加的是原型入口的直接多尺度融合。[block.py:1980](https://github.com/ultralytics/ultralytics/blob/v8.4.100/ultralytics/nn/modules/block.py#L1980)
 2. **掩码仍由32个共享原型线性组合。** 每个候选的系数由对应尺度卷积头预测；不是每个实例单独运行一个高分辨率ROI分割器。系数头有卷积感受野和空间上下文，不能说它“没有空间信息”；更准确的问题是这些信息是否足够支持对象特定的细部读出。[head.py:286](https://github.com/ultralytics/ultralytics/blob/v8.4.100/ultralytics/nn/modules/head.py#L286)

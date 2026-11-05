@@ -1,0 +1,50 @@
+{
+  "frozen": true,
+  "version": 1,
+  "updates_per_arm": 2000,
+  "seed": 20261101,
+  "auxiliary_seed": 20261102,
+  "arms": [
+    "B2",
+    "C2",
+    "D2"
+  ],
+  "lambdas": {
+    "B2": 0.0,
+    "C2": 0.05,
+    "D2": 0.1
+  },
+  "checkpoint": "/srv/gpu-lab/users/a25023104/projects/spm-geometry-v13-20261023/runs/RUN_SPM_V13_EVALUATE_3e710949e5b0/native_candidate.pt",
+  "checkpoint_sha256": "0e40602f1dbf0697fd49fa8e9f887c068970e3c5c39bd618f66e483c8712c8d6",
+  "release_source": {
+    "remote_root": "/srv/gpu-lab/users/a25023104/projects/spm-rlpl-pipeline-20261101/release_4b9c77ca2425",
+    "run": "RUN_RLPL_DATA_RELEASE_b978185d8b28",
+    "job_id": "1024",
+    "manifest_sha256": "116b8e3c654f7a32acd45ce6491140e7ce5423f75e7c904c5443922fe67ecb6f",
+    "release_sha256": "be5650f56a01dc4e73ada3cef87058449860fcf267048aed1b76da88a3a4df15"
+  },
+  "maximum_minutes_per_arm": 45,
+  "precision": "FP32_TF32_off",
+  "optimizer": {
+    "name": "AdamW",
+    "lr": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0001,
+    "clip_norm": 10
+  },
+  "U_freeze_updates": 100,
+  "task_supervised_images_per_batch": 2,
+  "full_forward_images_per_batch": 8,
+  "formal_protocol_sha256": "7a11af6b82662f280717e7b1d3324d37b56d0ba8e254d9960d66e5ed8207fa2a",
+  "runtime_environment_sha256": "581b2955494e14b33a1b30466086f9c72eecf20a673f11103700fce96b5a3ff7",
+  "common_schedule_sha256": "3faa36914d56d333856952802220875585fe5832b85c780869a00f1a823c4cb6",
+  "coordinates_sha256": "bbfdb54fc2acbca3bd78dcf557269aac6b9b35e88ce058fbef49f07b68418e27",
+  "release_visual_review_sha256": "2dd013ede305e7ec04054254313f3b4d2a20505c0b36b2cd74edf2fb37601e16",
+  "checkpoint_selection": "fixed_last",
+  "dev_access_during_training": false,
+  "test_open": false
+}

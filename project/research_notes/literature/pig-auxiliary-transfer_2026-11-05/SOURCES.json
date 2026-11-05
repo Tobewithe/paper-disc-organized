@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "topic": "target-directed auxiliary learning and synthetic-part transfer",
+  "recorded_at": "2026-11-05T12:20:34.024904+00:00",
+  "reading_status": "selected_methods_read_and_applied_to_current_design_review",
+  "model_validation_status": "not_run_remote_ssh_blocked",
+  "papers": [
+    {
+      "id": "TAG",
+      "title": "Efficiently Identifying Task Groupings for Multi-Task Learning",
+      "publication": "NeurIPS 2021",
+      "url": "https://arxiv.org/abs/2109.04617v2",
+      "pdf_sha256": "18eb01e86b1d6aeccaa443f488f4347bc5257de2cc039d23b198dfc89a8280aa",
+      "text_sha256": "8152b1f432ae750a0cfadc1e1322d4af58f7e0c4fbf547a0df44350807734d8f",
+      "reading_scope": "new reading: extracted lines 1-260, abstract and sections 1-4.1; asymmetry and same-batch shared-parameter update",
+      "implementation_read": false
+    },
+    {
+      "id": "AUTOLAMBDA",
+      "title": "Auto-Lambda: Disentangling Dynamic Task Relationships",
+      "publication": "TMLR 2022, identified by author project and repository; paper read as arXiv v2",
+      "url": "https://arxiv.org/abs/2202.03091v2",
+      "author_url": "https://shikun.io/projects/auto-lambda",
+      "pdf_sha256": "97ddca9f16cc575b20e18be7e30318819e781643c8f9016e1e9fab777a070bc7",
+      "text_sha256": "e574e303359ceb976dfc27e450a8eabd7ca0679459d5a88fe1eecb2a9310013f",
+      "reading_scope": "new reading: extracted lines 1-390, sections 1-5.1 including equations and Table 1; author project method, analysis and limitations text",
+      "implementation_read": true,
+      "code_url": "https://github.com/lorenmt/auto-lambda/tree/bdba6365953f7ebb3a8ae33fabfecd3f933ecc27",
+      "code_scope": "README, full auto_lambda.py, trainer_dense.py meta data/optimizer path",
+      "code_sha256": {
+        "auto_lambda.py": "6efdba35dddf7fda5a188f1e88591f194f585bcc4d53dbd122ad7893975406e4",
+        "trainer_dense.py": "24d1b0d1263f1faf004b4ca352acfa6673c4bf629f5d6c128e39bebfaef7a85c"
+      }
+    },
+    {
+      "id": "AUXILEARN",
+      "title": "Auxiliary Learning by Implicit Differentiation",
+      "publication": "ICLR 2021",
+      "url": "https://arxiv.org/abs/2007.02693v3",
+      "formal_url": "https://openreview.net/forum?id=n7wIfYPdVet",
+      "pdf_sha256": "03dafdde5d8348b36bbb04b048e7e3380a8615989b3487a4af3c5049c9bce997",
+      "text_sha256": "ca36e3a69f490d379bbd96cfdd5754b0ee9b0d0f967f8ee05d7c36c8143e61b2",
+      "reading_scope": "new reading: extracted lines 1-540, sections 1-5.4, implicit derivative, overfitting and spatial loss network",
+      "implementation_read": true,
+      "code_url": "https://github.com/AvivNavon/AuxiLearn/tree/17495d6c064718606ccf3a97d9c244eea084633f",
+      "code_scope": "README, full auxilearn/optim.py and auxilearn/implicit_diff.py",
+      "code_sha256": {
+        "auxilearn/optim.py": "456e9ce9237ef9010c5994db48888589a8ba77d6104f2466ac52a8fbc74aee49",
+        "auxilearn/implicit_diff.py": "6fd924b52375f3bc6b2ffe5ea64f3b28a95027482563b0b9970d98b07944c0f6"
+      }
+    },
+    {
+      "id": "FORKMERGE",
+      "title": "ForkMerge: Mitigating Negative Transfer in Auxiliary-Task Learning",
+      "publication": "NeurIPS 2023, verified in official proceedings index",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/60f9118a849e8e9a0c67e2a36ad80ebf-Abstract-Conference.html",
+      "pdf_url": "https://proceedings.neurips.cc/paper_files/paper/2023/file/60f9118a849e8e9a0c67e2a36ad80ebf-Paper-Conference.pdf",
+      "pdf_sha256": "597e00c0b973a5ba96b031efc4e60b9be277846d484252252c009f7a72a2f9de",
+      "text_sha256": "03225097c5e95add801309aa268090057e8cee874950ad0a568c25c66a83ddd7",
+      "reading_scope": "new reading: extracted lines 1-570, sections 1-5.2 including negative transfer analysis, fork/merge algorithm and comparison setup; not a full reading of all appendix experiments",
+      "implementation_read": true,
+      "code_url": "https://github.com/thuml/ForkMerge/tree/37fd2ef0274ba8fe1b2936f705b6850c6ec8cbb1",
+      "code_scope": "main/develop README, auxiliary_domain_image_recognition/forkmerge.py lines 250-369 and inspected search matches; scene README downloaded but not used for detailed implementation claims",
+      "code_sha256": {
+        "auxiliary_domain_image_recognition/forkmerge.py": "d9df71da1e3d8ae8eac12087ca7de3a86a70e6aeb029536969d71f9632015156"
+      }
+    },
+    {
+      "id": "SAP",
+      "title": "Learning Part Segmentation from Synthetic Animals",
+      "url": "https://arxiv.org/abs/2311.18661v1",
+      "pdf_sha256": "dbe89c3aa0be117b6ce515d569245c0079bf92e108d1b62d80fd42c8f45c18d5",
+      "text_sha256": "98f3af800d8a126e2fb8b5b27dc6504fd70113130c55fb5e91c465a4b34f680f",
+      "reading_scope": "deepened existing reading: lines 1-75,85-344,590-end; FDM exact mixing, head-specific pseudo-label weighting, head/tail precision-recall, disabled object-level feature distance",
+      "previous_reading": "project/research_notes/literature/pig-concept-supervision_2026-11-01/README.md",
+      "implementation_read": false,
+      "implementation_status": "author repository URL stated in supplement; attempted main README returned 404"
+    },
+    {
+      "id": "TAPPS",
+      "title": "Task-aligned Part-aware Panoptic Segmentation through Joint Object-Part Representations",
+      "publication": "CVPR 2024, official CVF link obtained from author project",
+      "url": "https://arxiv.org/abs/2406.10114",
+      "formal_pdf_url": "https://openaccess.thecvf.com/content/CVPR2024/papers/de_Geus_Task-aligned_Part-aware_Panoptic_Segmentation_through_Joint_Object-Part_Representations_CVPR_2024_paper.pdf",
+      "author_url": "https://tue-mps.github.io/tapps/",
+      "pdf_sha256": "131282a6a94a797e2c48fc7f83bc50f6f836a4ed474352d02f3ba34a0faada7c",
+      "text_sha256": "c012107e8e32235e9458b3e019d090e5c1bd2e1491f28dab6ad3de2ee37fcb70",
+      "hash_scope": "previously acquired arXiv PDF/text; not the newly discovered CVF PDF",
+      "reading_scope": "deepened existing reading: lines 185-324, object-part query construction, mask generation, matching; earlier experimental reading reused with its prior scope",
+      "previous_reading": "project/research_notes/literature/pig-part-instance-bridge_2026-11-02/README.md",
+      "implementation_read": false
+    }
+  ],
+  "retrieval_notes": [
+    "Crossref targeted queries either returned unrelated items or HTTP 429; those hits were not adopted as publication evidence.",
+    "OpenReview forum requests returned a page shell, while the AuxiLearn PDF returned HTTP 403; readable body came from arXiv linked by the authors.",
+    "Official NeurIPS proceedings supplied ForkMerge full text; author project/repository supplied Auto-Lambda publication identity and implementation.",
+    "A tentative CVF workshop directory did not contain SAP and was not used as publication verification.",
+    "Retrieved is distinct from read; paper figures were not independently visually audited and no reported model performance was reproduced."
+  ],
+  "source_cache": "Temporary PDFs and extracted texts under C:/Users/Administrator/AppData/Local/Temp/pig_aux_learning_20261105_r2; not an experiment archive or guaranteed persistent location.",
+  "verification": {
+    "verified_on": "2026-11-05",
+    "skill_manifests": "both 2.1.0 manifests match all listed files and canonical content hashes",
+    "pinned_official_code": "5 files from 3 author repositories fetched at recorded commits; all SHA256 match",
+    "local_document_links": "559 links checked across updated project documents and both skills",
+    "active_routing": "PASS: 5 active docs, 470 local links, current routing",
+    "analytic_counterexample": "Decimal calculation verified target losses 0.5 -> 0.605 for main-only and 0.5 -> 0.405 with conflicting auxiliary; no model or dataset execution",
+    "original_summary_sha256": "1d9bc74e22082a31dc63beea890c2c86e81b50a2d46b870250c9721b48b92923",
+    "scientific_assessment": "broad pig-knowledge Idea remains unknown; no new model efficacy result"
+  },
+  "execution": {
+    "new_model_training": false,
+    "new_model_forwards": 0,
+    "new_slurm_jobs": [],
+    "remote_attempt": "ssh -o BatchMode=yes -o ConnectTimeout=10 -o ConnectionAttempts=1 -p 22 a25023104@192.168.71.10 squeue ...",
+    "remote_result": "exit255; Connection timed out during banner exchange",
+    "old_feedback_receipts": "unchanged point-in-time snapshots; subsequent document edits are not covered by their SHA lists"
+  }
+}

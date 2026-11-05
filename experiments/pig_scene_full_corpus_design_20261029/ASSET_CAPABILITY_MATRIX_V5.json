@@ -1,0 +1,139 @@
+{
+  "record_type": "asset_availability_and_mapping_gap_not_new_asset_approval",
+  "source_metadata": "../spm_blender_domain_replay_20261024/assets/ASSET_REPORT.json",
+  "actual_precheck_run": "runs/RUN_SYNTHESIS_ASSET_PRECHECK_4510995ded57/run.json",
+  "original_asset_SHA256": "8aec801123f31ca475000c738287dcd075dda6be4c5650c03b5657d801a847ef",
+  "original_asset_exists_now": true,
+  "actual_SHA_matches_record": true,
+  "original_asset_bytes": 904380,
+  "registered_vertices": 283,
+  "registered_triangles": 562,
+  "registered_bones": 24,
+  "registered_coarse_part_groups": [
+    "head",
+    "neck",
+    "front_trunk",
+    "rear_trunk",
+    "front_left",
+    "front_right",
+    "rear_left",
+    "rear_right"
+  ],
+  "asset_parent_families_verified_here": 1,
+  "declared_coordinate_units": "centered_and_normalized_by_rest_body_length; not_meters",
+  "capabilities": [
+    {
+      "group": "head_face",
+      "existing_support": "Head bone and head coarse group",
+      "missing_verification": [
+        "surface leaf map",
+        "snout/nose/eye/mouth definitions",
+        "fine part geometry or UV semantic channel",
+        "final RGB readability"
+      ]
+    },
+    {
+      "group": "ears",
+      "existing_support": "no independently named ear bones or ear groups in saved report; actual ear geometry not inspected this turn",
+      "missing_verification": [
+        "ear base/pinna/tip surfaces",
+        "attachment and left/right map",
+        "independent ear deformation capability"
+      ]
+    },
+    {
+      "group": "neck_front",
+      "existing_support": "Neck/Shoulders bones and neck coarse group",
+      "missing_verification": [
+        "neck-to-head/trunk surface partition",
+        "explicit shoulder surface landmark distinct from internal joint"
+      ]
+    },
+    {
+      "group": "trunk",
+      "existing_support": "front_trunk/rear_trunk coarse groups; Body/Back/Torso bones",
+      "missing_verification": [
+        "dorsal/ventral/lateral/thorax/lumbar surface taxonomy",
+        "complete leaf partition with unmapped remainder"
+      ]
+    },
+    {
+      "group": "rump_tail",
+      "existing_support": "Hips and rear_trunk; no independently named tail bone/group in saved report",
+      "missing_verification": [
+        "actual tail geometry",
+        "rump anchor versus tail root/tip",
+        "tail shaft deformation and occlusion"
+      ]
+    },
+    {
+      "group": "limbs_hooves",
+      "existing_support": "paired Front/Back limb bones and foot bones; four coarse limb groups",
+      "missing_verification": [
+        "surface joint landmark definitions",
+        "separate hoof surface",
+        "claw/dewclaw geometry if enabled",
+        "support/contact and self intersection checks"
+      ]
+    },
+    {
+      "group": "fine_ventral_or_mouth",
+      "existing_support": "no dedicated semantic regions in the saved eight-group map",
+      "missing_verification": [
+        "geometry or shader/UV semantic source",
+        "point/region label kind",
+        "field-specific pixel and appearance gate"
+      ]
+    }
+  ],
+  "pose_status": {
+    "saved_pose_names_are_not_natural_pose_validation": true,
+    "legacy_prone_alias_is_not_verified_sternal_lying": true,
+    "support_and_ground_contact": "not_revalidated_here"
+  },
+  "excluded_derived_assets": [
+    {
+      "paths": "../spm_blender_domain_replay_20261024/runs/*/layout_*/scene.blend",
+      "reason": "old dev-derived layouts/cameras/fit; do not reuse for construction",
+      "contents_opened_this_precheck": false
+    },
+    {
+      "paths": "../spm_object_prototype_20261023/**/*.obj",
+      "reason": "model-predicted output examples are not original animal asset truth",
+      "contents_opened_this_precheck": false
+    }
+  ],
+  "license_review_for_new_release": "not_completed_here",
+  "new_V5_part_map_approved": false,
+  "photorealistic_fidelity_verified": false,
+  "claim_every_fine_part_geometry_is_absent": false,
+  "immediate_priority": "Reconnect the existing original MAMMAL mesh/rig/source parts to the current label exporter; do not rebuild ear/tail regions as if no source asset existed; preserve no-real-annotation policy",
+  "new_GPU_jobs": 0,
+  "new_RGB_generated": 0,
+  "optimizer_updates": 0,
+  "actual_pilot_coarse_partition": {
+    "run_id": "RUN_RGB_LOOP_GENERATE_a8ce21053371",
+    "namespace": "pilot_rig_coarse9",
+    "groups": 8,
+    "remainder_faces": 11,
+    "total_triangles": 562,
+    "fine_part_mapping_verified": false,
+    "independent_nose_ear_tail_hoof_controls_implemented": false,
+    "source_geometry": "original Pig.blend REST; no old fitted scene or asset.npz",
+    "visual_result": "recognizable coarse pig with pronounced low-poly faceting; not realism approval"
+  },
+  "inventory_scope_correction": {
+    "previous_scope": "only the Quaternius Pig.blend checked; not a complete pig asset inventory",
+    "existing_MAMMAL_was_omitted": true,
+    "preferred_original_asset": "MAMMAL/PIG_model",
+    "record": "EXISTING_MAMMAL_ASSET_RECORD_V1.json",
+    "left_right_ear_and_tail_source_regions_exist": true,
+    "ear_joint_controls": [
+      26,
+      31
+    ],
+    "tail_root_joint": 46,
+    "current_loop_v1_adapter_switched": false,
+    "new_fine_anatomy_or_realism_approval": false
+  }
+}

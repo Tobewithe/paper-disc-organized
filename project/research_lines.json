@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project_id": "paper-disc",
   "default_line_id": "",
-  "organization": "同一研究方向中的独立论文线；主机和目录只记录位置，不决定科研身份",
+  "organization": "以研究问题和Idea组织独立主线；可做开放探索、数据实验或方法验证，主机与目录不决定科研身份",
   "sources": [
     {
       "path": "_maintenance/workbench_alignment/thread_01a09da9/inventory.json",
@@ -22,7 +22,8 @@
       "line_id": "LINE_01701394050a46a3835bc63fb0d95f86",
       "key": "occlusion_representation_pretraining",
       "title": "视频遮挡表征预训练",
-      "status": "E0_validated_server_pilot_data_running_training_queued",
+      "status": "pilot_evaluated_closed_no_practical_pair_increment",
+      "status_source": "experiments/occlusion_representation_pretraining_20261019/study.json",
       "entrypoint": "paper/manuscripts/occlusion_representation_pretraining/README.md",
       "paper_directory": "paper/manuscripts/occlusion_representation_pretraining",
       "study_ids": [
@@ -30,7 +31,6 @@
       ],
       "focus_documents": [
         "paper/manuscripts/occlusion_representation_pretraining/README.md",
-        "paper/manuscripts/occlusion_representation_pretraining/RESEARCH_RULES.md",
         "experiments/occlusion_representation_pretraining_20261019/study.json",
         "experiments/occlusion_representation_pretraining_20261019/PROTOCOL_VIDEO_V02_DRAFT.md",
         "experiments/occlusion_representation_pretraining_20261019/DATA_CONTRACT_VIDEO_V02_DRAFT.md",
@@ -40,16 +40,17 @@
         "experiments/occlusion_representation_pretraining_20261019/EXECUTION_E0_V02.md",
         "experiments/occlusion_representation_pretraining_20261019/EXECUTION_E1_V02.md",
         "experiments/occlusion_representation_pretraining_20261019/E0_REPORT.md",
+        "experiments/occlusion_representation_pretraining_20261019/ACCEPTANCE_REVIEW_VOR_20261022.md",
         "experiments/occlusion_representation_pretraining_20261019/HANDOFF.md"
       ],
       "predecessor_line_key": "dense_video_identity",
       "relationship": "independent_video_pretraining_core_with_correspondence_and_instance_identity_as_transfer_tasks",
       "limits": [
-        "2026-10-20用户授权；E0已完成1152帧及16工程步，Job160正式数据准备运行、Job161训练待依赖，科研效用未测。",
+        "2026-10-22验收已确认四臂训练与评价完成，当前物理配对未达到预定实用增量，v0.2试验结案；2026-11-05据本地Study修正原登记停留在E0提交阶段的状态。",
         "内容保持、可见状态响应、无对应和可信度为待验证设计；没有因果识别或消除捷径的理论保证。",
         "旧空间优先草案保留，superseded_by 在 Study 登记；旧视频身份和原型—系数 Run 不改写。",
         "几何/输入因果/四臂梯度核验通过；当前仅同渲染器留出资产，跨背景、跨模板和真实域泛化未证。",
-        "首轮正式上限四臂各2000步；依赖E0通过后冻结配置，一次性Slurm链失败即停；不追加步数或种子。"
+        "结果限定单seed、合成留出资产及末点；真实视频和成熟跟踪器比较未测。原报告的等覆盖分析仍为未执行建议，实际行动沿ACTIVE_PLAN。"
       ],
       "design_version": "v0.2"
     },
@@ -71,7 +72,6 @@
       ],
       "focus_documents": [
         "paper/manuscripts/dense_video_identity/README.md",
-        "paper/manuscripts/dense_video_identity/RESEARCH_RULES.md",
         "experiments/dense_video_occlusion_transfer_20261019/study.json",
         "experiments/dense_video_occlusion_transfer_20261019/PROTOCOL.md",
         "experiments/dense_video_synthetic_occlusion_20261019/REPORT.md",
@@ -123,8 +123,7 @@
       "focus_documents": [
         "paper/manuscripts/neighbor_sensitive_p3/README.md",
         "paper/manuscripts/neighbor_sensitive_p3/DEVELOPMENT_PLAN.md",
-        "paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_MAP.md",
-        "paper/manuscripts/neighbor_sensitive_p3/RESEARCH_RULES.md"
+        "paper/manuscripts/neighbor_sensitive_p3/EVIDENCE_MAP.md"
       ],
       "owner_thread_id": "01a09da9-5107-7cb2-81b4-7ef90f80f19f",
       "source_inventory": {
@@ -161,8 +160,7 @@
         "paper/manuscripts/mask_boundary_calibration/README.md",
         "paper/manuscripts/mask_boundary_calibration/EVIDENCE_MAP.md",
         "paper/manuscripts/mask_boundary_calibration/VENUE_AND_FORMAT.md",
-        "experiments/mask_boundary_route_20260914/REPORT.md",
-        "paper/manuscripts/mask_boundary_calibration/RESEARCH_RULES.md"
+        "experiments/mask_boundary_route_20260914/REPORT.md"
       ],
       "owner_thread_id": "01a09fc8-1ce1-7ec0-b7e6-8cecdbc0605c",
       "source_inventory": {
@@ -200,7 +198,6 @@
       "focus_documents": [
         "paper/manuscripts/world_model_action_time_identifiability/README.md",
         "paper/manuscripts/world_model_action_time_identifiability/RESEARCH_CHARTER.md",
-        "paper/manuscripts/world_model_action_time_identifiability/RESEARCH_RULES.md",
         "experiments/world_model_action_time_identifiability_20261020/PROTOCOL_DRAFT.md"
       ],
       "locations": [],
@@ -215,7 +212,7 @@
       "line_id": "LINE_SPM_YOLOSEG_20261021",
       "key": "spm_yoloseg",
       "title": "合成—真实原型记忆增强的猪群实例分割（SPM-YOLO）",
-      "status": "V4_1_completed_utility_not_supported_instance_readout_opportunity_preparing_five_pp_goal_active",
+      "status": "night_ideas_accepted_simplification_supported_A_C_versions_closed",
       "role": "independent_mainline",
       "entrypoint": "paper/manuscripts/spm_yoloseg/README.md",
       "paper_directory": "paper/manuscripts/spm_yoloseg",
@@ -225,7 +222,16 @@
         "STUDY_SPM_FARM_SCENES_20261023",
         "STUDY_SPM_V4_FASTPILOT_20261023",
         "STUDY_SPM_V4_SCALE_20261023",
-        "STUDY_SPM_INSTANCE_READOUT_OPPORTUNITY_20261023"
+        "STUDY_SPM_INSTANCE_READOUT_OPPORTUNITY_20261023",
+        "STUDY_PIG_C21_V23_ABLATION_20261104",
+        "STUDY_PIG_MULTI_IDEA_NIGHT_20261105"
+      ],
+      "idea_ids": [
+        "IDEA_PIG_KNOWLEDGE_FOR_INSTANCES",
+        "IDEA_PIG_C21_V23_ABLATION_V1",
+        "IDEA_PIG_COCO_JOINT_V1",
+        "IDEA_PIG_V23_SIMPLIFIED_RETRAIN_V1",
+        "IDEA_PIG_C21_FINE_PRESERVATION_V1"
       ],
       "focus_documents": [
         "paper/manuscripts/spm_yoloseg/README.md",
@@ -235,7 +241,6 @@
         "paper/manuscripts/spm_yoloseg/REAL_FREQUENCY_TRANSFER_SPEC.md",
         "experiments/spm_yoloseg_20261021/PILOT_AND_ABLATION_V2.md",
         "paper/manuscripts/spm_yoloseg/RESEARCH_CHARTER.md",
-        "paper/manuscripts/spm_yoloseg/RESEARCH_RULES.md",
         "experiments/spm_yoloseg_20261021/PROTOCOL_DRAFT.md",
         "experiments/spm_yoloseg_20261021/study.json",
         "paper/manuscripts/spm_yoloseg/IMPLEMENTATION_BLUEPRINT_V2.md",
@@ -260,7 +265,19 @@
         "experiments/spm_v4_scale_20261023/REPORT.md",
         "experiments/spm_v4_scale_20261023/FINAL_LOCAL_ACCEPTANCE.json",
         "experiments/spm_instance_readout_opportunity_20261023/study.json",
-        "experiments/spm_instance_readout_opportunity_20261023/PROTOCOL.md"
+        "experiments/spm_instance_readout_opportunity_20261023/PROTOCOL.md",
+        "project/ideas/IDEA_PIG_C21_V23_ABLATION_V1.md",
+        "experiments/pig_c21_v23_ablation_20261104/study.json",
+        "experiments/pig_c21_v23_ablation_20261104/REPORT_V1.md",
+        "experiments/pig_c21_v23_ablation_20261104/ACCEPTANCE_RECEIPT.json",
+        "project/ideas/IDEA_PIG_COCO_JOINT_V1.md",
+        "project/ideas/IDEA_PIG_V23_SIMPLIFIED_RETRAIN_V1.md",
+        "project/ideas/IDEA_PIG_C21_FINE_PRESERVATION_V1.md",
+        "experiments/pig_multi_idea_night_20261105/study.json",
+        "experiments/pig_multi_idea_night_20261105/HANDOFF.md",
+        "experiments/pig_multi_idea_night_20261105/REPORT_V1.md",
+        "experiments/pig_multi_idea_night_20261105/CLOSURE_SUMMARY_V1.json",
+        "experiments/pig_multi_idea_night_20261105/ACCEPTANCE_HANDOFF_20261105.md"
       ],
       "locations": [],
       "limits": [
@@ -273,9 +290,116 @@
         "2026-10-22用户明确要求训练原型；Slurm184已完成2000步及fg/bg各128个128维中心。双源产物和重载通过，两分区容量触限，分割AP和物理猪栏泛化未测；旧S1失败不改写。",
         "2026-10-23用户要求先保存；Slurm189工程样例8几何场景/16图/90头，标签射线核验通过。正式128场景与新版原型/YOLO训练尚未启动；旧P1权重保留，无自动续训。",
         "2026-10-23用户随后明确按V4快速训练、要求正收益和技术可视化并显式要求goal。Slurm191/192/193已完成；F Mask AP50.9267，相对continued +1.3045pp、G +1.3725pp、B* +0.2306pp，但AP75相对B*下降。关闭部署检索几乎无变化，免检索权重AP50.9272；5模型、32槽memory与13图已交付。仅单seed54图开发结果，独立真实test尚未启动，不改旧Gate。",
-        "2026-10-23全量V4.1真实完成并交付。F57.3570−B57.3153仅+0.0417pp、off仅−0.0565pp，+5未达；下一实例稠密读出机会为零训练判别，科学效用未定，不把GT辅助上界当无GT增益。"
+        "2026-10-23全量V4.1真实完成并交付。F57.3570−B57.3153仅+0.0417pp、off仅−0.0565pp，+5未达；下一实例稠密读出机会为零训练判别，科学效用未定，不把GT辅助上界当无GT增益。",
+        "2026-11-04 C21／V23固定权重七项功能消融及1176独立验收完成，内容／细尺度／外观和选择保护有明显作用；保留原V23，形变与分部位保留列简化候选。认识已反馈Idea、问题纲要及主线；本轮0优化、test426封存，原分配矩阵评价继续暂停。",
+        "2026-11-05用户要求直接启动并排队多个Idea；新夜间Study已完成工程并在八张不同GPU上实际正式更新。依显卡全用要求，本Study允许8卡例外，64GPUh／288CPU-coreh总帽；旧暂停与test封存保持，启动交接后会话暂停。",
+        "2026-11-05验收完成：24配置、完整432dev及独立统计／最终包通过；A语义联合和C局部保持本版关闭，B功能简化获支持、共享保留优先。81作业全部终态，知识反馈完成；无自动扩训，详细结果及后继问题见新Study报告。"
       ],
       "design_version": "v4_authorized_fastpilot_20261023"
+    },
+    {
+      "line_id": "LINE_PIG_FRAGMENT_RELATION_20261103",
+      "key": "pig_fragment_relation",
+      "title": "真实猪场的片段归属与实例关系",
+      "status": "s0_completed_current_cache_support_insufficient_method_training_paused",
+      "role": "independent_mainline",
+      "entrypoint": "paper/manuscripts/pig_fragment_relation/README.md",
+      "paper_directory": "paper/manuscripts/pig_fragment_relation",
+      "study_ids": [
+        "STUDY_PIG_FRAGMENT_RELATION_S0_20261103"
+      ],
+      "focus_documents": [
+        "paper/manuscripts/pig_fragment_relation/README.md",
+        "project/ideas/IDEA_PIG_FRAGMENT_RELATION_PILOT.md",
+        "experiments/pig_fragment_relation_20261103/PROTOCOL_S0.md",
+        "experiments/pig_fragment_relation_20261103/study.json"
+      ],
+      "locations": [
+        {
+          "host": "a25023104@192.168.71.10",
+          "role": "authorized_train_only_cpu_experiment"
+        }
+      ],
+      "limits": [
+        "2026-11-03用户要求三层整理、关联Idea并依据Idea开主线做实验；本线先执行真实TRAIN数据适用性实验。",
+        "当前阶段0 GPU、2 CPU-core小时总帽，一次性Slurm2CPU/4GiB/10分钟；不训练模型，不读取dev或test426。",
+        "原Mask断连、剔除重叠诱发断连、160网格与物理可见性分别解释；数据资格不证明新方法有效。",
+        "新线不继承原SPM Goal、预算或关闭配置；最低数据支持量未满足时收束本版入口，结果反馈Idea和纲要。",
+        "Slurm1157已完成1272图/14642实例，可靠原断连14实例/14图；低于预定128/32，关闭当前缓存入口。30CPU-core秒/0GPU秒，0方法训练；广义Idea判断仍未知。"
+      ],
+      "design_version": "s0_train_data_suitability_v1"
+    },
+    {
+      "line_id": "LINE_PIG_CONDITION_RELIABILITY_20261103",
+      "key": "pig_condition_reliability",
+      "title": "猪实例分割的条件可靠性",
+      "status": "appearance_validation_completed_large_effect_not_supported_method_training_paused",
+      "role": "independent_mainline",
+      "entrypoint": "paper/manuscripts/pig_condition_reliability/README.md",
+      "paper_directory": "paper/manuscripts/pig_condition_reliability",
+      "study_ids": [
+        "STUDY_PIG_APPEARANCE_STABILITY_V1_20261103"
+      ],
+      "focus_documents": [
+        "paper/manuscripts/pig_condition_reliability/README.md",
+        "project/ideas/IDEA_PIG_APPEARANCE_STABILITY_V1.md",
+        "experiments/pig_appearance_stability_20261103/PROTOCOL_V1.md",
+        "experiments/pig_appearance_stability_20261103/study.json"
+      ],
+      "locations": [
+        {
+          "host": "a25023104@192.168.71.10",
+          "role": "authorized_frozen_model_condition_intervention"
+        }
+      ],
+      "limits": [
+        "2026-11-03用户要求从剩余缺口选择并完成首个验证实验；先检验128真实TRAIN固定色调干预及30组合成A/B照明对照。",
+        "真实与合成标签权限各自保持，合成只做owner有效域诊断，不声称COCO AP、正常效用或独立泛化。",
+        "Study上限1GPUh/6CPU-coreh，工程5分钟、正式15分钟，各1GPU/4CPU/16GiB；0优化，不新增生成、dev或test读取。",
+        "不继承旧SPM或片段Study预算，不恢复旧暂停或关闭配置；根据冻结效应线作保留、降低优先度或不足判断。",
+        "1158/1159已完成：真实最坏实例数损失2/1460，合成配对差异0/278；均低于冻结效应线，当前不训练保持方法。56GPU秒/224CPU-core秒，广义条件问题未知。"
+      ],
+      "design_version": "appearance_stability_v1"
+    },
+    {
+      "line_id": "LINE_PIG_ADAPTIVE_DETAIL_20261103",
+      "key": "pig_adaptive_detail",
+      "title": "猪实例分割的按需细节与局部观察",
+      "status": "night_completed_joint_gates_failed_partial_preservation_effect_paused",
+      "role": "independent_mainline",
+      "entrypoint": "paper/manuscripts/pig_adaptive_detail/README.md",
+      "paper_directory": "paper/manuscripts/pig_adaptive_detail",
+      "study_ids": [
+        "STUDY_PIG_LOCAL_RELOOK_V1_20261103",
+        "STUDY_PIG_DETAIL_NIGHT_V1_20261103"
+      ],
+      "focus_documents": [
+        "paper/manuscripts/pig_adaptive_detail/README.md",
+        "project/ideas/IDEA_PIG_LOCAL_RELOOK_V1.md",
+        "experiments/pig_local_relook_20261103/REPORT_V1.md",
+        "experiments/pig_local_relook_20261103/study.json",
+        "project/ideas/IDEA_PIG_DETAIL_TRAINING_NIGHT_V1.md",
+        "experiments/pig_detail_training_night_20261103/PROTOCOL_V1.md",
+        "experiments/pig_detail_training_night_20261103/HANDOFF.md",
+        "experiments/pig_detail_training_night_20261103/REPORT_V1.md",
+        "experiments/pig_detail_training_night_20261103/study.json"
+      ],
+      "locations": [
+        {
+          "host": "a25023104@192.168.71.10",
+          "role": "server_only_implementation_selection_inference_and_verification"
+        }
+      ],
+      "limits": [
+        "2026-11-03用户要求按推荐推进零训练最小验证，全程服务器执行，本地只留总结与来源指针。",
+        "既有128 TRAIN及原正常预测，固定32框准Mask失败与32成功；支持不足则停止当前池入口。",
+        "最小验证实际仅15个合格失败，低于32；1160/1161确认并独立复核，0新前向/优化，停止原128池入口。",
+        "用户随后新增夜间较长训练授权，另立8GPUh/60CPU-coreh四臂Study，1272原TRAIN训练、全432dev一次末点评价，test426封存。",
+        "1162冒烟48次scratch通过，1165–1171训练及评价统计全部完成，各16500正式步；四臂均低于N、联合继续线失败，P对D有相对保护效应但仍不可采用。17803GPU秒/107076CPU-core秒，本版关闭，不自动后继。",
+        "本序列至多1GPU，全项目≤6GPU，不恢复旧矩阵、关闭配置或LCF，不自动调参、扩量、加seed或持续轮询。",
+        "不修改共享环境或工作台自动索引；数据、代码、权重和完整结果均留服务器，本地只留总结及来源指针。"
+      ],
+      "design_version": "local_relook_v1_closed_insufficient_and_independent_night_training_v1"
     }
   ]
 }

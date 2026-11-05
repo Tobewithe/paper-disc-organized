@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "study_id": "STUDY_PIG_APPEARANCE_STABILITY_V1_20261103",
+  "title": "固定几何时的成像外观敏感性：真实TRAIN与成对渲染首试",
+  "line_id": "LINE_PIG_CONDITION_RELIABILITY_20261103",
+  "idea_id": "IDEA_PIG_APPEARANCE_STABILITY_V1",
+  "status": "completed_appearance_effect_below_frozen_size",
+  "execution_status": "completed",
+  "scientific_status": "specific_large_effect_not_supported_broad_condition_question_open",
+  "artifact_status": "complete",
+  "transfer_status": "complete",
+  "protocol": "PROTOCOL_V1.md",
+  "entrypoints": ["REPORT_V1.md", "PROTOCOL_V1.md", "DESIGN_AND_SELECTION.md"],
+  "scope": "exploratory_frozen_model_condition_intervention",
+  "budget": {
+    "gpu_hours_cap": 1,
+    "cpu_core_hours_cap": 6,
+    "engineering_time_limit_minutes": 5,
+    "formal_time_limit_minutes": 15,
+    "gpus_per_job": 1,
+    "cpus_per_job": 4,
+    "memory_gib": 16,
+    "automatic_retry": false
+  },
+  "data_permission": {
+    "real": "128 preselected TRAIN rows only",
+    "synthetic": "30 A/B pairs; auxiliary owner_valid diagnostic only",
+    "dev": false,
+    "test426": false,
+    "normal_synthetic_target_permission_changed": false
+  },
+  "model_optimization_steps": 0,
+  "runs": ["RUN_PIG_APPEARANCE_ENGINEERING_20261103_5c3781be30ed", "RUN_PIG_APPEARANCE_FORMAL_20261103_b34157c23fcd"],
+  "report": "REPORT_V1.md",
+  "result_verified": "RESULT_VERIFIED.json",
+  "resources_consumed": {"allocated_gpu_seconds": 56, "allocated_cpu_core_seconds": 224, "model_forwards": 476, "optimizer_steps": 0},
+  "result": {
+    "real_loss_numerator": 2,
+    "real_native_success_denominator": 1460,
+    "real_loss_fraction": 0.0013698630136986301,
+    "real_cluster_interval_95": [0.0, 0.0039584854081647644],
+    "synthetic_pair_discrepancy_numerator": 0,
+    "synthetic_pairwise_max_success_denominator": 278,
+    "frozen_large_effect_supported": false,
+    "next_action": "lower_priority_for_this_appearance_range_no_method_training"
+  },
+  "authorization": {
+    "date": "2026-11-03",
+    "source": "继续从剩下的未解缺口中选一个最值得推进的方向，设计并完成首个验证实验。",
+    "interpretation": "在登记服务器按本新Study有限预算完成工程与正式首试；不恢复旧暂停矩阵或已关闭配置"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "source_run": "RUN_RLPL_FINAL_FIGURES_8a70379a4ab9",
+  "source_job": "1038",
+  "reviewed_on": "2026-11-01",
+  "reviewer": "assistant_actual_image_review",
+  "source_receipt": "DECLARED_PREVIEWS_RETURN_1038.json",
+  "files_actually_opened": [
+    "ARCHITECTURE.png", "MASK_AP.png", "TRAINING_CURVES.png", "NATIVE_INFERENCE_COST.png",
+    "FIXED_CASE_1.jpg", "FIXED_CASE_54.jpg", "FIXED_CASE_58.jpg", "FIXED_CASE_107.jpg", "FIXED_CASES_GALLERY.jpg"
+  ],
+  "observations": [
+    "Architecture labels retain common 2-real/6-synthetic exposure, real-only normal targets, 5195521 native Mask parameters and 8320 training-only auxiliary parameters; deployment has no auxiliary branch.",
+    "AP figure shows all five measured methods, zero-origin bars and V23's different historical budget. It does not hide that B2/C2/D2 all trail N and V23.",
+    "Training curves show all 2000 updates and full raw ranges, with loss-versus-AP/mechanism caveat. No smoothing or best-epoch selection was used.",
+    "Cost figure matches the deployment summary: batch1 FP32, 120 timed samples per model and the measured memory scope; the small timing differences are not evidence of different operator complexity.",
+    "The four fixed cases and gallery have consistent RGB/Original GT/N/B2/C2/D2 ordering. GT colors are annotation-based, not prediction matches. Prediction display is score >= .25; complete evaluation remains score > .001.",
+    "Mask differences are locally visible, including irregular C2 boundaries in the sow examples, but these four preselected images are not used to estimate prevalence, AP or a causal BN mechanism. Metrics and official ledgers determine the scientific decision."
+  ],
+  "all_432_images_visually_reviewed": false,
+  "image_selection_changed_after_results": false,
+  "new_model_forward_calls": 0,
+  "test426_opened": false
+}

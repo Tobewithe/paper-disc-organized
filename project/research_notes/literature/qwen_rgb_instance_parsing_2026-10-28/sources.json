@@ -1,0 +1,211 @@
+{
+  "scope": "Qwen-led RGB-only pig instance discovery, grounded attributes, tool-assisted observation and verification; source dataset annotations are not acquired or used",
+  "date": "2026-10-28",
+  "sources": [
+    {
+      "id": "T01",
+      "title": "Qwen3.5-9B official model card",
+      "kind": "official_model_documentation",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-9B",
+      "download_urls": [
+        "https://huggingface.co/Qwen/Qwen3.5-9B/raw/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md"
+      ],
+      "format": "md",
+      "supports": "multimodal tool-calling interface; no pig accuracy guarantee"
+    },
+    {
+      "id": "T02",
+      "title": "Qwen3-VL Technical Report",
+      "kind": "paper",
+      "url": "https://arxiv.org/abs/2511.21631",
+      "reuse": "experiments/pig_scene_full_corpus_design_20261027/core_review/primary_sources/R15.html",
+      "format": "html",
+      "supports": "box/point grounding and visual tools; family evidence distinct from deployed Qwen3.5-9B"
+    },
+    {
+      "id": "T03",
+      "title": "V*: Guided Visual Search as a Core Mechanism in Multimodal LLMs",
+      "kind": "paper",
+      "url": "https://arxiv.org/abs/2312.14135",
+      "download_urls": [
+        "https://openaccess.thecvf.com/content/CVPR2024/papers/Wu_V_Guided_Visual_Search_as_a_Core_Mechanism_in_Multimodal_CVPR_2024_paper.pdf",
+        "https://arxiv.org/pdf/2312.14135"
+      ],
+      "format": "pdf",
+      "supports": "local high-resolution evidence acquisition; original search model is not pure prompt engineering"
+    },
+    {
+      "id": "T04",
+      "title": "Visual Sketchpad: Sketching as a Visual Chain of Thought for Multimodal Language Models",
+      "kind": "paper",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/fb82011040977c7712409fbdb5456647-Abstract-Conference.html",
+      "download_urls": [
+        "https://proceedings.neurips.cc/paper_files/paper/2024/file/fb82011040977c7712409fbdb5456647-Paper-Conference.pdf",
+        "https://arxiv.org/pdf/2406.09403"
+      ],
+      "format": "pdf",
+      "supports": "visual artifacts and tool feedback; specialist vision modules are a confound for Qwen-only transfer claims"
+    },
+    {
+      "id": "T05",
+      "title": "Visual Programming: Compositional Visual Reasoning Without Training",
+      "kind": "paper",
+      "url": "https://openaccess.thecvf.com/content/CVPR2023/html/Gupta_Visual_Programming_Compositional_Visual_Reasoning_Without_Training_CVPR_2023_paper.html",
+      "download_urls": [
+        "https://openaccess.thecvf.com/content/CVPR2023/papers/Gupta_Visual_Programming_Compositional_Visual_Reasoning_Without_Training_CVPR_2023_paper.pdf"
+      ],
+      "format": "pdf",
+      "supports": "decomposed explicit tool programs and intermediate provenance; not all modules are pure image operations"
+    },
+    {
+      "id": "T06",
+      "title": "ViperGPT: Visual Inference via Python Execution for Reasoning",
+      "kind": "paper",
+      "url": "https://openaccess.thecvf.com/content/ICCV2023/html/Suris_ViperGPT_Visual_Inference_via_Python_Execution_for_Reasoning_ICCV_2023_paper.html",
+      "download_urls": [
+        "https://openaccess.thecvf.com/content/ICCV2023/papers/Suris_ViperGPT_Visual_Inference_via_Python_Execution_for_Reasoning_ICCV_2023_paper.pdf"
+      ],
+      "format": "pdf",
+      "supports": "separate program generation execution and perception; unrestricted Python is not required by our bounded API design"
+    },
+    {
+      "id": "T07",
+      "title": "Vision language models are blind",
+      "kind": "paper",
+      "url": "https://arxiv.org/abs/2407.06581",
+      "download_urls": [
+        "https://arxiv.org/pdf/2407.06581"
+      ],
+      "format": "pdf",
+      "supports": "fine spatial/counting reliability requires direct checks; tested older VLMs, not current9B pig parsing"
+    },
+    {
+      "id": "T08",
+      "title": "CAPTURe: Evaluating Spatial Reasoning in Vision Language Models via Occluded Object Counting",
+      "kind": "paper",
+      "url": "https://arxiv.org/abs/2504.15485",
+      "download_urls": [
+        "https://arxiv.org/pdf/2504.15485"
+      ],
+      "format": "pdf",
+      "supports": "counting under occlusion is distinct from known-box classification; amodal pattern inference is not our visible-instance target"
+    },
+    {
+      "id": "T09",
+      "title": "Three-dimensional surface motion capture of multiple freely moving pigs using MAMMAL",
+      "kind": "paper",
+      "url": "https://www.nature.com/articles/s41467-023-43483-w",
+      "reuse": "literature_search/pig_synth_generalization_2026-10-27/pdfs/L09_MAMMAL.pdf",
+      "format": "pdf",
+      "supports": "pig surface/part identity and interactions; uses calibrated multi-view cues, not a single-RGB metric reconstruction guarantee"
+    },
+    {
+      "id": "T10",
+      "title": "Occlusion-Resistant Instance Segmentation of Piglets in Farrowing Pens Using Center Clustering Network",
+      "kind": "paper",
+      "url": "https://arxiv.org/abs/2206.01942",
+      "reuse": "literature_search/pig_synth_generalization_2026-10-27/pdfs/L10_Piglet_Occlusion.pdf",
+      "format": "pdf",
+      "supports": "fragmented pig bodies and facility occlusion; supervised method is background evidence only"
+    },
+    {
+      "id": "T11",
+      "title": "Viewpoint-Aware Pig Posture Recognition author dataset documentation",
+      "kind": "author_dataset_documentation",
+      "url": "https://huggingface.co/datasets/anilbhujel/viewpoint-aware-pig-posture-recognition",
+      "download_urls": [
+        "https://huggingface.co/datasets/anilbhujel/viewpoint-aware-pig-posture-recognition/raw/d09a38a57713ff0aa836dece519f90d11cfd66ff/README.md"
+      ],
+      "format": "md",
+      "supports": "posture definitions and viewpoint dependence only; no image-specific CSV labels are read"
+    },
+    {
+      "id": "T12",
+      "title": "SwinePose author repository",
+      "kind": "author_dataset_documentation",
+      "url": "https://github.com/AryaanVedak/SwinePose",
+      "download_urls": [
+        "https://raw.githubusercontent.com/AryaanVedak/SwinePose/main/README.md"
+      ],
+      "format": "md",
+      "supports": "anatomical keypoint names and explicit inferred hidden-side labels; no data or annotations downloaded"
+    },
+    {
+      "id": "T13",
+      "title": "GQA: A New Dataset for Real-World Visual Reasoning and Compositional Question Answering",
+      "kind": "paper",
+      "url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Hudson_GQA_A_New_Dataset_for_Real-World_Visual_Reasoning_and_Compositional_CVPR_2019_paper.html",
+      "download_urls": [
+        "https://openaccess.thecvf.com/content_CVPR_2019/papers/Hudson_GQA_A_New_Dataset_for_Real-World_Visual_Reasoning_and_Compositional_CVPR_2019_paper.pdf"
+      ],
+      "format": "pdf",
+      "supports": "typed object attribute relation and evidence structure; annotated scene graphs are not available inputs here"
+    },
+    {
+      "id": "T14",
+      "title": "Evaluating Object Hallucination in Large Vision-Language Models",
+      "kind": "paper",
+      "url": "https://aclanthology.org/2023.emnlp-main.20/",
+      "download_urls": [
+        "https://aclanthology.org/2023.emnlp-main.20.pdf"
+      ],
+      "format": "pdf",
+      "supports": "existence and absent-object checks; do not turn suggestive prompts or self-consistency into truth"
+    },
+    {
+      "id": "T15",
+      "title": "Qwen-Agent official repository",
+      "kind": "official_tool_documentation",
+      "url": "https://github.com/QwenLM/Qwen-Agent",
+      "download_urls": [
+        "https://raw.githubusercontent.com/QwenLM/Qwen-Agent/main/README.md"
+      ],
+      "format": "md",
+      "supports": "host executes registered tool calls and returns results; no installation authorized by this reading"
+    },
+    {
+      "id": "T16",
+      "title": "ROD-MLLM: Towards More Reliable Object Detection in Multimodal Large Language Models",
+      "kind": "paper",
+      "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Yin_ROD-MLLM_Towards_More_Reliable_Object_Detection_in_Multimodal_Large_Language_CVPR_2025_paper.html",
+      "download_urls": [
+        "https://openaccess.thecvf.com/content/CVPR2025/papers/Yin_ROD-MLLM_Towards_More_Reliable_Object_Detection_in_Multimodal_Large_Language_CVPR_2025_paper.pdf"
+      ],
+      "format": "pdf",
+      "supports": "zero/multiple object detection differs from single referent grounding; pretrained specialist not adopted"
+    },
+    {
+      "id": "T17",
+      "title": "DeepEyes: Incentivizing Thinking with Images via Reinforcement Learning",
+      "kind": "paper",
+      "url": "https://arxiv.org/abs/2505.14362",
+      "download_urls": [
+        "https://arxiv.org/pdf/2505.14362"
+      ],
+      "format": "pdf",
+      "supports": "native grounding tool reasoning can be learned; RL results do not prove frozen9B benefits from extra calls"
+    },
+    {
+      "id": "T18",
+      "title": "Multi-Pig Part Detection and Association with a Fully-Convolutional Network",
+      "kind": "paper",
+      "url": "https://doi.org/10.3390/s19040852",
+      "download_urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6413214/fullTextXML"
+      ],
+      "format": "xml",
+      "supports": "pig part detection and association, visible landmark ownership; supervised source is not annotation-free9B evidence"
+    },
+    {
+      "id": "T19",
+      "title": "PACO: Parts and Attributes of Common Objects",
+      "kind": "paper",
+      "url": "https://openaccess.thecvf.com/content/CVPR2023/html/Ramanathan_PACO_Parts_and_Attributes_of_Common_Objects_CVPR_2023_paper.html",
+      "download_urls": [
+        "https://openaccess.thecvf.com/content/CVPR2023/papers/Ramanathan_PACO_Parts_and_Attributes_of_Common_Objects_CVPR_2023_paper.pdf"
+      ],
+      "format": "pdf",
+      "supports": "object-part-attribute hierarchy; generic object/part annotations are not pig parsing performance"
+    }
+  ]
+}

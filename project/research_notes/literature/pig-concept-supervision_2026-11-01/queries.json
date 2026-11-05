@@ -1,0 +1,189 @@
+[
+  {
+    "query": "ti:\"Concept Bottleneck Models\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Concept%20Bottleneck%20Models%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2007.04612v3",
+        "title": "Concept Bottleneck Models",
+        "summary": "We seek to learn models that we can interact with using high-level concepts: if the model did not think there was a bone spur in the x-ray, would it still predict severe arthritis? State-of-the-art models today do not typically support the manipulation of concepts like \"the existence of bone spurs\", as they are trained end-to-end to go directly from raw input (e.g., pixels) to output (e.g., arthritis severity). We revisit the classic idea of first predicting concepts that are provided at training time, and then using these concepts to predict the label. By construction, we can intervene on these concept bottleneck models by editing their predicted concept values and propagating these changes to the final prediction. On x-ray grading and bird identification, concept bottleneck models achieve competitive accuracy with standard end-to-end models, while enabling interpretation in terms of high-level clinical concepts (\"bone spurs\") or bird attributes (\"wing color\"). These models also allow for richer human-model interaction: accuracy improves significantly if we can correct model mistakes on concepts at test time.",
+        "published": "2020-07-09T07:47:28Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2605.20612v3",
+        "title": "Matryoshka Concept Bottleneck Models",
+        "summary": "Concept Bottleneck Models (CBMs) have emerged as a prominent paradigm for interpretable deep learning, learning by grounding predictions in human-understandable concepts. However, their practical deployment is hindered by the high cost of test-time intervention, as correcting model errors typically requires human experts to manually inspect and verify a large set of predicted concepts. Existing approaches suffer from a fundamental structural limitation: they either adopt a single static concept set, forcing experts to exhaustively annotate concepts and incurring prohibitive intervention costs, or train multiple models tailored to different concept budgets, resulting in substantial computational and maintenance overhead. To address this challenge, we propose the Matryoshka Concept Bottleneck Model (MCBM), a unified architecture that enables adaptive concept utilization within a single model. Inspired by Matryoshka Representation Learning, MCBM organizes concepts into a nested hierarchy based on maximum relevance and minimum redundancy, allowing inference at multiple levels of conceptual granularity without retraining. Theoretically, we show that MCBM reduces the expected intervention costs from linear to logarithmic order, $O(\\log K)$, while guaranteeing monotonic performance improvement. Empirically, extensive experiments demonstrate that MCBM matches the performance of independently trained models while enabling dynamic and efficient expert interaction.",
+        "published": "2026-05-20T01:59:06Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2212.07430v3",
+        "title": "Interactive Concept Bottleneck Models",
+        "summary": "Concept bottleneck models (CBMs) are interpretable neural networks that first predict labels for human-interpretable concepts relevant to the prediction task, and then predict the final label based on the concept label predictions. We extend CBMs to interactive prediction settings where the model can query a human collaborator for the label to some concepts. We develop an interaction policy that, at prediction time, chooses which concepts to request a label for so as to maximally improve the final prediction. We demonstrate that a simple policy combining concept prediction uncertainty and influence of the concept on the final prediction achieves strong performance and outperforms static approaches as well as active feature acquisition methods proposed in the literature. We show that the interactive CBM can achieve accuracy gains of 5-10% with only 5 interactions over competitive baselines on the Caltech-UCSD Birds, CheXpert and OAI datasets.",
+        "published": "2022-12-14T11:39:18Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2306.01574v1",
+        "title": "Probabilistic Concept Bottleneck Models",
+        "summary": "Interpretable models are designed to make decisions in a human-interpretable manner. Representatively, Concept Bottleneck Models (CBM) follow a two-step process of concept prediction and class prediction based on the predicted concepts. CBM provides explanations with high-level concepts derived from concept predictions; thus, reliable concept predictions are important for trustworthiness. In this study, we address the ambiguity issue that can harm reliability. While the existence of a concept can often be ambiguous in the data, CBM predicts concepts deterministically without considering this ambiguity. To provide a reliable interpretation against this ambiguity, we propose Probabilistic Concept Bottleneck Models (ProbCBM). By leveraging probabilistic concept embeddings, ProbCBM models uncertainty in concept prediction and provides explanations based on the concept and its corresponding uncertainty. This uncertainty enhances the reliability of the explanations. Furthermore, as class uncertainty is derived from concept uncertainty in ProbCBM, we can explain class uncertainty by means of concept uncertainty. Code is publicly available at https://github.com/ejkim47/prob-cbm.",
+        "published": "2023-06-02T14:38:58Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2406.19272v2",
+        "title": "Stochastic Concept Bottleneck Models",
+        "summary": "Concept Bottleneck Models (CBMs) have emerged as a promising interpretable method whose final prediction is based on intermediate, human-understandable concepts rather than the raw input. Through time-consuming manual interventions, a user can correct wrongly predicted concept values to enhance the model's downstream performance. We propose Stochastic Concept Bottleneck Models (SCBMs), a novel approach that models concept dependencies. In SCBMs, a single-concept intervention affects all correlated concepts, thereby improving intervention effectiveness. Unlike previous approaches that model the concept relations via an autoregressive structure, we introduce an explicit, distributional parameterization that allows SCBMs to retain the CBMs' efficient training and inference procedure. Additionally, we leverage the parameterization to derive an effective intervention strategy based on the confidence region. We show empirically on synthetic tabular and natural image datasets that our approach improves intervention effectiveness significantly. Notably, we showcase the versatility and usability of SCBMs by examining a setting with CLIP-inferred concepts, alleviating the need for manual concept annotations.",
+        "published": "2024-06-27T15:38:37Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"Concept Embedding Models\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Concept%20Embedding%20Models%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2406.14335v2",
+        "title": "Linearly-Interpretable Concept Embedding Models for Text Analysis",
+        "summary": "Despite their success, Large-Language Models (LLMs) still face criticism due to their lack of interpretability. Traditional post-hoc interpretation methods, based on attention and gradient-based analysis, offer limited insights as they only approximate the model's decision-making processes and have been proved to be unreliable. For this reason, Concept-Bottleneck Models (CBMs) have been lately proposed in the textual field to provide interpretable predictions based on human-understandable concepts. However, CBMs still exhibit several limitations due to their architectural constraints limiting their expressivity, to the absence of task-interpretability when employing non-linear task predictors and for requiring extensive annotations that are impractical for real-world text data. In this paper, we address these challenges by proposing a novel Linearly Interpretable Concept Embedding Model (LICEM) going beyond the current accuracy-interpretability trade-off. LICEMs classification accuracy is better than existing interpretable models and matches black-box ones. We show that the explanations provided by our models are more interveneable and causally consistent with respect to existing solutions. Finally, we show that LICEMs can be trained without requiring any concept supervision, as concepts can be automatically predicted when using an LLM backbone.",
+        "published": "2024-06-20T14:04:53Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2309.16928v3",
+        "title": "Learning to Receive Help: Intervention-Aware Concept Embedding Models",
+        "summary": "Concept Bottleneck Models (CBMs) tackle the opacity of neural architectures by constructing and explaining their predictions using a set of high-level concepts. A special property of these models is that they permit concept interventions, wherein users can correct mispredicted concepts and thus improve the model's performance. Recent work, however, has shown that intervention efficacy can be highly dependent on the order in which concepts are intervened on and on the model's architecture and training hyperparameters. We argue that this is rooted in a CBM's lack of train-time incentives for the model to be appropriately receptive to concept interventions. To address this, we propose Intervention-aware Concept Embedding models (IntCEMs), a novel CBM-based architecture and training paradigm that improves a model's receptiveness to test-time interventions. Our model learns a concept intervention policy in an end-to-end fashion from where it can sample meaningful intervention trajectories at train-time. This conditions IntCEMs to effectively select and receive concept interventions when deployed at test-time. Our experiments show that IntCEMs significantly outperform state-of-the-art concept-interpretable models when provided with test-time concept interventions, demonstrating the effectiveness of our approach.",
+        "published": "2023-09-29T02:04:24Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2209.09056v2",
+        "title": "Concept Embedding Models: Beyond the Accuracy-Explainability Trade-Off",
+        "summary": "Deploying AI-powered systems requires trustworthy models supporting effective human interactions, going beyond raw prediction accuracy. Concept bottleneck models promote trustworthiness by conditioning classification tasks on an intermediate level of human-like concepts. This enables human interventions which can correct mispredicted concepts to improve the model's performance. However, existing concept bottleneck models are unable to find optimal compromises between high task accuracy, robust concept-based explanations, and effective interventions on concepts -- particularly in real-world conditions where complete and accurate concept supervisions are scarce. To address this, we propose Concept Embedding Models, a novel family of concept bottleneck models which goes beyond the current accuracy-vs-interpretability trade-off by learning interpretable high-dimensional concept representations. Our experiments demonstrate that Concept Embedding Models (1) attain better or competitive task accuracy w.r.t. standard neural models without concepts, (2) provide concept representations capturing meaningful semantics including and beyond their ground truth labels, (3) support test-time concept interventions whose effect in test accuracy surpasses that in standard concept bottleneck models, and (4) scale to real-world conditions where complete concept supervisions are scarce.",
+        "published": "2022-09-19T14:49:36Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2406.19130v1",
+        "title": "Evidential Concept Embedding Models: Towards Reliable Concept Explanations for Skin Disease Diagnosis",
+        "summary": "Due to the high stakes in medical decision-making, there is a compelling demand for interpretable deep learning methods in medical image analysis. Concept Bottleneck Models (CBM) have emerged as an active interpretable framework incorporating human-interpretable concepts into decision-making. However, their concept predictions may lack reliability when applied to clinical diagnosis, impeding concept explanations' quality. To address this, we propose an evidential Concept Embedding Model (evi-CEM), which employs evidential learning to model the concept uncertainty. Additionally, we offer to leverage the concept uncertainty to rectify concept misalignments that arise when training CBMs using vision-language models without complete concept supervision. With the proposed methods, we can enhance concept explanations' reliability for both supervised and label-efficient settings. Furthermore, we introduce concept uncertainty for effective test-time intervention. Our evaluation demonstrates that evi-CEM achieves superior performance in terms of concept prediction, and the proposed concept rectification effectively mitigates concept misalignments for label-efficient training. Our code is available at https://github.com/obiyoag/evi-CEM.",
+        "published": "2024-06-27T12:29:50Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2309.03970v1",
+        "title": "Automatic Concept Embedding Model (ACEM): No train-time concepts, No issue!",
+        "summary": "Interpretability and explainability of neural networks is continuously increasing in importance, especially within safety-critical domains and to provide the social right to explanation. Concept based explanations align well with how humans reason, proving to be a good way to explain models. Concept Embedding Models (CEMs) are one such concept based explanation architectures. These have shown to overcome the trade-off between explainability and performance. However, they have a key limitation -- they require concept annotations for all their training data. For large datasets, this can be expensive and infeasible. Motivated by this, we propose Automatic Concept Embedding Models (ACEMs), which learn the concept annotations automatically.",
+        "published": "2023-09-07T19:03:28Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"Learning from Synthetic Humans\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Learning%20from%20Synthetic%20Humans%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/1701.01370v3",
+        "title": "Learning from Synthetic Humans",
+        "summary": "Estimating human pose, shape, and motion from images and videos are fundamental challenges with many applications. Recent advances in 2D human pose estimation use large amounts of manually-labeled training data for learning convolutional neural networks (CNNs). Such data is time consuming to acquire and difficult to extend. Moreover, manual labeling of 3D pose, depth and motion is impractical. In this work we present SURREAL (Synthetic hUmans foR REAL tasks): a new large-scale dataset with synthetically-generated but realistic images of people rendered from 3D sequences of human motion capture data. We generate more than 6 million frames together with ground truth pose, depth maps, and segmentation masks. We show that CNNs trained on our synthetic dataset allow for accurate human depth estimation and human part segmentation in real RGB images. Our results and the new dataset open up new possibilities for advancing person analysis using cheap and large-scale synthetic data.",
+        "published": "2017-01-05T16:27:46Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2306.16772v6",
+        "title": "M3Act: Learning from Synthetic Human Group Activities",
+        "summary": "The study of complex human interactions and group activities has become a focal point in human-centric computer vision. However, progress in related tasks is often hindered by the challenges of obtaining large-scale labeled datasets from real-world scenarios. To address the limitation, we introduce M3Act, a synthetic data generator for multi-view multi-group multi-person human atomic actions and group activities. Powered by Unity Engine, M3Act features multiple semantic groups, highly diverse and photorealistic images, and a comprehensive set of annotations, which facilitates the learning of human-centered tasks across single-person, multi-person, and multi-group conditions. We demonstrate the advantages of M3Act across three core experiments. The results suggest our synthetic dataset can significantly improve the performance of several downstream methods and replace real-world datasets to reduce cost. Notably, M3Act improves the state-of-the-art MOTRv2 on DanceTrack dataset, leading to a hop on the leaderboard from 10th to 2nd place. Moreover, M3Act opens new research for controllable 3D group activity generation. We define multiple metrics and propose a competitive baseline for the novel task. Our code and data are available at our project page: http://cjerry1243.github.io/M3Act.",
+        "published": "2023-06-29T08:13:57Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"Part-Based Models Improve Adversarial Robustness\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Part-Based%20Models%20Improve%20Adversarial%20Robustness%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2209.09117v2",
+        "title": "Part-Based Models Improve Adversarial Robustness",
+        "summary": "We show that combining human prior knowledge with end-to-end learning can improve the robustness of deep neural networks by introducing a part-based model for object classification. We believe that the richer form of annotation helps guide neural networks to learn more robust features without requiring more samples or larger models. Our model combines a part segmentation model with a tiny classifier and is trained end-to-end to simultaneously segment objects into parts and then classify the segmented object. Empirically, our part-based models achieve both higher accuracy and higher adversarial robustness than a ResNet-50 baseline on all three datasets. For instance, the clean accuracy of our part models is up to 15 percentage points higher than the baseline's, given the same level of robustness. Our experiments indicate that these models also reduce texture bias and yield better robustness against common corruptions and spurious correlations. The code is publicly available at https://github.com/chawins/adv-part-model.",
+        "published": "2022-09-15T15:41:47Z"
+      }
+    ]
+  },
+  {
+    "query": "all:\"animal\" AND all:\"synthetic\" AND all:\"part segmentation\"",
+    "url": "https://export.arxiv.org/api/query?search_query=all%3A%22animal%22%20AND%20all%3A%22synthetic%22%20AND%20all%3A%22part%20segmentation%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2311.18661v1",
+        "title": "Learning Part Segmentation from Synthetic Animals",
+        "summary": "Semantic part segmentation provides an intricate and interpretable understanding of an object, thereby benefiting numerous downstream tasks. However, the need for exhaustive annotations impedes its usage across diverse object types. This paper focuses on learning part segmentation from synthetic animals, leveraging the Skinned Multi-Animal Linear (SMAL) models to scale up existing synthetic data generated by computer-aided design (CAD) animal models. Compared to CAD models, SMAL models generate data with a wider range of poses observed in real-world scenarios. As a result, our first contribution is to construct a synthetic animal dataset of tigers and horses with more pose diversity, termed Synthetic Animal Parts (SAP). We then benchmark Syn-to-Real animal part segmentation from SAP to PartImageNet, namely SynRealPart, with existing semantic segmentation domain adaptation methods and further improve them as our second contribution. Concretely, we examine three Syn-to-Real adaptation methods but observe relative performance drop due to the innate difference between the two tasks. To address this, we propose a simple yet effective method called Class-Balanced Fourier Data Mixing (CB-FDM). Fourier Data Mixing aligns the spectral amplitudes of synthetic images with real images, thereby making the mixed images have more similar frequency content to real images. We further use Class-Balanced Pseudo-Label Re-Weighting to alleviate the imbalanced class distribution. We demonstrate the efficacy of CB-FDM on SynRealPart over previous methods with significant performance improvements. Remarkably, our third contribution is to reveal that the learned parts from synthetic tiger and horse are transferable across all quadrupeds in PartImageNet, further underscoring the utility and potential applications of animal part segmentation.",
+        "published": "2023-11-30T16:10:04Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/1805.04310v1",
+        "title": "Weakly and Semi Supervised Human Body Part Parsing via Pose-Guided Knowledge Transfer",
+        "summary": "Human body part parsing, or human semantic part segmentation, is fundamental to many computer vision tasks. In conventional semantic segmentation methods, the ground truth segmentations are provided, and fully convolutional networks (FCN) are trained in an end-to-end scheme. Although these methods have demonstrated impressive results, their performance highly depends on the quantity and quality of training data. In this paper, we present a novel method to generate synthetic human part segmentation data using easily-obtained human keypoint annotations. Our key idea is to exploit the anatomical similarity among human to transfer the parsing results of a person to another person with similar pose. Using these estimated results as additional training data, our semi-supervised model outperforms its strong-supervised counterpart by 6 mIOU on the PASCAL-Person-Part dataset, and we achieve state-of-the-art human parsing results. Our approach is general and can be readily extended to other object/animal parsing task assuming that their anatomical similarity can be annotated by keypoints. The proposed model and accompanying source code are available at https://github.com/MVIG-SJTU/WSHP",
+        "published": "2018-05-11T10:30:56Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2301.02232v2",
+        "title": "CA$^2$T-Net: Category-Agnostic 3D Articulation Transfer from Single Image",
+        "summary": "We present a neural network approach to transfer the motion from a single image of an articulated object to a rest-state (i.e., unarticulated) 3D model. Our network learns to predict the object's pose, part segmentation, and corresponding motion parameters to reproduce the articulation shown in the input image. The network is composed of three distinct branches that take a shared joint image-shape embedding and is trained end-to-end. Unlike previous methods, our approach is independent of the topology of the object and can work with objects from arbitrary categories. Our method, trained with only synthetic data, can be used to automatically animate a mesh, infer motion from real images, and transfer articulation to functionally similar but geometrically distinct 3D models at test time.",
+        "published": "2023-01-05T18:57:12Z"
+      }
+    ]
+  },
+  {
+    "query": "all:\"pig\" AND all:\"synthetic\" AND all:\"segmentation\"",
+    "url": "https://export.arxiv.org/api/query?search_query=all%3A%22pig%22%20AND%20all%3A%22synthetic%22%20AND%20all%3A%22segmentation%22&start=0&max_results=5",
+    "status": 200,
+    "results": []
+  },
+  {
+    "query": "all:\"object detection\" AND all:\"privileged information\"",
+    "url": "https://export.arxiv.org/api/query?search_query=all%3A%22object%20detection%22%20AND%20all%3A%22privileged%20information%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2601.02016v1",
+        "title": "Enhancing Object Detection with Privileged Information: A Model-Agnostic Teacher-Student Approach",
+        "summary": "This paper investigates the integration of the Learning Using Privileged Information (LUPI) paradigm in object detection to exploit fine-grained, descriptive information available during training but not at inference. We introduce a general, model-agnostic methodology for injecting privileged information-such as bounding box masks, saliency maps, and depth cues-into deep learning-based object detectors through a teacher-student architecture. Experiments are conducted across five state-of-the-art object detection models and multiple public benchmarks, including UAV-based litter detection datasets and Pascal VOC 2012, to assess the impact on accuracy, generalization, and computational efficiency. Our results demonstrate that LUPI-trained students consistently outperform their baseline counterparts, achieving significant boosts in detection accuracy with no increase in inference complexity or model size. Performance improvements are especially marked for medium and large objects, while ablation studies reveal that intermediate weighting of teacher guidance optimally balances learning from privileged and standard inputs. The findings affirm that the LUPI framework provides an effective and practical strategy for advancing object detection systems in both resource-constrained and real-world settings.",
+        "published": "2026-01-05T11:24:34Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2306.15898v1",
+        "title": "Pseudo-Labeling Enhanced by Privileged Information and Its Application to In Situ Sequencing Images",
+        "summary": "Various strategies for label-scarce object detection have been explored by the computer vision research community. These strategies mainly rely on assumptions that are specific to natural images and not directly applicable to the biological and biomedical vision domains. For example, most semi-supervised learning strategies rely on a small set of labeled data as a confident source of ground truth. In many biological vision applications, however, the ground truth is unknown and indirect information might be available in the form of noisy estimations or orthogonal evidence. In this work, we frame a crucial problem in spatial transcriptomics - decoding barcodes from In-Situ-Sequencing (ISS) images - as a semi-supervised object detection (SSOD) problem. Our proposed framework incorporates additional available sources of information into a semi-supervised learning framework in the form of privileged information. The privileged information is incorporated into the teacher's pseudo-labeling in a teacher-student self-training iteration. Although the available privileged information could be data domain specific, we have introduced a general strategy of pseudo-labeling enhanced by privileged information (PLePI) and exemplified the concept using ISS images, as well on the COCO benchmark using extra evidence provided by CLIP.",
+        "published": "2023-06-28T03:44:42Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2002.03137v1",
+        "title": "Symbiotic Attention with Privileged Information for Egocentric Action Recognition",
+        "summary": "Egocentric video recognition is a natural testbed for diverse interaction reasoning. Due to the large action vocabulary in egocentric video datasets, recent studies usually utilize a two-branch structure for action recognition, ie, one branch for verb classification and the other branch for noun classification. However, correlation studies between the verb and the noun branches have been largely ignored. Besides, the two branches fail to exploit local features due to the absence of a position-aware attention mechanism. In this paper, we propose a novel Symbiotic Attention framework leveraging Privileged information (SAP) for egocentric video recognition. Finer position-aware object detection features can facilitate the understanding of actor's interaction with the object. We introduce these features in action recognition and regard them as privileged information. Our framework enables mutual communication among the verb branch, the noun branch, and the privileged information. This communication process not only injects local details into global features but also exploits implicit guidance about the spatio-temporal position of an on-going action. We introduce novel symbiotic attention (SA) to enable effective communication. It first normalizes the detection guided features on one branch to underline the action-relevant information from the other branch. SA adaptively enhances the interactions among the three sources. To further catalyze this communication, spatial relations are uncovered for the selection of most action-relevant information. It identifies the most valuable and discriminative feature for classification. We validate the effectiveness of our SAP quantitatively and qualitatively. Notably, it achieves the state-of-the-art on two large-scale egocentric video datasets.",
+        "published": "2020-02-08T10:48:43Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2508.04124v1",
+        "title": "Learning Using Privileged Information for Litter Detection",
+        "summary": "As litter pollution continues to rise globally, developing automated tools capable of detecting litter effectively remains a significant challenge. This study presents a novel approach that combines, for the first time, privileged information with deep learning object detection to improve litter detection while maintaining model efficiency. We evaluate our method across five widely used object detection models, addressing challenges such as detecting small litter and objects partially obscured by grass or stones. In addition to this, a key contribution of our work can also be attributed to formulating a means of encoding bounding box information as a binary mask, which can be fed to the detection model to refine detection guidance. Through experiments on both within-dataset evaluation on the renowned SODA dataset and cross-dataset evaluation on the BDW and UAVVaste litter detection datasets, we demonstrate consistent performance improvements across all models. Our approach not only bolsters detection accuracy within the training sets but also generalises well to other litter detection contexts. Crucially, these improvements are achieved without increasing model complexity or adding extra layers, ensuring computational efficiency and scalability. Our results suggest that this methodology offers a practical solution for litter detection, balancing accuracy and efficiency in real-world applications.",
+        "published": "2025-08-06T06:46:14Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2310.04662v2",
+        "title": "HalluciDet: Hallucinating RGB Modality for Person Detection Through Privileged Information",
+        "summary": "A powerful way to adapt a visual recognition model to a new domain is through image translation. However, common image translation approaches only focus on generating data from the same distribution as the target domain. Given a cross-modal application, such as pedestrian detection from aerial images, with a considerable shift in data distribution between infrared (IR) to visible (RGB) images, a translation focused on generation might lead to poor performance as the loss focuses on irrelevant details for the task. In this paper, we propose HalluciDet, an IR-RGB image translation model for object detection. Instead of focusing on reconstructing the original image on the IR modality, it seeks to reduce the detection loss of an RGB detector, and therefore avoids the need to access RGB data. This model produces a new image representation that enhances objects of interest in the scene and greatly improves detection performance. We empirically compare our approach against state-of-the-art methods for image translation and for fine-tuning on IR, and show that our HalluciDet improves detection accuracy in most cases by exploiting the privileged information encoded in a pre-trained RGB detector. Code: https://github.com/heitorrapela/HalluciDet",
+        "published": "2023-10-07T03:00:33Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"PartDistillation\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22PartDistillation%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2312.04016v2",
+        "title": "PartDistill: 3D Shape Part Segmentation by Vision-Language Model Distillation",
+        "summary": "This paper proposes a cross-modal distillation framework, PartDistill, which transfers 2D knowledge from vision-language models (VLMs) to facilitate 3D shape part segmentation. PartDistill addresses three major challenges in this task: the lack of 3D segmentation in invisible or undetected regions in the 2D projections, inconsistent 2D predictions by VLMs, and the lack of knowledge accumulation across different 3D shapes. PartDistill consists of a teacher network that uses a VLM to make 2D predictions and a student network that learns from the 2D predictions while extracting geometrical features from multiple 3D shapes to carry out 3D part segmentation. A bi-directional distillation, including forward and backward distillations, is carried out within the framework, where the former forward distills the 2D predictions to the student network, and the latter improves the quality of the 2D predictions, which subsequently enhances the final 3D segmentation. Moreover, PartDistill can exploit generative models that facilitate effortless 3D shape creation for generating knowledge sources to be distilled. Through extensive experiments, PartDistill boosts the existing methods with substantial margins on widely used ShapeNetPart and PartNetE datasets, by more than 15% and 12% higher mIoU scores, respectively. The code for this work is available at https://github.com/ardianumam/PartDistill.",
+        "published": "2023-12-07T03:10:03Z"
+      }
+    ]
+  }
+]

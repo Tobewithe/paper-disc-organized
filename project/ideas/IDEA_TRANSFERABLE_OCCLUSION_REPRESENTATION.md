@@ -11,7 +11,7 @@ assessment: unknown
 author: AI 整理，依据既有主线说明
 curation_status: source_based_draft
 evidence:
-  - path: project/knowledge_sources/occlusion_representation_pretraining_a946027d31d1996a.txt
+  - path: project/research_notes/sources/occlusion_representation_pretraining_a946027d31d1996a.txt
     locator: 原文 paper/manuscripts/occlusion_representation_pretraining/README.md
     revision: a946027d31d1996a889123d1a88b3331d87a950eea2776222ef71cf1139a2b8c
     relation: references

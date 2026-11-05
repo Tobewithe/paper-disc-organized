@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "study_id": "STUDY_PIG_C21_V23_ABLATION_20261104",
+  "host": "a25023104@192.168.71.10",
+  "remote_root": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/pig_c21_v23_ablation_20261104",
+  "storage_policy": "server_full_evidence_local_summaries_only",
+  "verified_at": "2026-11-04T18:17:12.326846+00:00",
+  "freeze": {"path": "FREEZE.json", "sha256": "1244cfede568fab05f219082ff07cd2401f260f2c9f0f12d150b9b06586225cf"},
+  "result_summary": {"remote_path": "RESULT_SUMMARY.json", "local_path": "RESULT_SUMMARY.json", "sha256": "652dc5f6fa03f46f73ef0b45ad735020b0ee89b1d2f87358e8024e9512e43e31"},
+  "acceptance_receipt": {"remote_path": "runs/RUN_PIG_C21_V23_ACCEPTANCE_20261104_fe0b541e3044/VERIFICATION.json", "local_path": "ACCEPTANCE_RECEIPT.json", "sha256": "042d65c77d9ffa3f5cc32a02389360ec9fb2e8ce4c68c83c9271e70eed8fa618"},
+  "runs": [
+    {"run_id": "RUN_PIG_C21_V23_ENGINEERING_20261104_592f246530e6", "job_id": "1173", "manifest_sha256": "a8c26a5e7536a3a18a9dcb7a822337268a8c1e82ef9e49ce9aee5a37a229c774"},
+    {"run_id": "RUN_PIG_C21_V23_INFERENCE_20261104_56f1232f6402", "job_id": "1174", "manifest_sha256": "8f0436a26e51d991b54973ecdde509ac97234e842999e6c762eea73259654fad"},
+    {"run_id": "RUN_PIG_C21_V23_STATISTICS_20261104_999848d45b78", "job_id": "1175", "manifest_sha256": "4ab859942f7bd63b0df340120f7701790e108dd13ad3a63171c84e3fb875be9e"},
+    {"run_id": "RUN_PIG_C21_V23_ACCEPTANCE_20261104_fe0b541e3044", "job_id": "1176", "manifest_sha256": "6c29eab15f1548c7407b3cd2326e0b4a7c9277a58da81b6ed8661e4b3939da8c"}
+  ],
+  "remote_evidence": {
+    "predictions_and_output_actions": "runs/RUN_PIG_C21_V23_INFERENCE_20261104_56f1232f6402/",
+    "official_metrics_and_GT75_flags": "runs/RUN_PIG_C21_V23_STATISTICS_20261104_999848d45b78/",
+    "independent_acceptance_and_group_resampling": "runs/RUN_PIG_C21_V23_ACCEPTANCE_20261104_fe0b541e3044/",
+    "acceptance_source_and_submission": "acceptance_20261104_v1/",
+    "frozen_implementation": "SOURCE/",
+    "original_checkpoint_and_GT_locations": "INPUTS.json",
+    "RGB_and_native_cache_locations": "FORWARD_INPUTS.json"
+  },
+  "verification": {"passed": true, "root_frozen_files": 55, "run_snapshot_files": 162, "original_artifact_files": 45, "acceptance_artifact_files": 10, "asset_and_data_index_files": 8, "RGB_and_native_cache_files": 864, "GT75_flags": 28630, "numeric_values": 162, "maximum_numeric_error": 0.0},
+  "document_feedback_archive": {
+    "verified_at": "2026-11-04T18:30:49.568820+00:00",
+    "path": "closure_documents_1176/DOCUMENT_MANIFEST.json",
+    "sha256": "36d13cee4c5f776e255774411c18082fd20eddc340ca741b6258008e94dd4cdd",
+    "documents_verified": 22,
+    "server_study_sha256": "ad56e47c25a2b832f0bc18c032a3cec922ceb90b535e2b642059a03a84c3159e",
+    "report_sha256": "57f40cd7d78709606b2cb80096a65ebee8f44ead8736a734e4bd3c4175d15f78",
+    "receipt": "KNOWLEDGE_FEEDBACK_RECEIPT.json"
+  },
+  "full_predictions_GT_RGB_caches_code_weights_logs_and_snapshots": "server_only",
+  "local_full_payload_downloaded": false,
+  "local_returned_files": ["RESULT_SUMMARY.json", "ACCEPTANCE_RECEIPT.json"]
+}

@@ -11,7 +11,7 @@ assessment: unknown
 author: AI 整理，依据既有主线说明
 curation_status: source_based_draft
 evidence:
-  - path: project/knowledge_sources/world_model_action_time_identifiability_236755767994e3b1.txt
+  - path: project/research_notes/sources/world_model_action_time_identifiability_236755767994e3b1.txt
     locator: 原文 paper/manuscripts/world_model_action_time_identifiability/README.md
     revision: 236755767994e3b1610c96a64587fb84284cc947f19fc971875b4e4f2f16f338
     relation: references

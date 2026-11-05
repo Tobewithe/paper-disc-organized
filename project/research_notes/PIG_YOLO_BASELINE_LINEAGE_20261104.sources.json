@@ -1,0 +1,16 @@
+{
+  "scope": "current_pig_dev432_model_lineage_and_available_comparisons",
+  "checked_date": "2026-11-04",
+  "current_N_is_COCO_initial": false,
+  "current_N_checkpoint_sha256": "0e40602f1dbf0697fd49fa8e9f887c068970e3c5c39bd618f66e483c8712c8d6",
+  "inherited_checkpoints": [
+    {"stage": "real_pig_task_end_to_end", "run_id": "RUN_SPM_SCALE_BASELINE_162af9978b28", "run_total_updates": 12720, "inherited_step": 1060, "inherited_epoch": 10, "data": "1272 real TRAIN only; 432dev", "sha256": "6f0393c8c9199916ed3483b250f4af5f6b4758b9ff9649394672d0616b77fc94"},
+    {"stage": "continued", "run_id": "RUN_SPM_SCALE_CONTINUED_8239d712ee7f", "run_total_updates": 8000, "inherited_step": 2000, "data_per_batch": {"real": 8, "cutout": 2, "synthetic": 2}, "scope": "body frozen; first1000 mask warmup, then original head", "sha256": "cdea4fb8e837dbbda092bbd5743abe28a8b01731817d9dc326133debd61fe40a"},
+    {"stage": "detection_branch", "run_id": "RUN_SPM_V11_TRAIN_NATIVE_d54182913ff4", "run_total_updates": 500, "inherited_step": 250, "EMA_checkpoint": true, "data": "1272 real TRAIN; batch8", "run_json_sha256": "25315589c7684bfac0e8c2d1c6b8b94aa1f2d33427cb94daaed4b64adbc60736", "summary_sha256": "0893828fadd84d05c4cf0a987829d7a1c5dae0ed9e0e15207e1a644ea130ed3f"},
+    {"stage": "compose_current_N", "run_id": "RUN_SPM_V13_EVALUATE_3e710949e5b0", "new_optimizer_steps": 0, "operation": "keep trained box weights, restore original continued classification weights; retain other frozen state"}
+  ],
+  "COCO_initial_metadata": {"remote_path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/COCO_INITIAL_METADATA.json", "sha256": "e1643452399a79f29b8dd9a99be5c47b5bb928fff20366cebf3356589e380e13", "head": "Segment26", "nc": 80, "nm": 32, "end2end": true, "reg_max": 1, "pig_class_present": false, "model_forwards": 0},
+  "zero_target_training_evaluation": {"verified": false, "scope": "no complete zero-pig-training evaluation receipt found in the checked dev432 baseline chain; recent comparison tables omit it", "first_baseline_eval_step": 1060, "engineering_eval_scope": "2 scratch loss updates, no AP evaluation", "V11_step0_is_already_pig_trained": true},
+  "no_new_training_or_inference": true,
+  "full_code_and_data_storage": "server_only"
+}

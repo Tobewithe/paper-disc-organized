@@ -1,0 +1,90 @@
+{
+  "study_id": "STUDY_SPM_OBJECT_FUSION_DESIGN_20261023",
+  "research_line": "spm_yoloseg",
+  "plan_status": "current_configuration_closed_no_expansion",
+  "execution_status": "completed",
+  "scientific_status": "no_positive_development_utility",
+  "artifact_status": "models_predictions_statistics_and_27_figure_pairs_accepted",
+  "transfer_status": "local_backup_verified_no_GitHub_push",
+  "design": "../../paper/manuscripts/spm_yoloseg/OBJECT_FUSION_DESIGN_V6_20261023.md",
+  "user_request": "融合地方是不是不对，只在系数头融合也太不行了，先假设原型没问题，探究下到底如何融合合适",
+  "working_assumption": "object_prototype_usable_for_fusion_design_not_a_new_acceptance_claim",
+  "latest_user_comparison_scope": "只和什么都不加的原生yolo做对比就行",
+  "comparison_arms": [
+    "unmodified_native_yolo",
+    "object_fused_yolo"
+  ],
+  "additional_ablation_arms_planned": false,
+  "scientific_claim_scope": "full_method_utility_vs_native_only_no_independent_mechanism_attribution",
+  "selected_direction": "instance_conditioned_object_image_correspondence_and_joint_pixel_basis_coefficient_decoding",
+  "source_studies": [
+    "experiments/spm_object_real_transfer_20261023/study.json",
+    "experiments/spm_v4_scale_20261023/study.json",
+    "experiments/spm_object_prototype_20261023/study.json"
+  ],
+  "supersedes": "unstarted failure audit as next-action priority only",
+  "prior_protocols_runs_and_negative_decisions_preserved": true,
+  "protocol": "EXECUTION_PROTOCOL_V1.md",
+  "protocol_frozen": true,
+  "training_budget_frozen": true,
+  "remote_execution_authorized_for_this_design": true,
+  "authorization": "EXECUTION_AUTHORIZATION.json",
+  "config": "CONFIG_R1.json",
+  "source_freeze": "FREEZE_R1.json",
+  "server_root": "/srv/gpu-lab/users/a25023104/projects/spm-object-fusion-v6-20261023",
+  "preflight_run_id": "RUN_SPM_V6_PREFLIGHT_dd7b0ddf01a7",
+  "preflight_slurm_job_id": 241,
+  "engineering_slurm_job_id": 242,
+  "steps_per_arm": 8000,
+  "max_concurrent_GPUs": 2,
+  "formal_max_total_GPU_minutes": 240,
+  "optimizer_steps": 16000,
+  "GPU_jobs_submitted": 4,
+  "goal_delta_mask_ap_pp": 5.0,
+  "goal_achieved": false,
+  "automatic_followup_training": false,
+  "next_action": "actual frozen-encoder feature-shape and raster-registration engineering preflight for V8 candidate; no repeat V6",
+  "engineering_run_id": "RUN_SPM_V6_ENGINEERING_4e530b71ab00",
+  "prior_engineering_runs": [
+    {
+      "run_id": "RUN_SPM_V6_ENGINEERING_aba256304f32",
+      "job_id": 240,
+      "status": "failed_cost_gate_not_method_utility",
+      "steps": 16
+    }
+  ],
+  "formal_slurm_array_job_id": 243,
+  "formal_tasks": {
+    "fused": "243_0",
+    "native": "243_1"
+  },
+  "formal_run_ids": {
+    "fused": "RUN_SPM_V6_TRAIN_FUSED_e0f646282331",
+    "native": "RUN_SPM_V6_TRAIN_NATIVE_319cc8688e0c"
+  },
+  "formal_steps_last_observed": {
+    "fused": 8000,
+    "native": 8000
+  },
+  "formal_steps_observation_utc": "2026-10-23T10:20:19.996203+00:00",
+  "actual_engineering_optimizer_steps": 32,
+  "launch_acceptance": "LOCAL_LAUNCH_ACCEPTANCE.json",
+  "optimizer_steps_scope": "formal_optimizer_steps_both_arms_engineering_32_separate",
+  "formal_steps_observation_source": "completed_slurm_and_local_copied_final_run_json",
+  "last_status_record": "STATUS_20261023_1811.json",
+  "literature_research": {
+    "status": "completed_recommendation_only",
+    "memo": "../../paper/manuscripts/spm_yoloseg/OBJECT_FUSION_THEORY_AND_LITERATURE_V7_20261023.md",
+    "current_frozen_run_unchanged": true,
+    "new_training_authorized": false
+  },
+  "report": "REPORT.md",
+  "decision": "DECISION.json",
+  "final_acceptance": "LOCAL_FINAL_ACCEPTANCE.json",
+  "followup_study": "../spm_grounded_surface_20261023/study.json",
+  "cpu_acceptance_run_id": "RUN_SPM_V6_ACCEPTANCE_CPU_e77f5712304d",
+  "gpu_acceptance_run_id": "RUN_SPM_V6_ACCEPTANCE_GPU_8f53fe7cfb2c",
+  "presentation_run_id": "RUN_SPM_V6_PRESENTATION_22db0b1608ce",
+  "additional_GPU_job_elapsed_seconds": 22,
+  "additional_optimizer_steps": 0
+}

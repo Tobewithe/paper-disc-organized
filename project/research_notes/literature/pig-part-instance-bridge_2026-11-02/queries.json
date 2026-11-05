@@ -1,0 +1,43 @@
+[
+  {
+    "query": "ti:\"Part-aware Panoptic Segmentation\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Part-aware+Panoptic+Segmentation%22&max_results=4&sortBy=relevance",
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2106.06351v1",
+        "title": "Part-aware Panoptic Segmentation",
+        "summary": "In this work, we introduce the new scene understanding task of Part-aware Panoptic Segmentation (PPS), which aims to understand a scene at multiple levels of abstraction, and unifies the tasks of scene parsing and part parsing. For this novel task, we provide consistent annotations on two commonly used datasets: Cityscapes and Pascal VOC. Moreover, we present a single metric to evaluate PPS, called Part-aware Panoptic Quality (PartPQ). For this new task, using the metric and annotations, we set multiple baselines by merging results of existing state-of-the-art methods for panoptic segmentation and part segmentation. Finally, we conduct several experiments that evaluate the importance of the different levels of abstraction in this single task.",
+        "published": "2021-06-11T12:48:07Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2312.13906v1",
+        "title": "EfficientPPS: Part-aware Panoptic Segmentation of Transparent Objects for Robotic Manipulation",
+        "summary": "The use of autonomous robots for assistance tasks in hospitals has the potential to free up qualified staff and im-prove patient care. However, the ubiquity of deformable and transparent objects in hospital settings poses signif-icant challenges to vision-based perception systems. We present EfficientPPS, a neural architecture for part-aware panoptic segmentation that provides robots with semantically rich visual information for grasping and ma-nipulation tasks. We also present an unsupervised data collection and labelling method to reduce the need for human involvement in the training process. EfficientPPS is evaluated on a dataset containing real-world hospital objects and demonstrated to be robust and efficient in grasping transparent transfusion bags with a collaborative robot arm.",
+        "published": "2023-12-21T14:51:23Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2406.10114v1",
+        "title": "Task-aligned Part-aware Panoptic Segmentation through Joint Object-Part Representations",
+        "summary": "Part-aware panoptic segmentation (PPS) requires (a) that each foreground object and background region in an image is segmented and classified, and (b) that all parts within foreground objects are segmented, classified and linked to their parent object. Existing methods approach PPS by separately conducting object-level and part-level segmentation. However, their part-level predictions are not linked to individual parent objects. Therefore, their learning objective is not aligned with the PPS task objective, which harms the PPS performance. To solve this, and make more accurate PPS predictions, we propose Task-Aligned Part-aware Panoptic Segmentation (TAPPS). This method uses a set of shared queries to jointly predict (a) object-level segments, and (b) the part-level segments within those same objects. As a result, TAPPS learns to predict part-level segments that are linked to individual parent objects, aligning the learning objective with the task objective, and allowing TAPPS to leverage joint object-part representations. With experiments, we show that TAPPS considerably outperforms methods that predict objects and parts separately, and achieves new state-of-the-art PPS results.",
+        "published": "2024-06-14T15:20:46Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:Panoptic-PartFormer",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3APanoptic-PartFormer&max_results=4&sortBy=relevance",
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2204.04655v2",
+        "title": "Panoptic-PartFormer: Learning a Unified Model for Panoptic Part Segmentation",
+        "summary": "Panoptic Part Segmentation (PPS) aims to unify panoptic segmentation and part segmentation into one task. Previous work mainly utilizes separated approaches to handle thing, stuff, and part predictions individually without performing any shared computation and task association. In this work, we aim to unify these tasks at the architectural level, designing the first end-to-end unified method named Panoptic-PartFormer. In particular, motivated by the recent progress in Vision Transformer, we model things, stuff, and part as object queries and directly learn to optimize the all three predictions as unified mask prediction and classification problem. We design a decoupled decoder to generate part feature and thing/stuff feature respectively. Then we propose to utilize all the queries and corresponding features to perform reasoning jointly and iteratively. The final mask can be obtained via inner product between queries and the corresponding features. The extensive ablation studies and analysis prove the effectiveness of our framework. Our Panoptic-PartFormer achieves the new state-of-the-art results on both Cityscapes PPS and Pascal Context PPS datasets with at least 70% GFlops and 50% parameters decrease. In particular, we get 3.4% relative improvements with ResNet50 backbone and 10% improvements after adopting Swin Transformer on Pascal Context PPS dataset. To the best of our knowledge, we are the first to solve the PPS problem via \\textit{a unified and end-to-end transformer model. Given its effectiveness and conceptual simplicity, we hope our Panoptic-PartFormer can serve as a good baseline and aid future unified research for PPS. Our code and models are available at https://github.com/lxtGH/Panoptic-PartFormer.",
+        "published": "2022-04-10T11:16:45Z"
+      }
+    ]
+  },
+  {
+    "query": "all:\"instance segmentation\" AND all:\"part supervision\"",
+    "url": "https://export.arxiv.org/api/query?search_query=all%3A%22instance+segmentation%22+AND+all%3A%22part+supervision%22&max_results=4&sortBy=relevance",
+    "results": []
+  }
+]

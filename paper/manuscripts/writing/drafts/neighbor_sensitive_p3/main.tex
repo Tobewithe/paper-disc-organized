@@ -1,0 +1,294 @@
+﻿\documentclass[times,twocolumn,final,authoryear]{elsarticle}
+\usepackage{vendor/prletters}
+\usepackage{amsmath,amssymb,booktabs,graphicx,url}
+\usepackage[hidelinks]{hyperref}
+\input{draft_format.tex}
+\journal{Pattern Recognition Letters}
+\graphicspath{{figures/}}
+\makeatletter
+\let\tableinput\@@input
+\makeatother
+\begin{document}
+\begin{frontmatter}
+\title{Recoverable but unrealized: the mask-quality gap of prototype-based instance segmentation}
+\author{Research manuscript; author information supplied separately}
+\begin{abstract}
+% CLAIM [B1, A2, C1-C7]: 66.0% of strict argmax-conditioned mask failures are recoverable by a
+% coefficient correction inside the frozen prototype space, yet the native GT-free head does not
+% realize this. We build a four-layer accounting of where mask quality is lost, quantify the
+% recoverable share on the full COCO val2017 population, and exclude seven candidate mechanisms
+% one by one: candidate-position selection, supervision quantity, ownership readout, ownership
+% through a fixed solver, shared final-layer refitting, post-hoc global correction, oracle-target
+% distillation into the native branch, and constrained functional projection. The evidence places
+% the bottleneck at the function class / parameterization of coefficient realization rather than at
+% information availability, and quantifies the ceiling of correction-style fixes.
+A correctly localized instance can still fail a strict mask criterion. We ask whether such mask
+failures are recoverable inside the frozen representation and, if so, why the native model does not
+recover them. On full COCO val2017 we first account for where mask quality is lost across raw
+candidate geometry, class-argmax conditioning, and output retention. We then show that
+75.0\% of strict argmax-conditioned mask failures admit a coefficient correction that
+reaches Mask75 with the prototype bank frozen, under the project's documented finite-oracle
+definition re-derived and independently verified in this study (66.0\% under the original panel's
+partially recorded decode conventions; Section~\ref{sec:recoverability}). Seven controlled
+comparisons exclude the usual
+explanations: oracle-target supervision does not transfer to held-out candidates through the native
+coefficient branch, and a constrained functional projection retains less oracle gain than a random
+support control. The bottleneck is therefore located in how coefficients are realized, not in
+whether the information exists. All readouts are diagnostics on a single frozen checkpoint; no
+accuracy claim is made.
+\end{abstract}
+\begin{keyword}
+Instance segmentation \sep Error diagnosis \sep Prototype coefficients \sep Mask quality \sep Frozen-model analysis
+\end{keyword}
+\end{frontmatter}
+
+\section{Introduction}
+% BIND [A1-A4]: AP masks the location of the loss; the three-layer accounting motivates the study.
+Modern prototype-based instance segmenters decode masks from a shared prototype bank and per-instance
+coefficients \citep{bolya2019yolact}. A candidate can localize its object well and still fail a strict
+mask criterion. Standard aggregate accuracy does not say where the quality is lost, and observing
+excess foreground does not say which upstream stage produced it. We separate the question into
+layers: whether the raw candidate pool contains the capability at all, whether semantic
+conditioning keeps it, and what the output stage retains \citep{bolya2020tide}.
+
+Our question is sharper. Among instances that are class-argmax correct and Box75 correct, what share
+of mask failures could be repaired by changing only the coefficient vector inside the frozen
+prototype space, and if that share is large, why has the native model not realized it? We find
+that 75.0\% of the strict population is recoverable in exactly this sense (66.0\% under the original
+panel's recorded conventions). The first half is a recoverability fact; the second half is an
+exclusion problem. We answer both, and the answers change where a fix has to act.
+
+The paper's claim is deliberately negative in a useful way: the recoverable share is large, and
+none of the seven candidate mechanisms we test accounts for the gap. Short-budget supervision
+toward oracle directions does not transfer to held-out candidates; a constrained functional
+projection of the same oracle directions protects reliable regions extremely well but retains only
+about a third of the available gain, and less than a random-support control. No test yields a
+deployable method; each is a controlled comparison that removes one explanation.
+
+\section{Related work}
+% BIND: literature boundaries must be stated as in the project evidence map; no novelty claims on
+% structure (prototype-coefficient readout, boundary refinement, error analysis all have precedent).
+Prototype--coefficient decoding is established \citep{bolya2019yolact}. Error-analysis tooling for
+detection and segmentation is established \citep{bolya2020tide}. Boundary refinement and quality
+scoring are established \citep{kirillov2020pointrend,tang2021bpr,huang2019maskscoring,ke2022transfiner}.
+Ownership and competition between instances has been modeled before \citep{ke2021bcnet}.
+We therefore claim no structural novelty. What is new here is the combination: a strict
+argmax-conditioned failure population, a frozen-prototype recoverability measurement on the full
+validation set, and a chain of controlled exclusions that together localize the gap.
+
+\section{Accounting: where mask quality is lost}
+\subsection{Four evaluation units}
+% BIND [A1, A2, A3]: raw pool, argmax conditioning, output retention; identities kept separate.
+Let a raw candidate be identified by image, branch, pyramid level, grid position and input shape.
+For each ordinary GT we ask, in order: (i) does any raw position achieve Box75 and Mask75; (ii) does
+any raw whose predicted-class argmax equals the GT class do so; (iii) does the normal output
+retain a good candidate. The units answer different questions and are never interchanged. This
+yields the population used below: instances that are argmax-correct and Box75-correct yet have no
+argmax-correct Mask75 candidate anywhere.
+
+\subsection{Population and baseline}
+% BIND [A1, A2, A4]: 36,335 GT; 6,459 strict mask failures (17.78%); baseline AP.
+On COCO val2017 \citep{lin2014coco} with 5{,}000 images and 36{,}335 ordinary GT, the strict
+population contains 6{,}459 instances (17.78\%; A1 gives the score-independent geometry
+classes, A4 the baseline AP). All readouts use the official frozen YOLO26m-Seg checkpoint
+\citep{jocher2026yolo26}. Output-stage retention accounts for a further, separately recorded loss of
+otherwise good masks (A3). Table~\ref{tab:accounting} collects the three layers. The remainder of
+the paper studies only the strict population.
+
+\begin{table*}[t]
+\caption{Where mask quality is lost, in three separate accounting layers (COCO val2017, 5{,}000
+images, 36{,}335 ordinary GT, frozen YOLO26m-Seg). The layers answer different questions and are
+never interchanged. Shares are of 36{,}335 GT except in the output-retention block, where they are
+of the 13{,}568 GT whose normal output fails Mask75.}
+\label{tab:accounting}
+\centering
+\begin{tabular}{@{}llrr@{}}
+\toprule
+layer & state & GT & share \\
+\midrule
+raw pool (score-free) & same raw Box75+Mask75        & 23{,}805 & 65.52\% \\
+                      & good box, no good mask in pool& 6{,}688 & 18.41\% \\
+                      & good mask, no good box       & 487 & 1.34\% \\
+                      & good box/mask on different raws& 531 & 1.46\% \\
+                      & neither good                  & 4{,}824 & 13.28\% \\
+\midrule
+argmax-conditioned    & semantic fail                 & 44 & 0.12\% \\
+                     & box fail                      & 6{,}335 & 17.43\% \\
+                     & \textbf{mask fail (strict)}   & \textbf{6{,}459} & \textbf{17.78\%} \\
+                     & box/mask misaligned           & 484 & 1.33\% \\
+                     & success                       & 23{,}013 & 63.34\% \\
+\midrule
+output retention      & no raw Mask75 (of 13{,}568 output failures) & 11{,}512 & 84.85\% \\
+                     & good mask, class score $\le$0.001 & 1{,}797 & 13.24\% \\
+                     & not in head top-300            & 153 & 1.13\% \\
+                     & per-category maxDets budget   & 103 & 0.76\% \\
+                     & COCO matching competition     & 3 & 0.02\% \\
+\midrule
+baseline              & Mask AP / Mask75 matched     & \multicolumn{2}{r}{43.518 / 22{,}767 (62.66\%)} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\section{Recoverability inside the frozen prototype space}
+\subsection{Oracle definition}
+% BIND [B1 + disclosure]: finite oracle under fixed P; definition and鍙ｅ緞 per the frozen record.
+Fix the prototype bank, the coefficient of the candidate, its predicted box and the decoding path.
+For each instance solve, in the GT-box region of the input grid,
+\begin{equation}
+\Delta c^{*}_{\lambda}=\arg\min_{\Delta c}\
+\frac{1}{A}\sum_{u}\operatorname{BCE}\!\big(p_u^{\mathsf T}(c_0+\Delta c),y_u\big)
++\frac{\lambda}{2}\|\Delta c\|_2^2,\qquad
+c^{*}=c_0+\Delta c^{*}_{\lambda},
+\label{eq:oracle}
+\end{equation}
+with $\lambda$ fixed in advance; Eq.~\ref{eq:oracle} is the project's recorded finite-oracle
+convention and is GT-assisted by construction. An instance is \emph{recoverable} when some
+argmax-correct raw's $c^{*}$ reaches Mask75 after the official decode.
+
+\subsection{Result}
+\label{sec:recoverability}
+% BIND [B1, B2, B4, B3]: re-derived 75.02% (4,843/6,456) under the documented 7D definition;
+% recorded 66.00% (4,263/6,459) under the original panel's partially recorded decode conventions.
+We re-derived the whole panel under Eq.~\ref{eq:oracle} with the letterbox geometry, GT raster and
+decode path rebuilt from the retained per-image records, and verified the re-derivation by
+independent re-solves from different initializations, exact re-aggregation, and identity
+cross-checks. The re-derived share is \textbf{4{,}843 of 6{,}456 instances (75.0\%)};
+Table~\ref{tab:recoverability} reports strata by GT size next to the original panel's recorded
+values. The original panel's solver is not part of the retained record, and its decode and ROI
+conventions are only partially documented; we therefore report both values and use neither as the
+sole basis of any claim. Three GTs (0.05\%) whose GT box degenerates on the decode grid are
+recorded as skipped. The difference concentrates in small instances and is consistent with a
+threshold-boundary convention effect near the 0.75 criterion, not with a different oracle family.
+
+An independent panel re-measures the same construct. The remainder of the non-recoverable set
+splits into fixed-prototype/decoding-limited and support-infeasible instances in the original record
+(2{,}169 and 27 respectively), and 309 candidate rows of that record store the support ceiling
+rather than a solved value; these accounting facts do not change either recoverable count. Position
+selection is not the explanation: across instances with several argmax-correct raws, the oracle
+best exceeds the per-instance median by only 1.293 points on average (1.854 on the 4{,}504
+instances that have multiple raws). Whatever convention is used, the recoverable share is a large
+majority of the strict population, and no fitted mechanism below realizes it.
+
+\begin{table}[b]
+\caption{Recoverability of strict argmax-conditioned mask failures inside the frozen prototype
+space: an oracle coefficient correction (Eq.~\ref{eq:oracle}) reaches Mask75. For each stratum:
+the definition-complete re-derivation of this study (primary) and the original panel's recorded
+values (partially recorded decode conventions; both reported per the frozen protocol). Three
+degenerate GTs are excluded from the re-derived population.}
+\label{tab:recoverability}
+\centering
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+& \multicolumn{2}{c}{re-derived (this study)} & \multicolumn{2}{c}{recorded (original panel)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+stratum & recov. & share & recov. & share \\
+\midrule
+small ($<$32$^2$)     & 2{,}817 & 72.5\% & 2{,}285 & 58.8\% \\
+medium (32$^2$--96$^2$) & 1{,}266 & 72.7\% & 1{,}237 & 71.0\% \\
+large ($\ge$96$^2$)   & 760 & 91.7\% & 741 & 89.4\% \\
+\midrule
+all                   & \textbf{4{,}843} & \textbf{75.0\%} & 4{,}263 & 66.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Why the native model does not realize it}
+\label{sec:exclusions}
+% BIND [C1-C7]: each exclusion states what was tested, the number, and the scope limit.
+Seven comparisons each remove one explanation. Table~\ref{tab:exclusions} summarizes; we state each
+with its boundary.
+
+\emph{Supervision quantity.} Adding a spatial-logit teacher toward oracle logit changes moves the
+training objective but not the output: the controlled comparison is +0.013 points of image-macro IoU
+against its same-budget control, with the target group's interval crossing zero and no additional
+Mask75 crossings.
+
+\emph{Ownership readout and solver.} Reading pixel ownership from frozen neck features does not beat
+a same-capacity control; routing external spatial evidence through the fixed solver stays below
+the native model.
+
+\emph{Shared final layer.} Re-fitting the shared affine final layer on frozen features recovers
+46.8\% of the diagnostic objective gap and, when frozen and applied to normal images, yields a
+bootstrap-positive real-mask improvement (+0.055 image-macro IoU), concentrated in P4/P5. The
+remaining per-instance oracle gap is not recoverable by any shared map.
+
+\emph{Post-hoc global correction.} A frozen global corrector improves image-macro IoU by 0.092
+points, CI $[+0.022,+0.167]$, with no reliable Mask75 change.
+
+\emph{Oracle-target distillation.} Fine-tuning only the coefficient heads toward oracle-derived
+targets does not transfer: on held-out candidates both the target arm and a same-budget BCE-only
+control move \emph{against} the oracle direction (cosine $-0.03$; $-0.12$ at P5 and for large
+instances), the repair gain is identical with and without the oracle target, and both damage
+previously correct instances at about 7\%.
+
+\emph{Constrained functional projection.} Projecting oracle corrections onto a trust-region
+subspace (evidence pixels by current-mask uncertainty, protected pixels by margin) suppresses
+protected-zone logit change to 6\% of the oracle's own, but retains 30\% of the oracle IoU gain
+against an 80\% gate, and retains less than a random same-cardinality support control (59\%).
+
+\emph{Reading.} The gap is not information availability (the recoverable share is large) and not
+any of the seven tested mechanisms. It sits at the realization stage: the native coefficient head's
+function class, as trained, does not select the recoverable directions.
+
+\begin{table*}[t]
+\caption{Exclusion chain: each row removes one candidate explanation of why the native model does
+not realize the recoverable coefficient directions. Numbers are image-macro or per-instance
+readouts with bootstrap intervals reported in the project record; scope limits are part of each
+result.}
+\label{tab:exclusions}
+\centering
+\begin{tabular}{@{}llp{44mm}p{32mm}@{}}
+\toprule
+layer & verdict & key number & scope limit \\
+\midrule
+position selection   & excluded & oracle best--median 1.293 points (1.854 on multi-raw instances) & diagnostic, fixed panel \\
+supervision amount  & excluded & teacher vs same-budget control $+0.013$ pp, target-group CI crosses 0 & 253 dev images, 1{,}816 candidates \\
+ownership readout   & excluded & true-ROI vs equal-capacity control: IoU $-0.001$, CI 0 & 8$\times$8 soft ownership, 196 images \\
+ownership via solver& excluded & external evidence through fixed solver $-4.99$ pp macro IoU & fixed solver parameters, one external model \\
+shared final layer  & partial   & 46.8\% of diagnostic gap; $+0.055$ image-macro IoU, CI positive & mask-BCE diagnostic on frozen features \\
+global correction   & bounded   & $+0.092$ pp, CI $[+0.022,+0.167]$ & 504 images, 3{,}560 fixed positives \\
+oracle distillation & excluded & held-out alignment $-0.03$ (P5 $-0.12$); repair gain equals control; damage 6.7--7.3\% & 1 seed, 3 epochs, 796 fit / 197 dev images \\
+constrained projection & excluded & retention 30.2\% vs random support 58.8\% (gate 80\%) & fixed margins and penalty grid \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\section{What the gap implies for corrections}
+% BIND [A5, A6, A7]: upper bounds and object selection, used to bound the value of correction-style fixes.
+Two independent bounding results frame what a correction can buy. Removing false-positive pixels
+from already-correctly-boxed predictions raises mask AP by 10.999 points in a GT-assisted ideal
+repair, and the failure rate varies strongly with the GT's fill ratio (62.4\% vs 10.5\%
+between the lowest and highest fill strata), which is an object-selection signal, not a
+mechanism. Decode-level substitutions do not recover the gap. Together with
+Section~\ref{sec:exclusions} (Table~\ref{tab:exclusions}) this localizes the value of any
+correction-style approach: it can remove pixels, but it cannot supply the coefficient directions
+the native head fails to realize.
+
+\section{Limitations}
+% BIND: the frozen record's disclosures; nothing beyond them.
+Single checkpoint and single architecture family; COCO val2017 images were used repeatedly during
+development, so no result is a blind test; oracle quantities are GT-assisted diagnostics and not
+method performance; candidate--GT associations are diagnostic, not COCO matching; no accuracy is
+claimed. The recoverability measurement's exact objective and the projection audit's margins are
+frozen in the project record and cited accordingly. Cross-model generality is untested.
+
+\section{Conclusion}
+Mask-quality failures in a prototype-based segmenter are largely recoverable inside its own frozen
+representation, and the native prediction does not realize them. The exclusion chain in this paper
+moves the question from ``is there information'' to ``how must coefficients be realized'', and
+gives the next method attempt a specific target and a set of controlled comparisons it must beat.
+
+\section*{{Data and code availability}}
+All readouts use the frozen official YOLO26m-Seg checkpoint and the public COCO validation split
+with original annotations; no weights are trained in this study. Every number in
+Tables~\ref{tab:accounting}--\ref{tab:exclusions} traces to a retained run record in the project's
+experiment archive. Per experiment we retain the protocol frozen before execution, per-candidate
+and per-GT records, independent verification runs with their checks, source snapshots with hashes,
+and transfer manifests; a machine-readable claim-to-record map (evidence map) enumerates each
+claim, its source records, and its verification status. The recoverability re-derivation and its
+verification are retained as separate runs of the same archive.
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+\end{document}
+

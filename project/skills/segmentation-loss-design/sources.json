@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "package_version": "2.0.0",
+  "papers": [
+    {
+      "id": "BOUNDARY",
+      "title": "Boundary loss for highly unbalanced segmentation",
+      "authors": [
+        "Kervadec, Hoel",
+        "Bouchtiba, Jihene",
+        "Desrosiers, Christian",
+        "Granger, Eric",
+        "Dolz, Jose",
+        "Ayed, Ismail Ben"
+      ],
+      "arxiv_id": "1812.07032",
+      "version": "1812.07032v4",
+      "url": "https://arxiv.org/abs/1812.07032v4",
+      "pdf_url": "https://arxiv.org/pdf/1812.07032v4",
+      "pdf_sha256": "9746e5741c759ba10e05d9b18245f4d7f580f58ae8eb4812bfc73992dde1bf40",
+      "text_sha256": "49f0ea98acc384b91b50e4314ce642178e1b4545c4b8478a1061d5a57665b396",
+      "retrieved_at": "2026-11-04T16:43:29.093558+00:00",
+      "publication_note": "MIDL 2019; read expanded arXiv v4",
+      "reading_scope": "§2 signed-distance reformulation and combined objective",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "将轮廓距离表达为有符号GT距离加权的区域概率积分，与区域loss组合。",
+      "does_not_establish": "不等于任意边缘BCE；边界噪声、尺度和监督语义影响迁移。"
+    },
+    {
+      "id": "CLDICE",
+      "title": "clDice -- A Novel Topology-Preserving Loss Function for Tubular Structure Segmentation",
+      "authors": [
+        "Shit, Suprosanna",
+        "Paetzold, Johannes C.",
+        "Sekuboyina, Anjany",
+        "Ezhov, Ivan",
+        "Unger, Alexander",
+        "Zhylka, Andrey",
+        "Pluim, Josien P. W.",
+        "Bauer, Ulrich",
+        "Menze, Bjoern H."
+      ],
+      "arxiv_id": "2003.07311",
+      "version": "2003.07311v7",
+      "url": "https://arxiv.org/abs/2003.07311v7",
+      "pdf_url": "https://arxiv.org/pdf/2003.07311v7",
+      "pdf_sha256": "2e952692e01cb534b8851712e27846ab5d0dc06dfd170c9c64daf4e70d7f3170",
+      "text_sha256": "3709895c0e6703b3c6161072b3d1d003ccdb7b8ece160bad9291837330209d6f",
+      "retrieved_at": "2026-11-04T16:43:29.093558+00:00",
+      "publication_note": "CVPR 2021; read arXiv v7",
+      "reading_scope": "§2–4 definition, topology assumptions and soft-skeleton motivation",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "以预测与真值骨架覆盖定义clDice，并在特定拓扑条件下讨论保证及训练代理。",
+      "does_not_establish": "主要面向管状／网络结构；不支持对任意遮挡动物可见Mask强制连通。"
+    },
+    {
+      "id": "CONDINST",
+      "title": "Conditional Convolutions for Instance Segmentation",
+      "authors": [
+        "Tian, Zhi",
+        "Shen, Chunhua",
+        "Chen, Hao"
+      ],
+      "arxiv_id": "2003.05664",
+      "version": "2003.05664v4",
+      "url": "https://arxiv.org/abs/2003.05664v4",
+      "pdf_url": "https://arxiv.org/pdf/2003.05664v4",
+      "pdf_sha256": "6c3643a3002fc887938c00fbbbf2c89d2fb3f6595deec3b70b1a1f8a59434981",
+      "text_sha256": "f06bc81a2bbbaa275d4f44e60cc259b8234985c756463ffe5cb8006032b18dd5",
+      "retrieved_at": "2026-11-04T16:44:23.791828+00:00",
+      "publication_note": "ECCV 2020; read arXiv v4",
+      "reading_scope": "§2.1 instance-conditioned filters and §2.3 Dice objective",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "动态实例参数与相对位置使共享特征产生对象特定Mask，并采用相应目标。",
+      "does_not_establish": "支持实例条件的重要性，不证明任何部位／门控组合都有增量。"
+    },
+    {
+      "id": "FOCAL",
+      "title": "Focal Loss for Dense Object Detection",
+      "authors": [
+        "Lin, Tsung-Yi",
+        "Goyal, Priya",
+        "Girshick, Ross",
+        "He, Kaiming",
+        "Dollár, Piotr"
+      ],
+      "arxiv_id": "1708.02002",
+      "version": "1708.02002v2",
+      "url": "https://arxiv.org/abs/1708.02002v2",
+      "pdf_url": "https://arxiv.org/pdf/1708.02002v2",
+      "pdf_sha256": "2e6f45b97007009f32b82a3c19f35638d8da7022d8d4e4416b9078de91339f71",
+      "text_sha256": "18d1376aeb5b3d2604e666343ad543f2bb438938d70ee1bc37ae9115c7068279",
+      "retrieved_at": "2026-11-04T16:42:53.870082+00:00",
+      "publication_note": "ICCV 2017",
+      "reading_scope": "§3.1–3.2 weighting, easy examples and focal definition",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "减少大量易分类样本的相对贡献，区分类别权重与难度调制。",
+      "does_not_establish": "不是普遍抑制异常噪声的鲁棒损失；原重点是密集检测。"
+    },
+    {
+      "id": "LOSSODYSSEY",
+      "title": "Segmentation Loss Odyssey",
+      "authors": [
+        "Ma, Jun"
+      ],
+      "arxiv_id": "2005.13449",
+      "version": "2005.13449v1",
+      "url": "https://arxiv.org/abs/2005.13449v1",
+      "pdf_url": "https://arxiv.org/pdf/2005.13449v1",
+      "pdf_sha256": "3b45605aa2847f293ee290560dfbf3f5fc8f66286339868c8fbbc66beb29fa05",
+      "text_sha256": "58620a3d5786be348f81fc63468755104223e8f7361c371a34db804186450d75",
+      "retrieved_at": "2026-11-04T16:43:29.094562+00:00",
+      "publication_note": "arXiv 2020 taxonomy preprint, not the later journal benchmark",
+      "reading_scope": "abstract, §1 taxonomy and §2.1 CE",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "整理分布、区域、边界及组合型分割目标，说明目标之间的分类联系。",
+      "does_not_establish": "本次未把该预印本当作后续Medical Image Analysis基准的完整阅读或验证。"
+    },
+    {
+      "id": "LOVASZ",
+      "title": "The Lov\\'asz-Softmax loss: A tractable surrogate for the optimization of the intersection-over-union measure in neural networks",
+      "authors": [
+        "Berman, Maxim",
+        "Triki, Amal Rannen",
+        "Blaschko, Matthew B."
+      ],
+      "arxiv_id": "1705.08790",
+      "version": "1705.08790v2",
+      "url": "https://arxiv.org/abs/1705.08790v2",
+      "pdf_url": "https://arxiv.org/pdf/1705.08790v2",
+      "pdf_sha256": "82bdd01cacbab500abab94c78d6c27e2c1f2a7fafee16c9b302f8d1225c38b1e",
+      "text_sha256": "0d355d96015293950aa65791dfdf7ff828bcd9ea6b6004aef50f405d7080d026",
+      "retrieved_at": "2026-11-04T16:42:56.659669+00:00",
+      "publication_note": "CVPR 2018",
+      "reading_scope": "§2.1–3.1 binary/multiclass surrogates and image versus dataset IoU",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "由Jaccard集合误差构造排序型代理，区分二值hinge与多类Softmax。",
+      "does_not_establish": "batch／image代理不等于dataset IoU，更不等同COCO实例AP。"
+    },
+    {
+      "id": "MASKRCNN",
+      "title": "Mask R-CNN",
+      "authors": [
+        "He, Kaiming",
+        "Gkioxari, Georgia",
+        "Dollár, Piotr",
+        "Girshick, Ross"
+      ],
+      "arxiv_id": "1703.06870",
+      "version": "1703.06870v3",
+      "url": "https://arxiv.org/abs/1703.06870v3",
+      "pdf_url": "https://arxiv.org/pdf/1703.06870v3",
+      "pdf_sha256": "b595a882b763d55d933543131f32a2c4b6f41d0818d418ef46a2b66f946b67a8",
+      "text_sha256": "64e7b2b69a4342a2d9fddef6968800e7f07dd77aab63171a07a3033b38c611fb",
+      "retrieved_at": "2026-11-04T16:44:21.661686+00:00",
+      "publication_note": "ICCV 2017",
+      "reading_scope": "§3 mask target, sigmoid/CE distinction and alignment",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "对象条件的二值Mask与语义Softmax目标不同，强调精细空间表示。",
+      "does_not_establish": "不能把所有实例目标当互斥语义图，或将ROI结果直接当YOLO结论。"
+    },
+    {
+      "id": "MASKSCORING",
+      "title": "Mask Scoring R-CNN",
+      "authors": [
+        "Huang, Zhaojin",
+        "Huang, Lichao",
+        "Gong, Yongchao",
+        "Huang, Chang",
+        "Wang, Xinggang"
+      ],
+      "arxiv_id": "1903.00241",
+      "version": "1903.00241v1",
+      "url": "https://arxiv.org/abs/1903.00241v1",
+      "pdf_url": "https://arxiv.org/pdf/1903.00241v1",
+      "pdf_sha256": "87fb301a260af6c76f4821a0298085a122289f4d16644dcba30e9a18cd5cfd97",
+      "text_sha256": "e7b49da2c30374ca1ca59d7bad7fb29bf310c1b795bf821810f353cd50d5885c",
+      "retrieved_at": "2026-11-04T16:44:25.515252+00:00",
+      "publication_note": "CVPR 2019",
+      "reading_scope": "§3.2 mask scoring, MaskIoU target and inference role",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "预测MaskIoU并结合分类分数排序，区分质量估计与掩码形状。",
+      "does_not_establish": "不是一个通用形状loss，也不允许用测试GT给部署预测排序。"
+    },
+    {
+      "id": "POINTREND",
+      "title": "PointRend: Image Segmentation as Rendering",
+      "authors": [
+        "Kirillov, Alexander",
+        "Wu, Yuxin",
+        "He, Kaiming",
+        "Girshick, Ross"
+      ],
+      "arxiv_id": "1912.08193",
+      "version": "1912.08193v2",
+      "url": "https://arxiv.org/abs/1912.08193v2",
+      "pdf_url": "https://arxiv.org/pdf/1912.08193v2",
+      "pdf_sha256": "dc544aba7f76d1c395154d638c52e6196095eb9468700828b3b35d1fa250244c",
+      "text_sha256": "c16d2e8eb89c4121f0069ed155c860fc896cd3b0a9bd65aa100ca3b93496e602",
+      "retrieved_at": "2026-11-04T16:44:25.416078+00:00",
+      "publication_note": "CVPR 2020",
+      "reading_scope": "§3.1–3.2 sampling and fine/coarse instance representations",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "组合精细特征与粗对象预测，在不确定位置细读出，讨论区域特定信息。",
+      "does_not_establish": "不表示原生YOLO每种边界错误都应增加同款点头，也不保证标签粗糙时的收益。"
+    },
+    {
+      "id": "TVERSKY",
+      "title": "Tversky loss function for image segmentation using 3D fully convolutional deep networks",
+      "authors": [
+        "Salehi, Seyed Sadegh Mohseni",
+        "Erdogmus, Deniz",
+        "Gholipour, Ali"
+      ],
+      "arxiv_id": "1706.05721",
+      "version": "1706.05721v1",
+      "url": "https://arxiv.org/abs/1706.05721v1",
+      "pdf_url": "https://arxiv.org/pdf/1706.05721v1",
+      "pdf_sha256": "1ea63897815a4e5c9af06e7d5f73517f167d0f3fb53c74e46b68ca8d935c8673",
+      "text_sha256": "fadf906b73cf15f8c37b0d83127cc516d45e4c0d4757f062728dfe81e0f0671b",
+      "retrieved_at": "2026-11-04T16:42:54.628413+00:00",
+      "publication_note": "MLMI 2017",
+      "reading_scope": "§2.2 Tversky loss and precision/recall tradeoff",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "用不同FP与FN系数调节区域目标，研究病灶分割召回取舍。",
+      "does_not_establish": "更大FN代价可能增加FP；不能照搬原数值或声称直接提高实例AP。"
+    },
+    {
+      "id": "VNET",
+      "title": "V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation",
+      "authors": [
+        "Milletari, Fausto",
+        "Navab, Nassir",
+        "Ahmadi, Seyed-Ahmad"
+      ],
+      "arxiv_id": "1606.04797",
+      "version": "1606.04797v1",
+      "url": "https://arxiv.org/abs/1606.04797v1",
+      "pdf_url": "https://arxiv.org/pdf/1606.04797v1",
+      "pdf_sha256": "f3d7093a00e3a2db384e34c918d3ef86a74f9d3339c558a87cb4e9db443464d3",
+      "text_sha256": "6360c95cda95927f46614bc2f7669a936b5f9f752f210c86c11e9485e2fcaee5",
+      "retrieved_at": "2026-11-04T16:42:53.546258+00:00",
+      "publication_note": "3DV 2016",
+      "reading_scope": "§3 Dice loss layer",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "为体数据分割使用平方分母的可微Dice目标，处理前景比例问题。",
+      "does_not_establish": "与常见线性soft Dice变体不同；医学体数据结果不直接外推动物实例AP。"
+    },
+    {
+      "id": "YOLACT",
+      "title": "YOLACT: Real-time Instance Segmentation",
+      "authors": [
+        "Bolya, Daniel",
+        "Zhou, Chong",
+        "Xiao, Fanyi",
+        "Lee, Yong Jae"
+      ],
+      "arxiv_id": "1904.02689",
+      "version": "1904.02689v2",
+      "url": "https://arxiv.org/abs/1904.02689v2",
+      "pdf_url": "https://arxiv.org/pdf/1904.02689v2",
+      "pdf_sha256": "223c83bd8f229beeaaf316b4eb4d4a92b1798c4ff61346d4ed142ad81e345d16",
+      "text_sha256": "281f4dc22ba75d38fa43e5dcbc38df43083dcb146747f1a3eb157401be34a4c5",
+      "retrieved_at": "2026-11-04T16:44:20.999694+00:00",
+      "publication_note": "ICCV 2019",
+      "reading_scope": "§3.1–3.3 prototypes, coefficients and mask assembly",
+      "reading_level": "selected_method_or_theory_passages",
+      "supports": "共享空间原型与实例系数组合Mask，支持分解表示的学习与分析。",
+      "does_not_establish": "原型不自动等于器官语义；具体YOLO实现可能有差异。"
+    }
+  ]
+}

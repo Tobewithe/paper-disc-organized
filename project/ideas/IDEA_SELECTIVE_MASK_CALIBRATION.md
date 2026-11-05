@@ -11,7 +11,7 @@ assessment: unknown
 author: AI 整理，依据既有主线说明
 curation_status: source_based_draft
 evidence:
-  - path: project/knowledge_sources/mask_boundary_calibration_6c4f357184adf2d3.txt
+  - path: project/research_notes/sources/mask_boundary_calibration_6c4f357184adf2d3.txt
     locator: 原文 paper/manuscripts/mask_boundary_calibration/README.md
     revision: 6c4f357184adf2d3adc4b6869e301c90275722c9da49866068702a95690224b8
     relation: references

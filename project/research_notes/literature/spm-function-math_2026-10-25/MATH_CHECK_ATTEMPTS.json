@@ -1,0 +1,14 @@
+{
+  "scope": "pure_algebra_script_engineering_history_not_scientific_runs",
+  "attempts": [
+    {
+      "attempt": 1,
+      "script_sha256": "7358372402555cad3d4a4a9679267ae954d79960f5b3434c4d6f8ffc06a92e60",
+      "status": "failed_assertion",
+      "check": "part_votes_preserve_whole_translation_consistency",
+      "reason": "Exact Python float tuple equality was used for decimal translation addition/subtraction; floating rounding is nonzero.",
+      "repair": "Record FP64 error and compare to 1e-12, as for other scalar algebra checks. No scientific data, performance or Gate involved."
+    }
+  ],
+  "successful_result": "MATH_CHECKS.json"
+}

@@ -1,0 +1,164 @@
+{
+  "accounting": "511|COMPLETED|0:0|10|billing=66,cpu=4,gres/gpu=1,mem=48G,node=1",
+  "log_tail": "positive': 7, 'background': 1, 'unknown': 0, 'decoder_active': False, 'source_group': 'synthetic/train_formal_0514'}\nPROBE {'warm': False, 'seconds': 0.19978808803716674, 'loss': 1.2207298278808594, 'gradient_norm': 1.4560813903808594, 'source_id': 'real/1478', 'gradients': {'key': 2.8193744935123277e-05, 'object_encoder': 0.06134681508410722, 'object_reconstructor': 0.42256887177084784, 'SAM_mask_decoder': 0.11534913433647634}, 'queries': 8, 'positive': 8, 'background': 0, 'unknown': 0, 'decoder_active': True, 'source_group': 'real/1020s1121s2003-1'}\nPROBE {'warm': False, 'seconds': 0.12117890699300915, 'loss': 1.662738561630249, 'gradient_norm': 1.8988349437713623, 'source_id': 'train_formal_0514_v1', 'gradients': {'key': 3.284824242655304e-05, 'object_encoder': 0.06858212227234617, 'object_reconstructor': 0.09814490275836689, 'SAM_mask_decoder': 0.7012070206643558}, 'queries': 8, 'positive': 7, 'background': 1, 'unknown': 0, 'decoder_active': True, 'source_group': 'synthetic/train_formal_0514'}\nPROBE {'warm': False, 'seconds': 0.17787325102835894, 'loss': 1.2176692485809326, 'gradient_norm': 0.9068495631217957, 'source_id': 'real/313', 'gradients': {'key': 4.321008570684626e-05, 'object_encoder': 0.05484689387958497, 'object_reconstructor': 0.29492625132926614, 'SAM_mask_decoder': 0.1646885199056528}, 'queries': 8, 'positive': 8, 'background': 0, 'unknown': 0, 'decoder_active': True, 'source_group': 'real/1020s1120s2003-2'}\nPROBE {'warm': False, 'seconds': 0.2003415820072405, 'loss': 1.6623657941818237, 'gradient_norm': 1.774700403213501, 'source_id': 'train_formal_0500_v1', 'gradients': {'key': 4.18261982133572e-05, 'object_encoder': 0.06446519284509122, 'object_reconstructor': 0.11147912159334776, 'SAM_mask_decoder': 0.6899049099004062}, 'queries': 8, 'positive': 8, 'background': 0, 'unknown': 0, 'decoder_active': True, 'source_group': 'synthetic/train_formal_0500'}\nRESOURCE {'passed': True, 'formal_resource_pass': True, 'estimated_seconds': 3184.720047111623}\n",
+  "pointer": {
+    "run_id": "RUN_SPM_REAL_OBJECT_RESOURCE_dc4530fe81ee",
+    "status": "completed"
+  },
+  "run": {
+    "run_id": "RUN_SPM_REAL_OBJECT_RESOURCE_dc4530fe81ee",
+    "execution_status": "completed",
+    "job_id": "511",
+    "command": [
+      "resource_objects.py"
+    ],
+    "environment": {
+      "torch": "2.5.1+cu124",
+      "numpy": "2.4.3",
+      "python": "3.12.3 (main, Oct 18 2026, 03:38:24) [GCC 12.3.1 (openEuler 12.3.1-62.oe2403sp1)]",
+      "executable": "/srv/gpu-lab/users/a25023104/projects/spm-real-object-reconstruction-v28-20261026/preparation_v2/.venv/bin/python",
+      "GPU": "NVIDIA RTX A6000",
+      "source_manifest_sha256": "cb57e932c34237e97151f1bf842ae693004c8a00ec284f5d1b71f8db46e45a0f"
+    },
+    "GPU": 1,
+    "optimizer_updates": 6,
+    "query_GT_at_forward": false,
+    "train_reference_GT_used": true,
+    "test_used": false,
+    "whole_goal_complete": false,
+    "exit_code": 0,
+    "wall_seconds": 5.122249503037892,
+    "peak_cuda_bytes": 1847603200
+  },
+  "summary": {
+    "passed": true,
+    "formal_resource_pass": true,
+    "bank_objects": 256,
+    "discarded_engineering_optimizer_updates": 6,
+    "scientific_updates": 0,
+    "probe_weights_discarded": true,
+    "frozen_encoder_and_cached_projection_states_exact": true,
+    "results": [
+      {
+        "warm": true,
+        "seconds": 0.6807556240237318,
+        "loss": 5.713410377502441,
+        "gradient_norm": 3.9833810329437256,
+        "source_id": "real/1478",
+        "gradients": {
+          "key": 0.00014624759575099233,
+          "object_encoder": 0.13379123294726014,
+          "object_reconstructor": 0.4382660731918855,
+          "SAM_mask_decoder": 0
+        },
+        "queries": 8,
+        "positive": 8,
+        "background": 0,
+        "unknown": 0,
+        "decoder_active": false,
+        "source_group": "real/1020s1121s2003-1"
+      },
+      {
+        "warm": true,
+        "seconds": 0.14433018799172714,
+        "loss": 7.536658763885498,
+        "gradient_norm": 5.581291198730469,
+        "source_id": "train_formal_0514_v1",
+        "gradients": {
+          "key": 0.00019997721557274417,
+          "object_encoder": 0.31914086546748877,
+          "object_reconstructor": 0.33560021607100377,
+          "SAM_mask_decoder": 0
+        },
+        "queries": 8,
+        "positive": 7,
+        "background": 1,
+        "unknown": 0,
+        "decoder_active": false,
+        "source_group": "synthetic/train_formal_0514"
+      },
+      {
+        "warm": false,
+        "seconds": 0.19978808803716674,
+        "loss": 1.2207298278808594,
+        "gradient_norm": 1.4560813903808594,
+        "source_id": "real/1478",
+        "gradients": {
+          "key": 2.8193744935123277e-05,
+          "object_encoder": 0.06134681508410722,
+          "object_reconstructor": 0.42256887177084784,
+          "SAM_mask_decoder": 0.11534913433647634
+        },
+        "queries": 8,
+        "positive": 8,
+        "background": 0,
+        "unknown": 0,
+        "decoder_active": true,
+        "source_group": "real/1020s1121s2003-1"
+      },
+      {
+        "warm": false,
+        "seconds": 0.12117890699300915,
+        "loss": 1.662738561630249,
+        "gradient_norm": 1.8988349437713623,
+        "source_id": "train_formal_0514_v1",
+        "gradients": {
+          "key": 3.284824242655304e-05,
+          "object_encoder": 0.06858212227234617,
+          "object_reconstructor": 0.09814490275836689,
+          "SAM_mask_decoder": 0.7012070206643558
+        },
+        "queries": 8,
+        "positive": 7,
+        "background": 1,
+        "unknown": 0,
+        "decoder_active": true,
+        "source_group": "synthetic/train_formal_0514"
+      },
+      {
+        "warm": false,
+        "seconds": 0.17787325102835894,
+        "loss": 1.2176692485809326,
+        "gradient_norm": 0.9068495631217957,
+        "source_id": "real/313",
+        "gradients": {
+          "key": 4.321008570684626e-05,
+          "object_encoder": 0.05484689387958497,
+          "object_reconstructor": 0.29492625132926614,
+          "SAM_mask_decoder": 0.1646885199056528
+        },
+        "queries": 8,
+        "positive": 8,
+        "background": 0,
+        "unknown": 0,
+        "decoder_active": true,
+        "source_group": "real/1020s1120s2003-2"
+      },
+      {
+        "warm": false,
+        "seconds": 0.2003415820072405,
+        "loss": 1.6623657941818237,
+        "gradient_norm": 1.774700403213501,
+        "source_id": "train_formal_0500_v1",
+        "gradients": {
+          "key": 4.18261982133572e-05,
+          "object_encoder": 0.06446519284509122,
+          "object_reconstructor": 0.11147912159334776,
+          "SAM_mask_decoder": 0.6899049099004062
+        },
+        "queries": 8,
+        "positive": 8,
+        "background": 0,
+        "unknown": 0,
+        "decoder_active": true,
+        "source_group": "synthetic/train_formal_0500"
+      }
+    ],
+    "conservative_formal_seconds": 3184.720047111623,
+    "formal_limit_seconds": 7200,
+    "minimum_reserved_margin_seconds": 900,
+    "trainable_parameters": 4139665,
+    "test_used": false,
+    "whole_goal_complete": false
+  }
+}

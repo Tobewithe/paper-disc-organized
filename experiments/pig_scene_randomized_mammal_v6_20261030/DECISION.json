@@ -1,0 +1,149 @@
+{
+  "study_id": "STUDY_PIG_RANDOMIZED_MAMMAL_V6_20261030",
+  "decided_at": "2026-10-29T18:47:34.888731+00:00",
+  "experiment_unit": "original_MAMMAL_randomized_synthesis_and_contact_qualification",
+  "execution_status": "finite_runs_complete_including_retained_failures",
+  "gate_id": "final_synthetic_training_data_qualification",
+  "gate_result": "failed",
+  "reason": "The source adapter, independent random streams, labels and finite proxy contact are executable, but repeated poses, single morphology, source-local geometry defects, material appearance and small-part pixel support do not meet final data quality. No quantity expansion.",
+  "approved_final_training_images": 0,
+  "randomized_family_repair_images_viewed": 19,
+  "synthetic_instances_in_those_images": 92,
+  "preflight_and_proxy_images_viewed": 9,
+  "original_full_density_soft_body_setting": "closed_failed_nonfinite_control",
+  "proxy_contact_supported_scope": "one_way_closed_cage_deformation_with_original_render_topology_and_limited_independent_crossing_checks",
+  "native_coupled_many_body_biomechanics_supported": false,
+  "two_sided_shared_proxy": "symmetry_and_equal_half_displacement_approximation_only",
+  "independent_checks": {
+    "sampler_proposals": 1024,
+    "sampler_mechanical_checks": 71274,
+    "scene_rays_19_images": 2560,
+    "isolated_pig_rays": 2944,
+    "part_projection_rays": 6600,
+    "owner_or_part_mismatches": 0,
+    "source_rest_local_self_crossing_face_pairs": 20,
+    "additional_self_crossings_in_797": 29,
+    "additional_self_crossings_in_798": 11,
+    "additional_self_crossings_in_799": 0,
+    "fixed_input_repair_images_geometry_passed": 2,
+    "proxy_preflight_scene_rays": 1024,
+    "negative_rigid_control_crossing_pairs": 111,
+    "proxy_contact_crossing_pairs": 0,
+    "exact_saved_scene_replay": true,
+    "replay_is_fresh_physical_simulation": false
+  },
+  "real_model_AP_gain_or_damage": null,
+  "reason_AP_unmeasured": "no downstream model training/evaluation in this synthesis-only scope",
+  "real_existing_annotations_used": false,
+  "model_optimizer_updates": 0,
+  "semantic_model_forward_calls": 4,
+  "semantic_RGB_images": 4,
+  "GPU_allocated_seconds": 249,
+  "peak_GPUs": 1,
+  "new_render_or_physics_GPUs": 0,
+  "selected_positive_priority": "source_preserving_qualified_articulated_pose_asset_bank",
+  "basis": "Randomized rendering and exact labels are established, while extra camera/material/context controls did not remove repeated body poses; fixed tail-root rotation demonstrably adds a source-local crossing. Pose/source validity is a necessary controllable prerequisite.",
+  "only_next_action": "create a source-preserving stand/prone/lateral pose qualification bank, starting with source mouth/tail defects and head-ear-limb-hoof-tail attachment plus floor support",
+  "next_action_already_started": false,
+  "stop": "do not expand current unqualified random generation configuration or treat engineering samples as final training data",
+  "falsifier_or_reconsideration": "If the pose asset qualification passes but RGB still fails under matched scene/camera controls, prioritize material/morphology asset coverage rather than more joint-angle randomization. Actual transfer needs a future separately frozen comparison.",
+  "goal_objective_achieved": false,
+  "evidence_refs": [
+    {
+      "path": "PREFLIGHT_PROTOCOL_V1.md",
+      "sha256": "4f40491750d1d2c00654150c7c331e2cfb1023bd07937523e9c2258dbfa483fc"
+    },
+    {
+      "path": "CONTACT_PROXY_PROTOCOL_V2.md",
+      "sha256": "1ba6e6acf5fc675c4ae3d552c6b2d33a8a7908aeddf64cba7c0baca60cf3878b"
+    },
+    {
+      "path": "RANDOMIZED_PILOT_PROTOCOL_V1.md",
+      "sha256": "8a2baf35b49f00d085f72f2420b880d13e278b9c06c4a7b793b31ababd75238c"
+    },
+    {
+      "path": "FAMILY_PILOT_PROTOCOL_V2.md",
+      "sha256": "1514dceb146b0272574a2325985bbb4c7e73bd9bfcd29382e52f0c043a0cb17e"
+    },
+    {
+      "path": "CRATE_REPAIR_PROTOCOL_V3.md",
+      "sha256": "14afe14115de3cecd00385ab32229a5798177772bbc5a7ea4b6be3d462a6262f"
+    },
+    {
+      "path": "GEOMETRY_LABEL_AUDIT_PROTOCOL_V3.md",
+      "sha256": "8ed22ee00dd6aec8c2447910bf2857d458fce157a8e7ffee714a716cc3ab048a"
+    },
+    {
+      "path": "SAVED_SCENE_REPLAY_PROTOCOL_V1.md",
+      "sha256": "8979d02eab737d89d3d19a716778dbc80a2f7bfa9b8995674baf9d5c89ba91c0"
+    },
+    {
+      "path": "V6_RGB_REVIEW_V1.json",
+      "sha256": "015c9e77936ee8b85351d5e0fb41e1b3b8f242ba9ceea720215d732b799c6873"
+    },
+    {
+      "path": "ACTIVE_CONTROL_QUALIFICATION_V1.json",
+      "sha256": "5c9e7400c27031bf6012a4cd970c777e493dc1f165b3ab243e0e5fa63884a5a8"
+    },
+    {
+      "path": "RGB_SEMANTIC_REVIEW_V1.json",
+      "sha256": "b3c96ccdb0a5e709032f505c05bfb9425a83adc0aa25cc301af174bc607cd756"
+    },
+    {
+      "path": "PREFLIGHT_RETURN_VERIFIED.json",
+      "sha256": "d1fb6883e0996f7cb323346ec044eff3e88f10c9accf29dad21feec4b79c1a4f"
+    },
+    {
+      "path": "SEMANTIC_AND_PILOT_RETURN_VERIFIED.json",
+      "sha256": "f7cbbd9f173aff418a36193069613ac7a0f15be86cd8a9407fc73ac1b1d01579"
+    },
+    {
+      "path": "SLURM_FINAL_ACCOUNTING.txt",
+      "sha256": "cc67e21954986549030b0f3f3aa20608f80e7aadcc35765a41fa80882c306981"
+    },
+    {
+      "path": "server_return/RUN_V6_MAMMAL_CONTACT_PREFLIGHT_d74b6d9eeba8/run.json",
+      "sha256": "45fd9b0d8185bd319c34a910e81caacc1cd150ec9ce9090c4a2e78fa19bad9d6"
+    },
+    {
+      "path": "server_return/RUN_V6_CONTACT_PROXY_V2_0fc1a15eb847/SUMMARY.json",
+      "sha256": "f41505bdb579e1491d09b64b7d885663d0fb0307d88fbfd20ef9058ff8c10468"
+    },
+    {
+      "path": "server_return/RUN_V6_RANDOMIZED_PILOT_59cc60c8b86d/SUMMARY.json",
+      "sha256": "aef5de2f31a3b4224739f0348906de4ac26a70bdb56580b00df937de80163376"
+    },
+    {
+      "path": "server_return/RUN_V6_FAMILY_PILOT_V2_c93a62f9799e/SUMMARY.json",
+      "sha256": "e2011b06f78b4fe6dbe316dc7fef5c5824de1092aabd9557376a1e0567eb6d13"
+    },
+    {
+      "path": "server_return/RUN_V6_CRATE_REPAIR_V3_9286fd156c26/SUMMARY.json",
+      "sha256": "5a63cbe0bf4ac46e11f359c0919e1540850e2d9bb6a090f31ef85bb2f6b7ab74"
+    },
+    {
+      "path": "server_return/RUN_V6_SAVED_SCENE_REPLAY_10f9eba705a6/SUMMARY.json",
+      "sha256": "e97aeaa04d3280175843e6f11a82d8805e26455fa56a9112b4572dab949156eb"
+    },
+    {
+      "path": "runs/RUN_V6_SCENE_GEOMETRY_V3_6ae316b57ab0/SUMMARY.json",
+      "sha256": "6aeeaefb86d2c20138a5fa9b8aa1474f7642b3aadd6cddaea00d734275586e89"
+    },
+    {
+      "path": "runs/RUN_V6_SCENE_GEOMETRY_V3_652960b837d5/SUMMARY.json",
+      "sha256": "108ec5f33cd4008b26f4aca46faa0978eff72cf883acc8da35adf75ac7327f04"
+    },
+    {
+      "path": "runs/RUN_V6_SCENE_GEOMETRY_V3_3888be4d2b1f/SUMMARY.json",
+      "sha256": "accf11ff50205fd8b9a4936f4dd655773c3b6bb2fee28de3af6bc830ad6025cb"
+    },
+    {
+      "path": "runs/RUN_V6_TAIL_SAFETY_8421d882ba96/SUMMARY.json",
+      "sha256": "f9856f22313fe90c7d1eb118b1fb6d4b9bdd35125ea286aac75b4facaadcf316"
+    },
+    {
+      "path": "runs/RUN_V6_REVIEW_BUNDLE_fde0151ef777/SUMMARY.json",
+      "sha256": "839ae930c257b4338aea59f26ad572a0122045799748ad08d0b3caf2fbf23b42"
+    }
+  ]
+}

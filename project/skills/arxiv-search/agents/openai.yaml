@@ -1,0 +1,12 @@
+interface:
+  display_name: "arXiv Search"
+  short_description: "Focused arXiv, Semantic Scholar, web, and PDF lookup workflow."
+  default_prompt: "Use $arxiv-search to find focused academic papers and PDFs."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "asta"
+      description: "Ai2 Asta remote MCP for Semantic Scholar search and citations."
+      transport: "streamable_http"
+      url: "https://asta-tools.allen.ai/mcp/v1"

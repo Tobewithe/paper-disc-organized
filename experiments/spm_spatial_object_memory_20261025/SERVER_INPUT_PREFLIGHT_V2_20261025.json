@@ -1,0 +1,325 @@
+{
+  "checked_at_utc": "2026-10-25T07:32:52.237469+00:00",
+  "user": "a25023104",
+  "host": "master-01",
+  "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+  "python_version": "3.12.3 (main, Oct 18 2026, 03:38:24) [GCC 12.3.1 (openEuler 12.3.1-62.oe2403sp1)]",
+  "metadata_only": true,
+  "GPU_used": 0,
+  "optimizer_steps": 0,
+  "real_test_images_read": 0,
+  "real_test_annotations_read": 0,
+  "manifest_sha256": "d5641d0b04e913a93b12365f3d069ae33f2e81c1c11a1577d19b135d53dc7c7a",
+  "splits": {
+    "dev": 432,
+    "train": 1272
+  },
+  "train_groups": [
+    "1010s1120s2001-2",
+    "1010s1121s2001-2",
+    "1010s1121s2002-2",
+    "1010s1121s3001-2",
+    "1010s1121s3002-2",
+    "1020s1120s2003-2",
+    "1020s1121s2003-1",
+    "1020s1221s2003-1",
+    "1040s1132s3005-3",
+    "1050s1132a1110s3003-3",
+    "1050s1132a1112s3004-3",
+    "1060s1112s3004-3",
+    "1060s1112s4001-3"
+  ],
+  "dev_groups": [
+    "1020s1220s2003-2",
+    "1050s1132a1110s3003-5",
+    "1050s1132a1110s3004-2",
+    "1060a1000s1110s4001-2"
+  ],
+  "train_dev_group_intersection": [],
+  "cache_index_sha256": "a8195367dbf10642eedc5a4c05b240311bf887f1cf4c7f1d29d88e7eb571d4b6",
+  "cache_index_top_keys": [
+    "rows",
+    "cache",
+    "holdout_groups",
+    "projection_full",
+    "projection_inner"
+  ],
+  "cache_index_record_count": 1704,
+  "versions": {
+    "torch": "2.5.1+cu124",
+    "ultralytics": "8.4.100",
+    "numpy": "2.4.3"
+  },
+  "free_GiB": 16966.8671875,
+  "queue": "",
+  "training_started": false,
+  "train_label_headers": [
+    {
+      "source_id": "real/2",
+      "path": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/cache/real_2.npz",
+      "exists": true,
+      "headers": {
+        "ids.npy": {
+          "shape": [
+            640,
+            640
+          ],
+          "dtype": "uint16",
+          "fortran": false
+        },
+        "masks.npy": {
+          "shape": [
+            14,
+            160,
+            160
+          ],
+          "dtype": "uint8",
+          "fortran": false
+        },
+        "boxes.npy": {
+          "shape": [
+            14,
+            4
+          ],
+          "dtype": "float32",
+          "fortran": false
+        },
+        "overlap.npy": {
+          "shape": [
+            640,
+            640
+          ],
+          "dtype": "uint8",
+          "fortran": false
+        },
+        "valid_rect.npy": {
+          "shape": [
+            4
+          ],
+          "dtype": "int64",
+          "fortran": false
+        }
+      }
+    },
+    {
+      "source_id": "real/4",
+      "path": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/cache/real_4.npz",
+      "exists": true,
+      "headers": {
+        "ids.npy": {
+          "shape": [
+            640,
+            640
+          ],
+          "dtype": "uint16",
+          "fortran": false
+        },
+        "masks.npy": {
+          "shape": [
+            2,
+            160,
+            160
+          ],
+          "dtype": "uint8",
+          "fortran": false
+        },
+        "boxes.npy": {
+          "shape": [
+            2,
+            4
+          ],
+          "dtype": "float32",
+          "fortran": false
+        },
+        "overlap.npy": {
+          "shape": [
+            640,
+            640
+          ],
+          "dtype": "uint8",
+          "fortran": false
+        },
+        "valid_rect.npy": {
+          "shape": [
+            4
+          ],
+          "dtype": "int64",
+          "fortran": false
+        }
+      }
+    }
+  ],
+  "train_source_records": [
+    {
+      "source_id": "real/2",
+      "domain": "real",
+      "split": "train",
+      "group": "1060s1112s3004-3",
+      "image_id": 2,
+      "source_sha256": "23a2aa6f76a143c7004e7de527f03203d1170e438d00219b19e1856772ffc35e",
+      "image": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/inputs/real_images/2.jpg",
+      "label": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/cache/real_2.npz",
+      "image_sha256": "8f24cda86d88130e8b980b26767e08ae1f32f1a04405d073c9083ce4379b2434",
+      "label_sha256": "5a165c15383914a5aebc4cb4ab9cc183c03aa363603e45f7c33b3817e3d422e6",
+      "instances": 14,
+      "width": 640,
+      "height": 640,
+      "valid_rect": [
+        0,
+        140,
+        640,
+        360
+      ],
+      "ordinal": 1
+    },
+    {
+      "source_id": "real/4",
+      "domain": "real",
+      "split": "train",
+      "group": "1010s1121s3001-2",
+      "image_id": 4,
+      "source_sha256": "9c29c321551e69fbc5111b51cac284fd5f7170e01b9b7dd3817500e4f7a2f6b8",
+      "image": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/inputs/real_images/4.jpg",
+      "label": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/cache/real_4.npz",
+      "image_sha256": "517adba3938147bf367cfba333423ff4eab6a2cd75ac043528e177c7a5a2ade2",
+      "label_sha256": "f6e801663f505155a61cd41421f388130c1105fb47f8941826356f1ee13e0826",
+      "instances": 2,
+      "width": 640,
+      "height": 640,
+      "valid_rect": [
+        0,
+        140,
+        640,
+        360
+      ],
+      "ordinal": 3
+    }
+  ],
+  "train_feature_record_headers": [
+    {
+      "source_id": "real/2",
+      "path": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/native_real/6abc6e4e7bade0182f80b1ec.pt",
+      "exists": true,
+      "bytes": 28576229,
+      "own_project_cache_only": true,
+      "sha256": "8a131872aa23f43865cded2884fd4d282e034b4eab0715e8adc226fbfb325a79",
+      "fields": {
+        "detections": {
+          "shape": [
+            23,
+            38
+          ],
+          "dtype": "torch.float32"
+        },
+        "native_logits": {
+          "shape": [
+            23,
+            160,
+            160
+          ],
+          "dtype": "torch.float32"
+        },
+        "raw_ids": {
+          "shape": [
+            23
+          ],
+          "dtype": "torch.int64"
+        },
+        "ordinals": {
+          "shape": [
+            23
+          ],
+          "dtype": "torch.int64"
+        },
+        "identity": "dict",
+        "raw_grid": {
+          "shape": [
+            1,
+            512,
+            160,
+            160
+          ],
+          "dtype": "torch.float16"
+        }
+      }
+    },
+    {
+      "source_id": "real/4",
+      "path": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/native_real/327e4822dbc1bb7f5c0e96cb.pt",
+      "exists": true,
+      "bytes": 26729957,
+      "own_project_cache_only": true,
+      "sha256": "a89c528ab9dccb0b4648a715072638f92bbe272c519fd104e994a29650efc24b",
+      "fields": {
+        "detections": {
+          "shape": [
+            5,
+            38
+          ],
+          "dtype": "torch.float32"
+        },
+        "native_logits": {
+          "shape": [
+            5,
+            160,
+            160
+          ],
+          "dtype": "torch.float32"
+        },
+        "raw_ids": {
+          "shape": [
+            5
+          ],
+          "dtype": "torch.int64"
+        },
+        "ordinals": {
+          "shape": [
+            5
+          ],
+          "dtype": "torch.int64"
+        },
+        "identity": "dict",
+        "raw_grid": {
+          "shape": [
+            1,
+            512,
+            160,
+            160
+          ],
+          "dtype": "torch.float16"
+        }
+      }
+    }
+  ],
+  "cache_schema": {
+    "type": "dict",
+    "records": 1704,
+    "sample_keys": [
+      "real/1",
+      "real/2",
+      "real/3"
+    ]
+  },
+  "train_feature_records": [
+    {
+      "source_id": "real/2",
+      "metadata": {
+        "file": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/native_real/6abc6e4e7bade0182f80b1ec.pt",
+        "sha256": "8a131872aa23f43865cded2884fd4d282e034b4eab0715e8adc226fbfb325a79",
+        "bytes": 28576229,
+        "q_inner": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/q_real_inner/6abc6e4e7bade0182f80b1ec.pt",
+        "q_full": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/q_real_full/6abc6e4e7bade0182f80b1ec.pt"
+      }
+    },
+    {
+      "source_id": "real/4",
+      "metadata": {
+        "file": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/native_real/327e4822dbc1bb7f5c0e96cb.pt",
+        "sha256": "a89c528ab9dccb0b4648a715072638f92bbe272c519fd104e994a29650efc24b",
+        "bytes": 26729957,
+        "q_inner": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/q_real_inner/327e4822dbc1bb7f5c0e96cb.pt",
+        "q_full": "/srv/gpu-lab/users/a25023104/projects/spm-object-memory-v17-20261024/prepared/q_real_full/327e4822dbc1bb7f5c0e96cb.pt"
+      }
+    }
+  ]
+}

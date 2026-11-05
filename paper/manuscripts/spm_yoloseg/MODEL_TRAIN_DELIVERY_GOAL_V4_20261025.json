@@ -1,0 +1,28 @@
+{
+  "version": 4,
+  "date": "2026-10-25",
+  "definition_status": "current_user_authorized_scope",
+  "objective": "从真实密集猪群实例分割的实际需求与既有失败证据出发，重新设计、实现并实际训练一个能利用数据学习的对象知识改善实例分割的模型，完成接入微调、正常完整评价、结果复核和最终模型交付。架构是首要研究对象：自主比较并裁决原型应存什么、是否需要词表、离散或连续表示、向量/空间模板/部件图/参数化几何等形式及其参与实例区分和掩码重建的路径；四库、512槽/128维、融合位置、冻结范围、门控及训练阶段等旧设定全部可推翻，不以保留原方案为目标。\n持续执行“实际问题—一手文献检索—数学推导—具体架构—反例与跨模块审查—实现—实际训练—验收—修订再训练”循环。每项设计均需相关理论或原始研究支持、适用假设、可复核关系、替代项比较、实现/监督/梯度接口及可证伪预测；数值超参数说明尺度、容量和优化依据，不编造最优性。完整覆盖数据与真实泛化、标签/拆分、视觉编码/尺度、对象与部位表示、记忆组织/容量、正常输入匹配、姿态组成、实例归属/遮挡、可见重建、边界/高频、分割器融合、输出决策、损失/梯度/超参数/训练阶段、正常评价/成本/技术可视化。数据覆盖至少15头实际拥挤互遮、真实姿态及部位交叠，并注入有来源的真实光照、材质、高频和设施遮挡；未知标签不作负例，训练/开发/保留测试及视频/资产严格隔离。\n先选定一个主架构，完成逐项证据链、核心实现和至少两轮连续无未处理硬矛盾的全链路自审；这些是实际训练的前置，不能作为整个goal的结案点。随后准备和核验真实资产、冻结每轮协议及有限资源预算，通过工程检查后，在已登记算力服务器以个人账号和一次性Slurm作业执行对象知识学习、与分割任务接入及必要微调，具体阶段由架构决定。资源按已有自主调度授权合理申请，不借旧Run预算，不在登录节点运行GPU任务，不创建定时器或操作他人任务。\n最终效用要求框准确优先，相对同配置强原生的真实完整Mask AP至少+5点，同时通过预冻结的定位、原成功损伤和尺度护栏。实际完成训练后用正常RGB推理和完整评价验收，复核同一输出身份、权重重载与统计一致性；不能以合成成绩、GT辅助、loss下降、设计文件或smoke代替。未达效用目标则保留本轮阴性，依据共同失效和有理论/实测支持的主张修订，另立版本后继续必要训练与验收，不运行中改Gate追阳性，也不无依据扩训或无限占卡；科学证据不足以支持下一轮时明确报告具体缺口，不伪造正收益或自行将整个目标标成完成。\n最终交付必须包含实际训练得到且可重载的对象知识/融合模型权重、正常推理和复现实验入口、数据与资产清单/哈希、完整训练配置/环境/命令/日志/Run与Slurm记录、原生对照和完整真实验收结果、失败与修订记录，以及原型内容/匹配/部位组成/归属遮挡/边界/融合机制和最终效果的技术可视化。只有完成实际训练、最终验收和这些实物交付，且效用目标通过或用户明确变更验收目标，才可将整个goal结案；不得停在方案、接口核验或待执行训练合同。旧Run/Gate及阴性结论保留，不推送GitHub、不创建定时自动化。",
+  "supersedes_definition_version": 3,
+  "goal_tool_objective_applied": true,
+  "goal_tool_snapshot": {
+    "status": "active",
+    "created_at_unix": 1792912368,
+    "definition_version": 4,
+    "snapshot_kind": "successful_creation_result"
+  },
+  "previous_goal_cancelled_by_user": true,
+  "state_authority": "This snapshot records successful creation; get_goal provides the current live state.",
+  "completion_scope": "actual_training_finetuning_full_acceptance_and_model_delivery",
+  "training_authorized": true,
+  "training_started": false,
+  "execution_requirement": "New per-cycle protocol and finite budget after architecture/data/engineering readiness; existing registered server and Slurm rules apply.",
+  "scientific_efficacy": "not_yet_established",
+  "additional_user_requirements": [
+    {
+      "date": "2026-10-25",
+      "requirement": "Save the support for each design into one dedicated theory support file.",
+      "file": "SPATIAL_OBJECT_THEORY_SUPPORT_20261025.md"
+    }
+  ]
+}

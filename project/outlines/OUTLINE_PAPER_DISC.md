@@ -3,15 +3,15 @@ schema_version: 1
 id: OUTLINE_PAPER_DISC
 kind: outline
 title: 项目知识总纲
-summary: 从知识与问题出发，连接实例分割、视频遮挡和世界模型研究，追踪相关 Idea 的探索情况。
+summary: 按中心命题、关键问题和具体缺口连接Idea及探索主线，保留已有实验、证据边界和目录的时点范围。
 author: AI 整理，依据项目既有资料
 curation_status: source_based_draft
 evidence:
-  - path: project/knowledge_sources/research_lines_dce4e168abcad55c.txt
+  - path: project/research_notes/sources/research_lines_dce4e168abcad55c.txt
     locator: 原文 project/research_lines.json
     revision: dce4e168abcad55c1efa54e8099af01b45590afe39d7d4af52bdccb679c61a05
     relation: references
-  - path: project/knowledge_sources/idea_evolution_e93bf5358866376b.txt
+  - path: project/research_notes/sources/idea_evolution_e93bf5358866376b.txt
     locator: 原文 project/research_notes/IDEA_EVOLUTION.md
     revision: e93bf5358866376b3bf31ffa649bf6fe01ba74e51a79d85866c8a9cdfaecc893
     relation: references
@@ -21,13 +21,36 @@ evidence:
 
 本项目已有多个独立研究主线。这里先把相关知识、问题和未知组织起来，再关联从中形成的 Idea 与探索路径。纲要可以先于 Idea 存在；某个 Idea 或实验结束后，学到的认识仍应保留在知识体系中。
 
-本稿是依据现有项目资料整理的初稿。关联的 Idea 条目用于重建知识与既有主线的联系，不作为最初立项时间、当前执行终态或科学结论的重新认定。
+本稿依据现有项目资料组织知识，并于2026-11-02补入全项目研究状态综合。关联的Idea条目用于重建知识与既有主线的联系，不作为最初立项时间或科学结论的重新认定。
+
+## 总体目标—主线—实验—下一步
+
+总体目标是理解“什么信息能够支持可靠的实例、身份和行动判断”，通过可复现对照获得真实任务效用和有边界的科学认识。各研究线保留自己的对象、协议和评价，不强行归并成一个模型或统一指标。
+
+完整梳理见项目研究总览（原本地路径：`project/research_status/PROJECT_RESEARCH_MASTER.md`，已清理）：逐线说明目标、范围、已完成、待办和阻碍，逐项连接实验，整理依赖、历史取代、重复与状态冲突，并区分已确认事实、暂定解释与未验证假说。全量可筛选来源见Study目录（原本地路径：`project/research_status/STUDY_CATALOG.md`，已清理）及Run清单（原本地路径：`project/research_status/RUN_CATALOG.tsv`，已清理）。
+
+| 问题域 | 正式主线 | 实际进展（原2026-11-02核读；猪分割2026-11-04更新） | 下一步与优先级 |
+|---|---|---|---|
+| 猪实例分割 | SPM既有探索 | V23在复用dev有+3.41 AP；[C21／V23七项消融](../../experiments/pig_c21_v23_ablation_20261104/REPORT_V1.md)及独立验收完成，内容、细尺度、外观与选择保护有明显作用 | 保留原V23；形变／分部位保留列简化候选，优先研究内容总量、正确对应与选择的分工；原分配矩阵评价继续暂停 |
+| 猪实例归属 | [片段关系新线](../../paper/manuscripts/pig_fragment_relation/README.md) | TRAIN首试完整1272图／14642实例，仅14个可靠原断连支持；当前缓存入口结束，0方法训练 | 暂缓当前入口，保留广义归属问题；重开需新的可见监督或真实错误证据 |
+| 猪实例的条件可靠性 | [条件可靠性新线](../../paper/manuscripts/pig_condition_reliability/README.md) | 128 TRAIN色调干预损失2／1460，30组固定几何照明配对差异0／278；预定大幅粗粒度效应不支持 | 不据此训练保持方法；独立新条件、细边界与分数排序仍未知 |
+| 已有实例表示的修复 | 原型—系数链路 | 固定P适配有正收益；PC失败；LCF训练/评价完成但联合门槛未过，正式统计未结 | **P2暂停**：保留evaluated_pending_statistics，不执行统计结案或后继 |
+| 修正收益与风险 | 选择性掩码读出校准 | 旧RCMC稿完成未投稿；若干探索配置结束；SegRefiner5k终态待确认 | **P1证据缺口**：先核已有终态/回传，再决定新方法 |
+| 视频身份 | 密集视频身份保持 | 六项Study已形成冻结证据；局部收益保留，稳定优越性与完整遮挡恢复未成立 | **P2保留资产**：停止已关闭配置扩训，作为下游验证 |
+| 视频表示 | 视频遮挡表征预训练 | 四臂共8000步与评价已完成，物理配对未提供实用增量；旧排队记录过时 | **P2可选建议**：P/I等覆盖比较未执行，无自动后继 |
+| 行动判断 | 世界模型行动时间可辨识性 | 问题与草案已登记，无真实科研Run或训练结果 | **P3候选**：先处理解析P0资格，不直接开训 |
+
+2026-11-02的本地盘点覆盖468个实验目录、464份顶层Study文件（463个不同Study ID）、4个缺Study目录，以及2629个带ID运行记录。另有22份run.json缺ID按路径单列。48个实验目录有人工核读综合，另附可访问历史报告片段；其余保留登记字段与待确认项。该快照未包含2026-11-03新增片段关系与条件可靠性两条线及其Study／Run，当前身份见主线登记与总控；未为这次局部推进重做全项目盘点。维护方式见研究状态说明（原本地路径：`project/research_status/README.md`，已清理）。
+
+这里的优先级只排序工作，不构成运行授权；当前暂停、旧Gate和test426隔离保持。实际执行仍以[研究总控](../ACTIVE_PLAN.md)为准。
 
 ## 实例分割：已有信息怎样转化为正确实例
 
 已有研究分别关注掩码读出、原型—系数表达，以及猪群场景中对象知识的获得和使用。共同需要分清：模型有无足够的信息、怎样读取和组织这些信息、修正错误时是否损伤已有正确结果。不同数据、分支和评价范围的结果各自保留，不能直接拼成统一成绩。
 
-这一部分由子纲要[实例分割的信息、表示与读出](OUTLINE_INSTANCE_SEGMENTATION.md)展开。
+这一部分由子纲要[实例分割的信息、表示与读出](OUTLINE_INSTANCE_SEGMENTATION.md)展开。[真实猪场可靠逐头实例分割](OUTLINE_PIG_INSTANCE_SEGMENTATION.md)按中心命题—五个关键问题—九个具体缺口组织，原数据、模型、训练和评价资料连接到问题；Idea可以跨问题，主线从中选切入。文献、跨问题联系与实验反馈保留参考身份，不再规定七章论文顺序。
+
+阅读顺序是知识与问题 → 竞争性Idea → 对应研究主线 → 实验与Run → 认识反馈。稳定ID连接旧资料，不按新目录名称重判历史结果；具体行动仍只见总控。
 
 ## 视频遮挡：怎样利用观察历史保持对应
 

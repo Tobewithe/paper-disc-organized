@@ -1,0 +1,79 @@
+{
+  "version": "3.1-core-review",
+  "status": "reviewed_interface_contract_not_implemented_or_deployed",
+  "base_design": "../DESIGN_V3.md",
+  "amendments": "../CORE_REVIEW_V3_1.md",
+  "supersedes_scope": "prospective V3 implementation details only; old Runs and frozen protocols remain unchanged",
+  "source_identities": 2646,
+  "input_completed_jobs": [752, 753, 754],
+  "observation_fields_required": ["source_id", "RGB_sha256", "source_group", "factor", "value_or_interval", "authority", "evidence_region", "coordinate_frame", "observation_operator", "annotation_policy", "renderer_controls", "fit_permission", "validator", "unknown_reason"],
+  "observation_operator_contract": {
+    "real_and_synthetic_definitions_match": true,
+    "final_task_preprocess_measured": true,
+    "source_label_policy_required_for_mask_features": true,
+    "empty_or_untrusted_ROI_excluded_from_material_fit": true,
+    "black_threshold_alone_defines_valid_FOV": false,
+    "unidentifiable_physics_left_unknown": true
+  },
+  "evidence_logic": {
+    "all_unknown_semantic_channel_available": false,
+    "zero_shared_channels_similarity": "NaN and excluded from retrieval",
+    "partial_semantic_comparison": "only shared known fields; shared evidence count required",
+    "semantic_reencoding_is_independent_evidence": false,
+    "model_candidate_equals_truth": false,
+    "unknown_has_denominator_and_reason": true,
+    "complete_case_frequency_is_target_prior": false
+  },
+  "regional_observation": {
+    "roles": ["whole_scene", "instance_body", "instance_contact_context", "fine_facility", "surface_region"],
+    "training_annotation_crops": "allowed only with explicit annotation dependency and GT-assisted-construction role",
+    "whole_image_prediction_input": "RGB only",
+    "instance_crops_are_single_animal_truth": false,
+    "deterministic_tile_path_supported": true,
+    "coordinate_chain_and_actual_processor_grid_required": true,
+    "count_of_regional_VLM_calls": null,
+    "regional_call_budget_requires_preflight_measurement": true
+  },
+  "generator_calibration": {
+    "chosen_initial_method": "source-conditioned feasible candidate pool plus constrained resampling over reviewed observable joint cells",
+    "parameter_units_and_source_priors_required": true,
+    "hard_constraints": ["valid_anatomy", "valid_physical_contact", "source_and_parent_split", "label_projection_consistency"],
+    "matching_targets": ["count_scale_truncation_contact_joint", "body_pose_view_contact_joint", "facility_projected_width_and_body_occlusion", "surface_conditioned_multiscale_appearance"],
+    "unknown_frequencies": "intervals with source/known/unknown denominators; no invented point estimate",
+    "infeasible_support_action": "report missing asset/pose/scene support; do not silently relax constraints",
+    "high_dimensional_neural_simulator_fit_now": false,
+    "fit_review_group_manifest": null,
+    "base_hard_mixture": null,
+    "calibration_tolerances": null
+  },
+  "label_policy": {
+    "physical_geometry_truth_separate_from_task_export": true,
+    "source_policy_audit_pending": true,
+    "policy_fields": ["visible_vs_hidden", "facility_occlusion", "holes_and_fragments", "truncation", "missing_annotations", "visible_or_full_boxes", "motion_exposure_time"],
+    "RGB_and_spatial_labels_share_transforms": true,
+    "box_only_source_supplies_mask_negatives": false
+  },
+  "release_and_evaluation": {
+    "geometry_core_and_appearance_pair_lineage_required": true,
+    "independent_asset_scene_counts_separate_from_image_count": true,
+    "GxA_match_nonintervened_factors_and_training_budget": true,
+    "strong_native_and_object_method_share_data_and_finetune_budget": true,
+    "matching_descriptors_equals_real_Mask_AP_gain": false
+  },
+  "preflight": {
+    "existing16_image_engineering_design_retained": true,
+    "must_add_cases": ["all_unknown_semantics", "no_shared_channel", "small_body_and_contact_roi", "mixed_unknown_pose", "coordinate_and_mask_policy", "no_model_GT_input_leak"],
+    "model_loading_then_decoder_actual_order_required": true,
+    "grammar_validity_is_semantic_accuracy": false,
+    "semantic_quality_audit_separate": true,
+    "per_image_atomic_checkpoint_and_same_cache_key_resume_required": true,
+    "actual_GPU_preflight_run": null
+  },
+  "formal_GPU_budget_activated": false,
+  "new_training_authorized_by_this_review": false,
+  "synthetic_production_authorized": false,
+  "new_model_weights_created": false,
+  "timers_created": false,
+  "test_images_read": false,
+  "whole_goal_complete": false
+}

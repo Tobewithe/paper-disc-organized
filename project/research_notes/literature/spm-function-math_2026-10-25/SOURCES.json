@@ -1,0 +1,131 @@
+{
+  "review_id": "SPM_FUNCTION_MATH_REVIEW_20261025",
+  "review_date": "2026-10-25",
+  "source_count": 17,
+  "primary_sources_only_for_claims": true,
+  "reading_scope": "16 sources have inspected method/theorem passages; R15 uses the original abstract and accessible original section-7 cache, with the population inequality independently rederived. No blanket full-paper-reading claim.",
+  "local_performance_experiment": false,
+  "sources": [
+    {
+      "id": "R01", "title": "Challenging Common Assumptions in the Unsupervised Learning of Disentangled Representations", "publication": "ICML 2019",
+      "url": "https://proceedings.mlr.press/v97/locatello19a/locatello19a.pdf",
+      "read": "Section 3, Theorem 1 and scope of factorized-prior non-identifiability",
+      "supports": "Semantic factor identification requires explicit model/data assumptions.",
+      "limit": "Not an impossibility theorem for our supervised, typed memory; no segmentation gain guarantee."
+    },
+    {
+      "id": "R02", "title": "Weakly-Supervised Disentanglement Without Compromises", "publication": "ICML 2020",
+      "url": "https://proceedings.mlr.press/v119/locatello20a/locatello20a.pdf",
+      "read": "Theorem 1 assumptions and section 4.1 pairwise constraints",
+      "supports": "Controlled pairs can constrain which factors should remain shared.",
+      "limit": "The theorem assumes a smooth invertible generator and population matching; occlusion is not invertible, so our pairs do not inherit identifiability."
+    },
+    {
+      "id": "R03", "title": "Neural Discrete Representation Learning", "publication": "NeurIPS 2017",
+      "url": "https://papers.nips.cc/paper/2017/file/7a98af17e63a0ac09ce2e96d03992fbc-Paper.pdf",
+      "read": "Sections 3.1-3.2, quantized lookup and gradient destinations around equation 3",
+      "supports": "Input-dependent lookup, reconstruction, dictionary and encoder objectives have distinct gradient paths.",
+      "limit": "Quantization alone does not ground a code as a pig part; its reported collapse claim is not universal for all codebooks."
+    },
+    {
+      "id": "R04", "title": "Task-Driven Dictionary Learning", "publication": "TPAMI 2012; inspected author arXiv version 1009.5358v2 (2013)",
+      "url": "https://arxiv.org/html/1009.5358",
+      "published_author_pdf": "https://www.di.ens.fr/~fbach/taskdriven_mairal2012.pdf",
+      "read": "Sections III-A and IV-A, task-dependent sparse representation and Proposition 1 gradients",
+      "supports": "Dictionary reconstruction and downstream task learning are distinct objectives; task gradients must reach the representation.",
+      "limit": "Elastic-net differentiability assumptions do not establish global convergence for our nonlinear decoder and truncated retrieval."
+    },
+    {
+      "id": "R05", "title": "ProtoSeg: Interpretable Semantic Segmentation with Prototypical Parts", "publication": "WACV 2023",
+      "url": "https://arxiv.org/html/2301.12276",
+      "read": "Sections 3.1-3.3, similarity-based output, projection and same-class activation diversity",
+      "supports": "Prototype evidence can participate directly in dense prediction and retain training-patch references.",
+      "limit": "Semantic categories and activation diversity do not prove anatomical identity or distinguish adjacent pigs."
+    },
+    {
+      "id": "R06", "title": "Multi-Scale Grouped Prototypes for Interpretable Semantic Segmentation", "publication": "arXiv 2409.09497, inspected v2 dated 2025-04-28; venue not asserted",
+      "url": "https://arxiv.org/html/2409.09497",
+      "read": "Sections 3.1-3.3 and appendix sections 16-17; simplex weights and weighted geometric grouping",
+      "supports": "Multi-scale evidence grouping and interpretable composition; also documents texture-driven failure.",
+      "limit": "A visible-part conjunction needs an occlusion treatment in our task; its groups are not guaranteed anatomical or instance-specific."
+    },
+    {
+      "id": "R07", "title": "Matrix Capsules with EM Routing", "publication": "ICLR 2018",
+      "url": "https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf",
+      "read": "Sections 2-3, part-whole pose votes and EM routing procedures",
+      "supports": "Explicit attachment transforms and agreement between part votes offer a mathematical composition mechanism.",
+      "limit": "Not evidence for transplanting a full capsule network into dense pig segmentation; articulation and occlusion remain additional conditions."
+    },
+    {
+      "id": "R08", "title": "Object-Centric Learning with Slot Attention", "publication": "NeurIPS 2020",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2020/file/8511df98c02ab60aea1b2356c013bc0f-Paper.pdf",
+      "read": "Section 2.1, Algorithm 1 and Proposition 1",
+      "supports": "Competition over entities and permutation-consistent assignments are useful distinct objects of computation.",
+      "limit": "Our normal instances remain fixed detector rows; no learned-slot detector or global pixel exclusivity is automatically introduced."
+    },
+    {
+      "id": "R09", "title": "Compositional Convolutional Neural Networks: A Deep Architecture With Innate Robustness to Partial Occlusion", "publication": "CVPR 2020",
+      "url": "https://openaccess.thecvf.com/content_CVPR_2020/papers/Kortylewski_Compositional_Convolutional_Neural_Networks_A_Deep_Architecture_With_Innate_Robustness_CVPR_2020_paper.pdf",
+      "read": "Primary PDF cached method sections 3.1-3.2, equations 1-13; direct PDF fetch timed out",
+      "supports": "Separate object and occluder likelihoods and viewpoint mixtures explain visible evidence without forcing absent parts negative.",
+      "limit": "Classification evidence is not visible-instance Mask AP evidence; our responsibility equations use explicit stated mixture assumptions."
+    },
+    {
+      "id": "R10", "title": "MagicPony: Learning Articulated 3D Animals in the Wild", "publication": "CVPR 2023",
+      "url": "https://arxiv.org/html/2211.12497",
+      "read": "Sections 3.1-3.2 and multi-viewpoint discussion; template, deformation, articulation and image feature roles",
+      "supports": "Canonical content, instance deformation and viewpoint are distinct functional variables.",
+      "limit": "No extra frozen encoder or full 3D reconstruction task is automatically adopted; single-image hidden anatomy is not uniquely determined."
+    },
+    {
+      "id": "R11", "title": "Supervised Contrastive Learning", "publication": "NeurIPS 2020",
+      "url": "https://arxiv.org/html/2004.11362",
+      "read": "Section 3.2.2, equations 2-3 and multiple-positive definitions",
+      "supports": "Positive and negative sets must reflect the intended semantic equivalence.",
+      "limit": "Different pigs can be positives for anatomy but competitors for ownership; no general contrastive loss is activated solely from this citation."
+    },
+    {
+      "id": "R12", "title": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option", "publication": "ICML 2019",
+      "url": "https://proceedings.mlr.press/v97/geifman19a/geifman19a.pdf",
+      "read": "Sections 2 and 4.2, selective risk/coverage and ungated auxiliary objective",
+      "supports": "A selector needs training evidence outside the currently selected subset.",
+      "limit": "We return the native prediction instead of abstaining; forced memory coverage is not an objective or guarantee."
+    },
+    {
+      "id": "R13", "title": "Consistent Estimators for Learning to Defer to an Expert", "publication": "ICML 2020",
+      "url": "https://proceedings.mlr.press/v119/mozannar20b/mozannar20b.pdf",
+      "read": "Sections 3-4, Propositions 1-2 and section 5.2 mixture-surrogate inconsistency",
+      "supports": "Cost-sensitive action selection compares conditional expected costs rather than confidence or majority wins.",
+      "limit": "Population consistency for specified costs does not prove finite-neural optimization, AP consistency or out-of-domain safety."
+    },
+    {
+      "id": "R14", "title": "On Calibration of Modern Neural Networks", "publication": "ICML 2017",
+      "url": "https://proceedings.mlr.press/v70/guo17a/guo17a.pdf",
+      "read": "Section 4.2, temperature scaling equation 9 and calibration discussion",
+      "supports": "Confidence and correctness differ; temperature scaling preserves class ranking.",
+      "limit": "A low-entropy lookup is not a calibrated pig-part match; native detector scores remain frozen."
+    },
+    {
+      "id": "R15", "title": "A theory of learning from different domains", "publication": "Machine Learning 79, 2010",
+      "url": "https://research.google/pubs/a-theory-of-learning-from-different-domains/",
+      "original_article_repository": "https://escholarship.org/uc/item/2nv1j9sc",
+      "read": "Primary abstract and accessible original section-7 cache on ideal joint error and weighting; full theorem passage unavailable in this review",
+      "supports": "Target labels and shared attainable rules matter in addition to input-domain resemblance.",
+      "limit": "The population binary inequality is independently rederived in our note; no numerical domain bound or AP theorem claimed."
+    },
+    {
+      "id": "R16", "title": "Implicit Geometric Regularization for Learning Shapes", "publication": "ICML 2020",
+      "url": "https://proceedings.mlr.press/v119/gropp20a/gropp20a.pdf",
+      "read": "Section 3, Eikonal equations 2-3 and finite-penalty/solution-uniqueness caveats",
+      "supports": "Signed-distance behavior depends on geometric conditions rather than naming a field SDF.",
+      "limit": "Adding a finite Eikonal penalty does not certify our raster field or geometric displacement; no automatic new loss."
+    },
+    {
+      "id": "R17", "title": "The Lovasz-Softmax loss: A tractable surrogate for the optimization of the intersection-over-union measure in neural networks", "publication": "CVPR 2018",
+      "url": "https://arxiv.org/html/1705.08790",
+      "read": "Sections 1-2 and 3.1, Jaccard set loss and surrogate construction",
+      "supports": "Pixel log loss, per-mask IoU and aggregate evaluation objectives are distinct.",
+      "limit": "Its semantic IoU surrogate is not a COCO instance-AP guarantee or authorization to change loss after results."
+    }
+  ]
+}

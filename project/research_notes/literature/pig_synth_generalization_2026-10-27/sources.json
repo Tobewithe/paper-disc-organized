@@ -1,0 +1,147 @@
+{
+  "review_scope": "Primary research on synthetic-to-real detection/instance segmentation, articulated animals, pig occlusion and controllable ground truth; no universal factor ranking inferred from cross-paper AP",
+  "review_date": "2026-10-27",
+  "sources": [
+    {
+      "id": "L01",
+      "title": "Training Deep Networks with Synthetic Data: Bridging the Reality Gap by Domain Randomization",
+      "authors": "Tremblay et al.",
+      "venue": "CVPR Workshops 2018",
+      "url": "https://arxiv.org/abs/1804.06516",
+      "pdf_url": "https://arxiv.org/pdf/1804.06516",
+      "file": "L01_Tremblay_2018.pdf",
+      "task": "car object detection; not pig mask AP"
+    },
+    {
+      "id": "L02",
+      "title": "Structured Domain Randomization: Bridging the Reality Gap by Context-Aware Synthetic Data",
+      "authors": "Prakash et al.",
+      "venue": "ICRA 2019",
+      "url": "https://arxiv.org/abs/1810.10093",
+      "pdf_url": "https://arxiv.org/pdf/1810.10093",
+      "file": "L02_Structured_DR.pdf",
+      "task": "KITTI car detection; joint scene/context sampling"
+    },
+    {
+      "id": "L03",
+      "title": "Learning from Synthetic Animals",
+      "authors": "Mu et al.",
+      "venue": "CVPR 2020",
+      "url": "https://arxiv.org/abs/1912.08265",
+      "pdf_url": "https://arxiv.org/pdf/1912.08265",
+      "file": "L03_Synthetic_Animals.pdf",
+      "task": "animal pose; does not rank pig instance segmentation factors"
+    },
+    {
+      "id": "L04",
+      "title": "Simple Copy-Paste is a Strong Data Augmentation Method for Instance Segmentation",
+      "authors": "Ghiasi et al.",
+      "venue": "CVPR 2021",
+      "url": "https://arxiv.org/abs/2012.07177",
+      "pdf_url": "https://arxiv.org/pdf/2012.07177",
+      "file": "L04_Copy_Paste.pdf",
+      "task": "COCO/LVIS instance segmentation; counterevidence to requiring photorealistic/context-perfect composites universally"
+    },
+    {
+      "id": "L05",
+      "title": "Meta-Sim: Learning to Generate Synthetic Datasets",
+      "authors": "Kar et al.",
+      "venue": "ICCV 2019",
+      "url": "https://arxiv.org/abs/1904.11621",
+      "pdf_url": "https://arxiv.org/pdf/1904.11621",
+      "file": "L05_Meta_Sim.pdf",
+      "task": "learned scene-attribute distribution; feature matching not sufficient for mask utility"
+    },
+    {
+      "id": "L06",
+      "title": "Photorealistic Image Synthesis for Object Instance Detection",
+      "authors": "Hodan et al.",
+      "venue": "ICIP 2019",
+      "url": "https://arxiv.org/abs/1902.03334",
+      "pdf_url": "https://arxiv.org/pdf/1902.03334",
+      "file": "L06_Photorealistic_Rendering.pdf",
+      "task": "rigid household-object detection; materials, light and plausible physics matter in that regime"
+    },
+    {
+      "id": "L07",
+      "title": "Domain Randomization and Pyramid Consistency: Simulation-to-Real Generalization without Accessing Target Domain Data",
+      "authors": "Yue et al.",
+      "venue": "ICCV 2019",
+      "url": "https://arxiv.org/abs/1909.00889",
+      "pdf_url": "https://arxiv.org/pdf/1909.00889",
+      "file": "L07_Style_Scale.pdf",
+      "task": "driving semantic segmentation; appearance and scale invariance, not pig instances"
+    },
+    {
+      "id": "L08",
+      "title": "Modeling Visual Context is Key to Augmenting Object Detection Datasets",
+      "authors": "Dvornik et al.",
+      "venue": "ECCV 2018",
+      "url": "https://arxiv.org/abs/1807.07428",
+      "pdf_url": "https://arxiv.org/pdf/1807.07428",
+      "file": "L08_Visual_Context.pdf",
+      "task": "VOC detection; context effect must be read alongside L04"
+    },
+    {
+      "id": "L09",
+      "title": "Three-dimensional surface motion capture of multiple freely moving pigs using MAMMAL",
+      "authors": "An et al.",
+      "venue": "Nature Communications 2023",
+      "url": "https://www.nature.com/articles/s41467-023-43483-w",
+      "pdf_url": "https://www.nature.com/articles/s41467-023-43483-w.pdf",
+      "file": "L09_MAMMAL.pdf",
+      "task": "pig articulated surfaces and multi-view interactions; not synthetic-to-real segmentation ablation"
+    },
+    {
+      "id": "L10",
+      "title": "Occlusion-Resistant Instance Segmentation of Piglets in Farrowing Pens Using Center Clustering Network",
+      "authors": "Huang et al.",
+      "venue": "arXiv:2206.01942v3 (17 February 2023); original preprint 2022",
+      "url": "https://arxiv.org/abs/2206.01942",
+      "pdf_url": "https://arxiv.org/pdf/2206.01942",
+      "file": "L10_Piglet_Occlusion.pdf",
+      "task": "piglet instance segmentation with facility occlusion; distinguish modal/amodal label semantics"
+    },
+    {
+      "id": "L11",
+      "title": "Kubric: A Scalable Dataset Generator",
+      "authors": "Greff et al.",
+      "venue": "CVPR 2022",
+      "url": "https://openaccess.thecvf.com/content/CVPR2022/html/Greff_Kubric_A_Scalable_Dataset_Generator_CVPR_2022_paper.html",
+      "existing_local_pdf": "literature_search/occlusion-pretraining_2026-10-19/primary_fulltext/05_kubric-a-scalable-dataset-generator.pdf",
+      "task": "controllable renderer and exact multi-channel annotations; no pig-transfer efficacy claim"
+    },
+    {
+      "id": "L12",
+      "title": "A theory of learning from different domains",
+      "authors": "Ben-David et al.",
+      "venue": "Machine Learning 79, 151-175 (2010)",
+      "url": "https://link.springer.com/article/10.1007/s10994-009-5152-4",
+      "author_page": "https://cs.uwaterloo.ca/~shai/da.html",
+      "task": "classification adaptation bound; do not substitute embedding distance for Mask AP",
+      "file": "L12_Domain_Theory.pdf",
+      "full_text_status": "author PDF download failed; only primary publisher/author metadata and abstract verified; not used for exact theorem constants"
+    },
+    {
+      "id": "L13",
+      "title": "Benchmarking Neural Network Robustness to Common Corruptions and Perturbations",
+      "authors": "Hendrycks and Dietterich",
+      "venue": "ICLR 2019",
+      "url": "https://arxiv.org/abs/1903.12261",
+      "pdf_url": "https://arxiv.org/pdf/1903.12261",
+      "file": "L13_Common_Corruptions.pdf",
+      "task": "image-classification corruption robustness; supports separate sensor/blur/noise tests, not pig Mask AP ranking"
+    }
+  ],
+  "excluded_as_direct_effect_evidence": [
+    {
+      "title": "Multi-Camera Analysis of Simulated Porcine Recovery States Based on Three-Dimensional Pose Using Synthetic Data",
+      "url": "https://www.mdpi.com/2313-433X/12/9/429",
+      "reason": "publisher rate-limited; no verified real-transfer ablation from accessible contents; not used to claim real benefit"
+    },
+    {
+      "type": "blogs, review-only claims, social-media reports",
+      "reason": "not used as primary evidence or universal factor ranking"
+    }
+  ]
+}

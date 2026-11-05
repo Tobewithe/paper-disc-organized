@@ -1,0 +1,45 @@
+{
+  "asset_sha256": "00eff8eb8724266605d58a3b18729cababe2fefb47649d6ffb15a22f9f70330e",
+  "note": "Read-only source shape visualization, no training or gate change; actual V20 rendering also applies registered subdivision/morphology",
+  "poses": [
+    {
+      "pose": "standing",
+      "height": 0.46910497546195984,
+      "torso_bottom": 0.23230744898319244
+    },
+    {
+      "pose": "walking",
+      "height": 0.44878292083740234,
+      "torso_bottom": 0.21057172119617462
+    },
+    {
+      "pose": "feeding",
+      "height": 0.46910497546195984,
+      "torso_bottom": 0.23230744898319244
+    },
+    {
+      "pose": "prone",
+      "height": 0.46091988682746887,
+      "torso_bottom": 0.2108054906129837
+    },
+    {
+      "pose": "lateral_left",
+      "height": 0.3442345857620239,
+      "torso_bottom": 0.08744663745164871
+    },
+    {
+      "pose": "lateral_right",
+      "height": 0.34422653913497925,
+      "torso_bottom": 0.0765356793999672
+    }
+  ],
+  "reviewed_at": "2026-10-24T22:20:41.769344+00:00",
+  "actual_side_and_front_visual_review": true,
+  "figure_sha256": "501605a509e9b637133d843135df5b7c171b6aa74d77642500196e53f7804b35",
+  "finding": "Source pose code3 named prone is a flexed-leg/crouch proxy; it is not validated belly-contact prone geometry.",
+  "support": "Source torso bottom 0.2108 versus standing0.2323 at comparable total height0.4609 versus0.4691; actual side-view polygon visualization shows remaining ground-reaching limbs.",
+  "effect": "Frozen synthetic pose-code classification remains measurable; passing it cannot be described as real anatomical prone recognition. Full real bbox/segm evaluation remains valid for this fixed method.",
+  "decision": "Complete current frozen10000-update run and full acceptance; do not silently change data or labels mid-run. Preserve source vocabulary names and codes, add explicit display aliases and scope note. Real prone asset correction is a concrete follow-up if retained.",
+  "frozen_training_or_numeric_gate_changed": false,
+  "additional_optimizer_updates": 0
+}

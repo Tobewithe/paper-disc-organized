@@ -1,0 +1,85 @@
+{
+  "recorded_at": "2026-11-02T17:51:20.226186+08:00",
+  "user_instruction": "算力掉了暂时中止实验",
+  "state": "paused_by_user_compute_unavailable",
+  "scope": "no_new_submissions_training_evaluation_generation_or_remote_retries_until_user_resumes",
+  "pause_is_not_scientific_failure": true,
+  "SSH_observations_this_continuation": {
+    "attempts": 2,
+    "result": "connection_to_192.168.71.10_port_22_timed_out",
+    "remote_command_executed": false
+  },
+  "confirmed_completed_training": [
+    {
+      "job_id": "1146",
+      "arm": "C0",
+      "run_id": "RUN_CONCEPT_ASSIGNMENT_FORMAL_C0_20261102_dfe0977337a9",
+      "formal_optimizer_steps": 2000,
+      "summary": "experiments/spm_concept_assignment_bridge_20261102/delivery/1146/runs/RUN_CONCEPT_ASSIGNMENT_FORMAL_C0_20261102_dfe0977337a9/SUMMARY.json",
+      "summary_sha256": "c6347d536a09ea600d020e3132b640a6660c2376ce1a6988df8960f2d134a58f",
+      "metadata_return_verified": true,
+      "native_weights_returned": false
+    },
+    {
+      "job_id": "1148",
+      "arm": "Q0",
+      "run_id": "RUN_CONCEPT_ASSIGNMENT_FORMAL_Q0_20261102_e5f0ed1743f0",
+      "formal_optimizer_steps": 2000,
+      "summary": "experiments/spm_concept_assignment_bridge_20261102/delivery/1148/runs/RUN_CONCEPT_ASSIGNMENT_FORMAL_Q0_20261102_e5f0ed1743f0/SUMMARY.json",
+      "summary_sha256": "f8d26cc7c2b43c47708c998d0d7608729a92b47e80536bed7365593c4075fc01",
+      "metadata_return_verified": true,
+      "native_weights_returned": false
+    },
+    {
+      "job_id": "1150",
+      "arm": "CM",
+      "run_id": "RUN_CONCEPT_ASSIGNMENT_FORMAL_CM_20261102_6aaee0dcf69d",
+      "formal_optimizer_steps": 2000,
+      "summary": "experiments/spm_concept_assignment_bridge_20261102/delivery/1150/runs/RUN_CONCEPT_ASSIGNMENT_FORMAL_CM_20261102_6aaee0dcf69d/SUMMARY.json",
+      "summary_sha256": "279d02fa7a4316a78038e9671f5a64f7cd3c6816e84912a10b15e62fc7f03948",
+      "metadata_return_verified": true,
+      "native_weights_returned": false
+    },
+    {
+      "job_id": "1152",
+      "arm": "QM",
+      "run_id": "RUN_CONCEPT_ASSIGNMENT_FORMAL_QM_20261102_d2d0f1d60c41",
+      "formal_optimizer_steps": 2000,
+      "summary": "experiments/spm_concept_assignment_bridge_20261102/delivery/1152/runs/RUN_CONCEPT_ASSIGNMENT_FORMAL_QM_20261102_d2d0f1d60c41/SUMMARY.json",
+      "summary_sha256": "60e8c61e6c2540dc1d6241cdfa74a213d397bc9080e870629d9fff48bbcebd35",
+      "metadata_return_verified": true,
+      "native_weights_returned": false
+    }
+  ],
+  "unresolved_jobs": [
+    {
+      "job_id": "1154",
+      "arm": "CP",
+      "remote_root": "/srv/gpu-lab/users/a25023104/projects/spm-concept-assignment-bridge-20261102/train_CP_20261102_10b0255d2394",
+      "last_verified_state": "submitted",
+      "current_state": "unverified_after_compute_unavailable",
+      "do_not_resubmit_before_reconciliation": true
+    },
+    {
+      "job_id": "1156",
+      "arm": "QP",
+      "remote_root": "/srv/gpu-lab/users/a25023104/projects/spm-concept-assignment-bridge-20261102/train_QP_20261102_410ee94f5f46",
+      "last_verified_state": "submitted",
+      "current_state": "unverified_after_compute_unavailable",
+      "do_not_resubmit_before_reconciliation": true
+    }
+  ],
+  "confirmed_new_GPU_seconds": 4364,
+  "confirmed_new_CPU_core_seconds": 26184,
+  "prior_Goal_GPU_seconds": 10736,
+  "prior_Goal_CPU_core_seconds": 65940,
+  "confirmed_Goal_GPU_seconds": 15100,
+  "confirmed_Goal_CPU_core_seconds": 92124,
+  "accounting_scope": "known_terminal_jobs_through_1152_only_CP_QP_not_yet_reconciled",
+  "cancellation_confirmed": false,
+  "automatic_resumption": false,
+  "test426_opened": false,
+  "scientific_utility_status": "unevaluated",
+  "resume_first_action": "readonly_reconcile_original_1154_1156_queue_accounting_run_json_logs_and_artifacts_before_any_restart",
+  "no_remote_action_after_user_pause": true
+}

@@ -1,0 +1,13 @@
+{
+  "review_date": "2026-10-30",
+  "purpose": "Find evidence-backed shape asset authoring after the frozen direct field failed; no external fitted data or code executed.",
+  "sources": [
+    {"title": "Pinned original PIG_model README", "url": "https://github.com/anl13/PIG_model/blob/ade41a0e389ef698ff3d3255bd1f9705ad5e7bd3/readme.md", "provider": "connected_GitHub_fetch_file", "git_blob_SHA1": "6cf4be0693d4583facd80147e5c96830bdd9bbc5", "read": "full_README", "finding": "The original pig asset has no shape-blend or pose-blend basis; raw J_regressor can update joints after vertex editing.", "decision": "Do not invent a released pig shape basis; preserve original source surface and explicitly author qualified variants."},
+    {"title": "As-Rigid-As-Possible Surface Modeling", "authors": "Olga Sorkine and Marc Alexa", "year": 2007, "url": "https://igl.ethz.ch/projects/ARAP/arap_web.pdf", "doi": "10.2312/SGP/SGP07/109-116", "read": "author_hosted_paper_algorithm_sections", "finding": "Local rotation and vertex position optimization provides detail-preserving constrained mesh editing; cotangent edge weighting addresses discretization bias.", "decision": "Prioritize a bounded constrained authoring capability test, not a natural-shape or biomechanics claim."},
+    {"title": "An accessible and intuitive approach to 3D data modeling for morphometric surface evaluation in pig farming", "year": 2024, "url": "https://www.sciencedirect.com/science/article/pii/S016816992400718X", "doi": "10.1016/j.compag.2024.109327", "read": "publisher_abstract_and_data_availability", "finding": "Statistical pig surface study removes head and tail; reported data cannot be shared.", "decision": "Not verified as an available full-body rig or compatible shape basis."},
+    {"title": "Pig3DNet: Multi-view 3D reconstruction with pig specific parametric body model for pig body measurements", "year": 2026, "url": "https://www.sciencedirect.com/science/article/pii/S258972172600053X", "doi": "10.1016/j.aiia.2026.05.008", "read": "publisher_search_abstract; full_page_403", "finding": "Describes a pig-specific statistical model; no runnable released asset/code and source-face compatibility verified in this review.", "decision": "Do not treat paper description or same-name behavior model as a ready dependency; no training or fitted outputs used."}
+  ],
+  "new_model_or_training_run": false,
+  "real_existing_labels_read": false,
+  "next_ARAP_execution_status": "not_started"
+}

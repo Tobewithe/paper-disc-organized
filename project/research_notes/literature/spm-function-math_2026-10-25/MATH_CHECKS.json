@@ -1,0 +1,219 @@
+{
+  "scope": "algebra_and_toy_counterexamples_only",
+  "real_image_count": 0,
+  "model_forward_count": 0,
+  "optimizer_updates": 0,
+  "performance_or_mechanism_effect_measured": false,
+  "checked_at": "2026-10-25T06:49:53.715285+00:00",
+  "script_sha256": "ace942bb94c976372c0ab612f5bdc81234ba1cf19ceb342e676c7fa229aa11ac",
+  "seed": 20261025,
+  "check_count": 22,
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "orthogonal_gauge_preserves_lookup_and_linear_decode",
+      "passed": true,
+      "interpretation": "coordinates or orthogonality alone do not name anatomy"
+    },
+    {
+      "name": "all_pairwise_orthogonal_keys_impossible_when_K_exceeds_dimension",
+      "passed": true,
+      "average_squared_offdiagonal_inner_product_lower_bounds": {
+        "K256_D128": 0.00392156862745098,
+        "K238_D128": 0.003626054852320675,
+        "K512_D128": 0.005870841487279843
+      },
+      "scope": "unit-norm keys in one common comparison space; typed banks need not share comparisons"
+    },
+    {
+      "name": "foreground_set_likelihood_does_not_identify_fine_word",
+      "passed": true,
+      "loss": 0.10536051565782628
+    },
+    {
+      "name": "reference_only_objective_has_zero_query_derivative",
+      "passed": true,
+      "derivative": 0.0
+    },
+    {
+      "name": "variational_identity_and_task_retrieval_gradient",
+      "passed": true,
+      "free_energy_identity_error": 0.0,
+      "finite_difference_gradient_max_error": 4.426707264637564e-12,
+      "prior": [
+        0.5147072874475375,
+        0.34501861261671235,
+        0.1402740999357503
+      ],
+      "task_responsibility": [
+        0.17253223983183827,
+        0.699652733245708,
+        0.1278150269224538
+      ]
+    },
+    {
+      "name": "top_k_can_exclude_task_correct_low_prior_word",
+      "passed": true,
+      "omitted_prior_mass": 0.01,
+      "good_word_full_responsibility": 0.9955255179295146,
+      "truncated_loss_gap": 5.4093646723925515,
+      "bound_assumption": "nonnegative energies, unrenormalized full prior"
+    },
+    {
+      "name": "squared_reconstruction_prefers_non_object_average",
+      "passed": true,
+      "averaged_shape": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "averaged_squared_risk": 1.0,
+      "selected_shape_squared_risk": 2.0,
+      "binary_threshold": "strictly greater than 0.5"
+    },
+    {
+      "name": "part_votes_preserve_whole_translation_consistency",
+      "passed": true,
+      "max_FP64_error": 2.220446049250313e-16,
+      "scope": "fixed local attachment transforms"
+    },
+    {
+      "name": "occlusion_responsibility_and_visible_part_composition",
+      "passed": true,
+      "object_posterior_when_occluder_explains_better": 0.0084985835694051,
+      "object_posterior_when_object_explains_better": 0.9554140127388535,
+      "all_parts_score": 0.09321697517861578,
+      "known_visible_parts_score": 0.9,
+      "scope": "visibility must be supported; all-invisible is unknown"
+    },
+    {
+      "name": "full_strength_teacher_can_reject_a_useful_partial_action",
+      "passed": true,
+      "iou_by_scale": {
+        "0.0": 0.5,
+        "0.25": 1.0,
+        "0.5": 1.0,
+        "0.75": 0.6666666666666666,
+        "1.0": 0.4
+      }
+    },
+    {
+      "name": "exact_fixed_instance_iou_gain_identity",
+      "passed": true,
+      "random_cases": 1000,
+      "max_error": 5.551115123125783e-17
+    },
+    {
+      "name": "mean_iou_can_increase_while_fixed_score_ap_decreases",
+      "passed": true,
+      "before_mean_iou": 0.5725,
+      "after_mean_iou": 0.6775,
+      "before_toy_AP": 0.3386138613861386,
+      "after_toy_AP": 0.28217821782178215,
+      "scope": "isolated same-class candidates; 101 recall points; not a real COCOeval Run"
+    },
+    {
+      "name": "win_probability_is_not_expected_net_utility",
+      "passed": true,
+      "positive_frequency": 0.6,
+      "expected_gain": -0.03400000000000001,
+      "cost_sensitive_optimum_keep_act_probabilities": [
+        0.8695652173913044,
+        0.13043478260869565
+      ]
+    },
+    {
+      "name": "per_sample_cost_weight_normalization_can_destroy_cost_consistency",
+      "passed": true,
+      "raw_cost_weight_optimum": [
+        0.8695652173913044,
+        0.13043478260869565
+      ],
+      "unweighted_normalized_soft_target_optimum": [
+        0.4,
+        0.6
+      ],
+      "fix": "if weights become soft targets, multiply CE by their original total weight"
+    },
+    {
+      "name": "cost_sensitive_CE_has_correct_population_action_ranking",
+      "passed": true,
+      "random_contexts": 500,
+      "max_error": 3.3306690738754696e-16,
+      "assumption": "unrestricted population minimizer; additive chosen costs"
+    },
+    {
+      "name": "hard_keep_initialization_has_direct_cost_loss_gradient",
+      "passed": true,
+      "logits": [
+        1.0,
+        0.0
+      ],
+      "direct_loss_gradient": [
+        0.29242343145200195,
+        -0.292423431452002
+      ],
+      "gradient_through_hard_argmax_claimed": false
+    },
+    {
+      "name": "logit_or_field_amplitude_is_not_geometric_displacement_bound",
+      "passed": true,
+      "field_offset": 0.01,
+      "unit_gradient_boundary_shift": 0.01,
+      "shallow_gradient_boundary_shift": 1.0
+    },
+    {
+      "name": "temperature_changes_confidence_not_word_order",
+      "passed": true,
+      "argmax_by_temperature": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "identical_input_distributions_can_have_incompatible_labels",
+      "passed": true,
+      "source_error": 0.0,
+      "target_error": 1.0,
+      "input_divergence": 0.0,
+      "ideal_joint_error": 1.0,
+      "scope": "two-point binary example with opposite labeling functions"
+    },
+    {
+      "name": "too_small_residual_bound_prevents_even_perfect_proposal_flips",
+      "passed": true,
+      "native_logits": [
+        -5.0,
+        5.0
+      ],
+      "perfect_candidate": [
+        5.0,
+        -5.0
+      ],
+      "bound_one_output": [
+        -4.0,
+        4.0
+      ],
+      "bound_six_output": [
+        1.0,
+        -1.0
+      ]
+    },
+    {
+      "name": "joint_action_cost_table_from_separate_add_delete_counts",
+      "passed": true,
+      "examples": 100,
+      "actions_per_example": 25,
+      "max_error": 0.0
+    },
+    {
+      "name": "including_keep_only_bounds_perfect_casewise_oracle_regret",
+      "passed": true,
+      "random_contexts": 500,
+      "maximum_oracle_cost_regret": 0.0,
+      "learned_deployment_no_damage_guarantee": false
+    }
+  ]
+}

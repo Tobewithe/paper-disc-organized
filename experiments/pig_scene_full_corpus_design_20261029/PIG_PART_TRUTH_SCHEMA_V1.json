@@ -1,0 +1,95 @@
+{
+  "schema_id": "PIG_PART_TRUTH_SCHEMA_V1",
+  "status": "design_schema_not_rendered_release",
+  "revision": "1.1_pre_execution_review",
+  "source_annotations_used_for_supervision": false,
+  "qwen_output_is_label_source": false,
+  "real_rgb_role": "unlabeled_observation_then_field_scoped_verified_constraints; never_rendered_truth",
+  "part_priority": "instance_part_owner_evidence_before_coarse_pose",
+  "body_part_categories": [
+    "head", "snout", "nose_tip", "nostril_visible", "mouth", "lower_jaw_visible", "eye_visible",
+    "ear", "ear_base", "ear_pinna", "ear_tip", "neck", "shoulder_surface_anchor", "thorax_surface",
+    "dorsal_trunk", "ventral_trunk", "lateral_trunk", "lumbar_surface", "rump", "rump_surface_anchor",
+    "tail_root", "tail_shaft", "tail_tip", "visible_limb", "forelimb_candidate", "hindlimb_candidate",
+    "elbow_surface_candidate", "carpus_surface_candidate", "stifle_surface_candidate", "hock_surface_candidate",
+    "visible_hoof", "hoof_contact_candidate", "teat_visible", "udder_surface_visible", "navel_visible",
+    "external_genital_surface_visible", "tongue_visible", "tooth_visible", "claw_visible", "dewclaw_visible",
+    "other_visible_fragment"
+  ],
+  "part_groups": {
+    "head_face": ["head", "snout", "nose_tip", "nostril_visible", "mouth", "lower_jaw_visible", "eye_visible"],
+    "ears": ["ear", "ear_base", "ear_pinna", "ear_tip"],
+    "neck_front": ["neck", "shoulder_surface_anchor"],
+    "trunk": ["thorax_surface", "dorsal_trunk", "ventral_trunk", "lateral_trunk", "lumbar_surface"],
+    "rump_tail": ["rump", "rump_surface_anchor", "tail_root", "tail_shaft", "tail_tip"],
+    "limbs": ["visible_limb", "forelimb_candidate", "hindlimb_candidate", "elbow_surface_candidate", "carpus_surface_candidate", "stifle_surface_candidate", "hock_surface_candidate", "visible_hoof", "hoof_contact_candidate"],
+    "fine_ventral_or_mouth": ["teat_visible", "udder_surface_visible", "navel_visible", "external_genital_surface_visible", "tongue_visible", "tooth_visible"],
+    "fine_hoof": ["claw_visible", "dewclaw_visible"]
+  },
+  "visibility_states": ["visible", "partly_visible", "fully_occluded", "self_hidden", "out_of_frame", "unresolved_render_check"],
+  "observability_is_separate_from_geometry_visibility": true,
+  "observability_states": ["readable_at_declared_task", "unobservable_due_to_resolution", "unobservable_due_to_appearance", "unresolved_quality_check"],
+  "ownership_states": ["supported_by_geometry", "fragment_supported_by_geometry", "ambiguous_render_component", "unresolved_render_check"],
+  "anatomical_side_states": ["left_supported", "right_supported", "midline_supported", "indeterminate", "not_applicable"],
+  "truth_layers": {
+    "physical_visible": "first opaque surface in the declared render stack; each pixel has one visible owner",
+    "task_visible": "deterministic task policy derived from physical_visible; bridge exceptions are explicit per facility class",
+    "amodal_in_frame": "instance A_i: same whole-instance projection after removing external occluders; self-occlusion remains",
+    "part_self_visible": "part S_ip: its pixels when rendering the entire isolated pig; other parts of that pig can hide it",
+    "part_complete_projection": "part P_ip: projection of mapped original part surfaces alone, without artificial cut caps; other body parts removed; may overlap other parts",
+    "occluder_map": "directed pixel/part evidence identifying which declared entity hides which part"
+  },
+  "part_record_required": [
+    "scene_id", "instance_id", "part_id", "component_id", "semantic_role", "parent_part_id",
+    "owner_instance_id", "ownership_state", "landmark_definition", "anatomical_side", "visibility_state", "observability_state", "label_kind", "partition_id", "canonical_leaf_ids",
+    "physical_visible_ref", "task_visible_ref", "part_self_visible_ref", "part_complete_projection_ref",
+    "occluder_entity_ids", "truncation_state", "support_contact_state", "fine_part_gate", "unknown_reason", "evidence_sha256"
+  ],
+  "fine_part_gate": {
+    "decision_domain": "final_task_RGB_after_camera_and_postprocess",
+    "required_fields": ["minimum_source_pixels", "minimum_projected_area", "minimum_short_axis_pixels", "anti_aliasing_policy", "decision"],
+    "decisions": ["enabled_as_visible_label", "enabled_as_candidate_only", "unobservable_due_to_resolution", "rejected_for_quality"],
+    "does_not_mean": "anatomical_absence",
+    "geometry_truth_is_retained_when_observability_fails": true,
+    "failed_fine_label_does_not_remove_whole_instance": true,
+    "label_usage_mask_is_field_specific": true,
+    "first_P1_thresholds": "not_frozen; fixture numbers cannot authorize rendering"
+  },
+  "label_representation": {
+    "surface_leaf": "one canonical partition of visible pig surfaces; disjoint within a partition",
+    "surface_group": "union of declared canonical leaves; overlap with descendants is expected",
+    "landmark": "point with a surface or rig definition, depth visibility and side; never treated as a region mask",
+    "relation": "attachment/contact/occlusion with endpoint identity and evidence",
+    "unknown_surface_leaf": "unmapped remainder owned by the instance; not silently dropped from union"
+  },
+  "candidate_names_are_observation_aliases": {
+    "source": "../pig_instance_rgb_only_v5_20261028/ATTRIBUTE_ONTOLOGY_V5.json",
+    "synthetic_truth_role": "known rig role and actual anatomical side; observation aliases ending in candidate do not downgrade known geometry",
+    "ear_pinna_added_relative_to_RGB_ontology": true
+  },
+  "relation_types": {
+    "part_attachment": ["attached_to", "part_of", "connects_to"],
+    "local_visibility": ["partly_occluded_by", "occludes", "fragment_continues_behind"],
+    "support_and_contact": ["appears_supported_by", "geometry_contact_verified", "projected_near"],
+    "identity": ["fragment_of_same_instance", "distinct_instance", "identity_component_unresolved"]
+  },
+  "scene_invariants": [
+    "physical_visible_pixels_have_one_opaque_owner_or_declared_background",
+    "part_owner_is_one_instance_or_explicit_render_component_unresolved",
+    "part_parent_and_landmark_definition_are_not_inferred_from_part_name",
+    "strict_task_policy_has_task_visible_equal_physical_visible",
+    "bridge_policy_has_physical_visible_subset_of_task_visible_subset_of_amodal_in_frame",
+    "canonical_physical_leaf_parts_are_disjoint_within_one_partition_and_cover_instance_V",
+    "surface_groups_equal_the_union_of_their_leaves_and_may_overlap_descendants",
+    "for_each_surface_part_V_subset_T_subset_S_subset_P_under_declared_opaque_policy",
+    "instance_A_equals_union_of_canonical_leaf_S_not_sum_of_full_part_P",
+    "landmarks_are_not_forced_to_have_area_masks",
+    "off_frame_occlusion_and_task_observability_are_orthogonal",
+    "fine_part_unobservable_is_not_a_negative_anatomical_label",
+    "occlusion_relations_are_local_and_do_not_require_global_DAG",
+    "3d_contact_requires_physics_or_depth_evidence_and_is_separate_from_2d_touch",
+    "render_and_label_hashes_are_immutable_for_a_release"
+  ],
+  "split_lineage_keys": ["asset_parent_family", "scene_parent_family", "camera_family", "lighting_family", "geometry_id", "appearance_pair_id", "derived_from"],
+  "forbidden_supervision_sources": ["real_dataset_annotation", "real_dataset_instance_count", "real_qwen_pseudolabel", "old_gt_crop", "old_model_feature", "filename_class_hint"]
+}

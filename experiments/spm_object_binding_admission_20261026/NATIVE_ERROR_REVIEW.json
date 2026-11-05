@@ -1,0 +1,129 @@
+{
+  "scope": "post_hoc_descriptive_existing_artifact_review",
+  "images": 432,
+  "GT": 2863,
+  "all": {
+    "cases": 2389,
+    "sums": {
+      "error_pixels": 1606481,
+      "FP": 963608,
+      "FN": 642873,
+      "FP_on_other_GT": 35955,
+      "FN_covered_by_other_Box75_prediction": 10060,
+      "errors_within_GT_boundary4": 1202069,
+      "errors_within_GT_boundary8": 1411408,
+      "native_interior_pixels": 8803497,
+      "native_interior_correct": 8571608
+    },
+    "neighbor_related_error_pixel_fraction": 0.02864335152423216,
+    "mean_per_case_neighbor_related_fraction": 0.057903620580903446,
+    "boundary4_error_fraction": 0.7482621954445773,
+    "boundary8_error_fraction": 0.8785712373815813,
+    "native_eroded4_interior_precision": 0.9736594446502339
+  },
+  "native_same_prediction_failed": {
+    "cases": 307,
+    "sums": {
+      "error_pixels": 274824,
+      "FP": 167601,
+      "FN": 107223,
+      "FP_on_other_GT": 11803,
+      "FN_covered_by_other_Box75_prediction": 2708,
+      "errors_within_GT_boundary4": 150534,
+      "errors_within_GT_boundary8": 203650,
+      "native_interior_pixels": 492511,
+      "native_interior_correct": 434085
+    },
+    "neighbor_related_error_pixel_fraction": 0.052801065409134575,
+    "mean_per_case_neighbor_related_fraction": 0.2017535973250594,
+    "boundary4_error_fraction": 0.5477469216662301,
+    "boundary8_error_fraction": 0.7410197071580357,
+    "native_eroded4_interior_precision": 0.8813711774965433
+  },
+  "failed_groups": {
+    "1020s1220s2003-2": {
+      "cases": 40,
+      "sums": {
+        "error_pixels": 12103,
+        "FP": 3806,
+        "FN": 8297,
+        "FP_on_other_GT": 668,
+        "FN_covered_by_other_Box75_prediction": 1138,
+        "errors_within_GT_boundary4": 10369,
+        "errors_within_GT_boundary8": 11739,
+        "native_interior_pixels": 15151,
+        "native_interior_correct": 15060
+      },
+      "neighbor_related_error_pixel_fraction": 0.1492192018507808,
+      "mean_per_case_neighbor_related_fraction": 0.15196968707091077,
+      "boundary4_error_fraction": 0.8567297364289845,
+      "boundary8_error_fraction": 0.9699248120300752,
+      "native_eroded4_interior_precision": 0.9939937957890568
+    },
+    "1050s1132a1110s3003-5": {
+      "cases": 152,
+      "sums": {
+        "error_pixels": 238608,
+        "FP": 147710,
+        "FN": 90898,
+        "FP_on_other_GT": 7,
+        "FN_covered_by_other_Box75_prediction": 0,
+        "errors_within_GT_boundary4": 121148,
+        "errors_within_GT_boundary8": 169122,
+        "native_interior_pixels": 463546,
+        "native_interior_correct": 406235
+      },
+      "neighbor_related_error_pixel_fraction": 2.9336820223965667e-05,
+      "mean_per_case_neighbor_related_fraction": 1.621571534469978e-05,
+      "boundary4_error_fraction": 0.5077281566418561,
+      "boundary8_error_fraction": 0.708785958559646,
+      "native_eroded4_interior_precision": 0.876363942305618
+    },
+    "1060a1000s1110s4001-2": {
+      "cases": 115,
+      "sums": {
+        "error_pixels": 24113,
+        "FP": 16085,
+        "FN": 8028,
+        "FP_on_other_GT": 11128,
+        "FN_covered_by_other_Box75_prediction": 1570,
+        "errors_within_GT_boundary4": 19017,
+        "errors_within_GT_boundary8": 22789,
+        "native_interior_pixels": 13814,
+        "native_interior_correct": 12790
+      },
+      "neighbor_related_error_pixel_fraction": 0.5266039066063949,
+      "mean_per_case_neighbor_related_fraction": 0.48571393136716884,
+      "boundary4_error_fraction": 0.7886617177456144,
+      "boundary8_error_fraction": 0.945091859163107,
+      "native_eroded4_interior_precision": 0.9258723034602577
+    }
+  },
+  "GT_overlap": {
+    "overlapping_pixels": 3371,
+    "union_foreground_pixels": 11629917,
+    "fraction_of_GT_union": 0.00028985589493029057,
+    "images_with_overlap": 76
+  },
+  "not_causal_attribution": true,
+  "not_a_training_gate": true,
+  "AP_claim": false,
+  "optimizer_updates": 0,
+  "model_forwards": 0,
+  "test_used": false,
+  "whole_goal_complete": false,
+  "inputs": [
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\spm_object_binding_admission_20261026\\final_delivery\\508f7e3a419a\\pairs_v2_e4945bfceafe\\runs\\RUN_SPM_BINDING_PAIRS_a48b08624813\\BOX75_PAIRS.json",
+      "sha256": "7625bc31903f7ee93c7bf902a494d1c2db5b2f39bf2aeac313cb388abce40d14"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\spm_real_object_reconstruction_20261026\\final_delivery\\review_v2_b211b9733207\\data\\REAL_DEV_GT.json",
+      "sha256": "05b23b244ad11f8c39007ed28839306d0538a26966128d1308ad7d902365160f"
+    },
+    {
+      "path": "C:\\Dpan\\codexproject\\paper-disc-organized\\experiments\\spm_object_binding_admission_20261026\\NATIVE_ERROR_REVIEW_SCOPE.md",
+      "sha256": "f51a349649d55e02595ab53a97761b0496dad5d3b9d6095b75cbce10d78159c0"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-10-26",
+  "purpose": "Candidate design principles while V26 executes; no new experiment activated",
+  "papers": [
+    {
+      "title": "Conditional Convolutions for Instance Segmentation",
+      "authors": [
+        "Zhi Tian",
+        "Chunhua Shen",
+        "Hao Chen"
+      ],
+      "venue": "ECCV2020",
+      "publisher": "https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123460273.pdf",
+      "verified_scope": "Indexed publisher abstract and section2.3/2.4; direct fetch timed out",
+      "principle": "An instance-conditioned dynamic convolutional mask head combines shared dense features with relative coordinates and receives instance mask supervision. This supports direct instance-specific pixel readout, not an expected gain for this project.",
+      "official_code": {
+        "repository": "aim-uofa/AdelaiDet",
+        "path": "https://github.com/aim-uofa/AdelaiDet/blob/master/adet/modeling/condinst/dynamic_mask_head.py",
+        "blob_sha": "7c77ee89db0cc18dab3ca056f670efc261372456",
+        "read_scope": "Entire returned official source file; PDF direct fetch unsuccessful, indexed publisher sections separately read",
+        "verified_read": true
+      }
+    },
+    {
+      "title": "Masked-Attention Mask Transformer for Universal Image Segmentation",
+      "venue": "CVPR2022",
+      "publisher": "https://openaccess.thecvf.com/content/CVPR2022/html/Cheng_Masked-Attention_Mask_Transformer_for_Universal_Image_Segmentation_CVPR_2022_paper.html",
+      "verified_scope": "Publisher abstract; entire official decoder source; direct PDF returned403",
+      "principle": "Query mask embeddings multiply per-pixel features; predicted masks restrict subsequent attention. A learnable query is an instance slot, not automatically a human-interpretable anatomical prototype.",
+      "official_code": {
+        "repository": "facebookresearch/Mask2Former",
+        "path": "https://github.com/facebookresearch/Mask2Former/blob/main/mask2former/modeling/transformer_decoder/mask2former_transformer_decoder.py",
+        "blob_sha": "52594f62693e6bf48a4c140ba2fe7131a0317774",
+        "read_scope": "Entire returned official source file; PDF direct fetch unsuccessful, indexed publisher sections separately read",
+        "verified_read": true
+      }
+    },
+    {
+      "title": "ProtoSeg: Interpretable Semantic Segmentation With Prototypical Parts",
+      "venue": "WACV2023",
+      "publisher": "https://openaccess.thecvf.com/content/WACV2023/papers/Sacha_ProtoSeg_Interpretable_Semantic_Segmentation_With_Prototypical_Parts_WACV_2023_paper.pdf",
+      "verified_scope": "Indexed publisher abstract and diversity-loss/projection experimental sections; direct PDF403, no full PDF read claim",
+      "principle": "Prototype-to-training-patch grounding and within-class diversity provide semantic interpretation principles; semantic segmentation results do not establish separation of same-class touching instances."
+    }
+  ],
+  "adoption_status": "research_candidates_only; current V26 model/loss/steps/candidates/Gates/source snapshot unchanged"
+}

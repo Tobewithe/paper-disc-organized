@@ -11,7 +11,7 @@ assessment: unknown
 author: AI 整理，依据既有主线说明
 curation_status: source_based_draft
 evidence:
-  - path: project/knowledge_sources/dense_video_identity_37f6d402c8c7c371.txt
+  - path: project/research_notes/sources/dense_video_identity_37f6d402c8c7c371.txt
     locator: 原文 paper/manuscripts/dense_video_identity/README.md
     revision: 37f6d402c8c7c3712dd3905769b4acb4e6391f4347e57ba9c6ef767e8053d24e
     relation: references

@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-01",
+  "affected_run": "RUN_RLPL_DEPENDENCY_INSPECTION_5aa2caaca960",
+  "issue": "DATA_INDEX.json was assumed to be path metadata, but contains inline real train/dev RLE and bounding boxes. json.loads read the complete container and first-row metadata return also included those fields.",
+  "corrected_read_accounting": {
+    "annotation_bearing_containers_read": 1,
+    "included_splits": ["real/train", "real/dev", "legacy_synthetic"],
+    "exact_inline_annotation_row_count_not_logged": true,
+    "annotation_masks_decoded": 0,
+    "real_images_opened": 0,
+    "test426_accessed": false,
+    "model_training_or_generator_fitting_used_these_labels": false
+  },
+  "supersedes_metadata_field": "affected run.annotations_read=0 and source description 'no data labels' are inaccurate for container-level reading; original Run and SHA retained, corrected here",
+  "impact": "This violates the intended metadata-only preflight boundary. No new model or generation was run, no new AP computed, and no hyperparameters or source choices were selected from those inline labels. The already repeatedly-used dev remains development-only, never independent confirmation.",
+  "containment": "Stop returning index rows. Remove index loading from subsequent dependency-inspection code. Keep the affected full stdout/metadata private and excluded from git. Establish separated train-only manifest and sealed evaluation inputs before model stages; no real labels enter synthesis.",
+  "further_data_access_requires_frozen_stage_contract": true
+}

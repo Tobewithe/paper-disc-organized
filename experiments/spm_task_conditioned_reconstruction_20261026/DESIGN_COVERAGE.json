@@ -1,0 +1,180 @@
+{
+  "study_id": "STUDY_SPM_TASK_CONDITIONED_RECONSTRUCTION_20261026",
+  "scope": "V30 task-learning stage coverage, not a whole-goal completion certificate",
+  "theory": "../../paper/manuscripts/spm_yoloseg/SPATIAL_OBJECT_THEORY_SUPPORT_20261025.md",
+  "design": "../../paper/manuscripts/spm_yoloseg/TASK_FIRST_OBJECT_MODEL_V30_20261026.md",
+  "current_state_authority": "../../project/ACTIVE_PLAN.md",
+  "rows": [
+    {
+      "id": "D01",
+      "design": "Real task supervision with source-isolated images and train-only appearance perturbations",
+      "evidence": [
+        "TRAINING_INVENTORY_VERIFIED.json",
+        "PREPARE_PROGRESS.json",
+        "TRAIN_PROTOCOL_V1.md"
+      ],
+      "implemented_scope": "1272 real images, 13 source groups, 14642 nonempty task annotations; 674 images have >=15 instances",
+      "not_proved": "A count of >=15 does not itself prove physical mutual occlusion; prior synthetic dense assets are not used by this V30 task stage"
+    },
+    {
+      "id": "D02",
+      "design": "Keep original task RLE, ignore unknown ownership and semantic labels, separate train/dev/test",
+      "evidence": [
+        "CASE_CACHE_ALIGNMENT_V2.md",
+        "PREFLIGHT_VERIFIED.json",
+        "TRAINING_INVENTORY_VERIFIED.json"
+      ],
+      "implemented_scope": "21111 known normal queries; train/dev source groups disjoint; test not read",
+      "not_proved": "Real named parts, complete shape and physical visibility remain unknown"
+    },
+    {
+      "id": "D03",
+      "design": "Pretrained multiscale RGB encoder-decoder with pixel skips and native full-canvas residual",
+      "evidence": [
+        "SOURCE_ASSETS_VERIFIED.json",
+        "CORE_VERIFIED.json",
+        "ENGINEERING_PROGRESS.json"
+      ],
+      "implemented_scope": "256 context crop, six scales, source-equivalent network, exact native zero-start at full640",
+      "not_proved": "Complete normal utility contradicted at current scope: Mask AP43.359584,497/2126 damages; architecture usefulness and named semantics not established."
+    },
+    {
+      "id": "D04",
+      "design": "Persistent conditional model parameters and image-specific continuous object state",
+      "evidence": [
+        "conditional_model.py",
+        "CORE_VERIFIED.json",
+        "TRAIN_PROTOCOL_V1.md"
+      ],
+      "implemented_scope": "118606979 trainable parameters and 512-dimensional current-object state",
+      "not_proved": "512 state coordinates do not imply named parts, full anatomy or disentangled semantics"
+    },
+    {
+      "id": "D05",
+      "design": "No mandatory explicit dictionary in the first task-learning stage",
+      "evidence": [
+        "TRAIN_PROTOCOL_V1.md",
+        "conditional_model.py"
+      ],
+      "implemented_scope": "Object knowledge may be carried by shared task-trained parameters; no fictitious vocabulary slots",
+      "not_proved": "Whether a later explicit real-exemplar memory adds value is untested"
+    },
+    {
+      "id": "D06",
+      "design": "Normal output identity, box, coarse mask and RGB condition the current object",
+      "evidence": [
+        "geometry.py",
+        "predict.py",
+        "TECHNICAL_SELECTION_V1.json",
+        "ENGINEERING_PROGRESS.json"
+      ],
+      "implemented_scope": "Normal API has no query GT; source-coordinate and CPU cache parity checked",
+      "not_proved": "No semantic standing/part prototype match is claimed"
+    },
+    {
+      "id": "D07",
+      "design": "Named pose/part composition requires known semantic anchors after task representation is useful",
+      "evidence": [
+        "TRAIN_PROTOCOL_V1.md"
+      ],
+      "implemented_scope": "Unknown real semantic targets are not negative examples",
+      "not_proved": "Pose compatibility, named parts and compositional reconstruction are not trained or accepted in V30"
+    },
+    {
+      "id": "D08",
+      "design": "Keep instance identity; use image context without forcing all task masks to be mutually exclusive",
+      "evidence": [
+        "infer.py",
+        "TRAIN_PROTOCOL_V1.md"
+      ],
+      "implemented_scope": "Per-output reconstruction with preserved detection fields and original RLE semantics",
+      "not_proved": "Explicit physical object-to-object/fixture occlusion reasoning remains unaccepted"
+    },
+    {
+      "id": "D09",
+      "design": "Image-conditioned discrete denoising from the normal coarse mask",
+      "evidence": [
+        "conditional_model.py",
+        "predict.py",
+        "TRAIN_CONFIG_V1.json"
+      ],
+      "implemented_scope": "Six fixed steps; each predicts a residual relative to the native base rather than cumulatively adding six residuals",
+      "not_proved": "Complete normal utility contradicted at current scope: Mask AP43.359584,497/2126 damages; architecture usefulness and named semantics not established."
+    },
+    {
+      "id": "D10",
+      "design": "Use current RGB sampling and multiscale skips for task boundaries",
+      "evidence": [
+        "geometry.py",
+        "CASE_CACHE_ALIGNMENT_V2.md",
+        "ENGINEERING_REPAIR_V2.md"
+      ],
+      "implemented_scope": "Pixel-center nearest-exact labels, CPU bilinear RGB with one-thread quantization parity",
+      "not_proved": "Complete normal utility contradicted at current scope: Mask AP43.359584,497/2126 damages; architecture usefulness and named semantics not established."
+    },
+    {
+      "id": "D11",
+      "design": "YOLO provides frozen localization; a separate task-trained model edits the final mask",
+      "evidence": [
+        "native_bridge.py",
+        "predict.py",
+        "ENGINEERING_PROGRESS.json"
+      ],
+      "implemented_scope": "Zero-start full native mask exact; native parameters excluded from training; all432 normal outputs and frozen box/score/identity verified",
+      "not_proved": "Complete normal utility contradicted at current scope: Mask AP43.359584,497/2126 damages; architecture usefulness and named semantics not established."
+    },
+    {
+      "id": "D12",
+      "design": "Fixed six-step final EMA with no dev-selected replacement or threshold search",
+      "evidence": [
+        "TRAIN_PROTOCOL_V1.md",
+        "evaluate.py"
+      ],
+      "implemented_scope": "No learned quality selector; one-step output is diagnostic only",
+      "not_proved": "Training-time zero-start does not guarantee trained success preservation"
+    },
+    {
+      "id": "D13",
+      "design": "Eight full passes with globally normalized valid-instance loss and a fixed EMA endpoint",
+      "evidence": [
+        "TRAIN_CONFIG_V1.json",
+        "CHAIN_REVIEWS_VERIFIED.json",
+        "ENGINEERING_REFERENCE_V3.md",
+        "TRAIN_PROGRESS.json"
+      ],
+      "implemented_scope": "Formal550 completed5280 updates,8 epochs,168888 valid exposures; each of21111 cases exactly8 times; fixed final EMA saved",
+      "not_proved": "Training and final-state readback complete; low mixed-observation objective does not prove normal task ability or +5 utility."
+    },
+    {
+      "id": "D14",
+      "design": "N/V23 normal full evaluation, guards, matched RGB control, independent statistics and actual visuals",
+      "evidence": [
+        "TRAIN_PROTOCOL_V1.md",
+        "DELIVERY_CONTRACT_V1.md",
+        "PORTABLE_RELOAD_ANNEX_V1.md",
+        "DEPLOYMENT_SIZE_AUDIT.json",
+        "EVALUATE_PROGRESS.json",
+        "INDEPENDENT_PROGRESS.json",
+        "TECHNICAL_PROGRESS.json",
+        "PORTABLE_PROGRESS.json",
+        "RENDER_PROGRESS.json",
+        "FINAL_VISUAL_QA.json",
+        "LOCAL_MODEL_READBACK.json",
+        "RETURN_VERIFIED.json",
+        "FINAL_RESOURCE_ACCOUNTING.json"
+      ],
+      "implemented_scope": "432 normal RGB/12899 outputs;84 independent statistics error0,28630 GT outcomes;12fresh/428rows and portable19-row CLI exact;937 original files+20 portable files SHA verified;27 PNG actually viewed;27 SVG byte checked.",
+      "not_proved": "Normal utility contradicted: AP43.359584 and497/2126 damage;sealed test and named semantic/physical occlusion coverage remain unaccepted."
+    }
+  ],
+  "whole_goal_complete": false,
+  "test_used": false,
+  "snapshot_training_job": "550",
+  "whole_goal_remaining_includes": [
+    "Normal full utility >=N+5 and all frozen guards",
+    "Independent confirmation under a separately frozen contract",
+    "Named semantic/part/composition/physical-occlusion coverage with valid known labels",
+    "Whole-goal technical semantic visualization tied to genuinely learned capabilities"
+  ],
+  "snapshot_training_state": "completed_actual_run_and_slurm"
+}

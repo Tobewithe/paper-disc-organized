@@ -1,0 +1,12 @@
+interface:
+  display_name: "Scholar Megasearch"
+  short_description: "Search many scholarly databases, merge results, and fetch PDFs."
+  default_prompt: "Use $scholar-megasearch to run a broad academic literature search with PDFs."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "asta"
+      description: "Ai2 Asta remote MCP for Semantic Scholar search and citations."
+      transport: "streamable_http"
+      url: "https://asta-tools.allen.ai/mcp/v1"

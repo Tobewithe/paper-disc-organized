@@ -1,0 +1,411 @@
+{
+  "study_id": "STUDY_PIG_C21_V23_ABLATION_20261104",
+  "run_id": "RUN_PIG_C21_V23_ACCEPTANCE_20261104_fe0b541e3044",
+  "job_id": "1176",
+  "verified_at": "2026-11-04T18:17:12.326846+00:00",
+  "passed": true,
+  "method": "direct official COCOeval plus separately implemented AP interpolation for source resampling; saved original predictions only",
+  "checks": {
+    "root_frozen_files": 55,
+    "original_artifact_files": 45,
+    "run_snapshot_files": 162,
+    "asset_and_data_index_files": 8,
+    "RGB_and_native_cache_files": 864,
+    "images": 432,
+    "GT": 2863,
+    "arms": 10,
+    "outputs_per_arm": 12899,
+    "original_RLE_replayed": 38697,
+    "GT75_flags_compared": 28630,
+    "numeric_values_compared": 162,
+    "maximum_numeric_error": 0.0,
+    "source_groups": 4,
+    "resampling_draws": 256,
+    "resampling_unique_patterns": 35,
+    "identity_fields_equal": true,
+    "intervention_activity_verified": true,
+    "all_input_and_artifact_hashes_matched": true
+  },
+  "original_runs": {
+    "RUN_PIG_C21_V23_ENGINEERING_20261104_592f246530e6": {
+      "manifest_sha256": "a8c26a5e7536a3a18a9dcb7a822337268a8c1e82ef9e49ce9aee5a37a229c774",
+      "run_sha256": "70b2989a6cd92c59346762976db9f687163c411072c70a8fd2e38c293e48a0ea",
+      "summary_sha256": "26ecf57afdd3dacee57c89d39e83975f2579278befd62b20c4b97d1c5a8ab7ae"
+    },
+    "RUN_PIG_C21_V23_INFERENCE_20261104_56f1232f6402": {
+      "manifest_sha256": "8f0436a26e51d991b54973ecdde509ac97234e842999e6c762eea73259654fad",
+      "run_sha256": "a6b6c11dd0193ddec1b016de1bafb70ca8cd687aac898fae75a1919bbf7361b3",
+      "summary_sha256": "c63b955c80ae925199ae92bd048f268b1cfb9b8af6cfbc76c06669e9c5ba8bc2"
+    },
+    "RUN_PIG_C21_V23_STATISTICS_20261104_999848d45b78": {
+      "manifest_sha256": "4ab859942f7bd63b0df340120f7701790e108dd13ad3a63171c84e3fb875be9e",
+      "run_sha256": "62418e53281defcdbd385ef5c1066c38662fa805f9fc7967cc5b5090f470ba6e",
+      "summary_sha256": "032539ec92d318a84513255f195ee7122b1acf631e14eeb08dc0dbbb088b4a99"
+    }
+  },
+  "freeze_sha256": "1244cfede568fab05f219082ff07cd2401f260f2c9f0f12d150b9b06586225cf",
+  "result_summary_sha256": "652dc5f6fa03f46f73ef0b45ad735020b0ee89b1d2f87358e8024e9512e43e31",
+  "parent_results_path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/pig_c21_v23_ablation_20261104/runs/RUN_PIG_C21_V23_STATISTICS_20261104_999848d45b78/RESULTS.json",
+  "results": {
+    "N": {
+      "AP": 57.343500243941705,
+      "AP50": 84.99900178665888,
+      "AP75": 69.00982195432428,
+      "AP_small": 22.54449057151932,
+      "AP_medium": 68.64777225946754,
+      "AP_large": 79.17462381617776,
+      "GT75_success": 2126,
+      "GT50_matched": 2584,
+      "empty_masks": 0,
+      "delta_vs_parent": 0.0,
+      "delta_vs_N": 0.0,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 0,
+        "repairs": 0,
+        "damage_fraction": 0.0,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2126,
+        "damage": 0,
+        "repairs": 0,
+        "damage_fraction": 0.0,
+        "GT_total": 2863
+      }
+    },
+    "C21": {
+      "AP": 60.41652644839418,
+      "AP50": 85.12391768499484,
+      "AP75": 70.82298280234636,
+      "AP_small": 24.558873409751204,
+      "AP_medium": 72.2672960894498,
+      "AP_large": 81.02519589424608,
+      "GT75_success": 2169,
+      "GT50_matched": 2590,
+      "empty_masks": 0,
+      "delta_vs_parent": 0.0,
+      "delta_vs_N": 3.073026204452475,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 18,
+        "repairs": 61,
+        "damage_fraction": 0.008466603951081843,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2169,
+        "damage": 0,
+        "repairs": 0,
+        "damage_fraction": 0.0,
+        "GT_total": 2863
+      }
+    },
+    "V23": {
+      "AP": 60.75327839580857,
+      "AP50": 85.12391768499484,
+      "AP75": 71.18891807825246,
+      "AP_small": 24.91861614505043,
+      "AP_medium": 72.81744430529122,
+      "AP_large": 80.37381330994486,
+      "GT75_success": 2172,
+      "GT50_matched": 2590,
+      "empty_masks": 0,
+      "delta_vs_parent": 0.0,
+      "delta_vs_N": 3.409778151866867,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 18,
+        "repairs": 64,
+        "damage_fraction": 0.008466603951081843,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2172,
+        "damage": 0,
+        "repairs": 0,
+        "damage_fraction": 0.0,
+        "GT_total": 2863
+      }
+    },
+    "C21_NO_CONTENT_INPUT": {
+      "AP": 58.10955348333635,
+      "AP50": 85.03571874639414,
+      "AP75": 67.86263514565682,
+      "AP_small": 21.022821227162662,
+      "AP_medium": 70.11392740441808,
+      "AP_large": 80.8579280078226,
+      "GT75_success": 2097,
+      "GT50_matched": 2585,
+      "empty_masks": 0,
+      "delta_vs_parent": -2.306972965057831,
+      "delta_vs_N": 0.766053239394644,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 68,
+        "repairs": 39,
+        "damage_fraction": 0.03198494825964252,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2169,
+        "damage": 78,
+        "repairs": 6,
+        "damage_fraction": 0.035961272475795295,
+        "GT_total": 2863
+      },
+      "source_group_descriptive_percentiles": [
+        -4.864986741877658,
+        -2.306972965057831,
+        -1.0098419947416204
+      ]
+    },
+    "C21_NO_FINE_RESIDUAL": {
+      "AP": 57.85117842915666,
+      "AP50": 85.00136404225714,
+      "AP75": 69.8076181814115,
+      "AP_small": 22.98189036202685,
+      "AP_medium": 69.320286483452,
+      "AP_large": 79.00203991314359,
+      "GT75_success": 2146,
+      "GT50_matched": 2584,
+      "empty_masks": 0,
+      "delta_vs_parent": -2.5653480192375184,
+      "delta_vs_N": 0.5076781852149566,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 0,
+        "repairs": 20,
+        "damage_fraction": 0.0,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2169,
+        "damage": 42,
+        "repairs": 19,
+        "damage_fraction": 0.019363762102351315,
+        "GT_total": 2863
+      },
+      "source_group_descriptive_percentiles": [
+        -3.3673382037654136,
+        -2.5653480192375184,
+        -1.041361474619002
+      ]
+    },
+    "C21_TOP1_FULL": {
+      "AP": 55.6391567279795,
+      "AP50": 75.7180870092751,
+      "AP75": 64.33367594250441,
+      "AP_small": 21.40396116928819,
+      "AP_medium": 66.326180831793,
+      "AP_large": 80.7543304977045,
+      "GT75_success": 1969,
+      "GT50_matched": 2293,
+      "empty_masks": 1376,
+      "delta_vs_parent": -4.777369720414683,
+      "delta_vs_N": -1.7043435159622078,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 244,
+        "repairs": 87,
+        "damage_fraction": 0.1147695202257761,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2169,
+        "damage": 228,
+        "repairs": 28,
+        "damage_fraction": 0.10511756569847856,
+        "GT_total": 2863
+      },
+      "source_group_descriptive_percentiles": [
+        -7.44873788608453,
+        -4.777369720414683,
+        -0.16546923556920135
+      ]
+    },
+    "V23_NO_FLOW": {
+      "AP": 60.724448932307205,
+      "AP50": 85.12391768499484,
+      "AP75": 71.12887805529188,
+      "AP_small": 24.78520026982482,
+      "AP_medium": 72.790947571038,
+      "AP_large": 80.56917605143168,
+      "GT75_success": 2171,
+      "GT50_matched": 2590,
+      "empty_masks": 0,
+      "delta_vs_parent": -0.02882946350136706,
+      "delta_vs_N": 3.3809486883654998,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 17,
+        "repairs": 62,
+        "damage_fraction": 0.00799623706491063,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2172,
+        "damage": 2,
+        "repairs": 1,
+        "damage_fraction": 0.0009208103130755065,
+        "GT_total": 2863
+      },
+      "source_group_descriptive_percentiles": [
+        -0.2267587389948318,
+        -0.02882946350136706,
+        0.04605386107809473
+      ]
+    },
+    "V23_NO_APPEARANCE_CODES": {
+      "AP": 59.43779548191868,
+      "AP50": 85.12391768499484,
+      "AP75": 69.21737210117564,
+      "AP_small": 24.558873409751204,
+      "AP_medium": 71.62597292661181,
+      "AP_large": 75.86064549059418,
+      "GT75_success": 2151,
+      "GT50_matched": 2590,
+      "empty_masks": 0,
+      "delta_vs_parent": -1.3154829138898947,
+      "delta_vs_N": 2.094295237976972,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 36,
+        "repairs": 61,
+        "damage_fraction": 0.016933207902163686,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2172,
+        "damage": 21,
+        "repairs": 0,
+        "damage_fraction": 0.009668508287292817,
+        "GT_total": 2863
+      },
+      "source_group_descriptive_percentiles": [
+        -3.0633858012573256,
+        -1.3024903897215268,
+        -0.5117425970142122
+      ]
+    },
+    "V23_SHARED_VISIBILITY": {
+      "AP": 60.82886351216808,
+      "AP50": 85.12391768499484,
+      "AP75": 71.12887805529188,
+      "AP_small": 24.80440996738196,
+      "AP_medium": 72.88400054803468,
+      "AP_large": 80.77588682472629,
+      "GT75_success": 2171,
+      "GT50_matched": 2590,
+      "empty_masks": 0,
+      "delta_vs_parent": 0.07558511635950538,
+      "delta_vs_N": 3.485363268226372,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 18,
+        "repairs": 63,
+        "damage_fraction": 0.008466603951081843,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2172,
+        "damage": 1,
+        "repairs": 0,
+        "damage_fraction": 0.00046040515653775324,
+        "GT_total": 2863
+      },
+      "source_group_descriptive_percentiles": [
+        -0.13087546477700585,
+        0.0710280118969191,
+        0.2525588178310869
+      ]
+    },
+    "V23_FULL_CANDIDATE": {
+      "AP": 57.00238680401826,
+      "AP50": 77.39915565418355,
+      "AP75": 67.56652297155331,
+      "AP_small": 23.858188998583973,
+      "AP_medium": 67.52332194485412,
+      "AP_large": 79.83813111758305,
+      "GT75_success": 2033,
+      "GT50_matched": 2325,
+      "empty_masks": 1816,
+      "delta_vs_parent": -3.750891591790314,
+      "delta_vs_N": -0.341113439923447,
+      "damage_vs_N": {
+        "original_success": 2126,
+        "damage": 178,
+        "repairs": 85,
+        "damage_fraction": 0.08372530573847602,
+        "GT_total": 2863
+      },
+      "damage_vs_parent": {
+        "original_success": 2172,
+        "damage": 175,
+        "repairs": 36,
+        "damage_fraction": 0.08057090239410682,
+        "GT_total": 2863
+      },
+      "source_group_descriptive_percentiles": [
+        -6.449047142023389,
+        -3.750891591790314,
+        0.6252909756540106
+      ]
+    }
+  },
+  "intervention_activity": {
+    "C21_NO_CONTENT_INPUT": {
+      "masks_changed": 2841,
+      "actions_changed": 1353,
+      "outputs": 12899
+    },
+    "C21_NO_FINE_RESIDUAL": {
+      "masks_changed": 2975,
+      "actions_changed": 2918,
+      "outputs": 12899
+    },
+    "C21_TOP1_FULL": {
+      "masks_changed": 12734,
+      "actions_changed": 12734,
+      "outputs": 12899
+    },
+    "V23_NO_FLOW": {
+      "masks_changed": 935,
+      "actions_changed": 244,
+      "outputs": 12899
+    },
+    "V23_NO_APPEARANCE_CODES": {
+      "masks_changed": 1121,
+      "actions_changed": 1110,
+      "outputs": 12899
+    },
+    "V23_SHARED_VISIBILITY": {
+      "masks_changed": 1124,
+      "actions_changed": 89,
+      "outputs": 12899
+    },
+    "V23_FULL_CANDIDATE": {
+      "masks_changed": 11778,
+      "actions_changed": 11821,
+      "outputs": 12899
+    }
+  },
+  "source_groups": {
+    "1050s1132a1110s3003-5": 307,
+    "1060a1000s1110s4001-2": 31,
+    "1020s1220s2003-2": 48,
+    "1050s1132a1110s3004-2": 46
+  },
+  "Box_AP": 66.88450326938813,
+  "environment": {
+    "numpy": "2.4.3",
+    "torch": "2.5.1+cu124",
+    "ultralytics": "8.4.100",
+    "pycocotools": "2.0.11"
+  },
+  "python": "/srv/gpu-lab/users/a25023104/projects/spm-semantic-dense-v20-20261025/.venv/bin/python",
+  "optimizer_updates": 0,
+  "new_model_forwards": 0,
+  "GPU_count": 0,
+  "test_used": false
+}

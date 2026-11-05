@@ -1,0 +1,64 @@
+{
+  "scope": "review of existing frozen500/40 output; no raw output, Gate or model changed",
+  "issues": [
+    {
+      "source_id": "real/1635",
+      "image_sha256": "d479674229c41d9590f663b7ea72ff678d38fe0339e204f6882e0f61cac57688",
+      "source_group": "1010s1121s3001-2",
+      "model_attributes": {
+        "value": "individual_crate",
+        "state": "inferred",
+        "evidence": "The presence of a central divider separating the space into two distinct areas suggests individual housing."
+      },
+      "reviewer_type": "assistant_visual_inspection",
+      "finding": "visually large open group-pen geometry labelled individual_crate; central divider / low occupancy is not sufficient evidence for a narrow individual crate",
+      "status": "ontology_or_occupancy_confound_requires_structural_review",
+      "independent_human_ground_truth": false
+    },
+    {
+      "source_id": "real/922",
+      "image_sha256": "beafee1141612daa6561adc74f10d25fe29deb4fec5bb962bcc447b26e953fae",
+      "source_group": "1010s1121s3002-2",
+      "model_attributes": {
+        "value": "individual_crate",
+        "state": "inferred",
+        "evidence": "The presence of a central divider separating the two pigs suggests individual housing."
+      },
+      "reviewer_type": "assistant_visual_inspection",
+      "finding": "visually large open group-pen geometry labelled individual_crate; central divider / low occupancy is not sufficient evidence for a narrow individual crate",
+      "status": "ontology_or_occupancy_confound_requires_structural_review",
+      "independent_human_ground_truth": false
+    },
+    {
+      "source_id": "real/1634",
+      "image_sha256": "b093c2034d53d24c571e87be01cd6db1d678860b32358c0d01a85f28eb7949af",
+      "source_group": "1010s1121s3001-2",
+      "model_attributes": {
+        "value": "individual_crate",
+        "state": "inferred",
+        "evidence": "The presence of a central divider separating the two pigs suggests individual housing."
+      },
+      "reviewer_type": "assistant_visual_inspection",
+      "finding": "visually large open group-pen geometry labelled individual_crate; central divider / low occupancy is not sufficient evidence for a narrow individual crate",
+      "status": "ontology_or_occupancy_confound_requires_structural_review",
+      "independent_human_ground_truth": false
+    },
+    {
+      "source_id": "real/1244",
+      "image_sha256": "d39e819ed09d0bf7d9dd605b256806026ed6e5f4e959cf26fd6193e85d105dc4",
+      "source_group": "1010s1121s3002-2",
+      "model_attributes": {
+        "value": "individual_crate",
+        "state": "inferred",
+        "evidence": "The structure resembles a farrowing crate, but the presence of two pigs suggests it is being used as an individual pen for growing pigs."
+      },
+      "reviewer_type": "assistant_visual_inspection",
+      "finding": "visually large open group-pen geometry labelled individual_crate; central divider / low occupancy is not sufficient evidence for a narrow individual crate",
+      "status": "ontology_or_occupancy_confound_requires_structural_review",
+      "independent_human_ground_truth": false
+    }
+  ],
+  "not_claimed": "causal proof, Macro-F1 or verified physical pen identity",
+  "decision": "stop further full-image GPU expansion or threshold sweeps; first verify structural definitions and fixed-facility reference evidence",
+  "whole_goal_complete": false
+}

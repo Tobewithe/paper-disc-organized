@@ -1,0 +1,1340 @@
+{
+  "audit_result": {
+    "run_id": "RUN_PIG_TRAINING_INTEGRATION_AUDIT_20261104_0eb6d8a9904b",
+    "remote_path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/runs/RUN_PIG_TRAINING_INTEGRATION_AUDIT_20261104_0eb6d8a9904b",
+    "execution_status": "completed",
+    "run_sha256": "f8321dbe3532421b6abad8864dd3661bd74ffe79a4d2955f37410e3f874637bb",
+    "summary_sha256": "2e86c0a06164ca4450a81cc7115b755a08e2a75aa0b7e58cf36af8d7532cd103"
+  },
+  "remote_root": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104",
+  "summary_source": {
+    "path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/runs/RUN_PIG_TRAINING_INTEGRATION_AUDIT_20261104_0eb6d8a9904b/SUMMARY.json",
+    "sha256": "2e86c0a06164ca4450a81cc7115b755a08e2a75aa0b7e58cf36af8d7532cd103"
+  },
+  "corrected_source": {
+    "path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/ROLE_CORRECTED_SUMMARY.json",
+    "sha256": "d72f9ceb5341e4bfbdb902ffdfe206bdb9292165d6c86976c50ea818e92807fa"
+  },
+  "model_metadata": {
+    "keys": [
+      "format",
+      "mode",
+      "optimizer_steps",
+      "config",
+      "native_mask_protected",
+      "yaml",
+      "state_dict",
+      "asset",
+      "native_scores_preserved",
+      "v13_config"
+    ],
+    "format": "spm_v13_native_scores_trained_geometry",
+    "method": null,
+    "mode": "native",
+    "step": null,
+    "initial_checkpoint_sha256": null,
+    "yaml": {
+      "nc": 1,
+      "scale": "m",
+      "reg_max": 1,
+      "head_last": [
+        [
+          16,
+          19,
+          22
+        ],
+        1,
+        "Segment26",
+        [
+          "nc",
+          32,
+          256
+        ]
+      ],
+      "backbone_layers": 11,
+      "head_layers": 13
+    }
+  },
+  "models": {
+    "NIGHT_R": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": null,
+      "logs": {
+        "updates": 16500,
+        "clip_fraction": 0.006666666666666667,
+        "task": null,
+        "native_loss": {
+          "first100_mean": 0.7642886692285538,
+          "last100_mean": 0.12570167668163776,
+          "min": 0.050743646919727325,
+          "max": 1.2700742483139038,
+          "median": 0.23049120604991913
+        },
+        "keep_loss": {
+          "first100_mean": 0.006155103372543635,
+          "last100_mean": 0.09067242324352265,
+          "min": 0.0,
+          "max": 0.16825221478939056,
+          "median": 0.0689425840973854
+        },
+        "lr": {
+          "first100_mean": 5.500000000000001e-06,
+          "last100_mean": 1.0002711294312556e-06,
+          "min": 1.0000000000000002e-06,
+          "max": 1.0000000000000003e-05,
+          "median": 5.5000000000000016e-06
+        },
+        "crop_side_quantiles": [
+          640.0,
+          640.0,
+          640.0,
+          640.0,
+          640.0
+        ],
+        "derived_instance_exposures": 759736,
+        "gradient_probes": []
+      }
+    },
+    "NIGHT_L": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": null,
+      "logs": {
+        "updates": 16500,
+        "clip_fraction": 0.5405454545454546,
+        "task": null,
+        "native_loss": {
+          "first100_mean": 4.660630737543106,
+          "last100_mean": 1.0313059598207475,
+          "min": 0.34157323837280273,
+          "max": 23.881811141967773,
+          "median": 1.2946999073028564
+        },
+        "keep_loss": {
+          "first100_mean": 0.017464754526517936,
+          "last100_mean": 0.06647578936070203,
+          "min": 0.0,
+          "max": 0.13550965487957,
+          "median": 0.05720054917037487
+        },
+        "lr": {
+          "first100_mean": 5.500000000000001e-06,
+          "last100_mean": 1.0002711294312556e-06,
+          "min": 1.0000000000000002e-06,
+          "max": 1.0000000000000003e-05,
+          "median": 5.5000000000000016e-06
+        },
+        "crop_side_quantiles": [
+          128.0,
+          128.0,
+          148.0,
+          240.0,
+          424.0
+        ],
+        "derived_instance_exposures": 525782,
+        "gradient_probes": []
+      }
+    },
+    "NIGHT_D": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": null,
+      "logs": {
+        "updates": 16500,
+        "clip_fraction": 0.3398787878787879,
+        "task": null,
+        "native_loss": {
+          "first100_mean": 3.637462079524994,
+          "last100_mean": 0.9645939937233925,
+          "min": 0.3479682505130768,
+          "max": 18.099138259887695,
+          "median": 1.1839320063591003
+        },
+        "keep_loss": {
+          "first100_mean": 0.019756454027356086,
+          "last100_mean": 0.06786985371261835,
+          "min": 0.0,
+          "max": 0.14036989212036133,
+          "median": 0.056864578276872635
+        },
+        "lr": {
+          "first100_mean": 5.500000000000001e-06,
+          "last100_mean": 1.0002711294312556e-06,
+          "min": 1.0000000000000002e-06,
+          "max": 1.0000000000000003e-05,
+          "median": 5.5000000000000016e-06
+        },
+        "crop_side_quantiles": [
+          128.0,
+          128.0,
+          148.0,
+          240.0,
+          424.0
+        ],
+        "derived_instance_exposures": 525782,
+        "gradient_probes": []
+      }
+    },
+    "NIGHT_P": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": null,
+      "logs": {
+        "updates": 16500,
+        "clip_fraction": 0.4578181818181818,
+        "task": null,
+        "native_loss": {
+          "first100_mean": 3.6419892144203185,
+          "last100_mean": 1.0186073115468026,
+          "min": 0.37042954564094543,
+          "max": 18.099138259887695,
+          "median": 1.2177683115005493
+        },
+        "keep_loss": {
+          "first100_mean": 0.010383265316031611,
+          "last100_mean": 0.006339999770279974,
+          "min": 0.0,
+          "max": 0.05848962068557739,
+          "median": 0.005707405274733901
+        },
+        "lr": {
+          "first100_mean": 5.500000000000001e-06,
+          "last100_mean": 1.0002711294312556e-06,
+          "min": 1.0000000000000002e-06,
+          "max": 1.0000000000000003e-05,
+          "median": 5.5000000000000016e-06
+        },
+        "crop_side_quantiles": [
+          128.0,
+          128.0,
+          148.0,
+          240.0,
+          424.0
+        ],
+        "derived_instance_exposures": 525782,
+        "gradient_probes": []
+      }
+    },
+    "CONCEPT_C": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": {
+        "initial_reconstructed_and_SHA_matched": true,
+        "parameter_count": 2570,
+        "tensors": 4,
+        "changed_tensors": 4,
+        "initial_sha256": "3d87e099e1b9d6b375ed99ebb8f85e38152437a20f566016926eda190f08e3c8",
+        "final_sha256": "9ec8f47d5f6dbb17acd067f04a78f996220e5d1f9cb7ff13e427cc51153afe6a"
+      },
+      "logs": {
+        "updates": 2000,
+        "clip_fraction": 0.005,
+        "task": {
+          "first100_mean": 0.7597724580764771,
+          "last100_mean": 0.5365080186724662,
+          "min": 0.2580225467681885,
+          "max": 1.1900207996368408,
+          "median": 0.6127059459686279
+        },
+        "native_loss": null,
+        "keep_loss": null,
+        "lr": null,
+        "crop_side_quantiles": null,
+        "derived_instance_exposures": null,
+        "gradient_probes": [
+          {
+            "update": 1,
+            "gradient": {
+              "task_norm": 0.5910971760749817,
+              "aux_norm": 0.043491605669260025,
+              "cosine": -0.10029179602861404
+            }
+          },
+          {
+            "update": 101,
+            "gradient": {
+              "task_norm": 0.426134318113327,
+              "aux_norm": 0.0443124957382679,
+              "cosine": 0.04375186190009117
+            }
+          },
+          {
+            "update": 501,
+            "gradient": {
+              "task_norm": 0.5627402067184448,
+              "aux_norm": 0.04098762571811676,
+              "cosine": -0.001648429431952536
+            }
+          },
+          {
+            "update": 1001,
+            "gradient": {
+              "task_norm": 0.21298491954803467,
+              "aux_norm": 0.021569721400737762,
+              "cosine": 0.02027153968811035
+            }
+          },
+          {
+            "update": 1500,
+            "gradient": {
+              "task_norm": 0.16203568875789642,
+              "aux_norm": 0.014016581699252129,
+              "cosine": 0.0005383657990023494
+            }
+          }
+        ]
+      }
+    },
+    "CONCEPT_Q": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": {
+        "initial_reconstructed_and_SHA_matched": true,
+        "parameter_count": 2570,
+        "tensors": 4,
+        "changed_tensors": 4,
+        "initial_sha256": "3d87e099e1b9d6b375ed99ebb8f85e38152437a20f566016926eda190f08e3c8",
+        "final_sha256": "5d2a3b749ab6d28c70c00db0d89343eb2875f6b17cd259d7fa1c26b563efdce9"
+      },
+      "logs": {
+        "updates": 2000,
+        "clip_fraction": 0.0085,
+        "task": {
+          "first100_mean": 0.760643275976181,
+          "last100_mean": 0.5378212296962738,
+          "min": 0.2634103000164032,
+          "max": 1.1899302005767822,
+          "median": 0.6122757792472839
+        },
+        "native_loss": null,
+        "keep_loss": null,
+        "lr": null,
+        "crop_side_quantiles": null,
+        "derived_instance_exposures": null,
+        "gradient_probes": [
+          {
+            "update": 1,
+            "gradient": {
+              "task_norm": 0.5910971760749817,
+              "aux_norm": 0.043641477823257446,
+              "cosine": -0.09328971803188324
+            }
+          },
+          {
+            "update": 101,
+            "gradient": {
+              "task_norm": 0.4292527437210083,
+              "aux_norm": 0.04420144483447075,
+              "cosine": 0.0482073612511158
+            }
+          },
+          {
+            "update": 501,
+            "gradient": {
+              "task_norm": 0.5655890703201294,
+              "aux_norm": 0.0522371269762516,
+              "cosine": 0.005707477685064077
+            }
+          },
+          {
+            "update": 1001,
+            "gradient": {
+              "task_norm": 0.2082570493221283,
+              "aux_norm": 0.023683985695242882,
+              "cosine": 0.018417371436953545
+            }
+          },
+          {
+            "update": 1500,
+            "gradient": {
+              "task_norm": 0.16428428888320923,
+              "aux_norm": 0.011649815365672112,
+              "cosine": 0.004243267700076103
+            }
+          }
+        ]
+      }
+    },
+    "RLPL_D2": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 40,
+          "trainable_parameters": 5184,
+          "changed_tensors": 100,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": {
+        "initial_reconstructed_and_SHA_matched": true,
+        "parameter_count": 8320,
+        "tensors": 5,
+        "changed_tensors": 5,
+        "initial_sha256": "621d0d84b818c3d5605dbb9760117e156865e3e4abe4af5b4ad3a2d48a566f56",
+        "final_sha256": "0c5c7a1cff49fcb3c1454a50ac92d8b7d9f8dfd9f45891628efb5fad7647cfe9"
+      },
+      "logs": {
+        "updates": 2000,
+        "clip_fraction": 0.0,
+        "task": {
+          "first100_mean": 0.7887047663331032,
+          "last100_mean": 0.6088279327750206,
+          "min": 0.32254359126091003,
+          "max": 1.6383450031280518,
+          "median": 0.7153741121292114
+        },
+        "native_loss": null,
+        "keep_loss": null,
+        "lr": {
+          "first100_mean": 5.500000000000001e-05,
+          "last100_mean": 1.020192077323198e-05,
+          "min": 1e-05,
+          "max": 0.00010000000000000002,
+          "median": 5.500000000000001e-05
+        },
+        "crop_side_quantiles": null,
+        "derived_instance_exposures": null,
+        "gradient_probes": []
+      }
+    },
+    "ASSIGNMENT_CP": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": {
+        "initial_reconstructed_and_SHA_matched": true,
+        "parameter_count": 6308,
+        "tensors": 4,
+        "changed_tensors": 4,
+        "initial_sha256": "908eb8fa3f3fa5ff69e148c5ff027cb07f0ef8ec558527209a739ecb63e2ff49",
+        "final_sha256": "a0a2c5d720f79d4731bee303c28bc55b3c3a14f4db17c9aacbceb90d2e779a11"
+      },
+      "logs": {
+        "updates": 2000,
+        "clip_fraction": 0.005,
+        "task": {
+          "first100_mean": 0.7593408209085465,
+          "last100_mean": 0.534395058453083,
+          "min": 0.2545055150985718,
+          "max": 1.1902029514312744,
+          "median": 0.6094385087490082
+        },
+        "native_loss": null,
+        "keep_loss": null,
+        "lr": null,
+        "crop_side_quantiles": null,
+        "derived_instance_exposures": null,
+        "gradient_probes": [
+          {
+            "update": 1,
+            "gradient": {
+              "task_norm": 0.5910971760749817,
+              "aux_norm": 0.026415599510073662,
+              "cosine": -0.10515009611845016
+            }
+          },
+          {
+            "update": 101,
+            "gradient": {
+              "task_norm": 0.42776867747306824,
+              "aux_norm": 0.010922005400061607,
+              "cosine": -0.04372028633952141
+            }
+          },
+          {
+            "update": 501,
+            "gradient": {
+              "task_norm": 0.569970965385437,
+              "aux_norm": 0.008833925239741802,
+              "cosine": 0.028493130579590797
+            }
+          },
+          {
+            "update": 1001,
+            "gradient": {
+              "task_norm": 0.2149357795715332,
+              "aux_norm": 0.003104931442067027,
+              "cosine": -0.026072343811392784
+            }
+          },
+          {
+            "update": 1500,
+            "gradient": {
+              "task_norm": 0.16124771535396576,
+              "aux_norm": 0.001961982576176524,
+              "cosine": 0.0004008225223515183
+            }
+          }
+        ]
+      }
+    },
+    "ASSIGNMENT_QP": {
+      "parameter_groups": {
+        "backbone": {
+          "parameter_tensors": 50,
+          "changed_parameter_tensors": 50,
+          "trainable_parameters": 10330048,
+          "changed_tensors": 50,
+          "total_tensors": 50,
+          "frozen_parameter_changes": 0
+        },
+        "BN": {
+          "parameter_tensors": 288,
+          "changed_parameter_tensors": 0,
+          "trainable_parameters": 0,
+          "changed_tensors": 0,
+          "total_tensors": 720,
+          "frozen_parameter_changes": 0
+        },
+        "neck": {
+          "parameter_tensors": 38,
+          "changed_parameter_tensors": 38,
+          "trainable_parameters": 8603904,
+          "changed_tensors": 38,
+          "total_tensors": 38,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv2": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 848652,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv3": {
+          "parameter_tensors": 18,
+          "changed_parameter_tensors": 18,
+          "trainable_parameters": 543491,
+          "changed_tensors": 18,
+          "total_tensors": 18,
+          "frozen_parameter_changes": 0
+        },
+        "prototype": {
+          "parameter_tensors": 8,
+          "changed_parameter_tensors": 8,
+          "trainable_parameters": 2302208,
+          "changed_tensors": 8,
+          "total_tensors": 8,
+          "frozen_parameter_changes": 0
+        },
+        "semantic_auxiliary": {
+          "parameter_tensors": 4,
+          "changed_parameter_tensors": 4,
+          "trainable_parameters": 1179905,
+          "changed_tensors": 4,
+          "total_tensors": 4,
+          "frozen_parameter_changes": 0
+        },
+        "head_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        },
+        "head_one2one_cv4": {
+          "parameter_tensors": 12,
+          "changed_parameter_tensors": 12,
+          "trainable_parameters": 854112,
+          "changed_tensors": 12,
+          "total_tensors": 12,
+          "frozen_parameter_changes": 0
+        }
+      },
+      "auxiliary": {
+        "initial_reconstructed_and_SHA_matched": true,
+        "parameter_count": 6308,
+        "tensors": 4,
+        "changed_tensors": 4,
+        "initial_sha256": "908eb8fa3f3fa5ff69e148c5ff027cb07f0ef8ec558527209a739ecb63e2ff49",
+        "final_sha256": "6f0333f20570defb80d061b1fd08a8ebf565c3e3f27345071c0cb6f660ec7bcd"
+      },
+      "logs": {
+        "updates": 2000,
+        "clip_fraction": 0.0085,
+        "task": {
+          "first100_mean": 0.7602390158176422,
+          "last100_mean": 0.5365590131282807,
+          "min": 0.2593180537223816,
+          "max": 1.189642310142517,
+          "median": 0.6101243793964386
+        },
+        "native_loss": null,
+        "keep_loss": null,
+        "lr": null,
+        "crop_side_quantiles": null,
+        "derived_instance_exposures": null,
+        "gradient_probes": [
+          {
+            "update": 1,
+            "gradient": {
+              "task_norm": 0.5910971760749817,
+              "aux_norm": 0.026796644553542137,
+              "cosine": -0.10790499299764633
+            }
+          },
+          {
+            "update": 101,
+            "gradient": {
+              "task_norm": 0.4231964945793152,
+              "aux_norm": 0.010376198217272758,
+              "cosine": -0.03761596232652664
+            }
+          },
+          {
+            "update": 501,
+            "gradient": {
+              "task_norm": 0.5775060653686523,
+              "aux_norm": 0.006835115607827902,
+              "cosine": 0.028635211288928986
+            }
+          },
+          {
+            "update": 1001,
+            "gradient": {
+              "task_norm": 0.217619389295578,
+              "aux_norm": 0.0031713019125163555,
+              "cosine": -0.025034938007593155
+            }
+          },
+          {
+            "update": 1500,
+            "gradient": {
+              "task_norm": 0.16015397012233734,
+              "aux_norm": 0.0020638126879930496,
+              "cosine": 0.009563595987856388
+            }
+          }
+        ]
+      }
+    }
+  },
+  "source_manifest": {
+    "path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/SOURCE_MANIFEST.json",
+    "sha256": "53fee523a9cecc40480c82f0376631d5387c7a205d38914f8330b1b03021dcfc"
+  },
+  "source_files": 30,
+  "job_id": 1172,
+  "execution_status": "completed",
+  "allocated_cpu_core_seconds": 32,
+  "GPU_seconds": 0,
+  "model_forwards": 0,
+  "optimizer_steps": 0,
+  "new_training": false,
+  "dev_test_payload_read": false
+}

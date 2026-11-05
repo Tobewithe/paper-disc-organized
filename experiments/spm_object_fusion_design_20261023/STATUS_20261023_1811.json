@@ -1,0 +1,171 @@
+{
+  "observed_local_minute": "2026-10-23 18:11 Asia/Taipei",
+  "local_transfer_verified_utc": "2026-10-23T10:20:19.996203+00:00",
+  "execution_status": "both_arms_completed_pending_final_acceptance",
+  "run_ids": {
+    "fused": "RUN_SPM_V6_TRAIN_FUSED_e0f646282331",
+    "native": "RUN_SPM_V6_TRAIN_NATIVE_319cc8688e0c"
+  },
+  "steps": {
+    "fused": 8000,
+    "native": 8000
+  },
+  "slurm": {
+    "243_0": {
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed": "01:15:31"
+    },
+    "243_1": {
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "elapsed": "00:21:21"
+    }
+  },
+  "registered_account_queue_empty_observed": true,
+  "matched_evaluations": [
+    {
+      "step": 2000,
+      "native_mask_ap": 56.354810632045115,
+      "fused_mask_ap": 56.26369978511826,
+      "delta_pp": -0.09111084692685267
+    },
+    {
+      "step": 4000,
+      "native_mask_ap": 56.152719746876734,
+      "fused_mask_ap": 56.14108251209484,
+      "delta_pp": -0.011637234781893824
+    },
+    {
+      "step": 6000,
+      "native_mask_ap": 55.81021168964463,
+      "fused_mask_ap": 55.71578275190957,
+      "delta_pp": -0.09442893773506
+    },
+    {
+      "step": 8000,
+      "native_mask_ap": 55.706992202687665,
+      "fused_mask_ap": 55.433889880194144,
+      "delta_pp": -0.2731023224935214
+    }
+  ],
+  "selected": {
+    "fused": {
+      "tag": "step_02000",
+      "images": 432,
+      "predictions": 12906,
+      "mask_ap": 56.26369978511826,
+      "mask_ap75": 67.93667044919262,
+      "mask_small_ap": 19.759537249445508,
+      "box_ap": 66.49623864595739,
+      "segm_stats": [
+        56.26369978511826,
+        84.66708255373358,
+        67.93667044919262,
+        19.759537249445508,
+        67.0435483619751,
+        84.69601556343281,
+        12.252881592734894,
+        58.00908138316451,
+        62.7523576667831,
+        27.264957264957268,
+        73.39810662680618,
+        85.77922077922076
+      ],
+      "bbox_stats": [
+        66.49623864595739,
+        88.95196439179126,
+        76.36685383921477,
+        36.3593796694208,
+        77.82330414853695,
+        80.51573790676501,
+        13.70939573873559,
+        66.96472231924554,
+        75.19734544184422,
+        46.36752136752137,
+        84.39461883408072,
+        86.75324675324676
+      ],
+      "detection_identity_sha256": "77f8f714d98ba2a424869f8b8920b09c2c3d7eff3586c2f8365fd4a8c3ef471c",
+      "drop_empty_masks": false,
+      "median_inference_decode_ms": 33.64448899810668,
+      "p90_inference_decode_ms": 40.13604339561425,
+      "elapsed_seconds": 31.557652339994092,
+      "precision": "fp32",
+      "scope": "reused_development_set_not_independent_confirmation",
+      "step": 2000
+    },
+    "native": {
+      "tag": "step_02000",
+      "images": 432,
+      "predictions": 12906,
+      "mask_ap": 56.354810632045115,
+      "mask_ap75": 68.13717198031283,
+      "mask_small_ap": 19.702291164088592,
+      "box_ap": 66.49623864595739,
+      "segm_stats": [
+        56.354810632045115,
+        84.53320471813267,
+        68.13717198031283,
+        19.702291164088592,
+        67.17291285834511,
+        84.69624890801455,
+        12.25986727209221,
+        58.11037373384561,
+        62.90604261264407,
+        27.279202279202273,
+        73.61235675137021,
+        85.77922077922076
+      ],
+      "bbox_stats": [
+        66.49623864595739,
+        88.95196439179126,
+        76.36685383921477,
+        36.3593796694208,
+        77.82330414853695,
+        80.51573790676501,
+        13.70939573873559,
+        66.96472231924554,
+        75.19734544184422,
+        46.36752136752137,
+        84.39461883408072,
+        86.75324675324676
+      ],
+      "detection_identity_sha256": "77f8f714d98ba2a424869f8b8920b09c2c3d7eff3586c2f8365fd4a8c3ef471c",
+      "drop_empty_masks": false,
+      "median_inference_decode_ms": 23.852975995396264,
+      "p90_inference_decode_ms": 27.23169340461027,
+      "elapsed_seconds": 26.721287053005653,
+      "precision": "fp32",
+      "scope": "reused_development_set_not_independent_confirmation",
+      "step": 2000
+    }
+  },
+  "selected_fused_minus_native_pp": -0.09111084692685267,
+  "initial_native_mask_ap": 57.315272826035994,
+  "selected_fused_minus_initial_pp": -1.0515730409177309,
+  "final_checkpoint_selection_available": true,
+  "final_artifact_and_scientific_acceptance_complete": false,
+  "pending": [
+    "model_and_prediction_return",
+    "official_selected_native_success_damage_guardrail",
+    "independent_evaluation_recalculation",
+    "technical_visualizations"
+  ],
+  "descriptive_judgment": "no_observed_positive_development_gain_in_this_frozen_budget",
+  "no_new_training_or_parameter_changes": true,
+  "copied_artifact_sha256": {
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_FUSED_e0f646282331/run.json": "11e5d30a9e35456ff647c1330772352ccb34e7fe7071c15ba98acbdee98220f8",
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_FUSED_e0f646282331/SUMMARY.json": "f8068a2f3a88d372abf85a30df9865385d21af016c70587783526a3e59bb6789",
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_FUSED_e0f646282331/EVALUATIONS.json": "7cf9e8aaa1b2238975237399f7f8bdfce916524b241a2833114a8b65dc45e58a",
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_FUSED_e0f646282331/LIVE_SUMMARY.json": "bfc58db5e268e9f24225db5fec3772e53944d76c838f051641319b1b135243c6",
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_NATIVE_319cc8688e0c/run.json": "d3c27bc4898bdcd42ecb8c67c17fc866efda0a8b6250ce468c250b7f9a813a45",
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_NATIVE_319cc8688e0c/SUMMARY.json": "5534a888bf61afd2d15502f5d5c36c2910d5fc7924e4d20653591c9417b82d16",
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_NATIVE_319cc8688e0c/EVALUATIONS.json": "4aee276437e3060c4ce7ae381a012b734406060644368f34eed0d951cd8343bf",
+    "experiments/spm_object_fusion_design_20261023/runs/RUN_SPM_V6_TRAIN_NATIVE_319cc8688e0c/LIVE_SUMMARY.json": "9054200ea230f3a36253faef17b76fd3c33815b2c68b820d5fe1cbf9e989bb18"
+  },
+  "remote_local_sha256_all_match": true,
+  "R1_source_freeze_sha256": "daf5eb2e341543836de7991a6f7290a756a4b3624528bb90ecbf79dc5c46530f",
+  "research_memo": "../../paper/manuscripts/spm_yoloseg/OBJECT_FUSION_THEORY_AND_LITERATURE_V7_20261023.md",
+  "memo_is_future_recommendation_not_execution_protocol": true
+}

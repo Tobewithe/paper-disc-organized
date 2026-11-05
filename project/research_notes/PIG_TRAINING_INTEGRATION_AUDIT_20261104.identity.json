@@ -1,0 +1,77 @@
+{
+  "original_COCO_pretrained": {
+    "path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/assets/models/coco_clean_20260911/yolo26m-seg.pt",
+    "sha256": "16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5",
+    "scope": "project_recorded_COCO_yolo26m_seg_asset_not_revalidated_published_COCO_AP"
+  },
+  "early_task_baseline": {
+    "run_id": "RUN_SPM_SCALE_BASELINE_162af9978b28",
+    "updates": 12720,
+    "epochs": 120,
+    "trainable_parameters": 26969951,
+    "selected_step": 1060,
+    "selected_historical_Mask_AP": 54.67980979145691,
+    "last_historical_Mask_AP": 47.80626904044667,
+    "best_checkpoint_sha256": "6f0393c8c9199916ed3483b250f4af5f6b4758b9ff9649394672d0616b77fc94",
+    "scope": "unmodified_YOLO_architecture_pretrained_end_to_end_using_custom_loop_historical_eval"
+  },
+  "continued": {
+    "run_id": "RUN_SPM_SCALE_CONTINUED_8239d712ee7f",
+    "total_updates": 8000,
+    "selected_step": 2000,
+    "best_checkpoint_sha256": "cdea4fb8e837dbbda092bbd5743abe28a8b01731817d9dc326133debd61fe40a",
+    "scope": "frozen_body_head_continuation_custom_loop_best_selected"
+  },
+  "current_N": {
+    "path": "/srv/gpu-lab/users/a25023104/projects/spm-geometry-v13-20261023/runs/RUN_SPM_V13_EVALUATE_3e710949e5b0/native_candidate.pt",
+    "sha256": "0e40602f1dbf0697fd49fa8e9f887c068970e3c5c39bd618f66e483c8712c8d6",
+    "scope": "standard_YOLO26m_seg_nc1_architecture_with_selected_geometry_weights_and_restored_classification_weights_not_official_untouched_checkpoint"
+  },
+  "ordinary_R": {
+    "scope": "same_current_N_initialization_no_method_custom_continuation_loop_not_official_Trainer_baseline"
+  },
+  "architecture": {
+    "name": "YOLO26m-seg",
+    "ultralytics": "8.4.100",
+    "nc": 1,
+    "nm": 32,
+    "npr": 256,
+    "end2end": true,
+    "reg_max": 1
+  },
+  "sources": [
+    {
+      "id": "early_baseline_run",
+      "remote_path": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/runs/RUN_SPM_SCALE_BASELINE_162af9978b28/run.json",
+      "sha256": "64324399adcf6461c4b07338e812d56f944a47d71295d1a3008e829105d4b33b",
+      "server_copy": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/SOURCE_READ/early_baseline_run.json"
+    },
+    {
+      "id": "early_baseline_summary",
+      "remote_path": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/runs/RUN_SPM_SCALE_BASELINE_162af9978b28/SUMMARY.json",
+      "sha256": "65d6ba4f053ea80ec5565e9511beec5abd6f79163a943cff3f621c61fce05912",
+      "server_copy": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/SOURCE_READ/early_baseline_summary.json"
+    },
+    {
+      "id": "early_baseline_loader",
+      "remote_path": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/base_model.py",
+      "sha256": "7abf6e94dd15d974701926f6de8fabf64c23ea4958ef8ac3142e91fc970a4920",
+      "server_copy": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/SOURCE_READ/early_baseline_loader.py"
+    },
+    {
+      "id": "early_baseline_training",
+      "remote_path": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/train_baseline.py",
+      "sha256": "da4d0a23df9e9209658397b6060dccb8751b3677085bf6f41c31a81a3efd4d9b",
+      "server_copy": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/SOURCE_READ/early_baseline_training.py"
+    },
+    {
+      "id": "continued_training",
+      "remote_path": "/srv/gpu-lab/users/a25023104/projects/spm-v4-scale-20261023/scripts/train_method.py",
+      "sha256": "d99a52db6a1b2f473f4620981306ef342fb1376f16a9926037b6990af646add4",
+      "server_copy": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/SOURCE_READ/continued_training.py"
+    }
+  ],
+  "no_new_training": true,
+  "server_identity_sha256": "477ab87fd0ca654a40d5157c21e2fa40c2bbbbd1d571b56e4b8b5a4af079ab48",
+  "server_identity_path": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/audits/pig_training_integration_20261104/BASELINE_IDENTITY.json"
+}

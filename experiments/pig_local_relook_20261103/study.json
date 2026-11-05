@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "study_id": "STUDY_PIG_LOCAL_RELOOK_V1_20261103",
+  "title": "本帧局部重看能否修复框较准的高IoU Mask失败",
+  "line_id": "LINE_PIG_ADAPTIVE_DETAIL_20261103",
+  "idea_id": "IDEA_PIG_LOCAL_RELOOK_V1",
+  "status": "completed_current_pool_support_insufficient",
+  "execution_status": "completed",
+  "scientific_status": "insufficient_current_pool_method_not_tested",
+  "artifact_status": "complete_on_server",
+  "transfer_status": "summary_only",
+  "protocol": "PROTOCOL_V1.md",
+  "entrypoints": ["REPORT_V1.md", "PROTOCOL_V1.md", "RESULT_SUMMARY.json", "REMOTE_STORAGE.json"],
+  "scope": "exploratory_gt_selected_train_fixed_output_mask_diagnostic_not_coco_ap",
+  "budget": {"gpu_hours_cap": 0.5, "cpu_core_hours_cap": 4, "gpus_per_job": 1, "total_new_model_forward_cap": 200, "automatic_retry": false},
+  "data_permission": {"real": "existing appearance pilot 128 TRAIN rows and original predictions only", "synthetic": false, "other_train": false, "dev": false, "test426": false},
+  "model_optimization_steps": 0,
+  "runs": ["RUN_PIG_LOCAL_RELOOK_SELECTION_20261103_a44d3fd00405", "RUN_PIG_LOCAL_RELOOK_VERIFY_SELECTION_20261103_875ba7406284"],
+  "resources_consumed": {"allocated_gpu_seconds": 0, "allocated_cpu_core_seconds": 6, "new_model_forwards": 0, "optimizer_steps": 0},
+  "result": {"images": 128, "GT": 1460, "normal_outputs": 2261, "same_detection_box75_associations": 1456, "eligible_failures": 15, "eligible_successes": 1441, "required_each": 32, "independent_numerical_error": 0, "next_action": "stop_this_pool_method_not_tested"},
+  "remote_root": "/srv/gpu-lab/users/a25023104/projects/paper-disc-organized/experiments/pig_local_relook_20261103",
+  "authorization": {"date": "2026-11-03", "source": "按这个推荐推进最小验证，全程在服务器执行，本地只保留总结和来源指针。", "scope": "32 failures plus 32 successful controls if eligible; fixed full/fine/coarse comparison; original 8/4/0 continuation thresholds"}
+}

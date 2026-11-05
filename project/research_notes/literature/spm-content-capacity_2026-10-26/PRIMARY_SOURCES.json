@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-10-26",
+  "paper": {
+    "title": "Mask Scoring R-CNN",
+    "venue": "CVPR2019",
+    "url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Huang_Mask_Scoring_R-CNN_CVPR_2019_paper.html",
+    "publisher_section_read": "section3.2 indexed original text; direct PDF returned403"
+  },
+  "official_code": {
+    "repository": "zjhuang22/maskscoring_rcnn",
+    "commit": "0e8fae677b8ab987e4cdd3e894f17c25410388d8",
+    "files": [
+      {
+        "name": "roi_maskiou_feature_extractors.py",
+        "github_blob_sha": "d70b3eb6d586ebbf1f1499760a363ec1094019f0",
+        "url": "https://github.com/zjhuang22/maskscoring_rcnn/blob/0e8fae677b8ab987e4cdd3e894f17c25410388d8/maskrcnn_benchmark/modeling/roi_heads/maskiou_head/roi_maskiou_feature_extractors.py",
+        "verified_read": true
+      },
+      {
+        "name": "loss.py",
+        "github_blob_sha": "26b8a963791ac1c94eed0660ad30e18dff8bd753",
+        "url": "https://github.com/zjhuang22/maskscoring_rcnn/blob/0e8fae677b8ab987e4cdd3e894f17c25410388d8/maskrcnn_benchmark/modeling/roi_heads/maskiou_head/loss.py",
+        "verified_read": true
+      },
+      {
+        "name": "inference.py",
+        "github_blob_sha": "f4f71afee94b8235aff00612060be83e3d51a04b",
+        "url": "https://github.com/zjhuang22/maskscoring_rcnn/blob/0e8fae677b8ab987e4cdd3e894f17c25410388d8/maskrcnn_benchmark/modeling/roi_heads/maskiou_head/inference.py",
+        "verified_read": true
+      }
+    ]
+  },
+  "verified_facts": [
+    "Quality feature extractor pools the corresponding predicted mask and concatenates it with instance features before spatial convolutions.",
+    "The quality target is detached mask IoU for positive labels with L2 regression.",
+    "The official inference implementation creates mask_scores by multiplying detection score and estimated mask IoU."
+  ],
+  "scope_for_this_project": "Only the actual-mask-conditioned quality-estimation principle is a possible next design; original score rescaling conflicts with this study's frozen scores and will not be copied.",
+  "adoption_status": "conditional_on_frozen_candidate_opportunity_result; no new training started"
+}

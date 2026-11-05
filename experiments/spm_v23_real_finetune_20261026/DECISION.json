@@ -1,0 +1,69 @@
+{
+  "study_id": "STUDY_SPM_V23_REAL_FINETUNE_20261026",
+  "five_point_and_guards_pass": false,
+  "replace_V23": false,
+  "normal_Mask_AP": 60.738777083376085,
+  "delta_vs_native": 3.3952768394343806,
+  "delta_vs_V23": -0.014501312432486202,
+  "guards": {
+    "all_bbox_statistics_exact": true,
+    "original_Box75_damage_zero": true,
+    "Mask_AP75_non_decreasing": true,
+    "all_scale_AP_at_least_native_minus1": true,
+    "native_Mask75_damage_at_most21": true
+  },
+  "decision": {
+    "deployment_choice": "V23",
+    "scientific_judgment": "本轮没有达到相对V23至少+.1点的替换条件，+5也未达，因此关闭该复合微调配置并保留原V23。−.014501点不称为已证显著损伤；AP75上升、AP50和密集AP下降说明并非所有质量区间同时改善，不能用较高AP75替代完整AP。",
+    "positive_research_focus": "继续保留实际正收益V23，分离已有候选适配与已有风险器适配的作用，找出可以保留的有益更新及二者的兼容性。",
+    "unique_next_step": "另冻旧/新候选×旧/新风险器的2×2零训练组件交换；复用两个既有对角结果，只新增两种交叉组合的完整正常评价，再裁决应优化或保留哪一段。",
+    "why_over_nearest_alternative": "同一轮实际改变了39个候选state张量和原风险器，而整体AP近乎持平、AP75与AP50方向相反，现有对角结果无法区分候选改好但决策抵消、决策改好但候选抵消或交互失配。两种交叉组合以实际旧/新权重为干预，不增加网络或训练，优先于无分解地再改学习率、扩训或重加质量头。旧V24有限池见证支持保留有益候选机会，但不保证正常决策可学或该微调有效。",
+    "change_condition": "交叉组合只有较原V23至少+.1点且所有原护栏通过才具备保留其组件的工程依据；若均未通过，则停止该复合重加权方向的继续扩训，保留V23，并以候选—正常决策的可辨识性缺口重新裁决后续设计。无身份/重放合法性则只修相应工程项，不宣称科学结论。",
+    "next_training_started": false
+  },
+  "evidence": {
+    "train": {
+      "run_id": "RUN_SPM_V23FT_TRAIN_93ab03673bc0",
+      "job_id": "578",
+      "summary_sha256": "1cd02bdc2aa247b6972b0b6b24b56cc4ee0207e664583a11f5e6e462ce3cad29"
+    },
+    "risk": {
+      "run_id": "RUN_SPM_V23FT_RISK_e163589c33a4",
+      "job_id": "582",
+      "summary_sha256": "ec337f11f1c5d7165cc0c1f5d2e46895166f5f09004bf08d62a1bcd28f07664e"
+    },
+    "infer": {
+      "run_id": "RUN_SPM_V23FT_INFER_5f81339f2851",
+      "job_id": "584",
+      "summary_sha256": "9489763dceb0c9b7dfe46ae5073b39019eab83bbdb670538ade75ad14916fd47"
+    },
+    "evaluate": {
+      "run_id": "RUN_SPM_V23FT_EVALUATE_44c7d857f2b0",
+      "job_id": "586",
+      "summary_sha256": "4b600bb7cbde011c3d261568d8b7d1752976806b1cac4ccbc38bd6feec096816"
+    },
+    "independent": {
+      "run_id": "RUN_SPM_V23FT_INDEPENDENT_226d2e0e68fb",
+      "job_id": "590",
+      "summary_sha256": "629727a0d8daeb707f3b95e41dc0566e77b98df1616c5281e7b8fd093907295e"
+    },
+    "technical": {
+      "run_id": "RUN_SPM_V23FT_TECHNICAL_0954e0b93a50",
+      "job_id": "592",
+      "summary_sha256": "bca227e42570352b0342a124ea3e8b9e44851be902578ea8e1528227318d683a"
+    },
+    "render": {
+      "run_id": "RUN_SPM_V23FT_RENDER_ad882bceb632",
+      "job_id": "594",
+      "summary_sha256": "e43636a28213dc03dc22589f43da4f9c9eef3f7b7f6adae02c38f4ff73b666cd"
+    },
+    "delivery": {
+      "run_id": "RUN_SPM_V23FT_DELIVERY_dcd4ba2c8e7d",
+      "job_id": "596",
+      "summary_sha256": "28e9ee18c5622f25332404241ae7d0834fcb6fc58c58af1b8e4865eeb89d5e90"
+    }
+  },
+  "iteration_complete": true,
+  "whole_goal_complete": false,
+  "test_used": false
+}

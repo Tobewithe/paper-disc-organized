@@ -11,7 +11,7 @@ assessment: unknown
 author: AI 整理，依据既有主线说明
 curation_status: source_based_draft
 evidence:
-  - path: project/knowledge_sources/neighbor_sensitive_p3_1197100d0a4dcbd5.txt
+  - path: project/research_notes/sources/neighbor_sensitive_p3_1197100d0a4dcbd5.txt
     locator: 原文 paper/manuscripts/neighbor_sensitive_p3/README.md
     revision: 1197100d0a4dcbd52e684b392d498b8deba3d9f7859dbacecc0369f23d2698b4
     relation: references

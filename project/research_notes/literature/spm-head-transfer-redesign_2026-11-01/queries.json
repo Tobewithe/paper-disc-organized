@@ -1,0 +1,182 @@
+[
+  {
+    "query": "ti:\"Rethinking Batch\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Rethinking%20Batch%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2105.07576v1",
+        "title": "Rethinking \"Batch\" in BatchNorm",
+        "summary": "BatchNorm is a critical building block in modern convolutional neural networks. Its unique property of operating on \"batches\" instead of individual samples introduces significantly different behaviors from most other operations in deep learning. As a result, it leads to many hidden caveats that can negatively impact model's performance in subtle ways. This paper thoroughly reviews such problems in visual recognition tasks, and shows that a key to address them is to rethink different choices in the concept of \"batch\" in BatchNorm. By presenting these caveats and their mitigations, we hope this review can help researchers use BatchNorm more effectively.",
+        "published": "2021-05-17T01:58:15Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2003.07845v2",
+        "title": "PowerNorm: Rethinking Batch Normalization in Transformers",
+        "summary": "The standard normalization method for neural network (NN) models used in Natural Language Processing (NLP) is layer normalization (LN). This is different than batch normalization (BN), which is widely-adopted in Computer Vision. The preferred use of LN in NLP is principally due to the empirical observation that a (naive/vanilla) use of BN leads to significant performance degradation for NLP tasks; however, a thorough understanding of the underlying reasons for this is not always evident. In this paper, we perform a systematic study of NLP transformer models to understand why BN has a poor performance, as compared to LN. We find that the statistics of NLP data across the batch dimension exhibit large fluctuations throughout training. This results in instability, if BN is naively implemented. To address this, we propose Power Normalization (PN), a novel normalization scheme that resolves this issue by (i) relaxing zero-mean normalization in BN, (ii) incorporating a running quadratic mean instead of per batch statistics to stabilize fluctuations, and (iii) using an approximate backpropagation for incorporating the running statistics in the forward pass. We show theoretically, under mild assumptions, that PN leads to a smaller Lipschitz constant for the loss, compared with BN. Furthermore, we prove that the approximate backpropagation scheme leads to bounded gradients. We extensively test PN for transformers on a range of NLP tasks, and we show that it significantly outperforms both LN and BN. In particular, PN outperforms LN by 0.4/0.6 BLEU on IWSLT14/WMT14 and 5.6/3.0 PPL on PTB/WikiText-103. We make our code publicly available at \\url{https://github.com/sIncerass/powernorm}.",
+        "published": "2020-03-17T17:50:26Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2003.03284v2",
+        "title": "TaskNorm: Rethinking Batch Normalization for Meta-Learning",
+        "summary": "Modern meta-learning approaches for image classification rely on increasingly deep networks to achieve state-of-the-art performance, making batch normalization an essential component of meta-learning pipelines. However, the hierarchical nature of the meta-learning setting presents several challenges that can render conventional batch normalization ineffective, giving rise to the need to rethink normalization in this setting. We evaluate a range of approaches to batch normalization for meta-learning scenarios, and develop a novel approach that we call TaskNorm. Experiments on fourteen datasets demonstrate that the choice of batch normalization has a dramatic effect on both classification accuracy and training time for both gradient based and gradient-free meta-learning approaches. Importantly, TaskNorm is found to consistently improve performance. Finally, we provide a set of best practices for normalization that will allow fair comparison of meta-learning algorithms.",
+        "published": "2020-03-06T15:43:27Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2203.16102v1",
+        "title": "Continual Normalization: Rethinking Batch Normalization for Online Continual Learning",
+        "summary": "Existing continual learning methods use Batch Normalization (BN) to facilitate training and improve generalization across tasks. However, the non-i.i.d and non-stationary nature of continual learning data, especially in the online setting, amplify the discrepancy between training and testing in BN and hinder the performance of older tasks. In this work, we study the cross-task normalization effect of BN in online continual learning where BN normalizes the testing data using moments biased towards the current task, resulting in higher catastrophic forgetting. This limitation motivates us to propose a simple yet effective method that we call Continual Normalization (CN) to facilitate training similar to BN while mitigating its negative effect. Extensive experiments on different continual learning algorithms and online scenarios show that CN is a direct replacement for BN and can provide substantial performance improvements. Our implementation is available at \\url{https://github.com/phquang/Continual-Normalization}.",
+        "published": "2022-03-30T07:23:24Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2610.21803v1",
+        "title": "Rethinking Batch Composition: Promoting Feature Diversity for Speech Enhancement",
+        "summary": "Speech enhancement systems are commonly trained using randomly sampled mini-batches, which may contain limited diversity in intrinsic acoustic characteristics of the clean speech signals. Motivated by previous findings linking clean speech characteristics to enhancement performance, we propose a feature-stratified mini-batch sampling strategy that divides training examples into quantiles according to a clean-speech characteristic and enforces equal representation within each mini-batch. Experiments across two large-scale English and Spanish speech datasets and a smaller dataset containing neurotypical and pathological speech demonstrate improvements over standard random mini-batch sampling across multiple objective enhancement metrics. Ablation studies demonstrate that the gains are robust across training runs, while their magnitude depends on the acoustic characteristic used for stratification. The proposed strategy requires no modification to the enhancement model or training objective, providing a simple and complementary approach to speech enhancement training.",
+        "published": "2026-10-15T12:52:59Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"Domain-Specific Batch Normalization\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Domain-Specific%20Batch%20Normalization%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/1906.03950v1",
+        "title": "Domain-Specific Batch Normalization for Unsupervised Domain Adaptation",
+        "summary": "We propose a novel unsupervised domain adaptation framework based on domain-specific batch normalization in deep neural networks. We aim to adapt to both domains by specializing batch normalization layers in convolutional neural networks while allowing them to share all other model parameters, which is realized by a two-stage algorithm. In the first stage, we estimate pseudo-labels for the examples in the target domain using an external unsupervised domain adaptation algorithm---for example, MSTN or CPUA---integrating the proposed domain-specific batch normalization. The second stage learns the final models using a multi-task classification loss for the source and target domains. Note that the two domains have separate batch normalization layers in both stages. Our framework can be easily incorporated into the domain adaptation techniques based on deep neural networks with batch normalization layers. We also present that our approach can be extended to the problem with multiple source domains. The proposed algorithm is evaluated on multiple benchmark datasets and achieves the state-of-the-art accuracy in the standard setting and the multi-source domain adaption scenario.",
+        "published": "2019-05-27T10:46:50Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2206.01323v2",
+        "title": "SPD domain-specific batch normalization to crack interpretable unsupervised domain adaptation in EEG",
+        "summary": "Electroencephalography (EEG) provides access to neuronal dynamics non-invasively with millisecond resolution, rendering it a viable method in neuroscience and healthcare. However, its utility is limited as current EEG technology does not generalize well across domains (i.e., sessions and subjects) without expensive supervised re-calibration. Contemporary methods cast this transfer learning (TL) problem as a multi-source/-target unsupervised domain adaptation (UDA) problem and address it with deep learning or shallow, Riemannian geometry aware alignment methods. Both directions have, so far, failed to consistently close the performance gap to state-of-the-art domain-specific methods based on tangent space mapping (TSM) on the symmetric positive definite (SPD) manifold. Here, we propose a theory-based machine learning framework that enables, for the first time, learning domain-invariant TSM models in an end-to-end fashion. To achieve this, we propose a new building block for geometric deep learning, which we denote SPD domain-specific momentum batch normalization (SPDDSMBN). A SPDDSMBN layer can transform domain-specific SPD inputs into domain-invariant SPD outputs, and can be readily applied to multi-source/-target and online UDA scenarios. In extensive experiments with 6 diverse EEG brain-computer interface (BCI) datasets, we obtain state-of-the-art performance in inter-session and -subject TL with a simple, intrinsically interpretable network architecture, which we denote TSMNet.",
+        "published": "2022-06-02T22:31:36Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"Fine-tuning can Distort\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Fine-tuning%20can%20Distort%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2202.10054v1",
+        "title": "Fine-Tuning can Distort Pretrained Features and Underperform Out-of-Distribution",
+        "summary": "When transferring a pretrained model to a downstream task, two popular methods are full fine-tuning (updating all the model parameters) and linear probing (updating only the last linear layer -- the \"head\"). It is well known that fine-tuning leads to better accuracy in-distribution (ID). However, in this paper, we find that fine-tuning can achieve worse accuracy than linear probing out-of-distribution (OOD) when the pretrained features are good and the distribution shift is large. On 10 distribution shift datasets (Breeds-Living17, Breeds-Entity30, DomainNet, CIFAR $\\to$ STL, CIFAR10.1, FMoW, ImageNetV2, ImageNet-R, ImageNet-A, ImageNet-Sketch), fine-tuning obtains on average 2% higher accuracy ID but 7% lower accuracy OOD than linear probing. We show theoretically that this tradeoff between ID and OOD accuracy arises even in a simple setting: fine-tuning overparameterized two-layer linear networks. We prove that the OOD error of fine-tuning is high when we initialize with a fixed or random head -- this is because while fine-tuning learns the head, the lower layers of the neural network change simultaneously and distort the pretrained features. Our analysis suggests that the easy two-step strategy of linear probing then full fine-tuning (LP-FT), sometimes used as a fine-tuning heuristic, combines the benefits of both fine-tuning and linear probing. Empirically, LP-FT outperforms both fine-tuning and linear probing on the above datasets (1% better ID, 10% better OOD than full fine-tuning).",
+        "published": "2022-02-21T09:03:34Z"
+      }
+    ]
+  },
+  {
+    "query": "all:\"instance segmentation\" AND all:\"knowledge distillation\"",
+    "url": "https://export.arxiv.org/api/query?search_query=all%3A%22instance%20segmentation%22%20AND%20all%3A%22knowledge%20distillation%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2302.07516v1",
+        "title": "Offline-to-Online Knowledge Distillation for Video Instance Segmentation",
+        "summary": "In this paper, we present offline-to-online knowledge distillation (OOKD) for video instance segmentation (VIS), which transfers a wealth of video knowledge from an offline model to an online model for consistent prediction. Unlike previous methods that having adopting either an online or offline model, our single online model takes advantage of both models by distilling offline knowledge. To transfer knowledge correctly, we propose query filtering and association (QFA), which filters irrelevant queries to exact instances. Our KD with QFA increases the robustness of feature matching by encoding object-centric features from a single frame supplemented by long-range global information. We also propose a simple data augmentation scheme for knowledge distillation in the VIS task that fairly transfers the knowledge of all classes into the online model. Extensive experiments show that our method significantly improves the performance in video instance segmentation, especially for challenging datasets including long, dynamic sequences. Our method also achieves state-of-the-art performance on YTVIS-21, YTVIS-22, and OVIS datasets, with mAP scores of 46.1%, 43.6%, and 31.1%, respectively.",
+        "published": "2023-02-15T08:24:37Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2007.10787v1",
+        "title": "Deep Semi-supervised Knowledge Distillation for Overlapping Cervical Cell Instance Segmentation",
+        "summary": "Deep learning methods show promising results for overlapping cervical cell instance segmentation. However, in order to train a model with good generalization ability, voluminous pixel-level annotations are demanded which is quite expensive and time-consuming for acquisition. In this paper, we propose to leverage both labeled and unlabeled data for instance segmentation with improved accuracy by knowledge distillation. We propose a novel Mask-guided Mean Teacher framework with Perturbation-sensitive Sample Mining (MMT-PSM), which consists of a teacher and a student network during training. Two networks are encouraged to be consistent both in feature and semantic level under small perturbations. The teacher's self-ensemble predictions from $K$-time augmented samples are used to construct the reliable pseudo-labels for optimizing the student. We design a novel strategy to estimate the sensitivity to perturbations for each proposal and select informative samples from massive cases to facilitate fast and effective semantic distillation. In addition, to eliminate the unavoidable noise from the background region, we propose to use the predicted segmentation mask as guidance to enforce the feature distillation in the foreground region. Experiments show that the proposed method improves the performance significantly compared with the supervised method learned from labeled data only, and outperforms state-of-the-art semi-supervised methods.",
+        "published": "2020-07-21T13:27:09Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2510.08849v1",
+        "title": "FOLK: Fast Open-Vocabulary 3D Instance Segmentation via Label-guided Knowledge Distillation",
+        "summary": "Open-vocabulary 3D instance segmentation seeks to segment and classify instances beyond the annotated label space. Existing methods typically map 3D instances to 2D RGB-D images, and then employ vision-language models (VLMs) for classification. However, such a mapping strategy usually introduces noise from 2D occlusions and incurs substantial computational and memory costs during inference, slowing down the inference speed. To address the above problems, we propose a Fast Open-vocabulary 3D instance segmentation method via Label-guided Knowledge distillation (FOLK). Our core idea is to design a teacher model that extracts high-quality instance embeddings and distills its open-vocabulary knowledge into a 3D student model. In this way, during inference, the distilled 3D model can directly classify instances from the 3D point cloud, avoiding noise caused by occlusions and significantly accelerating the inference process. Specifically, we first design a teacher model to generate a 2D CLIP embedding for each 3D instance, incorporating both visibility and viewpoint diversity, which serves as the learning target for distillation. We then develop a 3D student model that directly produces a 3D embedding for each 3D instance. During training, we propose a label-guided distillation algorithm to distill open-vocabulary knowledge from label-consistent 2D embeddings into the student model. FOLK conducted experiments on the ScanNet200 and Replica datasets, achieving state-of-the-art performance on the ScanNet200 dataset with an AP50 score of 35.7, while running approximately 6.0x to 152.2x faster than previous methods. All codes will be released after the paper is accepted.",
+        "published": "2025-10-09T22:43:26Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2606.25324v1",
+        "title": "Efficient Remote Sensing Instance Segmentation with Linear-Time State Space Distilled Visual Foundation Models",
+        "summary": "The computational complexity of Transformers scales quadratically with the number of tokens, which significantly constrains the efficiency of vision models, particularly recent ViT-based foundation models in dense prediction tasks. Instance segmentation, a typical dense visual prediction task in the remote sensing field, faces similar challenges. In this paper, inspired by the recent advances of knowledge distillation in large language models, we introduce RS4D - a new remote sensing instance segmentation method with linear computational complexity, which addresses the inefficiency of long sequence modeling through distilled state space modeling (SSM). We propose an adaptive noise and masking knowledge distillation training method for pre-training lightweight SSM backbones, which effectively compresses knowledge from the vast self-attention space into a compact, dense linear state space. We also design a remote sensing image instance segmentation architecture based on this lightweight visual encoder, where we explore variants of three different backbones and two segmentation heads. Extensive experiments are conducted on multiple benchmark datasets, including SSDD, WHU, and NWPU. Compared to ViT-based approaches, our proposed SSM backbone achieves an 8x reduction in parameters and a 9x reduction in FLOPs while maintaining comparable or superior accuracy to both ViT- and CNN-based instance segmentation methods. The implementation codes have been publicly available at https://github.com/QinzheYang/RS4D.",
+        "published": "2026-06-24T02:41:23Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2401.06370v1",
+        "title": "Graph Relation Distillation for Efficient Biomedical Instance Segmentation",
+        "summary": "Instance-aware embeddings predicted by deep neural networks have revolutionized biomedical instance segmentation, but its resource requirements are substantial. Knowledge distillation offers a solution by transferring distilled knowledge from heavy teacher networks to lightweight yet high-performance student networks. However, existing knowledge distillation methods struggle to extract knowledge for distinguishing instances and overlook global relation information. To address these challenges, we propose a graph relation distillation approach for efficient biomedical instance segmentation, which considers three essential types of knowledge: instance-level features, instance relations, and pixel-level boundaries. We introduce two graph distillation schemes deployed at both the intra-image level and the inter-image level: instance graph distillation (IGD) and affinity graph distillation (AGD). IGD constructs a graph representing instance features and relations, transferring these two types of knowledge by enforcing instance graph consistency. AGD constructs an affinity graph representing pixel relations to capture structured knowledge of instance boundaries, transferring boundary-related knowledge by ensuring pixel affinity consistency. Experimental results on a number of biomedical datasets validate the effectiveness of our approach, enabling student models with less than $ 1\\%$ parameters and less than $10\\%$ inference time while achieving promising performance compared to teacher models.",
+        "published": "2024-01-12T04:41:23Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"Structured Knowledge Distillation\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Structured%20Knowledge%20Distillation%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/2203.04825v1",
+        "title": "Efficient Sub-structured Knowledge Distillation",
+        "summary": "Structured prediction models aim at solving a type of problem where the output is a complex structure, rather than a single variable. Performing knowledge distillation for such models is not trivial due to their exponentially large output space. In this work, we propose an approach that is much simpler in its formulation and far more efficient for training than existing approaches. Specifically, we transfer the knowledge from a teacher model to its student model by locally matching their predictions on all sub-structures, instead of the whole output space. In this manner, we avoid adopting some time-consuming techniques like dynamic programming (DP) for decoding output structures, which permits parallel computation and makes the training process even faster in practice. Besides, it encourages the student model to better mimic the internal behavior of the teacher model. Experiments on two structured prediction tasks demonstrate that our approach outperforms previous methods and halves the time cost for one training epoch.",
+        "published": "2022-03-09T15:56:49Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/1903.04197v7",
+        "title": "Structured Knowledge Distillation for Dense Prediction",
+        "summary": "In this work, we consider transferring the structure information from large networks to compact ones for dense prediction tasks in computer vision. Previous knowledge distillation strategies used for dense prediction tasks often directly borrow the distillation scheme for image classification and perform knowledge distillation for each pixel separately, leading to sub-optimal performance. Here we propose to distill structured knowledge from large networks to compact networks, taking into account the fact that dense prediction is a structured prediction problem. Specifically, we study two structured distillation schemes: i) pair-wise distillation that distills the pair-wise similarities by building a static graph; and ii) holistic distillation that uses adversarial training to distill holistic knowledge. The effectiveness of our knowledge distillation approaches is demonstrated by experiments on three dense prediction tasks: semantic segmentation, depth estimation and object detection. Code is available at: https://git.io/StructKD",
+        "published": "2019-03-11T10:05:09Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2211.13133v1",
+        "title": "Structural Knowledge Distillation for Object Detection",
+        "summary": "Knowledge Distillation (KD) is a well-known training paradigm in deep neural networks where knowledge acquired by a large teacher model is transferred to a small student. KD has proven to be an effective technique to significantly improve the student's performance for various tasks including object detection. As such, KD techniques mostly rely on guidance at the intermediate feature level, which is typically implemented by minimizing an lp-norm distance between teacher and student activations during training. In this paper, we propose a replacement for the pixel-wise independent lp-norm based on the structural similarity (SSIM). By taking into account additional contrast and structural cues, feature importance, correlation and spatial dependence in the feature space are considered in the loss formulation. Extensive experiments on MSCOCO demonstrate the effectiveness of our method across different training schemes and architectures. Our method adds only little computational overhead, is straightforward to implement and at the same time it significantly outperforms the standard lp-norms. Moreover, more complex state-of-the-art KD methods using attention-based sampling mechanisms are outperformed, including a +3.5 AP gain using a Faster R-CNN R-50 compared to a vanilla model.",
+        "published": "2022-11-23T17:06:52Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2205.11098v1",
+        "title": "PointDistiller: Structured Knowledge Distillation Towards Efficient and Compact 3D Detection",
+        "summary": "The remarkable breakthroughs in point cloud representation learning have boosted their usage in real-world applications such as self-driving cars and virtual reality. However, these applications usually have an urgent requirement for not only accurate but also efficient 3D object detection. Recently, knowledge distillation has been proposed as an effective model compression technique, which transfers the knowledge from an over-parameterized teacher to a lightweight student and achieves consistent effectiveness in 2D vision. However, due to point clouds' sparsity and irregularity, directly applying previous image-based knowledge distillation methods to point cloud detectors usually leads to unsatisfactory performance. To fill the gap, this paper proposes PointDistiller, a structured knowledge distillation framework for point clouds-based 3D detection. Concretely, PointDistiller includes local distillation which extracts and distills the local geometric structure of point clouds with dynamic graph convolution and reweighted learning strategy, which highlights student learning on the crucial points or voxels to improve knowledge distillation efficiency. Extensive experiments on both voxels-based and raw points-based detectors have demonstrated the effectiveness of our method over seven previous knowledge distillation methods. For instance, our 4X compressed PointPillars student achieves 2.8 and 3.4 mAP improvements on BEV and 3D object detection, outperforming its teacher by 0.9 and 1.8 mAP, respectively. Codes have been released at https://github.com/RunpeiDong/PointDistiller.",
+        "published": "2022-05-23T07:40:07Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2211.08398v2",
+        "title": "Structured Knowledge Distillation Towards Efficient and Compact Multi-View 3D Detection",
+        "summary": "Detecting 3D objects from multi-view images is a fundamental problem in 3D computer vision. Recently, significant breakthrough has been made in multi-view 3D detection tasks. However, the unprecedented detection performance of these vision BEV (bird's-eye-view) detection models is accompanied with enormous parameters and computation, which make them unaffordable on edge devices. To address this problem, in this paper, we propose a structured knowledge distillation framework, aiming to improve the efficiency of modern vision-only BEV detection models. The proposed framework mainly includes: (a) spatial-temporal distillation which distills teacher knowledge of information fusion from different timestamps and views, (b) BEV response distillation which distills teacher response to different pillars, and (c) weight-inheriting which solves the problem of inconsistent inputs between students and teacher in modern transformer architectures. Experimental results show that our method leads to an average improvement of 2.16 mAP and 2.27 NDS on the nuScenes benchmark, outperforming multiple baselines by a large margin.",
+        "published": "2022-11-14T12:51:17Z"
+      }
+    ]
+  },
+  {
+    "query": "ti:\"Learning without Forgetting\"",
+    "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22Learning%20without%20Forgetting%22&start=0&max_results=5",
+    "status": 200,
+    "results": [
+      {
+        "id": "http://arxiv.org/abs/1606.09282v3",
+        "title": "Learning without Forgetting",
+        "summary": "When building a unified vision system or gradually adding new capabilities to a system, the usual assumption is that training data for all tasks is always available. However, as the number of tasks grows, storing and retraining on such data becomes infeasible. A new problem arises where we add new capabilities to a Convolutional Neural Network (CNN), but the training data for its existing capabilities are unavailable. We propose our Learning without Forgetting method, which uses only new task data to train the network while preserving the original capabilities. Our method performs favorably compared to commonly used feature extraction and fine-tuning adaption techniques and performs similarly to multitask learning that uses original task data we assume unavailable. A more surprising observation is that Learning without Forgetting may be able to replace fine-tuning with similar old and new task datasets for improved new task performance.",
+        "published": "2016-06-29T20:54:04Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2211.15215v1",
+        "title": "Progressive Learning without Forgetting",
+        "summary": "Learning from changing tasks and sequential experience without forgetting the obtained knowledge is a challenging problem for artificial neural networks. In this work, we focus on two challenging problems in the paradigm of Continual Learning (CL) without involving any old data: (i) the accumulation of catastrophic forgetting caused by the gradually fading knowledge space from which the model learns the previous knowledge; (ii) the uncontrolled tug-of-war dynamics to balance the stability and plasticity during the learning of new tasks. In order to tackle these problems, we present Progressive Learning without Forgetting (PLwF) and a credit assignment regime in the optimizer. PLwF densely introduces model functions from previous tasks to construct a knowledge space such that it contains the most reliable knowledge on each task and the distribution information of different tasks, while credit assignment controls the tug-of-war dynamics by removing gradient conflict through projection. Extensive ablative experiments demonstrate the effectiveness of PLwF and credit assignment. In comparison with other CL methods, we report notably better results even without relying on any raw data.",
+        "published": "2022-11-28T10:53:14Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/1804.09458v1",
+        "title": "Dynamic Few-Shot Visual Learning without Forgetting",
+        "summary": "The human visual system has the remarkably ability to be able to effortlessly learn novel concepts from only a few examples. Mimicking the same behavior on machine learning vision systems is an interesting and very challenging research problem with many practical advantages on real world vision applications. In this context, the goal of our work is to devise a few-shot visual learning system that during test time it will be able to efficiently learn novel categories from only a few training data while at the same time it will not forget the initial categories on which it was trained (here called base categories). To achieve that goal we propose (a) to extend an object recognition system with an attention based few-shot classification weight generator, and (b) to redesign the classifier of a ConvNet model as the cosine similarity function between feature representations and classification weight vectors. The latter, apart from unifying the recognition of both novel and base categories, it also leads to feature representations that generalize better on \"unseen\" categories. We extensively evaluate our approach on Mini-ImageNet where we manage to improve the prior state-of-the-art on few-shot recognition (i.e., we achieve 56.20% and 73.00% on the 1-shot and 5-shot settings respectively) while at the same time we do not sacrifice any accuracy on the base categories, which is a characteristic that most prior approaches lack. Finally, we apply our approach on the recently introduced few-shot benchmark of Bharath and Girshick [4] where we also achieve state-of-the-art results. The code and models of our paper will be published on: https://github.com/gidariss/FewShotWithoutForgetting",
+        "published": "2018-04-25T09:57:10Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2305.19270v2",
+        "title": "Learning without Forgetting for Vision-Language Models",
+        "summary": "Class-Incremental Learning (CIL) or continual learning is a desired capability in the real world, which requires a learning system to adapt to new tasks without forgetting former ones. While traditional CIL methods focus on visual information to grasp core features, recent advances in Vision-Language Models (VLM) have shown promising capabilities in learning generalizable representations with the aid of textual information. However, when continually trained with new classes, VLMs often suffer from catastrophic forgetting of former knowledge. Applying VLMs to CIL poses two major challenges: 1) how to adapt the model without forgetting; and 2) how to make full use of the multi-modal information. To this end, we propose PROjectiOn Fusion (PROOF) that enables VLMs to learn without forgetting. To handle the first challenge, we propose training task-specific projections based on the frozen image/text encoders. When facing new tasks, new projections are expanded and former projections are fixed, alleviating the forgetting of old concepts. For the second challenge, we propose the fusion module to better utilize the cross-modality information. By jointly adjusting visual and textual features, the model can capture semantic information with stronger representation ability. Extensive experiments on nine benchmark datasets validate PROOF achieves state-of-the-art performance. Code is available at https://github.com/zhoudw-zdw/PROOF",
+        "published": "2023-05-30T17:59:32Z"
+      },
+      {
+        "id": "http://arxiv.org/abs/2011.11390v3",
+        "title": "PLOP: Learning without Forgetting for Continual Semantic Segmentation",
+        "summary": "Deep learning approaches are nowadays ubiquitously used to tackle computer vision tasks such as semantic segmentation, requiring large datasets and substantial computational power. Continual learning for semantic segmentation (CSS) is an emerging trend that consists in updating an old model by sequentially adding new classes. However, continual learning methods are usually prone to catastrophic forgetting. This issue is further aggravated in CSS where, at each step, old classes from previous iterations are collapsed into the background. In this paper, we propose Local POD, a multi-scale pooling distillation scheme that preserves long- and short-range spatial relationships at feature level. Furthermore, we design an entropy-based pseudo-labelling of the background w.r.t. classes predicted by the old model to deal with background shift and avoid catastrophic forgetting of the old classes. Our approach, called PLOP, significantly outperforms state-of-the-art methods in existing CSS scenarios, as well as in newly proposed challenging benchmarks.",
+        "published": "2020-11-23T13:35:03Z"
+      }
+    ]
+  }
+]
